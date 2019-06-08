@@ -33,12 +33,39 @@ class App extends Component {
     props.addTranslationForLanguage(en, 'en');
   }
 
+  static getGraphApp(local = false) {
+    // TODO: Replace / with /graph subdomain
+    return <Route path={local ? '/' : '/'} exact component={GraphApp} />
+  }
+
+  static getLabApp(local = false) {
+    return <Route path={local ? '/lab' : '/'} exact component={LabApp} />
+  }
+
+  resolveDomain() {
+    const domain = /:\/\/([^/]+)/.exec(window.location.href)[1];
+    const domainList = [];
+    if (domain === 'www') {
+      // main domain
+      domainList.push(App.getGraphApp());
+    } else if(domain === 'lab') {
+      domainList.push(App.getLabApp());
+    } else {
+      domainList.push(App.getGraphApp(true));
+      domainList.push(App.getLabApp(true));
+    }
+
+    return domainList;
+  }
+
   render() {
+
     return (
       <Router>
         <MuiThemeProvider theme={themeDark}>
-          <Route path="/" exact component={GraphApp} />
-          <Route path="/lab" exact component={LabApp} />
+          {
+            ...this.resolveDomain()
+          }
         </MuiThemeProvider>
       </Router>
     );
