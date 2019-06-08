@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   resolveDomain() {
-    const domain = /:\/\/([^/]+)/.exec(window.location.href)[1];
+    const domain = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : false;
     const domainList = [];
     console.log(domain);
     if (domain === 'www' || domain === 'graph') {
