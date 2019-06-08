@@ -4,11 +4,6 @@
   status = 200
 
 [[redirects]]
-  from = "/lab/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
   from = "http://lab.satisgraphtory2.com/*"
   to = "http://satisgraphtory2.com/lab/:splat"
   status = 200
