@@ -48,7 +48,7 @@ class App extends Component {
 
   static getGraphApp(local = false) {
     // TODO: Replace / with /graph subdomain
-    return <Route key={'graph'} path={local ? '/' : '/'} exact component={GraphApp} />
+    return <Route key={'graph'} path={local ? '/graph/:graphId?' : '/:graphId?'} exact={!local} component={GraphApp} />
   }
 
   static getLabApp(local = false) {
