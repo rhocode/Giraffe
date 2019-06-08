@@ -12,6 +12,19 @@ import { withLocalize } from 'react-localize-redux';
 
 import en from './translations/en.json';
 
+class DebugRouter extends Router {
+  constructor(props){
+    super(props);
+    console.log('initial history is: ', JSON.stringify(this.history, null,2))
+    this.history.listen((location, action)=>{
+      console.log(
+        `The current URL is ${location.pathname}${location.search}${location.hash}`
+      );
+      console.log(`The last navigation action was ${action}`, JSON.stringify(this.history, null,2));
+    });
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -39,15 +52,15 @@ class App extends Component {
   }
 
   static getLabApp(local = false) {
-    return <Route key={'lab'} path={local ? '/lab' : '/'} exact component={LabApp} />
+    return <Route key={'lab'} path={local ? '/lab' : '/'} exact={!local} component={LabApp} />
   }
 
-  resolveDomain() {
+  static resolveDomain() {
     const domain = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : false;
     const domainList = [];
-    console.log(domain);
-    if (domain === 'www' || domain === 'graph') {
-      // main domain
+    console.log(domain)
+
+    if(domain === 'graph') {
       domainList.push(App.getGraphApp());
     } else if(domain === 'lab') {
       // lab subdomain
@@ -63,13 +76,13 @@ class App extends Component {
   render() {
 
     return (
-      <Router>
+      <DebugRouter>
         <MuiThemeProvider theme={themeDark}>
           {
-            this.resolveDomain()
+            App.resolveDomain()
           }
         </MuiThemeProvider>
-      </Router>
+      </DebugRouter>
     );
   }
 }
