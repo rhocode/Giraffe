@@ -35,11 +35,11 @@ class App extends Component {
 
   static getGraphApp(local = false) {
     // TODO: Replace / with /graph subdomain
-    return <Route path={local ? '/' : '/'} exact component={GraphApp} />
+    return <Route key={'graph'} path={local ? '/' : '/'} exact component={GraphApp} />
   }
 
   static getLabApp(local = false) {
-    return <Route path={local ? '/lab' : '/'} exact component={LabApp} />
+    return <Route key={'lab'} path={local ? '/lab' : '/'} exact component={LabApp} />
   }
 
   resolveDomain() {
@@ -64,7 +64,7 @@ class App extends Component {
       <Router>
         <MuiThemeProvider theme={themeDark}>
           {
-            ...this.resolveDomain()
+            this.resolveDomain()
           }
         </MuiThemeProvider>
       </Router>
