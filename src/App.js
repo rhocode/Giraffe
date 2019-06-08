@@ -45,10 +45,12 @@ class App extends Component {
   resolveDomain() {
     const domain = /:\/\/([^/]+)/.exec(window.location.href)[1];
     const domainList = [];
-    if (domain === 'www') {
+    console.log(domain);
+    if (domain === 'www' || domain === 'graph') {
       // main domain
       domainList.push(App.getGraphApp());
     } else if(domain === 'lab') {
+      // lab subdomain
       domainList.push(App.getLabApp());
     } else {
       domainList.push(App.getGraphApp(true));
