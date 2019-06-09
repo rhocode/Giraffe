@@ -11,6 +11,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 
 import en from './translations/en.json';
+import HubApp from "./apps/Hub/HubApp";
 
 class DebugRouter extends Router {
   constructor(props){
@@ -47,8 +48,11 @@ class App extends Component {
   }
 
   static getGraphApp(local = false) {
-    // TODO: Replace / with /graph subdomain
     return <Route key={'graph'} path={local ? '/graph/:graphId?' : '/:graphId?'} exact={!local} component={GraphApp} />
+  }
+
+  static getHubApp(local = false) {
+    return <Route key={'hub'} path={local ? '/hub' : '/'} exact={!local} component={HubApp} />
   }
 
   static getLabApp(local = false) {
@@ -62,12 +66,16 @@ class App extends Component {
 
     if(domain === 'graph') {
       domainList.push(App.getGraphApp());
+    } else if(domain === 'hub') {
+      // hub subdomain
+      domainList.push(App.getHubApp());
     } else if(domain === 'lab') {
       // lab subdomain
       domainList.push(App.getLabApp());
     } else {
       domainList.push(App.getGraphApp(true));
       domainList.push(App.getLabApp(true));
+      domainList.push(App.getHubApp(true));
     }
 
     return domainList;

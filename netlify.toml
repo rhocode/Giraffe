@@ -9,6 +9,11 @@
   status = 200
 
 [[redirects]]
+  from = "/hub/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
   from = "http://lab.satisgraphtory2.com/*"
   to = "/index.html"
   status = 200
