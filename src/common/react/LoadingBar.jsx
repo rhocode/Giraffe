@@ -38,33 +38,37 @@ class Canvas extends Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.measureCanvas, false);
-    this.timer = setInterval(() => {
-      this.drawRowOfRhombus();
-    }, 5)
+    this.timer = this.drawRowOfRhombus();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.measureCanvas, false);
-    clearInterval(this.timer);
+    window.cancelAnimationFrame(this.time);
   }
 
   drawRowOfRhombus = () => {
-    const ctx = this.canvas.current.getContext('2d');
-    const width = this.state.width;
-    const offset = this.offset;
+    const fps = 100;
+    setTimeout(() => {
+      requestAnimationFrame(this.drawRowOfRhombus);
 
-    const rhombusDimension = 50;
-    const numberOfRhombus = (width / rhombusDimension) + 2;
+      const ctx = this.canvas.current.getContext('2d');
+      const width = this.state.width;
+      const offset = this.offset;
 
-    this.offset = (offset + 1) % rhombusDimension;
+      const rhombusDimension = 50;
+      const numberOfRhombus = (width / rhombusDimension) + 2;
 
-    const starting = this.offset - rhombusDimension;
+      this.offset = (offset + 1) % rhombusDimension;
 
-    ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
+      const starting = this.offset - rhombusDimension;
 
-    for (let i = 0; i < numberOfRhombus; i++) {
-      this.drawRhombus(ctx, starting + (i * rhombusDimension),  0, rhombusDimension, rhombusDimension);
-    }
+      ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
+
+      for (let i = 0; i < numberOfRhombus; i++) {
+        this.drawRhombus(ctx, starting + (i * rhombusDimension),  0, rhombusDimension, rhombusDimension);
+      }
+
+    }, 5 / fps);
   };
 
   drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
