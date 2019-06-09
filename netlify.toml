@@ -20,20 +20,20 @@
 
 [[redirects]]
   from = "http://graph.satisgraphtory2.com/*"
-  to = "http://satisgraphtory2.com/graph/:splat"
+  to = "/graph/:splat"
   status = 200
 
 [[redirects]]
   from = "https://graph.satisgraphtory2.com/*"
-  to = "https://satisgraphtory2.com/graph/:splat"
+  to = "/graph/:splat"
   status = 200
 
 [[redirects]]
   from = "http://hub.satisgraphtory2.com/*"
-  to = "http://satisgraphtory2.com/hub/:splat"
+  to = "/hub/:splat"
   status = 200
 
 [[redirects]]
   from = "https://hub.satisgraphtory2.com/*"
-  to = "https://satisgraphtory2.com/hub/:splat"
+  to = "/hub/:splat"
   status = 200
