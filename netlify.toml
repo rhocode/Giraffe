@@ -19,7 +19,17 @@
   status = 200
 
 [[redirects]]
+  from = "http://lab.*satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
   from = "https://lab.satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "https://lab.*satisgraphtory2.com/*"
   to = "/index.html"
   status = 200
 
@@ -34,11 +44,31 @@
   status = 200
 
 [[redirects]]
+  from = "http://graph.*satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "https://graph.*satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
   from = "http://hub.satisgraphtory2.com/*"
   to = "/index.html"
   status = 200
 
 [[redirects]]
   from = "https://hub.satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "http://hub.*satisgraphtory2.com/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "https://hub.*satisgraphtory2.com/*"
   to = "/index.html"
   status = 200
