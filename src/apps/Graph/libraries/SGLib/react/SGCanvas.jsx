@@ -46,7 +46,7 @@ class SGCanvas extends Component {
     const mn2 = new MachineNode(0, 0, 0, 0, 0);
 
     const data = {
-      nodes: [{ id: 1, data: mn1 }, { id: 2, data: mn2 }],
+      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 300 }],
       edges: [{ source: 1, target: 2 }]
     };
 
@@ -88,7 +88,7 @@ class SGCanvas extends Component {
     const mn2 = new MachineNode(0, 0, 0, 0, 0);
 
     const data = {
-      nodes: [{ id: 1, data: mn1 }, { id: 2, data: mn2 }],
+      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 300 }],
       edges: [{ source: 1, target: 2 }]
     };
 

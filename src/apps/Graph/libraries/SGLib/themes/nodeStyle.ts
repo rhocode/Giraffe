@@ -1,6 +1,6 @@
 import { imageRepository } from '../repositories/imageRepository';
 
-const img = imageRepository.machines['Constructor.png'];
+const img = imageRepository.machines['constructor.png'];
 
 export function defaultNodeTheme(context: any, d: any) {
   context.save();
@@ -42,15 +42,37 @@ export function defaultNodeTheme(context: any, d: any) {
   context.fill();
   context.stroke();
 
-  // context.drawImage(img, x + 3, y + 10, 100, 100); // Or at whatever offset you like
+  context.drawImage(img, x + 8, y + 10, 100, 100); // Or at whatever offset you like
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('IRON INGOT', x + 5, y + h - 10);
+  context.fillText('IRON INGOT (Alt.)', x + 5, y + h - 10);
+
+  context.font = '25px Roboto Condensed';
+  context.fillStyle = 'white';
+  context.fillText('Mk. II', d.x + 20, d.y - 20);
+
+  context.font = '25px Roboto Condensed';
+  context.fillStyle = '#15CB07';
+  context.fillText('100%', d.x + 20, d.y + 10);
 
   context.beginPath();
-  context.arc(d.x, d.y, 5, 0, 2 * Math.PI, true);
-  context.fillStyle = 'red';
+  context.arc(d.x - (w/2), d.y, 10, 0, 2 * Math.PI, true);
+  context.fillStyle = '#1D1E20';
   context.fill();
+  context.beginPath();
+  context.arc(d.x - (w/2), d.y, 7, 0, 2 * Math.PI, true);
+  context.fillStyle = '#15CB07';
+  context.fill();
+
+  context.beginPath();
+  context.arc(d.x + (w/2), d.y, 10, 0, 2 * Math.PI, true);
+  context.fillStyle = '#1D1E20';
+  context.fill();
+  context.beginPath();
+  context.arc(d.x + (w/2), d.y, 7, 0, 2 * Math.PI, true);
+  context.fillStyle = '#FFA328';
+  context.fill();
+
   context.restore();
 }
