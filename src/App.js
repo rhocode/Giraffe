@@ -3,15 +3,19 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import GraphApp from './apps/Graph/GraphApp';
 import { themeDark } from './theme';
-import LabApp from './apps/Lab/LabApp';
+// import LabApp from './apps/Lab/LabApp';
 
 import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 
 import en from './translations/en.json';
-import HubApp from "./apps/Hub/HubApp";
+import AsyncComponent from "./common/react/AsyncComponent";
+
+const GraphApp = AsyncComponent(import('./apps/Graph/GraphApp'));
+const HubApp = AsyncComponent(import('./apps/Hub/HubApp'));
+const LabApp = AsyncComponent(import('./apps/Lab/LabApp'));
+
 
 class DebugRouter extends Router {
   constructor(props){
@@ -86,9 +90,11 @@ class App extends Component {
     return (
       <DebugRouter>
         <MuiThemeProvider theme={themeDark}>
+          <React.Suspense fallback={<div>Loading...</div>}>
           {
             App.resolveDomain()
           }
+          </React.Suspense>
         </MuiThemeProvider>
       </DebugRouter>
     );
