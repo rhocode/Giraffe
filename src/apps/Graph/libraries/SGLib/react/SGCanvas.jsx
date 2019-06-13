@@ -46,7 +46,7 @@ class SGCanvas extends Component {
     const mn2 = new MachineNode(0, 0, 0, 0, 0);
 
     const data = {
-      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 300 }],
+      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 600 }],
       edges: [{ source: 1, target: 2 }]
     };
 
@@ -88,7 +88,7 @@ class SGCanvas extends Component {
     const mn2 = new MachineNode(0, 0, 0, 0, 0);
 
     const data = {
-      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 300 }],
+      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 600 }],
       edges: [{ source: 1, target: 2 }]
     };
 
@@ -162,14 +162,15 @@ class SGCanvas extends Component {
 
       d3.event.subject.fx = transform.invertX(d3.event.x);
       d3.event.subject.fy = transform.invertY(d3.event.y);
-      const deltaX = d3.event.subject.x - d3.event.subject.fx;
-      const deltaY = d3.event.subject.y - d3.event.subject.fy;
 
-      for (let i = tempData.nodes.length - 1; i >= 0; --i) {
-        const node = tempData.nodes[i];
-        node.fx = node.x - deltaX;
-        node.fy = node.y - deltaY;
-      }
+      // const deltaX = d3.event.subject.x - d3.event.subject.fx;
+      // const deltaY = d3.event.subject.y - d3.event.subject.fy;
+      //
+      // for (let i = tempData.nodes.length - 1; i >= 0; --i) {
+      //   const node = tempData.nodes[i];
+      //   node.fx = node.x - deltaX;
+      //   node.fy = node.y - deltaY;
+      // }
     }
 
     function dragged() {
@@ -177,14 +178,14 @@ class SGCanvas extends Component {
       d3.event.subject.fx = transform.invertX(d3.event.x);
       d3.event.subject.fy = transform.invertY(d3.event.y);
 
-      const deltaX = d3.event.subject.x - d3.event.subject.fx;
-      const deltaY = d3.event.subject.y - d3.event.subject.fy;
-
-      for (let i = tempData.nodes.length - 1; i >= 0; --i) {
-        const node = tempData.nodes[i];
-        node.fx = node.x - deltaX;
-        node.fy = node.y - deltaY;
-      }
+      // const deltaX = d3.event.subject.x - d3.event.subject.fx;
+      // const deltaY = d3.event.subject.y - d3.event.subject.fy;
+      //
+      // for (let i = tempData.nodes.length - 1; i >= 0; --i) {
+      //   const node = tempData.nodes[i];
+      //   node.fx = node.x - deltaX;
+      //   node.fy = node.y - deltaY;
+      // }
     }
 
     function dragended() {
@@ -197,8 +198,8 @@ class SGCanvas extends Component {
         // node.fy = node.y - deltaY;
         node.x = node.fx;
         node.y = node.fy;
-        node.fx = null;
-        node.fy = null;
+        // node.fx = null;
+        // node.fy = null;
       }
       //
       // d3.event.subject.fx = null;
@@ -218,8 +219,20 @@ class SGCanvas extends Component {
 
       tempData.edges.forEach(function(d) {
         context.beginPath();
-        context.moveTo(d.source.x, d.source.y);
-        context.lineTo(d.target.x, d.target.y);
+
+
+        const x1 = d.source.x + 90;
+        const y1 = d.source.y;
+        const x2 = d.target.x - 90;
+        const y2 = d.target.y;
+        const avg = (x1 + x2) / 2;
+
+        context.strokeStyle = '#7122D5';
+        context.lineWidth  = 8;
+
+        context.moveTo(x1, y1);
+
+        context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
         context.stroke();
       });
 
