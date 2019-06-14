@@ -42,19 +42,49 @@ class SGCanvas extends Component {
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
-    const mn1 = new MachineNode(0, 0, 0, 0, 0);
-    const mn2 = new MachineNode(0, 0, 0, 0, 0);
+    const nodes = [];
+    const edges = [];
+
+    const num_nodes = 200;
+
+    for (let i = 0; i < num_nodes; i++) {
+      nodes.push(new MachineNode(0, 0, 0, 300 + i * 180, 300 + i * 180))
+    }
+
+    for (let i = 0; i < num_nodes - 1; i++) {
+      edges.push({source: nodes[i].id, target: nodes[i+1].id})
+    }
 
     const data = {
-      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 600 }],
-      edges: [{ source: 1, target: 2 }]
+      nodes: nodes,
+      edges: edges
+        // [{ source: mn1.id, target: mn2.id }]
     };
+
+    const nodeMapping = {};
+    data.nodes.forEach(node => {
+      nodeMapping[node.id] = node;
+    });
+
+    // resolveEdges
+    data.edges.forEach(edge => {
+      const source = nodeMapping[edge.source];
+      const target = nodeMapping[edge.target];
+      source.addTarget(target);
+      target.addSource(source);
+    });
+
+    data.nodes.forEach(node => {
+      node.sortSlots();
+      console.log(node);
+    });
 
     this.props.setGraphData(data);
     this.initGraph(data);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate = () => {
+    console.error("Component Updated");
     const width = this.props.width;
     const height = this.props.height;
 
@@ -84,17 +114,9 @@ class SGCanvas extends Component {
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
-    const mn1 = new MachineNode(0, 0, 0, 0, 0);
-    const mn2 = new MachineNode(0, 0, 0, 0, 0);
-
-    const data = {
-      nodes: [{ id: 1, data: mn1, fx: 300, fy: 300 }, { id: 2, data: mn2, fx: 600, fy: 600 }],
-      edges: [{ source: 1, target: 2 }]
-    };
-
-    this.initGraph(data);
+    this.initGraph(this.props.graphData);
     this.simulation.restart(0.3);
-  }
+  };
 
   initGraph = tempData => {
     const radius = 50;
@@ -109,6 +131,12 @@ class SGCanvas extends Component {
     }
 
     function clicked() {
+      if (d3.event.defaultPrevented) {
+        return;
+      }
+      var point = d3.mouse(this),
+        p = { x: point[0], y: point[1] };
+
       console.log('CLICKED');
     }
 
@@ -157,7 +185,7 @@ class SGCanvas extends Component {
     }
 
     function dragstarted() {
-      console.log('DRAGSTARTED');
+      // console.log('DRAGSTARTED');
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 
       d3.event.subject.fx = transform.invertX(d3.event.x);
@@ -174,7 +202,7 @@ class SGCanvas extends Component {
     }
 
     function dragged() {
-      console.log('DRAGSTARTED2');
+      // console.log('DRAGSTARTED2');
       d3.event.subject.fx = transform.invertX(d3.event.x);
       d3.event.subject.fy = transform.invertY(d3.event.y);
 
@@ -189,7 +217,7 @@ class SGCanvas extends Component {
     }
 
     function dragended() {
-      console.log('DRAGSTARTED3');
+      // console.log('DRAGSTARTED3');
       if (!d3.event.active) simulation.alphaTarget(0);
 
       for (let i = tempData.nodes.length - 1; i >= 0; --i) {
@@ -218,28 +246,14 @@ class SGCanvas extends Component {
       context.scale(transform.k, transform.k);
 
       tempData.edges.forEach(function(d) {
-        context.beginPath();
-
-
-        const x1 = d.source.x + 90;
-        const y1 = d.source.y;
-        const x2 = d.target.x - 90;
-        const y2 = d.target.y;
-        const avg = (x1 + x2) / 2;
-
-        context.strokeStyle = '#7122D5';
-        context.lineWidth  = 8;
-
-        context.moveTo(x1, y1);
-
-        context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
-        context.stroke();
+        d.source.drawPathToTarget(context, d.target);
       });
 
       // Draw the nodesv
       tempData.nodes.forEach(function(d, i) {
-        d.data.render(context, d);
+        d.render(context, d);
       });
+
 
       context.restore();
     }

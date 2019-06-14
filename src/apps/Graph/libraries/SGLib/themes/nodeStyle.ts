@@ -1,8 +1,24 @@
 import { imageRepository } from '../repositories/imageRepository';
+import MachineNode, {GraphNode} from "../datatypes/graphNode";
 
 const img = imageRepository.machines['constructor.png'];
 
-export function defaultNodeTheme(context: any, d: any) {
+// function drawNodePlug
+
+function drawNodePlug(context: any, x: number, y: number, backgroundColor: string, foregroundColor: string) {
+  // context.save();
+  context.beginPath();
+  context.arc(x, y, 12, 0, 2 * Math.PI, true);
+  context.fillStyle = backgroundColor
+  context.fill();
+  context.beginPath();
+  context.arc(x, y, 8, 0, 2 * Math.PI, true);
+  context.fillStyle = foregroundColor;
+  context.fill();
+  // context.restore();
+}
+
+export function defaultNodeTheme(context: any, d: GraphNode) {
   context.save();
 
   const w = 180;
@@ -56,23 +72,60 @@ export function defaultNodeTheme(context: any, d: any) {
   context.fillStyle = '#15CB07';
   context.fillText('100%', d.x + 20, d.y + 10);
 
-  context.beginPath();
-  context.arc(d.x - (w/2), d.y, 10, 0, 2 * Math.PI, true);
-  context.fillStyle = '#1D1E20';
-  context.fill();
-  context.beginPath();
-  context.arc(d.x - (w/2), d.y, 7, 0, 2 * Math.PI, true);
-  context.fillStyle = '#15CB07';
-  context.fill();
+  // Reset the slot mappings
+  d.inputSlotMapping = {};
+  d.outputSlotMapping = {};
 
-  context.beginPath();
-  context.arc(d.x + (w/2), d.y, 10, 0, 2 * Math.PI, true);
-  context.fillStyle = '#1D1E20';
-  context.fill();
-  context.beginPath();
-  context.arc(d.x + (w/2), d.y, 7, 0, 2 * Math.PI, true);
-  context.fillStyle = '#FFA328';
-  context.fill();
+  calculateNodeSpacing(d.y, d.inputSlots.length).forEach((inputY: number, index: number) => {
+    d.inputSlotMapping[index] = inputY;
+    drawNodePlug(context, d.x - (w / 2), inputY, '#1D1E20', '#15CB07');
+  });
 
+  calculateNodeSpacing(d.y, d.outputSlots.length).forEach((outputY: number, index: number) => {
+    d.outputSlotMapping[index] = outputY;
+    drawNodePlug(context, d.x + (w / 2), outputY, '#1D1E20', '#FFA328');
+  });
+
+  context.restore();
+}
+
+const defaultNodePlugSpacing = 25;
+
+function calculateNodeSpacing(y: number, n: number): number[] {
+  if (n === 0) {
+    return [];
+  }
+
+  const totalSize = (n - 1) * defaultNodePlugSpacing;
+  const minY = y - totalSize/2;
+
+  const output = [];
+  for(let i = 0; i < n; i++) {
+    output.push(minY + (i * defaultNodePlugSpacing));
+  }
+
+  return output;
+}
+
+export function drawPath(context: any, source: MachineNode, target: MachineNode) {
+  context.save();
+  context.beginPath();
+
+  const outputSlotY = source.outputSlotMapping[source.outputSlots.indexOf(target)];
+  const inputSlotY = target.inputSlotMapping[target.inputSlots.indexOf(source)];
+
+  const x1 = source.x + 90;
+  const y1 = outputSlotY;
+  const x2 = target.x - 90;
+  const y2 = inputSlotY;
+  const avg = (x1 + x2) / 2;
+
+  context.strokeStyle = '#7122D5';
+  context.lineWidth  = 8;
+
+  context.moveTo(x1, y1);
+
+  context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
+  context.stroke();
   context.restore();
 }
