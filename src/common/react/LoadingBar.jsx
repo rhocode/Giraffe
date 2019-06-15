@@ -50,7 +50,9 @@ class Canvas extends Component {
     const fps = 100;
     setTimeout(() => {
       requestAnimationFrame(this.drawRowOfRhombus);
-
+      if (!this.canvas.current) {
+        return;
+      }
       const ctx = this.canvas.current.getContext('2d');
       const width = this.state.width;
       const offset = this.offset;

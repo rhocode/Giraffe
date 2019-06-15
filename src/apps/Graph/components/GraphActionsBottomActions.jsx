@@ -20,10 +20,12 @@ const styles = theme => ({
     height: 100,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    pointerEvents: 'none'
   },
   navigation: {
-    borderRadius: 5
+    borderRadius: 5,
+    pointerEvents: 'auto'
   }
 });
 

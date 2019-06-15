@@ -4,3 +4,10 @@ export const setGraphData = data => dispatch => {
     payload: data
   });
 };
+
+export const setGraphTransform = data => dispatch => {
+  dispatch({
+    type: 'SET_GRAPH_TRANSFORM',
+    payload: data
+  });
+};

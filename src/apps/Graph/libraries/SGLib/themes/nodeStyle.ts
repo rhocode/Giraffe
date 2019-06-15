@@ -129,3 +129,75 @@ export function drawPath(context: any, source: MachineNode, target: MachineNode)
   context.stroke();
   context.restore();
 }
+
+
+export function defaultNodeThemeSprite(context: any, d: GraphNode) {
+  context.save();
+
+  const w = 170;
+  const h = 140;
+
+  const x = d.xRenderBuffer;
+  const y = d.yRenderBuffer;
+
+  let r = 6;
+
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  context.beginPath();
+  context.moveTo(x + r, y);
+  context.arcTo(x + w, y, x + w, y + h, r);
+  context.arcTo(x + w, y + h, x, y + h, r);
+  context.arcTo(x, y + h, x, y, r);
+  context.arcTo(x, y, x + w, y, r);
+  context.closePath();
+  context.lineWidth = 4;
+  context.strokeStyle = '#D4CE22';
+  context.fillStyle = '#313234';
+  context.fill();
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(x + w, y + h - 35);
+  context.lineTo(x + w, y + h - r);
+  context.arcTo(x + w, y + h, x, y + h, r);
+  context.arcTo(x, y + h, x, y, r);
+  context.lineTo(x, y + h - 35);
+  context.lineTo(x + w, y + h - 35);
+  context.closePath();
+  context.fillStyle = '#1D1E20';
+  context.lineWidth = 2;
+  context.strokeStyle = '#D4CE22';
+  context.fill();
+  context.stroke();
+
+  context.drawImage(img, x + 8, y + 10, 100, 100); // Or at whatever offset you like
+
+  context.font = '15px Roboto Condensed';
+  context.fillStyle = 'white';
+  context.fillText('IRON INGOT (Alt.)', x + 5, y + h - 10);
+
+  context.font = '25px Roboto Condensed';
+  context.fillStyle = 'white';
+  context.fillText('Mk. II', (w/2) + 20, (h/2) - 20);
+
+  context.font = '25px Roboto Condensed';
+  context.fillStyle = '#15CB07';
+  context.fillText('100%', (w/2) + 20, (h/2) + 10);
+
+  // Reset the slot mappings
+  d.inputSlotMapping = {};
+  d.outputSlotMapping = {};
+
+  // calculateNodeSpacing(d.y, d.inputSlots.length).forEach((inputY: number, index: number) => {
+  //   d.inputSlotMapping[index] = inputY;
+  //   // drawNodePlug(context, (w/2) - (w / 2), inputY, '#1D1E20', '#15CB07');
+  // });
+  //
+  // calculateNodeSpacing(d.y, d.outputSlots.length).forEach((outputY: number, index: number) => {
+  //   d.outputSlotMapping[index] = outputY;
+  //   drawNodePlug(context, (w/2) + (w / 2), outputY, '#1D1E20', '#FFA328');
+  // });
+
+  context.restore();
+}

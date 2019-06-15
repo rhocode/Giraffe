@@ -3,18 +3,28 @@ import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import { stringGen } from '../utils/stringUtils';
 import MachineNode from '../datatypes/graphNode';
-import { setGraphData } from '../../../../../redux/actions/Graph/graphActions';
+import {setGraphData, setGraphTransform} from '../../../../../redux/actions/Graph/graphActions';
+import LoadingBar from "../../../../../common/react/LoadingBar";
+import Loadable from 'react-loadable';
 
 class SGCanvas extends Component {
   constructor(props) {
     super(props);
     this.canvasId = stringGen(10);
     this.initializeSGLib();
+    this.transform = d3.zoomIdentity;
+    this.state = {
+      loaded: false,
+    };
+    this.k = 1;
   }
 
   initializeSGLib() {}
 
   componentDidMount() {
+    import('typeface-roboto-condensed').then(() => {
+      console.error("AAAAAA");
+    })
     const width = this.props.width;
     const height = this.props.height;
 
@@ -36,19 +46,18 @@ class SGCanvas extends Component {
           })
       )
       .alphaTarget(0)
-      .alphaDecay(0.05);
+      .alphaDecay(0.1);
 
-    this.transform = d3.zoomIdentity;
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
     const nodes = [];
     const edges = [];
 
-    const num_nodes = 200;
+    const num_nodes = 1000;
 
     for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, 0, 300 + i * 180, 300 + i * 180))
+      nodes.push(new MachineNode(0, 0, 0, 0 + i * 200, 0 + i * 180))
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
@@ -76,7 +85,6 @@ class SGCanvas extends Component {
 
     data.nodes.forEach(node => {
       node.sortSlots();
-      console.log(node);
     });
 
     this.props.setGraphData(data);
@@ -84,16 +92,8 @@ class SGCanvas extends Component {
   }
 
   componentDidUpdate = () => {
-    console.error("Component Updated");
-    const width = this.props.width;
-    const height = this.props.height;
-
     this.simulation = d3
       .forceSimulation()
-      .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('x', d3.forceX(width / 2).strength(0.1))
-      .force('y', d3.forceY(height / 2).strength(0.1))
-      .force('charge', d3.forceManyBody().strength(-50))
       .force(
         'link',
         d3
@@ -103,14 +103,7 @@ class SGCanvas extends Component {
             return d.id;
           })
       )
-      .force(
-        'collision',
-        d3.forceCollide().radius(function(d) {
-          return 100;
-        })
-      )
-      .alphaTarget(0)
-      .alphaDecay(0.05);
+      .alphaDecay(0.1);
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
@@ -123,10 +116,28 @@ class SGCanvas extends Component {
 
     let { transform, graphCanvas, simulation } = this;
     const context = this.graphContext;
-    const { width, height } = this.props;
+    const { width, height, graphData } = this.props;
+
+    const thisAccessor = this;
+
+    tempData.nodes.forEach(node => {
+      node.preRender(transform);
+    });
 
     function zoomed() {
-      transform = d3.event.transform;
+      transform = d3.event.transform; // REQUIRED for updating the zoom
+
+      if (transform.k !== thisAccessor.k) {
+        thisAccessor.k = transform.k;
+        graphData.nodes.forEach(node => {
+          node.preRender(transform);
+        });
+      }
+
+      // if (transform.k !== thisAccessor.k) {
+      //   thisAccessor.k = transform.k;
+      //
+      // }
       simulationUpdate();
     }
 
@@ -137,7 +148,7 @@ class SGCanvas extends Component {
       var point = d3.mouse(this),
         p = { x: point[0], y: point[1] };
 
-      console.log('CLICKED');
+      console.log('CLICKED', p);
     }
 
     d3.select(graphCanvas)
@@ -160,9 +171,7 @@ class SGCanvas extends Component {
     function dragsubject() {
       var i,
         x = transform.invertX(d3.event.x),
-        y = transform.invertY(d3.event.y),
-        dx,
-        dy;
+        y = transform.invertY(d3.event.y);
 
       for (i = tempData.nodes.length - 1; i >= 0; --i) {
         const node = tempData.nodes[i];
@@ -172,20 +181,28 @@ class SGCanvas extends Component {
 
       for (i = tempData.nodes.length - 1; i >= 0; --i) {
         const node = tempData.nodes[i];
-        dx = x - node.x;
-        dy = y - node.y;
+        // dx = x - node.x;
+        // dy = y - node.y;
 
-        if (dx * dx + dy * dy < radius * radius) {
-          node.x = transform.applyX(node.x);
-          node.y = transform.applyY(node.y);
-
+        if (node.isInBoundingBox(x, y, transform)) {
+            node.x = transform.applyX(node.x);
+            node.y = transform.applyY(node.y);
           return node;
         }
+        // console.error(x, y)
+        //
+        // if (dx * dx + dy * dy < radius * radius) {
+        //   node.x = transform.applyX(node.x);
+        //   node.y = transform.applyY(node.y);
+        //
+        //   return node;
+        // }
       }
     }
 
     function dragstarted() {
       // console.log('DRAGSTARTED');
+
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 
       d3.event.subject.fx = transform.invertX(d3.event.x);
@@ -202,9 +219,9 @@ class SGCanvas extends Component {
     }
 
     function dragged() {
-      // console.log('DRAGSTARTED2');
       d3.event.subject.fx = transform.invertX(d3.event.x);
       d3.event.subject.fy = transform.invertY(d3.event.y);
+
 
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
@@ -217,6 +234,7 @@ class SGCanvas extends Component {
     }
 
     function dragended() {
+      console.error("AAA");
       // console.log('DRAGSTARTED3');
       if (!d3.event.active) simulation.alphaTarget(0);
 
@@ -242,16 +260,17 @@ class SGCanvas extends Component {
       context.save();
 
       context.clearRect(0, 0, width, height);
+      // context.translate(transform.x, transform.y);
+      // context.scale(transform.k, transform.k);
+
+      // tempData.edges.forEach(function(d) {
+      //   d.source.drawPathToTarget(context, d.target);
+      // });
+
       context.translate(transform.x, transform.y);
-      context.scale(transform.k, transform.k);
-
-      tempData.edges.forEach(function(d) {
-        d.source.drawPathToTarget(context, d.target);
-      });
-
       // Draw the nodesv
       tempData.nodes.forEach(function(d, i) {
-        d.render(context, d);
+        d.render(context, transform);
       });
 
 
@@ -273,15 +292,15 @@ class SGCanvas extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
-    graphData: state.graphReducer.graphData
+    graphData: state.graphReducer.graphData,
+    graphTransform: state.graphReducer.graphTransform,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGraphData: data => dispatch(setGraphData(data))
+    setGraphData: data => dispatch(setGraphData(data)),
   };
 }
 
