@@ -1,7 +1,8 @@
 import * as d3 from "d3";
 
 const initialState = {
-  graphTransform: d3.zoomIdentity
+  graphTransform: d3.zoomIdentity,
+  graphFidelity: 'low'
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +16,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         graphTransform: action.payload
+      };
+    case 'SET_GRAPH_FIDELITY':
+      return {
+        ...state,
+        graphFidelity: action.payload
       };
     default:
       return state;

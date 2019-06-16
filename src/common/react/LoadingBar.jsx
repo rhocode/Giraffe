@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import InternalCanvas from "./InternalCanvas";
 import {stringGen} from "../../apps/Graph/libraries/SGLib/utils/stringUtils";
 
 const styles = theme => ({
   canvasContainer: {
-    flex: 1
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center'
   },
   container: {
     width: '100%',
@@ -16,7 +17,7 @@ const styles = theme => ({
   headingSpacer: {
     minHeight: theme.overrides.GraphAppBar.height,
     width: '100%'
-  }
+  },
 });
 
 class Canvas extends Component {
@@ -38,39 +39,38 @@ class Canvas extends Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.measureCanvas, false);
-    this.timer = this.drawRowOfRhombus();
+    this.drawRowOfRhombus();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.measureCanvas, false);
-    window.cancelAnimationFrame(this.time);
+    // window.cancelAnimationFrame(this.time);
+    window.cancelAnimationFrame(this.animation);
+    console.error("UNMOUNTED", this.timer);
   }
 
   drawRowOfRhombus = () => {
-    const fps = 100;
-    setTimeout(() => {
-      requestAnimationFrame(this.drawRowOfRhombus);
-      if (!this.canvas.current) {
-        return;
-      }
-      const ctx = this.canvas.current.getContext('2d');
-      const width = this.state.width;
-      const offset = this.offset;
+    this.animation = requestAnimationFrame(this.drawRowOfRhombus);
+    if (!this.canvas.current) {
+      return;
+    }
 
-      const rhombusDimension = 50;
-      const numberOfRhombus = (width / rhombusDimension) + 2;
+    const ctx = this.canvas.current.getContext('2d');
+    const width = this.state.width;
+    const offset = this.offset;
 
-      this.offset = (offset + 1) % rhombusDimension;
+    const rhombusDimension = 50;
+    const numberOfRhombus = (width / rhombusDimension) + 2;
 
-      const starting = this.offset - rhombusDimension;
+    this.offset = (offset + 1) % rhombusDimension;
 
-      ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
+    const starting = this.offset - rhombusDimension;
 
-      for (let i = 0; i < numberOfRhombus; i++) {
-        this.drawRhombus(ctx, starting + (i * rhombusDimension),  0, rhombusDimension, rhombusDimension);
-      }
+    ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
 
-    }, 5 / fps);
+    for (let i = 0; i < numberOfRhombus; i++) {
+      this.drawRhombus(ctx, starting + (i * rhombusDimension),  0, rhombusDimension, rhombusDimension);
+    }
   };
 
   drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
@@ -107,14 +107,14 @@ class Canvas extends Component {
 
     return (
       <div className={classes.container}>
-        <div className={classes.headingSpacer} />
         <div ref={this.canvasContainer} className={classes.canvasContainer}>
           <canvas
+            className={classes.canvas}
             style={{ display: 'block' }}
             id={this.canvasId}
             ref={this.canvas}
             width={this.state.width}
-            height={this.state.height}
+            height={50}
           />
         </div>
       </div>

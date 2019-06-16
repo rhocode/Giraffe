@@ -22,9 +22,6 @@ class SGCanvas extends Component {
   initializeSGLib() {}
 
   componentDidMount() {
-    import('typeface-roboto-condensed').then(() => {
-      console.error("AAAAAA");
-    })
     const width = this.props.width;
     const height = this.props.height;
 
@@ -46,7 +43,7 @@ class SGCanvas extends Component {
           })
       )
       .alphaTarget(0)
-      .alphaDecay(0.1);
+      .alphaDecay(1);
 
 
     this.graphContext = this.graphCanvas.getContext('2d');
@@ -54,10 +51,10 @@ class SGCanvas extends Component {
     const nodes = [];
     const edges = [];
 
-    const num_nodes = 1000;
+    const num_nodes = 200;
 
     for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, 0, 0 + i * 200, 0 + i * 180))
+      nodes.push(new MachineNode(0, 0, 0, i * 200, i * 180))
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
@@ -103,7 +100,7 @@ class SGCanvas extends Component {
             return d.id;
           })
       )
-      .alphaDecay(0.1);
+      .alphaDecay(1);
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
@@ -116,7 +113,7 @@ class SGCanvas extends Component {
 
     let { transform, graphCanvas, simulation } = this;
     const context = this.graphContext;
-    const { width, height, graphData } = this.props;
+    const { width, height, graphData, graphFidelity } = this.props;
 
     const thisAccessor = this;
 
@@ -127,7 +124,8 @@ class SGCanvas extends Component {
     function zoomed() {
       transform = d3.event.transform; // REQUIRED for updating the zoom
 
-      if (transform.k !== thisAccessor.k) {
+
+      if (graphFidelity !== 'low' && transform.k !== thisAccessor.k) {
         thisAccessor.k = transform.k;
         graphData.nodes.forEach(node => {
           node.preRender(transform);
@@ -183,8 +181,12 @@ class SGCanvas extends Component {
         const node = tempData.nodes[i];
         // dx = x - node.x;
         // dy = y - node.y;
-
-        if (node.isInBoundingBox(x, y, transform)) {
+        // context.save();
+        // context.fillStyle = "red";
+        // context.rect(300, 300, 600, 600);
+        // context.fill();
+        // context.restore();
+        if (node.isInBoundingBox(x, y)) {
             node.x = transform.applyX(node.x);
             node.y = transform.applyY(node.y);
           return node;
@@ -267,13 +269,19 @@ class SGCanvas extends Component {
       //   d.source.drawPathToTarget(context, d.target);
       // });
 
+
       context.translate(transform.x, transform.y);
-      // Draw the nodesv
-      tempData.nodes.forEach(function(d, i) {
-        d.render(context, transform);
-      });
 
-
+      if (graphFidelity === 'low') {
+        context.scale(transform.k, transform.k);
+        tempData.nodes.forEach(function(d) {
+          d.lowRender(context);
+        });
+      } else {
+        tempData.nodes.forEach(function(d) {
+          d.render(context, transform);
+        });
+      }
       context.restore();
     }
   };
@@ -295,6 +303,7 @@ function mapStateToProps(state) {
   return {
     graphData: state.graphReducer.graphData,
     graphTransform: state.graphReducer.graphTransform,
+    graphFidelity: state.graphReducer.graphFidelity
   };
 }
 

@@ -11,3 +11,10 @@ export const setGraphTransform = data => dispatch => {
     payload: data
   });
 };
+
+export const setGraphFidelity = data => dispatch => {
+  dispatch({
+    type: 'SET_GRAPH_FIDELITY',
+    payload: data
+  });
+};

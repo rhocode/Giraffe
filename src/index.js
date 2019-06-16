@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'typeface-roboto-condensed';
-
 import './index.css';
 import App from './App';
 
@@ -10,6 +8,8 @@ import configureStore from './redux/store';
 
 import * as serviceWorker from './serviceWorker';
 import { LocalizeProvider } from 'react-localize-redux';
+
+require('typeface-roboto-condensed');
 
 const store = configureStore();
 ReactDOM.render(

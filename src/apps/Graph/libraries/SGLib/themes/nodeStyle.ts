@@ -60,7 +60,7 @@ export function defaultNodeTheme(context: any, d: GraphNode) {
 
   context.drawImage(img, x + 8, y + 10, 100, 100); // Or at whatever offset you like
 
-  context.font = '15px Roboto Condensed';
+  context.font = '15px Roboto';
   context.fillStyle = 'white';
   context.fillText('IRON INGOT (Alt.)', x + 5, y + h - 10);
 
@@ -134,8 +134,8 @@ export function drawPath(context: any, source: MachineNode, target: MachineNode)
 export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   context.save();
 
-  const w = 170;
-  const h = 140;
+  const w =  d.width - d.xRenderBuffer;
+  const h =  d.height - d.yRenderBuffer;
 
   const x = d.xRenderBuffer;
   const y = d.yRenderBuffer;
@@ -171,33 +171,33 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   context.fill();
   context.stroke();
 
-  context.drawImage(img, x + 8, y + 10, 100, 100); // Or at whatever offset you like
+  context.drawImage(img, x + 3, y + 4, 100, 100); // Or at whatever offset you like
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('IRON INGOT (Alt.)', x + 5, y + h - 10);
+  context.fillText('IRON INGOT (Alt.)', x + 6, y + h - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('Mk. II', (w/2) + 20, (h/2) - 20);
+  context.fillText('Mk. II', (w/2) + 30, (h/2) - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = '#15CB07';
-  context.fillText('100%', (w/2) + 20, (h/2) + 10);
+  context.fillText('100%', (w/2) + 30, (h/2) + 20);
 
   // Reset the slot mappings
   d.inputSlotMapping = {};
   d.outputSlotMapping = {};
 
-  // calculateNodeSpacing(d.y, d.inputSlots.length).forEach((inputY: number, index: number) => {
-  //   d.inputSlotMapping[index] = inputY;
-  //   // drawNodePlug(context, (w/2) - (w / 2), inputY, '#1D1E20', '#15CB07');
-  // });
-  //
-  // calculateNodeSpacing(d.y, d.outputSlots.length).forEach((outputY: number, index: number) => {
-  //   d.outputSlotMapping[index] = outputY;
-  //   drawNodePlug(context, (w/2) + (w / 2), outputY, '#1D1E20', '#FFA328');
-  // });
+  calculateNodeSpacing(y + (h/2), d.inputSlots.length).forEach((inputY: number, index: number) => {
+    d.inputSlotMapping[index] = inputY;
+    drawNodePlug(context, x, inputY, '#1D1E20', '#15CB07');
+  });
+
+  calculateNodeSpacing(y + (h/2), d.outputSlots.length).forEach((outputY: number, index: number) => {
+    d.outputSlotMapping[index] = outputY;
+    drawNodePlug(context, x + w, outputY, '#1D1E20', '#FFA328');
+  });
 
   context.restore();
 }
