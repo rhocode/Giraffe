@@ -11,6 +11,8 @@ const styles = theme => ({
     alignItems: 'center',
     overflow: 'hidden'
   },
+  canvas: {
+  },
   container: {
     width: '100%',
     height: '100%',
@@ -39,6 +41,7 @@ class Canvas extends Component {
     this.offset = 0;
 
     this.canvasId = stringGen(10);
+    this.ratio =  window.devicePixelRatio || 1;
   }
 
   componentWillMount() {
@@ -48,7 +51,6 @@ class Canvas extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.measureCanvas, false);
-    // window.cancelAnimationFrame(this.time);
     window.cancelAnimationFrame(this.animation);
   }
 
@@ -59,6 +61,8 @@ class Canvas extends Component {
     }
 
     const ctx = this.canvas.current.getContext('2d');
+    ctx.save();
+    ctx.scale(this.ratio, this.ratio);
 
     const width = this.state.width;
     const offset = this.offset;
@@ -98,6 +102,8 @@ class Canvas extends Component {
 
       ctx.fillText(this.state.currentText, parseInt(`${width / 2}`), parseInt(`${rhombusHeight + 30}`));
     }
+
+    ctx.restore();
   };
 
   drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
@@ -114,6 +120,8 @@ class Canvas extends Component {
   measureCanvas = () => {
     let rect = this.canvasContainer.current.getBoundingClientRect();
     if (this.state.width !== rect.width || this.state.height !== rect.height) {
+      this.canvas.current.style.width = Math.round(rect.width) + 'px';
+      this.canvas.current.style.height = (this.props.loadingText ? 100 : 50) + 'px';
       this.setState({
         width: rect.width,
         height: rect.height
@@ -140,8 +148,8 @@ class Canvas extends Component {
             style={{ display: 'block' }}
             id={this.canvasId}
             ref={this.canvas}
-            width={this.state.width}
-            height={this.props.loadingText ? 100 : 50}
+            width={this.state.width * this.ratio}
+            height={(this.props.loadingText ? 100 : 50) * this.ratio}
           />
         </div>
       </div>
