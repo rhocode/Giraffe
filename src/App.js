@@ -11,6 +11,7 @@ import { withLocalize } from 'react-localize-redux';
 
 import en from './translations/en.json';
 import AsyncComponent from "./common/react/AsyncComponent";
+import HomeApp from "./apps/Home/HomeApp";
 
 const GraphApp = AsyncComponent(import('./apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('./apps/Hub/HubApp'));
@@ -63,6 +64,11 @@ class App extends Component {
     return <Route key={'lab'} path={local ? '/lab' : '/'} exact={!local} component={LabApp} />
   }
 
+  static getHomeApp() {
+    return <Route key={'lab'} path='/' exact component={HomeApp} />
+  }
+
+
   static resolveDomain() {
     const domain = window.location.host.split('.')[1] ? window.location.host.split('.')[0] : false;
     const domainList = [];
@@ -77,6 +83,7 @@ class App extends Component {
       // lab subdomain
       domainList.push(App.getLabApp());
     } else {
+      domainList.push(App.getHomeApp());
       domainList.push(App.getGraphApp(true));
       domainList.push(App.getLabApp(true));
       domainList.push(App.getHubApp(true));
