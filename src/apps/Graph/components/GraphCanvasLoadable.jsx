@@ -4,7 +4,7 @@ import LoadingBar from "../../../common/react/LoadingBar";
 import {imageRepositoryPromise} from "../libraries/SGLib/repositories/imageRepository";
 
 const FontFaceObserver = require('fontfaceobserver');
-console.log(imageRepositoryPromise.machines);
+
 const LoadableComponent = Loadable({
   loader: () => {
     return Promise.all([
@@ -24,7 +24,6 @@ const LoadableComponent = Loadable({
 export default class GraphCanvasLoadable extends React.Component {
 
   render() {
-    console.error("AAAAA")
     return <LoadableComponent/>;
   }
 }

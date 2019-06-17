@@ -2,13 +2,13 @@ import { createMuiTheme } from '@material-ui/core';
 
 const paletteLight = {
   type: 'light',
-  primary: { main: '#FF9100' },
+  primary: { main: '#FF9100', dark: '#FF6D00' },
   secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
 };
 
 const paletteDark = {
   type: 'dark',
-  primary: { main: '#FF9100' },
+  primary: { main: '#FF9100', dark: '#FF6D00' },
   secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
 };
 

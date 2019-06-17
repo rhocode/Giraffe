@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import { stringGen } from '../utils/stringUtils';
 import MachineNode from '../datatypes/graphNode';
-import {setGraphData, setGraphTransform} from '../../../../../redux/actions/Graph/graphActions';
-import LoadingBar from "../../../../../common/react/LoadingBar";
-import Loadable from 'react-loadable';
+import {setGraphData} from '../../../../../redux/actions/Graph/graphActions';
 
 class SGCanvas extends Component {
   constructor(props) {
@@ -109,7 +107,6 @@ class SGCanvas extends Component {
   };
 
   initGraph = tempData => {
-    const radius = 50;
 
     let { transform, graphCanvas, simulation } = this;
     const context = this.graphContext;

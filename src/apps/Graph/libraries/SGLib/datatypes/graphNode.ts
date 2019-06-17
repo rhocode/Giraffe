@@ -1,4 +1,4 @@
-import {defaultNodeTheme, defaultNodeThemeSprite, drawPath} from '../themes/nodeStyle';
+import {defaultNodeThemeSprite, drawPath} from '../themes/nodeStyle';
 
 type Nullable<T> = T | null;
 
