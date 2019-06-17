@@ -1,15 +1,16 @@
 import Loadable from "react-loadable";
 import React from "react";
 import LoadingBar from "../../../common/react/LoadingBar";
-import {imageRepository} from "../libraries/SGLib/repositories/imageRepository";
+import {imageRepositoryPromise} from "../libraries/SGLib/repositories/imageRepository";
 
 const FontFaceObserver = require('fontfaceobserver');
-
+console.log(imageRepositoryPromise.machines);
 const LoadableComponent = Loadable({
   loader: () => {
     return Promise.all([
       new FontFaceObserver('Roboto Condensed').load(),
-      Promise.resolve(imageRepository),
+      ...imageRepositoryPromise.machines,
+      ...imageRepositoryPromise.items
       // new Promise((resolve) => {
       //   setTimeout(() => {
       //     resolve(10);
