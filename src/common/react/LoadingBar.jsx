@@ -49,7 +49,6 @@ class Canvas extends Component {
     window.removeEventListener('resize', this.measureCanvas, false);
     // window.cancelAnimationFrame(this.time);
     window.cancelAnimationFrame(this.animation);
-    console.error('UNMOUNTED', this.timer);
   }
 
   drawRowOfRhombus = () => {
@@ -65,7 +64,7 @@ class Canvas extends Component {
     const rhombusHeight = 50;
     const rhombusWidth = 100;
     const numberOfRhombus = width / rhombusWidth + 2;
-    const loadingTextLength = 11;
+    const loadingTextLength = 12;
 
     this.offset = (offset - 1) % rhombusWidth;
 
