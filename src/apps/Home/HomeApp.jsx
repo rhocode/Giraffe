@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
-import LoadingBar from "../../common/react/LoadingBar";
+import LoadingBar from '../../common/react/LoadingBar';
 
 const styles = theme => {
   return {
@@ -13,7 +13,7 @@ const styles = theme => {
     container: {
       height: '100%',
       width: '100%',
-      background: 'black',
+      background: '#333333',
       display: 'flex'
     }
   };
@@ -29,7 +29,7 @@ class HomeApp extends Component {
 
     return (
       <div className={classes.container}>
-        <LoadingBar />
+        <LoadingBar loadingText />
       </div>
     );
   }
@@ -39,9 +39,7 @@ const mapStateToProps = state => ({
   ...state
 });
 
-const mapDispatchToProps = dispatch => ({
-
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,

@@ -1,4 +1,15 @@
 {
   "greeting": "Hello",
-  "farewell": "Goodbye"
+  "farewell": "Goodbye",
+  "loadingText_message0": "Loading...",
+  "loadingText_message1": "Burning Coal...",
+  "loadingText_message2": "Deleting Steam Keys...",
+  "loadingText_message3": "Exploiting Resources...",
+  "loadingText_message4": "Petting Lizard Doggo...",
+  "loadingText_message5": "Adding Pipes...",
+  "loadingText_message6": "Adding Mana...",
+  "loadingText_message7": "Spilling Coffee...",
+  "loadingText_message8": "Becoming A Goat...",
+  "loadingText_message9": "Charging Batteries...",
+  "loadingText_message10": "Reticulating Splines..."
 }

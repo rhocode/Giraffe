@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {stringGen} from "../../apps/Graph/libraries/SGLib/utils/stringUtils";
+import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+import { getTranslate } from 'react-localize-redux';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   canvasContainer: {
@@ -17,7 +19,7 @@ const styles = theme => ({
   headingSpacer: {
     minHeight: theme.overrides.GraphAppBar.height,
     width: '100%'
-  },
+  }
 });
 
 class Canvas extends Component {
@@ -29,6 +31,7 @@ class Canvas extends Component {
     this.state = {
       width: 0,
       height: 0,
+      currentText: 'Loading...'
     };
 
     this.timer = null;
@@ -46,7 +49,7 @@ class Canvas extends Component {
     window.removeEventListener('resize', this.measureCanvas, false);
     // window.cancelAnimationFrame(this.time);
     window.cancelAnimationFrame(this.animation);
-    console.error("UNMOUNTED", this.timer);
+    console.error('UNMOUNTED', this.timer);
   }
 
   drawRowOfRhombus = () => {
@@ -59,27 +62,50 @@ class Canvas extends Component {
     const width = this.state.width;
     const offset = this.offset;
 
-    const rhombusDimension = 50;
-    const numberOfRhombus = (width / rhombusDimension) + 2;
+    const rhombusHeight = 50;
+    const rhombusWidth = 100;
+    const numberOfRhombus = width / rhombusWidth + 2;
+    const loadingTextLength = 11;
 
-    this.offset = (offset + 1) % rhombusDimension;
+    this.offset = (offset - 1) % rhombusWidth;
 
-    const starting = this.offset - rhombusDimension;
+    const starting = this.offset - rhombusWidth;
 
     ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
 
     for (let i = 0; i < numberOfRhombus; i++) {
-      this.drawRhombus(ctx, starting + (i * rhombusDimension),  0, rhombusDimension, rhombusDimension);
+      this.drawRhombus(
+        ctx,
+        starting + i * rhombusWidth,
+        0,
+        rhombusHeight,
+        rhombusWidth
+      );
+    }
+
+    if (this.props.loadingText) {
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.font = '20px monospace';
+      ctx.fillStyle = 'white';
+      if (!this.offset % 15) {
+        var rand = Math.floor(Math.random() * loadingTextLength);
+        this.setState({
+          currentText: this.props.translate('loadingText_message' + rand)
+        });
+      }
+
+      ctx.fillText(this.state.currentText, width / 2, rhombusHeight + 30);
     }
   };
 
   drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
-    context.fillStyle = 'yellow';
+    context.fillStyle = '#FF9800';
     context.beginPath();
-    context.moveTo(xTop + rhombusWidth/2, yTop);
-    context.lineTo(xTop + rhombusWidth, yTop);
-    context.lineTo(xTop + rhombusWidth/2, yTop + rhombusHeight);
-    context.lineTo(xTop, yTop + rhombusHeight);
+    context.moveTo(xTop, yTop);
+    context.lineTo(xTop + rhombusWidth / 2, yTop);
+    context.lineTo(xTop + rhombusWidth, yTop + rhombusHeight);
+    context.lineTo(xTop + rhombusWidth / 2, yTop + rhombusHeight);
     context.closePath();
     context.fill();
   }
@@ -114,7 +140,7 @@ class Canvas extends Component {
             id={this.canvasId}
             ref={this.canvas}
             width={this.state.width}
-            height={50}
+            height={this.props.loadingText ? 100 : 50}
           />
         </div>
       </div>
@@ -122,4 +148,8 @@ class Canvas extends Component {
   }
 }
 
-export default (withStyles(styles)(Canvas));
+const mapStateToProps = state => ({
+  translate: getTranslate(state.localize)
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Canvas));
