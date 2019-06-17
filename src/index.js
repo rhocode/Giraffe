@@ -12,13 +12,13 @@ require('typeface-roboto-condensed');
 
 const store = configureStore();
 ReactDOM.render(
-  <ServiceWorkerProvider>
     <Provider store={store}>
-      <LocalizeProvider store={store}>
-        <App />
-      </LocalizeProvider>
-    </Provider>
-  </ServiceWorkerProvider>,
+      <ServiceWorkerProvider>
+        <LocalizeProvider store={store}>
+          <App />
+        </LocalizeProvider>
+      </ServiceWorkerProvider>
+    </Provider>,
   document.getElementById('root')
 );
 

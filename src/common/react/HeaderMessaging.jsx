@@ -7,12 +7,16 @@ import {getTranslate} from "react-localize-redux";
 const styles = theme => ({
   container: {
     backgroundColor: theme.palette.primary.dark,
-    height: 50,
+    height: theme.overrides.common.HeaderMessaging.height,
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: theme.overrides.common.HeaderMessaging.height,
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
     textAlign: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    zIndex: theme.zIndex.drawer + 2,
   },
   invisible: {
     display: 'none'

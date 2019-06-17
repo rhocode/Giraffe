@@ -21,7 +21,12 @@ export const themeLight = createMuiTheme({
     },
     GraphAppBar: {
       height: 64
-    }
+    },
+    common: {
+      HeaderMessaging: {
+        height: 50
+      }
+    },
   },
   typography: {
     useNextVariants: true
@@ -37,7 +42,12 @@ export const themeDark = createMuiTheme({
     },
     GraphAppBar: {
       height: 64
-    }
+    },
+    common: {
+      HeaderMessaging: {
+        height: 50
+      }
+    },
   },
   typography: {
     useNextVariants: true

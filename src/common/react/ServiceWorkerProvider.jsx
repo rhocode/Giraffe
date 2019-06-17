@@ -1,5 +1,9 @@
 import React from "react";
 import * as serviceWorker from "../../serviceWorkerCustom";
+import { connect } from 'react-redux';
+import {withStyles} from "@material-ui/core";
+import {setGraphData} from "../../redux/actions/Graph/graphActions";
+import {setUpdateAvailable} from "../../redux/actions/common/commonActions";
 
 const ServiceWorkerContext = React.createContext();
 
@@ -35,6 +39,7 @@ function ServiceWorkerProvider(props) {
       onUpdate: registration => {
         setWaitingServiceWorker(registration.waiting);
         setAssetsUpdateReady(true);
+        props.setUpdateAvailable(true);
       },
       onSuccess: () => {
         setAssetsCached(true);
@@ -57,4 +62,12 @@ export function useServiceWorker() {
   return context;
 }
 
-export default ServiceWorkerProvider;
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  setUpdateAvailable: data => dispatch(setUpdateAvailable(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceWorkerProvider);

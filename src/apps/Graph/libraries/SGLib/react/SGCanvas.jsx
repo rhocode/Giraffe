@@ -233,7 +233,7 @@ class SGCanvas extends Component {
     }
 
     function dragended() {
-      console.error("AAA");
+
       // console.log('DRAGSTARTED3');
       if (!d3.event.active) simulation.alphaTarget(0);
 
