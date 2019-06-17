@@ -8,7 +8,8 @@ const styles = theme => ({
   canvasContainer: {
     flex: 1,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    overflow: 'hidden'
   },
   container: {
     width: '100%',
@@ -58,6 +59,7 @@ class Canvas extends Component {
     }
 
     const ctx = this.canvas.current.getContext('2d');
+
     const width = this.state.width;
     const offset = this.offset;
 
@@ -94,7 +96,7 @@ class Canvas extends Component {
         });
       }
 
-      ctx.fillText(this.state.currentText, width / 2, rhombusHeight + 30);
+      ctx.fillText(this.state.currentText, parseInt(`${width / 2}`), parseInt(`${rhombusHeight + 30}`));
     }
   };
 
