@@ -72,7 +72,7 @@ export function defaultNodeTheme(context: any, d: GraphNode) {
   context.fillStyle = '#15CB07';
   context.fillText('100%', d.x + 20, d.y + 10);
 
-  // Reset the slot mappings
+  // Reset the slot mappings;
   d.inputSlotMapping = {};
   d.outputSlotMapping = {};
 
@@ -114,9 +114,13 @@ export function drawPath(context: any, source: MachineNode, target: MachineNode)
   const outputSlotY = source.outputSlotMapping[source.outputSlots.indexOf(target)];
   const inputSlotY = target.inputSlotMapping[target.inputSlots.indexOf(source)];
 
-  const x1 = source.x + 90;
+  // console.error(source.fx, source.x, source.fy, source.y);
+  // console.error("Second");
+  // console.error(target.fx, target.x, target.fy, target.y);
+
+  const x1 = source.fx + 90;
   const y1 = outputSlotY;
-  const x2 = target.x - 90;
+  const x2 = target.fx - 90;
   const y2 = inputSlotY;
   const avg = (x1 + x2) / 2;
 
@@ -125,7 +129,9 @@ export function drawPath(context: any, source: MachineNode, target: MachineNode)
 
   context.moveTo(x1, y1);
 
-  context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
+  context.lineTo(x2, y2);
+  console.error(x1, y1, x2, y2);
+  // context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
   context.stroke();
   context.restore();
 }

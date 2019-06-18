@@ -49,7 +49,7 @@ class SGCanvas extends Component {
     const nodes = [];
     const edges = [];
 
-    const num_nodes = 200;
+    const num_nodes = 2;
 
     for (let i = 0; i < num_nodes; i++) {
       nodes.push(new MachineNode(0, 0, 0, i * 200, i * 180))
@@ -262,12 +262,19 @@ class SGCanvas extends Component {
       // context.translate(transform.x, transform.y);
       // context.scale(transform.k, transform.k);
 
-      // tempData.edges.forEach(function(d) {
-      //   d.source.drawPathToTarget(context, d.target);
-      // });
-
 
       context.translate(transform.x, transform.y);
+
+      context.save();
+      context.scale(transform.k, transform.k);
+      tempData.nodes.forEach(node => {
+        const targetNodes = node.outputSlots.forEach((targetNode, index) => {
+          if (!targetNode) return;
+          console.error(node, targetNode);
+        });
+      });
+      console.error("Render");
+      context.restore();
 
       if (graphFidelity === 'low') {
         context.scale(transform.k, transform.k);
