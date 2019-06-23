@@ -61,6 +61,7 @@ class SGCanvas extends Component {
 
     edges.push({source: nodes[0].id, target: nodes[1].id});
     edges.push({source: nodes[1].id, target: nodes[3].id});
+    edges.push({source: nodes[1].id, target: nodes[3].id});
     edges.push({source: nodes[3].id, target: nodes[4].id});
 
     const data = {
@@ -82,7 +83,7 @@ class SGCanvas extends Component {
       target.addSource(source);
     });
 
-    console.error(data, "AAAAAAAA");
+    // console.error(data, "AAAAAAAA");
 
     data.nodes.forEach(node => {
       node.sortSlots();
@@ -297,8 +298,8 @@ class SGCanvas extends Component {
         const visitedNodes = {};
         node.outputSlots.forEach((targetNode, index) => {
           if (!targetNode) return;
-          visitedNodes[targetNode] = visitedNodes[targetNode] + 1 || 0;
-          node.drawPathToTarget(context, targetNode, index, visitedNodes[targetNode]);
+          visitedNodes[targetNode.id] = visitedNodes[targetNode.id] + 1 || 0;
+          node.drawPathToTarget(context, targetNode, index, visitedNodes[targetNode.id]);
         });
       });
       context.restore();
