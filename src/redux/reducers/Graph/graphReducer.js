@@ -2,7 +2,7 @@ import * as d3 from "d3";
 
 const initialState = {
   graphTransform: d3.zoomIdentity,
-  graphFidelity: 'low'
+  graphFidelity: 'high'
 };
 
 export default (state = initialState, action) => {

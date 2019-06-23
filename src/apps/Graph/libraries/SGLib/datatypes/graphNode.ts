@@ -104,12 +104,13 @@ export abstract class GraphNode {
       const yB = b.fy - this.fy;
       const xB = b.fx - this.fx;
 
-      return (yB/xB) - (yA/xA);
+      return (yA / xA) - (yB / xB);
     })
   };
 
   sortInputSlots= () =>{
-    this.outputSlots.sort((a: Nullable<GraphNode>, b: Nullable<GraphNode>): number => {
+    this.inputSlots.sort((a: Nullable<GraphNode>, b: Nullable<GraphNode>): number => {
+
       if (b === null) {
         return -1;
       }
@@ -122,11 +123,11 @@ export abstract class GraphNode {
       const yB = this.fy - b.fy;
       const xB = this.fx - b.fx;
 
-      return (yB/xB) - (yA/xA);
+      return (yB / xB) - (yA / xA);
     })
   };
 
-  abstract drawPathToTarget(context: any, target: MachineNode): void;
+  abstract drawPathToTarget(context: any, target: MachineNode, sourceIndex: number, useIndex: number): void;
 
   sortSlots = () => {
     this.sortInputSlots();
@@ -138,10 +139,10 @@ export default class MachineNode extends GraphNode {
   overclock: number;
   recipeId: number;
   machineId: number;
-  width: number = 200;
-  height: number = 150;
-  xRenderBuffer: number = 10;
-  yRenderBuffer: number = 10;
+  width: number = 205;
+  height: number = 155;
+  xRenderBuffer: number = 15;
+  yRenderBuffer: number = 15;
 
 
   constructor(machineId: number, overclock: number, recipeId: number, x: number, y: number) {
@@ -150,11 +151,11 @@ export default class MachineNode extends GraphNode {
     this.overclock = overclock;
     this.recipeId = recipeId;
     this.inputSlots = [null, null, null];
-    this.outputSlots = [null];
+    this.outputSlots = [null, null, null];
   }
 
-  drawPathToTarget(context: any, target: MachineNode): void {
-    drawPath(context, this, target);
+  drawPathToTarget(context: any, target: MachineNode, sourceIndex: number, useIndex: number = 0): void {
+    drawPath(context, this, target, sourceIndex, useIndex);
   }
 
   serialize() {

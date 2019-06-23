@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import * as d3 from 'd3';
-import { stringGen } from '../utils/stringUtils';
-import MachineNode from '../datatypes/graphNode';
+import {stringGen} from '../utils/stringUtils';
+import MachineNode, {GraphNode} from '../datatypes/graphNode';
 import {setGraphData} from '../../../../../redux/actions/Graph/graphActions';
 
 class SGCanvas extends Component {
@@ -49,15 +49,19 @@ class SGCanvas extends Component {
     const nodes = [];
     const edges = [];
 
-    const num_nodes = 2;
+    const num_nodes = 5;
 
     for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, 0, i * 200, i * 180))
+      nodes.push(new MachineNode(0, 0, 0, i * 300, 500))
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
-      edges.push({source: nodes[i].id, target: nodes[i+1].id})
+      edges.push({source: nodes[i].id, target: nodes[i + 1].id});
     }
+
+    edges.push({source: nodes[0].id, target: nodes[1].id});
+    edges.push({source: nodes[1].id, target: nodes[3].id});
+    edges.push({source: nodes[3].id, target: nodes[4].id});
 
     const data = {
       nodes: nodes,
@@ -77,6 +81,8 @@ class SGCanvas extends Component {
       source.addTarget(target);
       target.addSource(source);
     });
+
+    console.error(data, "AAAAAAAA");
 
     data.nodes.forEach(node => {
       node.sortSlots();
@@ -140,10 +146,10 @@ class SGCanvas extends Component {
       if (d3.event.defaultPrevented) {
         return;
       }
-      var point = d3.mouse(this),
+      const point = d3.mouse(this),
         p = { x: point[0], y: point[1] };
 
-      console.log('CLICKED', p);
+      console.error(p);
     }
 
     d3.select(graphCanvas)
@@ -221,6 +227,26 @@ class SGCanvas extends Component {
       d3.event.subject.fx = transform.invertX(d3.event.x);
       d3.event.subject.fy = transform.invertY(d3.event.y);
 
+      const subject = d3.event.subject;
+
+      if (subject instanceof GraphNode) {
+        const nodeSorted = {};
+        subject.sortSlots();
+        subject.inputSlots.forEach(node => {
+          if (!node) return;
+          nodeSorted[node.id] = nodeSorted[node.id] + 1 || 0;
+          if (!nodeSorted[node.id]) {
+            node.sortOutputSlots();
+          }
+        });
+        subject.outputSlots.forEach(node => {
+          if (!node) return;
+          if (!nodeSorted[node.id]) {
+            node.sortInputSlots();
+          }
+        });
+      }
+
 
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
@@ -268,12 +294,13 @@ class SGCanvas extends Component {
       context.save();
       context.scale(transform.k, transform.k);
       tempData.nodes.forEach(node => {
-        const targetNodes = node.outputSlots.forEach((targetNode, index) => {
+        const visitedNodes = {};
+        node.outputSlots.forEach((targetNode, index) => {
           if (!targetNode) return;
-          console.error(node, targetNode);
+          visitedNodes[targetNode] = visitedNodes[targetNode] + 1 || 0;
+          node.drawPathToTarget(context, targetNode, index, visitedNodes[targetNode]);
         });
       });
-      console.error("Render");
       context.restore();
 
       if (graphFidelity === 'low') {

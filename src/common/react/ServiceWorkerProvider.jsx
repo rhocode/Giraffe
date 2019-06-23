@@ -1,8 +1,6 @@
 import React from "react";
 import * as serviceWorker from "../../serviceWorkerCustom";
-import { connect } from 'react-redux';
-import {withStyles} from "@material-ui/core";
-import {setGraphData} from "../../redux/actions/Graph/graphActions";
+import {connect} from 'react-redux';
 import {setUpdateAvailable} from "../../redux/actions/common/commonActions";
 
 const ServiceWorkerContext = React.createContext();
@@ -45,7 +43,7 @@ function ServiceWorkerProvider(props) {
         setAssetsCached(true);
       }
     });
-  }, []);
+  });
 
   return <ServiceWorkerContext.Provider value={value} {...props} />;
 }
@@ -62,8 +60,7 @@ export function useServiceWorker() {
   return context;
 }
 
-const mapStateToProps = state => ({
-
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({

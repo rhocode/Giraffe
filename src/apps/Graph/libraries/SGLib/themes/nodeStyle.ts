@@ -1,4 +1,4 @@
-import { imageRepository } from '../repositories/imageRepository';
+import {imageRepository} from '../repositories/imageRepository';
 import MachineNode, {GraphNode} from "../datatypes/graphNode";
 
 const img = imageRepository.machines['constructor.png'];
@@ -9,7 +9,7 @@ function drawNodePlug(context: any, x: number, y: number, backgroundColor: strin
   // context.save();
   context.beginPath();
   context.arc(x, y, 12, 0, 2 * Math.PI, true);
-  context.fillStyle = backgroundColor
+  context.fillStyle = backgroundColor;
   context.fill();
   context.beginPath();
   context.arc(x, y, 8, 0, 2 * Math.PI, true);
@@ -77,12 +77,12 @@ export function defaultNodeTheme(context: any, d: GraphNode) {
   d.outputSlotMapping = {};
 
   calculateNodeSpacing(d.y, d.inputSlots.length).forEach((inputY: number, index: number) => {
-    d.inputSlotMapping[index] = inputY;
+    d.inputSlotMapping[index] = {x: d.x - (w / 2), y: inputY};
     drawNodePlug(context, d.x - (w / 2), inputY, '#1D1E20', '#15CB07');
   });
 
   calculateNodeSpacing(d.y, d.outputSlots.length).forEach((outputY: number, index: number) => {
-    d.outputSlotMapping[index] = outputY;
+    d.outputSlotMapping[index] = {y: outputY, x: d.x + (w / 2)};
     drawNodePlug(context, d.x + (w / 2), outputY, '#1D1E20', '#FFA328');
   });
 
@@ -107,21 +107,19 @@ function calculateNodeSpacing(y: number, n: number): number[] {
   return output;
 }
 
-export function drawPath(context: any, source: MachineNode, target: MachineNode) {
+export function drawPath(context: any, source: MachineNode, target: MachineNode, sourceIndex: number, targetIndex: number) {
   context.save();
   context.beginPath();
 
-  const outputSlotY = source.outputSlotMapping[source.outputSlots.indexOf(target)];
-  const inputSlotY = target.inputSlotMapping[target.inputSlots.indexOf(source)];
+  const outputSlot = source.outputSlotMapping[sourceIndex];
+  const targetIndexes = target.inputSlots.map((item, index) => item === source ? index : null).filter(item => item !== null);
+  const targetIndexSlot = (targetIndexes.length > 1 ? targetIndexes[targetIndex] : target.inputSlots.indexOf(source)) || 0;
+  const inputSlot = target.inputSlotMapping[targetIndexSlot];
 
-  // console.error(source.fx, source.x, source.fy, source.y);
-  // console.error("Second");
-  // console.error(target.fx, target.x, target.fy, target.y);
-
-  const x1 = source.fx + 90;
-  const y1 = outputSlotY;
-  const x2 = target.fx - 90;
-  const y2 = inputSlotY;
+  const x1 = source.fx + outputSlot.x;
+  const y1 = source.fy + outputSlot.y;
+  const x2 = target.fx + inputSlot.x;
+  const y2 = target.fy + inputSlot.y;
   const avg = (x1 + x2) / 2;
 
   context.strokeStyle = '#7122D5';
@@ -129,9 +127,9 @@ export function drawPath(context: any, source: MachineNode, target: MachineNode)
 
   context.moveTo(x1, y1);
 
-  context.lineTo(x2, y2);
-  console.error(x1, y1, x2, y2);
-  // context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
+  // context.lineTo(x2, y2);
+  // console.error(x1, y1, x2, y2);
+  context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
   context.stroke();
   context.restore();
 }
@@ -196,12 +194,12 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   d.outputSlotMapping = {};
 
   calculateNodeSpacing(y + (h/2), d.inputSlots.length).forEach((inputY: number, index: number) => {
-    d.inputSlotMapping[index] = inputY;
+    d.inputSlotMapping[index] = {x, y: inputY};
     drawNodePlug(context, x, inputY, '#1D1E20', '#15CB07');
   });
 
   calculateNodeSpacing(y + (h/2), d.outputSlots.length).forEach((outputY: number, index: number) => {
-    d.outputSlotMapping[index] = outputY;
+    d.outputSlotMapping[index] = {x: x + w, y: outputY};
     drawNodePlug(context, x + w, outputY, '#1D1E20', '#FFA328');
   });
 
