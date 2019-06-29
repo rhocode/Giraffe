@@ -51,9 +51,9 @@ export abstract class GraphNode {
 
   isInBoundingBox(x: number, y: number) {
     const lowerX = this.fx + this.xRenderBuffer;
-    const upperX = this.fx + (this.xRenderBuffer * 2) + this.width;
+    const upperX = this.fx + this.width;
     const lowerY = this.fy + this.yRenderBuffer;
-    const upperY = this.fy + (this.yRenderBuffer * 2) + this.height;
+    const upperY = this.fy + this.height;
 
     return (lowerX <= x && x <= upperX) && (lowerY <= y && y <= upperY)
   }

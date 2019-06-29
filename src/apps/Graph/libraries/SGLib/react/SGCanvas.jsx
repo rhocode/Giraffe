@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as d3 from 'd3';
 import {stringGen} from '../utils/stringUtils';
 import MachineNode, {GraphNode} from '../datatypes/graphNode';
-import {setGraphData} from '../../../../../redux/actions/Graph/graphActions';
+import {setDragCurrent, setDragStart, setGraphData} from '../../../../../redux/actions/Graph/graphActions';
 
 class SGCanvas extends Component {
   constructor(props) {
@@ -115,19 +115,18 @@ class SGCanvas extends Component {
 
   initGraph = tempData => {
 
-    let { transform, graphCanvas, simulation } = this;
+    let { graphCanvas, simulation } = this;
     const context = this.graphContext;
     const { width, height, graphData, graphFidelity } = this.props;
 
     const thisAccessor = this;
 
     tempData.nodes.forEach(node => {
-      node.preRender(transform);
+      node.preRender(this.transform);
     });
 
-    function zoomed() {
-      transform = d3.event.transform; // REQUIRED for updating the zoom
-
+    const zoomed = () =>  {
+      const transform = this.transform = d3.event.transform; // REQUIRED for updating the zoom
 
       if (graphFidelity !== 'low' && transform.k !== thisAccessor.k) {
         thisAccessor.k = transform.k;
@@ -136,44 +135,30 @@ class SGCanvas extends Component {
         });
       }
 
-      // if (transform.k !== thisAccessor.k) {
-      //   thisAccessor.k = transform.k;
-      //
-      // }
       simulationUpdate();
-    }
+    };
 
-    function clicked() {
+    const clicked = (context) => {
       if (d3.event.defaultPrevented) {
         return;
       }
-      const point = d3.mouse(this),
+
+      const point = d3.mouse(context),
         p = { x: point[0], y: point[1] };
 
-      console.error(p);
-    }
+      // console.error(p);
+    };
 
-    d3.select(graphCanvas)
-      .call(
-        d3
-          .drag()
-          .subject(dragsubject)
-          .on('start', dragstarted)
-          .on('drag', dragged)
-          .on('end', dragended)
-      )
-      .on('click', clicked)
-      .call(
-        d3
-          .zoom()
-          .scaleExtent([1 / 10, 8])
-          .on('zoom', zoomed)
-      );
+    const dragSubject =() => {
+      const transform = this.transform;
 
-    function dragsubject() {
-      var i,
+      let i,
         x = transform.invertX(d3.event.x),
         y = transform.invertY(d3.event.y);
+
+      if (this.props.mouseMode === 'select') {
+        return {x: d3.event.x, y: d3.event.y};
+      }
 
       for (i = tempData.nodes.length - 1; i >= 0; --i) {
         const node = tempData.nodes[i];
@@ -204,15 +189,24 @@ class SGCanvas extends Component {
         //   return node;
         // }
       }
-    }
 
-    function dragstarted() {
-      // console.log('DRAGSTARTED');
+    };
+
+    const dragStart = ()  =>{
+
+      const transform = thisAccessor.transform;
 
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      const x = transform.invertX(d3.event.x);
+      const y = transform.invertY(d3.event.y);
+      d3.event.subject.fx = x;
+      d3.event.subject.fy = y;
 
-      d3.event.subject.fx = transform.invertX(d3.event.x);
-      d3.event.subject.fy = transform.invertY(d3.event.y);
+
+      // Set the drag start
+      if (this.props.mouseMode === 'select') {
+        this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y };
+      }
 
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
@@ -222,11 +216,19 @@ class SGCanvas extends Component {
       //   node.fx = node.x - deltaX;
       //   node.fy = node.y - deltaY;
       // }
-    }
+    };
 
-    function dragged() {
-      d3.event.subject.fx = transform.invertX(d3.event.x);
-      d3.event.subject.fy = transform.invertY(d3.event.y);
+    const dragged = () => {
+      const transform = thisAccessor.transform;
+      const x = transform.invertX(d3.event.x);
+      const y = transform.invertY(d3.event.y);
+
+      d3.event.subject.fx = x;
+      d3.event.subject.fy = y;
+
+      if (this.props.mouseMode === 'select') {
+        this.dragCurrent = {x: d3.event.x, y: d3.event.y, ex: x, ey: y};
+      }
 
       const subject = d3.event.subject;
 
@@ -257,12 +259,17 @@ class SGCanvas extends Component {
       //   node.fx = node.x - deltaX;
       //   node.fy = node.y - deltaY;
       // }
-    }
+    };
 
-    function dragended() {
-
-      // console.log('DRAGSTARTED3');
+    const dragEnd = () => {
       if (!d3.event.active) simulation.alphaTarget(0);
+
+      if (this.props.mouseMode === 'select') {
+        // TODO: Selection logic
+        this.dragStart = null;
+        this.dragCurrent = null;
+        return;
+      }
 
       for (let i = tempData.nodes.length - 1; i >= 0; --i) {
         const node = tempData.nodes[i];
@@ -276,13 +283,30 @@ class SGCanvas extends Component {
       //
       // d3.event.subject.fx = null;
       // d3.event.subject.fy = null;
-    }
+    };
 
-    simulation.nodes(tempData.nodes).on('tick', simulationUpdate);
+    d3.select(graphCanvas)
+      .call(
+        d3
+          .drag()
+          .subject(dragSubject)
+          .on('start', dragStart)
+          .on('drag', dragged)
+          .on('end', dragEnd)
+      )
+      .on('click', function() {
+        clicked(this);
+      })
+      .call(
+        d3
+          .zoom()
+          .scaleExtent([1 / 10, 8])
+          .on('zoom', zoomed)
+      );
 
-    simulation.force('link').links(tempData.edges);
+    const simulationUpdate = () => {
+      const transform = thisAccessor.transform;
 
-    function simulationUpdate() {
       context.save();
 
       context.clearRect(0, 0, width, height);
@@ -314,8 +338,48 @@ class SGCanvas extends Component {
           d.render(context, transform);
         });
       }
+
       context.restore();
-    }
+      context.save();
+      // context.translate(transform.x, transform.y);
+      // context.scale(transform.k, transform.k);
+      if (this.dragStart && this.dragCurrent) {
+        // console.error(this.dragStart, this.dragCurrent);
+        const x1 = this.dragStart.x;
+        const y1 = this.dragStart.y;
+        const x2 = this.dragCurrent.x;
+        const y2 = this.dragCurrent.y;
+
+        context.globalAlpha = 0.2;
+        context.fillStyle = '#FFA328';
+        context.rect(x1, y1, x2 - x1, y2 - y1);
+        context.fill();
+
+        context.setLineDash([8, 2]);
+        context.strokeStyle = '#FFA328';
+        context.globalAlpha = 1.0;
+
+
+        context.stroke();
+
+
+        // context.translate(transform.x, transform.y);
+        // context.scale(transform.k, transform.k);
+        //
+        // const x12 = this.dragStart.ex;
+        // const y12 = this.dragStart.ey;
+        // const x22 = this.dragCurrent.ex;
+        // const y22 = this.dragCurrent.ey;
+        // context.rect(x12, y12, x22 - x12, y22 - y12);
+        // context.strokeStyle = '#D4CE22';
+        // context.stroke();
+      }
+      context.restore();
+    };
+
+    simulation.nodes(tempData.nodes).on('tick', simulationUpdate);
+
+    simulation.force('link').links(tempData.edges);
   };
 
   render() {
@@ -335,13 +399,18 @@ function mapStateToProps(state) {
   return {
     graphData: state.graphReducer.graphData,
     graphTransform: state.graphReducer.graphTransform,
-    graphFidelity: state.graphReducer.graphFidelity
+    graphFidelity: state.graphReducer.graphFidelity,
+    mouseMode: state.graphReducer.mouseMode,
+    // dragCurrent: state.graphReducer.dragCurrent,
+    // dragStart: state.graphReducer.dragStart
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setGraphData: data => dispatch(setGraphData(data)),
+    // setDragStart: data => dispatch(setDragStart(data)),
+    // setDragCurrent: data => dispatch(setDragCurrent(data)),
   };
 }
 

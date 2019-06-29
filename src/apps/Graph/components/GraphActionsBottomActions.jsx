@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import OpenWithIcon from '@material-ui/icons/OpenWith';
+import CropFreeIcon from '@material-ui/icons/CropFree';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import {setMouseMode} from "../../../redux/actions/Graph/graphActions";
 
 const styles = theme => ({
   default: {
@@ -30,44 +32,39 @@ const styles = theme => ({
 });
 
 class GraphActionsBottomActions extends Component {
-  state = {
-    value: 'recents'
-  };
+  // state = {
+  //   value: 'pan'
+  // };
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.props.setMouseMode(value)
+    // this.setState({ value });
   };
 
   render() {
-    const { classes } = this.props;
-    const { value } = this.state;
+    const { classes, mouseMode } = this.props;
 
     return (
       <div className={classes.root}>
         <BottomNavigation
-          value={value}
+          value={mouseMode}
           onChange={this.handleChange}
           className={classes.navigation}
         >
           <BottomNavigationAction
-            label="Recents"
-            value="recents"
-            icon={<RestoreIcon />}
+            label="Pan"
+            value="pan"
+            icon={<OpenWithIcon />}
           />
           <BottomNavigationAction
-            label="Favorites"
-            value="favorites"
-            icon={<FavoriteIcon />}
+            label="Select"
+            value="select"
+            icon={<CropFreeIcon />}
           />
           <BottomNavigationAction
-            label="Nearby"
-            value="nearby"
-            icon={<LocationOnIcon />}
-          />
-          <BottomNavigationAction
-            label="Folder"
-            value="folder"
-            icon={<Icon>folder</Icon>}
+            label="Link"
+            value="link"
+            icon={<DeviceHubIcon />}
           />
         </BottomNavigation>
       </div>
@@ -76,11 +73,15 @@ class GraphActionsBottomActions extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    mouseMode: state.graphReducer.mouseMode
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setMouseMode: (data) => dispatch(setMouseMode(data))
+  };
 }
 
 export default connect(
