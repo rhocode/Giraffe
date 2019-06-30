@@ -4,25 +4,19 @@ import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
 import { getTranslate } from 'react-localize-redux';
 import { connect } from 'react-redux';
 
-const styles = theme => ({
+const styles = () => ({
   canvasContainer: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    overflow: 'hidden'
+    display: "grid",
+    gridTemplateAreas:
+      `"spacerTop"
+       "loader"
+       "spacerBottom"`,
+    gridTemplateRows: "minmax(0, 1fr) auto minmax(0, 1fr)",
+    gridTemplateColumns: "minmax(0, 1fr)",
   },
   canvas: {
+    gridArea: 'loader',
   },
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  headingSpacer: {
-    minHeight: theme.overrides.GraphAppBar.height,
-    width: '100%'
-  }
 });
 
 class Canvas extends Component {
@@ -79,7 +73,7 @@ class Canvas extends Component {
     ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
 
     for (let i = 0; i < numberOfRhombus; i++) {
-      this.drawRhombus(
+      Canvas.drawRhombus(
         ctx,
         starting + i * rhombusWidth,
         0,
@@ -94,7 +88,7 @@ class Canvas extends Component {
       ctx.font = '20px monospace';
       ctx.fillStyle = 'white';
       if (!this.offset % 15) {
-        var rand = Math.floor(Math.random() * loadingTextLength);
+        const rand = Math.floor(Math.random() * loadingTextLength);
         this.setState({
           currentText: this.props.translate('loadingText_message' + rand)
         });
@@ -106,7 +100,7 @@ class Canvas extends Component {
     ctx.restore();
   };
 
-  drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
+  static drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
     context.fillStyle = '#FF9800';
     context.beginPath();
     context.moveTo(xTop, yTop);
@@ -141,7 +135,6 @@ class Canvas extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.container}>
         <div ref={this.canvasContainer} className={classes.canvasContainer}>
           <canvas
             className={classes.canvas}
@@ -152,7 +145,6 @@ class Canvas extends Component {
             height={(this.props.loadingText ? 100 : 50) * this.ratio}
           />
         </div>
-      </div>
     );
   }
 }

@@ -3,11 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Icon from '@material-ui/core/Icon';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {setMouseMode} from "../../../redux/actions/Graph/graphActions";
 
 const styles = theme => ({
@@ -32,13 +30,9 @@ const styles = theme => ({
 });
 
 class GraphActionsBottomActions extends Component {
-  // state = {
-  //   value: 'pan'
-  // };
 
   handleChange = (event, value) => {
     this.props.setMouseMode(value)
-    // this.setState({ value });
   };
 
   render() {

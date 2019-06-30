@@ -6,18 +6,15 @@ import SGCanvas from '../libraries/SGLib/react/SGCanvas';
 
 const styles = theme => ({
   canvasContainer: {
-    flex: 1
+    display: "grid",
+    gridTemplateAreas:
+      `"canvasElement"`,
+    gridTemplateRows: "minmax(0, 1fr)",
+    gridTemplateColumns: "1fr",
+    minWidth: 0,
+    minHeight: 0,
+    // overflow: "hidden"
   },
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  headingSpacer: {
-    minHeight: theme.overrides.GraphAppBar.height,
-    width: '100%'
-  }
 });
 
 class GraphCanvas extends Component {
@@ -43,11 +40,12 @@ class GraphCanvas extends Component {
 
   measureCanvas = () => {
     let rect = this.canvasContainer.current.getBoundingClientRect();
+    console.error(rect)
     if (this.state.width !== rect.width || this.state.height !== rect.height) {
       console.log('SHOULD UPDATE');
       this.setState({
-        width: rect.width,
-        height: rect.height
+        width: rect.width - 1,
+        height: rect.height - 1
       });
     }
   };
@@ -83,17 +81,14 @@ class GraphCanvas extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.container}>
-        <div className={classes.headingSpacer} />
-        <div ref={this.canvasContainer} className={classes.canvasContainer}>
-          {this.state.width && this.state.height ? (
-            <SGCanvas
-              reference={this.canvas}
-              width={this.state.width}
-              height={this.state.height}
-            />
-          ) : null}
-        </div>
+      <div ref={this.canvasContainer} className={classes.canvasContainer}>
+        {this.state.width && this.state.height ? (
+          <SGCanvas
+            reference={this.canvas}
+            width={this.state.width}
+            height={this.state.height}
+          />
+        ) : null}
       </div>
     );
   }

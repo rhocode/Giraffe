@@ -1,4 +1,5 @@
 import {defaultNodeThemeSprite, drawPath} from '../themes/nodeStyle';
+import {GraphEdge} from "./graphEdge";
 
 type Nullable<T> = T | null;
 
@@ -10,8 +11,8 @@ export abstract class GraphNode {
   x: number;
   y: number;
   selected: boolean = false;
-  inputSlots: Nullable<GraphNode>[] = [];
-  outputSlots: Nullable<GraphNode>[] = [];
+  inputSlots: Nullable<GraphEdge>[] = [];
+  outputSlots: Nullable<GraphEdge>[] = [];
   canvas: any;
   context: any;
   zoomedCanvas: any;
@@ -72,7 +73,7 @@ export abstract class GraphNode {
     }
   }
 
-  addSource(source: GraphNode) {
+  addSource(source: GraphEdge) {
     const nextNullIndex: number = this.inputSlots.indexOf(null);
     if (nextNullIndex === -1) {
       throw new Error(`GraphNode ${this.id} is full of inputSlots and cannot add ${source.id}`);
@@ -81,7 +82,7 @@ export abstract class GraphNode {
     this.inputSlots[nextNullIndex] = source;
   }
 
-  addTarget(target: GraphNode) {
+  addTarget(target: GraphEdge) {
     const nextNullIndex: number = this.outputSlots.indexOf(null);
     if (nextNullIndex === -1) {
       throw new Error(`GraphNode ${this.id} is full of outputSlots and cannot add ${target.id}`);
@@ -91,13 +92,16 @@ export abstract class GraphNode {
   }
 
   sortOutputSlots = () =>{
-    this.outputSlots.sort((a: Nullable<GraphNode>, b: Nullable<GraphNode>): number => {
-      if (b === null) {
+    this.outputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
+      if (eb === null) {
         return -1;
       }
-      if (a === null) {
+      if (ea === null) {
         return 1;
       }
+
+      const a = ea.targetNode;
+      const b = eb.targetNode;
 
       const yA = a.fy - this.fy;
       const xA = a.fx - this.fx;
@@ -109,14 +113,17 @@ export abstract class GraphNode {
   };
 
   sortInputSlots= () =>{
-    this.inputSlots.sort((a: Nullable<GraphNode>, b: Nullable<GraphNode>): number => {
+    this.inputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
 
-      if (b === null) {
+      if (eb === null) {
         return -1;
       }
-      if (a === null) {
+      if (ea === null) {
         return 1;
       }
+
+      const a = ea.sourceNode;
+      const b = eb.sourceNode;
 
       const yA = this.fy - a.fy;
       const xA = this.fx - a.fx;
@@ -127,12 +134,31 @@ export abstract class GraphNode {
     })
   };
 
-  abstract drawPathToTarget(context: any, target: MachineNode, sourceIndex: number, useIndex: number): void;
+  abstract drawPathToTarget(context: any, target: GraphEdge): void;
 
   sortSlots = () => {
     this.sortInputSlots();
     this.sortOutputSlots();
   };
+
+  sortConnectedNodeSlots = () => {
+    const nodeSorted: any = {};
+    this.inputSlots.forEach(edge => {
+      if (!edge) return;
+      const node = edge.sourceNode;
+      nodeSorted[node.id] = nodeSorted[node.id] + 1 || 0;
+      if (!nodeSorted[node.id]) {
+        node.sortOutputSlots();
+      }
+    });
+    this.outputSlots.forEach(edge => {
+      if (!edge) return;
+      const node = edge.targetNode;
+      if (!nodeSorted[node.id]) {
+        node.sortInputSlots();
+      }
+    });
+  }
 }
 
 export default class MachineNode extends GraphNode {
@@ -154,8 +180,8 @@ export default class MachineNode extends GraphNode {
     this.outputSlots = [null, null, null];
   }
 
-  drawPathToTarget(context: any, target: MachineNode, sourceIndex: number, useIndex: number = 0): void {
-    drawPath(context, this, target, sourceIndex, useIndex);
+  drawPathToTarget(context: any, target: GraphEdge): void {
+    drawPath(context, this, target);
   }
 
   serialize() {
@@ -180,13 +206,13 @@ export default class MachineNode extends GraphNode {
     debugContext.restore();
   }
 
-  lowRender(context: any): void {
+  lowRender(context: any, selected: boolean = false): void {
     context.save();
     context.drawImage(this.zoomedCanvas, this.fx, this.fy, this.canvas.width, this.canvas.height);
     context.restore();
   }
 
-  render(context: any, transform: any): void {
+  render(context: any, transform: any, selected: boolean = false): void {
     context.save();
     context.drawImage(this.canvas, this.fx * transform.k, this.fy * transform.k);
     context.restore();

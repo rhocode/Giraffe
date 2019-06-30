@@ -4,23 +4,23 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 
 const styles = theme => ({
-  appBarUpdateAvailable: {
-    zIndex: theme.zIndex.drawer + 1,
-    minHeight: theme.overrides.GraphAppBar.height,
-    marginTop: theme.overrides.common.HeaderMessaging.height,
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    minHeight: theme.overrides.GraphAppBar.height
+    minHeight: theme.overrides.GraphAppBar.height,
+    gridArea: 'header',
+    position: 'inherit',
+    top: 'auto',
+    left: 'auto',
+    right: 'auto'
   }
 });
 
 class GraphAppBar extends Component {
   render() {
-    const { classes, updateAvailable } = this.props;
+    const { classes } = this.props;
 
     return (
-      <AppBar position="fixed" className={updateAvailable ? classes.appBarUpdateAvailable : classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         Hello!
       </AppBar>
     );
@@ -28,8 +28,7 @@ class GraphAppBar extends Component {
 }
 
 
-const mapStateToProps = state => ({
-  updateAvailable: state.commonReducer.updateAvailable
+const mapStateToProps = () => ({
 });
 
 export default connect(

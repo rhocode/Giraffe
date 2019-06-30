@@ -7,7 +7,7 @@ export default class SerializationHelper {
     if (typeof anyObj['fromJSON'] === 'function') {
       anyObj['fromJSON'](jsonObj);
     } else {
-      for (var propName in jsonObj) {
+      for (const propName in jsonObj) {
         anyObj[propName] = jsonObj[propName];
       }
     }

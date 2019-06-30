@@ -3,8 +3,26 @@ import {connect} from 'react-redux';
 import * as d3 from 'd3';
 import {stringGen} from '../utils/stringUtils';
 import MachineNode, {GraphNode} from '../datatypes/graphNode';
-import {setDragCurrent, setDragStart, setGraphData} from '../../../../../redux/actions/Graph/graphActions';
+import {setGraphData} from '../../../../../redux/actions/Graph/graphActions';
+import {GraphEdge} from "../datatypes/graphEdge";
+import {withStyles} from "@material-ui/core";
 
+const styles = () => ({
+  // canvasContainer: {
+  //   display: "grid",
+  //   gridTemplateAreas:
+  //     `"spacerTop"
+  //      "loader"
+  //      "spacerBottom"`,
+  //   gridTemplateRows: "1fr auto 1fr",
+  //   gridTemplateColumns: "1fr",
+  // },
+  canvas: {
+    gridArea: 'canvasElement',
+    minWidth: 0,
+    minHeight: 0
+  },
+});
 class SGCanvas extends Component {
   constructor(props) {
     super(props);
@@ -56,34 +74,23 @@ class SGCanvas extends Component {
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
-      edges.push({source: nodes[i].id, target: nodes[i + 1].id});
+      edges.push(new GraphEdge(nodes[i], nodes[i + 1]));
     }
 
-    edges.push({source: nodes[0].id, target: nodes[1].id});
-    edges.push({source: nodes[1].id, target: nodes[3].id});
-    edges.push({source: nodes[1].id, target: nodes[3].id});
-    edges.push({source: nodes[3].id, target: nodes[4].id});
+    edges.push(new GraphEdge(nodes[0], nodes[1]));
+    edges.push(new GraphEdge(nodes[1], nodes[3]));
+    edges.push(new GraphEdge(nodes[1], nodes[3]));
+    edges.push(new GraphEdge(nodes[3], nodes[4]));
 
     const data = {
       nodes: nodes,
       edges: edges
-        // [{ source: mn1.id, target: mn2.id }]
     };
 
     const nodeMapping = {};
     data.nodes.forEach(node => {
       nodeMapping[node.id] = node;
     });
-
-    // resolveEdges
-    data.edges.forEach(edge => {
-      const source = nodeMapping[edge.source];
-      const target = nodeMapping[edge.target];
-      source.addTarget(target);
-      target.addSource(source);
-    });
-
-    // console.error(data, "AAAAAAAA");
 
     data.nodes.forEach(node => {
       node.sortSlots();
@@ -146,7 +153,7 @@ class SGCanvas extends Component {
       const point = d3.mouse(context),
         p = { x: point[0], y: point[1] };
 
-      // console.error(p);
+      console.error(p);
     };
 
     const dragSubject =() => {
@@ -233,21 +240,8 @@ class SGCanvas extends Component {
       const subject = d3.event.subject;
 
       if (subject instanceof GraphNode) {
-        const nodeSorted = {};
         subject.sortSlots();
-        subject.inputSlots.forEach(node => {
-          if (!node) return;
-          nodeSorted[node.id] = nodeSorted[node.id] + 1 || 0;
-          if (!nodeSorted[node.id]) {
-            node.sortOutputSlots();
-          }
-        });
-        subject.outputSlots.forEach(node => {
-          if (!node) return;
-          if (!nodeSorted[node.id]) {
-            node.sortInputSlots();
-          }
-        });
+        subject.sortConnectedNodeSlots();
       }
 
 
@@ -318,16 +312,17 @@ class SGCanvas extends Component {
 
       context.save();
       context.scale(transform.k, transform.k);
+      context.globalAlpha = 0.2;
+
+      context.lineCap = "round";
       tempData.nodes.forEach(node => {
-        const visitedNodes = {};
-        node.outputSlots.forEach((targetNode, index) => {
-          if (!targetNode) return;
-          visitedNodes[targetNode.id] = visitedNodes[targetNode.id] + 1 || 0;
-          node.drawPathToTarget(context, targetNode, index, visitedNodes[targetNode.id]);
+        node.outputSlots.forEach((edge) => {
+          if (!edge) return;
+          node.drawPathToTarget(context, edge);
         });
       });
       context.restore();
-
+      context.globalAlpha = 0.1;
       if (graphFidelity === 'low') {
         context.scale(transform.k, transform.k);
         tempData.nodes.forEach(function(d) {
@@ -341,26 +336,24 @@ class SGCanvas extends Component {
 
       context.restore();
       context.save();
-      // context.translate(transform.x, transform.y);
-      // context.scale(transform.k, transform.k);
+
+      // Draw selection rect
       if (this.dragStart && this.dragCurrent) {
-        // console.error(this.dragStart, this.dragCurrent);
+        context.save();
         const x1 = this.dragStart.x;
         const y1 = this.dragStart.y;
         const x2 = this.dragCurrent.x;
         const y2 = this.dragCurrent.y;
 
-        context.globalAlpha = 0.2;
+        context.globalAlpha = 0.15;
         context.fillStyle = '#FFA328';
-        context.rect(x1, y1, x2 - x1, y2 - y1);
-        context.fill();
+        context.fillRect(x1, y1, x2 - x1, y2 - y1);
 
         context.setLineDash([8, 2]);
         context.strokeStyle = '#FFA328';
         context.globalAlpha = 1.0;
 
-
-        context.stroke();
+        context.strokeRect(x1, y1, x2 - x1, y2 - y1);
 
 
         // context.translate(transform.x, transform.y);
@@ -373,6 +366,7 @@ class SGCanvas extends Component {
         // context.rect(x12, y12, x22 - x12, y22 - y12);
         // context.strokeStyle = '#D4CE22';
         // context.stroke();
+        context.restore();
       }
       context.restore();
     };
@@ -385,6 +379,7 @@ class SGCanvas extends Component {
   render() {
     return (
       <canvas
+        className={this.props.classes.canvas}
         style={{ display: 'block' }}
         id={this.canvasId}
         ref={this.props.reference}
@@ -417,4 +412,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SGCanvas);
+)(withStyles(styles)(SGCanvas));

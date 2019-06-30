@@ -24,7 +24,7 @@ import {
   addTableRow,
   removeAllLocalChangesForTableRow,
   removeLocalChange
-} from 'redux/actions/Lab/labActions';
+} from '../../../../../redux/actions/Lab/labActions';
 import { unpackComplexObject } from '../datatypes/internal/FirebaseDataType';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
@@ -172,7 +172,7 @@ class FormRenderer extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const local = this.props.localChanges;
     const { renderedItem, table } = this.props;
     const object = renderedItem.getFirebaseId();

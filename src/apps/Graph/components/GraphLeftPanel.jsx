@@ -11,7 +11,7 @@ const styles = theme => ({
 });
 
 class GraphLeftPanel extends Component {
-  generateLotsOfText() {
+  static generateLotsOfText() {
     const divList = [];
     for (let i = 0; i < 600; i++) {
       divList.push(<div key={i}>i</div>);
@@ -34,7 +34,7 @@ class GraphLeftPanel extends Component {
           paper: classes.drawer
         }}
       >
-        {this.generateLotsOfText()}
+        {GraphLeftPanel.generateLotsOfText()}
       </Drawer>
     );
   }

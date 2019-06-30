@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -14,10 +12,12 @@ const styles = theme => {
       minHeight: theme.overrides.GraphAppBar.height
     },
     container: {
-      height: '100%',
-      width: '100%',
-      background: 'black',
-      display: 'flex'
+      gridArea: 'body',
+      display: "grid",
+      gridTemplateAreas:
+        `"fullHeight"`,
+      gridTemplateRows: "1fr",
+      gridTemplateColumns: "1fr",
     }
   };
 };

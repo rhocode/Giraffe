@@ -8,18 +8,20 @@ const styles = theme => ({
   container: {
     backgroundColor: theme.palette.primary.dark,
     height: theme.overrides.common.HeaderMessaging.height,
-    flexGrow: 0,
-    flexShrink: 0,
-    flexBasis: theme.overrides.common.HeaderMessaging.height,
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
+    gridArea: 'update',
     textAlign: 'center',
     cursor: 'pointer',
     zIndex: theme.zIndex.drawer + 2,
+    display: "table",
+    overflow: "hidden"
   },
   invisible: {
+    gridArea: 'update',
     display: 'none'
+  },
+  messaging: {
+    display: "table-cell",
+    verticalAlign: 'middle'
   }
 });
 
@@ -33,7 +35,7 @@ function HeaderMessaging(props){
 
   return (
     <div onClick={update} className={assetsUpdateReady ? props.classes.container :  props.classes.invisible}>
-        {props.translate('headerMessaging_newData')}
+      <div className={props.classes.messaging}>{props.translate('headerMessaging_newData')}</div>
     </div>
   );
 }

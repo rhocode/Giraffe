@@ -17,11 +17,10 @@ const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
 const LabApp = AsyncComponent(import('../../apps/Lab/LabApp'));
 
-
 class DebugRouter extends Router {
   constructor(props){
     super(props);
-    console.log('initial history is: ', JSON.stringify(this.history, null,2))
+    console.log('initial history is: ', JSON.stringify(this.history, null,2));
     this.history.listen((location, action)=>{
       console.log(
         `The current URL is ${location.pathname}${location.search}${location.hash}`
@@ -32,7 +31,6 @@ class DebugRouter extends Router {
 }
 
 const ReactRouter = process.env.NODE_ENV === 'production' ? Router : DebugRouter;
-
 
 class AppWrapper extends Component {
   render() {
@@ -49,13 +47,27 @@ class AppWrapper extends Component {
   }
 }
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column'
+    height: "100%",
+    width: "100%",
+    display: "grid",
+    gridTemplateAreas:
+      `"update"
+       "appBody"
+       "siteFooter"`,
+    gridTemplateRows: "auto minmax(0, 1fr) auto",
+    gridTemplateColumns: "minmax(0, 1fr)",
   },
+  body: {
+    gridArea: 'appBody',
+    display: "grid",
+    gridTemplateAreas:
+      `"body"`,
+    gridTemplateRows: "minmax(0, 1fr)",
+    gridTemplateColumns: "minmax(0, 1fr)",
+    // overflow: 'hidden'
+  }
 });
 
 class App extends Component {
@@ -123,7 +135,9 @@ class App extends Component {
         <AppWrapper>
           <div id={'mainRootDiv'} className={classes.root}>
             <HeaderMessaging />
-            {App.resolveDomain()}
+            <div className={classes.body}>
+              {App.resolveDomain()}
+            </div>
           </div>
         </AppWrapper>
     );
