@@ -40,6 +40,10 @@ export abstract class GraphNode {
     this.preRender();
   }
 
+  setSelected(option: boolean) {
+    this.selected = option;
+  }
+
   serialize() {
     return {
       id: this.id,
@@ -50,13 +54,27 @@ export abstract class GraphNode {
     }
   };
 
-  isInBoundingBox(x: number, y: number) {
+  public intersectsPoint(x: number, y: number) {
     const lowerX = this.fx + this.xRenderBuffer;
     const upperX = this.fx + this.width;
     const lowerY = this.fy + this.yRenderBuffer;
     const upperY = this.fy + this.height;
 
     return (lowerX <= x && x <= upperX) && (lowerY <= y && y <= upperY)
+  }
+
+  public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
+    const lowerXRect = Math.min(x1, x2);
+    const upperXRect = Math.max(x1, x2);
+    const lowerYRect = Math.min(y1, y2);
+    const upperYRect = Math.max(y1, y2);
+
+    const lowerX = this.fx + this.xRenderBuffer;
+    const upperX = this.fx + this.width;
+    const lowerY = this.fy + this.yRenderBuffer;
+    const upperY = this.fy + this.height;
+
+    return (lowerXRect <= lowerX && upperX <= upperXRect) && (lowerYRect <= lowerY && upperY <= upperYRect)
   }
 
   abstract render(context: any, transform: any): void;

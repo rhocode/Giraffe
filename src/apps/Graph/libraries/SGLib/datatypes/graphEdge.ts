@@ -30,4 +30,18 @@ export abstract class GraphEdge {
     this.x2 = x2;
     this.y2 = y2;
   }
+
+  public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
+    const lowerXRect = Math.min(x1, x2);
+    const upperXRect = Math.max(x1, x2);
+    const lowerYRect = Math.min(y1, y2);
+    const upperYRect = Math.max(y1, y2);
+
+    const lowerX = Math.min(this.x1, this.x2);
+    const upperX = Math.max(this.x1, this.x2);
+    const lowerY = Math.min(this.y1, this.y2);
+    const upperY = Math.max(this.y1, this.y2);
+
+    return (lowerXRect <= lowerX && upperX <= upperXRect) && (lowerYRect <= lowerY && upperY <= upperYRect)
+  }
 }

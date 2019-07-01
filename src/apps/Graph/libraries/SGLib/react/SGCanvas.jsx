@@ -33,6 +33,8 @@ class SGCanvas extends Component {
       loaded: false,
     };
     this.k = 1;
+    this.selectedNodes = {};
+    this.selectedEdges = {};
   }
 
   initializeSGLib() {}
@@ -97,7 +99,6 @@ class SGCanvas extends Component {
     });
 
     this.props.setGraphData(data);
-    this.initGraph(data);
   }
 
   componentDidUpdate = () => {
@@ -116,19 +117,18 @@ class SGCanvas extends Component {
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
-    this.initGraph(this.props.graphData);
+    this.initGraph();
     this.simulation.restart(0.3);
   };
 
-  initGraph = tempData => {
-
+  initGraph = () => {
     let { graphCanvas, simulation } = this;
     const context = this.graphContext;
     const { width, height, graphData, graphFidelity } = this.props;
 
     const thisAccessor = this;
 
-    tempData.nodes.forEach(node => {
+    graphData.nodes.forEach(node => {
       node.preRender(this.transform);
     });
 
@@ -167,14 +167,14 @@ class SGCanvas extends Component {
         return {x: d3.event.x, y: d3.event.y};
       }
 
-      for (i = tempData.nodes.length - 1; i >= 0; --i) {
-        const node = tempData.nodes[i];
+      for (i = graphData.nodes.length - 1; i >= 0; --i) {
+        const node = graphData.nodes[i];
         node.fx = node.x;
         node.fy = node.y;
       }
 
-      for (i = tempData.nodes.length - 1; i >= 0; --i) {
-        const node = tempData.nodes[i];
+      for (i = graphData.nodes.length - 1; i >= 0; --i) {
+        const node = graphData.nodes[i];
         // dx = x - node.x;
         // dy = y - node.y;
         // context.save();
@@ -182,7 +182,7 @@ class SGCanvas extends Component {
         // context.rect(300, 300, 600, 600);
         // context.fill();
         // context.restore();
-        if (node.isInBoundingBox(x, y)) {
+        if (node.intersectsPoint(x, y)) {
             node.x = transform.applyX(node.x);
             node.y = transform.applyY(node.y);
           return node;
@@ -199,7 +199,7 @@ class SGCanvas extends Component {
 
     };
 
-    const dragStart = ()  =>{
+    const dragStartFunc = ()  =>{
 
       const transform = thisAccessor.transform;
 
@@ -218,14 +218,14 @@ class SGCanvas extends Component {
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
       //
-      // for (let i = tempData.nodes.length - 1; i >= 0; --i) {
-      //   const node = tempData.nodes[i];
+      // for (let i = graphData.nodes.length - 1; i >= 0; --i) {
+      //   const node = graphData.nodes[i];
       //   node.fx = node.x - deltaX;
       //   node.fy = node.y - deltaY;
       // }
     };
 
-    const dragged = () => {
+    const draggedFunc = () => {
       const transform = thisAccessor.transform;
       const x = transform.invertX(d3.event.x);
       const y = transform.invertY(d3.event.y);
@@ -248,25 +248,45 @@ class SGCanvas extends Component {
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
       //
-      // for (let i = tempData.nodes.length - 1; i >= 0; --i) {
-      //   const node = tempData.nodes[i];
+      // for (let i = graphData.nodes.length - 1; i >= 0; --i) {
+      //   const node = graphData.nodes[i];
       //   node.fx = node.x - deltaX;
       //   node.fy = node.y - deltaY;
       // }
     };
 
-    const dragEnd = () => {
+    const dragEndFunc = () => {
       if (!d3.event.active) simulation.alphaTarget(0);
 
       if (this.props.mouseMode === 'select') {
         // TODO: Selection logic
+
+        this.selectedNodes = {};
+        this.selectedEdges = {};
+        const x1 = this.dragStart.ex;
+        const y1 = this.dragStart.ey;
+        const x2 = (this.dragCurrent || this.dragStart).ex;
+        const y2 = (this.dragCurrent || this.dragStart).ey;
+
+        graphData.nodes.forEach(node => {
+          if (node.intersectsRect(x1, y1, x2, y2)) {
+            this.selectedNodes[node.id] = node;
+          }
+        });
+
+        graphData.edges.forEach(edge => {
+          if (edge.intersectsRect(x1, y1, x2, y2)) {
+            this.selectedEdges[edge.id] = edge;
+          }
+        });
+
         this.dragStart = null;
         this.dragCurrent = null;
         return;
       }
 
-      for (let i = tempData.nodes.length - 1; i >= 0; --i) {
-        const node = tempData.nodes[i];
+      for (let i = graphData.nodes.length - 1; i >= 0; --i) {
+        const node = graphData.nodes[i];
         // node.fx = node.x - deltaX;
         // node.fy = node.y - deltaY;
         node.x = node.fx;
@@ -284,9 +304,9 @@ class SGCanvas extends Component {
         d3
           .drag()
           .subject(dragSubject)
-          .on('start', dragStart)
-          .on('drag', dragged)
-          .on('end', dragEnd)
+          .on('start', dragStartFunc)
+          .on('drag', draggedFunc)
+          .on('end', dragEndFunc)
       )
       .on('click', function() {
         clicked(this);
@@ -304,42 +324,72 @@ class SGCanvas extends Component {
       context.save();
 
       context.clearRect(0, 0, width, height);
-      // context.translate(transform.x, transform.y);
-      // context.scale(transform.k, transform.k);
-
-
       context.translate(transform.x, transform.y);
 
       context.save();
-      context.scale(transform.k, transform.k);
-      context.globalAlpha = 0.2;
-
       context.lineCap = "round";
-      tempData.nodes.forEach(node => {
-        node.outputSlots.forEach((edge) => {
-          if (!edge) return;
-          node.drawPathToTarget(context, edge);
-        });
+
+      context.globalAlpha = 1.0;
+      context.scale(transform.k, transform.k);
+
+      Object.keys(this.selectedEdges).forEach(edgeId => {
+        const edge = this.selectedEdges[edgeId];
+        const startNode = edge.sourceNode;
+        startNode.drawPathToTarget(context, edge);
+      });
+
+      if ( Object.keys(this.selectedEdges).length > 0 ||  Object.keys(this.selectedNodes).length > 0) {
+        // Only make transparency if there are selected edges or nodes.
+        context.globalAlpha = 0.2;
+      }
+
+      graphData.edges.forEach(edge => {
+        // Skip rendering this edge if we have already rendered;
+        if (this.selectedEdges[edge.id]) return;
+        const startNode = edge.sourceNode;
+        startNode.drawPathToTarget(context, edge);
       });
       context.restore();
-      context.globalAlpha = 0.1;
+
+      context.globalAlpha = 1.0;
+
+      context.save();
       if (graphFidelity === 'low') {
         context.scale(transform.k, transform.k);
-        tempData.nodes.forEach(function(d) {
-          d.lowRender(context);
+
+        Object.keys(this.selectedNodes).forEach(nodeId => {
+          this.selectedNodes[nodeId].lowRender(context);
         });
       } else {
-        tempData.nodes.forEach(function(d) {
-          d.render(context, transform);
+        Object.keys(this.selectedNodes).forEach(nodeId => {
+          this.selectedNodes[nodeId].render(context, transform);
         });
       }
 
       context.restore();
-      context.save();
 
+      if ( Object.keys(this.selectedEdges).length > 0 ||  Object.keys(this.selectedNodes).length > 0) {
+        // Only make transparency if there are selected edges or nodes.
+        context.globalAlpha = 0.2;
+      }
+
+      context.save();
+      if (graphFidelity === 'low') {
+        context.scale(transform.k, transform.k);
+        graphData.nodes.forEach(function(d) {
+          d.lowRender(context);
+        });
+      } else {
+        graphData.nodes.forEach(function(d) {
+          d.render(context, transform);
+        });
+      }
+      context.restore();
+
+      context.restore();
+      context.save();
       // Draw selection rect
       if (this.dragStart && this.dragCurrent) {
-        context.save();
         const x1 = this.dragStart.x;
         const y1 = this.dragStart.y;
         const x2 = this.dragCurrent.x;
@@ -354,26 +404,13 @@ class SGCanvas extends Component {
         context.globalAlpha = 1.0;
 
         context.strokeRect(x1, y1, x2 - x1, y2 - y1);
-
-
-        // context.translate(transform.x, transform.y);
-        // context.scale(transform.k, transform.k);
-        //
-        // const x12 = this.dragStart.ex;
-        // const y12 = this.dragStart.ey;
-        // const x22 = this.dragCurrent.ex;
-        // const y22 = this.dragCurrent.ey;
-        // context.rect(x12, y12, x22 - x12, y22 - y12);
-        // context.strokeStyle = '#D4CE22';
-        // context.stroke();
-        context.restore();
       }
       context.restore();
     };
 
-    simulation.nodes(tempData.nodes).on('tick', simulationUpdate);
+    simulation.nodes(graphData.nodes).on('tick', simulationUpdate);
 
-    simulation.force('link').links(tempData.edges);
+    simulation.force('link').links(graphData.edges);
   };
 
   render() {

@@ -27,7 +27,6 @@ class GraphCanvas extends Component {
       width: 0,
       height: 0
     };
-    console.log(this.props);
   }
 
   componentWillMount() {
@@ -40,9 +39,7 @@ class GraphCanvas extends Component {
 
   measureCanvas = () => {
     let rect = this.canvasContainer.current.getBoundingClientRect();
-    console.error(rect)
     if (this.state.width !== rect.width || this.state.height !== rect.height) {
-      console.log('SHOULD UPDATE');
       this.setState({
         width: rect.width - 1,
         height: rect.height - 1
