@@ -150,10 +150,27 @@ class SGCanvas extends Component {
         return;
       }
 
-      const point = d3.mouse(context),
-        p = { x: point[0], y: point[1] };
+      const transform = this.transform;
 
-      console.error(p);
+      const x = transform.invertX(d3.event.x);
+      const y = transform.invertY(d3.event.y);
+
+      const selectedNodeKeys = Object.keys(this.selectedNodes);
+
+      if (this.props.mouseMode === 'pan' && selectedNodeKeys.length) {
+        for (let i = 0; i < selectedNodeKeys.length; i++) {
+          const node = this.selectedNodes[selectedNodeKeys[i]];
+          if (node.intersectsPoint(x, y)) {
+            // console.error("AAAAAAAAAA",x, y);
+            return; // noop for now
+          }
+        }
+      }
+
+      console.error(x, y);
+      this.selectedNodes = {};
+      this.selectedEdges = {};
+      simulationUpdate();
     };
 
     const dragSubject =() => {
@@ -167,6 +184,27 @@ class SGCanvas extends Component {
         return {x: d3.event.x, y: d3.event.y};
       }
 
+      const selectedNodeKeys = Object.keys(this.selectedNodes);
+
+      let draggingGroup = false;
+
+      if (this.props.mouseMode === 'pan' && selectedNodeKeys.length) {
+        for (i = 0; i < selectedNodeKeys.length; i++) {
+          const node = this.selectedNodes[selectedNodeKeys[i]];
+          if (node.intersectsPoint(x, y)) {
+            draggingGroup = true;
+          }
+          node.x = node.fx;
+          node.y = node.fy;
+          node.dx = node.fx;
+          node.dy = node.fy;
+        }
+      }
+
+      if (draggingGroup) {
+        return {x: d3.event.x, y: d3.event.y};
+      }
+
       for (i = graphData.nodes.length - 1; i >= 0; --i) {
         const node = graphData.nodes[i];
         node.fx = node.x;
@@ -175,28 +213,14 @@ class SGCanvas extends Component {
 
       for (i = graphData.nodes.length - 1; i >= 0; --i) {
         const node = graphData.nodes[i];
-        // dx = x - node.x;
-        // dy = y - node.y;
-        // context.save();
-        // context.fillStyle = "red";
-        // context.rect(300, 300, 600, 600);
-        // context.fill();
-        // context.restore();
         if (node.intersectsPoint(x, y)) {
             node.x = transform.applyX(node.x);
             node.y = transform.applyY(node.y);
-          return node;
+            this.selectedNodes = {};
+            this.selectedEdges = {};
+            return node;
         }
-        // console.error(x, y)
-        //
-        // if (dx * dx + dy * dy < radius * radius) {
-        //   node.x = transform.applyX(node.x);
-        //   node.y = transform.applyY(node.y);
-        //
-        //   return node;
-        // }
       }
-
     };
 
     const dragStartFunc = ()  =>{
@@ -215,6 +239,10 @@ class SGCanvas extends Component {
         this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y };
       }
 
+      // if (this.props.mouseMode === 'pan' && ) {
+      //   this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y };
+      // }
+      //
       // const deltaX = d3.event.subject.x - d3.event.subject.fx;
       // const deltaY = d3.event.subject.y - d3.event.subject.fy;
       //
@@ -230,9 +258,6 @@ class SGCanvas extends Component {
       const x = transform.invertX(d3.event.x);
       const y = transform.invertY(d3.event.y);
 
-      d3.event.subject.fx = x;
-      d3.event.subject.fy = y;
-
       if (this.props.mouseMode === 'select') {
         this.dragCurrent = {x: d3.event.x, y: d3.event.y, ex: x, ey: y};
       }
@@ -240,19 +265,23 @@ class SGCanvas extends Component {
       const subject = d3.event.subject;
 
       if (subject instanceof GraphNode) {
+        subject.fx = x;
+        subject.fy = y;
         subject.sortSlots();
         subject.sortConnectedNodeSlots();
+      } else if (this.props.mouseMode !== 'select' && Object.keys(this.selectedNodes).length){
+        // It's a grouping of nodes
+        Object.keys(this.selectedNodes).forEach(key => {
+          const node = this.selectedNodes[key];
+          node.fx = node.dx - (transform.invertX(subject.x) - transform.invertX(d3.event.x));
+          node.fy = node.dy - (transform.invertY(subject.y) - transform.invertY(d3.event.y));
+          node.sortSlots();
+          node.sortConnectedNodeSlots();
+        });
+      } else {
+        subject.fx = x;
+        subject.fy = y;
       }
-
-
-      // const deltaX = d3.event.subject.x - d3.event.subject.fx;
-      // const deltaY = d3.event.subject.y - d3.event.subject.fy;
-      //
-      // for (let i = graphData.nodes.length - 1; i >= 0; --i) {
-      //   const node = graphData.nodes[i];
-      //   node.fx = node.x - deltaX;
-      //   node.fy = node.y - deltaY;
-      // }
     };
 
     const dragEndFunc = () => {
@@ -285,10 +314,14 @@ class SGCanvas extends Component {
         return;
       }
 
+      this.dragStart = null;
+      this.dragCurrent = null;
+
       for (let i = graphData.nodes.length - 1; i >= 0; --i) {
         const node = graphData.nodes[i];
         // node.fx = node.x - deltaX;
         // node.fy = node.y - deltaY;
+        console.error("ENDED");
         node.x = node.fx;
         node.y = node.fy;
         // node.fx = null;
