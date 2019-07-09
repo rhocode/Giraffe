@@ -8,15 +8,6 @@ import {GraphEdge} from "../datatypes/graphEdge";
 import {withStyles} from "@material-ui/core";
 
 const styles = () => ({
-  // canvasContainer: {
-  //   display: "grid",
-  //   gridTemplateAreas:
-  //     `"spacerTop"
-  //      "loader"
-  //      "spacerBottom"`,
-  //   gridTemplateRows: "1fr auto 1fr",
-  //   gridTemplateColumns: "1fr",
-  // },
   canvas: {
     gridArea: 'canvasElement',
     minWidth: 0,

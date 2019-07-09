@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
 import { getTranslate } from 'react-localize-redux';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 const styles = () => ({
   canvasContainer: {
+    overflow: "hidden",
     display: "grid",
     gridTemplateAreas:
       `"spacerTop"
        "loader"
        "spacerBottom"`,
-    gridTemplateRows: "minmax(0, 1fr) auto minmax(0, 1fr)",
+    gridTemplateRows: "minmax(0, 1fr) min-content minmax(0, 1fr)",
     gridTemplateColumns: "minmax(0, 1fr)",
   },
   canvas: {
@@ -19,138 +21,163 @@ const styles = () => ({
   },
 });
 
-class Canvas extends Component {
-  constructor(props) {
-    super(props);
-    this.canvas = React.createRef();
-    this.canvasContainer = React.createRef();
+function useBoundingBoxRect(props) {
+  const [rect, setRect] = useState({
+    width: 0,
+    height: 0
+  });
 
-    this.state = {
-      width: 0,
-      height: 0,
-      currentText: 'Loading...'
+  const [canvasContainerCurrent, setCanvasContainerCurrent] = useState(null);
+  const [canvasCurrent, setCanvasCurrent] = useState(null);
+
+  const ref = useCallback((node => {
+    setCanvasContainerCurrent(node);
+  }), []);
+
+  const canvasRef = useCallback((node => {
+    setCanvasCurrent(node);
+  }), []);
+
+  const {heightOverride, widthOverride} = props;
+
+  useEffect(() => {
+    function measureElement() {
+      if (canvasContainerCurrent) {
+        const boundingRect = canvasContainerCurrent.getBoundingClientRect();
+        if (canvasCurrent) {
+          canvasCurrent.style.width = Math.round(widthOverride || rect.width) + 'px';
+          canvasCurrent.style.height =  Math.round(heightOverride || rect.height) + 'px';
+        }
+        if (boundingRect.width !== rect.width || boundingRect.height !== rect.height ) {
+          setRect(boundingRect);
+        }
+      }
+    }
+    measureElement();
+    window.addEventListener('resize', measureElement, false);
+    return () => window.removeEventListener('resize', measureElement, false);
+  }, [rect, canvasCurrent, canvasContainerCurrent, heightOverride, widthOverride]);
+
+  const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
+
+  return [rect, ref, canvasRef, canvasContext];
+}
+
+const useAnimationFrame = callback => {
+  const callbackRef = useRef(callback);
+  useLayoutEffect (
+    () => {
+      callbackRef.current = callback;
+    },
+    [callback]
+  );
+
+  const frameRef = useRef();
+  useLayoutEffect(() => {
+    const loop = () => {
+      frameRef.current = requestAnimationFrame(
+        loop
+      );
+      const cb = callbackRef.current;
+      cb();
     };
 
-    this.timer = null;
-    this.offset = 0;
+    frameRef.current = requestAnimationFrame(
+      loop
+    );
+    return () =>
+      cancelAnimationFrame(frameRef.current);
+  }, []);
+};
 
-    this.canvasId = stringGen(10);
-    this.ratio =  window.devicePixelRatio || 1;
-  }
+function drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
+  context.fillStyle = '#FF9800';
+  context.beginPath();
+  context.moveTo(xTop, yTop);
+  context.lineTo(xTop + rhombusWidth / 2, yTop);
+  context.lineTo(xTop + rhombusWidth, yTop + rhombusHeight);
+  context.lineTo(xTop + rhombusWidth / 2, yTop + rhombusHeight);
+  context.closePath();
+  context.fill();
+}
 
-  componentWillMount() {
-    window.addEventListener('resize', this.measureCanvas, false);
-    this.drawRowOfRhombus();
-  }
+const LoadingCanvas = (props) => {
+  const canvasId = useMemo(() => stringGen(10), []);
+  const [rect, ref, canvasRef, canvasContext] = useBoundingBoxRect(props);
+  const ratio =  window.devicePixelRatio || 1;
+  const {heightOverride, widthOverride} = props;
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.measureCanvas, false);
-    window.cancelAnimationFrame(this.animation);
-  }
+  const [loadingText, setLoadingText] = useState(props.translate('loadingText_message0'));
+  const [offset, setOffset] = useState(0);
 
-  drawRowOfRhombus = () => {
-    this.animation = requestAnimationFrame(this.drawRowOfRhombus);
-    if (!this.canvas.current) {
+  const usedHeight = heightOverride || rect.height;
+  const usedWidth = widthOverride || rect.width;
+
+  useAnimationFrame(() => {
+    if (!canvasContext)
       return;
-    }
 
-    const ctx = this.canvas.current.getContext('2d');
-    ctx.save();
-    ctx.scale(this.ratio, this.ratio);
+    canvasContext.save();
+    canvasContext.scale(ratio, ratio);
 
-    const width = this.state.width;
-    const offset = this.offset;
+    const width = usedWidth;
 
     const rhombusHeight = 50;
     const rhombusWidth = 100;
     const numberOfRhombus = width / rhombusWidth + 2;
     const loadingTextLength = 12;
 
-    this.offset = (offset - 1) % rhombusWidth;
+    setOffset((offset - 1) % rhombusWidth);
 
-    const starting = this.offset - rhombusWidth;
+    const starting = offset - rhombusWidth;
+    canvasContext.clearRect(0, 0, usedWidth, usedHeight);
+      //
+      for (let i = 0; i < numberOfRhombus; i++) {
+        drawRhombus(
+          canvasContext,
+          starting + i * rhombusWidth,
+          0,
+          rhombusHeight,
+          rhombusWidth
+        );
+      }
+      //
+      if (props.loadingText) {
+        canvasContext.textBaseline = 'middle';
+        canvasContext.textAlign = 'center';
+        canvasContext.font = '20px monospace';
+        canvasContext.fillStyle = 'white';
+        if (!(offset % 15)) {
+          const rand = Math.floor(Math.random() * loadingTextLength);
+          setLoadingText(props.translate('loadingText_message' + rand));
+        }
 
-    ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
-
-    for (let i = 0; i < numberOfRhombus; i++) {
-      Canvas.drawRhombus(
-        ctx,
-        starting + i * rhombusWidth,
-        0,
-        rhombusHeight,
-        rhombusWidth
-      );
-    }
-
-    if (this.props.loadingText) {
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.font = '20px monospace';
-      ctx.fillStyle = 'white';
-      if (!this.offset % 15) {
-        const rand = Math.floor(Math.random() * loadingTextLength);
-        this.setState({
-          currentText: this.props.translate('loadingText_message' + rand)
-        });
+        canvasContext.fillText(loadingText, parseInt(`${width / 2}`), parseInt(`${rhombusHeight + 30}`));
       }
 
-      ctx.fillText(this.state.currentText, parseInt(`${width / 2}`), parseInt(`${rhombusHeight + 30}`));
+      canvasContext.restore();
     }
+  );
 
-    ctx.restore();
-  };
+  return (
+    <div ref={ref}  className={props.classes.canvasContainer} style={{overflow: 'hidden'}}>
+      <canvas
+        id={canvasId}
+        className={props.classes.canvas}
+        ref={canvasRef}
+        height={(usedHeight) * ratio}
+        width={(usedWidth) * ratio}
+      />
+    </div>
+  )
+};
 
-  static drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
-    context.fillStyle = '#FF9800';
-    context.beginPath();
-    context.moveTo(xTop, yTop);
-    context.lineTo(xTop + rhombusWidth / 2, yTop);
-    context.lineTo(xTop + rhombusWidth, yTop + rhombusHeight);
-    context.lineTo(xTop + rhombusWidth / 2, yTop + rhombusHeight);
-    context.closePath();
-    context.fill();
-  }
-
-  measureCanvas = () => {
-    let rect = this.canvasContainer.current.getBoundingClientRect();
-    if (this.state.width !== rect.width || this.state.height !== rect.height) {
-      this.canvas.current.style.width = Math.round(rect.width) + 'px';
-      this.canvas.current.style.height = (this.props.loadingText ? 100 : 50) + 'px';
-      this.setState({
-        width: rect.width,
-        height: rect.height
-      });
-    }
-  };
-
-  componentDidMount() {
-    this.measureCanvas();
-  }
-
-  componentDidUpdate() {
-    this.measureCanvas();
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-        <div ref={this.canvasContainer} className={classes.canvasContainer}>
-          <canvas
-            className={classes.canvas}
-            style={{ display: 'block' }}
-            id={this.canvasId}
-            ref={this.canvas}
-            width={this.state.width * this.ratio}
-            height={(this.props.loadingText ? 100 : 50) * this.ratio}
-          />
-        </div>
-    );
-  }
-}
+LoadingCanvas.propTypes = {
+  loadingText: PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   translate: getTranslate(state.localize)
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Canvas));
+export default connect(mapStateToProps)(withStyles(styles)(LoadingCanvas));

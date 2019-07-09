@@ -32,7 +32,7 @@ class HomeApp extends Component {
 
     return (
       <div className={classes.container}>
-        <LoadingBar loadingText />
+        <LoadingBar loadingText heightOverride={100} />
       </div>
     );
   }
@@ -42,9 +42,6 @@ const mapStateToProps = state => ({
   ...state
 });
 
-const mapDispatchToProps = dispatch => ({});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(withStyles(styles)(HomeApp));
