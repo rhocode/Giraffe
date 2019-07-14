@@ -14,7 +14,7 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer
   },
   root: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   navigation: {
     borderRadius: 5,
@@ -44,7 +44,6 @@ class GraphActionsBottomActions extends Component {
           value={mouseMode}
           onChange={this.handleChange}
           className={classes.navigation}
-          style={mouseMode === 'add' ? { bottom: 50 } : { bottom: 0 }}
         >
           <BottomNavigationAction
             label="Pan"

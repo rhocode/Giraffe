@@ -29,10 +29,9 @@ const styles = theme => ({
     height: 50
   },
   buttonSquare: {
-    maxHeight: 100,
-    minWidth: 100,
-    minHeight: 100,
-    marginLeft: 10
+    minWidth: 140,
+    minHeight: 140,
+    margin: 10
   },
   buttonContents: {
     display: 'flex',
@@ -60,8 +59,8 @@ function GraphNodeButton(props) {
     <React.Fragment>
       <Button
         size="large"
-        color={props.selected ? 'primary' : ''}
-        variant={props.selected ? 'contained' : ''}
+        color={props.selected ? 'primary' : null}
+        variant={props.selected ? 'contained' : null}
         className={classes.buttonSquare}
       >
         <div className={classes.buttonContents}>
@@ -70,7 +69,7 @@ function GraphNodeButton(props) {
           <Typography>{props.label}</Typography>
         </div>
       </Button>
-      <Menu>
+      <Menu open={false}>
         <MenuItem>stuff</MenuItem>
         <MenuItem>stuff</MenuItem>
       </Menu>

@@ -38,16 +38,26 @@ const styles = theme => ({
     pointerEvents: 'auto'
   },
   tabContainer: {
-    padding: 0
+    padding: 0,
+    display: 'flex',
+    overflowX: 'auto'
   },
   expandPanel: {
     display: 'flex',
     flexDirection: 'column'
+  },
+  drawer: {
+    gridArea: 'bottomActions',
+    position: "relative"
+  },
+  noDisplay: {
+    display: 'none'
   }
 });
 
-function TabContainer(props, classes) {
-  return <div className={classes.tabContainer}>{props.children}</div>;
+function TabContainer(props) {
+  const { classes, children } = props;
+  return <div className={classes.tabContainer}>{children}</div>;
 }
 
 TabContainer.propTypes = {
@@ -61,14 +71,17 @@ function GraphNodeDrawer(props) {
     setValue(newValue);
   }
 
+  const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
+
+  console.error(drawerOpen, props, classes, "AAAAAA");
+
   return (
     <Drawer
       anchor="bottom"
       open={drawerOpen}
       onClose={() => {}}
+      classes={{paper: usedClass}}
       variant="persistent"
-      PaperProps={{}}
-      classes={{ root: { color: 'red' } }}
     >
       <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
         <ExpansionPanelSummary
@@ -82,7 +95,7 @@ function GraphNodeDrawer(props) {
 
         <ExpansionPanelDetails className={classes.expandPanel}>
           {value === 0 && (
-            <TabContainer class={classes}>
+            <TabContainer classes={classes}>
               <GraphNodeButton
                 selected
                 image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Assembler.png"
