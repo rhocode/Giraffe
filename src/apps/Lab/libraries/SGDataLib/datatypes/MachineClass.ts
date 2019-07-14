@@ -22,7 +22,12 @@ export default class MachineClass extends FirebaseDataType {
       'upgradelevel3',
       'upgradelevel4',
       'upgradelevel5',
-      'upgradelevel6'
+      'upgradelevel6',
+      'powerlevel1',
+      'powerlevel2',
+      'powerlevel3',
+      'inputslots',
+      'outputslots'
     ];
     const parseFunctions = {
       identifier: (a: string): string => {
@@ -36,9 +41,11 @@ export default class MachineClass extends FirebaseDataType {
     this.grabPageData().then((data: any) => {
       data.forEach((item: any) => {
         const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
-
+        console.error(data);
         const newPojo = {
           identifier: data.identifier,
+          inputs: data.inputslots,
+          outputs: data.outputslots,
           upgradeLevels: [
             { upgradeTier: data.upgradelevel1 },
             { upgradeTier: data.upgradelevel2 },
@@ -46,7 +53,12 @@ export default class MachineClass extends FirebaseDataType {
             { upgradeTier: data.upgradelevel4 },
             { upgradeTier: data.upgradelevel5 },
             { upgradeTier: data.upgradelevel6 }
-          ].filter((item: any) => item && item.upgradeTier)
+          ].filter((item: any) => item && item.upgradeTier),
+          powerLevel: [
+            { tier: data.upgradelevel1,  power: data.powerlevel1 },
+            { tier: data.upgradelevel2, power: data.powerlevel2 },
+            { tier: data.upgradelevel3, power: data.powerlevel3 },
+          ].filter((item: any) => item && item.tier && item.power)
         };
 
         this.writeNewPojo(cleanDeep(newPojo), objectPath);
@@ -61,6 +73,10 @@ export default class MachineClass extends FirebaseDataType {
       identifier: { type: 'string' },
       upgradeLevels: [
         { identifier: 'upgradeTier', type: 'string', ref: 'UpgradeTier' }
+      ],
+      powerLevel: [
+        { identifier: 'tier', type: 'string', ref: 'UpgradeTier' },
+        { identifier: 'power', type: 'number' }
       ]
     };
   }

@@ -33,7 +33,7 @@ export default abstract class FirebaseDataType {
 
   gsheetId: number = -1;
 
-  unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any): any {
+  unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any, keyAlternateName: any = {}): any {
     const prefix = 'gsx$';
     const dict: any = {};
     keys.forEach((key: any) => {
@@ -42,10 +42,19 @@ export default abstract class FirebaseDataType {
         function(a: any) {
           return a;
         };
-      dict[key] = func(data[prefix + key]['$t']);
-      if (dict[key] === '') {
-        delete dict[key];
+      if (keyAlternateName[key]) {
+        const keyName = keyAlternateName[key];
+        dict[keyName] = func(data[prefix + key]['$t']);
+        if (dict[keyName] === '') {
+          delete dict[keyName];
+        }
+      } else {
+        dict[key] = func(data[prefix + key]['$t']);
+        if (dict[key] === '') {
+          delete dict[key];
+        }
       }
+
     });
 
     return dict;
@@ -63,6 +72,25 @@ export default abstract class FirebaseDataType {
   }
 
   abstract import(objectPath: any): any;
+
+  importSibling(objectPath: any, siblingName: any): Promise<any> {
+    const newPathPartial: any = objectPath.split('/');
+
+    const newPath = newPathPartial.slice(0, newPathPartial.length - 1);
+    newPath.push(siblingName);
+    const table = traverseDocPath(newPath.join('/'), firebaseFirestore);
+
+    return table.get().then(function(querySnapshot: any) {
+
+      const totalQuery: any = [];
+
+      querySnapshot.forEach(function(doc: any) {
+        totalQuery.push(doc.data());
+      });
+
+      return totalQuery;
+    });
+  }
 
   useIdentifierAsDocumentName(): boolean {
     return this.identifierAsDocumentName;
@@ -156,6 +184,7 @@ export default abstract class FirebaseDataType {
 
   public writeNewPojo(pojo: any, path: any) {
     const cloneObj = Object.create(this);
+    console.error(path);
     if (this.identifierAsDocumentName) {
       // use the field identifier
       cloneObj.initialize(path, firebaseFirestore, pojo.identifier, true, pojo);
@@ -201,16 +230,26 @@ export default abstract class FirebaseDataType {
       this.__sglib__firebaseRef = docRef;
       this.__sglib__firebaseRefPath = path + '/' + docRef.id;
 
-      return docRef
-        .set(
-          Object.assign({}, initialPojo, {
-            [hiddenFieldPrefix +
-            'timestamp']: firebase.firestore.Timestamp.now()
-          })
-        )
-        .then(() => {
-          return Promise.resolve();
-        });
+      let result = null;
+
+      try {
+        result = docRef
+          .set(
+            Object.assign({}, initialPojo, {
+              [hiddenFieldPrefix +
+              'timestamp']: firebase.firestore.Timestamp.now()
+            })
+          )
+          .then(() => {
+            return Promise.resolve();
+          });
+      } catch(e) {
+        console.error(e);
+        console.error("!!!!!", JSON.stringify(initialPojo));
+      }
+
+
+      return result
     }
   }
 
@@ -238,6 +277,11 @@ export default abstract class FirebaseDataType {
       } else {
         if (!this.__sglib__addedFields.has(key)) {
           resultantPojso[key] = (this as any)[key] || null;
+          if (resultantPojso[key] === 'false') {
+            resultantPojso[key] = false
+          } else if (resultantPojso[key] === 'true') {
+            resultantPojso[key] = true
+          }
         }
       }
     });
@@ -256,12 +300,22 @@ export default abstract class FirebaseDataType {
       hiddenFieldPrefix + 'timestamp'
     ] = firebase.firestore.Timestamp.now();
     const pojso = cleanDeep(documentData);
-    return this.__sglib__firebaseRef
-      .set(pojso)
-      .then(() => this.clean())
-      .catch((err: any) => {
-        console.error(err);
-      });
+    let result = null;
+
+    try {
+      result = this.__sglib__firebaseRef
+        .set(pojso)
+        .then(() => this.clean())
+        .catch((err: any) => {
+          console.error(err);
+        });
+
+    } catch(e) {
+      console.error(e);
+      console.error("!!!!!", pojso);
+    }
+
+    return result
   }
 
   public delete(): any {
