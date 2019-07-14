@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
@@ -40,14 +39,6 @@ const styles = theme => ({
     flexDirection: 'column'
   }
 });
-
-function TabContainer(props, classes) {
-  return <div className={classes.tabContainer}>{props.children}</div>;
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 function GraphNodeButton(props) {
   const { classes } = props;

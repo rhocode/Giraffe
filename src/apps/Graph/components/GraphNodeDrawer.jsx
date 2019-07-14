@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -6,11 +6,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Menu from '@material-ui/core/Menu';
 
 import DomainIcon from '@material-ui/icons/Domain';
 import CategoryIcon from '@material-ui/icons/Category';
@@ -84,36 +82,36 @@ function GraphNodeDrawer(props) {
           {value === 0 && (
             <TabContainer class={classes}>
               <GraphNodeButton
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                label="Constructor"
+              />
+              <GraphNodeButton
                 selected
                 image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Assembler.png"
                 label="Assembler"
               />
               <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
-                label="Constructor"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
-                label="Smelter"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Manufacturer.png"
                 label="Manufacturer"
               />
               <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Smelter.png"
+                label="Smelter"
+              />
+              <GraphNodeButton
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Foundry_MK1.png"
                 label="Foundry"
               />
               <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Oil_Refinery.png"
                 label="Refinery"
               />
               <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Miner_MK1.png"
                 label="Miners"
               />
               <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
+                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Splitter.png"
                 label="Logistics"
               />
             </TabContainer>
