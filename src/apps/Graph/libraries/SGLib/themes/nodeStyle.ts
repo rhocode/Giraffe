@@ -111,7 +111,8 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('IRON INGOT (Alt.)', x + 6, y + h - 10);
+  const text = Math.random() < 0.5 ? 'IRON INGOT (Alt.)' : 'IRON PLATE';
+  context.fillText(text, x + 6, y + h - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = 'white';

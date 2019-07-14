@@ -19,12 +19,17 @@ const styles = theme => {
     },
     container: {
       background: '#1D1E20',
+      overflow: "hidden",
       gridArea: 'body',
       display: 'grid',
       gridTemplateAreas: `"header"
-        "canvasArea"`,
-      gridTemplateRows: 'auto minmax(0, 1fr)',
+        "canvasArea"
+        "bottomActions"`,
+      gridTemplateRows: 'auto minmax(0, 1fr) auto',
       gridTemplateColumns: 'minmax(0, 1fr)'
+    },
+    thing1: {
+      gridArea: 'bottomActions',
     }
   };
 };
@@ -88,8 +93,9 @@ class GraphApp extends Component {
           <GraphAppBar />
           {/*<GraphLeftPanel />*/}
           <GraphCanvasLoadable />
-          <GraphActionsBottomActions />
+
           <GraphNodeDrawer />
+          {/*<div className={classes.thing1}>HELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLO</div>*/}
         </div>
       );
     } else {
