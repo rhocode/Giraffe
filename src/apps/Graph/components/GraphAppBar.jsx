@@ -1,7 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
-import {withStyles} from '@material-ui/core';
-import React, {Component} from 'react';
-import {connect} from "react-redux";
+import { withStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   appBar: {
@@ -12,6 +12,10 @@ const styles = theme => ({
     top: 'auto',
     left: 'auto',
     right: 'auto'
+  },
+  logo: {
+    paddingTop: 15,
+    paddingLeft: 15
   }
 });
 
@@ -21,16 +25,17 @@ class GraphAppBar extends Component {
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
-        Hello!
+        <img
+          src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
+          alt="Satisgraphtory!"
+          width="300"
+          className={classes.logo}
+        />
       </AppBar>
     );
   }
 }
 
+const mapStateToProps = () => ({});
 
-const mapStateToProps = () => ({
-});
-
-export default connect(
-  mapStateToProps
-)(withStyles(styles)(GraphAppBar));
+export default connect(mapStateToProps)(withStyles(styles)(GraphAppBar));

@@ -6,7 +6,8 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-import {setMouseMode} from "../../../redux/actions/Graph/graphActions";
+import AddIcon from '@material-ui/icons/Add';
+import { setMouseMode } from '../../../redux/actions/Graph/graphActions';
 
 const styles = theme => ({
   default: {
@@ -30,9 +31,8 @@ const styles = theme => ({
 });
 
 class GraphActionsBottomActions extends Component {
-
   handleChange = (event, value) => {
-    this.props.setMouseMode(value)
+    this.props.setMouseMode(value);
   };
 
   render() {
@@ -44,6 +44,7 @@ class GraphActionsBottomActions extends Component {
           value={mouseMode}
           onChange={this.handleChange}
           className={classes.navigation}
+          style={mouseMode === 'add' ? { bottom: 50 } : { bottom: 0 }}
         >
           <BottomNavigationAction
             label="Pan"
@@ -60,6 +61,7 @@ class GraphActionsBottomActions extends Component {
             value="link"
             icon={<DeviceHubIcon />}
           />
+          <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
         </BottomNavigation>
       </div>
     );
@@ -74,7 +76,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setMouseMode: (data) => dispatch(setMouseMode(data))
+    setMouseMode: data => dispatch(setMouseMode(data))
   };
 }
 

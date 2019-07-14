@@ -1,9 +1,10 @@
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
 const initialState = {
   graphTransform: d3.zoomIdentity,
   graphFidelity: 'high',
-  mouseMode: 'pan'
+  mouseMode: 'pan',
+  drawerOpen: false
 };
 
 export default (state = initialState, action) => {
