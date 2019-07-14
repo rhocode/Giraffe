@@ -309,6 +309,14 @@ class FormRenderer extends Component {
           let autocompleteList = [];
           let useSelect = false;
 
+          if (fieldMetadata.type === 'boolean') {
+            useSelect = true;
+            autocompleteList = [
+              { label: 'false', value: 'false' },
+              { label: 'true', value: 'true' }
+            ];
+          }
+
           if (fieldMetadata.ref !== undefined) {
             useSelect = true;
             const ref = fieldMetadata.ref;
@@ -454,7 +462,17 @@ class FormRenderer extends Component {
     }
 
     let autocompleteList = [];
+
     let useSelect = false;
+
+    if (dataMapping[dataKey].type === 'boolean') {
+      useSelect = true;
+      autocompleteList = [
+        { label: 'false', value: 'false' },
+        { label: 'true', value: 'true' }
+      ];
+    }
+
     if (dataMapping[dataKey].ref !== undefined) {
       useSelect = true;
       const ref = dataMapping[dataKey].ref;
@@ -488,9 +506,9 @@ class FormRenderer extends Component {
       <SelectDropdown
         onChange={this.handleInputChange(context)}
         classProp={classes.textField}
-        value={this.getLocalEdits(context)}
+        value={this.getLocalEdits(context) + ''}
         label={dataKey}
-        helperText={`Server: ${key[dataKey] ? key[dataKey] : 'null'}`}
+        helperText={`Server: ${(key[dataKey]) ? key[dataKey] : 'null'}`}
         suggestions={autocompleteList}
       />
     ) : (
@@ -521,6 +539,10 @@ class FormRenderer extends Component {
     );
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.state.expanded !== nextState.expanded || this.props.localChanges !== nextProps.localChanges;
+  }
+
   render() {
     const { classes, renderedItem } = this.props;
     const { expanded } = this.state;
@@ -535,9 +557,13 @@ class FormRenderer extends Component {
   }
 }
 
+// function FunctionalForm(props) {
+//   const [expanded, setExpanded] = React.useState(false);
+//   const localChanges = props.reduxTable ? props.reduxTable[props.renderedItem.getFirebaseId()] : null;
+// }
+
 function mapStateToProps(state, ownProps) {
   const { renderedItem, table } = ownProps;
-
   return {
     localChanges: (state.labReducer.localChanges[table] || {})[
       renderedItem.getFirebaseId()

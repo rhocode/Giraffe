@@ -24,14 +24,20 @@ export default class Item extends FirebaseDataType {
         return '';
       }
     };
+    const promiseList: any = [];
     this.grabPageData().then((data: any) => {
       data.forEach((item: any) => {
+
         const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
         data.iconPath = data.identifier + '.png';
-        this.writeNewPojo(data, objectPath);
+        console.error(data.identifier);
+        promiseList.push(this.writeNewPojo(data, objectPath));
         return 1;
       });
     });
+    Promise.all(promiseList).then(() => {
+      console.error("All done!");
+    })
   }
 
   dataMapping() {
