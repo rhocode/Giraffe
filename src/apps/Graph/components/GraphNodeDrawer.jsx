@@ -17,6 +17,8 @@ import CategoryIcon from '@material-ui/icons/Category';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { baseTheme } from '../../../theme';
 
 const styles = theme => ({
   default: {
@@ -56,8 +58,34 @@ const styles = theme => ({
 });
 
 function TabContainer(props) {
-  const { classes, children } = props;
-  return <div className={classes.tabContainer}>{children}</div>;
+  const { children } = props;
+  const scrollRef = React.useRef();
+
+  const themeObject = baseTheme.overrides.GraphAddMachineButton;
+  return (
+    <Scrollbars
+      ref={scrollRef}
+      style={{
+        height: themeObject.width + themeObject.margin * 4,
+        width: '100%'
+      }}
+    >
+      <div
+        onWheel={e => {
+          if (scrollRef.current) {
+            const ref = scrollRef.current;
+            const currentLeft = ref.getScrollLeft() + e.deltaY;
+            ref.scrollLeft(currentLeft);
+          }
+        }}
+        style={{
+          width: children.length * (themeObject.width + 2 * themeObject.margin)
+        }}
+      >
+        {children}
+      </div>
+    </Scrollbars>
+  );
 }
 
 TabContainer.propTypes = {
@@ -72,8 +100,6 @@ function GraphNodeDrawer(props) {
   }
 
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
-
-  console.error(drawerOpen, props, classes, 'AAAAAA');
 
   return (
     <Drawer
