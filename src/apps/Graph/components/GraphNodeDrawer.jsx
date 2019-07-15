@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -6,17 +6,17 @@ import Drawer from '@material-ui/core/Drawer';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Menu from '@material-ui/core/Menu';
 
 import DomainIcon from '@material-ui/icons/Domain';
 import CategoryIcon from '@material-ui/icons/Category';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
+import { Scrollbars } from 'react-custom-scrollbars';
+import {baseTheme} from "../../../theme";
 
 const styles = theme => ({
   default: {
@@ -57,7 +57,23 @@ const styles = theme => ({
 
 function TabContainer(props) {
   const { classes, children } = props;
-  return <div className={classes.tabContainer}>{children}</div>;
+  const scrollRef = React.useRef();
+
+  const themeObject = baseTheme.overrides.GraphAddMachineButton;
+  console.error(children.length, themeObject.width );
+  return <Scrollbars ref={scrollRef} style={{ height: themeObject.width + themeObject.margin * 4, width: "100%" }}>
+    <div onWheel={e => {
+      if (scrollRef.current) {
+        const ref = scrollRef.current;
+        const currentLeft = ref.getScrollLeft() + e.deltaY;
+        ref.scrollLeft(currentLeft);
+      } else {
+        console.error(e, e.deltaY, scrollRef.current);
+      }
+    }} style={{ width: children.length * (themeObject.width + (2 * themeObject.margin)) }}>
+      {children}
+    </div>
+  </Scrollbars>;
 }
 
 TabContainer.propTypes = {
@@ -72,8 +88,6 @@ function GraphNodeDrawer(props) {
   }
 
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
-
-  console.error(drawerOpen, props, classes, "AAAAAA");
 
   return (
     <Drawer

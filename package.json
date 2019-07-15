@@ -34,6 +34,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "roboto-fontface": "^0.10.0",
+    "simplebar-react": "^1.1.0",
     "typeface-roboto-condensed": "0.0.54",
     "typescript": "^3.4.5"
   },

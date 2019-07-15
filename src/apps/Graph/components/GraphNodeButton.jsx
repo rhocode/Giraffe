@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import {baseTheme} from "../../../theme";
 
 const styles = theme => ({
   default: {
@@ -29,9 +30,11 @@ const styles = theme => ({
     height: 50
   },
   buttonSquare: {
-    minWidth: 140,
-    minHeight: 140,
-    margin: 10
+    minWidth: baseTheme.overrides.GraphAddMachineButton.width,
+    minHeight: baseTheme.overrides.GraphAddMachineButton.height,
+    maxWidth: baseTheme.overrides.GraphAddMachineButton.width,
+    maxHeight: baseTheme.overrides.GraphAddMachineButton.height,
+    margin: baseTheme.overrides.GraphAddMachineButton.margin
   },
   buttonContents: {
     display: 'flex',
