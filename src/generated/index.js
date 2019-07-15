@@ -1,6 +1,5 @@
 function importAll(r) {
   let schemas = {};
-  console.error(r.keys());
   r.keys().forEach((item) => {
     const schema = r(item);
     schemas[item.replace('./', '').toLowerCase().slice(0, -12)] = schema;
