@@ -3,6 +3,7 @@ import 'firebase/firestore';
 
 import { traverseDocPath } from '../../utils/BuilderFactory';
 import firebaseFirestore from '../../../../../../common/firebase/firebaseFirestore';
+import schemas from "../../../../../../generated";
 
 const hiddenFieldPrefix = '__sglib__';
 const complexArrayFieldPrefix = '__sglibarrcomplex__';
@@ -32,6 +33,15 @@ export default abstract class FirebaseDataType {
   abstract dataMapping(): any;
 
   gsheetId: number = -1;
+
+  public static downloadDataToProto(path: any): void {
+    const protobuf = require("protobufjs/light");
+    console.error(schemas);
+    const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
+
+    const Item = root.lookupType("Item");
+    console.error(Item);
+  }
 
   unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any, keyAlternateName: any = {}): any {
     const prefix = 'gsx$';
