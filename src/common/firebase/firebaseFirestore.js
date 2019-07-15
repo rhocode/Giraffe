@@ -1,7 +1,9 @@
 import firebaseApp from './firebaseApp';
 import 'firebase/firestore';
 
-const firebaseFirestore = firebaseApp.firestore().enablePersistence()
+const firebaseFirestore = firebaseApp.firestore();
+
+firebaseFirestore.enablePersistence()
   .catch(function(err) {
     if (err.code === 'failed-precondition') {
       // Multiple tabs open, persistence can only be enabled
