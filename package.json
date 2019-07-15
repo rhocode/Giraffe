@@ -21,6 +21,8 @@
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.17.1",
     "prop-types": "^15.7.2",
+    "protobufjs": "^6.8.8",
+    "protocol-buffers-encodings": "^1.1.0",
     "react": "^16.8.6",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.6",
@@ -41,9 +43,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run proto && react-scripts build",
+    "build:windows": "npm run proto:windows && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proto": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/$npm_package_version-schema.json",
+    "proto:windows": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/%npm_package_version%-schema.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,7 +65,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "protocol-buffers": "^4.1.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
