@@ -22,6 +22,7 @@ import FormRenderer from '../libraries/SGDataLib/react/FormRenderer';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -56,6 +57,11 @@ const styles = theme => {
       position: 'absolute',
       bottom: theme.spacing(2),
       right: theme.spacing(4)
+    },
+    fabDownload: {
+      position: 'absolute',
+      bottom: theme.spacing(2),
+      right: theme.spacing(20)
     },
     fabSyncFromGdoc: {
       position: 'absolute',
@@ -238,6 +244,7 @@ class DatabaseEditor extends Component {
       }
     }
 
+
     return (
       <div className={classes.root}>
         <AddRowModal
@@ -304,6 +311,16 @@ class DatabaseEditor extends Component {
           className={classes.fabSyncFromGdoc}
           color={'primary'}
           onClick={() => new objectBaseType().import(objectPath)}
+        >
+          <CloudUploadIcon />
+        </Fab>
+        <Fab
+          hidden={!!objectPath}
+          className={classes.fabDownload}
+          color={'primary'}
+          onClick={
+            () => objectBaseType.downloadDataToProto(objectPath)
+          }
         >
           <CloudDownloadIcon />
         </Fab>
