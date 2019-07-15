@@ -60,15 +60,12 @@ function TabContainer(props) {
   const scrollRef = React.useRef();
 
   const themeObject = baseTheme.overrides.GraphAddMachineButton;
-  console.error(children.length, themeObject.width );
   return <Scrollbars ref={scrollRef} style={{ height: themeObject.width + themeObject.margin * 4, width: "100%" }}>
     <div onWheel={e => {
       if (scrollRef.current) {
         const ref = scrollRef.current;
         const currentLeft = ref.getScrollLeft() + e.deltaY;
         ref.scrollLeft(currentLeft);
-      } else {
-        console.error(e, e.deltaY, scrollRef.current);
       }
     }} style={{ width: children.length * (themeObject.width + (2 * themeObject.margin)) }}>
       {children}
