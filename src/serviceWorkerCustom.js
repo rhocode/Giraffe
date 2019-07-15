@@ -85,7 +85,7 @@ function registerValidSW(swUrl, config) {
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
 
-              setTimeout(() => {
+              setInterval(() => {
                 registration.update();
               }, 1000 * 60);
 
