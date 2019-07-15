@@ -1,0 +1,59 @@
+// item.proto
+syntax = "proto3";
+package satisgraphtory;
+
+message Item {
+    string name = 1;
+    string icon = 2;
+    bool hidden = 3;
+}
+
+enum UpgradeTiers {
+    MK1 = 0;
+    MK2 = 1;
+    MK3 = 2;
+    MK4 = 3;
+    MK5 = 4;
+    MK6 = 5;
+    MK7 = 6;
+    MK8 = 7;
+    MK9 = 8;
+    MK10 = 9;
+    MK11 = 10;
+    MK12 = 11;
+    MK13 = 12;
+    MK14 = 13;
+    MK15 = 14;
+    UNSET = 15;
+    NA = 16;
+}
+
+message ResourcePacket {
+    Item item = 1;
+    int32 itemQuantity = 2;
+}
+
+message Recipe {
+    string id = 1;
+    string name = 2;
+    int32 localOrdering = 3;
+    string alternateName = 4;
+    repeated ResourcePacket input = 5;
+    MachineClass machineClass = 6;
+    repeated ResourcePacket output = 7;
+    bool hidden = 8;
+}
+
+message PlayerUnlock {
+    string name = 1;
+    bool hidden = 2;
+}
+
+message MachineClass {
+    string name = 1;
+    repeated UpgradeTiers upgrades = 2;
+    int32 inputs = 3;
+    int32 outputs = 4;
+    double power = 5;
+    bool hidden = 6;
+}
