@@ -13,7 +13,8 @@ const styles = theme => ({
     cursor: 'pointer',
     zIndex: theme.zIndex.drawer + 2,
     display: "table",
-    overflow: "hidden"
+    overflow: "hidden",
+    width: "100%",
   },
   invisible: {
     gridArea: 'update',
@@ -34,7 +35,7 @@ function HeaderMessaging(props){
   };
 
   return (
-    <div onClick={update} className={assetsUpdateReady ? props.classes.container :  props.classes.invisible}>
+    <div onClick={update} className={true ? props.classes.container :  props.classes.invisible}>
       <div className={props.classes.messaging}>{props.translate('headerMessaging_newData')}</div>
     </div>
   );
