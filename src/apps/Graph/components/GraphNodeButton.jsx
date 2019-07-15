@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { baseTheme } from '../../../theme';
 
 const styles = theme => ({
   default: {
@@ -34,9 +34,11 @@ const styles = theme => ({
     height: 50
   },
   buttonSquare: {
-    minWidth: 140,
-    minHeight: 140,
-    margin: 10
+    minWidth: baseTheme.overrides.GraphAddMachineButton.width,
+    minHeight: baseTheme.overrides.GraphAddMachineButton.height,
+    maxWidth: baseTheme.overrides.GraphAddMachineButton.width,
+    maxHeight: baseTheme.overrides.GraphAddMachineButton.height,
+    margin: baseTheme.overrides.GraphAddMachineButton.margin
   },
   buttonContents: {
     display: 'flex',
@@ -48,10 +50,9 @@ const styles = theme => ({
 function GraphNodeButton(props) {
   const { classes } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
-
-  function handleChange(event, newValue) {
-    setOpenDialog(newValue);
-  }
+  // function setOpenDialog(event, newValue) {
+  //   setValue(newValue);
+  // }
 
   return (
     <React.Fragment>
@@ -91,15 +92,17 @@ function GraphNodeButton(props) {
 }
 
 function mapStateToProps(state) {
-  return {
-    drawerOpen: state.graphReducer.mouseMode === 'add'
-  };
+  // return {
+  //   drawerOpen: state.graphReducer.mouseMode === 'add'
+  // };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    // setDrawerState: (data) => dispatch(setDrawerState(data))
-  };
+  // return {
+  //   setOpenDialog: (data) => dispatch(setOpenDialog(data))
+  // };
+  return {};
 }
 
 export default connect(

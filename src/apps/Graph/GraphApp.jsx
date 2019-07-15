@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import GraphAppBar from './components/GraphAppBar';
 import { connect } from 'react-redux';
 import { simpleAction } from '../../redux/actions/simpleAction';
-
-import GraphActionsBottomActions from './components/GraphActionsBottomActions';
 import { Helmet } from 'react-helmet';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
@@ -27,7 +25,7 @@ const styles = theme => {
         "canvasArea"
         "bottomActions"`,
       gridTemplateRows: 'auto minmax(0, 1fr) auto',
-      gridTemplateColumns: 'minmax(0, 1fr)'
+      gridTemplateColumns: '1fr'
     },
     thing1: {
       gridArea: 'bottomActions'

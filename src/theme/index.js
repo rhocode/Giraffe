@@ -14,8 +14,13 @@ const paletteDark = {
 
 const themeName = 'Pizazz Vermilion Gayal';
 
-export const themeLight = createMuiTheme({
+export const baseTheme = {
   overrides: {
+    GraphAddMachineButton: {
+      height: 150,
+      width: 150,
+      margin: 10
+    },
     GraphDrawer: {
       width: 260
     },
@@ -26,34 +31,18 @@ export const themeLight = createMuiTheme({
       HeaderMessaging: {
         height: 50
       }
-    },
-  },
-  typography: {
-    useNextVariants: true
-  },
-  palette: paletteLight,
-  themeName
-});
-
-export const themeDark = createMuiTheme({
-  overrides: {
-    GraphDrawer: {
-      width: 260
-    },
-    GraphAppBar: {
-      height: 64
-    },
-    common: {
-      HeaderMessaging: {
-        height: 50
-      }
-    },
+    }
   },
   typography: {
     useNextVariants: true
   },
   palette: paletteDark,
   themeName
-});
+};
 
-export const canvasBackgroundColor = themeDark.palette.background.default;
+export const themeDark = createMuiTheme(
+  Object.assign({}, baseTheme, { palette: paletteDark })
+);
+export const themeLight = createMuiTheme(
+  Object.assign({}, baseTheme, { palette: paletteLight })
+);

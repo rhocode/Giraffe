@@ -1,6 +1,5 @@
 import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
-const cleanDeep = require('clean-deep');
 
 export default class Recipe extends FirebaseDataType {
   name: any;
@@ -40,7 +39,6 @@ export default class Recipe extends FirebaseDataType {
       return a.replace(/ /g, '_').toLowerCase();
     };
     this.grabPageData().then((data: any) => {
-
       this.importSibling(objectPath, 'MachineClass').then(machines => {
         this.importSibling(objectPath, 'Item').then(items => {
           const parseFunctions = {
@@ -51,36 +49,40 @@ export default class Recipe extends FirebaseDataType {
             resource1: nameParse,
             resource2: nameParse,
             resource3: nameParse,
-            resource4: nameParse,
+            resource4: nameParse
           };
 
           const machineNames = machines.map((m: any) => m.identifier);
           const itemNames = items.map((i: any) => i.identifier);
 
           data.forEach((item: any) => {
-            const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
+            const data = this.unpackDataFromSpreadSheet(
+              keys,
+              item,
+              parseFunctions
+            );
             if (machineNames.indexOf(data.machinename) === -1) {
-              throw new Error("No machine name " + data.machinename);
+              throw new Error('No machine name ' + data.machinename);
             }
 
             if (data.produces && itemNames.indexOf(data.produces) === -1) {
-              throw new Error("No item name " + data.produces);
+              throw new Error('No item name ' + data.produces);
             }
 
             if (data.resource1 && itemNames.indexOf(data.resource1) === -1) {
-              throw new Error("No item name " + data.resource1);
+              throw new Error('No item name ' + data.resource1);
             }
 
             if (data.resource2 && itemNames.indexOf(data.resource2) === -1) {
-              throw new Error("No item name " + data.resource2);
+              throw new Error('No item name ' + data.resource2);
             }
 
             if (data.resource3 && itemNames.indexOf(data.resource3) === -1) {
-              throw new Error("No item name " + data.resource3);
+              throw new Error('No item name ' + data.resource3);
             }
 
             if (data.resource4 && itemNames.indexOf(data.resource4) === -1) {
-              throw new Error("No item name " + data.resource4);
+              throw new Error('No item name ' + data.resource4);
             }
 
             const newPojo: any = {
@@ -91,10 +93,10 @@ export default class Recipe extends FirebaseDataType {
               outputItemId: data.produces,
               outputItemQuantity: data.unitsproduced,
               input: [
-                {itemId: data.resource1, itemQty: data.perbatch1},
-                {itemId: data.resource2, itemQty: data.perbatch2},
-                {itemId: data.resource3, itemQty: data.perbatch3},
-                {itemId: data.resource4, itemQty: data.perbatch4},
+                { itemId: data.resource1, itemQty: data.perbatch1 },
+                { itemId: data.resource2, itemQty: data.perbatch2 },
+                { itemId: data.resource3, itemQty: data.perbatch3 },
+                { itemId: data.resource4, itemQty: data.perbatch4 }
               ].filter((item: any) => item && item.itemId)
             };
             // if (newPojo.name === "hazmat_filter" ) {
@@ -103,7 +105,7 @@ export default class Recipe extends FirebaseDataType {
             this.writeNewPojo(newPojo, objectPath);
             return 1;
           });
-        console.log("FINISHED");
+          console.log('FINISHED');
         });
       });
     });
