@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -8,7 +8,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {baseTheme} from "../../../theme";
 
 const styles = theme => ({
@@ -53,10 +52,10 @@ TabContainer.propTypes = {
 
 function GraphNodeButton(props) {
   const { classes } = props;
-  const [value, setValue] = React.useState(0);
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
+  // const [value, setValue] = React.useState(0);
+  // function handleChange(event, newValue) {
+  //   setValue(newValue);
+  // }
 
   return (
     <React.Fragment>
