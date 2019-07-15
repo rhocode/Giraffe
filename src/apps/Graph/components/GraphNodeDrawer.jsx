@@ -18,7 +18,8 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { baseTheme } from '../../../theme';
+import { baseTheme } from "../../../theme";
+import normalizeWheel from 'normalize-wheel';
 
 const styles = theme => ({
   default: {
@@ -62,30 +63,18 @@ function TabContainer(props) {
   const scrollRef = React.useRef();
 
   const themeObject = baseTheme.overrides.GraphAddMachineButton;
-  return (
-    <Scrollbars
-      ref={scrollRef}
-      style={{
-        height: themeObject.width + themeObject.margin * 4,
-        width: '100%'
-      }}
-    >
-      <div
-        onWheel={e => {
-          if (scrollRef.current) {
-            const ref = scrollRef.current;
-            const currentLeft = ref.getScrollLeft() + e.deltaY;
-            ref.scrollLeft(currentLeft);
-          }
-        }}
-        style={{
-          width: children.length * (themeObject.width + 2 * themeObject.margin)
-        }}
-      >
-        {children}
-      </div>
-    </Scrollbars>
-  );
+  return <Scrollbars ref={scrollRef} style={{ height: themeObject.width + themeObject.margin * 4, width: "100%" }}>
+    <div onWheel={e => {
+      if (scrollRef.current) {
+        const normalized = normalizeWheel(e);
+        const ref = scrollRef.current;
+        const currentLeft = ref.getScrollLeft() + normalized.pixelY;
+        ref.scrollLeft(currentLeft);
+      }
+    }} style={{ width: children.length * (themeObject.width + (2 * themeObject.margin)) }}>
+      {children}
+    </div>
+  </Scrollbars>;
 }
 
 TabContainer.propTypes = {

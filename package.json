@@ -18,6 +18,7 @@
     "husky": "^2.4.0",
     "lint-staged": "^8.1.7",
     "lodash": "^4.17.13",
+    "normalize-wheel": "^1.0.1",
     "prettier": "^1.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
