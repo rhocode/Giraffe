@@ -5,6 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -41,9 +47,10 @@ const styles = theme => ({
 
 function GraphNodeButton(props) {
   const { classes } = props;
-  const [value, setValue] = React.useState(0);
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   function handleChange(event, newValue) {
-    setValue(newValue);
+    setOpenDialog(newValue);
   }
 
   return (
@@ -53,6 +60,7 @@ function GraphNodeButton(props) {
         color={props.selected ? 'primary' : null}
         variant={props.selected ? 'contained' : null}
         className={classes.buttonSquare}
+        onClick={() => setOpenDialog(true)}
       >
         <div className={classes.buttonContents}>
           <ArrowDropUpIcon />
@@ -60,10 +68,24 @@ function GraphNodeButton(props) {
           <Typography>{props.label}</Typography>
         </div>
       </Button>
-      <Menu open={false}>
-        <MenuItem>stuff</MenuItem>
-        <MenuItem>stuff</MenuItem>
-      </Menu>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>{props.label} Settings</DialogTitle>
+        <DialogContent>
+          <Button>Select {props.label} Variant</Button>
+          <Menu open={false}>
+            <MenuItem>stuff</MenuItem>
+            <MenuItem>stuff</MenuItem>
+          </Menu>
+          <DialogContentText>Optional: Select resource</DialogContentText>
+          <TextField id="resource-search" label="Find Resource" fullWidth />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button color="primary" onClick={() => setOpenDialog(false)}>
+            Set
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }

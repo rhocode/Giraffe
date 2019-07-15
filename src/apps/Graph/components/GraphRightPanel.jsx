@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   drawer: {
     width: theme.overrides.GraphDrawer.width,
     marginTop: theme.overrides.GraphAppBar.height
+  },
+  drawerContent: {
+    padding: 20
   }
 });
 
-class GraphLeftPanel extends Component {
+class GraphRightPanel extends Component {
   static generateLotsOfText() {
     const divList = [];
     for (let i = 0; i < 600; i++) {
-      divList.push(<div key={i}>i</div>);
+      divList.push(<div key={i}>i{i}</div>);
     }
     return divList;
   }
@@ -27,14 +31,17 @@ class GraphLeftPanel extends Component {
         // container={this.props.container}
         // variant="temporary"
         variant="permanent"
-        anchor={'left'}
+        anchor={'right'}
         open={true}
         // onClose={this.handleDrawerToggle}
         classes={{
           paper: classes.drawer
         }}
       >
-        {GraphLeftPanel.generateLotsOfText()}
+        {/* {GraphRightPanel.generateLotsOfText()} */}
+        <div className={classes.drawerContent}>
+          <Typography variant="h5">Node Settings</Typography>
+        </div>
       </Drawer>
     );
   }
@@ -51,4 +58,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(GraphLeftPanel));
+)(withStyles(styles)(GraphRightPanel));

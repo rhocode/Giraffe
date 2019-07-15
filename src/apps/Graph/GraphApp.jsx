@@ -9,6 +9,7 @@ import GraphActionsBottomActions from './components/GraphActionsBottomActions';
 import { Helmet } from 'react-helmet';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
+import GraphRightPanel from './components/GraphRightPanel';
 
 const styles = theme => {
   console.log(theme);
@@ -19,7 +20,7 @@ const styles = theme => {
     },
     container: {
       background: '#1D1E20',
-      overflow: "hidden",
+      overflow: 'hidden',
       gridArea: 'body',
       display: 'grid',
       gridTemplateAreas: `"header"
@@ -29,7 +30,7 @@ const styles = theme => {
       gridTemplateColumns: 'minmax(0, 1fr)'
     },
     thing1: {
-      gridArea: 'bottomActions',
+      gridArea: 'bottomActions'
     }
   };
 };
@@ -91,7 +92,7 @@ class GraphApp extends Component {
             <title>{helmet.title}</title>
           </Helmet>
           <GraphAppBar />
-          {/*<GraphLeftPanel />*/}
+          {/* <GraphRightPanel /> */}
           <GraphCanvasLoadable />
 
           <GraphNodeDrawer />
