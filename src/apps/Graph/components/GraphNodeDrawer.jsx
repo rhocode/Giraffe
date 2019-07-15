@@ -56,7 +56,7 @@ const styles = theme => ({
 });
 
 function TabContainer(props) {
-  const { classes, children } = props;
+  const { children } = props;
   const scrollRef = React.useRef();
 
   const themeObject = baseTheme.overrides.GraphAddMachineButton;

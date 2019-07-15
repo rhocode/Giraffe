@@ -57,16 +57,15 @@ const styles = () => ({
        "appBody"
        "siteFooter"`,
     gridTemplateRows: "auto minmax(0, 1fr) auto",
-    gridTemplateColumns: "minmax(0, 1fr)",
+    gridTemplateColumns: "1fr",
   },
   body: {
     gridArea: 'appBody',
     display: "grid",
     gridTemplateAreas:
       `"body"`,
-    gridTemplateRows: "minmax(0, 1fr)",
-    gridTemplateColumns: "minmax(0, 1fr)",
-    // overflow: 'hidden'
+    gridTemplateRows: "1fr",
+    gridTemplateColumns: "1fr",
   }
 });
 

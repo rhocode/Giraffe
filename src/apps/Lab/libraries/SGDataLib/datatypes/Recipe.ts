@@ -1,6 +1,5 @@
 import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
-const cleanDeep = require('clean-deep');
 
 export default class Recipe extends FirebaseDataType {
   name: any;
