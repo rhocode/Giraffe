@@ -1,7 +1,12 @@
 import AppBar from '@material-ui/core/AppBar';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Toolbar } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Hidden from '@material-ui/core/Hidden';
+
+import GraphSettingsButton from './GraphSettingsButton';
+import GraphHelpButton from './GraphHelpButton';
+import GraphShareButton from './GraphShareButton';
 
 const styles = theme => ({
   appBar: {
@@ -14,8 +19,16 @@ const styles = theme => ({
     right: 'auto'
   },
   logo: {
-    paddingTop: 15,
-    paddingLeft: 15
+    width: 300
+  },
+  logoSmall: {
+    width: 30
+  },
+  grow: {
+    flexGrow: 1
+  },
+  toolbar: {
+    minHeight: theme.overrides.GraphAppBar.height
   }
 });
 
@@ -25,12 +38,26 @@ class GraphAppBar extends Component {
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
-        <img
-          src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
-          alt="Satisgraphtory!"
-          width="300"
-          className={classes.logo}
-        />
+        <Toolbar classes={{ root: classes.toolbar }}>
+          <Hidden xsDown implementation="css">
+            <img
+              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
+              alt="Satisgraphtory!"
+              className={classes.logo}
+            />
+          </Hidden>
+          <Hidden smUp implementation="css">
+            <img
+              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2_square.png"
+              alt="Satisgraphtory!"
+              className={classes.logoSmall}
+            />
+          </Hidden>
+          <div className={classes.grow} />
+          <GraphShareButton />
+          <GraphSettingsButton />
+          <GraphHelpButton />
+        </Toolbar>
       </AppBar>
     );
   }
