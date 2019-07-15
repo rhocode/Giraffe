@@ -1,9 +1,16 @@
-import * as schema0_1_0 from "./0.1.0-schema";
-import * as schema0_1_1 from "./0.1.0-schema";
+function importAll(r) {
+  let schemas = {};
+  console.error(r.keys());
+  r.keys().forEach((item) => {
+    const schema = r(item);
+    schemas[item.replace('./', '').toLowerCase().slice(0, -12)] = schema;
+  });
+  return schemas;
+}
 
-const schemas = {
-  "0.1.0": schema0_1_0,
-  "0.1.1": schema0_1_1,
-};
+// eslint-disable-next-line
+const schemas = importAll(
+  require.context('./', false, /\.json$/)
+);
 
 export default schemas;

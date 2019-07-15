@@ -37,7 +37,7 @@ export default abstract class FirebaseDataType {
   public static downloadDataToProto(path: any): void {
     const protobuf = require("protobufjs/light");
     console.error(schemas);
-    const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
+    const root = protobuf.Root.fromJSON((schemas as any)["0.1.0"]);
 
     const Item = root.lookupType("Item");
     console.error(Item);
