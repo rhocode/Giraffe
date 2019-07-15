@@ -43,10 +43,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run proto:linux && react-scripts build",
+    "build:windows": "npm run proto:windows && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto:linux": "echo $npm_package_version",
+    "proto": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/$npm_package_version-schema.json",
     "proto:windows": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/%npm_package_version%-schema.json"
   },
   "eslintConfig": {
