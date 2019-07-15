@@ -42,13 +42,11 @@
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "npm run proto && react-scripts build",
-    "build:windows": "npm run proto:windows && react-scripts build",
+    "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "npm run proto && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/$npm_package_version-schema.json",
-    "proto:windows": "pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/%npm_package_version%-schema.json"
+    "proto": "cross-env pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/$npm_package_version-schema.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -66,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "protocol-buffers": "^4.1.0"
   },
   "husky": {
