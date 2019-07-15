@@ -6,12 +6,14 @@ import Button from '@material-ui/core/Button';
 
 import ShareIcon from '@material-ui/icons/Share';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual';
 
 import GraphAppBarButton from './GraphAppBarButton';
 
 const styles = theme => ({
   shareDialog: {
-    display: 'flex'
+    display: 'flex',
+    flexDirection: 'column'
   }
 });
 
@@ -46,7 +48,12 @@ class GraphShareButton extends Component {
             }
           >
             <FileCopyIcon />
-            <div className={classes.label}>Copy</div>
+            <div className={classes.label}>Copy Code</div>
+          </Button>
+
+          <Button fullWidth color="primary">
+            <PhotoSizeSelectActualIcon />
+            <div className={classes.label}>Export Image</div>
           </Button>
         </div>
       </GraphAppBarButton>
