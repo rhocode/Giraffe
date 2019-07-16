@@ -125,4 +125,7 @@ export default class Recipe extends FirebaseDataType {
       ]
     };
   }
+
+  saveProto(docs: any, protoRoot: any): any {
+  }
 }

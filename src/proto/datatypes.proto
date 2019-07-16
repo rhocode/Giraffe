@@ -3,7 +3,7 @@ syntax = "proto3";
 package satisgraphtory;
 
 message Item {
-    string name = 1;
+    string id = 1;
     string icon = 2;
     bool hidden = 3;
 }
@@ -24,8 +24,9 @@ enum UpgradeTiers {
     MK13 = 12;
     MK14 = 13;
     MK15 = 14;
-    UNSET = 15;
-    NA = 16;
+    MK16 = 15;
+    UNSET = 16;
+    NA = 17;
 }
 
 message ResourcePacket {
@@ -57,3 +58,21 @@ message MachineClass {
     double power = 5;
     bool hidden = 6;
 }
+
+message ItemList {
+    repeated Item data = 1;
+}
+
+message RecipeList {
+    repeated Recipe data = 1;
+}
+
+message PlayerUnlockList {
+    repeated PlayerUnlock data = 1;
+}
+
+message MachineClassList {
+    repeated MachineClass data = 1;
+}
+
+message
