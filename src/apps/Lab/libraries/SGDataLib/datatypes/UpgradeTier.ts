@@ -17,4 +17,7 @@ export default class UpgradeTier extends FirebaseDataType {
       identifier: { type: 'string' }
     };
   }
+
+  saveProto(docs: any, protoRoot: any): any {
+  }
 }

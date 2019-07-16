@@ -221,7 +221,7 @@ class DatabaseEditor extends Component {
       removeItemModalOpen
     } = this.state;
 
-    let tabKeys = Object.keys(this.state.serverData).sort();
+    let tabKeys = Object.keys(this.state.serverData).sort().reverse();
     let serverData = [];
     let selectedTab = 0;
     let objectBaseType = null;
@@ -319,7 +319,7 @@ class DatabaseEditor extends Component {
           className={classes.fabDownload}
           color={'primary'}
           onClick={
-            () => objectBaseType.downloadDataToProto(objectPath)
+            () => new objectBaseType().downloadDataToProto(objectPath)
           }
         >
           <CloudDownloadIcon />

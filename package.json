@@ -46,7 +46,7 @@
     "build": "npm run proto && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto": "cross-env pbjs --es6 -t json src/proto/datatypes.proto -o src/generated/$npm_package_version-schema.json"
+    "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.proto -o src/generated/$npm_package_version-schema.json"
   },
   "eslintConfig": {
     "extends": "react-app"

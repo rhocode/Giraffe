@@ -47,4 +47,28 @@ export default class Item extends FirebaseDataType {
       // testMultiple: [{identifier: 'a', type: 'number'}, {identifier: 'b', type: 'number'}]
     };
   }
+
+  saveProto(docs: any, protoRoot: any): any {
+    const Item = protoRoot.lookupType("Item");
+    const ItemList = protoRoot.lookupType("ItemList");
+    const itemsList: any[] = [];
+    docs.forEach((d: any) => {
+      const docItem = Item.create({
+        id: d.identifier,
+        icon: d.iconPath,
+        hidden: false
+      });
+
+      itemsList.push(docItem)
+    });
+
+    const message = ItemList.create({data: itemsList});
+    const buffer = ItemList.encode(message).finish();
+    const filename = "ItemList.s2";
+
+    return {
+      table: buffer,
+      filename
+    };
+  }
 }

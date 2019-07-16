@@ -15,9 +15,9 @@ const fabrics = ['test', 'prod'];
 export const getTables = (versions: any) => {
   return (versions || [])
     .map((version: any) =>
-      Object.keys(tableMapping).map(name => {
-        return [fabrics[0], version, name].join('/');
-      })
+        Object.keys(tableMapping).reverse().map(name => {
+          return [fabrics[0], version, name].join('/');
+        })
     )
     .flat();
 };

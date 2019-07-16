@@ -80,4 +80,7 @@ export default class MachineClass extends FirebaseDataType {
       ]
     };
   }
+
+  saveProto(docs: any, protoRoot: any): any {
+  }
 }

@@ -22,6 +22,27 @@ export function padIndex(i: number) {
   return (i + '').padStart(10, '0');
 }
 
+
+function saveAs(blob: any, fileName: any) {
+  const url = window.URL.createObjectURL(blob);
+
+  const anchorElem = document.createElement("a");
+  // anchorElem.style = "display: none";
+  anchorElem.href = url;
+  anchorElem.download = fileName;
+
+  document.body.appendChild(anchorElem);
+  anchorElem.click();
+  document.body.removeChild(anchorElem);
+
+  // On Edge, revokeObjectURL should be called only after
+  // a.click() has completed, atleast on EdgeHTML 15.15048
+  setTimeout(function() {
+    window.URL.revokeObjectURL(url);
+  }, 1000);
+}
+
+
 export default abstract class FirebaseDataType {
   identifierAsDocumentName: boolean = false;
   private __sglib__firebaseId: string = '';
@@ -34,13 +55,38 @@ export default abstract class FirebaseDataType {
 
   gsheetId: number = -1;
 
-  public static downloadDataToProto(path: any): void {
-    const protobuf = require("protobufjs/light");
-    console.error(schemas);
-    const root = protobuf.Root.fromJSON((schemas as any)["0.1.0"]);
+  public abstract saveProto(docs: any, protoRoot: any): any;
 
-    const Item = root.lookupType("Item");
-    console.error(Item);
+  public downloadDataToProto(path: any): any {
+    const protobuf = require("protobufjs/light");
+    console.error(schemas, "AAAA");
+    const root = protobuf.Root.fromJSON((schemas as any)["0.1.0"]);
+    const table = traverseDocPath(path, firebaseFirestore);
+
+    table.get().then((querySnapshot: any) =>  {
+
+      const totalQuery: any = [];
+
+      querySnapshot.forEach((doc: any) => {
+        totalQuery.push(doc.data());
+      });
+
+      const { table, filename } = this.saveProto(totalQuery, root);
+      const blob = new Blob([table], {type: "application/octet-stream"});
+      saveAs(blob, filename);
+
+      const ItemList = root.lookupType("ItemList");
+
+      // new Response(blob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
+      //   const message = ItemList.decode(buffer);
+      //   console.error(message);
+      // })
+      //
+      fetch("/proto/0.1.0/ItemList.s2").then(resp => resp.blob()).then(blob => new Response(blob).arrayBuffer()).then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
+        const message = ItemList.decode(buffer);
+        console.error(message);
+      })
+    });
   }
 
   unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any, keyAlternateName: any = {}): any {
