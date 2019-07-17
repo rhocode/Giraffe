@@ -111,6 +111,8 @@ export default class Recipe extends FirebaseDataType {
     });
   }
 
+
+
   dataMapping() {
     return {
       name: { type: 'string' },
@@ -126,6 +128,8 @@ export default class Recipe extends FirebaseDataType {
     };
   }
 
+
   saveProto(docs: any, protoRoot: any): any {
+    console.log(JSON.stringify(docs));
   }
 }

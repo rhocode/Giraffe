@@ -1,0 +1,31 @@
+{
+  "nested": {
+    "satisgraphtory": {
+      "nested": {
+        "MachineClass": {
+          "values": {
+            "assembler": 0,
+            "biomass_burner": 1,
+            "coal_generator": 2,
+            "constructor": 3,
+            "converter": 4,
+            "foundry": 5,
+            "fuel_generator": 6,
+            "geo_thermal_generator": 7,
+            "hadron_collider": 8,
+            "industrial_storage_container": 9,
+            "manufacturer": 10,
+            "miner": 11,
+            "nuclear_power_plant": 12,
+            "oil_pump": 13,
+            "oil_refinery": 14,
+            "quantum_encoder": 15,
+            "remote_storage": 16,
+            "smelter": 17,
+            "storage_container": 18
+          }
+        }
+      }
+    }
+  }
+}

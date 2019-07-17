@@ -62,6 +62,8 @@ export default class Item extends FirebaseDataType {
       itemsList.push(docItem)
     });
 
+    console.error(JSON.stringify(itemsList));
+
     const message = ItemList.create({data: itemsList});
     const buffer = ItemList.encode(message).finish();
     const filename = "ItemList.s2";
