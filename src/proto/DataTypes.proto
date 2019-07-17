@@ -1,0 +1,83 @@
+// DataTypes.proto
+syntax = "proto3";
+package satisgraphtory;
+
+// Just here to look pretty
+import public "Generated.proto";
+
+enum UpgradeTiers {
+    MK1 = 0;
+    MK2 = 1;
+    MK3 = 2;
+    MK4 = 3;
+    MK5 = 4;
+    MK6 = 5;
+    MK7 = 6;
+    MK8 = 7;
+    MK9 = 8;
+    MK10 = 9;
+    MK11 = 10;
+    MK12 = 11;
+    MK13 = 12;
+    MK14 = 13;
+    MK15 = 14;
+    MK16 = 15;
+    UNSET = 16;
+    NA = 17;
+}
+
+message ResourcePacket {
+    Item item = 1;
+    int32 itemQuantity = 2;
+}
+
+message ItemData {
+    Item id = 1;
+    string name = 2;
+    string icon = 3;
+    bool hidden = 4;
+}
+
+message RecipeData {
+    Recipe id = 1;
+    string name = 2;
+    repeated ResourcePacket input = 3;
+    MachineClass machineClass = 4;
+    repeated ResourcePacket output = 5;
+    bool hidden = 6;
+    bool alt = 7;
+}
+
+message PlayerUnlockData {
+    Recipe id = 1;
+    string name = 2;
+    bool hidden = 3;
+}
+
+message MachineClassData {
+    MachineClass id = 1;
+    string name = 2;
+    UpgradeTiers tier = 3;
+    string icon = 4;
+    int32 inputs = 5;
+    int32 outputs = 6;
+    double power = 7;
+    bool hidden = 8;
+    int32 localOrdering = 9;
+}
+
+message ItemList {
+    repeated ItemData data = 1;
+}
+
+message RecipeList {
+    repeated RecipeData data = 1;
+}
+
+message PlayerUnlockList {
+    repeated PlayerUnlockData data = 1;
+}
+
+message MachineClassList {
+    repeated MachineClassData data = 1;
+}

@@ -82,5 +82,6 @@ export default class MachineClass extends FirebaseDataType {
   }
 
   saveProto(docs: any, protoRoot: any): any {
+    console.log(JSON.stringify(docs));
   }
 }

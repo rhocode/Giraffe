@@ -9,12 +9,17 @@
     "@types/node": "^12.0.2",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "apollo-boost": "^0.4.3",
+    "apollo-link-schema": "^1.2.3",
     "clean-deep": "^3.0.2",
     "clsx": "^1.0.4",
     "d3": "^5.9.7",
     "firebase": "^6.0.4",
     "flow-bin": "^0.98.1",
     "fontfaceobserver": "^2.1.0",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.5",
     "husky": "^2.4.0",
     "lint-staged": "^8.1.7",
     "lodash": "^4.17.13",
@@ -24,6 +29,7 @@
     "protobufjs": "^6.8.8",
     "protocol-buffers-encodings": "^1.1.0",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
@@ -46,7 +52,8 @@
     "build": "npm run proto && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.proto -o src/generated/$npm_package_version-schema.json"
+    "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/$npm_package_version-schema.json",
+    "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto"
   },
   "eslintConfig": {
     "extends": "react-app"
