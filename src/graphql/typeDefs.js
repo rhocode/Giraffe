@@ -19,6 +19,7 @@ const typeDefs = `
     output: [ResourcePacket]
     machineClass: MachineClass
     alternate: Boolean
+    time: Float!
     hidden: Boolean
   }
   
@@ -40,6 +41,7 @@ const typeDefs = `
     hidden: Boolean
     tier: UpgradeTier!
     power: Float
+    speed: Float
     localOrdering: Int
     machineClass: MachineClass
   }

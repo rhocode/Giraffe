@@ -92,8 +92,7 @@ const resolvers = {
     },
     getRecipes(obj, args, context, info) {
       return recipeListPromise.then(rMap => {
-        const values = Object.values(rMap);
-        return values;
+        return Object.values(rMap);
       });
     },
     getRecipeById(obj, args, context, info) {
@@ -154,7 +153,7 @@ const resolvers = {
       });
     },
     name(MachineInstance) {
-      const UpgradeTiers = root.lookupEnum("UpgragtdeTiers");
+      const UpgradeTiers = root.lookupEnum("UpgradeTiers");
       if (UpgradeTiers.valuesById[MachineInstance.tier] === 'NA') {
         return MachineInstance.id;
       }
