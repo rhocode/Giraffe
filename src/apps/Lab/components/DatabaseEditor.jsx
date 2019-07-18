@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import firebaseApp, {
-  firebaseGithubAuth
-} from '../../../common/firebase/firebaseApp';
+import firebaseApp, {firebaseGithubAuth} from '../../../common/firebase/firebaseApp';
 import firebaseFirestore from '../../../common/firebase/firebaseFirestore';
 
 import dataLoader from '../libraries/SGDataLib/utils/dataLoader';
-import {
-  getTables,
-  tableMapping
-} from '../libraries/SGDataLib/constants/tableConstants';
-import { Translate, withLocalize } from 'react-localize-redux';
+import {getTables, tableMapping} from '../libraries/SGDataLib/constants/tableConstants';
+import {Translate, withLocalize} from 'react-localize-redux';
 import FormRenderer from '../libraries/SGDataLib/react/FormRenderer';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -113,7 +108,8 @@ class DatabaseEditor extends Component {
     errorMessage: '',
     addItemModalOpen: false,
     removeItemModalOpen: false,
-    deletionFunction: () => {},
+    deletionFunction: () => {
+    },
     deletionName: '',
     versions: ['Loading...'],
     selectedVersion: -1,
@@ -122,21 +118,21 @@ class DatabaseEditor extends Component {
 
   handleChange = (event, newValue) => {
     if (this.state.value !== newValue) {
-      this.setState({ value: newValue });
+      this.setState({value: newValue});
     }
   };
 
   componentDidMount() {
     const thisAccessor = this;
 
-    firebaseApp.auth().onAuthStateChanged(function(user) {
+    firebaseApp.auth().onAuthStateChanged(function (user) {
       if (user) {
-        thisAccessor.setState({ loggedIn: true });
+        thisAccessor.setState({loggedIn: true});
         dataLoader(
           getTables,
           firebaseFirestore,
           tableMapping,
-          function(tableName, tableData) {
+          function (tableName, tableData) {
             const pathArray = tableName.split('/');
             const lastTableName = pathArray[pathArray.length - 1];
 
@@ -157,7 +153,7 @@ class DatabaseEditor extends Component {
             if (selectedVersion === -1) {
               selectedVersion = versions[0];
             }
-            thisAccessor.setState({ versions, selectedVersion });
+            thisAccessor.setState({versions, selectedVersion});
           }
         );
       }
@@ -166,7 +162,7 @@ class DatabaseEditor extends Component {
 
   handleVersionChange = event => {
     if (event.target.value !== this.state.selectedVersion) {
-      this.setState({ selectedVersion: event.target.value });
+      this.setState({selectedVersion: event.target.value});
     }
   };
 
@@ -177,11 +173,11 @@ class DatabaseEditor extends Component {
   };
 
   handleAddItemModalOpen = () => {
-    this.setState({ addItemModalOpen: true });
+    this.setState({addItemModalOpen: true});
   };
 
   handleAddItemModalClose = () => {
-    this.setState({ addItemModalOpen: false });
+    this.setState({addItemModalOpen: false});
   };
 
   handleRemoveItemModalOpen = (deletionFunction, deletionName) => {
@@ -195,15 +191,15 @@ class DatabaseEditor extends Component {
   };
 
   handleRemoveItemModalClose = () => {
-    this.setState({ removeItemModalOpen: false });
+    this.setState({removeItemModalOpen: false});
   };
 
   handleSnackbarClose = () => {
-    this.setState({ snackbarOpen: false });
+    this.setState({snackbarOpen: false});
   };
 
   loginWithGithub = () => {
-    firebaseGithubAuth().then(function(result) {
+    firebaseGithubAuth().then(function (result) {
       // // This gives you a GitHub Access Token. You can use it to access the GitHub API.
       // var token = result.credential.accessToken;
       // // The signed-in user info.
@@ -213,7 +209,7 @@ class DatabaseEditor extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     const {
       value,
       snackbarOpen,
@@ -267,7 +263,7 @@ class DatabaseEditor extends Component {
             scrollButtons="off"
           >
             {tabKeys.map(key => {
-              return <Tab label={key} key={key} />;
+              return <Tab label={key} key={key}/>;
             })}
           </Tabs>
         </AppBar>
@@ -281,7 +277,7 @@ class DatabaseEditor extends Component {
                 Sign in with GitHub
               </Button>
             ) : null}
-            {serverData.map(({ id, data }) => {
+            {serverData.map(({id, data}) => {
               return (
                 <FormRenderer
                   openDeletion={this.handleRemoveItemModalOpen}
@@ -304,7 +300,7 @@ class DatabaseEditor extends Component {
               : this.handleAddItemModalOpen
           }
         >
-          <AddIcon />
+          <AddIcon/>
         </Fab>
         <Fab
           hidden={!!objectPath}
@@ -312,7 +308,7 @@ class DatabaseEditor extends Component {
           color={'primary'}
           onClick={() => new objectBaseType().import(objectPath)}
         >
-          <CloudUploadIcon />
+          <CloudUploadIcon/>
         </Fab>
         <Fab
           hidden={!!objectPath}
@@ -322,7 +318,7 @@ class DatabaseEditor extends Component {
             () => new objectBaseType().downloadDataToProto(objectPath)
           }
         >
-          <CloudDownloadIcon />
+          <CloudDownloadIcon/>
         </Fab>
         <div className={classes.leftSelect} color={'primary'}>
           <FormControl>
@@ -331,12 +327,12 @@ class DatabaseEditor extends Component {
               value={this.state.selectedVersion}
               onChange={this.handleVersionChange}
               className={classes.formControl}
-              input={<Input name="version" id="version-helper" />}
+              input={<Input name="version" id="version-helper"/>}
             >
               {this.state.versions.length === -1 ? (
                 <MenuItem value={-1}>
                   <em>
-                    <Translate id="greeting" />
+                    <Translate id="greeting"/>
                   </em>
                 </MenuItem>
               ) : null}
@@ -373,7 +369,7 @@ class DatabaseEditor extends Component {
                 className={classes.close}
                 onClick={this.handleSnackbarClose}
               >
-                <CloseIcon />
+                <CloseIcon/>
               </IconButton>
             ]}
           />

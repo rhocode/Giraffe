@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 import InternalCanvas from "./InternalCanvas";
 
 const styles = theme => ({
@@ -53,11 +53,11 @@ class Canvas extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div className={classes.container}>
-        <div className={classes.headingSpacer} />
+        <div className={classes.headingSpacer}/>
         <div ref={this.canvasContainer} className={classes.canvasContainer}>
           {this.state.width && this.state.height ? (
             <InternalCanvas

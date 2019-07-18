@@ -1,6 +1,6 @@
 export default function BuilderFactory<T, S>(
   interfaceObject: T,
-  type: { new (): S }
+  type: { new(): S }
 ): S {
   const starterObject: any = new type();
 
@@ -32,7 +32,7 @@ export function traverseDocPath(path: string, firebaseObject: any) {
 
 export function BuilderFactoryFirebase<S>(
   firebaseObject: any,
-  type: { new (): S }
+  type: { new(): S }
 ): S {
   const starterObject: any = new type();
 

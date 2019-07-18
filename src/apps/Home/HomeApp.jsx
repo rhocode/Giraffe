@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import LoadingBar from '../../common/react/LoadingBar';
 
 const styles = theme => {
@@ -28,11 +28,11 @@ class HomeApp extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div className={classes.container}>
-        <LoadingBar loadingText heightOverride={100} />
+        <LoadingBar loadingText heightOverride={100}/>
       </div>
     );
   }

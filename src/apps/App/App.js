@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import './App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { themeDark } from '../../theme';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {themeDark} from '../../theme';
 
-import { renderToStaticMarkup } from 'react-dom/server';
-import { withLocalize } from 'react-localize-redux';
+import {renderToStaticMarkup} from 'react-dom/server';
+import {withLocalize} from 'react-localize-redux';
 
 import en from '../../translations/en.json';
 import AsyncComponent from '../../common/react/AsyncComponent';
@@ -25,7 +25,7 @@ class DebugRouter extends Router {
       console.log(
         `The current URL is ${location.pathname}${location.search}${
           location.hash
-        }`
+          }`
       );
       console.log(
         `The last navigation action was ${action}`,
@@ -40,7 +40,7 @@ const ReactRouter =
 
 class AppWrapper extends Component {
   render() {
-    const { children } = this.props;
+    const {children} = this.props;
 
     return (
       <ReactRouter>
@@ -84,7 +84,7 @@ class App extends Component {
     // window.localStorage.setItem("languageCode", curLangCode);
 
     this.props.initialize({
-      languages: [{ name: 'English', code: 'en' }],
+      languages: [{name: 'English', code: 'en'}],
 
       options: {
         renderToStaticMarkup,
@@ -129,7 +129,7 @@ class App extends Component {
   }
 
   static getHomeApp() {
-    return <Route key={'home'} path="/" exact component={HomeApp} />;
+    return <Route key={'home'} path="/" exact component={HomeApp}/>;
   }
 
   static resolveDomain() {
@@ -157,11 +157,11 @@ class App extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     return (
       <AppWrapper>
         <div id={'mainRootDiv'} className={classes.root}>
-          <HeaderMessaging />
+          <HeaderMessaging/>
           <div className={classes.body}>{App.resolveDomain()}</div>
         </div>
       </AppWrapper>

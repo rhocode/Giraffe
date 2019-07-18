@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import LoadingBar from "../../common/react/LoadingBar";
 
 const styles = theme => {
@@ -25,11 +25,11 @@ class HubApp extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div className={classes.container}>
-        <LoadingBar />
+        <LoadingBar/>
       </div>
     );
   }
@@ -39,8 +39,7 @@ const mapStateToProps = state => ({
   ...state
 });
 
-const mapDispatchToProps = () => ({
-});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

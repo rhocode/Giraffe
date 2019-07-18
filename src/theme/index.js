@@ -1,15 +1,15 @@
-import { createMuiTheme } from '@material-ui/core';
+import {createMuiTheme} from '@material-ui/core';
 
 const paletteLight = {
   type: 'light',
-  primary: { main: '#FF9100', dark: '#FF6D00' },
-  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+  primary: {main: '#FF9100', dark: '#FF6D00'},
+  secondary: {main: '#FF3D00', contrastText: '#FAFAFA'}
 };
 
 const paletteDark = {
   type: 'dark',
-  primary: { main: '#FF9100', dark: '#FF6D00' },
-  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+  primary: {main: '#FF9100', dark: '#FF6D00'},
+  secondary: {main: '#FF3D00', contrastText: '#FAFAFA'}
 };
 
 const themeName = 'Pizazz Vermilion Gayal';
@@ -41,8 +41,8 @@ export const baseTheme = {
 };
 
 export const themeDark = createMuiTheme(
-  Object.assign({}, baseTheme, { palette: paletteDark })
+  Object.assign({}, baseTheme, {palette: paletteDark})
 );
 export const themeLight = createMuiTheme(
-  Object.assign({}, baseTheme, { palette: paletteLight })
+  Object.assign({}, baseTheme, {palette: paletteLight})
 );

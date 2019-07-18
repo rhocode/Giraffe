@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import AddIcon from '@material-ui/icons/Add';
-import { setMouseMode } from '../../../redux/actions/Graph/graphActions';
+import {setMouseMode} from '../../../redux/actions/Graph/graphActions';
 
 const styles = theme => ({
   default: {
@@ -36,7 +36,7 @@ class GraphActionsBottomActions extends Component {
   };
 
   render() {
-    const { classes, mouseMode } = this.props;
+    const {classes, mouseMode} = this.props;
 
     return (
       <div className={classes.root}>
@@ -48,19 +48,19 @@ class GraphActionsBottomActions extends Component {
           <BottomNavigationAction
             label="Pan"
             value="pan"
-            icon={<OpenWithIcon />}
+            icon={<OpenWithIcon/>}
           />
           <BottomNavigationAction
             label="Select"
             value="select"
-            icon={<CropFreeIcon />}
+            icon={<CropFreeIcon/>}
           />
           <BottomNavigationAction
             label="Link"
             value="link"
-            icon={<DeviceHubIcon />}
+            icon={<DeviceHubIcon/>}
           />
-          <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
+          <BottomNavigationAction label="Add" value="add" icon={<AddIcon/>}/>
         </BottomNavigation>
       </div>
     );

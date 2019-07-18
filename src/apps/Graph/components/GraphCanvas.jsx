@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 // import {canvasBackgroundColor} from "../../../theme";
 import SGCanvas from '../libraries/SGLib/react/SGCanvas';
 import GraphActionsBottomActions from "./GraphActionsBottomActions";
@@ -78,7 +78,7 @@ class GraphCanvas extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div ref={this.canvasContainer} className={classes.canvasContainer}>
@@ -89,7 +89,7 @@ class GraphCanvas extends Component {
             height={this.state.height}
           />
         ) : null}
-        <GraphActionsBottomActions />
+        <GraphActionsBottomActions/>
       </div>
     );
   }

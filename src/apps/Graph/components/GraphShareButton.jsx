@@ -1,6 +1,6 @@
-import { withStyles } from '@material-ui/core';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -19,10 +19,10 @@ const styles = theme => ({
 
 class GraphShareButton extends Component {
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
-      <GraphAppBarButton label="Share" icon={<ShareIcon />}>
+      <GraphAppBarButton label="Share" icon={<ShareIcon/>}>
         <div className={classes.shareDialog}>
           <TextField
             spellCheck={false}
@@ -39,20 +39,20 @@ class GraphShareButton extends Component {
                 document.execCommand('copy');
                 resolve(true);
               }).then(a => {
-                this.setState({ statusMessage: 'Copied!' }, () => {
+                this.setState({statusMessage: 'Copied!'}, () => {
                   setTimeout(() => {
-                    this.setState({ statusMessage: '' });
+                    this.setState({statusMessage: ''});
                   }, 3000);
                 });
               })
             }
           >
-            <FileCopyIcon />
+            <FileCopyIcon/>
             <div className={classes.label}>Copy Code</div>
           </Button>
 
           <Button fullWidth color="primary">
-            <PhotoSizeSelectActualIcon />
+            <PhotoSizeSelectActualIcon/>
             <div className={classes.label}>Export Image</div>
           </Button>
         </div>

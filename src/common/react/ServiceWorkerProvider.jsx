@@ -23,7 +23,7 @@ function ServiceWorkerProvider(props) {
             }
           });
 
-          waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
+          waitingServiceWorker.postMessage({type: "SKIP_WAITING"});
         }
       }
     }),
@@ -60,8 +60,7 @@ export function useServiceWorker() {
   return context;
 }
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   setUpdateAvailable: data => dispatch(setUpdateAvailable(data)),

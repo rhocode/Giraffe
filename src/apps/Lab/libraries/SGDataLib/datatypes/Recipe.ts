@@ -1,4 +1,4 @@
-import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
 
 export default class Recipe extends FirebaseDataType {
@@ -9,12 +9,11 @@ export default class Recipe extends FirebaseDataType {
   machineClass: any;
 
   identifierAsDocumentName: boolean = false;
+  gsheetId: number = 4;
 
   static fromFirebase(firebaseRef: any): Recipe {
     return BuilderFactoryFirebase<Recipe>(firebaseRef, Recipe);
   }
-
-  gsheetId: number = 4;
 
   import(objectPath: any) {
     const keys = [
@@ -93,10 +92,10 @@ export default class Recipe extends FirebaseDataType {
               outputItemId: data.produces,
               outputItemQuantity: data.unitsproduced,
               input: [
-                { itemId: data.resource1, itemQty: data.perbatch1 },
-                { itemId: data.resource2, itemQty: data.perbatch2 },
-                { itemId: data.resource3, itemQty: data.perbatch3 },
-                { itemId: data.resource4, itemQty: data.perbatch4 }
+                {itemId: data.resource1, itemQty: data.perbatch1},
+                {itemId: data.resource2, itemQty: data.perbatch2},
+                {itemId: data.resource3, itemQty: data.perbatch3},
+                {itemId: data.resource4, itemQty: data.perbatch4}
               ].filter((item: any) => item && item.itemId)
             };
             // if (newPojo.name === "hazmat_filter" ) {
@@ -112,18 +111,17 @@ export default class Recipe extends FirebaseDataType {
   }
 
 
-
   dataMapping() {
     return {
-      name: { type: 'string' },
-      outputItemId: { type: 'string', ref: 'Item' },
-      outputItemQuantity: { type: 'number' },
-      alternateName: { type: 'string' },
-      isAltRecipe: { type: 'boolean' },
-      machineClass: { type: 'string', ref: 'MachineClass' },
+      name: {type: 'string'},
+      outputItemId: {type: 'string', ref: 'Item'},
+      outputItemQuantity: {type: 'number'},
+      alternateName: {type: 'string'},
+      isAltRecipe: {type: 'boolean'},
+      machineClass: {type: 'string', ref: 'MachineClass'},
       input: [
-        { identifier: 'itemId', type: 'string', ref: 'Item' },
-        { identifier: 'itemQty', type: 'number' }
+        {identifier: 'itemId', type: 'string', ref: 'Item'},
+        {identifier: 'itemQty', type: 'number'}
       ]
     };
   }

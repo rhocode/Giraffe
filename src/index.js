@@ -3,22 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './apps/App/App';
 
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import configureStore from './redux/store';
 
-import { LocalizeProvider } from 'react-localize-redux';
+import {LocalizeProvider} from 'react-localize-redux';
 import ServiceWorkerProvider from "./common/react/ServiceWorkerProvider";
+
 require('typeface-roboto-condensed');
 
 const store = configureStore();
 ReactDOM.render(
-    <Provider store={store}>
-      <ServiceWorkerProvider>
-        <LocalizeProvider store={store}>
-          <App />
-        </LocalizeProvider>
-      </ServiceWorkerProvider>
-    </Provider>,
+  <Provider store={store}>
+    <ServiceWorkerProvider>
+      <LocalizeProvider store={store}>
+        <App/>
+      </LocalizeProvider>
+    </ServiceWorkerProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

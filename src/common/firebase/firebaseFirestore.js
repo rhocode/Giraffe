@@ -3,8 +3,8 @@ import 'firebase/firestore';
 
 const firebaseFirestore = firebaseApp.firestore();
 
-firebaseFirestore.enablePersistence({synchronizeTabs:true})
-  .catch(function(err) {
+firebaseFirestore.enablePersistence({synchronizeTabs: true})
+  .catch(function (err) {
     if (err.code === 'failed-precondition') {
       // Multiple tabs open, persistence can only be enabled
       // in one tab at a a time.

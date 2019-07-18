@@ -1,5 +1,6 @@
-import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
+
 const cleanDeep = require('clean-deep');
 
 export default class MachineClass extends FirebaseDataType {
@@ -7,12 +8,11 @@ export default class MachineClass extends FirebaseDataType {
   upgradeLevels: any;
 
   identifierAsDocumentName: boolean = true;
+  gsheetId: number = 3;
 
   static fromFirebase(firebaseRef: any): MachineClass {
     return BuilderFactoryFirebase<MachineClass>(firebaseRef, MachineClass);
   }
-
-  gsheetId: number = 3;
 
   import(objectPath: any) {
     const keys = [
@@ -47,17 +47,17 @@ export default class MachineClass extends FirebaseDataType {
           inputs: data.inputslots,
           outputs: data.outputslots,
           upgradeLevels: [
-            { upgradeTier: data.upgradelevel1 },
-            { upgradeTier: data.upgradelevel2 },
-            { upgradeTier: data.upgradelevel3 },
-            { upgradeTier: data.upgradelevel4 },
-            { upgradeTier: data.upgradelevel5 },
-            { upgradeTier: data.upgradelevel6 }
+            {upgradeTier: data.upgradelevel1},
+            {upgradeTier: data.upgradelevel2},
+            {upgradeTier: data.upgradelevel3},
+            {upgradeTier: data.upgradelevel4},
+            {upgradeTier: data.upgradelevel5},
+            {upgradeTier: data.upgradelevel6}
           ].filter((item: any) => item && item.upgradeTier),
           powerLevel: [
-            { tier: data.upgradelevel1,  power: data.powerlevel1 },
-            { tier: data.upgradelevel2, power: data.powerlevel2 },
-            { tier: data.upgradelevel3, power: data.powerlevel3 },
+            {tier: data.upgradelevel1, power: data.powerlevel1},
+            {tier: data.upgradelevel2, power: data.powerlevel2},
+            {tier: data.upgradelevel3, power: data.powerlevel3},
           ].filter((item: any) => item && item.tier && item.power)
         };
 
@@ -70,13 +70,13 @@ export default class MachineClass extends FirebaseDataType {
   // https://docs.google.com/spreadsheets/d/1QTdoUFIJ3GQFodgaDkrj2wbkl151EIwym99Wm3xFLOQ/edit#gid=0
   dataMapping() {
     return {
-      identifier: { type: 'string' },
+      identifier: {type: 'string'},
       upgradeLevels: [
-        { identifier: 'upgradeTier', type: 'string', ref: 'UpgradeTier' }
+        {identifier: 'upgradeTier', type: 'string', ref: 'UpgradeTier'}
       ],
       powerLevel: [
-        { identifier: 'tier', type: 'string', ref: 'UpgradeTier' },
-        { identifier: 'power', type: 'number' }
+        {identifier: 'tier', type: 'string', ref: 'UpgradeTier'},
+        {identifier: 'power', type: 'number'}
       ]
     };
   }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,15 +17,15 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { withLocalize } from 'react-localize-redux';
-import { connect } from 'react-redux';
+import {withLocalize} from 'react-localize-redux';
+import {connect} from 'react-redux';
 import {
   addLocalChange,
   addTableRow,
   removeAllLocalChangesForTableRow,
   removeLocalChange
 } from '../../../../../redux/actions/Lab/labActions';
-import { unpackComplexObject } from '../datatypes/internal/FirebaseDataType';
+import {unpackComplexObject} from '../datatypes/internal/FirebaseDataType';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import SelectDropdown from '../../../components/SelectDropdown';
@@ -81,11 +81,11 @@ function generateCard(classes, context, renderedItem, expanded) {
         avatar={
           this.hasLocalEdits(context) ? (
             <Avatar className={classes.unwrittenEntry}>
-              <EditIcon />
+              <EditIcon/>
             </Avatar>
           ) : (
             <Avatar aria-label="Recipe" className={classes.writtenEntry}>
-              <CheckIcon />
+              <CheckIcon/>
             </Avatar>
           )
         }
@@ -97,7 +97,7 @@ function generateCard(classes, context, renderedItem, expanded) {
               context.object
             )}
           >
-            <DeleteIcon />
+            <DeleteIcon/>
           </IconButton>
         }
         title={renderedItem.getFirebaseId()}
@@ -112,7 +112,7 @@ function generateCard(classes, context, renderedItem, expanded) {
           disabled={!this.hasLocalEdits(context)}
           onClick={this.writeALlEdits(context)}
         >
-          <CloudUploadIcon />
+          <CloudUploadIcon/>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -122,7 +122,7 @@ function generateCard(classes, context, renderedItem, expanded) {
           aria-expanded={expanded}
           aria-label="Show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon/>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -140,19 +140,19 @@ class FormRenderer extends Component {
   };
 
   handleExpandClick = () => {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState({expanded: !this.state.expanded});
   };
 
   handleInputChange = context => {
     return evt => {
       this.props.addLocalChange(
-        Object.assign({}, context, { value: evt.target.value })
+        Object.assign({}, context, {value: evt.target.value})
       );
     };
   };
 
   deleteInputBoxContents = context => {
-    this.props.addLocalChange(Object.assign({}, context, { value: null }));
+    this.props.addLocalChange(Object.assign({}, context, {value: null}));
   };
 
   resetInputBox = context => {
@@ -164,7 +164,7 @@ class FormRenderer extends Component {
   hasLocalEdits = (context, checkField = false) => {
     const local = this.props.localChanges;
     if (checkField) {
-      const { key } = context;
+      const {key} = context;
 
       return !!(local && local[key] !== undefined);
     } else {
@@ -174,7 +174,7 @@ class FormRenderer extends Component {
 
   componentDidUpdate() {
     const local = this.props.localChanges;
-    const { renderedItem, table } = this.props;
+    const {renderedItem, table} = this.props;
     const object = renderedItem.getFirebaseId();
 
     if (local) {
@@ -188,13 +188,13 @@ class FormRenderer extends Component {
         })
         .every(key => !!key);
       if (isSame) {
-        this.props.removeAllLocalChangesForTableRow({ table, object });
+        this.props.removeAllLocalChangesForTableRow({table, object});
       }
     }
   }
 
   getLocalEdits = context => {
-    const { key, serverValue } = context;
+    const {key, serverValue} = context;
     const local = this.props.localChanges;
     if (this.hasLocalEdits(context, true)) {
       return local[key] || '';
@@ -208,7 +208,7 @@ class FormRenderer extends Component {
       return;
     }
 
-    const { data } = context;
+    const {data} = context;
     const local = this.props.localChanges;
 
     return () => {
@@ -223,7 +223,7 @@ class FormRenderer extends Component {
   };
 
   deleteRow = context => {
-    const { data } = context;
+    const {data} = context;
 
     return () => {
       data.delete().then(() => {
@@ -312,8 +312,8 @@ class FormRenderer extends Component {
           if (fieldMetadata.type === 'boolean') {
             useSelect = true;
             autocompleteList = [
-              { label: 'false', value: 'false' },
-              { label: 'true', value: 'true' }
+              {label: 'false', value: 'false'},
+              {label: 'true', value: 'true'}
             ];
           }
 
@@ -325,14 +325,14 @@ class FormRenderer extends Component {
             if (identifier === 'identifier') {
               // Use the ID
               autocompleteList = [
-                { label: 'Unset', value: '' },
+                {label: 'Unset', value: ''},
                 ...dataList.map(item => {
-                  return { value: item.id, label: item.id };
+                  return {value: item.id, label: item.id};
                 })
               ];
             } else {
               autocompleteList = [
-                { label: 'Unset', value: '' },
+                {label: 'Unset', value: ''},
                 ...dataList.map(item => {
                   return {
                     value: item.data[identifier],
@@ -353,7 +353,7 @@ class FormRenderer extends Component {
                   label={`${formattedKey}-${innerKey}`}
                   helperText={`Server: ${
                     context.serverValue ? context.serverValue : 'null'
-                  }`}
+                    }`}
                   suggestions={autocompleteList}
                 />
               ) : (
@@ -366,7 +366,7 @@ class FormRenderer extends Component {
                   margin="normal"
                   helperText={`Server: ${
                     context.serverValue ? context.serverValue : 'null'
-                  }`}
+                    }`}
                   inputProps={fieldMetadata}
                 />
               )}
@@ -376,7 +376,7 @@ class FormRenderer extends Component {
                 aria-label="Refresh"
                 onClick={this.resetInputBox(context)}
               >
-                <RefreshIcon />
+                <RefreshIcon/>
               </IconButton>
             </React.Fragment>
           );
@@ -391,7 +391,7 @@ class FormRenderer extends Component {
               aria-label="Refresh"
               onClick={() => thisAccessor.props.addTableRow(localContext)}
             >
-              <AddIcon />
+              <AddIcon/>
             </IconButton>
           );
         } else {
@@ -406,7 +406,7 @@ class FormRenderer extends Component {
                 })
               }
             >
-              <DeleteIcon />
+              <DeleteIcon/>
             </IconButton>
           );
         }
@@ -468,8 +468,8 @@ class FormRenderer extends Component {
     if (dataMapping[dataKey].type === 'boolean') {
       useSelect = true;
       autocompleteList = [
-        { label: 'false', value: 'false' },
-        { label: 'true', value: 'true' }
+        {label: 'false', value: 'false'},
+        {label: 'true', value: 'true'}
       ];
     }
 
@@ -481,14 +481,14 @@ class FormRenderer extends Component {
       if (identifier === 'identifier') {
         // Use the ID
         autocompleteList = [
-          { label: 'Unset', value: '' },
+          {label: 'Unset', value: ''},
           ...dataList.map(item => {
-            return { value: item.id, label: item.id };
+            return {value: item.id, label: item.id};
           })
         ];
       } else {
         autocompleteList = [
-          { label: 'Unset', value: '' },
+          {label: 'Unset', value: ''},
           ...dataList.map(item => {
             return {
               value: item.data[identifier],
@@ -533,7 +533,7 @@ class FormRenderer extends Component {
           aria-label="Refresh"
           onClick={this.resetInputBox(context)}
         >
-          <RefreshIcon />
+          <RefreshIcon/>
         </IconButton>
       </div>
     );
@@ -544,8 +544,8 @@ class FormRenderer extends Component {
   }
 
   render() {
-    const { classes, renderedItem } = this.props;
-    const { expanded } = this.state;
+    const {classes, renderedItem} = this.props;
+    const {expanded} = this.state;
 
     const context = {
       table: this.props.table,
@@ -563,11 +563,11 @@ class FormRenderer extends Component {
 // }
 
 function mapStateToProps(state, ownProps) {
-  const { renderedItem, table } = ownProps;
+  const {renderedItem, table} = ownProps;
   return {
     localChanges: (state.labReducer.localChanges[table] || {})[
       renderedItem.getFirebaseId()
-    ]
+      ]
   };
 }
 
