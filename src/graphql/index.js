@@ -8,40 +8,8 @@ import gql from 'graphql-tag';
 
 const queryText = gql`
   query ($className: String, $classId: Int) {
-    getRecipeByOutputItemId(item_id: $classId) {
+    getRecipes { 
       name
-      machineClass {
-        name
-        instances {
-          name
-          power
-          speed
-          icon
-        }
-      }
-    }
-    
-    getRecipes {
-      name
-      time
-      input {
-        item {
-          name
-          icon
-        }
-        itemQuantity
-      }
-      output {
-        item {
-          name
-          icon
-        }
-        itemQuantity
-      }
-      machineClass {
-        name
-      }
-      id
     }
   }
 `;
@@ -91,7 +59,7 @@ const testGraphQL = () => {
     query: queryText,
     variables: {
       cityName: "San Diego",
-      className: "AAAAA",
+      className: "color_cartridge",
       classId: 27
     }
   })

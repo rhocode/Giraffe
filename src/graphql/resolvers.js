@@ -83,6 +83,14 @@ const resolvers = {
         return mcMap[args.class_id];
       });
     },
+    getCraftingMachineClasses(obj, args, context, info) {
+      return recipeListPromise.then(rMap => {
+        const acceptedMachineClasses = new Set(Object.values(rMap).map(recipe => recipe.machineClass));
+        return machineClassListPromise.then(mcMap => {
+          return Array.from(acceptedMachineClasses).map(classId => mcMap[classId]);
+        });
+      });
+    },
     getMachineClasses(obj, args, context, info) {
       return machineClassListPromise.then(mcMap => {
         const values = Object.values(mcMap);
@@ -111,6 +119,22 @@ const resolvers = {
       return recipeListPromise.then(rMap => {
         return Object.values(rMap).filter(recipe => {
           return (recipe.input || []).some(elem => elem.item === args.item_id);
+        })
+      });
+    },
+    getRecipeByOutputItemName(obj, args, context, info) {
+      const itemEnum = root.lookupEnum("Item").values[args.item_name];
+      return recipeListPromise.then(rMap => {
+        return Object.values(rMap).filter(recipe => {
+          return (recipe.output || []).some(elem => elem.item === itemEnum);
+        })
+      });
+    },
+    getRecipeByInputItemName(obj, args, context, info) {
+      const itemEnum = root.lookupEnum("Item").values[args.item_name];
+      return recipeListPromise.then(rMap => {
+        return Object.values(rMap).filter(recipe => {
+          return (recipe.input || []).some(elem => elem.item === itemEnum);
         })
       });
     }
@@ -163,6 +187,16 @@ const resolvers = {
   MachineClass: {
     icon(machineClass) {
       return machineClass.icon || (machineClass.name + '.png');
+    },
+    recipes(machineClass) {
+      const machineClassId = root.lookupEnum("MachineClass").values[machineClass.id];
+      return recipeListPromise.then(rMap => {
+        const recipes = Object.keys(rMap).filter(recipeKey => {
+          const recipe = rMap[recipeKey];
+          return recipe.machineClass === machineClassId
+        });
+        return recipes.map(key => rMap[key]);
+      });
     },
     instances(machineClass) {
       return machineInstanceListPromise.then(mcMap => {
