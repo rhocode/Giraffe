@@ -46,6 +46,7 @@ message RecipeData {
     repeated ResourcePacket output = 5;
     bool hidden = 6;
     bool alt = 7;
+    double time = 8;
 }
 
 message PlayerUnlockData {
@@ -62,8 +63,9 @@ message MachineClassData {
     int32 inputs = 5;
     int32 outputs = 6;
     double power = 7;
-    bool hidden = 8;
-    int32 localOrdering = 9;
+    double speed = 8;
+    bool hidden = 9;
+    int32 localOrdering = 10;
 }
 
 message ItemList {

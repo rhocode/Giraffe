@@ -46,7 +46,6 @@ class LabApp extends Component {
   componentDidMount() {
     // this.processJSON();
     testGraphQL();
-    // this.generateResources();
   }
 
   generateResources() {
@@ -67,8 +66,11 @@ class LabApp extends Component {
       purities.forEach(purity => {
         const doc = JSON.parse(JSON.stringify(DefaultJSON));
 
+        doc.time = "1";
+
         if (resource === 'crude_oil') {
           doc.machineClass = 'oil_pump';
+          doc.time = "0.5";
         }
 
         doc.name = purity + '_' + resource + '_node';
@@ -92,14 +94,13 @@ class LabApp extends Component {
     const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item));
     const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item));
 
-
     if (raJSON.length !== new Set(raJSON).size) {
       console.error("AAAAASSSS");
     }
 
     if (rnJSON.length !== new Set(rnJSON).size) {
       console.error("AAAAAB");
-      console.error(rnJSON.sort())
+      console.error(rnJSON.sort(), new Set(rnJSON).size)
     }
 
     // let intersection = new Set(
@@ -179,6 +180,7 @@ class LabApp extends Component {
     const ItemListBlob = new Blob([encoding], {type: "application/octet-stream"});
     new Response(ItemListBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
       ItemList.decode(buffer);
+      console.error(ItemList.decode(buffer));
       saveAs(ItemListBlob, "ItemList.s2");
     });
 
@@ -275,7 +277,7 @@ class LabApp extends Component {
           //40
           switch (level.upgradeTier) {
             case 'mk1':
-              return 1;
+              return 0.5;
             case 'mk2':
               return 1.5;
             default:
@@ -436,11 +438,11 @@ class LabApp extends Component {
           id: machineNum,
           name: item.identifier,
           tier: processUpgradeLevels(level, one),
-          speed: processTime(level, machineNum),
+          speed: processTime(level, item.identifier),
           icon: null,
           inputs: parseInt(item.inputs),
           outputs: parseInt(item.outputs),
-          power: processPower(level, machineNum),
+          power: processPower(level, item.identifier),
           hidden: false,
           localOrdering: index
         };
@@ -470,6 +472,7 @@ class LabApp extends Component {
           id,
           name: item.alternateName,
           machineClass: machineNum,
+          time: parseFloat(item.time),
           input: item.input.map(item => processResourcePacket(item)),
           output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
           hidden: false,
@@ -482,6 +485,7 @@ class LabApp extends Component {
           id,
           name: item.name,
           machineClass: machineNum,
+          time: parseFloat(item.time),
           input: item.input.map(item => processResourcePacket(item)),
           output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
           hidden: false
@@ -494,7 +498,7 @@ class LabApp extends Component {
     const RCEncoding = RecipeList.encode(RecipeList.fromObject({data: recipeList})).finish();
     const RDBlob = new Blob([RCEncoding], {type: "application/octet-stream"});
     new Response(RDBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-      RecipeList.decode(buffer);
+      console.error(RecipeList.decode(buffer));
       saveAs(RDBlob, "RecipeList.s2");
     })
   }

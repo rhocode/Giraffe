@@ -21,6 +21,7 @@ export default class Recipe extends FirebaseDataType {
       'displayname',
       'recipename',
       'produces',
+      'timeperbatch',
       'unitsproduced',
       'resource1',
       'perbatch1',
@@ -84,6 +85,7 @@ export default class Recipe extends FirebaseDataType {
               throw new Error('No item name ' + data.resource4);
             }
 
+            console.error(data);
             const newPojo: any = {
               name: data.recipename,
               alternateName: data.displayname ? data.displayname : null,
@@ -91,6 +93,7 @@ export default class Recipe extends FirebaseDataType {
               machineClass: data.machinename,
               outputItemId: data.produces,
               outputItemQuantity: data.unitsproduced,
+              time: data.timeperbatch,
               input: [
                 {itemId: data.resource1, itemQty: data.perbatch1},
                 {itemId: data.resource2, itemQty: data.perbatch2},

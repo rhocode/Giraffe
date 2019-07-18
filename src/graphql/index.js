@@ -12,11 +12,18 @@ const queryText = gql`
       name
       machineClass {
         name
+        instances {
+          name
+          power
+          speed
+          icon
+        }
       }
     }
     
     getRecipes {
       name
+      time
       input {
         item {
           name
@@ -24,7 +31,13 @@ const queryText = gql`
         }
         itemQuantity
       }
-      output
+      output {
+        item {
+          name
+          icon
+        }
+        itemQuantity
+      }
       machineClass {
         name
       }
@@ -79,7 +92,7 @@ const testGraphQL = () => {
     variables: {
       cityName: "San Diego",
       className: "AAAAA",
-      classId: 26
+      classId: 27
     }
   })
     .then(data => console.log(data.data))

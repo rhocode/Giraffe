@@ -95,18 +95,17 @@
             "steel_ingot": 89,
             "steel_pipe": 90,
             "sulfur": 91,
-            "sulphur": 92,
-            "supercomputer": 93,
-            "superposition_oscillator": 94,
-            "turbo_motor": 95,
-            "turbofuel": 96,
-            "uranium": 97,
-            "uranium_cell": 98,
-            "wire": 99,
-            "wood": 100,
-            "xenobasher": 101,
-            "xenozapper": 102,
-            "yellow_power_slug": 103
+            "supercomputer": 92,
+            "superposition_oscillator": 93,
+            "turbo_motor": 94,
+            "turbofuel": 95,
+            "uranium": 96,
+            "uranium_cell": 97,
+            "wire": 98,
+            "wood": 99,
+            "xenobasher": 100,
+            "xenozapper": 101,
+            "yellow_power_slug": 102
           }
         }
       }
