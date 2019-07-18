@@ -1,7 +1,7 @@
-import React  from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import {withStyles} from '@material-ui/core/styles';
 import {useServiceWorker} from "./ServiceWorkerProvider";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {getTranslate} from "react-localize-redux";
 
 const styles = theme => ({
@@ -26,8 +26,8 @@ const styles = theme => ({
   }
 });
 
-function HeaderMessaging(props){
-  const {assetsUpdateReady, updateAssets } = useServiceWorker();
+function HeaderMessaging(props) {
+  const {assetsUpdateReady, updateAssets} = useServiceWorker();
 
   const update = () => {
     console.error("Updating assets...");
@@ -35,7 +35,7 @@ function HeaderMessaging(props){
   };
 
   return (
-    <div onClick={update} className={assetsUpdateReady ? props.classes.container :  props.classes.invisible}>
+    <div onClick={update} className={assetsUpdateReady ? props.classes.container : props.classes.invisible}>
       <div className={props.classes.messaging}>{props.translate('headerMessaging_newData')}</div>
     </div>
   );

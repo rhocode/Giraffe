@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
-import { getTranslate } from 'react-localize-redux';
-import { connect } from 'react-redux';
+import React, {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {stringGen} from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+import {getTranslate} from 'react-localize-redux';
+import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
 const styles = () => ({
@@ -46,13 +46,14 @@ function useBoundingBoxRect(props) {
         const boundingRect = canvasContainerCurrent.getBoundingClientRect();
         if (canvasCurrent) {
           canvasCurrent.style.width = Math.round(widthOverride || rect.width) + 'px';
-          canvasCurrent.style.height =  Math.round(heightOverride || rect.height) + 'px';
+          canvasCurrent.style.height = Math.round(heightOverride || rect.height) + 'px';
         }
-        if (boundingRect.width !== rect.width || boundingRect.height !== rect.height ) {
+        if (boundingRect.width !== rect.width || boundingRect.height !== rect.height) {
           setRect(boundingRect);
         }
       }
     }
+
     measureElement();
     window.addEventListener('resize', measureElement, false);
     return () => window.removeEventListener('resize', measureElement, false);
@@ -65,7 +66,7 @@ function useBoundingBoxRect(props) {
 
 const useAnimationFrame = callback => {
   const callbackRef = useRef(callback);
-  useLayoutEffect (
+  useLayoutEffect(
     () => {
       callbackRef.current = callback;
     },
@@ -104,7 +105,7 @@ function drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
 const LoadingCanvas = (props) => {
   const canvasId = useMemo(() => stringGen(10), []);
   const [rect, ref, canvasRef, canvasContext] = useBoundingBoxRect(props);
-  const ratio =  window.devicePixelRatio || 1;
+  const ratio = window.devicePixelRatio || 1;
   const {heightOverride, widthOverride} = props;
 
   const [loadingText, setLoadingText] = useState(props.translate('loadingText_message0'));
@@ -114,23 +115,23 @@ const LoadingCanvas = (props) => {
   const usedWidth = widthOverride || rect.width;
 
   useAnimationFrame(() => {
-    if (!canvasContext)
-      return;
+      if (!canvasContext)
+        return;
 
-    canvasContext.save();
-    canvasContext.scale(ratio, ratio);
+      canvasContext.save();
+      canvasContext.scale(ratio, ratio);
 
-    const width = usedWidth;
+      const width = usedWidth;
 
-    const rhombusHeight = 50;
-    const rhombusWidth = 100;
-    const numberOfRhombus = width / rhombusWidth + 2;
-    const loadingTextLength = 12;
+      const rhombusHeight = 50;
+      const rhombusWidth = 100;
+      const numberOfRhombus = width / rhombusWidth + 2;
+      const loadingTextLength = 12;
 
-    setOffset((offset - 1) % rhombusWidth);
+      setOffset((offset - 1) % rhombusWidth);
 
-    const starting = offset - rhombusWidth;
-    canvasContext.clearRect(0, 0, usedWidth, usedHeight);
+      const starting = offset - rhombusWidth;
+      canvasContext.clearRect(0, 0, usedWidth, usedHeight);
       //
       for (let i = 0; i < numberOfRhombus; i++) {
         drawRhombus(
@@ -160,7 +161,7 @@ const LoadingCanvas = (props) => {
   );
 
   return (
-    <div ref={ref}  className={props.classes.canvasContainer} style={{overflow: 'hidden'}}>
+    <div ref={ref} className={props.classes.canvasContainer} style={{overflow: 'hidden'}}>
       <canvas
         id={canvasId}
         className={props.classes.canvas}

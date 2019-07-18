@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
-import { connect } from 'react-redux';
-import { simpleAction } from '../../redux/actions/simpleAction';
+import {connect} from 'react-redux';
+import {simpleAction} from '../../redux/actions/simpleAction';
 // import DatabaseEditor from './components/DatabaseEditor';
 import recipes from '../../json/Recipe';
 import items from '../../json/Items';
@@ -51,11 +51,11 @@ class LabApp extends Component {
 
   generateResources() {
     const DefaultJSON = {
-      "isAltRecipe":false,
-      "machineClass":"miner",
-      "name":"nuclear_fuel_rod",
-      "outputItemId":"nuclear_fuel_rod",
-      "outputItemQuantity":"1",
+      "isAltRecipe": false,
+      "machineClass": "miner",
+      "name": "nuclear_fuel_rod",
+      "outputItemId": "nuclear_fuel_rod",
+      "outputItemQuantity": "1",
       "input": []
     };
 
@@ -91,7 +91,6 @@ class LabApp extends Component {
     const mcJSON = machineclass.map(item => item.identifier).sort();
     const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item));
     const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item));
-
 
 
     if (raJSON.length !== new Set(raJSON).size) {
@@ -138,6 +137,7 @@ class LabApp extends Component {
     const protobuf = require("protobufjs/light");
 
     const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
+
     // console.error(root);
 
     function saveAs(blob, fileName) {
@@ -154,7 +154,7 @@ class LabApp extends Component {
 
       // On Edge, revokeObjectURL should be called only after
       // a.click() has completed, atleast on EdgeHTML 15.15048
-      setTimeout(function() {
+      setTimeout(function () {
         window.URL.revokeObjectURL(url);
       }, 1000);
     }
@@ -185,11 +185,11 @@ class LabApp extends Component {
 
     const MachineClassData = root.lookupType("MachineClassData");
 
-    function processUpgradeLevels(level, solo=false) {
+    function processUpgradeLevels(level, solo = false) {
       if (solo) {
         return 17;
       } else {
-        switch(level.upgradeTier) {
+        switch (level.upgradeTier) {
           case 'mk1':
             return 0;
           case 'mk2':
@@ -208,10 +208,10 @@ class LabApp extends Component {
 
     function processTime(level, machineNum) {
       let baseSpeed = 0.5;
-      switch(machineNum) {
+      switch (machineNum) {
         case 'miner':
           //5, 12, 30
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return baseSpeed;
             case 'mk2':
@@ -223,7 +223,7 @@ class LabApp extends Component {
           }
         case 'smelter':
           //4, 8
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -233,7 +233,7 @@ class LabApp extends Component {
           }
         case 'foundry':
           //16, 38
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -243,7 +243,7 @@ class LabApp extends Component {
           }
         case 'constructor':
           //4, 8
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -253,7 +253,7 @@ class LabApp extends Component {
           }
         case 'assembler':
           //15
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -263,7 +263,7 @@ class LabApp extends Component {
           }
         case 'manufacturer':
           //55
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -273,7 +273,7 @@ class LabApp extends Component {
           }
         case 'oil_pump':
           //40
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -283,7 +283,7 @@ class LabApp extends Component {
           }
         case 'oil_refinery':
           //50
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -293,7 +293,7 @@ class LabApp extends Component {
           }
         case 'hadron_collider':
           //750
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -303,7 +303,7 @@ class LabApp extends Component {
           }
         case 'quantum_encoder':
           //40
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 1;
             case 'mk2':
@@ -317,10 +317,10 @@ class LabApp extends Component {
     }
 
     function processPower(level, machineNum) {
-      switch(machineNum) {
+      switch (machineNum) {
         case 'miner':
           //5, 12, 30
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 15;
             case 'mk2':
@@ -332,7 +332,7 @@ class LabApp extends Component {
           }
         case 'smelter':
           //4, 8
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 4;
             case 'mk2':
@@ -342,7 +342,7 @@ class LabApp extends Component {
           }
         case 'foundry':
           //16, 38
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 16;
             case 'mk2':
@@ -352,7 +352,7 @@ class LabApp extends Component {
           }
         case 'constructor':
           //4, 8
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 4;
             case 'mk2':
@@ -362,7 +362,7 @@ class LabApp extends Component {
           }
         case 'assembler':
           //15
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 15;
             case 'mk2':
@@ -372,7 +372,7 @@ class LabApp extends Component {
           }
         case 'manufacturer':
           //55
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 55;
             case 'mk2':
@@ -382,7 +382,7 @@ class LabApp extends Component {
           }
         case 'oil_pump':
           //40
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 40;
             case 'mk2':
@@ -392,7 +392,7 @@ class LabApp extends Component {
           }
         case 'oil_refinery':
           //50
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 50;
             case 'mk2':
@@ -402,7 +402,7 @@ class LabApp extends Component {
           }
         case 'hadron_collider':
           //750
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 750;
             case 'mk2':
@@ -412,7 +412,7 @@ class LabApp extends Component {
           }
         case 'quantum_encoder':
           //40
-          switch(level.upgradeTier) {
+          switch (level.upgradeTier) {
             case 'mk1':
               return 40;
             case 'mk2':
@@ -430,7 +430,7 @@ class LabApp extends Component {
 
     machineclass.forEach(item => {
       const machineNum = MachineClassUnlockMap[item.identifier];
-      const one =  item.upgradeLevels.length === 1;
+      const one = item.upgradeLevels.length === 1;
       item.upgradeLevels.forEach((level, index) => {
         const data = {
           id: machineNum,
@@ -461,11 +461,12 @@ class LabApp extends Component {
       const processedName = replaceSpecial(packet.itemId);
       return {item: ItemEnumMap[processedName], itemQuantity: parseInt(packet.itemQty)}
     }
+
     const recipeList = recipes.map(item => {
       if (item.alternateName) {
         const id = RecipeEnumMap[replaceSpecial(item.alternateName)];
         const machineNum = MachineClassUnlockMap[item.machineClass];
-        return  {
+        return {
           id,
           name: item.alternateName,
           machineClass: machineNum,
@@ -477,7 +478,7 @@ class LabApp extends Component {
       } else {
         const id = RecipeEnumMap[replaceSpecial(item.name)];
         const machineNum = MachineClassUnlockMap[item.machineClass];
-        return  {
+        return {
           id,
           name: item.name,
           machineClass: machineNum,
@@ -499,7 +500,7 @@ class LabApp extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div className={classes.container}>

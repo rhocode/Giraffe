@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import { baseTheme } from '../../../theme';
+import {baseTheme} from '../../../theme';
 
 const styles = theme => ({
   default: {
@@ -48,7 +48,7 @@ const styles = theme => ({
 });
 
 function GraphNodeButton(props) {
-  const { classes } = props;
+  const {classes} = props;
   const [openDialog, setOpenDialog] = React.useState(false);
   // function setOpenDialog(event, newValue) {
   //   setValue(newValue);
@@ -64,8 +64,8 @@ function GraphNodeButton(props) {
         onClick={() => setOpenDialog(true)}
       >
         <div className={classes.buttonContents}>
-          <ArrowDropUpIcon />
-          <img src={props.image} className={classes.image} alt={props.label} />
+          <ArrowDropUpIcon/>
+          <img src={props.image} className={classes.image} alt={props.label}/>
           <Typography>{props.label}</Typography>
         </div>
       </Button>
@@ -78,7 +78,7 @@ function GraphNodeButton(props) {
             <MenuItem>stuff</MenuItem>
           </Menu>
           <DialogContentText>Optional: Select resource</DialogContentText>
-          <TextField id="resource-search" label="Find Resource" fullWidth />
+          <TextField id="resource-search" label="Find Resource" fullWidth/>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
-import { Typography } from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 
 const styles = theme => ({
   drawer: {
@@ -24,7 +24,7 @@ class GraphRightPanel extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <Drawer

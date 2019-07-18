@@ -78,6 +78,7 @@ export abstract class GraphNode {
   }
 
   abstract render(context: any, transform: any): void;
+
   abstract lowRender(context: any): void;
 
   preRender(transform: any = null): void {
@@ -109,7 +110,7 @@ export abstract class GraphNode {
     this.outputSlots[nextNullIndex] = target;
   }
 
-  sortOutputSlots = () =>{
+  sortOutputSlots = () => {
     this.outputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
       if (eb === null) {
         return -1;
@@ -134,7 +135,7 @@ export abstract class GraphNode {
     })
   };
 
-  sortInputSlots= () =>{
+  sortInputSlots = () => {
     this.inputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
 
       if (eb === null) {
@@ -219,7 +220,7 @@ export default class MachineNode extends GraphNode {
     }
   }
 
-  preRender(transform: any, debugContext: any =  this.context): void {
+  preRender(transform: any, debugContext: any = this.context): void {
     debugContext.save();
     this.zoomedContext.save();
     super.preRender(transform);

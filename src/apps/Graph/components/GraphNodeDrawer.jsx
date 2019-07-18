@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -17,8 +17,8 @@ import CategoryIcon from '@material-ui/icons/Category';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { baseTheme } from "../../../theme";
+import {Scrollbars} from 'react-custom-scrollbars';
+import {baseTheme} from "../../../theme";
 import normalizeWheel from 'normalize-wheel';
 
 const styles = theme => ({
@@ -59,11 +59,11 @@ const styles = theme => ({
 });
 
 function TabContainer(props) {
-  const { children } = props;
+  const {children} = props;
   const scrollRef = React.useRef();
 
   const themeObject = baseTheme.overrides.GraphAddMachineButton;
-  return <Scrollbars ref={scrollRef} style={{ height: themeObject.width + themeObject.margin * 4, width: "100%" }}>
+  return <Scrollbars ref={scrollRef} style={{height: themeObject.width + themeObject.margin * 4, width: "100%"}}>
     <div onWheel={e => {
       if (scrollRef.current) {
         const normalized = normalizeWheel(e);
@@ -71,7 +71,7 @@ function TabContainer(props) {
         const currentLeft = ref.getScrollLeft() + normalized.pixelY;
         ref.scrollLeft(currentLeft);
       }
-    }} style={{ width: children.length * (themeObject.width + (2 * themeObject.margin)) }}>
+    }} style={{width: children.length * (themeObject.width + (2 * themeObject.margin))}}>
       {children}
     </div>
   </Scrollbars>;
@@ -82,8 +82,9 @@ TabContainer.propTypes = {
 };
 
 function GraphNodeDrawer(props) {
-  const { classes, drawerOpen } = props;
+  const {classes, drawerOpen} = props;
   const [value, setValue] = React.useState(0);
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -94,13 +95,14 @@ function GraphNodeDrawer(props) {
     <Drawer
       anchor="bottom"
       open={drawerOpen}
-      onClose={() => {}}
-      classes={{ paper: usedClass }}
+      onClose={() => {
+      }}
+      classes={{paper: usedClass}}
       variant="persistent"
     >
-      <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
+      <ExpansionPanel TransitionProps={{unmountOnExit: true}}>
         <ExpansionPanelSummary
-          expandIcon={drawerOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          expandIcon={drawerOpen ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}
         >
           <Typography>
             Currently Selected:{' '}
@@ -148,7 +150,7 @@ function GraphNodeDrawer(props) {
           )}
           {value === 1 && (
             <TabContainer classes={classes}>
-              <TextField id="resource-search" label="Find Resource" fullWidth />
+              <TextField id="resource-search" label="Find Resource" fullWidth/>
               <Button>Add...</Button>
             </TabContainer>
           )}
@@ -161,8 +163,8 @@ function GraphNodeDrawer(props) {
             indicatorColor="primary"
             textColor="primary"
           >
-            <Tab label="By Machine" icon={<DomainIcon />} />
-            <Tab label="By Resource" icon={<CategoryIcon />} disabled />
+            <Tab label="By Machine" icon={<DomainIcon/>}/>
+            <Tab label="By Resource" icon={<CategoryIcon/>} disabled/>
           </Tabs>
         </ExpansionPanelDetails>
       </ExpansionPanel>

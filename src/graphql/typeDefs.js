@@ -1,4 +1,3 @@
-
 const typeDefs = `
   type UpgradeTier {
     name: String!

@@ -1,4 +1,4 @@
-import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
 
 export default class Item extends FirebaseDataType {
@@ -6,12 +6,11 @@ export default class Item extends FirebaseDataType {
   // testNumber: any;
   // testMultiple: any;
   identifierAsDocumentName: boolean = true;
+  gsheetId: number = 2;
 
   static fromFirebase(firebaseRef: any): Item {
     return BuilderFactoryFirebase<Item>(firebaseRef, Item);
   }
-
-  gsheetId: number = 2;
 
   import(objectPath: any) {
     const keys = ['identifier'];
@@ -42,7 +41,7 @@ export default class Item extends FirebaseDataType {
 
   dataMapping() {
     return {
-      iconPath: { type: 'string' }
+      iconPath: {type: 'string'}
       // testNumber: {type: 'number'},
       // testMultiple: [{identifier: 'a', type: 'number'}, {identifier: 'b', type: 'number'}]
     };

@@ -14,6 +14,7 @@ const styles = () => ({
     minHeight: 0
   },
 });
+
 class SGCanvas extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,8 @@ class SGCanvas extends Component {
     this.selectedEdges = {};
   }
 
-  initializeSGLib() {}
+  initializeSGLib() {
+  }
 
   componentDidMount() {
     const width = this.props.width;
@@ -47,7 +49,7 @@ class SGCanvas extends Component {
         d3
           .forceLink()
           .strength(1)
-          .id(function(d) {
+          .id(function (d) {
             return d.id;
           })
       )
@@ -100,7 +102,7 @@ class SGCanvas extends Component {
         d3
           .forceLink()
           .strength(1)
-          .id(function(d) {
+          .id(function (d) {
             return d.id;
           })
       )
@@ -113,9 +115,9 @@ class SGCanvas extends Component {
   };
 
   initGraph = () => {
-    let { graphCanvas, simulation } = this;
+    let {graphCanvas, simulation} = this;
     const context = this.graphContext;
-    const { width, height, graphData, graphFidelity } = this.props;
+    const {width, height, graphData, graphFidelity} = this.props;
 
     const thisAccessor = this;
 
@@ -123,7 +125,7 @@ class SGCanvas extends Component {
       node.preRender(this.transform);
     });
 
-    const zoomed = () =>  {
+    const zoomed = () => {
       const transform = this.transform = d3.event.transform; // REQUIRED for updating the zoom
 
       if (graphFidelity !== 'low' && transform.k !== thisAccessor.k) {
@@ -164,7 +166,7 @@ class SGCanvas extends Component {
       simulationUpdate();
     };
 
-    const dragSubject =() => {
+    const dragSubject = () => {
       const transform = this.transform;
 
       let i,
@@ -205,16 +207,16 @@ class SGCanvas extends Component {
       for (i = graphData.nodes.length - 1; i >= 0; --i) {
         const node = graphData.nodes[i];
         if (node.intersectsPoint(x, y)) {
-            node.x = transform.applyX(node.x);
-            node.y = transform.applyY(node.y);
-            this.selectedNodes = {};
-            this.selectedEdges = {};
-            return node;
+          node.x = transform.applyX(node.x);
+          node.y = transform.applyY(node.y);
+          this.selectedNodes = {};
+          this.selectedEdges = {};
+          return node;
         }
       }
     };
 
-    const dragStartFunc = ()  =>{
+    const dragStartFunc = () => {
 
       const transform = thisAccessor.transform;
 
@@ -227,7 +229,7 @@ class SGCanvas extends Component {
 
       // Set the drag start
       if (this.props.mouseMode === 'select') {
-        this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y };
+        this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y};
       }
 
       // if (this.props.mouseMode === 'pan' && ) {
@@ -260,7 +262,7 @@ class SGCanvas extends Component {
         subject.fy = y;
         subject.sortSlots();
         subject.sortConnectedNodeSlots();
-      } else if (this.props.mouseMode !== 'select' && Object.keys(this.selectedNodes).length){
+      } else if (this.props.mouseMode !== 'select' && Object.keys(this.selectedNodes).length) {
         // It's a grouping of nodes
         Object.keys(this.selectedNodes).forEach(key => {
           const node = this.selectedNodes[key];
@@ -332,7 +334,7 @@ class SGCanvas extends Component {
           .on('drag', draggedFunc)
           .on('end', dragEndFunc)
       )
-      .on('click', function() {
+      .on('click', function () {
         clicked(this);
       })
       .call(
@@ -362,7 +364,7 @@ class SGCanvas extends Component {
         startNode.drawPathToTarget(context, edge);
       });
 
-      if ( Object.keys(this.selectedEdges).length > 0 ||  Object.keys(this.selectedNodes).length > 0) {
+      if (Object.keys(this.selectedEdges).length > 0 || Object.keys(this.selectedNodes).length > 0) {
         // Only make transparency if there are selected edges or nodes.
         context.globalAlpha = 0.2;
       }
@@ -392,7 +394,7 @@ class SGCanvas extends Component {
 
       context.restore();
 
-      if ( Object.keys(this.selectedEdges).length > 0 ||  Object.keys(this.selectedNodes).length > 0) {
+      if (Object.keys(this.selectedEdges).length > 0 || Object.keys(this.selectedNodes).length > 0) {
         // Only make transparency if there are selected edges or nodes.
         context.globalAlpha = 0.2;
       }
@@ -400,11 +402,11 @@ class SGCanvas extends Component {
       context.save();
       if (graphFidelity === 'low') {
         context.scale(transform.k, transform.k);
-        graphData.nodes.forEach(function(d) {
+        graphData.nodes.forEach(function (d) {
           d.lowRender(context);
         });
       } else {
-        graphData.nodes.forEach(function(d) {
+        graphData.nodes.forEach(function (d) {
           d.render(context, transform);
         });
       }
@@ -441,7 +443,7 @@ class SGCanvas extends Component {
     return (
       <canvas
         className={this.props.classes.canvas}
-        style={{ display: 'block' }}
+        style={{display: 'block'}}
         id={this.canvasId}
         ref={this.props.reference}
         width={this.props.width}

@@ -5,9 +5,9 @@ const dataLoader = (
   tableCallback: any,
   versionCallback: any
 ) => {
-  database.collection('versions').onSnapshot(function(querySnapshot: any) {
+  database.collection('versions').onSnapshot(function (querySnapshot: any) {
     const versions: any = [];
-    querySnapshot.forEach(function(doc: any) {
+    querySnapshot.forEach(function (doc: any) {
       versions.push(doc.id);
     });
 
@@ -38,7 +38,7 @@ const dataLoader = (
             const dataMapping = tableMapping[lastTableName];
 
             const item = dataMapping.fromFirebase(doc);
-            returnMapping.push({ id: doc.id, data: item });
+            returnMapping.push({id: doc.id, data: item});
           });
 
           tableCallback(tableName, returnMapping);

@@ -34,7 +34,7 @@ const mcDataMapper = (data) => {
   return map;
 };
 
-const machineClassListPromise = loadData("MachineClassList",   mcDataMapper);
+const machineClassListPromise = loadData("MachineClassList", mcDataMapper);
 
 const mIDataMapper = (data) => {
   const MachineClass = root.lookupEnum("MachineClass");
@@ -46,7 +46,7 @@ const mIDataMapper = (data) => {
   return map;
 };
 
-const machineInstanceListPromise = loadData("MachineClassList",   mIDataMapper);
+const machineInstanceListPromise = loadData("MachineClassList", mIDataMapper);
 
 const rDataMapper = (data) => {
   const Recipe = root.lookupEnum("Recipe");
@@ -156,7 +156,7 @@ const resolvers = {
     name(MachineInstance) {
       const UpgradeTiers = root.lookupEnum("UpgragtdeTiers");
       if (UpgradeTiers.valuesById[MachineInstance.tier] === 'NA') {
-        return  MachineInstance.id;
+        return MachineInstance.id;
       }
       return MachineInstance.id + '_' + UpgradeTiers.valuesById[MachineInstance.tier];
     }
