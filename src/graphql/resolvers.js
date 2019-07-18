@@ -1,7 +1,5 @@
 import schemas from "../generated";
 
-const METAWEATHER_API_URL = "http://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/";
-
 const protobuf = require("protobufjs/light");
 
 const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
@@ -42,8 +40,8 @@ const mIDataMapper = (data) => {
   const MachineClass = root.lookupEnum("MachineClass");
   const map = {};
   data.forEach(item => {
-    map[item.id + '_' + item.tier] = item;
     item.id = MachineClass.valuesById[item.id];
+    map[item.id + '_' + item.tier] = item;
   });
   return map;
 };
@@ -62,41 +60,89 @@ const rDataMapper = (data) => {
 
 const recipeListPromise = loadData("RecipeList", rDataMapper);
 
-const getWeather = (data) => {
-  return fetch(METAWEATHER_API_URL + data.woeid)
-    .then(response => response.json())
-};
-
-// get woeid (where on earth id) using city name
-const getWoeid = (place) => {
-  return fetch(`${METAWEATHER_API_URL}search/?query=${place}`)
-    .then(response => response.json())
-    .then(response => {
-      console.error(response);
-      return response;
-    })
-    .then(jsonResponse => jsonResponse[0])
-};
-
 // resolvers -> get where on earth id -> get consolidated_weather data and return
 const resolvers = {
   Query: {
+    getMachineClassByName(obj, args, context, info) {
+      return machineClassListPromise.then(mcMap => {
+        let values = Object.values(mcMap).filter(value => {
+          return value.id === args.class_name
+        });
+
+        if (values.length === 1) {
+          return values[0];
+        } else if (values.length > 1) {
+          throw new Error(`Multiple values found for ${args.class_name}: ${JSON.stringify(values)}`);
+        }
+
+        return null;
+      });
+    },
+    getMachineClassById(obj, args, context, info) {
+      return machineClassListPromise.then(mcMap => {
+        return mcMap[args.class_id];
+      });
+    },
     getMachineClasses(obj, args, context, info) {
       return machineClassListPromise.then(mcMap => {
-        const keys = Object.keys(mcMap);
-        return keys.map(key => {
-          return mcMap[key];
+        const values = Object.values(mcMap);
+
+        return values;
+      });
+    },
+    getRecipes(obj, args, context, info) {
+      return recipeListPromise.then(rMap => {
+        const values = Object.values(rMap);
+        return values;
+      });
+    },
+    getRecipeById(obj, args, context, info) {
+      return recipeListPromise.then(rMap => {
+        return rMap[args.recipe_id];
+      });
+    },
+    getRecipeByOutputItemId(obj, args, context, info) {
+      return recipeListPromise.then(rMap => {
+        return Object.values(rMap).filter(recipe => {
+          return (recipe.output || []).some(elem => elem.item === args.item_id);
+        })
+      });
+    },
+    getRecipeByInputItemId(obj, args, context, info) {
+      return recipeListPromise.then(rMap => {
+        return Object.values(rMap).filter(recipe => {
+          return (recipe.input || []).some(elem => elem.item === args.item_id);
         })
       });
     }
   },
+  Item: {
+    name(Item) {
+      return Item.name;
+    },
+    icon(Item) {
+      return Item.icon || (Item.name + '.png');
+    }
+  },
+  ResourcePacket: {
+    item(ResourcePacket) {
+      return itemListPromise.then(itemMap => itemMap[ResourcePacket.item]);
+    }
+  },
+  Recipe: {
+    machineClass(Recipe) {
+      return machineClassListPromise.then(mcMap => {
+        return mcMap[Recipe.machineClass]
+      })
+    }
+  },
   MachineInstance: {
+    icon(MachineInstance) {
+      return MachineInstance.icon || (MachineInstance.name + '.png');
+    },
     machineClass(MachineInstance) {
       return machineClassListPromise.then(mcMap => {
-        const keys = Object.keys(mcMap);
-        const filteredInstances = keys.map(key => {
-          return mcMap[key];
-        }).filter(machineClassInstance => {
+        const filteredInstances = Object.values(mcMap).filter(machineClassInstance => {
           return machineClassInstance.id === MachineInstance.id
         });
 
@@ -108,7 +154,7 @@ const resolvers = {
       });
     },
     name(MachineInstance) {
-      const UpgradeTiers = root.lookupEnum("UpgradeTiers");
+      const UpgradeTiers = root.lookupEnum("UpgragtdeTiers");
       if (UpgradeTiers.valuesById[MachineInstance.tier] === 'NA') {
         return  MachineInstance.id;
       }
@@ -116,12 +162,12 @@ const resolvers = {
     }
   },
   MachineClass: {
+    icon(machineClass) {
+      return machineClass.icon || (machineClass.name + '.png');
+    },
     instances(machineClass) {
       return machineInstanceListPromise.then(mcMap => {
-        const keys = Object.keys(mcMap);
-        return keys.map(key => {
-          return mcMap[key];
-        }).filter(machineClassInstance => {
+        return Object.values(mcMap).filter(machineClassInstance => {
           return machineClassInstance.id === machineClass.id
         })
       });

@@ -47,7 +47,13 @@ const typeDefs = `
 
   type Query {
     getMachineClasses: [MachineClass]
+    getMachineClassByName(class_name: String!): MachineClass
+    getMachineClassById(class_id: Int!): MachineClass
     getMachineInstances(class_name: String): [MachineClass]
+    getRecipeById(recipe_id: Int!): Recipe
+    getRecipeByOutputItemId(item_id: Int!): [Recipe]
+    getRecipeByInputItemId(item_id: Int!): [Recipe]
+    getRecipes: [Recipe]
   }
 `;
 // cityWeather(city_name: String! applicable_date: String): CityWeather

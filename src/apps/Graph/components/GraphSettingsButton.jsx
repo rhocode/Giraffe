@@ -13,7 +13,7 @@ import { setGraphFidelity } from '../../../redux/actions/Graph/graphActions';
 const styles = theme => ({});
 
 function GraphSettingsButton(props) {
-  const { classes, graphFidelity } = props;
+  const { graphFidelity } = props;
 
   function handleChange(event, newValue) {
     props.setGraphFidelity(newValue ? 'high' : 'low');

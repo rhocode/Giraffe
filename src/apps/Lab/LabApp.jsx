@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import { simpleAction } from '../../redux/actions/simpleAction';
-import DatabaseEditor from './components/DatabaseEditor';
+// import DatabaseEditor from './components/DatabaseEditor';
 import recipes from '../../json/Recipe';
 import items from '../../json/Items';
 import machineclass from '../../json/MachineClass';
@@ -46,25 +46,65 @@ class LabApp extends Component {
   componentDidMount() {
     // this.processJSON();
     testGraphQL();
+    // this.generateResources();
+  }
+
+  generateResources() {
+    const DefaultJSON = {
+      "isAltRecipe":false,
+      "machineClass":"miner",
+      "name":"nuclear_fuel_rod",
+      "outputItemId":"nuclear_fuel_rod",
+      "outputItemQuantity":"1",
+      "input": []
+    };
+
+    //30, 60, 120
+    const normalResources = ['bauxite', 'caterium_ore', 'coal', 'copper_ore', 'crude_oil', 'iron_ore', 'limestone', 'raw_quartz', 'sam_ore', 'sulfur', 'uranium'];
+    const list = [];
+    const purities = ['impure', 'normal', 'pure'];
+    normalResources.forEach(resource => {
+      purities.forEach(purity => {
+        const doc = JSON.parse(JSON.stringify(DefaultJSON));
+
+        if (resource === 'crude_oil') {
+          doc.machineClass = 'oil_pump';
+        }
+
+        doc.name = purity + '_' + resource + '_node';
+        doc.id = purity + '_' + resource + '_node';
+        doc.outputItemId = resource;
+
+        list.push(doc);
+      })
+    });
+    return list;
   }
 
   processJSON() {
+
+    // don't add it since it's already added
+    // recipes.push(...this.generateResources());
+    // console.error(JSON.stringify(recipes, null, 2));
+
     const itemsJSON = items.map(item => item.id).map(item => replaceSpecial(item)).sort();
     const mcJSON = machineclass.map(item => item.identifier).sort();
-    const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item))
-    const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item))
+    const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item));
+    const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item));
+
+
 
     if (raJSON.length !== new Set(raJSON).size) {
       console.error("AAAAASSSS");
     }
 
     if (rnJSON.length !== new Set(rnJSON).size) {
-      console.error("AAAAA");
+      console.error("AAAAAB");
       console.error(rnJSON.sort())
     }
 
-    let intersection = new Set(
-      [...new Set(raJSON)].filter(x => new Set(rnJSON).has(x)));
+    // let intersection = new Set(
+    //   [...new Set(raJSON)].filter(x => new Set(rnJSON).has(x)));
     // console.log(intersection);
 
 
@@ -91,10 +131,14 @@ class LabApp extends Component {
       RecipeEnumMap[r] = counter++;
     });
 
+
+    //nested OUTPUT
+    // console.error(JSON.stringify(RecipeEnumMap));
+
     const protobuf = require("protobufjs/light");
 
     const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
-    console.error(root);
+    // console.error(root);
 
     function saveAs(blob, fileName) {
       const url = window.URL.createObjectURL(blob);
@@ -116,31 +160,28 @@ class LabApp extends Component {
     }
 
 
-    // const ItemData = root.lookupType("ItemData");
-    //
-    // const itemsList = items.map(item => {
-    //   const processedName = replaceSpecial(item.id);
-    //   const num = ItemEnumMap[processedName];
-    //   const data = {
-    //     id: num,
-    //     name: item.id,
-    //     icon: null,
-    //     hidden: false
-    //   };
-    //   return ItemData.fromObject(data);
-    // });
-    //
-    // const ItemList = root.lookupType("ItemList");
-    // const encoding = ItemList.encode(ItemList.fromObject({data: itemsList})).finish();
-    // const ItemListBlob = new Blob([encoding], {type: "application/octet-stream"});
-    // new Response(ItemListBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-    //   ItemList.decode(buffer);
-    //   saveAs(ItemListBlob, "ItemList.s2");
-    // });
-    //
-    //
-    //
-    //
+    const ItemData = root.lookupType("ItemData");
+
+    const itemsList = items.map(item => {
+      const processedName = replaceSpecial(item.id);
+      const num = ItemEnumMap[processedName];
+      const data = {
+        id: num,
+        name: item.id,
+        icon: null,
+        hidden: false
+      };
+      return ItemData.fromObject(data);
+    });
+
+    const ItemList = root.lookupType("ItemList");
+    const encoding = ItemList.encode(ItemList.fromObject({data: itemsList})).finish();
+    const ItemListBlob = new Blob([encoding], {type: "application/octet-stream"});
+    new Response(ItemListBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
+      ItemList.decode(buffer);
+      saveAs(ItemListBlob, "ItemList.s2");
+    });
+
 
     const MachineClassData = root.lookupType("MachineClassData");
 
@@ -165,6 +206,226 @@ class LabApp extends Component {
       }
     }
 
+    function processTime(level, machineNum) {
+      let baseSpeed = 0.5;
+      switch(machineNum) {
+        case 'miner':
+          //5, 12, 30
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return baseSpeed;
+            case 'mk2':
+              return baseSpeed * 2;
+            case 'mk3':
+              return baseSpeed * 4;
+            default:
+              return baseSpeed;
+          }
+        case 'smelter':
+          //4, 8
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'foundry':
+          //16, 38
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.25;
+            default:
+              return 1;
+          }
+        case 'constructor':
+          //4, 8
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'assembler':
+          //15
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'manufacturer':
+          //55
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'oil_pump':
+          //40
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'oil_refinery':
+          //50
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'hadron_collider':
+          //750
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        case 'quantum_encoder':
+          //40
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 1;
+            case 'mk2':
+              return 1.5;
+            default:
+              return 1;
+          }
+        default:
+          return null;
+      }
+    }
+
+    function processPower(level, machineNum) {
+      switch(machineNum) {
+        case 'miner':
+          //5, 12, 30
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 15;
+            case 'mk2':
+              return 12;
+            case 'mk3':
+              return 30;
+            default:
+              return 15;
+          }
+        case 'smelter':
+          //4, 8
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 4;
+            case 'mk2':
+              return 8;
+            default:
+              return 4;
+          }
+        case 'foundry':
+          //16, 38
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 16;
+            case 'mk2':
+              return 38;
+            default:
+              return 16;
+          }
+        case 'constructor':
+          //4, 8
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 4;
+            case 'mk2':
+              return 8;
+            default:
+              return 4;
+          }
+        case 'assembler':
+          //15
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 15;
+            case 'mk2':
+              return 15;
+            default:
+              return 15;
+          }
+        case 'manufacturer':
+          //55
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 55;
+            case 'mk2':
+              return 55;
+            default:
+              return 55;
+          }
+        case 'oil_pump':
+          //40
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 40;
+            case 'mk2':
+              return 40;
+            default:
+              return 40;
+          }
+        case 'oil_refinery':
+          //50
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 50;
+            case 'mk2':
+              return 50;
+            default:
+              return 50;
+          }
+        case 'hadron_collider':
+          //750
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 750;
+            case 'mk2':
+              return 750;
+            default:
+              return 750;
+          }
+        case 'quantum_encoder':
+          //40
+          switch(level.upgradeTier) {
+            case 'mk1':
+              return 40;
+            case 'mk2':
+              return 40;
+            default:
+              return 40;
+          }
+        default:
+          return null;
+      }
+
+    }
+
     const machineClassList = [];
 
     machineclass.forEach(item => {
@@ -175,10 +436,11 @@ class LabApp extends Component {
           id: machineNum,
           name: item.identifier,
           tier: processUpgradeLevels(level, one),
+          speed: processTime(level, machineNum),
           icon: null,
           inputs: parseInt(item.inputs),
           outputs: parseInt(item.outputs),
-          power: 300,
+          power: processPower(level, machineNum),
           hidden: false,
           localOrdering: index
         };
@@ -195,61 +457,45 @@ class LabApp extends Component {
     });
 
 
+    function processResourcePacket(packet) {
+      const processedName = replaceSpecial(packet.itemId);
+      return {item: ItemEnumMap[processedName], itemQuantity: parseInt(packet.itemQty)}
+    }
+    const recipeList = recipes.map(item => {
+      if (item.alternateName) {
+        const id = RecipeEnumMap[replaceSpecial(item.alternateName)];
+        const machineNum = MachineClassUnlockMap[item.machineClass];
+        return  {
+          id,
+          name: item.alternateName,
+          machineClass: machineNum,
+          input: item.input.map(item => processResourcePacket(item)),
+          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
+          hidden: false,
+          alt: true
+        };
+      } else {
+        const id = RecipeEnumMap[replaceSpecial(item.name)];
+        const machineNum = MachineClassUnlockMap[item.machineClass];
+        return  {
+          id,
+          name: item.name,
+          machineClass: machineNum,
+          input: item.input.map(item => processResourcePacket(item)),
+          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
+          hidden: false
+        };
+      }
+    });
 
 
-
-
-
-
-
-
-
-
-
-
-    // const RecipeData = root.lookupType("RecipeData");
-    //
-    // function processResourcePacket(packet) {
-    //   const processedName = replaceSpecial(packet.itemId);
-    //   return {item: ItemEnumMap[processedName], itemQuantity: parseInt(packet.itemQty)}
-    // }
-    // const recipeList = recipes.map(item => {
-    //   console.error(item);
-    //
-    //   if (item.alternateName) {
-    //     const id = RecipeEnumMap[replaceSpecial(item.alternateName)];
-    //     const machineNum = MachineClassUnlockMap[item.machineClass];
-    //     return  {
-    //       id,
-    //       name: item.alternateName,
-    //       machineClass: machineNum,
-    //       input: item.input.map(item => processResourcePacket(item)),
-    //       output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
-    //       hidden: false,
-    //       alt: true
-    //     };
-    //   } else {
-    //     const id = RecipeEnumMap[replaceSpecial(item.name)];
-    //     const machineNum = MachineClassUnlockMap[item.machineClass];
-    //     return  {
-    //       id,
-    //       name: item.name,
-    //       machineClass: machineNum,
-    //       input: item.input.map(item => processResourcePacket(item)),
-    //       output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
-    //       hidden: false
-    //     };
-    //   }
-    // });
-    //
-    // console.error(recipeList);
-    // const RecipeList = root.lookupType("RecipeList");
-    // const RCEncoding = RecipeList.encode(RecipeList.fromObject({data: recipeList})).finish();
-    // const RDBlob = new Blob([RCEncoding], {type: "application/octet-stream"});
-    // new Response(RDBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-    //   RecipeList.decode(buffer);
-    //   saveAs(RDBlob, "RecipeList.s2");
-    // })
+    const RecipeList = root.lookupType("RecipeList");
+    const RCEncoding = RecipeList.encode(RecipeList.fromObject({data: recipeList})).finish();
+    const RDBlob = new Blob([RCEncoding], {type: "application/octet-stream"});
+    new Response(RDBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
+      RecipeList.decode(buffer);
+      saveAs(RDBlob, "RecipeList.s2");
+    })
   }
 
   render() {

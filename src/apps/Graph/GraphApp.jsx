@@ -7,7 +7,7 @@ import { simpleAction } from '../../redux/actions/simpleAction';
 import { Helmet } from 'react-helmet';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
-import GraphRightPanel from './components/GraphRightPanel';
+// import GraphRightPanel from './components/GraphRightPanel';
 
 const styles = theme => {
   console.log(theme);
