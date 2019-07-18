@@ -12,7 +12,6 @@ const styles = theme => ({});
 
 class GraphHelpButton extends Component {
   render() {
-    const { classes } = this.props;
 
     return (
       <GraphAppBarButton label="Help" icon={<HelpIcon />}>

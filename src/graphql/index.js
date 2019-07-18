@@ -6,31 +6,53 @@ import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import gql from 'graphql-tag';
 
-const queryText2 = gql`
-  query ($cityName: String!){
-    cityWeather (city_name: $cityName) {
-      temp
-      max_temp
-      min_temp
-    }
-  }
-`;
-
-
 const queryText = gql`
-  query ($cityName: String!){
-    getMachineClasses {
+  query ($className: String, $classId: Int) {
+    getRecipeByOutputItemId(item_id: $classId) {
       name
-      inputs
-      instances {
+      machineClass {
         name
-        tier {
-          name
-        }
       }
     }
+    
+    getRecipes {
+      name
+      input {
+        item {
+          name
+          icon
+        }
+        itemQuantity
+      }
+      output
+      machineClass {
+        name
+      }
+      id
+    }
   }
 `;
+
+
+//
+// getMachineClasses(class_name: $className, class_id: $classId) {
+//   name
+//   inputs
+//   instances {
+//     name
+//     machineClass {
+//       name
+//       inputs
+//     }
+//     tier {
+//       name
+//     }
+//   }
+// }
+// getMachineClassById(class_id: $classId) {
+//   name
+//   inputs
+// }
 
 const getClient = () => {
   const schema = makeExecutableSchema({
@@ -55,11 +77,14 @@ const testGraphQL = () => {
   client.query({
     query: queryText,
     variables: {
-      cityName: "San Diego"
+      cityName: "San Diego",
+      className: "AAAAA",
+      classId: 26
     }
   })
     .then(data => console.log(data.data))
     .catch(error => console.error(error));
 };
+
 
 export default testGraphQL;
