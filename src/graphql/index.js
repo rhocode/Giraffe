@@ -35,7 +35,7 @@ const queryText = gql`
 //   inputs
 // }
 
-const getClient = () => {
+export const getClient = () => {
   const schema = makeExecutableSchema({
     typeDefs,
     resolvers
