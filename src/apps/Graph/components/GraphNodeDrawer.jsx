@@ -20,6 +20,10 @@ import GraphNodeButton from './GraphNodeButton';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {baseTheme} from "../../../theme";
 import normalizeWheel from 'normalize-wheel';
+import gql from "graphql-tag";
+import {Query} from "react-apollo";
+import {getTranslate} from "react-localize-redux";
+import {urlRepository} from "../libraries/SGLib/repositories/imageRepository";
 
 const styles = theme => ({
   default: {
@@ -81,14 +85,22 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+const GET_CRAFTING_MACHINE_CLASSES = gql`
+  {
+    getCraftingMachineClasses {
+      name
+      icon
+    }
+  }
+`;
+
 function GraphNodeDrawer(props) {
-  const {classes, drawerOpen} = props;
+  const {classes, drawerOpen, translate} = props;
   const [value, setValue] = React.useState(0);
 
   function handleChange(event, newValue) {
     setValue(newValue);
   }
-
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
 
   return (
@@ -112,41 +124,32 @@ function GraphNodeDrawer(props) {
 
         <ExpansionPanelDetails className={classes.expandPanel}>
           {value === 0 && (
-            <TabContainer classes={classes}>
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Constructor.png"
-                label="Constructor"
-              />
-              <GraphNodeButton
-                selected
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Assembler.png"
-                label="Assembler"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Manufacturer.png"
-                label="Manufacturer"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Smelter.png"
-                label="Smelter"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Foundry_MK1.png"
-                label="Foundry"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Oil_Refinery.png"
-                label="Refinery"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Miner_MK1.png"
-                label="Miners"
-              />
-              <GraphNodeButton
-                image="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satoolsfactory_icons/Splitter.png"
-                label="Logistics"
-              />
-            </TabContainer>
+              <Query query={GET_CRAFTING_MACHINE_CLASSES}>
+                {({ loading, error, data }) => {
+                  if (loading) return null;
+                  if (error) return `Error! ${error.message}`;
+
+                  const imageBaseUrl = urlRepository.machines;
+                  return <TabContainer classes={classes}>
+                    {
+                      data.getCraftingMachineClasses.sort((machine1, machine2) => {
+                        return machine1.name.localeCompare(machine2.name);
+                      }).map(machine => {
+                        let icon = imageBaseUrl[machine.icon];
+                            if (!icon) {
+                          icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
+                        }
+                        return <GraphNodeButton
+                          key={machine.name}
+                          image={icon}
+                          label={translate(machine.name)}
+                        />
+                      })
+                    }
+                  </TabContainer>
+
+                }}
+              </Query>
           )}
           {value === 1 && (
             <TabContainer classes={classes}>
@@ -174,7 +177,8 @@ function GraphNodeDrawer(props) {
 
 function mapStateToProps(state) {
   return {
-    drawerOpen: state.graphReducer.mouseMode === 'add'
+    drawerOpen: state.graphReducer.mouseMode === 'add',
+    translate: getTranslate(state.localize)
   };
 }
 
