@@ -169,7 +169,7 @@ const resolvers = {
           return machineClassInstance.id === MachineInstance.id
         });
 
-        if (filteredInstances) {
+        if (filteredInstances && filteredInstances.length === 1) {
           return filteredInstances[0]
         }
 

@@ -209,7 +209,6 @@ export default abstract class FirebaseDataType {
               }
             });
           }
-        } else {
         }
       } else if (typeof map[item] == 'object') {
         generatedDataMap[item] = map[item];
