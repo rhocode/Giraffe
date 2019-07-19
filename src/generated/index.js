@@ -1,4 +1,4 @@
-import * as schemas from './generated_meta_schemas';
+import * as schemas from './__all';
 
 let globalSchemas = {};
 Object.keys(schemas.default).forEach(item => {

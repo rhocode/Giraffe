@@ -55,7 +55,7 @@
     "eject": "react-scripts eject",
     "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/generated-$npm_package_version-schema.json",
     "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto",
-    "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension generated_meta_schemas.js",
+    "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension",
     "generate-images": "npm run generate-images-items && npm run generate-images-machines",
     "generate-images-items": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/items es6WithFileExtension",
     "generate-images-machines": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/machines es6WithFileExtension",

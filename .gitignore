@@ -26,3 +26,4 @@ yarn-error.log*
 .idea/workspace.xml
 **/*ecret*.js
 **/*schema.json
+**/__all.js
