@@ -144,7 +144,7 @@ const resolvers = {
       return Item.name;
     },
     icon(Item) {
-      return Item.icon || (Item.name + '.png');
+      return Item.icon || (Item.name);
     }
   },
   ResourcePacket: {
@@ -161,7 +161,7 @@ const resolvers = {
   },
   MachineInstance: {
     icon(MachineInstance) {
-      return MachineInstance.icon || (MachineInstance.name + '.png');
+      return MachineInstance.icon || (MachineInstance.name);
     },
     machineClass(MachineInstance) {
       return machineClassListPromise.then(mcMap => {
@@ -169,7 +169,7 @@ const resolvers = {
           return machineClassInstance.id === MachineInstance.id
         });
 
-        if (filteredInstances && filteredInstances.length === 1) {
+        if (filteredInstances.length === 1) {
           return filteredInstances[0]
         }
 
@@ -186,7 +186,7 @@ const resolvers = {
   },
   MachineClass: {
     icon(machineClass) {
-      return machineClass.icon || (machineClass.name + '.png');
+      return machineClass.icon || (machineClass.name);
     },
     recipes(machineClass) {
       const machineClassId = root.lookupEnum("MachineClass").values[machineClass.id];
