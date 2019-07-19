@@ -14,6 +14,10 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 );
 
-export default function configureStore(initialState = {}) {
+function configureStore(initialState = {}) {
   return createStore(rootReducer, initialState, enhancer);
 }
+
+const getStore = () => configureStore();
+
+export default getStore;

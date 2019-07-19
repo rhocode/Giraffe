@@ -1,15 +1,10 @@
-function importAll(r) {
-  let schemas = {};
-  r.keys().forEach((item) => {
-    const schema = r(item);
-    schemas[item.replace('./', '').toLowerCase().slice(0, -12)] = schema;
-  });
-  return schemas;
-}
+import * as schemas from './generated_meta_schemas';
 
-// eslint-disable-next-line
-const schemas = importAll(
-  require.context('./', false, /\.json$/)
-);
+let globalSchemas = {};
+Object.keys(schemas.default).forEach(item => {
+  const key = item.replace('generated_', '').toLowerCase();
+  const version = key.replace('_schema', '').replace(/_/g, '.');
+  globalSchemas[version] = schemas.default[item];
+});
 
-export default schemas;
+export default globalSchemas;

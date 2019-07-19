@@ -1,9 +1,12 @@
-function importAll(r: any) {
+import * as items from '../images/items/__all'
+import * as machines from '../images/machines/__all';
+
+function listedImport(items: any) {
   let images: any = {};
-  const promises = r.keys().map((item: any) => {
+  const promises = Object.keys(items.default).map(item => {
     const thisImage = new Image();
-    thisImage.src = r(item);
-    images[item.replace('./', '').toLowerCase()] = thisImage;
+    thisImage.src = (items.default as any)[item];
+    images[item.toLowerCase()] = thisImage;
     return new Promise((resolve: any) => {
       thisImage.onload = () => {
         resolve(thisImage);
@@ -13,14 +16,9 @@ function importAll(r: any) {
   return {images, promises};
 }
 
-// eslint-disable-next-line
-const machinePromises = importAll(
-  (require as any).context('../images/machines', false, /\.(png|jpe?g|svg)$/)
-);
+const machinePromises = listedImport(machines);
 
-const itemPromises = importAll(
-  (require as any).context('../images/items', false, /\.(png|jpe?g|svg)$/)
-);
+const itemPromises = listedImport(items);
 
 export const imageRepositoryPromise = {
   machines: machinePromises.promises,
@@ -32,4 +30,3 @@ export const imageRepository = {
   items: itemPromises.promises
 };
 
-// console.error(imageRepository);

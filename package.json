@@ -23,6 +23,7 @@
     "husky": "^2.4.0",
     "lint-staged": "^8.1.7",
     "lodash": "^4.17.13",
+    "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.17.1",
     "prop-types": "^15.7.2",
@@ -48,12 +49,17 @@
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
-    "build": "npm run proto && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "start": "npm run generate && cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "npm run generate && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/$npm_package_version-schema.json",
-    "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto"
+    "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/generated-$npm_package_version-schema.json",
+    "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto",
+    "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension generated_meta_schemas.js",
+    "generate-images": "npm run generate-images-items && npm run generate-images-machines",
+    "generate-images-items": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/items es6WithFileExtension",
+    "generate-images-machines": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/machines es6WithFileExtension",
+    "generate": "npm run proto && npm run generate-schemas && npm run generate-images"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,6 +78,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
+    "jest-canvas-mock": "^2.1.0",
     "protocol-buffers": "^4.1.0"
   },
   "husky": {

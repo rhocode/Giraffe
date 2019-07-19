@@ -12,6 +12,8 @@ import en from '../../translations/en.json';
 import AsyncComponent from '../../common/react/AsyncComponent';
 import HomeApp from '../../apps/Home/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
+import {ApolloProvider} from "react-apollo";
+import {getClient} from "../../graphql";
 
 const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
@@ -46,7 +48,9 @@ class AppWrapper extends Component {
       <ReactRouter>
         <MuiThemeProvider theme={themeDark}>
           <React.Suspense fallback={<div>Loading...</div>}>
-            {children}
+            <ApolloProvider client={getClient()}>
+              {children}
+            </ApolloProvider>
           </React.Suspense>
         </MuiThemeProvider>
       </ReactRouter>
