@@ -25,7 +25,7 @@
     "lodash": "^4.17.15",
     "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "protobufjs": "^6.8.8",
     "protocol-buffers-encodings": "^1.1.0",
