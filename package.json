@@ -46,7 +46,7 @@
     "roboto-fontface": "^0.10.0",
     "simplebar-react": "^1.1.0",
     "typeface-roboto-condensed": "0.0.54",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "start": "npm run generate && cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
