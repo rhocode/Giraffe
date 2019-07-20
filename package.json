@@ -22,7 +22,7 @@
     "graphql-tools": "^4.0.5",
     "husky": "^2.4.0",
     "lint-staged": "^8.1.7",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.17.1",
