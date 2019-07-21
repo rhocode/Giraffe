@@ -1,5 +1,6 @@
 import * as items from '../images/items/__all'
 import * as machines from '../images/machines/__all';
+import testFunc from "../algorithms/test";
 
 function listedImport(items: any) {
   let images: any = {};
@@ -36,3 +37,5 @@ export const urlRepository = {
   machines: machinePromises.urls,
   items: itemPromises.urls
 };
+
+testFunc();

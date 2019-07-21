@@ -47,9 +47,11 @@ function GraphNodeDialog(props) {
     return recipe.name
   }).flat(1).map(item => {
     return {label: props.translate(item), value: item}
+  }).sort((a, b) => {
+    return a.label.localeCompare(b.label);
   });
 
-  return <Dialog open={openDialog} fullWidth={isMobile} onClose={() => {
+  return <Dialog open={openDialog} fullScreen={isMobile} onClose={() => {
     setOpenDialog(false)
   }}>
     <DialogTitle>{props.label} Settings</DialogTitle>
