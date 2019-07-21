@@ -10,10 +10,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import {isMobile} from "react-device-detect";
+import {isMobile, BrowserView, MobileView} from "react-device-detect";
 import SelectDropdown from "../../../../common/react/SelectDropdown";
 import {getTranslate} from "react-localize-redux";
 import {addOpenedModal, closeOpenedModal} from "../../../../redux/actions/Graph/graphActions";
+import NativeSelect from "@material-ui/core/NativeSelect";
 
 const styles = theme => ({
   default: {
@@ -48,30 +49,50 @@ function GraphNodeDialog(props) {
     return {label: props.translate(item), value: item}
   });
 
-  return <Dialog open={openDialog}  onClose={() => {
+  return <Dialog open={openDialog} fullWidth={isMobile} onClose={() => {
     setOpenDialog(false)
   }}>
     <DialogTitle>{props.label} Settings</DialogTitle>
     <DialogContent className={classes.openDialog}>
       <InputLabel className={classes.inlineLabel} htmlFor="upgradeLevel">Tier: </InputLabel>
-      <Select
-        native={isMobile}
-        value={upgradeLevel}
-        className={classes.select}
-        disabled={!nodeClass.hasUpgrades}
-        onChange={(e) => setUpgradeLevel(e.target.value)}
-        inputProps={{
-          name: 'upgradeLevel',
-          id: 'upgradeLevel',
-        }}
-      >
-        {
-          nodeClass.instances.map(instance => {
-            const tier = instance.tier;
-            return <MenuItem key={tier.name} value={tier.name}>{translate(tier.name)}</MenuItem>
-          })
-        }
-      </Select>
+      <BrowserView>
+        <Select
+          value={upgradeLevel}
+          className={classes.select}
+          disabled={!nodeClass.hasUpgrades}
+          onChange={(e) => setUpgradeLevel(e.target.value)}
+          inputProps={{
+            name: 'upgradeLevel',
+            id: 'upgradeLevel',
+          }}
+        >
+          {
+            nodeClass.instances.map(instance => {
+              const tier = instance.tier;
+              return <MenuItem key={tier.name} value={tier.name}>{translate(tier.name)}</MenuItem>
+            })
+          }
+        </Select>
+      </BrowserView>
+      <MobileView>
+        <NativeSelect
+          value={upgradeLevel}
+          className={classes.select}
+          disabled={!nodeClass.hasUpgrades}
+          onChange={(e) => setUpgradeLevel(e.target.value)}
+          inputProps={{
+            name: 'upgradeLevel',
+            id: 'upgradeLevel',
+          }}
+        >
+          {
+            nodeClass.instances.map(instance => {
+              const tier = instance.tier;
+              return <option  key={tier.name} value={tier.name}>{translate(tier.name)}</option >
+            })
+          }
+        </NativeSelect>
+      </MobileView>
 
       {/*<DialogContentText>Optional: Select resource</DialogContentText>*/}
       <SelectDropdown
