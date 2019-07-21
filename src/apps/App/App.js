@@ -87,10 +87,21 @@ class App extends Component {
       window.localStorage.getItem('languageCode') || languages[0];
     // window.localStorage.setItem("languageCode", curLangCode);
 
+    const onMissingTranslation = ({ translationId, languageCode }) => {
+      const text = `No Translation for ${translationId} - ${languageCode}`;
+      if (process.env.NODE_ENV === 'production') {
+        return translationId
+      } else {
+        console.error(text);
+        return text;
+      }
+    };
+
     this.props.initialize({
       languages: [{name: 'English', code: 'en'}],
 
       options: {
+        onMissingTranslation,
         renderToStaticMarkup,
         defaultLanguage
       }

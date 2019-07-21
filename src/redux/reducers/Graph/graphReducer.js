@@ -4,7 +4,10 @@ const initialState = {
   graphTransform: d3.zoomIdentity,
   graphFidelity: 'high',
   mouseMode: 'pan',
-  drawerOpen: false
+  drawerOpen: false,
+  machineClasses: [],
+  selectedMachine: null,
+  openModals: 0
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +41,26 @@ export default (state = initialState, action) => {
       return {
         ...state,
         dragCurrent: action.payload
+      };
+    case 'SET_MACHINE_CLASSES':
+      return {
+        ...state,
+        machineClasses: action.payload
+      };
+    case 'SET_SELECTED_MACHINE_CLASS':
+      return {
+        ...state,
+        selectedMachine: action.payload
+      };
+    case 'ADD_OPENED_MODAL':
+      return {
+        ...state,
+        openModals: state.openModals + 1
+      };
+    case 'CLOSE_OPENED_MODAL':
+      return {
+        ...state,
+        openModals: state.openModals - 1
       };
     default:
       return state;

@@ -8,7 +8,8 @@ import recipes from '../../json/Recipe';
 import items from '../../json/Items';
 import machineclass from '../../json/MachineClass';
 import schemas from '../../generated';
-import testGraphQL from "../../graphql";
+// import testGraphQL from "../../graphql";
+// import DatabaseEditor from "./components/DatabaseEditor";
 
 const styles = theme => {
   return {
@@ -44,8 +45,8 @@ class LabApp extends Component {
   };
 
   componentDidMount() {
-    // this.processJSON();
-    testGraphQL();
+    this.processJSON();
+    // testGraphQL();
   }
 
   generateResources() {
@@ -116,7 +117,7 @@ class LabApp extends Component {
     itemsJSON.forEach(item => {
       ItemEnumMap[item] = counter++;
     });
-
+    console.error(machineclass, "AAAAA");
     counter = 0;
     mcJSON.forEach(mc => {
       MachineClassUnlockMap[mc] = counter++;
@@ -189,7 +190,7 @@ class LabApp extends Component {
 
     function processUpgradeLevels(level, solo = false) {
       if (solo) {
-        return 17;
+        return 0;
       } else {
         switch (level.upgradeTier) {
           case 'mk1':
@@ -492,6 +493,32 @@ class LabApp extends Component {
         };
       }
     });
+
+
+    function humanize(str) {
+      const frags = str.split('_');
+      for (let i=0; i<frags.length; i++) {
+        frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+      }
+      return frags.join(' ');
+    }
+
+
+    const z = {};
+    recipeList.map(item => item.name).forEach(item => {
+      z[item] = humanize(item);
+    });
+
+
+
+    console.error(JSON.stringify(z, null, 2), "AAAAAAAA");
+
+    //   var frags = str.split('_');
+    //   for (let i=0; i<frags.length; i++) {
+    //     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+    //   }
+    //   return frags.join(' ');
+    // }
 
 
     const RecipeList = root.lookupType("RecipeList");

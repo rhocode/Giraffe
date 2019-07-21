@@ -157,6 +157,12 @@ const resolvers = {
       return machineClassListPromise.then(mcMap => {
         return mcMap[Recipe.machineClass]
       })
+    },
+    input(Recipe) {
+      return Recipe.input || [];
+    },
+    output(Recipe) {
+      return Recipe.output || [];
     }
   },
   MachineInstance: {
@@ -195,6 +201,7 @@ const resolvers = {
           const recipe = rMap[recipeKey];
           return recipe.machineClass === machineClassId
         });
+
         return recipes.map(key => rMap[key]);
       });
     },
@@ -202,7 +209,18 @@ const resolvers = {
       return machineInstanceListPromise.then(mcMap => {
         return Object.values(mcMap).filter(machineClassInstance => {
           return machineClassInstance.id === machineClass.id
+        }).sort((m1, m2) => {
+          return m1.tier - m2.tier
         })
+      });
+    },
+    hasUpgrades(machineClass) {
+      return machineInstanceListPromise.then(mcMap => {
+        const instances = Object.values(mcMap).filter(machineClassInstance => {
+          return machineClassInstance.id === machineClass.id
+        });
+
+        return instances.length > 1;
       });
     }
   },

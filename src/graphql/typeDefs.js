@@ -1,7 +1,7 @@
 const typeDefs = `
   type UpgradeTier {
     name: String!
-    value: String
+    value: Int!
   }
   type ResourcePacket {
     item: Item!
@@ -15,8 +15,8 @@ const typeDefs = `
   type Recipe {
     id: String! 
     name: String!
-    input: [ResourcePacket]
-    output: [ResourcePacket]
+    input: [ResourcePacket]!
+    output: [ResourcePacket]!
     machineClass: MachineClass
     alternate: Boolean
     time: Float!
@@ -31,6 +31,7 @@ const typeDefs = `
     hidden: Boolean
     localOrdering: Int
     recipes: [Recipe]
+    hasUpgrades: Boolean
     instances: [MachineInstance]
   }
 

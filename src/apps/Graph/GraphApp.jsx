@@ -3,10 +3,12 @@ import {withStyles} from '@material-ui/core/styles';
 
 import GraphAppBar from './components/GraphAppBar';
 import {connect} from 'react-redux';
-import {simpleAction} from '../../redux/actions/simpleAction';
 import {Helmet} from 'react-helmet';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
+import {setMachineClasses} from "../../redux/actions/Graph/graphActions";
+import {getCraftingMachineClasses} from "./graphql/queries";
+import {getTranslate} from "react-localize-redux";
 // import GraphRightPanel from './components/GraphRightPanel';
 
 const styles = theme => {
@@ -42,6 +44,8 @@ class GraphApp extends Component {
     const {match} = this.props;
 
     const graphId = (match && match.params && match.params.graphId) || null;
+
+    getCraftingMachineClasses().then(classes => this.props.setMachineClasses(classes));
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
@@ -105,10 +109,11 @@ class GraphApp extends Component {
 
 const mapStateToProps = state => ({
   // ...state
+  translate: getTranslate(state.localize),
 });
 
 const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
+  setMachineClasses: (classes) => dispatch(setMachineClasses(classes)),
 });
 
 export default connect(
