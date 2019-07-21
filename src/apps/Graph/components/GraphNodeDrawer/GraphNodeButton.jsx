@@ -68,7 +68,7 @@ function GraphNodeButton(props) {
         </Button>
         {
           // workaround to get the open dialog to prevent scrolling
-          openDialog ? <GraphNodeDialog nodeClass={nodeClass} openDialog={openDialog} setOpenDialog={setOpenDialog} /> : null
+          openDialog ? <GraphNodeDialog label={props.label} nodeClass={nodeClass} openDialog={openDialog} setOpenDialog={setOpenDialog} /> : null
         }
       </div>
     </React.Fragment>
