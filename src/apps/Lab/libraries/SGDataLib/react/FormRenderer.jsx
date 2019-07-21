@@ -28,7 +28,7 @@ import {
 import {unpackComplexObject} from '../datatypes/internal/FirebaseDataType';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
-import SelectDropdown from '../../../components/SelectDropdown';
+import SelectDropdown from '../../../../../common/react/SelectDropdown';
 
 const styles = theme => ({
   card: {

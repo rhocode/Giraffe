@@ -96,6 +96,7 @@ function Control(props) {
   } = props;
 
   const actualValue = value && value.value ? value.value : '';
+
   return (
     <TextField
       fullWidth
@@ -235,15 +236,19 @@ function SelectDropdown(props) {
       '& input': {
         font: 'inherit'
       }
-    })
+    }),
+    menuPortal: base => ({ ...base, zIndex: 9999 })
   };
 
   const wrappedFunc = propFunc => {
     return change => {
       const actualChange = change.value;
-      propFunc({target: {value: actualChange}});
+      if (propFunc) {
+        propFunc({target: {value: actualChange}});
+      }
     };
   };
+
   return (
     <div className={classes.mainSelect}>
       <Select
@@ -258,6 +263,9 @@ function SelectDropdown(props) {
         components={components}
         value={{label: props.value, value: props.value}}
         onChange={wrappedFunc(props.onChange)}
+        onKeyUp={wrappedFunc(props.onKeyUp)}
+        onKeyDown={wrappedFunc(props.onKeyDown)}
+        onKeyPress={wrappedFunc(props.onKeyPress)}
         placeholder={''}
       />
     </div>

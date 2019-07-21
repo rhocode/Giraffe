@@ -18,12 +18,9 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
 import {Scrollbars} from 'react-custom-scrollbars';
-import {baseTheme} from "../../../theme";
+import {baseTheme} from "../../../../theme";
 import normalizeWheel from 'normalize-wheel';
-import gql from "graphql-tag";
-import {Query} from "react-apollo";
 import {getTranslate} from "react-localize-redux";
-import {urlRepository} from "../libraries/SGLib/repositories/imageRepository";
 
 const styles = theme => ({
   default: {
@@ -63,13 +60,14 @@ const styles = theme => ({
 });
 
 function TabContainer(props) {
-  const {children} = props;
+
+  const {children, openModals} = props;
   const scrollRef = React.useRef();
 
   const themeObject = baseTheme.overrides.GraphAddMachineButton;
   return <Scrollbars ref={scrollRef} style={{height: themeObject.width + themeObject.margin * 4, width: "100%"}}>
     <div onWheel={e => {
-      if (scrollRef.current) {
+      if (scrollRef.current && openModals === 0) {
         const normalized = normalizeWheel(e);
         const ref = scrollRef.current;
         const currentLeft = ref.getScrollLeft() + normalized.pixelY;
@@ -85,18 +83,10 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const GET_CRAFTING_MACHINE_CLASSES = gql`
-  {
-    getCraftingMachineClasses {
-      name
-      icon
-    }
-  }
-`;
-
-function GraphNodeDrawer(props) {
-  const {classes, drawerOpen, translate} = props;
+function NodeDrawer(props) {
+  const {classes, drawerOpen, translate, selectedMachine} = props;
   const [value, setValue] = React.useState(0);
+
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -117,39 +107,24 @@ function GraphNodeDrawer(props) {
           expandIcon={drawerOpen ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}
         >
           <Typography>
-            Currently Selected:{' '}
-            <span className={classes.current}>Assembler</span>
+            {`${translate('currently_selected')} `}
+            <span className={classes.current}>{selectedMachine ? selectedMachine.name : translate('selected_none')}</span>
           </Typography>
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails className={classes.expandPanel}>
           {value === 0 && (
-              <Query query={GET_CRAFTING_MACHINE_CLASSES}>
-                {({ loading, error, data }) => {
-                  if (loading) return null;
-                  if (error) return `Error! ${error.message}`;
-
-                  const imageBaseUrl = urlRepository.machines;
-                  return <TabContainer classes={classes}>
-                    {
-                      data.getCraftingMachineClasses.sort((machine1, machine2) => {
-                        return machine1.name.localeCompare(machine2.name);
-                      }).map(machine => {
-                        let icon = imageBaseUrl[machine.icon];
-                            if (!icon) {
-                          icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
-                        }
-                        return <GraphNodeButton
-                          key={machine.name}
-                          image={icon}
-                          label={translate(machine.name)}
-                        />
-                      })
-                    }
-                  </TabContainer>
-
-                }}
-              </Query>
+            <TabContainer {...props} classes={classes}>
+              {
+                props.machineClasses.map(classObject => {
+                  return <GraphNodeButton
+                    nodeClass={classObject}
+                    key={classObject.name}
+                    label={translate(classObject.name)}
+                  />
+                })
+              }
+            </TabContainer>
           )}
           {value === 1 && (
             <TabContainer classes={classes}>
@@ -178,7 +153,10 @@ function GraphNodeDrawer(props) {
 function mapStateToProps(state) {
   return {
     drawerOpen: state.graphReducer.mouseMode === 'add',
-    translate: getTranslate(state.localize)
+    translate: getTranslate(state.localize),
+    machineClasses: state.graphReducer.machineClasses,
+    selectedMachine: state.graphReducer.selectedMachine,
+    openModals: state.graphReducer.openModals,
   };
 }
 
@@ -191,4 +169,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(GraphNodeDrawer));
+)(withStyles(styles)(NodeDrawer));

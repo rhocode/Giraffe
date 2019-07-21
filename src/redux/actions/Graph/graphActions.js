@@ -39,3 +39,29 @@ export const setGraphFidelity = data => dispatch => {
     payload: data
   });
 };
+
+export const setMachineClasses = data => dispatch => {
+  dispatch({
+    type: 'SET_MACHINE_CLASSES',
+    payload: data
+  });
+};
+
+export const setSelectedMachine = data => dispatch => {
+  dispatch({
+    type: 'SET_SELECTED_MACHINE',
+    payload: data
+  });
+};
+
+export const addOpenedModal = () => dispatch => {
+  dispatch({
+    type: 'ADD_OPENED_MODAL'
+  });
+};
+
+export const closeOpenedModal = () => dispatch => {
+  dispatch({
+    type: 'CLOSE_OPENED_MODAL'
+  });
+};
