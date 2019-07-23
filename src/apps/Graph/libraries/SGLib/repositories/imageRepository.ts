@@ -1,6 +1,5 @@
-import * as items from '../images/items/__all'
+import * as items from '../images/items/__all';
 import * as machines from '../images/machines/__all';
-import testFunc from "../algorithms/test";
 
 function listedImport(items: any) {
   let images: any = {};
@@ -13,10 +12,10 @@ function listedImport(items: any) {
     return new Promise((resolve: any) => {
       thisImage.onload = () => {
         resolve(thisImage);
-      }
-    })
+      };
+    });
   });
-  return {images, promises, urls};
+  return { images, promises, urls };
 }
 
 const machinePromises = listedImport(machines);
@@ -37,5 +36,3 @@ export const urlRepository = {
   machines: machinePromises.urls,
   items: itemPromises.urls
 };
-
-testFunc();
