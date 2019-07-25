@@ -29,129 +29,40 @@ const splitList = (list: Array<number>): Array<Array<number>> => {
   return [list.slice(0, halfLength), list.slice(halfLength)];
 };
 
-const splitterCalculatorHelper = (
-  inputSpeed: number,
-  outputsSpeedArray: Array<number>
-): any => {
-  let belt = 1;
-  let blocked = [0, 0, 0];
+type BeltTuple = {
+  left: number;
+  top: number;
+  right: number;
+};
 
-  const beltOutputReciprocal = outputsSpeedArray.map(i =>
-    i === 0 ? Infinity : 60 / i
-  );
+const generateSplitterIterator = (beltSpeeds: BeltTuple) => {
+  let index = 0;
+  const beltOrder: Array<number> = [];
+  const blockedUntil: Array<number> = [];
 
-  const timeScale = 60 / inputSpeed;
-  const usedItems = outputsSpeedArray.filter(i => i);
-  const scaleMultiplier = leastCommonMultiple([...usedItems, inputSpeed]);
+  const { left, top, right } = beltSpeeds;
 
-  const sums: { [key: number]: number } = { 0: 0, 1: 0, 2: 0 };
-  let i: number = 0;
-  let itemsProcessed: number = 0;
-  let beltStuckCount: number = 0;
-
-  const checkedSequence = [];
-  let readyToCheck = false;
-  const usedItemsLength = usedItems.length;
-  let iterator = 0;
-  while (iterator < 1000) {
-    iterator++;
-    let lastBeltUsed = -1;
-    let time = Math.round(i * timeScale * scaleMultiplier);
-    let beltChanged = false;
-
-    for (let i = 0; i < usedItemsLength; i++) {
-      if (outputsSpeedArray[belt]) {
-        const isBeltBlocked = blocked[belt] > time;
-
-        if (!isBeltBlocked) {
-          blocked[belt] =
-            time + Math.round(beltOutputReciprocal[belt] * scaleMultiplier);
-          sums[belt] += 1;
-          // print("Belt %d is unlocked, pushing. Next time is %d" %(belt, blocked[belt]), end =" ")
-          lastBeltUsed = belt;
-          belt = (belt + 1) % 3;
-          itemsProcessed += 1;
-          beltChanged = true;
-          break;
-        }
-      }
-
-      belt = (belt + 1) % 3;
-    }
-
-    if (!beltChanged) {
-      beltStuckCount += 1;
-    }
-
-    if (i >= usedItemsLength) {
-      if (lastBeltUsed !== -1) {
-        checkedSequence.push(lastBeltUsed);
-      }
-      // timeList.push(time);
-    }
-
-    if (i >= usedItemsLength) {
-      if (!readyToCheck) {
-        readyToCheck = Object.values(sums)
-          .map(i => i >= 2)
-          .every(i => i);
-      }
-
-      if (readyToCheck && checkedSequence.length % 2 !== 1) {
-        const [left, right] = splitList(checkedSequence);
-
-        if (JSON.stringify(left) === JSON.stringify(right)) {
-          i += 1;
-          break;
-        }
-      }
-    }
-    i += 1;
+  if (top > 0) {
+    beltOrder.push(1);
+    blockedUntil.push(0);
   }
 
-  i -= 1;
+  if (right > 0) {
+    beltOrder.push(2);
+    blockedUntil.push(0);
+  }
 
-  const [left] = splitList(checkedSequence);
-
-  const totalTime = timeScale * left.length;
-
-  const adjustedInput = left.filter(i => i !== -1).length / totalTime;
-  // console.log(adjustedInput * 60, (left.length) / (timeScale * left.length) * 60);
-
-  const leftSplit = left.filter(i => i === 0).length;
-  const middleSplit = left.filter(i => i === 1).length;
-  const rightSplit = left.filter(i => i === 2).length;
-  const beltOutputs = [
-    (leftSplit * 60) / totalTime,
-    (middleSplit * 60) / totalTime,
-    (rightSplit * 60) / totalTime
-  ];
-
-  const maxSpeed = Math.max(...outputsSpeedArray);
-
-  const manifoldOutput = outputsSpeedArray.map(speed => {
-    if (speed === maxSpeed) {
-      const multiplier = Math.ceil(1 / speed / (1 / inputSpeed));
-
-      return inputSpeed / multiplier;
-    }
-
-    return speed;
-  });
-
-  const manifoldInput = manifoldOutput.reduce(
-    (previousValue, currentValue) => previousValue + currentValue,
-    0
-  );
+  if (left > 0) {
+    beltOrder.push(0);
+    blockedUntil.push(0);
+  }
 
   return {
-    timeScale,
-    sequence: left,
-    adjustedInput: adjustedInput * 60,
-    beltOutputs,
-    manifoldInput,
-    manifoldOutput,
-    originalOutput: outputsSpeedArray
+    next: function(): number {
+      const returnedIndex = index;
+      index = (index + 1) % beltOrder.length;
+      return beltOrder[returnedIndex];
+    }
   };
 };
 
@@ -211,6 +122,125 @@ const splitterCalculator = (
   )[0];
 
   return { actual, optimal: choices[0] };
+};
+
+const splitterCalculatorHelper = (
+  inputSpeed: number,
+  outputsSpeed: Array<number>
+) => {
+  const beltOutputReciprocal = outputsSpeed.map(i =>
+    i === 0 ? Infinity : 60 / i
+  );
+
+  const timeScale = 60 / inputSpeed;
+  const nonZeroItems = outputsSpeed.filter(i => i);
+  // const scaleMultiplier = leastCommonMultiple([...nonZeroItems, inputSpeed]);
+  const beltIterator = generateSplitterIterator({
+    left: outputsSpeed[0],
+    top: outputsSpeed[1],
+    right: outputsSpeed[2]
+  });
+  const sequence = [];
+  const nextFreeTime = [0, 0, 0];
+
+  const numOutputs = nonZeroItems.length;
+
+  let timeIndex = 0;
+
+  const outputtedItemCount: { [key: number]: number } = {
+    0: 0,
+    1: 0,
+    2: 0
+  };
+
+  let minimumElementsPassed = false;
+
+  while (timeIndex < 1000) {
+    const time = timeIndex * timeScale;
+
+    let beltChanged = false;
+
+    for (let i = 0; i < numOutputs; i++) {
+      const beltIndex = beltIterator.next();
+      const beltSpeed = beltOutputReciprocal[beltIndex];
+      const beltNextFreeTime = nextFreeTime[beltIndex];
+      if (beltNextFreeTime <= time) {
+        nextFreeTime[beltIndex] = time + beltSpeed;
+
+        if (timeIndex >= numOutputs) {
+          sequence.push(beltIndex);
+          outputtedItemCount[beltIndex]++;
+        }
+
+        beltChanged = true;
+        break;
+      }
+    }
+
+    if (!beltChanged) {
+      // Check the next time we are able to propagate a "stuck" item.
+      const nextTime = (timeIndex + 1) * timeScale;
+
+      for (let i = 0; i < numOutputs; i++) {
+        const beltIndex = beltIterator.next();
+        const beltSpeed = beltOutputReciprocal[beltIndex];
+        const beltNextFreeTime = nextFreeTime[beltIndex];
+        if (beltNextFreeTime < nextTime) {
+          nextFreeTime[beltIndex] = beltNextFreeTime + beltSpeed;
+          sequence.push(beltIndex);
+          outputtedItemCount[beltIndex]++;
+          beltChanged = true;
+          break;
+        }
+      }
+    }
+
+    if (!minimumElementsPassed) {
+      minimumElementsPassed = Object.values(outputtedItemCount)
+        .map(i => i >= 2)
+        .every(i => i);
+    }
+
+    if (minimumElementsPassed && sequence.length % 2 === 0) {
+      const [left, right] = splitList(sequence);
+      if (JSON.stringify(left) === JSON.stringify(right)) {
+        break;
+      }
+    }
+
+    timeIndex++;
+  }
+
+  const [left] = splitList(sequence);
+
+  const totalTime = ((timeIndex - 3 + 1) * timeScale) / 2;
+  const itemsTransported = left.filter(i => i >= 0).length;
+
+  const leftSplit = left.filter(i => i === 0).length;
+  const middleSplit = left.filter(i => i === 1).length;
+  const rightSplit = left.filter(i => i === 2).length;
+  const beltOutputs = [
+    (leftSplit * 60) / totalTime,
+    (middleSplit * 60) / totalTime,
+    (rightSplit * 60) / totalTime
+  ];
+
+  const beltPackets = [
+    { qty: leftSplit, seconds: totalTime },
+    { qty: middleSplit, seconds: totalTime },
+    { qty: rightSplit, seconds: totalTime }
+  ];
+
+  return {
+    timeScale,
+    sequence: left,
+    adjustedInput: (itemsTransported * 60) / totalTime,
+    beltOutputs,
+    beltPackets,
+    // // manifoldInput,
+    // // manifoldOutput,
+    originalOutput: outputsSpeed
+  };
 };
 
 const memoizedSplitterCalculatorFunction = (): any => {
