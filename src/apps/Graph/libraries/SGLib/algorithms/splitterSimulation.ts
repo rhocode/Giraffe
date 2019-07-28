@@ -7,7 +7,7 @@ const greatestCommonDivisor = (a: number, b: number): number => {
   else return greatestCommonDivisor(b, a % b);
 };
 
-const gcf = (list: Array<number>): number => {
+export const gcf = (list: Array<number>): number => {
   return list.reduce(greatestCommonDivisor);
 };
 
