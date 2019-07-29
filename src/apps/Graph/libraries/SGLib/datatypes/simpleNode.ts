@@ -1,4 +1,5 @@
 import SimpleEdge from './simpleEdge';
+import ResourcePacket from './primitives/resourcePacket';
 
 type Nullable<T> = T | null;
 
@@ -6,9 +7,14 @@ export default class SimpleNode {
   data: Nullable<Object>;
   inputs: Map<SimpleEdge, SimpleNode> = new Map();
   outputs: Map<SimpleEdge, SimpleNode> = new Map();
+  demands: Array<ResourcePacket> = [];
 
   constructor(data: Nullable<Object>) {
     this.data = data;
+  }
+
+  setDemand(demands: Array<ResourcePacket>) {
+    this.demands = demands;
   }
 
   addOutput(target: SimpleNode): SimpleEdge {
