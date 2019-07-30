@@ -8,9 +8,14 @@ export default class SimpleNode {
   inputs: Map<SimpleEdge, SimpleNode> = new Map();
   outputs: Map<SimpleEdge, SimpleNode> = new Map();
   demands: Array<ResourcePacket> = [];
+  isClusterBoundary: boolean = false;
 
   constructor(data: Nullable<Object>) {
     this.data = data;
+  }
+
+  setClusterBoundary(isClusterBoundary: boolean = true) {
+    this.isClusterBoundary = isClusterBoundary;
   }
 
   setDemand(demands: Array<ResourcePacket>) {
