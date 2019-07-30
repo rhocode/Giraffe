@@ -54,12 +54,7 @@ export const stronglyConnectedComponents = function(cluster: SimpleCluster) {
           lowLink.get(successor) === undefined
         ) {
           throw new Error(
-            'Not defined: ' +
-              node +
-              ' ' +
-              successor +
-              ' ' +
-              JSON.stringify(lowLink)
+            `Not defined: ${node} ${successor} ${JSON.stringify(lowLink)}`
           );
         }
         const lowLinkNodeId = lowLink.get(nodeId) || 0;
