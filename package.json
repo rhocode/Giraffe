@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.14",
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.0-rc.0",
     "@types/jest": "^24.0.15",
@@ -62,7 +63,9 @@
     "generate-images": "npm run generate-images-items && npm run generate-images-machines",
     "generate-images-items": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/items es6WithFileExtension",
     "generate-images-machines": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/machines es6WithFileExtension",
-    "generate": "npm run proto && npm run generate-schemas && npm run generate-images"
+    "generate": "npm run proto && npm run generate-schemas && npm run generate-images",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -80,6 +83,10 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "cross-env": "^5.2.0",
     "jest-canvas-mock": "^2.1.0",
     "protocol-buffers": "^4.1.0"

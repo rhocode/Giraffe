@@ -2,6 +2,7 @@ import clusterBalancer from './clusterBalancer';
 import SimpleNode from '../datatypes/simpleNode';
 import SimpleCluster from '../datatypes/simpleCluster';
 import { stronglyConnectedComponents } from './stronglyConnectedComponents';
+import maxFlow from './maxFlow';
 
 const generateCyclicCluster = () => {
   const A = new SimpleNode(null);
@@ -107,4 +108,14 @@ it('runs a strongly connected cyclic search', () => {
       [0]
     ])
   );
+});
+
+it('runs a maxFlow analysis on the cluster', () => {
+  const cluster = generateSimpleCluster();
+  const { t, s, graph } = cluster.generateSimpleGraph();
+
+  console.error(t, s, graph);
+
+  const flow = maxFlow(graph, s, t);
+  console.error(flow);
 });

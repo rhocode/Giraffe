@@ -4,17 +4,13 @@ type Nullable<T> = T | null;
 
 export default class SimpleEdge {
   data: Nullable<Object>;
-  source: Nullable<SimpleNode> = null;
-  target: Nullable<SimpleNode>;
+  source: SimpleNode;
+  target: SimpleNode;
   max: number = Infinity;
   min: number = -Infinity;
-  weight: Nullable<number> = null;
+  weight: number = -Infinity;
 
-  constructor(
-    data: Nullable<Object>,
-    source: Nullable<SimpleNode>,
-    target: Nullable<SimpleNode>
-  ) {
+  constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
     this.data = data;
     this.source = source;
     this.target = target;
