@@ -22,7 +22,21 @@ export default class SimpleNode {
     this.demands = demands;
   }
 
-  addOutput(target: SimpleNode): SimpleEdge {
+  addOutput(target: SimpleNode, dedupe: boolean = false): SimpleEdge {
+    if (dedupe) {
+      if (Array.from(this.outputs.values()).includes(target)) {
+        const locator = Array.from(this.outputs.entries()).filter(entry => {
+          return entry[1] === target;
+        });
+
+        if (locator.length === 1) {
+          return locator[0][0];
+        }
+
+        throw new Error('Unable to dedupe SimpleNode');
+      }
+    }
+
     const newEdge = new SimpleEdge(null, this, target);
     this.outputs.set(newEdge, target);
     target.inputs.set(newEdge, this);

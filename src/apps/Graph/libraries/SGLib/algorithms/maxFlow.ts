@@ -7,13 +7,11 @@ function bfs(
   const visited: Map<number, boolean> = new Map();
   let queue: Array<number> = [];
 
-  // Create a queue, enqueue source vertex and mark source vertex as visited
   queue.push(s);
   visited.set(s, true);
   parent.set(s, -1);
 
   while (queue.length !== 0) {
-    // console.error(queue);
     const u = queue.shift();
     if (u === undefined) {
       continue;
@@ -22,11 +20,10 @@ function bfs(
     if (entry === undefined) {
       continue;
     }
-    // console.error("!!!!!!!!!!!!!!!!!!", graph.get(u))
+
     Array.from(entry.keys()).forEach((key: number) => {
       if (visited.get(key) !== true) {
         const uv = entry.get(key);
-        console.error(entry, key, uv);
         if (uv !== undefined && uv > 0) {
           queue.push(key);
           parent.set(key, u);
@@ -35,8 +32,7 @@ function bfs(
       }
     });
   }
-  // console.error(visited, t, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!fkdsfnlksdfnlks")
-  //If we reached sink in BFS starting from source, then return true, else false
+
   return visited.get(t) === true;
 }
 
@@ -45,15 +41,6 @@ function maxFlow(
   s: number,
   t: number
 ) {
-  /* Create a residual graph and fill the residual graph
-   with given capacities in the original graph as
-   residual capacities in residual graph
-   Residual graph where rGraph[i][j] indicates
-   residual capacity of edge from i to j (if there
-   is an edge. If rGraph[i][j] is 0, then there is
-   not)
-  */
-
   const residualGraph = new Map() as any;
 
   Array.from(graph.entries()).forEach(entry => {
@@ -75,16 +62,25 @@ function maxFlow(
 
     for (let v = t; v !== s; v = parentArray.get(v) || 0) {
       let u = parentArray.get(v) || 0;
-      if (residualGraph[u] === undefined) {
-        residualGraph[u] = new Map();
+      const uv = residualGraph.get(u).get(v);
+      residualGraph.get(u).set(v, uv - pathFlow);
+
+      if (residualGraph.get(v) === undefined) {
+        residualGraph.set(v, new Map());
       }
 
-      residualGraph[u][v] -= pathFlow;
-      residualGraph[v][u] += pathFlow;
+      if (residualGraph.get(v).get(u) === undefined) {
+        residualGraph.get(v).set(u, 0);
+      }
+
+      const vu = residualGraph.get(v).get(u);
+
+      residualGraph.get(v).set(u, vu + pathFlow);
     }
 
     maxFlow += pathFlow;
   }
+
   // Return the overall flow
   return maxFlow;
 }
