@@ -6,7 +6,7 @@
     "@emotion/core": "^10.0.14",
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.0-rc.0",
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^24.0.16",
     "@types/mathjs": "^6.0.1",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
