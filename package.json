@@ -10,7 +10,7 @@
     "@types/mathjs": "^6.0.1",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
+    "@types/react-dom": "^16.8.5",
     "apollo-boost": "^0.4.3",
     "apollo-link-schema": "^1.2.3",
     "clean-deep": "^3.0.2",
