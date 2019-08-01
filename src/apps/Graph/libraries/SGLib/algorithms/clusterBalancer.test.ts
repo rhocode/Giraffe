@@ -114,8 +114,15 @@ it('runs a maxFlow analysis on the cluster', () => {
   const cluster = generateSimpleCluster();
   const { t, s, graph } = cluster.generateSimpleGraph();
 
-  console.error(t, s, graph);
+  // console.error(t, s, graph);
 
   const flow = maxFlow(graph, s, t);
-  console.error(flow);
+  // console.error(flow);
+});
+
+it('converts the cluster into a non-cyclic cluster', () => {
+  const cluster = generateCyclicCluster();
+  expect(cluster.nonCyclic).toBe(false);
+  const nonCyclicCluster = cluster.generateNonCyclicCluster();
+  expect(nonCyclicCluster.nonCyclic).toBe(true);
 });

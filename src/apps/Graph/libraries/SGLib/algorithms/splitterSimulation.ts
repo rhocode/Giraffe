@@ -147,18 +147,24 @@ const splitterCalculatorHelper = (
 
   let timeIndex = 0;
 
-  const outputtedItemCount: { [key: number]: number } = {
-    0: 0,
-    1: 0,
-    2: 0
-  };
+  const outputtedItemCount: { [key: number]: number } = {};
+
+  outputsSpeed.forEach((speed, index) => {
+    if (speed !== 0) {
+      outputtedItemCount[index] = 0;
+    }
+  });
 
   let minimumElementsPassed = false;
+  // let startRecording = false;
+  let startTime = 0;
+  let usedNextFreeTime = false;
 
-  while (timeIndex < 1000) {
+  while (timeIndex < 10000) {
     const time = timeIndex * timeScale;
 
     let beltChanged = false;
+    usedNextFreeTime = false;
 
     for (let i = 0; i < numOutputs; i++) {
       const beltIndex = beltIterator.next();
@@ -187,9 +193,12 @@ const splitterCalculatorHelper = (
         const beltNextFreeTime = nextFreeTime[beltIndex];
         if (beltNextFreeTime < nextTime) {
           nextFreeTime[beltIndex] = beltNextFreeTime + beltSpeed;
-          sequence.push(beltIndex);
-          outputtedItemCount[beltIndex]++;
-          beltChanged = true;
+
+          if (timeIndex + 1 >= numOutputs) {
+            sequence.push(beltIndex);
+            outputtedItemCount[beltIndex]++;
+          }
+          usedNextFreeTime = true;
           break;
         }
       }
@@ -211,9 +220,14 @@ const splitterCalculatorHelper = (
     timeIndex++;
   }
 
+  if (usedNextFreeTime) {
+    timeIndex++;
+  }
+
   const [left] = splitList(sequence);
 
-  const totalTime = ((timeIndex - 3 + 1) * timeScale) / 2;
+  const totalTime = ((timeIndex - nonZeroItems.length + 1) / 2) * timeScale;
+
   const itemsTransported = left.filter(i => i >= 0).length;
 
   const leftSplit = left.filter(i => i === 0).length;
@@ -225,10 +239,21 @@ const splitterCalculatorHelper = (
     (rightSplit * 60) / totalTime
   ];
 
+  const numerator = (timeIndex - nonZeroItems.length + 1) * 60;
+  const denominator = 2 * inputSpeed;
+  const [reducedNumerator, reducedDenominator] = reduceRatio([
+    numerator,
+    denominator
+  ]);
+  const totalTimeFraction = {
+    numerator: reducedNumerator,
+    denominator: reducedDenominator
+  };
+
   const beltPackets = [
-    { qty: leftSplit, seconds: totalTime },
-    { qty: middleSplit, seconds: totalTime },
-    { qty: rightSplit, seconds: totalTime }
+    { qty: leftSplit, seconds: totalTimeFraction },
+    { qty: middleSplit, seconds: totalTimeFraction },
+    { qty: rightSplit, seconds: totalTimeFraction }
   ];
 
   return {
