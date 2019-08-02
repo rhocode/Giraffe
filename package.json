@@ -16,7 +16,7 @@
     "clean-deep": "^3.0.2",
     "clsx": "^1.0.4",
     "d3": "^5.9.7",
-    "firebase": "^6.3.3",
+    "firebase": "^6.3.4",
     "flow-bin": "^0.98.1",
     "fontfaceobserver": "^2.1.0",
     "graphql": "^14.4.2",
