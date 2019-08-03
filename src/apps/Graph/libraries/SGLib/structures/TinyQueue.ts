@@ -104,7 +104,7 @@ function defaultCompare(a: number, b: number) {
   return a < b ? -1 : a > b ? 1 : 0;
 }
 
-export const spliceUtil = function(object: any, item: any) {
+export const spliceUtil = function(object: Array<any>, item: any) {
   if (object.indexOf(item) === -1) return;
   object.splice(object.indexOf(item), 1);
 };
