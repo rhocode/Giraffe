@@ -8,7 +8,7 @@ export default class SimpleEdge {
   target: SimpleNode;
   max: number = Infinity;
   min: number = -Infinity;
-  weight: number = -Infinity;
+  weight: number = Infinity;
 
   constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
     this.data = data;

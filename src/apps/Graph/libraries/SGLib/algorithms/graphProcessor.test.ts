@@ -4,6 +4,7 @@ import SimpleCluster from '../datatypes/simpleCluster';
 import { stronglyConnectedComponents } from './stronglyConnectedComponents';
 import maxFlow from './maxFlow';
 import topologicalSort from './graphProcessor';
+import generatePools from './calculatePool';
 
 const generateCyclicCluster = () => {
   const A = new SimpleNode(null);
@@ -21,6 +22,11 @@ const generateCyclicCluster = () => {
   const L = new SimpleNode(null);
   const M = new SimpleNode(null);
   const N = new SimpleNode(null);
+
+  A.setClusterBoundary(true);
+  N.setClusterBoundary(true);
+  E.setClusterBoundary(true);
+  F.setClusterBoundary(true);
 
   J.addOutput(K).setWeight(10);
   K.addOutput(L).setWeight(10);
@@ -55,6 +61,9 @@ const generateSimpleCluster = () => {
   const H = new SimpleNode(null);
   const I = new SimpleNode(null);
   const J = new SimpleNode(null);
+
+  A.setClusterBoundary(true);
+  J.setClusterBoundary(true);
 
   A.addOutput(B).setWeight(10);
   A.addOutput(C).setWeight(10);
@@ -133,5 +142,14 @@ it('Runs a topological sort on a non-cyclic cluster', () => {
   const nonCyclicCluster = cluster.generateNonCyclicCluster();
   expect(nonCyclicCluster.nonCyclic).toBe(true);
   const { normal, reversed } = topologicalSort(nonCyclicCluster);
-  console.error(normal, reversed);
+  expect(normal).toBeDefined();
+  expect(reversed).toBeDefined();
+});
+
+it('Runs pool analysis on a cluster', () => {
+  const cluster = generateCyclicCluster();
+  const nonCyclicCluster = cluster.generateNonCyclicCluster();
+  expect(nonCyclicCluster.nonCyclic).toBe(true);
+  const { normal } = topologicalSort(nonCyclicCluster);
+  generatePools(nonCyclicCluster, normal);
 });

@@ -9,17 +9,71 @@ export default class SimpleCluster extends SimpleGraph {
   sourceNode: SimpleNode;
   targetNode: SimpleNode;
   nonCyclic: boolean;
+  partial: boolean;
 
-  constructor(nodes: Array<SimpleNode>, cyclic: Nullable<boolean> = null) {
+  constructor(
+    nodes: Array<SimpleNode>,
+    cyclic: Nullable<boolean> = null,
+    partial = false
+  ) {
     super(nodes);
     // TODO: Fix this calculation. Ideally, we should be adding a source and a sink with infinite capacity if there
     // is multiple.
-    this.sourceNode = nodes[0];
-    this.targetNode = nodes[nodes.length - 1];
+
+    const theseNodes = new Set(nodes);
+
+    const inputs = nodes.filter(node => {
+      return (
+        Array.from(node.inputs.values()).filter(subNode =>
+          theseNodes.has(subNode)
+        ).length === 0
+      );
+    });
+
+    const outputs = nodes.filter(node => {
+      return (
+        Array.from(node.outputs.values()).filter(subNode =>
+          theseNodes.has(subNode)
+        ).length === 0
+      );
+    });
+
+    if (inputs.length === 0) {
+      throw new Error('No inputs found!');
+    }
+
+    if (outputs.length === 0) {
+      throw new Error('No inputs found!');
+    }
+
+    if (inputs.length === 1) {
+      this.sourceNode = inputs[0];
+    } else {
+      this.sourceNode = new SimpleNode(null, true);
+      inputs.forEach(input => {
+        this.sourceNode.addOutput(input);
+      });
+    }
+
+    if (outputs.length === 1) {
+      this.targetNode = outputs[0];
+    } else {
+      this.targetNode = new SimpleNode(null, true);
+      outputs.forEach(output => {
+        this.targetNode.addInput(output);
+      });
+    }
+
+    this.partial = partial;
 
     if (cyclic === null) {
-      const components = stronglyConnectedComponents(this);
-      this.nonCyclic = components.filter(item => item.length > 1).length === 0;
+      if (nodes.length > 0 && !partial) {
+        const components = stronglyConnectedComponents(this);
+        this.nonCyclic =
+          components.filter(item => item.length > 1).length === 0;
+      } else {
+        this.nonCyclic = true;
+      }
     } else {
       this.nonCyclic = cyclic;
     }
