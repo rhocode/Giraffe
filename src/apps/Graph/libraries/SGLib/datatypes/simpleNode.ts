@@ -5,13 +5,15 @@ type Nullable<T> = T | null;
 
 export default class SimpleNode {
   data: Nullable<Object>;
+  endpoint: boolean;
   inputs: Map<SimpleEdge, SimpleNode> = new Map();
   outputs: Map<SimpleEdge, SimpleNode> = new Map();
   demands: Array<ResourcePacket> = [];
   isClusterBoundary: boolean = false;
 
-  constructor(data: Nullable<Object>) {
+  constructor(data: Nullable<Object>, endpoint: boolean = false) {
     this.data = data;
+    this.endpoint = endpoint;
   }
 
   setClusterBoundary(isClusterBoundary: boolean = true) {
