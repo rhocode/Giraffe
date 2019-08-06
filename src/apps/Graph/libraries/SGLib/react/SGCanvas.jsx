@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import {stringGen} from '../utils/stringUtils';
-import MachineNode, {GraphNode} from '../datatypes/graphNode';
-import {setGraphData} from '../../../../../redux/actions/Graph/graphActions';
-import {GraphEdge} from "../datatypes/graphEdge";
-import {withStyles} from "@material-ui/core";
+import { stringGen } from '../utils/stringUtils';
+import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
+import { setGraphData } from '../../../../../redux/actions/Graph/graphActions';
+import { GraphEdge } from '../datatypes/graph/graphEdge';
+import { withStyles } from '@material-ui/core';
 
 const styles = () => ({
   canvas: {
     gridArea: 'canvasElement',
     minWidth: 0,
     minHeight: 0
-  },
+  }
 });
 
 class SGCanvas extends Component {
@@ -22,15 +22,14 @@ class SGCanvas extends Component {
     this.initializeSGLib();
     this.transform = d3.zoomIdentity;
     this.state = {
-      loaded: false,
+      loaded: false
     };
     this.k = 1;
     this.selectedNodes = {};
     this.selectedEdges = {};
   }
 
-  initializeSGLib() {
-  }
+  initializeSGLib() {}
 
   componentDidMount() {
     const width = this.props.width;
@@ -49,13 +48,12 @@ class SGCanvas extends Component {
         d3
           .forceLink()
           .strength(1)
-          .id(function (d) {
+          .id(function(d) {
             return d.id;
           })
       )
       .alphaTarget(0)
       .alphaDecay(1);
-
 
     this.graphContext = this.graphCanvas.getContext('2d');
 
@@ -65,7 +63,7 @@ class SGCanvas extends Component {
     const num_nodes = 5;
 
     for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, 0, i * 300, 500))
+      nodes.push(new MachineNode(0, 0, 0, i * 300, 500));
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
@@ -102,7 +100,7 @@ class SGCanvas extends Component {
         d3
           .forceLink()
           .strength(1)
-          .id(function (d) {
+          .id(function(d) {
             return d.id;
           })
       )
@@ -115,9 +113,9 @@ class SGCanvas extends Component {
   };
 
   initGraph = () => {
-    let {graphCanvas, simulation} = this;
+    let { graphCanvas, simulation } = this;
     const context = this.graphContext;
-    const {width, height, graphData, graphFidelity} = this.props;
+    const { width, height, graphData, graphFidelity } = this.props;
 
     const thisAccessor = this;
 
@@ -126,7 +124,7 @@ class SGCanvas extends Component {
     });
 
     const zoomed = () => {
-      const transform = this.transform = d3.event.transform; // REQUIRED for updating the zoom
+      const transform = (this.transform = d3.event.transform); // REQUIRED for updating the zoom
 
       if (graphFidelity !== 'low' && transform.k !== thisAccessor.k) {
         thisAccessor.k = transform.k;
@@ -138,7 +136,7 @@ class SGCanvas extends Component {
       simulationUpdate();
     };
 
-    const clicked = (context) => {
+    const clicked = context => {
       if (d3.event.defaultPrevented) {
         return;
       }
@@ -174,7 +172,7 @@ class SGCanvas extends Component {
         y = transform.invertY(d3.event.y);
 
       if (this.props.mouseMode === 'select') {
-        return {x: d3.event.x, y: d3.event.y};
+        return { x: d3.event.x, y: d3.event.y };
       }
 
       const selectedNodeKeys = Object.keys(this.selectedNodes);
@@ -195,7 +193,7 @@ class SGCanvas extends Component {
       }
 
       if (draggingGroup) {
-        return {x: d3.event.x, y: d3.event.y};
+        return { x: d3.event.x, y: d3.event.y };
       }
 
       for (i = graphData.nodes.length - 1; i >= 0; --i) {
@@ -217,7 +215,6 @@ class SGCanvas extends Component {
     };
 
     const dragStartFunc = () => {
-
       const transform = thisAccessor.transform;
 
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -226,10 +223,9 @@ class SGCanvas extends Component {
       d3.event.subject.fx = x;
       d3.event.subject.fy = y;
 
-
       // Set the drag start
       if (this.props.mouseMode === 'select') {
-        this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y};
+        this.dragStart = { x: d3.event.x, y: d3.event.y, ex: x, ey: y };
       }
 
       // if (this.props.mouseMode === 'pan' && ) {
@@ -252,7 +248,7 @@ class SGCanvas extends Component {
       const y = transform.invertY(d3.event.y);
 
       if (this.props.mouseMode === 'select') {
-        this.dragCurrent = {x: d3.event.x, y: d3.event.y, ex: x, ey: y};
+        this.dragCurrent = { x: d3.event.x, y: d3.event.y, ex: x, ey: y };
       }
 
       const subject = d3.event.subject;
@@ -262,12 +258,19 @@ class SGCanvas extends Component {
         subject.fy = y;
         subject.sortSlots();
         subject.sortConnectedNodeSlots();
-      } else if (this.props.mouseMode !== 'select' && Object.keys(this.selectedNodes).length) {
+      } else if (
+        this.props.mouseMode !== 'select' &&
+        Object.keys(this.selectedNodes).length
+      ) {
         // It's a grouping of nodes
         Object.keys(this.selectedNodes).forEach(key => {
           const node = this.selectedNodes[key];
-          node.fx = node.dx - (transform.invertX(subject.x) - transform.invertX(d3.event.x));
-          node.fy = node.dy - (transform.invertY(subject.y) - transform.invertY(d3.event.y));
+          node.fx =
+            node.dx -
+            (transform.invertX(subject.x) - transform.invertX(d3.event.x));
+          node.fy =
+            node.dy -
+            (transform.invertY(subject.y) - transform.invertY(d3.event.y));
           node.sortSlots();
           node.sortConnectedNodeSlots();
         });
@@ -314,7 +317,7 @@ class SGCanvas extends Component {
         const node = graphData.nodes[i];
         // node.fx = node.x - deltaX;
         // node.fy = node.y - deltaY;
-        console.error("ENDED");
+        console.error('ENDED');
         node.x = node.fx;
         node.y = node.fy;
         // node.fx = null;
@@ -334,7 +337,7 @@ class SGCanvas extends Component {
           .on('drag', draggedFunc)
           .on('end', dragEndFunc)
       )
-      .on('click', function () {
+      .on('click', function() {
         clicked(this);
       })
       .call(
@@ -353,7 +356,7 @@ class SGCanvas extends Component {
       context.translate(transform.x, transform.y);
 
       context.save();
-      context.lineCap = "round";
+      context.lineCap = 'round';
 
       context.globalAlpha = 1.0;
       context.scale(transform.k, transform.k);
@@ -364,7 +367,10 @@ class SGCanvas extends Component {
         startNode.drawPathToTarget(context, edge);
       });
 
-      if (Object.keys(this.selectedEdges).length > 0 || Object.keys(this.selectedNodes).length > 0) {
+      if (
+        Object.keys(this.selectedEdges).length > 0 ||
+        Object.keys(this.selectedNodes).length > 0
+      ) {
         // Only make transparency if there are selected edges or nodes.
         context.globalAlpha = 0.2;
       }
@@ -394,7 +400,10 @@ class SGCanvas extends Component {
 
       context.restore();
 
-      if (Object.keys(this.selectedEdges).length > 0 || Object.keys(this.selectedNodes).length > 0) {
+      if (
+        Object.keys(this.selectedEdges).length > 0 ||
+        Object.keys(this.selectedNodes).length > 0
+      ) {
         // Only make transparency if there are selected edges or nodes.
         context.globalAlpha = 0.2;
       }
@@ -402,11 +411,11 @@ class SGCanvas extends Component {
       context.save();
       if (graphFidelity === 'low') {
         context.scale(transform.k, transform.k);
-        graphData.nodes.forEach(function (d) {
+        graphData.nodes.forEach(function(d) {
           d.lowRender(context);
         });
       } else {
-        graphData.nodes.forEach(function (d) {
+        graphData.nodes.forEach(function(d) {
           d.render(context, transform);
         });
       }
@@ -443,7 +452,7 @@ class SGCanvas extends Component {
     return (
       <canvas
         className={this.props.classes.canvas}
-        style={{display: 'block'}}
+        style={{ display: 'block' }}
         id={this.canvasId}
         ref={this.props.reference}
         width={this.props.width}
@@ -458,7 +467,7 @@ function mapStateToProps(state) {
     graphData: state.graphReducer.graphData,
     graphTransform: state.graphReducer.graphTransform,
     graphFidelity: state.graphReducer.graphFidelity,
-    mouseMode: state.graphReducer.mouseMode,
+    mouseMode: state.graphReducer.mouseMode
     // dragCurrent: state.graphReducer.dragCurrent,
     // dragStart: state.graphReducer.dragStart
   };
@@ -466,7 +475,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGraphData: data => dispatch(setGraphData(data)),
+    setGraphData: data => dispatch(setGraphData(data))
     // setDragStart: data => dispatch(setDragStart(data)),
     // setDragCurrent: data => dispatch(setDragCurrent(data)),
   };

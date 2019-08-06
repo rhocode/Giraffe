@@ -1,6 +1,6 @@
 import clusterBalancer from './clusterBalancer';
-import SimpleNode from '../datatypes/simpleNode';
-import SimpleCluster from '../datatypes/simpleCluster';
+import SimpleNode from '../datatypes/graph/simpleNode';
+import SimpleCluster from '../datatypes/graph/simpleCluster';
 import { stronglyConnectedComponents } from './stronglyConnectedComponents';
 import maxFlow from './maxFlow';
 

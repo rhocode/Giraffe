@@ -1,4 +1,4 @@
-import SimpleCluster from '../datatypes/simpleCluster';
+import SimpleCluster from '../datatypes/graph/simpleCluster';
 
 export const stronglyConnectedComponents = function(cluster: SimpleCluster) {
   const index_counter = [0];

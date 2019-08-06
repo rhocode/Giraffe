@@ -1,10 +1,16 @@
-import {imageRepository} from '../repositories/imageRepository';
-import MachineNode, {GraphNode} from "../datatypes/graphNode";
-import {GraphEdge} from "../datatypes/graphEdge";
+import { imageRepository } from '../repositories/imageRepository';
+import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
+import { GraphEdge } from '../datatypes/graph/graphEdge';
 
 const img = imageRepository.machines['constructor'];
 
-function drawNodePlug(context: any, x: number, y: number, backgroundColor: string, foregroundColor: string) {
+function drawNodePlug(
+  context: any,
+  x: number,
+  y: number,
+  backgroundColor: string,
+  foregroundColor: string
+) {
   // context.save();
   context.beginPath();
   context.arc(x, y, 12, 0, 2 * Math.PI, true);
@@ -29,21 +35,27 @@ function calculateNodeSpacing(y: number, n: number): number[] {
 
   const output = [];
   for (let i = 0; i < n; i++) {
-    output.push(minY + (i * defaultNodePlugSpacing));
+    output.push(minY + i * defaultNodePlugSpacing);
   }
 
   return output;
 }
 
-export function drawPath(context: any, source: MachineNode, graphEdge: GraphEdge) {
+export function drawPath(
+  context: any,
+  source: MachineNode,
+  graphEdge: GraphEdge
+) {
   context.save();
   context.beginPath();
 
   const target = graphEdge.targetNode;
 
-  const outputSlot = source.outputSlotMapping[source.outputSlots.indexOf(graphEdge)];
+  const outputSlot =
+    source.outputSlotMapping[source.outputSlots.indexOf(graphEdge)];
 
-  const inputSlot = target.inputSlotMapping[target.inputSlots.indexOf(graphEdge)];
+  const inputSlot =
+    target.inputSlotMapping[target.inputSlots.indexOf(graphEdge)];
 
   const x1 = source.fx + outputSlot.x;
   const y1 = source.fy + outputSlot.y;
@@ -63,7 +75,6 @@ export function drawPath(context: any, source: MachineNode, graphEdge: GraphEdge
   context.stroke();
   context.restore();
 }
-
 
 export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   context.save();
@@ -114,25 +125,29 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('Mk. II', (w / 2) + 30, (h / 2) - 10);
+  context.fillText('Mk. II', w / 2 + 30, h / 2 - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = '#15CB07';
-  context.fillText('100%', (w / 2) + 30, (h / 2) + 20);
+  context.fillText('100%', w / 2 + 30, h / 2 + 20);
 
   // Reset the slot mappings
   d.inputSlotMapping = {};
   d.outputSlotMapping = {};
 
-  calculateNodeSpacing(y + (h / 2), d.inputSlots.length).forEach((inputY: number, index: number) => {
-    d.inputSlotMapping[index] = {x, y: inputY};
-    drawNodePlug(context, x, inputY, '#1D1E20', '#15CB07');
-  });
+  calculateNodeSpacing(y + h / 2, d.inputSlots.length).forEach(
+    (inputY: number, index: number) => {
+      d.inputSlotMapping[index] = { x, y: inputY };
+      drawNodePlug(context, x, inputY, '#1D1E20', '#15CB07');
+    }
+  );
 
-  calculateNodeSpacing(y + (h / 2), d.outputSlots.length).forEach((outputY: number, index: number) => {
-    d.outputSlotMapping[index] = {x: x + w, y: outputY};
-    drawNodePlug(context, x + w, outputY, '#1D1E20', '#FFA328');
-  });
+  calculateNodeSpacing(y + h / 2, d.outputSlots.length).forEach(
+    (outputY: number, index: number) => {
+      d.outputSlotMapping[index] = { x: x + w, y: outputY };
+      drawNodePlug(context, x + w, outputY, '#1D1E20', '#FFA328');
+    }
+  );
 
   context.restore();
 }

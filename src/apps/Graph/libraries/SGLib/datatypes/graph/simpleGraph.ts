@@ -6,8 +6,10 @@ export default class SimpleGraph {
   nodes: Map<number, SimpleNode> = new Map();
   nodeLookup: Map<SimpleNode, number> = new Map();
   edgeLookup: Map<SimpleEdge, number> = new Map();
+  orderedNodeArray: Array<SimpleNode>;
 
   constructor(nodes: Array<SimpleNode>) {
+    this.orderedNodeArray = nodes;
     let edgeIndex: number = 0;
     let nodeIndex: number = 0;
     nodes.forEach(node => {
