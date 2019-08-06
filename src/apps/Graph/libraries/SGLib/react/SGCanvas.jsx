@@ -119,9 +119,15 @@ class SGCanvas extends Component {
 
     const thisAccessor = this;
 
-    graphData.nodes.forEach(node => {
-      node.preRender(this.transform);
-    });
+    if (graphFidelity === 'low') {
+      graphData.nodes.forEach(node => {
+        node.preRender(d3.zoomIdentity);
+      });
+    } else {
+      graphData.nodes.forEach(node => {
+        node.preRender(this.transform);
+      });
+    }
 
     const zoomed = () => {
       const transform = (this.transform = d3.event.transform); // REQUIRED for updating the zoom
@@ -152,7 +158,6 @@ class SGCanvas extends Component {
         for (let i = 0; i < selectedNodeKeys.length; i++) {
           const node = this.selectedNodes[selectedNodeKeys[i]];
           if (node.intersectsPoint(x, y)) {
-            // console.error("AAAAAAAAAA",x, y);
             return; // noop for now
           }
         }
