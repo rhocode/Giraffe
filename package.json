@@ -25,7 +25,7 @@
     "husky": "^2.7.0",
     "lint-staged": "^8.2.1",
     "lodash": "^4.17.15",
-    "mathjs": "^6.0.3",
+    "mathjs": "^6.0.4",
     "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.18.2",
