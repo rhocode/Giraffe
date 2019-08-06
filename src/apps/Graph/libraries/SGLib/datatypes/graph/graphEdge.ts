@@ -1,4 +1,4 @@
-import {GraphNode} from "./graphNode";
+import { GraphNode } from './graphNode';
 
 type Nullable<T> = T | null;
 
@@ -42,6 +42,10 @@ export abstract class GraphEdge {
     const lowerY = Math.min(this.y1, this.y2);
     const upperY = Math.max(this.y1, this.y2);
 
-    return (lowerXRect <= lowerX && upperX <= upperXRect) && (lowerYRect <= lowerY && upperY <= upperYRect)
+    return (
+      lowerXRect <= lowerX &&
+      upperX <= upperXRect &&
+      (lowerYRect <= lowerY && upperY <= upperYRect)
+    );
   }
 }

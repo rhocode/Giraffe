@@ -1,5 +1,5 @@
 import SimpleNode from './simpleNode';
-import { stronglyConnectedComponents } from '../algorithms/stronglyConnectedComponents';
+import { stronglyConnectedComponents } from '../../algorithms/stronglyConnectedComponents';
 import GroupNode from './groupNode';
 import SimpleGraph from './simpleGraph';
 

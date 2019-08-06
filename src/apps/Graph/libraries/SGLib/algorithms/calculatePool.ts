@@ -1,7 +1,7 @@
-import SimpleCluster from '../datatypes/simpleCluster';
-import GroupNode from '../datatypes/groupNode';
-import SimpleNode from '../datatypes/simpleNode';
-import ClusterChain from '../datatypes/clusterChain';
+import SimpleCluster from '../datatypes/graph/simpleCluster';
+import GroupNode from '../datatypes/graph/groupNode';
+import SimpleNode from '../datatypes/graph/simpleNode';
+import ClusterChain from '../datatypes/graph/clusterChain';
 
 const generatePools = (
   cluster: SimpleCluster,

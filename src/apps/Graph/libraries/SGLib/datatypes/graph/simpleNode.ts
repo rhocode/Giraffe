@@ -1,5 +1,4 @@
 import SimpleEdge from './simpleEdge';
-import ResourcePacket from './primitives/resourcePacket';
 
 type Nullable<T> = T | null;
 
@@ -8,7 +7,7 @@ export default class SimpleNode {
   endpoint: boolean;
   inputs: Map<SimpleEdge, SimpleNode> = new Map();
   outputs: Map<SimpleEdge, SimpleNode> = new Map();
-  demands: Array<ResourcePacket> = [];
+
   isClusterBoundary: boolean = false;
 
   constructor(data: Nullable<Object>, endpoint: boolean = false) {
@@ -20,11 +19,11 @@ export default class SimpleNode {
     this.isClusterBoundary = isClusterBoundary;
   }
 
-  setDemand(demands: Array<ResourcePacket>) {
-    this.demands = demands;
-  }
-
-  addOutput(target: SimpleNode, dedupe: boolean = false): SimpleEdge {
+  addOutput(
+    target: SimpleNode,
+    dedupe: boolean = false,
+    constructorClass = SimpleEdge
+  ): SimpleEdge {
     if (dedupe) {
       if (Array.from(this.outputs.values()).includes(target)) {
         const locator = Array.from(this.outputs.entries()).filter(entry => {
@@ -39,14 +38,14 @@ export default class SimpleNode {
       }
     }
 
-    const newEdge = new SimpleEdge(null, this, target);
+    const newEdge = new constructorClass(null, this, target);
     this.outputs.set(newEdge, target);
     target.inputs.set(newEdge, this);
     return newEdge;
   }
 
-  addInput(source: SimpleNode): SimpleEdge {
-    const newEdge = new SimpleEdge(null, source, this);
+  addInput(source: SimpleNode, constructorClass = SimpleEdge): SimpleEdge {
+    const newEdge = new constructorClass(null, source, this);
     this.inputs.set(newEdge, source);
     source.outputs.set(newEdge, this);
     return newEdge;

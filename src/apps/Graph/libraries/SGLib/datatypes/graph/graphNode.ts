@@ -1,5 +1,5 @@
-import {defaultNodeThemeSprite, drawPath} from '../themes/nodeStyle';
-import {GraphEdge} from "./graphEdge";
+import { defaultNodeThemeSprite, drawPath } from '../../themes/nodeStyle';
+import { GraphEdge } from './graphEdge';
 
 type Nullable<T> = T | null;
 
@@ -51,8 +51,8 @@ export abstract class GraphNode {
       fy: this.fy,
       inputSlots: this.inputSlots,
       outputSlots: this.outputSlots
-    }
-  };
+    };
+  }
 
   public intersectsPoint(x: number, y: number) {
     const lowerX = this.fx + this.xRenderBuffer;
@@ -60,7 +60,7 @@ export abstract class GraphNode {
     const lowerY = this.fy + this.yRenderBuffer;
     const upperY = this.fy + this.height;
 
-    return (lowerX <= x && x <= upperX) && (lowerY <= y && y <= upperY)
+    return lowerX <= x && x <= upperX && (lowerY <= y && y <= upperY);
   }
 
   public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
@@ -74,7 +74,11 @@ export abstract class GraphNode {
     const lowerY = this.fy + this.yRenderBuffer;
     const upperY = this.fy + this.height;
 
-    return (lowerXRect <= lowerX && upperX <= upperXRect) && (lowerYRect <= lowerY && upperY <= upperYRect)
+    return (
+      lowerXRect <= lowerX &&
+      upperX <= upperXRect &&
+      (lowerYRect <= lowerY && upperY <= upperYRect)
+    );
   }
 
   abstract render(context: any, transform: any): void;
@@ -82,11 +86,12 @@ export abstract class GraphNode {
   abstract lowRender(context: any): void;
 
   preRender(transform: any = null): void {
-    const transformObj = transform || {k: 1};
-    this.canvas.width = (this.width + (2 * this.xRenderBuffer)) * transformObj.k;
-    this.canvas.height = (this.height + (2 * this.yRenderBuffer)) * transformObj.k;
-    this.zoomedCanvas.width = (this.width + (2 * this.xRenderBuffer)) * 10;
-    this.zoomedCanvas.height = (this.height + (2 * this.yRenderBuffer)) * 10;
+    const transformObj = transform || { k: 1 };
+    this.canvas.width = (this.width + 2 * this.xRenderBuffer) * transformObj.k;
+    this.canvas.height =
+      (this.height + 2 * this.yRenderBuffer) * transformObj.k;
+    this.zoomedCanvas.width = (this.width + 2 * this.xRenderBuffer) * 10;
+    this.zoomedCanvas.height = (this.height + 2 * this.yRenderBuffer) * 10;
     if (transform) {
       this.context.scale(transform.k, transform.k);
     }
@@ -95,7 +100,9 @@ export abstract class GraphNode {
   addSource(source: GraphEdge) {
     const nextNullIndex: number = this.inputSlots.indexOf(null);
     if (nextNullIndex === -1) {
-      throw new Error(`GraphNode ${this.id} is full of inputSlots and cannot add ${source.id}`);
+      throw new Error(
+        `GraphNode ${this.id} is full of inputSlots and cannot add ${source.id}`
+      );
     }
 
     this.inputSlots[nextNullIndex] = source;
@@ -104,61 +111,66 @@ export abstract class GraphNode {
   addTarget(target: GraphEdge) {
     const nextNullIndex: number = this.outputSlots.indexOf(null);
     if (nextNullIndex === -1) {
-      throw new Error(`GraphNode ${this.id} is full of outputSlots and cannot add ${target.id}`);
+      throw new Error(
+        `GraphNode ${this.id} is full of outputSlots and cannot add ${target.id}`
+      );
     }
 
     this.outputSlots[nextNullIndex] = target;
   }
 
   sortOutputSlots = () => {
-    this.outputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
-      if (eb === null) {
-        return -1;
+    this.outputSlots.sort(
+      (ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
+        if (eb === null) {
+          return -1;
+        }
+        if (ea === null) {
+          return 1;
+        }
+
+        const a = ea.targetNode;
+        const b = eb.targetNode;
+
+        const yA = a.fy - this.fy;
+        const xA = a.fx - this.fx;
+        const yB = b.fy - this.fy;
+        const xB = b.fx - this.fx;
+
+        if (yB / xB === yA / xA) {
+          return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
+        }
+
+        return yA / xA - yB / xB;
       }
-      if (ea === null) {
-        return 1;
-      }
-
-      const a = ea.targetNode;
-      const b = eb.targetNode;
-
-      const yA = a.fy - this.fy;
-      const xA = a.fx - this.fx;
-      const yB = b.fy - this.fy;
-      const xB = b.fx - this.fx;
-
-      if ((yB / xB) === (yA / xA)) {
-        return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB))
-      }
-
-      return (yA / xA) - (yB / xB);
-    })
+    );
   };
 
   sortInputSlots = () => {
-    this.inputSlots.sort((ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
+    this.inputSlots.sort(
+      (ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
+        if (eb === null) {
+          return -1;
+        }
+        if (ea === null) {
+          return 1;
+        }
 
-      if (eb === null) {
-        return -1;
+        const a = ea.sourceNode;
+        const b = eb.sourceNode;
+
+        const yA = this.fy - a.fy;
+        const xA = this.fx - a.fx;
+        const yB = this.fy - b.fy;
+        const xB = this.fx - b.fx;
+
+        if (yB / xB === yA / xA) {
+          return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
+        }
+
+        return yB / xB - yA / xA;
       }
-      if (ea === null) {
-        return 1;
-      }
-
-      const a = ea.sourceNode;
-      const b = eb.sourceNode;
-
-      const yA = this.fy - a.fy;
-      const xA = this.fx - a.fx;
-      const yB = this.fy - b.fy;
-      const xB = this.fx - b.fx;
-
-      if ((yB / xB) === (yA / xA)) {
-        return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB))
-      }
-
-      return (yB / xB) - (yA / xA);
-    })
+    );
   };
 
   abstract drawPathToTarget(context: any, target: GraphEdge): void;
@@ -185,7 +197,7 @@ export abstract class GraphNode {
         node.sortInputSlots();
       }
     });
-  }
+  };
 }
 
 export default class MachineNode extends GraphNode {
@@ -197,8 +209,13 @@ export default class MachineNode extends GraphNode {
   xRenderBuffer: number = 15;
   yRenderBuffer: number = 15;
 
-
-  constructor(machineId: number, overclock: number, recipeId: number, x: number, y: number) {
+  constructor(
+    machineId: number,
+    overclock: number,
+    recipeId: number,
+    x: number,
+    y: number
+  ) {
     super(x, y);
     this.machineId = machineId;
     this.overclock = overclock;
@@ -217,7 +234,7 @@ export default class MachineNode extends GraphNode {
       overclock: this.overclock,
       recipeId: this.recipeId,
       machineId: this.machineId
-    }
+    };
   }
 
   preRender(transform: any, debugContext: any = this.context): void {
@@ -235,13 +252,23 @@ export default class MachineNode extends GraphNode {
 
   lowRender(context: any, selected: boolean = false): void {
     context.save();
-    context.drawImage(this.zoomedCanvas, this.fx, this.fy, this.canvas.width, this.canvas.height);
+    context.drawImage(
+      this.zoomedCanvas,
+      this.fx,
+      this.fy,
+      this.canvas.width,
+      this.canvas.height
+    );
     context.restore();
   }
 
   render(context: any, transform: any, selected: boolean = false): void {
     context.save();
-    context.drawImage(this.canvas, this.fx * transform.k, this.fy * transform.k);
+    context.drawImage(
+      this.canvas,
+      this.fx * transform.k,
+      this.fy * transform.k
+    );
     context.restore();
   }
 }

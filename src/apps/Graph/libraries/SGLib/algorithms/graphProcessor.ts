@@ -1,4 +1,4 @@
-import SimpleCluster from '../datatypes/simpleCluster';
+import SimpleCluster from '../datatypes/graph/simpleCluster';
 import TinyQueue from '../structures/TinyQueue';
 
 function sortingHelper(
