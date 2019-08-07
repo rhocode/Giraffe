@@ -45,7 +45,7 @@ const processLoop = (group: GroupNode) => {
   // instances with the EDGES!!!! (and keep track of what each "PARENT" edge is to each item.
   //3. Look at external output, calculate ratios with respect to each other.
   //4. For each intersecting EDGE, look at it's carry. Look at existing input to see what the ratio is
-  // say, incoming is 0.5
+  // say, incoming is 0.5. If none exists, the ratio is 1.
   //5. Then, for each output, look at the ratio (0.5/0.75) and then multiply it by the incoming (0.5 from above)
   // and finally by the amount the new edge would have brought in (say, 0.25)
   // keep an external ratio!
