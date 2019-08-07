@@ -1,4 +1,4 @@
-import { gcf } from '../../algorithms/splitterSimulation';
+import { gcf } from '../../algorithms/satisgraphtory/splitterSimulation';
 
 class Fraction {
   numerator: number;
