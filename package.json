@@ -53,10 +53,12 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "start": "npm run generate && cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
-    "build": "npm run generate && cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prestart": "npm run generate",
+    "prebuild": "npm run generate",
     "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/generated-$npm_package_version-schema.json",
     "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto",
     "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension",
