@@ -9,7 +9,7 @@
     "@types/jest": "^24.0.16",
     "@types/mathjs": "^6.0.1",
     "@types/node": "^12.6.9",
-    "@types/react": "^16.8.24",
+    "@types/react": "^16.8.25",
     "@types/react-dom": "^16.8.5",
     "apollo-boost": "^0.4.3",
     "apollo-link-schema": "^1.2.3",
