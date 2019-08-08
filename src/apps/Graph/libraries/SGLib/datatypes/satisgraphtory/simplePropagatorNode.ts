@@ -12,5 +12,5 @@ export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
     nodeSubset: Array<SatisGraphtoryAbstractNode>
   ): void {}
 
-  processPresentInputs(nodeSubset: Array<SatisGraphtoryAbstractNode>): void {}
+  processPresentInputs(nodeSubset: Set<SatisGraphtoryAbstractNode>): void {}
 }
