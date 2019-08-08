@@ -3,6 +3,8 @@ import SatisGraphtoryLoopableNode from '../../datatypes/satisgraphtory/satisGrap
 import SatisGraphtoryAbstractNode from '../../datatypes/satisgraphtory/satisGraphtoryAbstractNode';
 import Belt from '../../datatypes/satisgraphtory/belt';
 
+type Nullable<T> = T | null;
+
 const processLoop = (group: GroupNode) => {
   const nodeSet: Set<SatisGraphtoryLoopableNode> = new Set(
     group.subNodes.map(node => {
@@ -46,8 +48,10 @@ const processLoop = (group: GroupNode) => {
 
   const queue: Array<SatisGraphtoryAbstractNode> = [];
   const parentQueue: Array<SatisGraphtoryAbstractNode> = [];
-  const visited: Set<SatisGraphtoryAbstractNode> = new Set();
-  const processed: Set<SatisGraphtoryAbstractNode> = new Set();
+  const processed: Map<
+    SatisGraphtoryAbstractNode,
+    Nullable<SatisGraphtoryAbstractNode>
+  > = new Map();
 
   sources.forEach(sourceNode => {
     sourceNode.processPresentInputs(externalSources);
@@ -56,15 +60,18 @@ const processLoop = (group: GroupNode) => {
 
   while (queue.length) {
     const popped = queue.shift();
-    const poppedParent = parentQueue.shift();
+    const poppedParent = parentQueue.shift() || null;
     if (popped === undefined) {
       throw new Error("Somehow the queue length was defined but now it isn't");
     }
 
     if (!processed.has(popped)) {
-      processed.add(popped);
+      processed.set(popped, poppedParent);
 
       // do some processing
+      popped.distributeOutputs();
+      //then continue
+
       Array.from(popped.outputs.entries())
         .filter(entry => {
           const item = entry[1];
@@ -85,7 +92,7 @@ const processLoop = (group: GroupNode) => {
               queue.push(node);
               parentQueue.push(popped);
             } else {
-              console.error('VISITED!!!!');
+              console.error('VISITED!!!!d');
             }
           } else {
             // it's an external node. we need to track its output! or not maybe, you can do the diff from output's inputs
@@ -94,6 +101,14 @@ const processLoop = (group: GroupNode) => {
         });
     }
   }
+
+  // Array.from(externalTargets).map(target => {
+  //   return Array.from(target.inputs.entries())
+  // }).flat(1).map(entry => {
+  //   const belt = entry[0];
+  //   const node = entry[1];
+  //   console.error(belt, entry);
+  // })
 
   //2. Do a bfs using ALL sources, while propagating the resources via edges. Keep track of already visited note
   // instances with the EDGES!!!! (and keep track of what each "PARENT" edge is to each item.
