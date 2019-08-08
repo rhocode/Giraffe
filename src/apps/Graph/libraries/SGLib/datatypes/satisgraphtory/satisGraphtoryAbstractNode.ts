@@ -1,10 +1,10 @@
 import SimpleNode from '../graph/simpleNode';
-import ResourcePacket from '../primitives/resourcePacket';
 import Belt from './belt';
+import ResourceRate from '../primitives/resourceRate';
 
 export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
-  resourceIn: Array<ResourcePacket> = [];
-  resourceOut: Array<ResourcePacket> = [];
+  resourceIn: Map<Belt, Array<ResourceRate>> = new Map();
+  resourceOut: Map<Belt, Array<ResourceRate>> = new Map();
   overclock: number = 100;
 
   addOutput(target: SimpleNode, dedupe: boolean = false): Belt {
@@ -24,13 +24,22 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
     this.overclock = overclock;
   }
 
-  setResourceIn(resourceIn: Array<ResourcePacket>) {
-    this.resourceIn = resourceIn;
+  addResource(belt: Belt, resourceIn: ResourceRate) {
+    if (this.resourceIn.get(belt) === undefined) {
+      this.resourceIn.set(belt, []);
+    }
+
+    const resourceArray = this.resourceIn.get(belt);
+    if (resourceArray === undefined) {
+      throw new Error('resourceIn is undefined');
+    }
+
+    resourceArray.push(resourceIn);
   }
 
-  setResourceOut(resourceOut: Array<ResourcePacket>) {
-    this.resourceOut = resourceOut;
-  }
+  // setResourceOut(belt: Belt, resourceIn: Array<ResourceRate>) {
+  //   this.resourceOut = resourceOut;
+  // }
 
   abstract processInputs(): void;
 

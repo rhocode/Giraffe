@@ -2,7 +2,7 @@ import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 
 export default abstract class SatisGraphtoryLoopableNode extends SatisGraphtoryAbstractNode {
   abstract processPresentInputs(
-    nodeSubset: Array<SatisGraphtoryAbstractNode>
+    nodeSubset: Set<SatisGraphtoryAbstractNode>
   ): void;
 
   abstract distributePresentOutputs(

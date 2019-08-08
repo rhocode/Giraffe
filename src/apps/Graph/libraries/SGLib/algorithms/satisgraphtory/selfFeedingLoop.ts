@@ -1,5 +1,7 @@
 import GroupNode from '../../datatypes/graph/groupNode';
 import SatisGraphtoryLoopableNode from '../../datatypes/satisgraphtory/satisGraphtoryLoopableNode';
+import SatisGraphtoryAbstractNode from '../../datatypes/satisgraphtory/satisGraphtoryAbstractNode';
+import Belt from '../../datatypes/satisgraphtory/belt';
 
 const processLoop = (group: GroupNode) => {
   const nodeSet: Set<SatisGraphtoryLoopableNode> = new Set(
@@ -11,8 +13,8 @@ const processLoop = (group: GroupNode) => {
     })
   );
 
-  const sources: Array<SatisGraphtoryLoopableNode> = [];
-  const targets: Array<SatisGraphtoryLoopableNode> = [];
+  const sources: Set<SatisGraphtoryLoopableNode> = new Set();
+  const targets: Set<SatisGraphtoryLoopableNode> = new Set();
   const externalSources: Set<SatisGraphtoryLoopableNode> = new Set();
   const externalTargets: Set<SatisGraphtoryLoopableNode> = new Set();
 
@@ -23,8 +25,8 @@ const processLoop = (group: GroupNode) => {
     const incomingNotInSet = incoming.filter(node => !nodeSet.has(node));
 
     if (incomingNotInSet.length > 0) {
-      console.log('Contains external input!');
-      sources.push(node as SatisGraphtoryLoopableNode);
+      // console.log('Contains external input!');
+      sources.add(node as SatisGraphtoryLoopableNode);
       incomingNotInSet.forEach(item => externalSources.add(item));
     }
 
@@ -34,13 +36,65 @@ const processLoop = (group: GroupNode) => {
     const outgoingNotInSet = outgoing.filter(node => !nodeSet.has(node));
 
     if (outgoingNotInSet.length > 0) {
-      console.log('Contains external input!');
-      targets.push(node as SatisGraphtoryLoopableNode);
+      // console.log('Contains external input!');
+      targets.add(node as SatisGraphtoryLoopableNode);
       outgoingNotInSet.forEach(item => externalTargets.add(item));
     }
   });
 
-  //1. Process all sources, with the externalSources (propagate their edges into the nodes.
+  //1. Process all sources, with the externalSources (propagate their edges into the nodes within this grpah.
+
+  const queue: Array<SatisGraphtoryAbstractNode> = [];
+  const parentQueue: Array<SatisGraphtoryAbstractNode> = [];
+  const visited: Set<SatisGraphtoryAbstractNode> = new Set();
+  const processed: Set<SatisGraphtoryAbstractNode> = new Set();
+
+  sources.forEach(sourceNode => {
+    sourceNode.processPresentInputs(externalSources);
+    queue.push(sourceNode);
+  });
+
+  while (queue.length) {
+    const popped = queue.shift();
+    const poppedParent = parentQueue.shift();
+    if (popped === undefined) {
+      throw new Error("Somehow the queue length was defined but now it isn't");
+    }
+
+    if (!processed.has(popped)) {
+      processed.add(popped);
+
+      // do some processing
+      Array.from(popped.outputs.entries())
+        .filter(entry => {
+          const item = entry[1];
+          const belt = entry[0];
+          console.error(
+            item instanceof SatisGraphtoryLoopableNode && belt instanceof Belt
+          );
+          return (
+            item instanceof SatisGraphtoryLoopableNode && belt instanceof Belt
+          );
+        })
+        .forEach(entry => {
+          const belt = entry[0] as Belt;
+          const node = entry[1] as SatisGraphtoryLoopableNode;
+
+          if (nodeSet.has(node)) {
+            if (!processed.has(node)) {
+              queue.push(node);
+              parentQueue.push(popped);
+            } else {
+              console.error('VISITED!!!!');
+            }
+          } else {
+            // it's an external node. we need to track its output! or not maybe, you can do the diff from output's inputs
+            // with the current node set
+          }
+        });
+    }
+  }
+
   //2. Do a bfs using ALL sources, while propagating the resources via edges. Keep track of already visited note
   // instances with the EDGES!!!! (and keep track of what each "PARENT" edge is to each item.
   //3. Look at external output, calculate ratios with respect to each other.

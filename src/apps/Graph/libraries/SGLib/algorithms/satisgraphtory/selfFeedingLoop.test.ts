@@ -27,6 +27,9 @@ const createLoop = () => {
   secondTwoWaySplit.addOutput(merger).setSpeed(60);
   secondTwoWaySplit.addOutput(terminalTwo).setSpeed(60);
 
+  // Set up the state of the graph such that the initial start node has propagated its output
+  start.distributeOutputs();
+
   return new GroupNode([merger, firstTwoWaySplit, secondTwoWaySplit]);
 };
 
