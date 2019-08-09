@@ -19,17 +19,18 @@ function createWindow() {
     // Remove menu bar
     mainWindow.removeMenu();
     // This is a workaround for electron#16521
-    mainWindow.setMenuBarVisibility(false);
+    mainWindow.setMenuBarVisibility(true);
 
     // and load the index.html of the app.
     let startUrl = 
         electron_is_dev 
-        ? "http://localhost:3000/graph" 
-        : url.format({
-          pathname: path.join(__dirname, "../build/graph"),
-          protocol: "file:",
-          slashes: true,
-        });
+        ? "http://localhost:3000"
+        : `file://${path.join(__dirname, '../build/index.html')}`
+    ;
+
+    mainWindow.webContents.openDevTools();
+
+
     mainWindow.loadURL(startUrl);
 
 
