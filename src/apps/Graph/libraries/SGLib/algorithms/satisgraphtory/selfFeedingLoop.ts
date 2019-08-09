@@ -19,11 +19,17 @@ const processLoop = (group: GroupNode) => {
   const targets: Set<SatisGraphtoryLoopableNode> = new Set();
   const externalSources: Set<SatisGraphtoryLoopableNode> = new Set();
   const externalTargets: Set<SatisGraphtoryLoopableNode> = new Set();
+  const circularTargets: Set<SatisGraphtoryLoopableNode> = new Set();
 
   group.subNodes.forEach(node => {
     const incoming = Array.from(node.inputs.values()).map(
       item => item as SatisGraphtoryLoopableNode
     );
+
+    if (incoming.length > 1) {
+      circularTargets.add(node as SatisGraphtoryLoopableNode);
+    }
+
     const incomingNotInSet = incoming.filter(node => !nodeSet.has(node));
 
     if (incomingNotInSet.length > 0) {
@@ -76,9 +82,6 @@ const processLoop = (group: GroupNode) => {
         .filter(entry => {
           const item = entry[1];
           const belt = entry[0];
-          console.error(
-            item instanceof SatisGraphtoryLoopableNode && belt instanceof Belt
-          );
           return (
             item instanceof SatisGraphtoryLoopableNode && belt instanceof Belt
           );
@@ -92,7 +95,7 @@ const processLoop = (group: GroupNode) => {
               queue.push(node);
               parentQueue.push(popped);
             } else {
-              console.error('VISITED!!!!d');
+              // console.error('VISITED!d!!d');
             }
           } else {
             // it's an external node. we need to track its output! or not maybe, you can do the diff from output's inputs
@@ -102,13 +105,16 @@ const processLoop = (group: GroupNode) => {
     }
   }
 
-  // Array.from(externalTargets).map(target => {
-  //   return Array.from(target.inputs.entries())
-  // }).flat(1).map(entry => {
-  //   const belt = entry[0];
-  //   const node = entry[1];
-  //   console.error(belt, entry);
-  // })
+  Array.from(externalTargets)
+    .map(target => {
+      return Array.from(target.inputs.entries());
+    })
+    .flat(1)
+    .map(entry => {
+      const belt = entry[0];
+      const node = entry[1];
+      console.error(belt, entry);
+    });
 
   //2. Do a bfs using ALL sources, while propagating the resources via edges. Keep track of already visited note
   // instances with the EDGES!!!! (and keep track of what each "PARENT" edge is to each item.
