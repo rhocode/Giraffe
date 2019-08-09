@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
 
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {themeDark} from '../../theme';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { themeDark } from '../../theme';
 
-import {renderToStaticMarkup} from 'react-dom/server';
-import {withLocalize} from 'react-localize-redux';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { withLocalize } from 'react-localize-redux';
 
 import en from '../../translations/en.json';
 import AsyncComponent from '../../common/react/AsyncComponent';
 import HomeApp from '../../apps/Home/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
-import {ApolloProvider} from "react-apollo";
-import {getClient} from "../../graphql";
+import { ApolloProvider } from 'react-apollo';
+import { getClient } from '../../graphql';
 
 const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
@@ -25,9 +25,7 @@ class DebugRouter extends Router {
     console.log('initial history is: ', JSON.stringify(this.history, null, 2));
     this.history.listen((location, action) => {
       console.log(
-        `The current URL is ${location.pathname}${location.search}${
-          location.hash
-          }`
+        `The current URL is ${location.pathname}${location.search}${location.hash}`
       );
       console.log(
         `The last navigation action was ${action}`,
@@ -42,15 +40,13 @@ const ReactRouter =
 
 class AppWrapper extends Component {
   render() {
-    const {children} = this.props;
+    const { children } = this.props;
 
     return (
       <ReactRouter>
         <MuiThemeProvider theme={themeDark}>
           <React.Suspense fallback={<div>Loading...</div>}>
-            <ApolloProvider client={getClient()}>
-              {children}
-            </ApolloProvider>
+            <ApolloProvider client={getClient()}>{children}</ApolloProvider>
           </React.Suspense>
         </MuiThemeProvider>
       </ReactRouter>
@@ -78,6 +74,10 @@ const styles = () => ({
   }
 });
 
+//TODO: Change this when the new version of CRA comes out where it exposes PUBLIC_URL in devo mode.
+const basePath =
+  process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}` : `/`;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -90,7 +90,7 @@ class App extends Component {
     const onMissingTranslation = ({ translationId, languageCode }) => {
       const text = `No Translation for ${translationId} - ${languageCode}`;
       if (process.env.NODE_ENV === 'production') {
-        return translationId
+        return translationId;
       } else {
         console.error(text);
         return text;
@@ -98,7 +98,7 @@ class App extends Component {
     };
 
     this.props.initialize({
-      languages: [{name: 'English', code: 'en'}],
+      languages: [{ name: 'English', code: 'en' }],
 
       options: {
         onMissingTranslation,
@@ -111,10 +111,11 @@ class App extends Component {
   }
 
   static getGraphApp(local = false) {
+    console.error(`${basePath}graph/:graphId?`, local);
     return (
       <Route
         key={'graph'}
-        path={local ? '/graph/:graphId?' : '/:graphId?'}
+        path={local ? `${basePath}graph/:graphId?` : `${basePath}:graphId?`}
         exact={!local}
         component={GraphApp}
       />
@@ -125,7 +126,7 @@ class App extends Component {
     return (
       <Route
         key={'hub'}
-        path={local ? '/hub' : '/'}
+        path={local ? `${basePath}hub` : `${basePath}`}
         exact={!local}
         component={HubApp}
       />
@@ -136,7 +137,7 @@ class App extends Component {
     return (
       <Route
         key={'lab'}
-        path={local ? '/lab' : '/'}
+        path={local ? `${basePath}lab` : `${basePath}`}
         exact={!local}
         component={LabApp}
       />
@@ -144,7 +145,9 @@ class App extends Component {
   }
 
   static getHomeApp() {
-    return <Route key={'home'} path="/" exact component={HomeApp}/>;
+    return (
+      <Route key={'home'} path={`${basePath}`} exact component={HomeApp} />
+    );
   }
 
   static resolveDomain() {
@@ -172,11 +175,11 @@ class App extends Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <AppWrapper>
         <div id={'mainRootDiv'} className={classes.root}>
-          <HeaderMessaging/>
+          <HeaderMessaging />
           <div className={classes.body}>{App.resolveDomain()}</div>
         </div>
       </AppWrapper>
