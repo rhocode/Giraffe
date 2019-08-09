@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route } from 'react-router-dom';
 import { themeDark } from '../../theme';
 
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -18,6 +18,9 @@ import { getClient } from '../../graphql';
 const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
 const LabApp = AsyncComponent(import('../../apps/Lab/LabApp'));
+
+const Router =
+  process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
 
 class DebugRouter extends Router {
   constructor(props) {
@@ -76,8 +79,7 @@ const styles = () => ({
 });
 
 //TODO: Change this when the new version of CRA comes out where it exposes PUBLIC_URL in devo mode.
-const basePath =
-  process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}` : `/`;
+const basePath = process.env.NODE_ENV === 'production' ? `` : ``;
 
 class App extends Component {
   constructor(props) {
