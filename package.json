@@ -75,7 +75,8 @@
     "electron-start": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
     "electron-build": "electron-builder",
-    "electron-build-cross": "electron-builder -mwl"
+    "electron-build-cross": "electron-builder -mwl",
+    "electron-publish": "electron-builder -mwl --publish always"
   },
   "eslintConfig": {
     "extends": "react-app"
