@@ -35,8 +35,9 @@ class DebugRouter extends Router {
   }
 }
 
+// const ReactRouter = process.env.NODE_ENV === 'production' ? Router : DebugRouter;
 const ReactRouter =
-  process.env.NODE_ENV === 'production' ? Router : DebugRouter;
+  process.env.NODE_ENV === 'production' ? DebugRouter : DebugRouter;
 
 class AppWrapper extends Component {
   render() {
@@ -111,11 +112,11 @@ class App extends Component {
   }
 
   static getGraphApp(local = false) {
-    console.error(`${basePath}graph/:graphId?`, local);
+    console.error(`${basePath}/graph/:graphId?`, local);
     return (
       <Route
         key={'graph'}
-        path={local ? `${basePath}graph/:graphId?` : `${basePath}:graphId?`}
+        path={local ? `${basePath}/graph/:graphId?` : `${basePath}/:graphId?`}
         exact={!local}
         component={GraphApp}
       />
@@ -126,7 +127,7 @@ class App extends Component {
     return (
       <Route
         key={'hub'}
-        path={local ? `${basePath}hub` : `${basePath}`}
+        path={local ? `${basePath}/hub` : `${basePath}/`}
         exact={!local}
         component={HubApp}
       />
@@ -137,7 +138,7 @@ class App extends Component {
     return (
       <Route
         key={'lab'}
-        path={local ? `${basePath}lab` : `${basePath}`}
+        path={local ? `${basePath}/lab` : `${basePath}/`}
         exact={!local}
         component={LabApp}
       />
@@ -146,7 +147,7 @@ class App extends Component {
 
   static getHomeApp() {
     return (
-      <Route key={'home'} path={`${basePath}`} exact component={HomeApp} />
+      <Route key={'home'} path={`${basePath}/`} exact component={HomeApp} />
     );
   }
 
