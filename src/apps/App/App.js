@@ -77,7 +77,7 @@ const styles = () => ({
 
 //TODO: Change this when the new version of CRA comes out where it exposes PUBLIC_URL in devo mode.
 const basePath =
-  process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}` : `/`;
+  process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}` : ``;
 
 class App extends Component {
   constructor(props) {
