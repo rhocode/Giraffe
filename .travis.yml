@@ -4,11 +4,6 @@ language: node_js
 node_js:
   - "stable"
 
-branches:
-  only:
-    - master
-    - stable
-    -
 cache:
   directories:
     - $HOME/.npm
@@ -23,9 +18,9 @@ env:
 stages:
   - name: Test
   - name: Deploy Windows & Mac
-    if: branch = master
+    if: type != pull_request
   - name: Deploy Linux
-    if: branch = master
+    if: type != pull_request
 
 jobs:
   include:

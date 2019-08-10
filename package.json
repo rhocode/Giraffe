@@ -10,10 +10,10 @@
     "@emotion/core": "^10.0.15",
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.0-rc.0",
-    "@types/jest": "^24.0.16",
+    "@types/jest": "24.0.17",
     "@types/mathjs": "^6.0.1",
-    "@types/node": "^12.6.9",
-    "@types/react": "^16.8.24",
+    "@types/node": "12.7.1",
+    "@types/react": "16.8.25",
     "@types/react-dom": "^16.8.5",
     "apollo-boost": "^0.4.3",
     "apollo-link-schema": "^1.2.3",
@@ -21,7 +21,7 @@
     "clsx": "^1.0.4",
     "d3": "^5.9.7",
     "electron-is-dev": "^1.1.0",
-    "firebase": "^6.3.4",
+    "firebase": "6.3.5",
     "flow-bin": "^0.98.1",
     "fontfaceobserver": "^2.1.0",
     "graphql": "^14.4.2",
@@ -30,14 +30,14 @@
     "husky": "^2.7.0",
     "lint-staged": "^8.2.1",
     "lodash": "^4.17.15",
-    "mathjs": "^6.0.3",
+    "mathjs": "6.0.4",
     "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "protobufjs": "^6.8.8",
     "protocol-buffers-encodings": "^1.1.0",
-    "react": "^16.8.6",
+    "react": "16.9.0",
     "react-apollo": "^2.5.8",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^1.7.5",
@@ -48,7 +48,7 @@
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.1.0",
     "react-select": "^3.0.4",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
@@ -131,11 +131,13 @@
     "appId": "com.my-website.my-app",
     "productName": "cra-test",
     "copyright": "Copyright © 2019 ${author}",
-    "publish": [{
-      "provider": "github",
-      "owner": "rhocode",
-      "repo": "Giraffe"
-    }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "rhocode",
+        "repo": "Giraffe"
+      }
+    ],
     "files": [
       "build/**/*",
       "node_modules/**/*"
