@@ -1,7 +1,7 @@
-import Loadable from "react-loadable";
-import React from "react";
-import LoadingBar from "../../../common/react/LoadingBar";
-import {imageRepositoryPromise} from "../libraries/SGLib/repositories/imageRepository";
+import Loadable from 'react-loadable';
+import React from 'react';
+import LoadingBar from '../../../common/react/LoadingBar';
+import { imageRepositoryPromise } from '../libraries/SGLib/repositories/imageRepository';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -18,12 +18,11 @@ const LoadableComponent = Loadable({
       // })
     ]).then(() => import('./GraphCanvas'));
   },
-  loading: LoadingBar,
+  loading: LoadingBar
 });
 
 export default class GraphCanvasLoadable extends React.Component {
-
   render() {
-    return <LoadableComponent/>;
+    return <LoadableComponent />;
   }
 }

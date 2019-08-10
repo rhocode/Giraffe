@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import LoadingBar from '../../common/react/LoadingBar';
 
 const styles = theme => {
@@ -13,11 +13,10 @@ const styles = theme => {
     container: {
       background: '#333333',
       gridArea: 'body',
-      display: "grid",
-      gridTemplateAreas:
-        `"fullHeight"`,
-      gridTemplateRows: "1fr",
-      gridTemplateColumns: "1fr",
+      display: 'grid',
+      gridTemplateAreas: `"fullHeight"`,
+      gridTemplateRows: '1fr',
+      gridTemplateColumns: '1fr'
     }
   };
 };
@@ -28,11 +27,11 @@ class HomeApp extends Component {
   };
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.container}>
-        <LoadingBar loadingText heightOverride={100}/>
+        <LoadingBar loadingText heightOverride={100} />
       </div>
     );
   }
@@ -42,6 +41,4 @@ const mapStateToProps = state => ({
   ...state
 });
 
-export default connect(
-  mapStateToProps
-)(withStyles(styles)(HomeApp));
+export default connect(mapStateToProps)(withStyles(styles)(HomeApp));

@@ -1,6 +1,6 @@
-import {auth, initializeApp} from 'firebase/app';
+import { auth, initializeApp } from 'firebase/app';
 import 'firebase/auth';
-import {firebaseSecrets} from './firebaseSecrets';
+import { firebaseSecrets } from './firebaseSecrets';
 
 const firebaseApp = initializeApp(firebaseSecrets);
 

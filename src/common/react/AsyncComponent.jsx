@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 
 export default function AsyncComponent(importComponentInput) {
-
   // const importComponent = import(importComponentInput);
 
   // class AsyncComponentInner extends Component {

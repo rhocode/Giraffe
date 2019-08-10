@@ -1,11 +1,11 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {baseTheme} from '../../../../theme';
-import {getTranslate} from "react-localize-redux";
-import GraphNodeDialog from "./GraphNodeDialog";
+import { baseTheme } from '../../../../theme';
+import { getTranslate } from 'react-localize-redux';
+import GraphNodeDialog from './GraphNodeDialog';
 
 const styles = theme => ({
   default: {
@@ -38,17 +38,19 @@ const styles = theme => ({
     flexDirection: 'column'
   },
   buttonContainer: {
-    width: baseTheme.overrides.GraphAddMachineButton.width + (baseTheme.overrides.GraphAddMachineButton.margin * 2),
-    height: baseTheme.overrides.GraphAddMachineButton.height + (baseTheme.overrides.GraphAddMachineButton.margin * 2),
+    width:
+      baseTheme.overrides.GraphAddMachineButton.width +
+      baseTheme.overrides.GraphAddMachineButton.margin * 2,
+    height:
+      baseTheme.overrides.GraphAddMachineButton.height +
+      baseTheme.overrides.GraphAddMachineButton.margin * 2,
     display: 'inline-block'
   }
 });
 
 function GraphNodeButton(props) {
-  const {classes, nodeClass} = props;
+  const { classes, nodeClass } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
-
-
 
   return (
     <React.Fragment>
@@ -62,14 +64,23 @@ function GraphNodeButton(props) {
         >
           <div className={classes.buttonContents}>
             {/*<ArrowDropUpIcon/>*/}
-            <img src={nodeClass.icon} className={classes.image} alt={props.label}/>
+            <img
+              src={nodeClass.icon}
+              className={classes.image}
+              alt={props.label}
+            />
             <Typography>{props.label}</Typography>
           </div>
         </Button>
-        {
-          // workaround to get the open dialog to prevent scrolling
-          openDialog ? <GraphNodeDialog label={props.label} nodeClass={nodeClass} openDialog={openDialog} setOpenDialog={setOpenDialog} /> : null
-        }
+        {// workaround to get the open dialog to prevent scrolling
+        openDialog ? (
+          <GraphNodeDialog
+            label={props.label}
+            nodeClass={nodeClass}
+            openDialog={openDialog}
+            setOpenDialog={setOpenDialog}
+          />
+        ) : null}
       </div>
     </React.Fragment>
   );
@@ -80,7 +91,7 @@ function mapStateToProps(state) {
   //   drawerOpen: state.graphReducer.mouseMode === 'add'
   // };
   return {
-    translate: getTranslate(state.localize),
+    translate: getTranslate(state.localize)
   };
 }
 
@@ -88,8 +99,7 @@ function mapDispatchToProps(dispatch) {
   // return {
   //   setOpenDialog: (data) => dispatch(setOpenDialog(data))
   // };
-  return {
-  };
+  return {};
 }
 
 export default connect(

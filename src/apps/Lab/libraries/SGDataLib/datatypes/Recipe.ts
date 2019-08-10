@@ -1,4 +1,4 @@
-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
+import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
 
 export default class Recipe extends FirebaseDataType {
@@ -95,10 +95,10 @@ export default class Recipe extends FirebaseDataType {
               outputItemQuantity: data.unitsproduced,
               time: data.timeperbatch,
               input: [
-                {itemId: data.resource1, itemQty: data.perbatch1},
-                {itemId: data.resource2, itemQty: data.perbatch2},
-                {itemId: data.resource3, itemQty: data.perbatch3},
-                {itemId: data.resource4, itemQty: data.perbatch4}
+                { itemId: data.resource1, itemQty: data.perbatch1 },
+                { itemId: data.resource2, itemQty: data.perbatch2 },
+                { itemId: data.resource3, itemQty: data.perbatch3 },
+                { itemId: data.resource4, itemQty: data.perbatch4 }
               ].filter((item: any) => item && item.itemId)
             };
             // if (newPojo.name === "hazmat_filter" ) {
@@ -113,22 +113,20 @@ export default class Recipe extends FirebaseDataType {
     });
   }
 
-
   dataMapping() {
     return {
-      name: {type: 'string'},
-      outputItemId: {type: 'string', ref: 'Item'},
-      outputItemQuantity: {type: 'number'},
-      alternateName: {type: 'string'},
-      isAltRecipe: {type: 'boolean'},
-      machineClass: {type: 'string', ref: 'MachineClass'},
+      name: { type: 'string' },
+      outputItemId: { type: 'string', ref: 'Item' },
+      outputItemQuantity: { type: 'number' },
+      alternateName: { type: 'string' },
+      isAltRecipe: { type: 'boolean' },
+      machineClass: { type: 'string', ref: 'MachineClass' },
       input: [
-        {identifier: 'itemId', type: 'string', ref: 'Item'},
-        {identifier: 'itemQty', type: 'number'}
+        { identifier: 'itemId', type: 'string', ref: 'Item' },
+        { identifier: 'itemQty', type: 'number' }
       ]
     };
   }
-
 
   saveProto(docs: any, protoRoot: any): any {
     console.log(JSON.stringify(docs));

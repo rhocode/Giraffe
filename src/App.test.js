@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './apps/App/App';
-import {LocalizeProvider} from "react-localize-redux";
-import {Provider} from "react-redux";
-import getStore from "./redux/store";
-import ServiceWorkerProvider from "./common/react/ServiceWorkerProvider";
+import { LocalizeProvider } from 'react-localize-redux';
+import { Provider } from 'react-redux';
+import getStore from './redux/store';
+import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -13,10 +13,11 @@ it('renders without crashing', () => {
     <Provider store={store}>
       <ServiceWorkerProvider>
         <LocalizeProvider store={store}>
-          <App/>
+          <App />
         </LocalizeProvider>
       </ServiceWorkerProvider>
-    </Provider>
-    , div);
+    </Provider>,
+    div
+  );
   ReactDOM.unmountComponentAtNode(div);
 });

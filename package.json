@@ -74,9 +74,10 @@
     "build-storybook": "build-storybook -s public",
     "electron-start": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
-    "electron-build": "electron-builder",
-    "electron-build-cross": "electron-builder -mwl",
-    "electron-publish": "electron-builder -mwl --publish always"
+    "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
+    "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
+    "electron-publish": "electron-builder -mwl --publish always",
+    "pretty": "prettier --single-quote --write src/**/*"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -115,6 +116,10 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write",
       "git add"
+    ],
+    "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
     ]
   },
   "build": {
@@ -123,7 +128,8 @@
     "copyright": "Copyright © 2019 ${author}",
     "mac": {
       "category": "public.app-category.utilities",
-      "target": "dir"
+      "target": "dir",
+      "asar": false
     },
     "win": {
       "target": [

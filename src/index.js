@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './apps/App/App';
 
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import getStore from './redux/store';
 
-import {LocalizeProvider} from 'react-localize-redux';
-import ServiceWorkerProvider from "./common/react/ServiceWorkerProvider";
+import { LocalizeProvider } from 'react-localize-redux';
+import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 
 require('typeface-roboto-condensed');
 
@@ -17,13 +17,12 @@ ReactDOM.render(
   <Provider store={store}>
     <ServiceWorkerProvider>
       <LocalizeProvider store={store}>
-        <App/>
+        <App />
       </LocalizeProvider>
     </ServiceWorkerProvider>
   </Provider>,
   document.getElementById('root')
 );
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

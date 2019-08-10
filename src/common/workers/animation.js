@@ -21,8 +21,6 @@
 //   }
 // }
 
-const animation = () => {
-
-};
+const animation = () => {};
 
 export default animation;

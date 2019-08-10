@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -48,7 +48,7 @@ class AddRowModal extends Component {
       errorMessage = `Identifier ${value} already exists!`;
     }
 
-    this.setState({value, buttonDisabled, errorMessage});
+    this.setState({ value, buttonDisabled, errorMessage });
   };
 
   buttonAction = () => {
@@ -58,17 +58,17 @@ class AddRowModal extends Component {
         .addItemAction(null, this.state.value)
         .then(() => {
           this.props.handleClose();
-          this.setState({value: ''});
+          this.setState({ value: '' });
         })
         .catch(err => {
-          this.setState({buttonDisabled: true, errorMessage: err});
+          this.setState({ buttonDisabled: true, errorMessage: err });
         });
     }
   };
 
   render() {
-    const {open, handleClose, classes} = this.props;
-    const {value, buttonDisabled} = this.state;
+    const { open, handleClose, classes } = this.props;
+    const { value, buttonDisabled } = this.state;
 
     return (
       <Modal

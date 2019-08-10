@@ -3,7 +3,7 @@ const initialState = {
 };
 
 const addLocalChange = (action, state) => {
-  const {table, object, key, value} = action.payload;
+  const { table, object, key, value } = action.payload;
   let localChanges = state.localChanges || {};
   localChanges = JSON.parse(JSON.stringify(localChanges));
   localChanges[table] = localChanges[table] || {};
@@ -16,7 +16,7 @@ const addLocalChange = (action, state) => {
 };
 
 const removeLocalChange = (action, state) => {
-  const {table, object, key} = action.payload;
+  const { table, object, key } = action.payload;
   let localChanges = state.localChanges || {};
   if (
     !localChanges[table] ||
@@ -41,7 +41,7 @@ const removeLocalChange = (action, state) => {
 };
 
 const removeLocalChangeForTableRow = (action, state) => {
-  const {table, object} = action.payload;
+  const { table, object } = action.payload;
 
   let localChanges = state.localChanges || {};
   if (!localChanges[table] || !localChanges[table][object]) {
@@ -60,7 +60,7 @@ const removeLocalChangeForTableRow = (action, state) => {
 };
 
 const addTableRow = (action, state) => {
-  const {table, object, key, data} = action.payload;
+  const { table, object, key, data } = action.payload;
 
   let localChanges = state.localChanges || {};
   localChanges = JSON.parse(JSON.stringify(localChanges));
