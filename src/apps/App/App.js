@@ -38,9 +38,8 @@ class DebugRouter extends Router {
   }
 }
 
-// const ReactRouter = process.env.NODE_ENV === 'production' ? Router : DebugRouter;
 const ReactRouter =
-  process.env.NODE_ENV === 'production' ? DebugRouter : DebugRouter;
+  process.env.NODE_ENV === 'production' ? Router : DebugRouter;
 
 class AppWrapper extends Component {
   render() {
