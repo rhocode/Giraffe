@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import { getClient } from '../../../graphql';
-import { urlRepository } from '../libraries/SGLib/repositories/imageRepository';
 
 const GET_MACHINE_NODE_DATA = gql`
   query($className: String) {

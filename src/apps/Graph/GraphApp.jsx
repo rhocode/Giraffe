@@ -8,7 +8,7 @@ import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
 import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
 import { getCraftingMachineClasses } from './graphql/queries';
-import { getTranslate } from 'react-localize-redux';
+import { getActiveLanguage, getTranslate } from 'react-localize-redux';
 // import GraphRightPanel from './components/GraphRightPanel';
 
 const styles = theme => {
@@ -41,11 +41,11 @@ class GraphApp extends Component {
   };
 
   componentWillMount() {
-    const { match } = this.props;
+    const { match, language } = this.props;
 
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    getCraftingMachineClasses().then(classes =>
+    getCraftingMachineClasses(language.code === 'discord').then(classes =>
       this.props.setMachineClasses(classes)
     );
 
@@ -109,10 +109,13 @@ class GraphApp extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  // ...state
-  translate: getTranslate(state.localize)
-});
+const mapStateToProps = state => {
+  return {
+    // ...state
+    language: getActiveLanguage(state.localize),
+    translate: getTranslate(state.localize)
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   setMachineClasses: classes => dispatch(setMachineClasses(classes))

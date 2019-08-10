@@ -6,10 +6,9 @@ node_js:
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.npm
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-    - $HOME/.npm/_prebuilds
 
 env:
   global:

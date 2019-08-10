@@ -34,9 +34,9 @@ const GET_CRAFTING_MACHINE_CLASSES = gql`
   }
 `;
 
-export const getCraftingMachineClasses = () => {
+export const getCraftingMachineClasses = (alt = false) => {
   const client = getClient();
-  const imageBaseUrl = urlRepository.machines;
+  const imageBaseUrl = alt ? urlRepository.machinesAlt : urlRepository.machines;
   return client
     .query({
       query: GET_CRAFTING_MACHINE_CLASSES
@@ -49,8 +49,10 @@ export const getCraftingMachineClasses = () => {
         .map(machine => {
           let icon = imageBaseUrl[machine.icon];
           if (!icon) {
+            console.error('Missing file ' + machine.icon);
             icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
           }
+
           return {
             ...machine,
             name: machine.name,

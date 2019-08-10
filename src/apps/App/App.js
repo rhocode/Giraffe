@@ -9,6 +9,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 
 import en from '../../translations/en.json';
+import discord from '../../translations/discord.json';
+
 import AsyncComponent from '../../common/react/AsyncComponent';
 import HomeApp from '../../apps/Home/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
@@ -81,7 +83,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const languages = ['en'];
+    const languages = ['en', 'discord'];
     const defaultLanguage =
       window.localStorage.getItem('languageCode') || languages[0];
     // window.localStorage.setItem("languageCode", curLangCode);
@@ -97,16 +99,21 @@ class App extends Component {
     };
 
     this.props.initialize({
-      languages: [{ name: 'English', code: 'en' }],
+      languages: [
+        { name: 'English', code: 'en' },
+        { name: 'Discord', code: 'discord' }
+      ],
 
       options: {
         onMissingTranslation,
         renderToStaticMarkup,
-        defaultLanguage
+        defaultLanguage: languages[1]
+        // defaultLanguage
       }
     });
 
     props.addTranslationForLanguage(en, 'en');
+    props.addTranslationForLanguage(discord, 'discord');
   }
 
   static getGraphApp(local = false) {
