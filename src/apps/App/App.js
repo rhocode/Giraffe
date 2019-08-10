@@ -163,10 +163,10 @@ class App extends Component {
       // lab subdomain
       domainList.push(App.getLabApp());
     } else {
-      // domainList.push(App.getHomeApp());
-      domainList.push(App.getGraphApp(false));
-      // domainList.push(App.getLabApp(true));
-      // domainList.push(App.getHubApp(true));
+      domainList.push(App.getHomeApp());
+      domainList.push(App.getGraphApp(true));
+      domainList.push(App.getLabApp(true));
+      domainList.push(App.getHubApp(true));
     }
 
     return domainList;
