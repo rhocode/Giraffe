@@ -18,9 +18,9 @@ env:
 stages:
   - name: Test
   - name: Deploy Windows & Mac
-    if: type != pull_request && branch = master
+    if: type != pull_request AND branch = master
   - name: Deploy Linux
-    if: type != pull_request && branch = master
+    if: type != pull_request AND branch = master
 
 jobs:
   include:
