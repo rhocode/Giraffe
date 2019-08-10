@@ -1,0 +1,4423 @@
+Index: src/apps/Graph/components/GraphNodeDrawer/GraphNodeButton.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphNodeDrawer/GraphNodeButton.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphNodeDrawer/GraphNodeButton.jsx	(date 1565405625654)
+@@ -1,11 +1,11 @@
+ import React from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Typography from '@material-ui/core/Typography';
+ import Button from '@material-ui/core/Button';
+-import {baseTheme} from '../../../../theme';
+-import {getTranslate} from "react-localize-redux";
+-import GraphNodeDialog from "./GraphNodeDialog";
++import { baseTheme } from '../../../../theme';
++import { getTranslate } from 'react-localize-redux';
++import GraphNodeDialog from './GraphNodeDialog';
+
+ const styles = theme => ({
+   default: {
+@@ -38,18 +38,20 @@
+     flexDirection: 'column'
+   },
+   buttonContainer: {
+-    width: baseTheme.overrides.GraphAddMachineButton.width + (baseTheme.overrides.GraphAddMachineButton.margin * 2),
+-    height: baseTheme.overrides.GraphAddMachineButton.height + (baseTheme.overrides.GraphAddMachineButton.margin * 2),
++    width:
++      baseTheme.overrides.GraphAddMachineButton.width +
++      baseTheme.overrides.GraphAddMachineButton.margin * 2,
++    height:
++      baseTheme.overrides.GraphAddMachineButton.height +
++      baseTheme.overrides.GraphAddMachineButton.margin * 2,
+     display: 'inline-block'
+   }
+ });
+
+ function GraphNodeButton(props) {
+-  const {classes, nodeClass} = props;
++  const { classes, nodeClass } = props;
+   const [openDialog, setOpenDialog] = React.useState(false);
+
+-
+-
+   return (
+     <React.Fragment>
+       <div className={classes.buttonContainer}>
+@@ -62,14 +64,23 @@
+         >
+           <div className={classes.buttonContents}>
+             {/*<ArrowDropUpIcon/>*/}
+-            <img src={nodeClass.icon} className={classes.image} alt={props.label}/>
++            <img
++              src={nodeClass.icon}
++              className={classes.image}
++              alt={props.label}
++            />
+             <Typography>{props.label}</Typography>
+           </div>
+         </Button>
+-        {
+-          // workaround to get the open dialog to prevent scrolling
+-          openDialog ? <GraphNodeDialog label={props.label} nodeClass={nodeClass} openDialog={openDialog} setOpenDialog={setOpenDialog} /> : null
+-        }
++        {// workaround to get the open dialog to prevent scrolling
++        openDialog ? (
++          <GraphNodeDialog
++            label={props.label}
++            nodeClass={nodeClass}
++            openDialog={openDialog}
++            setOpenDialog={setOpenDialog}
++          />
++        ) : null}
+       </div>
+     </React.Fragment>
+   );
+@@ -80,7 +91,7 @@
+   //   drawerOpen: state.graphReducer.mouseMode === 'add'
+   // };
+   return {
+-    translate: getTranslate(state.localize),
++    translate: getTranslate(state.localize)
+   };
+ }
+
+@@ -88,8 +99,7 @@
+   // return {
+   //   setOpenDialog: (data) => dispatch(setOpenDialog(data))
+   // };
+-  return {
+-  };
++  return {};
+ }
+
+ export default connect(
+Index: src/apps/Graph/components/GraphRightPanel.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphRightPanel.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphRightPanel.jsx	(date 1565405625656)
+@@ -1,8 +1,8 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Drawer from '@material-ui/core/Drawer';
+-import {Typography} from '@material-ui/core';
++import { Typography } from '@material-ui/core';
+
+ const styles = theme => ({
+   drawer: {
+@@ -24,7 +24,7 @@
+   }
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <Drawer
+Index: src/apps/App/App.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/App/App.css	(date 1565394545000)
++++ src/apps/App/App.css	(date 1565405625649)
+@@ -1,14 +1,14 @@
+ #root {
+-    height: 100%;
+-    width: 100%;
++  height: 100%;
++  width: 100%;
+ }
+
+ body {
+-    height: 100%;
+-    width: 100%;
++  height: 100%;
++  width: 100%;
+ }
+
+ html {
+-    height: 100%;
+-    width: 100%;
+-}
+\ No newline at end of file
++  height: 100%;
++  width: 100%;
++}
+Index: src/apps/Graph/components/GraphNodeDrawer/GraphNodeDialog.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphNodeDrawer/GraphNodeDialog.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphNodeDrawer/GraphNodeDialog.jsx	(date 1565405625654)
+@@ -1,20 +1,23 @@
+-import React, {useEffect} from "react";
+-import {connect} from "react-redux";
+-import {withStyles} from "@material-ui/core";
+-import DialogTitle from "@material-ui/core/DialogTitle";
+-import DialogContent from "@material-ui/core/DialogContent";
+-import Button from "@material-ui/core/Button";
+-import MenuItem from "@material-ui/core/MenuItem";
++import React, { useEffect } from 'react';
++import { connect } from 'react-redux';
++import { withStyles } from '@material-ui/core';
++import DialogTitle from '@material-ui/core/DialogTitle';
++import DialogContent from '@material-ui/core/DialogContent';
++import Button from '@material-ui/core/Button';
++import MenuItem from '@material-ui/core/MenuItem';
+ // import DialogContentText from "@material-ui/core/DialogContentText";
+-import DialogActions from "@material-ui/core/DialogActions";
+-import Dialog from "@material-ui/core/Dialog";
+-import InputLabel from "@material-ui/core/InputLabel";
+-import Select from "@material-ui/core/Select";
+-import {isMobile, BrowserView, MobileView} from "react-device-detect";
+-import SelectDropdown from "../../../../common/react/SelectDropdown";
+-import {getTranslate} from "react-localize-redux";
+-import {addOpenedModal, closeOpenedModal} from "../../../../redux/actions/Graph/graphActions";
+-import NativeSelect from "@material-ui/core/NativeSelect";
++import DialogActions from '@material-ui/core/DialogActions';
++import Dialog from '@material-ui/core/Dialog';
++import InputLabel from '@material-ui/core/InputLabel';
++import Select from '@material-ui/core/Select';
++import { isMobile, BrowserView, MobileView } from 'react-device-detect';
++import SelectDropdown from '../../../../common/react/SelectDropdown';
++import { getTranslate } from 'react-localize-redux';
++import {
++  addOpenedModal,
++  closeOpenedModal
++} from '../../../../redux/actions/Graph/graphActions';
++import NativeSelect from '@material-ui/core/NativeSelect';
+
+ const styles = theme => ({
+   default: {
+@@ -33,8 +36,10 @@
+ });
+
+ function GraphNodeDialog(props) {
+-  const {classes, nodeClass, translate, openDialog, setOpenDialog} = props;
+-  const [upgradeLevel, setUpgradeLevel] = React.useState(nodeClass.instances[0].tier.name);
++  const { classes, nodeClass, translate, openDialog, setOpenDialog } = props;
++  const [upgradeLevel, setUpgradeLevel] = React.useState(
++    nodeClass.instances[0].tier.name
++  );
+
+   useEffect(() => {
+     props.addOpenedModal();
+@@ -43,90 +48,108 @@
+
+   const [resource, setResource] = React.useState('');
+
+-  const recipes = nodeClass.recipes.map(recipe => {
+-    return recipe.name
+-  }).flat(1).map(item => {
+-    return {label: props.translate(item), value: item}
+-  }).sort((a, b) => {
+-    return a.label.localeCompare(b.label);
+-  });
++  const recipes = nodeClass.recipes
++    .map(recipe => {
++      return recipe.name;
++    })
++    .flat(1)
++    .map(item => {
++      return { label: props.translate(item), value: item };
++    })
++    .sort((a, b) => {
++      return a.label.localeCompare(b.label);
++    });
+
+-  return <Dialog open={openDialog} fullScreen={isMobile} onClose={() => {
+-    setOpenDialog(false)
+-  }}>
+-    <DialogTitle>{props.label} Settings</DialogTitle>
+-    <DialogContent className={classes.openDialog}>
+-      <InputLabel className={classes.inlineLabel} htmlFor="upgradeLevel">Tier: </InputLabel>
+-      <BrowserView>
+-        <Select
+-          value={upgradeLevel}
+-          className={classes.select}
+-          disabled={!nodeClass.hasUpgrades}
+-          onChange={(e) => setUpgradeLevel(e.target.value)}
+-          inputProps={{
+-            name: 'upgradeLevel',
+-            id: 'upgradeLevel',
+-          }}
+-        >
+-          {
+-            nodeClass.instances.map(instance => {
++  return (
++    <Dialog
++      open={openDialog}
++      fullScreen={isMobile}
++      onClose={() => {
++        setOpenDialog(false);
++      }}
++    >
++      <DialogTitle>{props.label} Settings</DialogTitle>
++      <DialogContent className={classes.openDialog}>
++        <InputLabel className={classes.inlineLabel} htmlFor="upgradeLevel">
++          Tier:{' '}
++        </InputLabel>
++        <BrowserView>
++          <Select
++            value={upgradeLevel}
++            className={classes.select}
++            disabled={!nodeClass.hasUpgrades}
++            onChange={e => setUpgradeLevel(e.target.value)}
++            inputProps={{
++              name: 'upgradeLevel',
++              id: 'upgradeLevel'
++            }}
++          >
++            {nodeClass.instances.map(instance => {
+               const tier = instance.tier;
+-              return <MenuItem key={tier.name} value={tier.name}>{translate(tier.name)}</MenuItem>
+-            })
+-          }
+-        </Select>
+-      </BrowserView>
+-      <MobileView>
+-        <NativeSelect
+-          value={upgradeLevel}
+-          className={classes.select}
+-          disabled={!nodeClass.hasUpgrades}
+-          onChange={(e) => setUpgradeLevel(e.target.value)}
+-          inputProps={{
+-            name: 'upgradeLevel',
+-            id: 'upgradeLevel',
+-          }}
+-        >
+-          {
+-            nodeClass.instances.map(instance => {
++              return (
++                <MenuItem key={tier.name} value={tier.name}>
++                  {translate(tier.name)}
++                </MenuItem>
++              );
++            })}
++          </Select>
++        </BrowserView>
++        <MobileView>
++          <NativeSelect
++            value={upgradeLevel}
++            className={classes.select}
++            disabled={!nodeClass.hasUpgrades}
++            onChange={e => setUpgradeLevel(e.target.value)}
++            inputProps={{
++              name: 'upgradeLevel',
++              id: 'upgradeLevel'
++            }}
++          >
++            {nodeClass.instances.map(instance => {
+               const tier = instance.tier;
+-              return <option  key={tier.name} value={tier.name}>{translate(tier.name)}</option >
+-            })
+-          }
+-        </NativeSelect>
+-      </MobileView>
++              return (
++                <option key={tier.name} value={tier.name}>
++                  {translate(tier.name)}
++                </option>
++              );
++            })}
++          </NativeSelect>
++        </MobileView>
+
+-      {/*<DialogContentText>Optional: Select resource</DialogContentText>*/}
+-      <SelectDropdown
+-        selectProps={{classes: {
+-            paper : {
+-              zIndex: 9999
+-            },
+-            valueContainer: {
+-              zIndex: 9999
++        {/*<DialogContentText>Optional: Select resource</DialogContentText>*/}
++        <SelectDropdown
++          selectProps={{
++            classes: {
++              paper: {
++                zIndex: 9999
++              },
++              valueContainer: {
++                zIndex: 9999
++              }
+             }
+-          }}}
+-        onChange={(e) => {
+-          setResource(e.target.value)
+-        }}
+-        classProp={classes.textField}
+-        onKeyDown={(e) => {
+-          if (e.target.value === '' || e.target.value === undefined) {
+-            setResource('');
+-          }
+-        }}
+-        value={resource === '' ? '' : props.translate(resource)}
+-        label={"Optional: Recipe Name"}
+-        suggestions={recipes}
+-      />
+-    </DialogContent>
+-    <DialogActions>
+-      <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+-      <Button color="primary" onClick={() => setOpenDialog(false)}>
+-        Set
+-      </Button>
+-    </DialogActions>
+-  </Dialog>
++          }}
++          onChange={e => {
++            setResource(e.target.value);
++          }}
++          classProp={classes.textField}
++          onKeyDown={e => {
++            if (e.target.value === '' || e.target.value === undefined) {
++              setResource('');
++            }
++          }}
++          value={resource === '' ? '' : props.translate(resource)}
++          label={'Optional: Recipe Name'}
++          suggestions={recipes}
++        />
++      </DialogContent>
++      <DialogActions>
++        <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
++        <Button color="primary" onClick={() => setOpenDialog(false)}>
++          Set
++        </Button>
++      </DialogActions>
++    </Dialog>
++  );
+ }
+
+ function mapStateToProps(state) {
+@@ -134,7 +157,7 @@
+   //   drawerOpen: state.graphReducer.mouseMode === 'add'
+   // };
+   return {
+-    translate: getTranslate(state.localize),
++    translate: getTranslate(state.localize)
+   };
+ }
+
+@@ -151,4 +174,4 @@
+ export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+-)(withStyles(styles)(GraphNodeDialog));
+\ No newline at end of file
++)(withStyles(styles)(GraphNodeDialog));
+Index: src/apps/Graph/graphql/localMutators.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/graphql/localMutators.js	(date 1565394545000)
++++ src/apps/Graph/graphql/localMutators.js	(date 1565405625656)
+@@ -1,9 +1,9 @@
+-import gql from "graphql-tag";
+-import {getClient} from "../../../graphql";
+-import {urlRepository} from "../libraries/SGLib/repositories/imageRepository";
++import gql from 'graphql-tag';
++import { getClient } from '../../../graphql';
++import { urlRepository } from '../libraries/SGLib/repositories/imageRepository';
+
+ const GET_MACHINE_NODE_DATA = gql`
+-  query ($className: String) {
++  query($className: String) {
+     getMachineClassByName(class_name: $className) {
+       name
+       icon
+@@ -17,14 +17,15 @@
+   }
+ `;
+
+-export const getMachineClass = (className) => {
++export const getMachineClass = className => {
+   const client = getClient();
+-  return client.query({
+-    query: GET_MACHINE_NODE_DATA,
+-    variables: {
+-      className
+-    }
+-  })
++  return client
++    .query({
++      query: GET_MACHINE_NODE_DATA,
++      variables: {
++        className
++      }
++    })
+     .then(response => response.data.getMachineClassByName)
+-    .catch(error => console.error(error))
+-};
+\ No newline at end of file
++    .catch(error => console.error(error));
++};
+Index: src/apps/Graph/components/GraphNodeDrawer/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphNodeDrawer/index.js	(date 1565394545000)
++++ src/apps/Graph/components/GraphNodeDrawer/index.js	(date 1565405625655)
+@@ -1,3 +1,3 @@
+-import NodeDrawer from "./NodeDrawer";
++import NodeDrawer from './NodeDrawer';
+
+-export default NodeDrawer;
+\ No newline at end of file
++export default NodeDrawer;
+Index: src/common/firebase/firebaseFirestore.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/firebase/firebaseFirestore.js	(date 1565394545000)
++++ src/common/firebase/firebaseFirestore.js	(date 1565405625666)
+@@ -3,8 +3,9 @@
+
+ const firebaseFirestore = firebaseApp.firestore();
+
+-firebaseFirestore.enablePersistence({synchronizeTabs: true})
+-  .catch(function (err) {
++firebaseFirestore
++  .enablePersistence({ synchronizeTabs: true })
++  .catch(function(err) {
+     if (err.code === 'failed-precondition') {
+       // Multiple tabs open, persistence can only be enabled
+       // in one tab at a a time.
+Index: src/apps/Graph/graphql/queries.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/graphql/queries.js	(date 1565394545000)
++++ src/apps/Graph/graphql/queries.js	(date 1565405625657)
+@@ -1,6 +1,6 @@
+-import gql from "graphql-tag";
+-import {getClient} from "../../../graphql";
+-import {urlRepository} from "../libraries/SGLib/repositories/imageRepository";
++import gql from 'graphql-tag';
++import { getClient } from '../../../graphql';
++import { urlRepository } from '../libraries/SGLib/repositories/imageRepository';
+
+ const GET_CRAFTING_MACHINE_CLASSES = gql`
+   {
+@@ -37,23 +37,26 @@
+ export const getCraftingMachineClasses = () => {
+   const client = getClient();
+   const imageBaseUrl = urlRepository.machines;
+-  return client.query({
+-    query: GET_CRAFTING_MACHINE_CLASSES
+-  })
++  return client
++    .query({
++      query: GET_CRAFTING_MACHINE_CLASSES
++    })
+     .then(response => {
+-      return response.data.getCraftingMachineClasses.sort((machine1, machine2) => {
+-        return machine1.name.localeCompare(machine2.name);
+-      }).map(machine => {
+-        let icon = imageBaseUrl[machine.icon];
+-        if (!icon) {
+-          icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
+-        }
+-        return {
+-          ...machine,
+-          name: machine.name,
+-          icon: icon
+-        }
+-      })
++      return response.data.getCraftingMachineClasses
++        .sort((machine1, machine2) => {
++          return machine1.name.localeCompare(machine2.name);
++        })
++        .map(machine => {
++          let icon = imageBaseUrl[machine.icon];
++          if (!icon) {
++            icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
++          }
++          return {
++            ...machine,
++            name: machine.name,
++            icon: icon
++          };
++        });
+     })
+     .catch(error => console.error(error));
+-};
+\ No newline at end of file
++};
+Index: src/common/firebase/firebaseApp.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/firebase/firebaseApp.js	(date 1565394545000)
++++ src/common/firebase/firebaseApp.js	(date 1565405625666)
+@@ -1,6 +1,6 @@
+-import {auth, initializeApp} from 'firebase/app';
++import { auth, initializeApp } from 'firebase/app';
+ import 'firebase/auth';
+-import {firebaseSecrets} from './firebaseSecrets';
++import { firebaseSecrets } from './firebaseSecrets';
+
+ const firebaseApp = initializeApp(firebaseSecrets);
+
+Index: src/apps/Graph/components/GraphNodeDrawer/NodeDrawer.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphNodeDrawer/NodeDrawer.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphNodeDrawer/NodeDrawer.jsx	(date 1565405625655)
+@@ -1,7 +1,7 @@
+ import React from 'react';
+ import PropTypes from 'prop-types';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Drawer from '@material-ui/core/Drawer';
+ import Tabs from '@material-ui/core/Tabs';
+ import Tab from '@material-ui/core/Tab';
+@@ -17,10 +17,10 @@
+ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+ import GraphNodeButton from './GraphNodeButton';
+-import {Scrollbars} from 'react-custom-scrollbars';
+-import {baseTheme} from "../../../../theme";
++import { Scrollbars } from 'react-custom-scrollbars';
++import { baseTheme } from '../../../../theme';
+ import normalizeWheel from 'normalize-wheel';
+-import {getTranslate} from "react-localize-redux";
++import { getTranslate } from 'react-localize-redux';
+
+ const styles = theme => ({
+   default: {
+@@ -60,23 +60,35 @@
+ });
+
+ function TabContainer(props) {
+-
+-  const {children, openModals} = props;
++  const { children, openModals } = props;
+   const scrollRef = React.useRef();
+
+   const themeObject = baseTheme.overrides.GraphAddMachineButton;
+-  return <Scrollbars ref={scrollRef} style={{height: themeObject.width + themeObject.margin * 4, width: "100%"}}>
+-    <div onWheel={e => {
+-      if (scrollRef.current && openModals === 0) {
+-        const normalized = normalizeWheel(e);
+-        const ref = scrollRef.current;
+-        const currentLeft = ref.getScrollLeft() + normalized.pixelY;
+-        ref.scrollLeft(currentLeft);
+-      }
+-    }} style={{width: children.length * (themeObject.width + (2 * themeObject.margin))}}>
+-      {children}
+-    </div>
+-  </Scrollbars>;
++  return (
++    <Scrollbars
++      ref={scrollRef}
++      style={{
++        height: themeObject.width + themeObject.margin * 4,
++        width: '100%'
++      }}
++    >
++      <div
++        onWheel={e => {
++          if (scrollRef.current && openModals === 0) {
++            const normalized = normalizeWheel(e);
++            const ref = scrollRef.current;
++            const currentLeft = ref.getScrollLeft() + normalized.pixelY;
++            ref.scrollLeft(currentLeft);
++          }
++        }}
++        style={{
++          width: children.length * (themeObject.width + 2 * themeObject.margin)
++        }}
++      >
++        {children}
++      </div>
++    </Scrollbars>
++  );
+ }
+
+ TabContainer.propTypes = {
+@@ -84,10 +96,9 @@
+ };
+
+ function NodeDrawer(props) {
+-  const {classes, drawerOpen, translate, selectedMachine} = props;
++  const { classes, drawerOpen, translate, selectedMachine } = props;
+   const [value, setValue] = React.useState(0);
+
+-
+   function handleChange(event, newValue) {
+     setValue(newValue);
+   }
+@@ -97,38 +108,41 @@
+     <Drawer
+       anchor="bottom"
+       open={drawerOpen}
+-      onClose={() => {
+-      }}
+-      classes={{paper: usedClass}}
++      onClose={() => {}}
++      classes={{ paper: usedClass }}
+       variant="persistent"
+     >
+-      <ExpansionPanel TransitionProps={{unmountOnExit: true}}>
++      <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
+         <ExpansionPanelSummary
+-          expandIcon={drawerOpen ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}
++          expandIcon={drawerOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+         >
+           <Typography>
+             {`${translate('currently_selected')} `}
+-            <span className={classes.current}>{selectedMachine ? selectedMachine.name : translate('selected_none')}</span>
++            <span className={classes.current}>
++              {selectedMachine
++                ? selectedMachine.name
++                : translate('selected_none')}
++            </span>
+           </Typography>
+         </ExpansionPanelSummary>
+
+         <ExpansionPanelDetails className={classes.expandPanel}>
+           {value === 0 && (
+             <TabContainer {...props} classes={classes}>
+-              {
+-                props.machineClasses.map(classObject => {
+-                  return <GraphNodeButton
++              {props.machineClasses.map(classObject => {
++                return (
++                  <GraphNodeButton
+                     nodeClass={classObject}
+                     key={classObject.name}
+                     label={translate(classObject.name)}
+                   />
+-                })
+-              }
++                );
++              })}
+             </TabContainer>
+           )}
+           {value === 1 && (
+             <TabContainer classes={classes}>
+-              <TextField id="resource-search" label="Find Resource" fullWidth/>
++              <TextField id="resource-search" label="Find Resource" fullWidth />
+               <Button>Add...</Button>
+             </TabContainer>
+           )}
+@@ -141,8 +155,8 @@
+             indicatorColor="primary"
+             textColor="primary"
+           >
+-            <Tab label="By Machine" icon={<DomainIcon/>}/>
+-            <Tab label="By Resource" icon={<CategoryIcon/>} disabled/>
++            <Tab label="By Machine" icon={<DomainIcon />} />
++            <Tab label="By Resource" icon={<CategoryIcon />} disabled />
+           </Tabs>
+         </ExpansionPanelDetails>
+       </ExpansionPanel>
+@@ -156,7 +170,7 @@
+     translate: getTranslate(state.localize),
+     machineClasses: state.graphReducer.machineClasses,
+     selectedMachine: state.graphReducer.selectedMachine,
+-    openModals: state.graphReducer.openModals,
++    openModals: state.graphReducer.openModals
+   };
+ }
+
+Index: src/graphql/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/graphql/index.js	(date 1565394545000)
++++ src/graphql/index.js	(date 1565405625671)
+@@ -1,20 +1,19 @@
+-import {ApolloClient} from 'apollo-client';
+-import {InMemoryCache} from 'apollo-cache-inmemory';
+-import {SchemaLink} from "apollo-link-schema";
+-import {makeExecutableSchema} from 'graphql-tools';
+-import typeDefs from "./typeDefs";
+-import resolvers from "./resolvers";
++import { ApolloClient } from 'apollo-client';
++import { InMemoryCache } from 'apollo-cache-inmemory';
++import { SchemaLink } from 'apollo-link-schema';
++import { makeExecutableSchema } from 'graphql-tools';
++import typeDefs from './typeDefs';
++import resolvers from './resolvers';
+ import gql from 'graphql-tag';
+
+ const queryText = gql`
+-  query ($className: String, $classId: Int) {
+-    getRecipes {
++  query($className: String, $classId: Int) {
++    getRecipes {
+       name
+     }
+   }
+ `;
+
+-
+ //
+ // getMachineClasses(class_name: $className, class_id: $classId) {
+ //   name
+@@ -46,7 +45,7 @@
+     //  `/graphql` endpoint on the same host
+     // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
+     // to a different host
+-    link: new SchemaLink({schema}),
++    link: new SchemaLink({ schema }),
+     cache: new InMemoryCache({
+       addTypename: false
+     })
+@@ -55,17 +54,17 @@
+
+ const testGraphQL = () => {
+   const client = getClient();
+-  client.query({
+-    query: queryText,
+-    variables: {
+-      cityName: "San Diego",
+-      className: "color_cartridge",
+-      classId: 27
+-    }
+-  })
++  client
++    .query({
++      query: queryText,
++      variables: {
++        cityName: 'San Diego',
++        className: 'color_cartridge',
++        classId: 27
++      }
++    })
+     .then(data => console.log(data.data))
+     .catch(error => console.error(error));
+ };
+
+-
+-export default testGraphQL;
+\ No newline at end of file
++export default testGraphQL;
+Index: src/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/index.js	(date 1565394545000)
++++ src/index.js	(date 1565405625673)
+@@ -3,11 +3,11 @@
+ import './index.css';
+ import App from './apps/App/App';
+
+-import {Provider} from 'react-redux';
++import { Provider } from 'react-redux';
+ import getStore from './redux/store';
+
+-import {LocalizeProvider} from 'react-localize-redux';
+-import ServiceWorkerProvider from "./common/react/ServiceWorkerProvider";
++import { LocalizeProvider } from 'react-localize-redux';
++import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
+
+ require('typeface-roboto-condensed');
+
+@@ -17,14 +17,13 @@
+   <Provider store={store}>
+     <ServiceWorkerProvider>
+       <LocalizeProvider store={store}>
+-        <App/>
++        <App />
+       </LocalizeProvider>
+     </ServiceWorkerProvider>
+   </Provider>,
+   document.getElementById('root')
+ );
+
+-
+ // If you want your app to work offline and load faster, you can change
+ // unregister() to register() below. Note this comes with some pitfalls.
+ // Learn more about service workers: https://bit.ly/CRA-PWA
+Index: src/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/index.css	(date 1565394545000)
++++ src/index.css	(date 1565405625673)
+@@ -1,13 +1,13 @@
+ body {
+-    margin: 0;
+-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
++  margin: 0;
++  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+     sans-serif;
+-    -webkit-font-smoothing: antialiased;
+-    -moz-osx-font-smoothing: grayscale;
++  -webkit-font-smoothing: antialiased;
++  -moz-osx-font-smoothing: grayscale;
+ }
+
+ code {
+-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
++  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+     monospace;
+ }
+Index: src/redux/store.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/store.js	(date 1565394545000)
++++ src/redux/store.js	(date 1565405625680)
+@@ -1,12 +1,12 @@
+-import {applyMiddleware, compose, createStore} from 'redux';
++import { applyMiddleware, compose, createStore } from 'redux';
+ import thunk from 'redux-thunk';
+ import rootReducer from './reducers/rootReducer';
+
+ const composeEnhancers =
+   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+-    })
++        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
++      })
+     : compose;
+
+ const enhancer = composeEnhancers(
+Index: src/redux/reducers/Lab/labReducer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/reducers/Lab/labReducer.js	(date 1565394545000)
++++ src/redux/reducers/Lab/labReducer.js	(date 1565405625679)
+@@ -3,7 +3,7 @@
+ };
+
+ const addLocalChange = (action, state) => {
+-  const {table, object, key, value} = action.payload;
++  const { table, object, key, value } = action.payload;
+   let localChanges = state.localChanges || {};
+   localChanges = JSON.parse(JSON.stringify(localChanges));
+   localChanges[table] = localChanges[table] || {};
+@@ -16,7 +16,7 @@
+ };
+
+ const removeLocalChange = (action, state) => {
+-  const {table, object, key} = action.payload;
++  const { table, object, key } = action.payload;
+   let localChanges = state.localChanges || {};
+   if (
+     !localChanges[table] ||
+@@ -41,7 +41,7 @@
+ };
+
+ const removeLocalChangeForTableRow = (action, state) => {
+-  const {table, object} = action.payload;
++  const { table, object } = action.payload;
+
+   let localChanges = state.localChanges || {};
+   if (!localChanges[table] || !localChanges[table][object]) {
+@@ -60,7 +60,7 @@
+ };
+
+ const addTableRow = (action, state) => {
+-  const {table, object, key, data} = action.payload;
++  const { table, object, key, data } = action.payload;
+
+   let localChanges = state.localChanges || {};
+   localChanges = JSON.parse(JSON.stringify(localChanges));
+Index: src/json_backup/MachineClass.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json_backup/MachineClass.json	(date 1565394545000)
++++ src/json_backup/MachineClass.json	(date 1565405625676)
+@@ -300,4 +300,4 @@
+       }
+     ]
+   }
+-]
+\ No newline at end of file
++]
+Index: src/json_backup/Recipe.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json_backup/Recipe.json	(date 1565394545000)
++++ src/json_backup/Recipe.json	(date 1565405625677)
+@@ -2272,4 +2272,4 @@
+     "outputItemId": "nuclear_fuel_rod",
+     "outputItemQuantity": "3"
+   }
+-]
+\ No newline at end of file
++]
+Index: src/json_backup/Items.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json_backup/Items.json	(date 1565394545000)
++++ src/json_backup/Items.json	(date 1565405625676)
+@@ -514,4 +514,4 @@
+     "icon": "yellow_power_slug.png",
+     "hidden": false
+   }
+-]
+\ No newline at end of file
++]
+Index: src/proto/Recipe.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/proto/Recipe.json	(date 1565394545000)
++++ src/proto/Recipe.json	(date 1565405625678)
+@@ -145,4 +145,4 @@
+       }
+     }
+   }
+-}
+\ No newline at end of file
++}
+Index: src/setupTests.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/setupTests.js	(date 1565394545000)
++++ src/setupTests.js	(date 1565405625680)
+@@ -1,3 +1,3 @@
+ import 'jest-canvas-mock';
+ // or
+-require('jest-canvas-mock');
+\ No newline at end of file
++require('jest-canvas-mock');
+Index: src/apps/App/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/App/App.js	(date 1565394545000)
++++ src/apps/App/App.js	(date 1565405625649)
+@@ -163,10 +163,10 @@
+       // lab subdomain
+       domainList.push(App.getLabApp());
+     } else {
+-      domainList.push(App.getHomeApp());
+-      domainList.push(App.getGraphApp(true));
+-      domainList.push(App.getLabApp(true));
+-      domainList.push(App.getHubApp(true));
++      // domainList.push(App.getHomeApp());
++      domainList.push(App.getGraphApp(false));
++      // domainList.push(App.getLabApp(true));
++      // domainList.push(App.getHubApp(true));
+     }
+
+     return domainList;
+Index: src/proto/MachineClass.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/proto/MachineClass.json	(date 1565394545000)
++++ src/proto/MachineClass.json	(date 1565405625678)
+@@ -28,4 +28,4 @@
+       }
+     }
+   }
+-}
+\ No newline at end of file
++}
+Index: src/proto/Item.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/proto/Item.json	(date 1565394545000)
++++ src/proto/Item.json	(date 1565405625677)
+@@ -111,4 +111,4 @@
+       }
+     }
+   }
+-}
+\ No newline at end of file
++}
+Index: src/apps/Graph/GraphApp.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/GraphApp.jsx	(date 1565394545000)
++++ src/apps/Graph/GraphApp.jsx	(date 1565405625650)
+@@ -1,14 +1,14 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
+
+ import GraphAppBar from './components/GraphAppBar';
+-import {connect} from 'react-redux';
+-import {Helmet} from 'react-helmet';
++import { connect } from 'react-redux';
++import { Helmet } from 'react-helmet';
+ import GraphCanvasLoadable from './components/GraphCanvasLoadable';
+ import GraphNodeDrawer from './components/GraphNodeDrawer';
+-import {setMachineClasses} from "../../redux/actions/Graph/graphActions";
+-import {getCraftingMachineClasses} from "./graphql/queries";
+-import {getTranslate} from "react-localize-redux";
++import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
++import { getCraftingMachineClasses } from './graphql/queries';
++import { getTranslate } from 'react-localize-redux';
+ // import GraphRightPanel from './components/GraphRightPanel';
+
+ const styles = theme => {
+@@ -41,17 +41,19 @@
+   };
+
+   componentWillMount() {
+-    const {match} = this.props;
++    const { match } = this.props;
+
+     const graphId = (match && match.params && match.params.graphId) || null;
+
+-    getCraftingMachineClasses().then(classes => this.props.setMachineClasses(classes));
++    getCraftingMachineClasses().then(classes =>
++      this.props.setMachineClasses(classes)
++    );
+
+     if (graphId) {
+       fetch('https://api.myjson.com/bins/' + graphId)
+         .then(resp => resp.json())
+         .then(json => {
+-          this.setState({ready: true, helmet: json});
++          this.setState({ ready: true, helmet: json });
+         })
+         .catch(err => {
+           this.setState({
+@@ -78,26 +80,26 @@
+   }
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+-    const {ready, helmet} = this.state;
++    const { ready, helmet } = this.state;
+
+     if (ready) {
+       return (
+         <div className={classes.container}>
+           <Helmet>
+-            <meta property="og:title" content={helmet.title}/>
+-            <meta property="og:site_name" content={window.location.hostname}/>
+-            <meta property="og:image" content={helmet.image}/>
+-            <meta property="og:description" content={helmet.description}/>
+-            <meta property="og:url " content={window.location.href}/>
++            <meta property="og:title" content={helmet.title} />
++            <meta property="og:site_name" content={window.location.hostname} />
++            <meta property="og:image" content={helmet.image} />
++            <meta property="og:description" content={helmet.description} />
++            <meta property="og:url " content={window.location.href} />
+             <title>{helmet.title}</title>
+           </Helmet>
+-          <GraphAppBar/>
++          <GraphAppBar />
+           {/* <GraphRightPanel /> */}
+-          <GraphCanvasLoadable/>
++          <GraphCanvasLoadable />
+
+-          <GraphNodeDrawer/>
++          <GraphNodeDrawer />
+           {/*<div className={classes.thing1}>HELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLO</div>*/}
+         </div>
+       );
+@@ -109,11 +111,11 @@
+
+ const mapStateToProps = state => ({
+   // ...state
+-  translate: getTranslate(state.localize),
++  translate: getTranslate(state.localize)
+ });
+
+ const mapDispatchToProps = dispatch => ({
+-  setMachineClasses: (classes) => dispatch(setMachineClasses(classes)),
++  setMachineClasses: classes => dispatch(setMachineClasses(classes))
+ });
+
+ export default connect(
+Index: src/json/MachineClass.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json/MachineClass.json	(date 1565394545000)
++++ src/json/MachineClass.json	(date 1565405625674)
+@@ -300,4 +300,4 @@
+       }
+     ]
+   }
+-]
+\ No newline at end of file
++]
+Index: src/App.test.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/App.test.js	(date 1565394545000)
++++ src/App.test.js	(date 1565405625648)
+@@ -1,10 +1,10 @@
+ import React from 'react';
+ import ReactDOM from 'react-dom';
+ import App from './apps/App/App';
+-import {LocalizeProvider} from "react-localize-redux";
+-import {Provider} from "react-redux";
+-import getStore from "./redux/store";
+-import ServiceWorkerProvider from "./common/react/ServiceWorkerProvider";
++import { LocalizeProvider } from 'react-localize-redux';
++import { Provider } from 'react-redux';
++import getStore from './redux/store';
++import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
+
+ it('renders without crashing', () => {
+   const div = document.createElement('div');
+@@ -13,10 +13,11 @@
+     <Provider store={store}>
+       <ServiceWorkerProvider>
+         <LocalizeProvider store={store}>
+-          <App/>
++          <App />
+         </LocalizeProvider>
+       </ServiceWorkerProvider>
+-    </Provider>
+-    , div);
++    </Provider>,
++    div
++  );
+   ReactDOM.unmountComponentAtNode(div);
+ });
+Index: src/json/Recipe.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json/Recipe.json	(date 1565394545000)
++++ src/json/Recipe.json	(date 1565405625675)
+@@ -2706,4 +2706,4 @@
+     "time": "1",
+     "id": "pure_uranium_node"
+   }
+-]
+\ No newline at end of file
++]
+Index: src/json/Items.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/json/Items.json	(date 1565394545000)
++++ src/json/Items.json	(date 1565405625674)
+@@ -514,4 +514,4 @@
+     "icon": "yellow_power_slug.png",
+     "hidden": false
+   }
+-]
+\ No newline at end of file
++]
+Index: src/apps/Graph/libraries/SGLib/utils/stringUtils.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/libraries/SGLib/utils/stringUtils.ts	(date 1565394545000)
++++ src/apps/Graph/libraries/SGLib/utils/stringUtils.ts	(date 1565405625659)
+@@ -12,7 +12,7 @@
+
+ export function camelize(str: string): string {
+   return str
+-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
++    .replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+       return index === 0 ? word.toLowerCase() : word.toUpperCase();
+     })
+     .replace(/\s+/g, '');
+Index: src/apps/Lab/components/DatabaseEditor.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/components/DatabaseEditor.jsx	(date 1565394545000)
++++ src/apps/Lab/components/DatabaseEditor.jsx	(date 1565405625660)
+@@ -1,18 +1,23 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+
+ import PropTypes from 'prop-types';
+ import AppBar from '@material-ui/core/AppBar';
+ import Tabs from '@material-ui/core/Tabs';
+ import Tab from '@material-ui/core/Tab';
+
+-import firebaseApp, {firebaseGithubAuth} from '../../../common/firebase/firebaseApp';
++import firebaseApp, {
++  firebaseGithubAuth
++} from '../../../common/firebase/firebaseApp';
+ import firebaseFirestore from '../../../common/firebase/firebaseFirestore';
+
+ import dataLoader from '../libraries/SGDataLib/utils/dataLoader';
+-import {getTables, tableMapping} from '../libraries/SGDataLib/constants/tableConstants';
+-import {Translate, withLocalize} from 'react-localize-redux';
++import {
++  getTables,
++  tableMapping
++} from '../libraries/SGDataLib/constants/tableConstants';
++import { Translate, withLocalize } from 'react-localize-redux';
+ import FormRenderer from '../libraries/SGDataLib/react/FormRenderer';
+ import Fab from '@material-ui/core/Fab';
+ import AddIcon from '@material-ui/icons/Add';
+@@ -108,8 +113,7 @@
+     errorMessage: '',
+     addItemModalOpen: false,
+     removeItemModalOpen: false,
+-    deletionFunction: () => {
+-    },
++    deletionFunction: () => {},
+     deletionName: '',
+     versions: ['Loading...'],
+     selectedVersion: -1,
+@@ -118,21 +122,21 @@
+
+   handleChange = (event, newValue) => {
+     if (this.state.value !== newValue) {
+-      this.setState({value: newValue});
++      this.setState({ value: newValue });
+     }
+   };
+
+   componentDidMount() {
+     const thisAccessor = this;
+
+-    firebaseApp.auth().onAuthStateChanged(function (user) {
++    firebaseApp.auth().onAuthStateChanged(function(user) {
+       if (user) {
+-        thisAccessor.setState({loggedIn: true});
++        thisAccessor.setState({ loggedIn: true });
+         dataLoader(
+           getTables,
+           firebaseFirestore,
+           tableMapping,
+-          function (tableName, tableData) {
++          function(tableName, tableData) {
+             const pathArray = tableName.split('/');
+             const lastTableName = pathArray[pathArray.length - 1];
+
+@@ -153,7 +157,7 @@
+             if (selectedVersion === -1) {
+               selectedVersion = versions[0];
+             }
+-            thisAccessor.setState({versions, selectedVersion});
++            thisAccessor.setState({ versions, selectedVersion });
+           }
+         );
+       }
+@@ -162,7 +166,7 @@
+
+   handleVersionChange = event => {
+     if (event.target.value !== this.state.selectedVersion) {
+-      this.setState({selectedVersion: event.target.value});
++      this.setState({ selectedVersion: event.target.value });
+     }
+   };
+
+@@ -173,11 +177,11 @@
+   };
+
+   handleAddItemModalOpen = () => {
+-    this.setState({addItemModalOpen: true});
++    this.setState({ addItemModalOpen: true });
+   };
+
+   handleAddItemModalClose = () => {
+-    this.setState({addItemModalOpen: false});
++    this.setState({ addItemModalOpen: false });
+   };
+
+   handleRemoveItemModalOpen = (deletionFunction, deletionName) => {
+@@ -191,15 +195,15 @@
+   };
+
+   handleRemoveItemModalClose = () => {
+-    this.setState({removeItemModalOpen: false});
++    this.setState({ removeItemModalOpen: false });
+   };
+
+   handleSnackbarClose = () => {
+-    this.setState({snackbarOpen: false});
++    this.setState({ snackbarOpen: false });
+   };
+
+   loginWithGithub = () => {
+-    firebaseGithubAuth().then(function (result) {
++    firebaseGithubAuth().then(function(result) {
+       // // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+       // var token = result.credential.accessToken;
+       // // The signed-in user info.
+@@ -209,7 +213,7 @@
+   };
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+     const {
+       value,
+       snackbarOpen,
+@@ -217,7 +221,9 @@
+       removeItemModalOpen
+     } = this.state;
+
+-    let tabKeys = Object.keys(this.state.serverData).sort().reverse();
++    let tabKeys = Object.keys(this.state.serverData)
++      .sort()
++      .reverse();
+     let serverData = [];
+     let selectedTab = 0;
+     let objectBaseType = null;
+@@ -240,7 +246,6 @@
+       }
+     }
+
+-
+     return (
+       <div className={classes.root}>
+         <AddRowModal
+@@ -263,7 +268,7 @@
+             scrollButtons="off"
+           >
+             {tabKeys.map(key => {
+-              return <Tab label={key} key={key}/>;
++              return <Tab label={key} key={key} />;
+             })}
+           </Tabs>
+         </AppBar>
+@@ -277,7 +282,7 @@
+                 Sign in with GitHub
+               </Button>
+             ) : null}
+-            {serverData.map(({id, data}) => {
++            {serverData.map(({ id, data }) => {
+               return (
+                 <FormRenderer
+                   openDeletion={this.handleRemoveItemModalOpen}
+@@ -300,7 +305,7 @@
+               : this.handleAddItemModalOpen
+           }
+         >
+-          <AddIcon/>
++          <AddIcon />
+         </Fab>
+         <Fab
+           hidden={!!objectPath}
+@@ -308,17 +313,15 @@
+           color={'primary'}
+           onClick={() => new objectBaseType().import(objectPath)}
+         >
+-          <CloudUploadIcon/>
++          <CloudUploadIcon />
+         </Fab>
+         <Fab
+           hidden={!!objectPath}
+           className={classes.fabDownload}
+           color={'primary'}
+-          onClick={
+-            () => new objectBaseType().downloadDataToProto(objectPath)
+-          }
++          onClick={() => new objectBaseType().downloadDataToProto(objectPath)}
+         >
+-          <CloudDownloadIcon/>
++          <CloudDownloadIcon />
+         </Fab>
+         <div className={classes.leftSelect} color={'primary'}>
+           <FormControl>
+@@ -327,12 +330,12 @@
+               value={this.state.selectedVersion}
+               onChange={this.handleVersionChange}
+               className={classes.formControl}
+-              input={<Input name="version" id="version-helper"/>}
++              input={<Input name="version" id="version-helper" />}
+             >
+               {this.state.versions.length === -1 ? (
+                 <MenuItem value={-1}>
+                   <em>
+-                    <Translate id="greeting"/>
++                    <Translate id="greeting" />
+                   </em>
+                 </MenuItem>
+               ) : null}
+@@ -369,7 +372,7 @@
+                 className={classes.close}
+                 onClick={this.handleSnackbarClose}
+               >
+-                <CloseIcon/>
++                <CloseIcon />
+               </IconButton>
+             ]}
+           />
+Index: src/theme/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/theme/index.js	(date 1565394545000)
++++ src/theme/index.js	(date 1565405625681)
+@@ -1,15 +1,15 @@
+-import {createMuiTheme} from '@material-ui/core';
++import { createMuiTheme } from '@material-ui/core';
+
+ const paletteLight = {
+   type: 'light',
+-  primary: {main: '#FF9100', dark: '#FF6D00'},
+-  secondary: {main: '#FF3D00', contrastText: '#FAFAFA'}
++  primary: { main: '#FF9100', dark: '#FF6D00' },
++  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+ };
+
+ const paletteDark = {
+   type: 'dark',
+-  primary: {main: '#FF9100', dark: '#FF6D00'},
+-  secondary: {main: '#FF3D00', contrastText: '#FAFAFA'}
++  primary: { main: '#FF9100', dark: '#FF6D00' },
++  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+ };
+
+ const themeName = 'Pizazz Vermilion Gayal';
+@@ -41,8 +41,8 @@
+ };
+
+ export const themeDark = createMuiTheme(
+-  Object.assign({}, baseTheme, {palette: paletteDark})
++  Object.assign({}, baseTheme, { palette: paletteDark })
+ );
+ export const themeLight = createMuiTheme(
+-  Object.assign({}, baseTheme, {palette: paletteLight})
++  Object.assign({}, baseTheme, { palette: paletteLight })
+ );
+Index: src/apps/Lab/components/RemoveRowModal.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/components/RemoveRowModal.jsx	(date 1565394545000)
++++ src/apps/Lab/components/RemoveRowModal.jsx	(date 1565405625661)
+@@ -1,6 +1,6 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Modal from '@material-ui/core/Modal';
+ import Button from '@material-ui/core/Button';
+ import Typography from '@material-ui/core/Typography';
+@@ -45,7 +45,7 @@
+   };
+
+   render() {
+-    const {open, handleClose, classes} = this.props;
++    const { open, handleClose, classes } = this.props;
+
+     return (
+       <Modal
+Index: src/redux/reducers/rootReducer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/reducers/rootReducer.js	(date 1565394545000)
++++ src/redux/reducers/rootReducer.js	(date 1565405625679)
+@@ -1,9 +1,9 @@
+-import {combineReducers} from 'redux';
++import { combineReducers } from 'redux';
+ import simpleReducer from './simpleReducer';
+ import graphReducer from './Graph/graphReducer';
+ import labReducer from './Lab/labReducer';
+ import commonReducer from './common/commonReducer';
+-import {localizeReducer} from 'react-localize-redux';
++import { localizeReducer } from 'react-localize-redux';
+
+ export default combineReducers({
+   simpleReducer,
+Index: src/common/react/SelectDropdown.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/SelectDropdown.jsx	(date 1565394545000)
++++ src/common/react/SelectDropdown.jsx	(date 1565405625669)
+@@ -1,11 +1,11 @@
+ import React from 'react';
+ import Select from 'react-select';
+-import {makeStyles, useTheme} from '@material-ui/core/styles';
++import { makeStyles, useTheme } from '@material-ui/core/styles';
+ import Typography from '@material-ui/core/Typography';
+ import TextField from '@material-ui/core/TextField';
+ import Paper from '@material-ui/core/Paper';
+ import MenuItem from '@material-ui/core/MenuItem';
+-import {emphasize} from '@material-ui/core/styles/colorManipulator';
++import { emphasize } from '@material-ui/core/styles/colorManipulator';
+ import PropTypes from 'prop-types';
+
+ const useStyles = makeStyles(theme => ({
+@@ -79,7 +79,7 @@
+   selectProps: PropTypes.object.isRequired
+ };
+
+-function inputComponent({inputRef, ...props}) {
++function inputComponent({ inputRef, ...props }) {
+   return <div ref={inputRef} {...props} />;
+ }
+
+@@ -92,7 +92,7 @@
+     children,
+     innerProps,
+     innerRef,
+-    selectProps: {classes, TextFieldProps, helperText, label, value}
++    selectProps: { classes, TextFieldProps, helperText, label, value }
+   } = props;
+
+   const actualValue = value && value.value ? value.value : '';
+@@ -244,7 +244,7 @@
+     return change => {
+       const actualChange = change.value;
+       if (propFunc) {
+-        propFunc({target: {value: actualChange}});
++        propFunc({ target: { value: actualChange } });
+       }
+     };
+   };
+@@ -261,7 +261,7 @@
+         options={props.suggestions}
+         label={props.label}
+         components={components}
+-        value={{label: props.value, value: props.value}}
++        value={{ label: props.value, value: props.value }}
+         onChange={wrappedFunc(props.onChange)}
+         onKeyUp={wrappedFunc(props.onKeyUp)}
+         onKeyDown={wrappedFunc(props.onKeyDown)}
+Index: src/apps/Lab/components/AddRowModal.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/components/AddRowModal.jsx	(date 1565394545000)
++++ src/apps/Lab/components/AddRowModal.jsx	(date 1565405625660)
+@@ -1,6 +1,6 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Modal from '@material-ui/core/Modal';
+ import TextField from '@material-ui/core/TextField';
+ import Button from '@material-ui/core/Button';
+@@ -48,7 +48,7 @@
+       errorMessage = `Identifier ${value} already exists!`;
+     }
+
+-    this.setState({value, buttonDisabled, errorMessage});
++    this.setState({ value, buttonDisabled, errorMessage });
+   };
+
+   buttonAction = () => {
+@@ -58,17 +58,17 @@
+         .addItemAction(null, this.state.value)
+         .then(() => {
+           this.props.handleClose();
+-          this.setState({value: ''});
++          this.setState({ value: '' });
+         })
+         .catch(err => {
+-          this.setState({buttonDisabled: true, errorMessage: err});
++          this.setState({ buttonDisabled: true, errorMessage: err });
+         });
+     }
+   };
+
+   render() {
+-    const {open, handleClose, classes} = this.props;
+-    const {value, buttonDisabled} = this.state;
++    const { open, handleClose, classes } = this.props;
++    const { value, buttonDisabled } = this.state;
+
+     return (
+       <Modal
+Index: src/apps/Lab/libraries/SGDataLib/react/FormRenderer.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/react/FormRenderer.jsx	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/react/FormRenderer.jsx	(date 1565405625664)
+@@ -1,5 +1,5 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
+ import Card from '@material-ui/core/Card';
+ import CardHeader from '@material-ui/core/CardHeader';
+ import CardContent from '@material-ui/core/CardContent';
+@@ -17,15 +17,15 @@
+ import TextField from '@material-ui/core/TextField';
+ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+-import {withLocalize} from 'react-localize-redux';
+-import {connect} from 'react-redux';
++import { withLocalize } from 'react-localize-redux';
++import { connect } from 'react-redux';
+ import {
+   addLocalChange,
+   addTableRow,
+   removeAllLocalChangesForTableRow,
+   removeLocalChange
+ } from '../../../../../redux/actions/Lab/labActions';
+-import {unpackComplexObject} from '../datatypes/internal/FirebaseDataType';
++import { unpackComplexObject } from '../datatypes/internal/FirebaseDataType';
+ import clsx from 'clsx';
+ import Collapse from '@material-ui/core/Collapse';
+ import SelectDropdown from '../../../../../common/react/SelectDropdown';
+@@ -81,11 +81,11 @@
+         avatar={
+           this.hasLocalEdits(context) ? (
+             <Avatar className={classes.unwrittenEntry}>
+-              <EditIcon/>
++              <EditIcon />
+             </Avatar>
+           ) : (
+             <Avatar aria-label="Recipe" className={classes.writtenEntry}>
+-              <CheckIcon/>
++              <CheckIcon />
+             </Avatar>
+           )
+         }
+@@ -97,7 +97,7 @@
+               context.object
+             )}
+           >
+-            <DeleteIcon/>
++            <DeleteIcon />
+           </IconButton>
+         }
+         title={renderedItem.getFirebaseId()}
+@@ -112,7 +112,7 @@
+           disabled={!this.hasLocalEdits(context)}
+           onClick={this.writeALlEdits(context)}
+         >
+-          <CloudUploadIcon/>
++          <CloudUploadIcon />
+         </IconButton>
+         <IconButton
+           className={clsx(classes.expand, {
+@@ -122,7 +122,7 @@
+           aria-expanded={expanded}
+           aria-label="Show more"
+         >
+-          <ExpandMoreIcon/>
++          <ExpandMoreIcon />
+         </IconButton>
+       </CardActions>
+       <Collapse in={expanded} timeout="auto" unmountOnExit>
+@@ -140,19 +140,19 @@
+   };
+
+   handleExpandClick = () => {
+-    this.setState({expanded: !this.state.expanded});
++    this.setState({ expanded: !this.state.expanded });
+   };
+
+   handleInputChange = context => {
+     return evt => {
+       this.props.addLocalChange(
+-        Object.assign({}, context, {value: evt.target.value})
++        Object.assign({}, context, { value: evt.target.value })
+       );
+     };
+   };
+
+   deleteInputBoxContents = context => {
+-    this.props.addLocalChange(Object.assign({}, context, {value: null}));
++    this.props.addLocalChange(Object.assign({}, context, { value: null }));
+   };
+
+   resetInputBox = context => {
+@@ -164,7 +164,7 @@
+   hasLocalEdits = (context, checkField = false) => {
+     const local = this.props.localChanges;
+     if (checkField) {
+-      const {key} = context;
++      const { key } = context;
+
+       return !!(local && local[key] !== undefined);
+     } else {
+@@ -174,7 +174,7 @@
+
+   componentDidUpdate() {
+     const local = this.props.localChanges;
+-    const {renderedItem, table} = this.props;
++    const { renderedItem, table } = this.props;
+     const object = renderedItem.getFirebaseId();
+
+     if (local) {
+@@ -188,13 +188,13 @@
+         })
+         .every(key => !!key);
+       if (isSame) {
+-        this.props.removeAllLocalChangesForTableRow({table, object});
++        this.props.removeAllLocalChangesForTableRow({ table, object });
+       }
+     }
+   }
+
+   getLocalEdits = context => {
+-    const {key, serverValue} = context;
++    const { key, serverValue } = context;
+     const local = this.props.localChanges;
+     if (this.hasLocalEdits(context, true)) {
+       return local[key] || '';
+@@ -208,7 +208,7 @@
+       return;
+     }
+
+-    const {data} = context;
++    const { data } = context;
+     const local = this.props.localChanges;
+
+     return () => {
+@@ -223,7 +223,7 @@
+   };
+
+   deleteRow = context => {
+-    const {data} = context;
++    const { data } = context;
+
+     return () => {
+       data.delete().then(() => {
+@@ -312,8 +312,8 @@
+           if (fieldMetadata.type === 'boolean') {
+             useSelect = true;
+             autocompleteList = [
+-              {label: 'false', value: 'false'},
+-              {label: 'true', value: 'true'}
++              { label: 'false', value: 'false' },
++              { label: 'true', value: 'true' }
+             ];
+           }
+
+@@ -325,14 +325,14 @@
+             if (identifier === 'identifier') {
+               // Use the ID
+               autocompleteList = [
+-                {label: 'Unset', value: ''},
++                { label: 'Unset', value: '' },
+                 ...dataList.map(item => {
+-                  return {value: item.id, label: item.id};
++                  return { value: item.id, label: item.id };
+                 })
+               ];
+             } else {
+               autocompleteList = [
+-                {label: 'Unset', value: ''},
++                { label: 'Unset', value: '' },
+                 ...dataList.map(item => {
+                   return {
+                     value: item.data[identifier],
+@@ -353,7 +353,7 @@
+                   label={`${formattedKey}-${innerKey}`}
+                   helperText={`Server: ${
+                     context.serverValue ? context.serverValue : 'null'
+-                    }`}
++                  }`}
+                   suggestions={autocompleteList}
+                 />
+               ) : (
+@@ -366,7 +366,7 @@
+                   margin="normal"
+                   helperText={`Server: ${
+                     context.serverValue ? context.serverValue : 'null'
+-                    }`}
++                  }`}
+                   inputProps={fieldMetadata}
+                 />
+               )}
+@@ -376,7 +376,7 @@
+                 aria-label="Refresh"
+                 onClick={this.resetInputBox(context)}
+               >
+-                <RefreshIcon/>
++                <RefreshIcon />
+               </IconButton>
+             </React.Fragment>
+           );
+@@ -391,7 +391,7 @@
+               aria-label="Refresh"
+               onClick={() => thisAccessor.props.addTableRow(localContext)}
+             >
+-              <AddIcon/>
++              <AddIcon />
+             </IconButton>
+           );
+         } else {
+@@ -406,7 +406,7 @@
+                 })
+               }
+             >
+-              <DeleteIcon/>
++              <DeleteIcon />
+             </IconButton>
+           );
+         }
+@@ -468,8 +468,8 @@
+     if (dataMapping[dataKey].type === 'boolean') {
+       useSelect = true;
+       autocompleteList = [
+-        {label: 'false', value: 'false'},
+-        {label: 'true', value: 'true'}
++        { label: 'false', value: 'false' },
++        { label: 'true', value: 'true' }
+       ];
+     }
+
+@@ -481,14 +481,14 @@
+       if (identifier === 'identifier') {
+         // Use the ID
+         autocompleteList = [
+-          {label: 'Unset', value: ''},
++          { label: 'Unset', value: '' },
+           ...dataList.map(item => {
+-            return {value: item.id, label: item.id};
++            return { value: item.id, label: item.id };
+           })
+         ];
+       } else {
+         autocompleteList = [
+-          {label: 'Unset', value: ''},
++          { label: 'Unset', value: '' },
+           ...dataList.map(item => {
+             return {
+               value: item.data[identifier],
+@@ -508,7 +508,7 @@
+         classProp={classes.textField}
+         value={this.getLocalEdits(context) + ''}
+         label={dataKey}
+-        helperText={`Server: ${(key[dataKey]) ? key[dataKey] : 'null'}`}
++        helperText={`Server: ${key[dataKey] ? key[dataKey] : 'null'}`}
+         suggestions={autocompleteList}
+       />
+     ) : (
+@@ -533,19 +533,22 @@
+           aria-label="Refresh"
+           onClick={this.resetInputBox(context)}
+         >
+-          <RefreshIcon/>
++          <RefreshIcon />
+         </IconButton>
+       </div>
+     );
+   }
+
+   shouldComponentUpdate(nextProps, nextState, nextContext) {
+-    return this.state.expanded !== nextState.expanded || this.props.localChanges !== nextProps.localChanges;
++    return (
++      this.state.expanded !== nextState.expanded ||
++      this.props.localChanges !== nextProps.localChanges
++    );
+   }
+
+   render() {
+-    const {classes, renderedItem} = this.props;
+-    const {expanded} = this.state;
++    const { classes, renderedItem } = this.props;
++    const { expanded } = this.state;
+
+     const context = {
+       table: this.props.table,
+@@ -563,11 +566,11 @@
+ // }
+
+ function mapStateToProps(state, ownProps) {
+-  const {renderedItem, table} = ownProps;
++  const { renderedItem, table } = ownProps;
+   return {
+     localChanges: (state.labReducer.localChanges[table] || {})[
+       renderedItem.getFirebaseId()
+-      ]
++    ]
+   };
+ }
+
+Index: src/apps/Lab/LabApp.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/LabApp.jsx	(date 1565394545000)
++++ src/apps/Lab/LabApp.jsx	(date 1565405625659)
+@@ -1,8 +1,8 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
+
+-import {connect} from 'react-redux';
+-import {simpleAction} from '../../redux/actions/simpleAction';
++import { connect } from 'react-redux';
++import { simpleAction } from '../../redux/actions/simpleAction';
+ // import DatabaseEditor from './components/DatabaseEditor';
+ import recipes from '../../json/Recipe';
+ import items from '../../json/Items';
+@@ -19,11 +19,10 @@
+     },
+     container: {
+       gridArea: 'body',
+-      display: "grid",
+-      gridTemplateAreas:
+-        `"fullHeight"`,
+-      gridTemplateRows: "1fr",
+-      gridTemplateColumns: "1fr",
++      display: 'grid',
++      gridTemplateAreas: `"fullHeight"`,
++      gridTemplateRows: '1fr',
++      gridTemplateColumns: '1fr'
+     }
+   };
+ };
+@@ -32,7 +31,8 @@
+ // const REDIRECT_URI = "http://localhost:3000/lab";
+
+ function replaceSpecial(item) {
+-  return item.replace(/\./g, '')
++  return item
++    .replace(/\./g, '')
+     .replace(/\(/g, '')
+     .replace(/\)/g, '')
+     .replace(/-/g, '')
+@@ -51,27 +51,39 @@
+
+   generateResources() {
+     const DefaultJSON = {
+-      "isAltRecipe": false,
+-      "machineClass": "miner",
+-      "name": "nuclear_fuel_rod",
+-      "outputItemId": "nuclear_fuel_rod",
+-      "outputItemQuantity": "1",
+-      "input": []
++      isAltRecipe: false,
++      machineClass: 'miner',
++      name: 'nuclear_fuel_rod',
++      outputItemId: 'nuclear_fuel_rod',
++      outputItemQuantity: '1',
++      input: []
+     };
+
+     //30, 60, 120
+-    const normalResources = ['bauxite', 'caterium_ore', 'coal', 'copper_ore', 'crude_oil', 'iron_ore', 'limestone', 'raw_quartz', 'sam_ore', 'sulfur', 'uranium'];
++    const normalResources = [
++      'bauxite',
++      'caterium_ore',
++      'coal',
++      'copper_ore',
++      'crude_oil',
++      'iron_ore',
++      'limestone',
++      'raw_quartz',
++      'sam_ore',
++      'sulfur',
++      'uranium'
++    ];
+     const list = [];
+     const purities = ['impure', 'normal', 'pure'];
+     normalResources.forEach(resource => {
+       purities.forEach(purity => {
+         const doc = JSON.parse(JSON.stringify(DefaultJSON));
+
+-        doc.time = "1";
++        doc.time = '1';
+
+         if (resource === 'crude_oil') {
+           doc.machineClass = 'oil_pump';
+-          doc.time = "0.5";
++          doc.time = '0.5';
+         }
+
+         doc.name = purity + '_' + resource + '_node';
+@@ -79,36 +91,43 @@
+         doc.outputItemId = resource;
+
+         list.push(doc);
+-      })
++      });
+     });
+     return list;
+   }
+
+   processJSON() {
+-
+     // don't add it since it's already added
+     // recipes.push(...this.generateResources());
+     // console.error(JSON.stringify(recipes, null, 2));
+
+-    const itemsJSON = items.map(item => item.id).map(item => replaceSpecial(item)).sort();
++    const itemsJSON = items
++      .map(item => item.id)
++      .map(item => replaceSpecial(item))
++      .sort();
+     const mcJSON = machineclass.map(item => item.identifier).sort();
+-    const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item));
+-    const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item));
++    const raJSON = recipes
++      .map(item => item.alternateName)
++      .filter(item => item)
++      .map(item => replaceSpecial(item));
++    const rnJSON = recipes
++      .filter(item => !item.alternateName)
++      .map(item => item.name)
++      .map(item => replaceSpecial(item));
+
+     if (raJSON.length !== new Set(raJSON).size) {
+-      console.error("AAAAASSSS");
++      console.error('AAAAASSSS');
+     }
+
+     if (rnJSON.length !== new Set(rnJSON).size) {
+-      console.error("AAAAAB");
+-      console.error(rnJSON.sort(), new Set(rnJSON).size)
++      console.error('AAAAAB');
++      console.error(rnJSON.sort(), new Set(rnJSON).size);
+     }
+
+     // let intersection = new Set(
+     //   [...new Set(raJSON)].filter(x => new Set(rnJSON).has(x)));
+     // console.log(intersection);
+
+-
+     const ItemEnumMap = {};
+     const RecipeEnumMap = {};
+     const MachineClassUnlockMap = {};
+@@ -117,7 +136,7 @@
+     itemsJSON.forEach(item => {
+       ItemEnumMap[item] = counter++;
+     });
+-    console.error(machineclass, "AAAAA");
++    console.error(machineclass, 'AAAAA');
+     counter = 0;
+     mcJSON.forEach(mc => {
+       MachineClassUnlockMap[mc] = counter++;
+@@ -132,20 +151,19 @@
+       RecipeEnumMap[r] = counter++;
+     });
+
+-
+     //nested OUTPUT
+     // console.error(JSON.stringify(RecipeEnumMap));
+
+-    const protobuf = require("protobufjs/light");
++    const protobuf = require('protobufjs/light');
+
+-    const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
++    const root = protobuf.Root.fromJSON(schemas['0.1.0']);
+
+     // console.error(root);
+
+     function saveAs(blob, fileName) {
+       const url = window.URL.createObjectURL(blob);
+
+-      const anchorElem = document.createElement("a");
++      const anchorElem = document.createElement('a');
+       // anchorElem.style = "display: none";
+       anchorElem.href = url;
+       anchorElem.download = fileName;
+@@ -156,13 +174,12 @@
+
+       // On Edge, revokeObjectURL should be called only after
+       // a.click() has completed, atleast on EdgeHTML 15.15048
+-      setTimeout(function () {
++      setTimeout(function() {
+         window.URL.revokeObjectURL(url);
+       }, 1000);
+     }
+
+-
+-    const ItemData = root.lookupType("ItemData");
++    const ItemData = root.lookupType('ItemData');
+
+     const itemsList = items.map(item => {
+       const processedName = replaceSpecial(item.id);
+@@ -176,17 +193,23 @@
+       return ItemData.fromObject(data);
+     });
+
+-    const ItemList = root.lookupType("ItemList");
+-    const encoding = ItemList.encode(ItemList.fromObject({data: itemsList})).finish();
+-    const ItemListBlob = new Blob([encoding], {type: "application/octet-stream"});
+-    new Response(ItemListBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
+-      ItemList.decode(buffer);
+-      console.error(ItemList.decode(buffer));
+-      saveAs(ItemListBlob, "ItemList.s2");
+-    });
++    const ItemList = root.lookupType('ItemList');
++    const encoding = ItemList.encode(
++      ItemList.fromObject({ data: itemsList })
++    ).finish();
++    const ItemListBlob = new Blob([encoding], {
++      type: 'application/octet-stream'
++    });
++    new Response(ItemListBlob)
++      .arrayBuffer()
++      .then(buffer => new Uint8Array(buffer))
++      .then(buffer => {
++        ItemList.decode(buffer);
++        console.error(ItemList.decode(buffer));
++        saveAs(ItemListBlob, 'ItemList.s2');
++      });
+
+-
+-    const MachineClassData = root.lookupType("MachineClassData");
++    const MachineClassData = root.lookupType('MachineClassData');
+
+     function processUpgradeLevels(level, solo = false) {
+       if (solo) {
+@@ -426,7 +449,6 @@
+         default:
+           return null;
+       }
+-
+     }
+
+     const machineClassList = [];
+@@ -448,21 +470,30 @@
+           localOrdering: index
+         };
+         machineClassList.push(MachineClassData.fromObject(data));
+-      })
++      });
+     });
+
+-    const MachineClassList = root.lookupType("MachineClassList");
+-    const MCEncoding = MachineClassList.encode(MachineClassList.fromObject({data: machineClassList})).finish();
+-    const MachineClassBlob = new Blob([MCEncoding], {type: "application/octet-stream"});
+-    new Response(MachineClassBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
+-      MachineClassList.decode(buffer);
+-      saveAs(MachineClassBlob, "MachineClassList.s2");
+-    });
+-
++    const MachineClassList = root.lookupType('MachineClassList');
++    const MCEncoding = MachineClassList.encode(
++      MachineClassList.fromObject({ data: machineClassList })
++    ).finish();
++    const MachineClassBlob = new Blob([MCEncoding], {
++      type: 'application/octet-stream'
++    });
++    new Response(MachineClassBlob)
++      .arrayBuffer()
++      .then(buffer => new Uint8Array(buffer))
++      .then(buffer => {
++        MachineClassList.decode(buffer);
++        saveAs(MachineClassBlob, 'MachineClassList.s2');
++      });
+
+     function processResourcePacket(packet) {
+       const processedName = replaceSpecial(packet.itemId);
+-      return {item: ItemEnumMap[processedName], itemQuantity: parseInt(packet.itemQty)}
++      return {
++        item: ItemEnumMap[processedName],
++        itemQuantity: parseInt(packet.itemQty)
++      };
+     }
+
+     const recipeList = recipes.map(item => {
+@@ -475,7 +506,12 @@
+           machineClass: machineNum,
+           time: parseFloat(item.time),
+           input: item.input.map(item => processResourcePacket(item)),
+-          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
++          output: [
++            processResourcePacket({
++              itemId: item.outputItemId,
++              itemQty: item.outputItemQuantity
++            })
++          ],
+           hidden: false,
+           alt: true
+         };
+@@ -488,30 +524,33 @@
+           machineClass: machineNum,
+           time: parseFloat(item.time),
+           input: item.input.map(item => processResourcePacket(item)),
+-          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
++          output: [
++            processResourcePacket({
++              itemId: item.outputItemId,
++              itemQty: item.outputItemQuantity
++            })
++          ],
+           hidden: false
+         };
+       }
+     });
+
+-
+     function humanize(str) {
+       const frags = str.split('_');
+-      for (let i=0; i<frags.length; i++) {
++      for (let i = 0; i < frags.length; i++) {
+         frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+       }
+       return frags.join(' ');
+     }
+
+-
+     const z = {};
+-    recipeList.map(item => item.name).forEach(item => {
+-      z[item] = humanize(item);
+-    });
++    recipeList
++      .map(item => item.name)
++      .forEach(item => {
++        z[item] = humanize(item);
++      });
+
+-
+-
+-    console.error(JSON.stringify(z, null, 2), "AAAAAAAA");
++    console.error(JSON.stringify(z, null, 2), 'AAAAAAAA');
+
+     //   var frags = str.split('_');
+     //   for (let i=0; i<frags.length; i++) {
+@@ -520,18 +559,22 @@
+     //   return frags.join(' ');
+     // }
+
+-
+-    const RecipeList = root.lookupType("RecipeList");
+-    const RCEncoding = RecipeList.encode(RecipeList.fromObject({data: recipeList})).finish();
+-    const RDBlob = new Blob([RCEncoding], {type: "application/octet-stream"});
+-    new Response(RDBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
+-      console.error(RecipeList.decode(buffer));
+-      saveAs(RDBlob, "RecipeList.s2");
+-    })
++    const RecipeList = root.lookupType('RecipeList');
++    const RCEncoding = RecipeList.encode(
++      RecipeList.fromObject({ data: recipeList })
++    ).finish();
++    const RDBlob = new Blob([RCEncoding], { type: 'application/octet-stream' });
++    new Response(RDBlob)
++      .arrayBuffer()
++      .then(buffer => new Uint8Array(buffer))
++      .then(buffer => {
++        console.error(RecipeList.decode(buffer));
++        saveAs(RDBlob, 'RecipeList.s2');
++      });
+   }
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <div className={classes.container}>
+Index: src/apps/Graph/components/GraphCanvas.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphCanvas.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphCanvas.jsx	(date 1565405625652)
+@@ -1,23 +1,22 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ // import {canvasBackgroundColor} from "../../../theme";
+ import SGCanvas from '../libraries/SGLib/react/SGCanvas';
+-import GraphActionsBottomActions from "./GraphActionsBottomActions";
++import GraphActionsBottomActions from './GraphActionsBottomActions';
+
+ const styles = theme => ({
+   canvasContainer: {
+-    display: "grid",
+-    gridArea: "canvasArea",
+-    gridTemplateAreas:
+-      `"canvasElement"`,
+-    gridTemplateRows: "minmax(0, 1fr)",
+-    gridTemplateColumns: "1fr",
++    display: 'grid',
++    gridArea: 'canvasArea',
++    gridTemplateAreas: `"canvasElement"`,
++    gridTemplateRows: 'minmax(0, 1fr)',
++    gridTemplateColumns: '1fr',
+     minWidth: 0,
+     minHeight: 0,
+-    position: "relative"
++    position: 'relative'
+     // overflow: "hidden"
+-  },
++  }
+ });
+
+ class GraphCanvas extends Component {
+@@ -78,7 +77,7 @@
+   }
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <div ref={this.canvasContainer} className={classes.canvasContainer}>
+@@ -89,7 +88,7 @@
+             height={this.state.height}
+           />
+         ) : null}
+-        <GraphActionsBottomActions/>
++        <GraphActionsBottomActions />
+       </div>
+     );
+   }
+Index: src/apps/Lab/libraries/SGDataLib/datatypes/UpgradeTier.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/datatypes/UpgradeTier.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/datatypes/UpgradeTier.ts	(date 1565405625663)
+@@ -1,4 +1,4 @@
+-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
++import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+ import FirebaseDataType from './internal/FirebaseDataType';
+
+ export default class UpgradeTier extends FirebaseDataType {
+@@ -10,15 +10,13 @@
+     return BuilderFactoryFirebase<UpgradeTier>(firebaseRef, UpgradeTier);
+   }
+
+-  import() {
+-  }
++  import() {}
+
+   dataMapping() {
+     return {
+-      identifier: {type: 'string'}
++      identifier: { type: 'string' }
+     };
+   }
+
+-  saveProto(docs: any, protoRoot: any): any {
+-  }
++  saveProto(docs: any, protoRoot: any): any {}
+ }
+Index: src/apps/Graph/components/GraphAppBar.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphAppBar.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphAppBar.jsx	(date 1565405625651)
+@@ -1,7 +1,7 @@
+ import AppBar from '@material-ui/core/AppBar';
+-import {Toolbar, withStyles} from '@material-ui/core';
+-import React, {Component} from 'react';
+-import {connect} from 'react-redux';
++import { Toolbar, withStyles } from '@material-ui/core';
++import React, { Component } from 'react';
++import { connect } from 'react-redux';
+ import Hidden from '@material-ui/core/Hidden';
+
+ import GraphSettingsButton from './GraphSettingsButton';
+@@ -34,11 +34,11 @@
+
+ class GraphAppBar extends Component {
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <AppBar position="fixed" className={classes.appBar}>
+-        <Toolbar classes={{root: classes.toolbar}}>
++        <Toolbar classes={{ root: classes.toolbar }}>
+           <Hidden xsDown implementation="css">
+             <img
+               src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
+@@ -53,10 +53,10 @@
+               className={classes.logoSmall}
+             />
+           </Hidden>
+-          <div className={classes.grow}/>
+-          <GraphShareButton/>
+-          <GraphSettingsButton/>
+-          <GraphHelpButton/>
++          <div className={classes.grow} />
++          <GraphShareButton />
++          <GraphSettingsButton />
++          <GraphHelpButton />
+         </Toolbar>
+       </AppBar>
+     );
+Index: src/apps/Graph/libraries/SGLib/canvas/canvasFunctions.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/libraries/SGLib/canvas/canvasFunctions.js	(date 1565394545000)
++++ src/apps/Graph/libraries/SGLib/canvas/canvasFunctions.js	(date 1565405625657)
+@@ -1,5 +1,3 @@
+-const derp = () => {
++const derp = () => {};
+
+-};
+-
+-export default derp;
+\ No newline at end of file
++export default derp;
+Index: src/apps/Lab/libraries/SGDataLib/datatypes/internal/FirebaseDataType.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/datatypes/internal/FirebaseDataType.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/datatypes/internal/FirebaseDataType.ts	(date 1565405625664)
+@@ -1,9 +1,9 @@
+ import firebase from 'firebase/app';
+ import 'firebase/firestore';
+
+-import {traverseDocPath} from '../../utils/BuilderFactory';
++import { traverseDocPath } from '../../utils/BuilderFactory';
+ import firebaseFirestore from '../../../../../../common/firebase/firebaseFirestore';
+-import schemas from "../../../../../../generated";
++import schemas from '../../../../../../generated';
+
+ const hiddenFieldPrefix = '__sglib__';
+ const complexArrayFieldPrefix = '__sglibarrcomplex__';
+@@ -22,11 +22,10 @@
+   return (i + '').padStart(10, '0');
+ }
+
+-
+ function saveAs(blob: any, fileName: any) {
+   const url = window.URL.createObjectURL(blob);
+
+-  const anchorElem = document.createElement("a");
++  const anchorElem = document.createElement('a');
+   // anchorElem.style = "display: none";
+   anchorElem.href = url;
+   anchorElem.download = fileName;
+@@ -37,12 +36,11 @@
+
+   // On Edge, revokeObjectURL should be called only after
+   // a.click() has completed, atleast on EdgeHTML 15.15048
+-  setTimeout(function () {
++  setTimeout(function() {
+     window.URL.revokeObjectURL(url);
+   }, 1000);
+ }
+
+-
+ export default abstract class FirebaseDataType {
+   identifierAsDocumentName: boolean = false;
+   gsheetId: number = -1;
+@@ -57,44 +55,52 @@
+   public abstract saveProto(docs: any, protoRoot: any): any;
+
+   public downloadDataToProto(path: any): any {
+-    const protobuf = require("protobufjs/light");
+-    console.error(schemas, "AAAA");
+-    const root = protobuf.Root.fromJSON((schemas as any)["0.1.0"]);
++    const protobuf = require('protobufjs/light');
++    console.error(schemas, 'AAAA');
++    const root = protobuf.Root.fromJSON((schemas as any)['0.1.0']);
+     const table = traverseDocPath(path, firebaseFirestore);
+
+     table.get().then((querySnapshot: any) => {
+-
+       const totalQuery: any = [];
+
+       querySnapshot.forEach((doc: any) => {
+         totalQuery.push(doc.data());
+       });
+
+-      const {table, filename} = this.saveProto(totalQuery, root);
+-      const blob = new Blob([table], {type: "application/octet-stream"});
++      const { table, filename } = this.saveProto(totalQuery, root);
++      const blob = new Blob([table], { type: 'application/octet-stream' });
+       saveAs(blob, filename);
+
+-      const ItemList = root.lookupType("ItemList");
++      const ItemList = root.lookupType('ItemList');
+
+       // new Response(blob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
+       //   const message = ItemList.decode(buffer);
+       //   console.error(message);
+       // })
+       //
+-      fetch("/proto/0.1.0/ItemList.s2").then(resp => resp.blob()).then(blob => new Response(blob).arrayBuffer()).then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
+-        const message = ItemList.decode(buffer);
+-        console.error(message);
+-      })
++      fetch('/proto/0.1.0/ItemList.s2')
++        .then(resp => resp.blob())
++        .then(blob => new Response(blob).arrayBuffer())
++        .then(buffer => new Uint8Array(buffer))
++        .then((buffer: any) => {
++          const message = ItemList.decode(buffer);
++          console.error(message);
++        });
+     });
+   }
+
+-  unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any, keyAlternateName: any = {}): any {
++  unpackDataFromSpreadSheet(
++    keys: any,
++    data: any,
++    parseFunctions: any,
++    keyAlternateName: any = {}
++  ): any {
+     const prefix = 'gsx$';
+     const dict: any = {};
+     keys.forEach((key: any) => {
+       const func =
+         parseFunctions[key] ||
+-        function (a: any) {
++        function(a: any) {
+           return a;
+         };
+       if (keyAlternateName[key]) {
+@@ -109,7 +115,6 @@
+           delete dict[key];
+         }
+       }
+-
+     });
+
+     return dict;
+@@ -135,11 +140,10 @@
+     newPath.push(siblingName);
+     const table = traverseDocPath(newPath.join('/'), firebaseFirestore);
+
+-    return table.get().then(function (querySnapshot: any) {
+-
++    return table.get().then(function(querySnapshot: any) {
+       const totalQuery: any = [];
+
+-      querySnapshot.forEach(function (doc: any) {
++      querySnapshot.forEach(function(doc: any) {
+         totalQuery.push(doc.data());
+       });
+
+@@ -176,7 +180,7 @@
+
+           for (let i = 0; i < numEntries; i++) {
+             map[item].forEach((descriptor: any) => {
+-              const {identifier, type, ref} = descriptor;
++              const { identifier, type, ref } = descriptor;
+               // this.__sglib__addedFieldsMetadata[item] = this.__sglib__addedFieldsMetadata[item] || {};
+               // this.__sglib__addedFieldsMetadata[item].fields = this.__sglib__addedFieldsMetadata[item].fields || new Set();
+               // this.__sglib__addedFieldsMetadata[item].fields.add(identifier);
+@@ -193,7 +197,7 @@
+                 paddedIndex +
+                 secretDelimiter +
+                 identifier;
+-              generatedDataMap[obfuscatedName] = {type, ref};
++              generatedDataMap[obfuscatedName] = { type, ref };
+               if (((this as any)[item] || []).length === 0) {
+                 // create blanks?
+               } else {
+@@ -204,7 +208,7 @@
+                 ) {
+                   (this as any)[obfuscatedName] = (this as any)[item][i][
+                     identifier
+-                    ];
++                  ];
+                 }
+               }
+             });
+@@ -262,7 +266,7 @@
+       this.__sglib__firebaseRef = docRef;
+       this.__sglib__firebaseRefPath = path + '/' + name;
+
+-      return docRef.get().then(function (doc: any) {
++      return docRef.get().then(function(doc: any) {
+         if (doc.exists && !overwrite) {
+           return Promise.reject(`Entry with name ${name} already exists!`);
+         } else {
+@@ -299,11 +303,10 @@
+           });
+       } catch (e) {
+         console.error(e);
+-        console.error("!!!!!", JSON.stringify(initialPojo));
++        console.error('!!!!!', JSON.stringify(initialPojo));
+       }
+
+-
+-      return result
++      return result;
+     }
+   }
+
+@@ -332,9 +335,9 @@
+         if (!this.__sglib__addedFields.has(key)) {
+           resultantPojso[key] = (this as any)[key] || null;
+           if (resultantPojso[key] === 'false') {
+-            resultantPojso[key] = false
++            resultantPojso[key] = false;
+           } else if (resultantPojso[key] === 'true') {
+-            resultantPojso[key] = true
++            resultantPojso[key] = true;
+           }
+         }
+       }
+@@ -351,8 +354,8 @@
+     const documentData = this.getData();
+
+     documentData[
+-    hiddenFieldPrefix + 'timestamp'
+-      ] = firebase.firestore.Timestamp.now();
++      hiddenFieldPrefix + 'timestamp'
++    ] = firebase.firestore.Timestamp.now();
+     const pojso = cleanDeep(documentData);
+     let result = null;
+
+@@ -363,13 +366,12 @@
+         .catch((err: any) => {
+           console.error(err);
+         });
+-
+     } catch (e) {
+       console.error(e);
+-      console.error("!!!!!", pojso);
++      console.error('!!!!!', pojso);
+     }
+
+-    return result
++    return result;
+   }
+
+   public delete(): any {
+Index: src/apps/Graph/components/GraphActionsBottomActions.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphActionsBottomActions.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphActionsBottomActions.jsx	(date 1565405625651)
+@@ -1,13 +1,13 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import BottomNavigation from '@material-ui/core/BottomNavigation';
+ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+ import OpenWithIcon from '@material-ui/icons/OpenWith';
+ import CropFreeIcon from '@material-ui/icons/CropFree';
+ import AddIcon from '@material-ui/icons/Add';
+-import {setMouseMode} from '../../../redux/actions/Graph/graphActions';
++import { setMouseMode } from '../../../redux/actions/Graph/graphActions';
+
+ const styles = theme => ({
+   default: {
+@@ -22,7 +22,7 @@
+     display: 'flex',
+     alignItems: 'center',
+     justifyContent: 'center',
+-    pointerEvents: 'none',
++    pointerEvents: 'none'
+   },
+   navigation: {
+     borderRadius: 5,
+@@ -36,7 +36,7 @@
+   };
+
+   render() {
+-    const {classes, mouseMode} = this.props;
++    const { classes, mouseMode } = this.props;
+
+     return (
+       <div className={classes.root}>
+@@ -48,19 +48,19 @@
+           <BottomNavigationAction
+             label="Pan"
+             value="pan"
+-            icon={<OpenWithIcon/>}
++            icon={<OpenWithIcon />}
+           />
+           <BottomNavigationAction
+             label="Select"
+             value="select"
+-            icon={<CropFreeIcon/>}
++            icon={<CropFreeIcon />}
+           />
+           <BottomNavigationAction
+             label="Link"
+             value="link"
+-            icon={<DeviceHubIcon/>}
++            icon={<DeviceHubIcon />}
+           />
+-          <BottomNavigationAction label="Add" value="add" icon={<AddIcon/>}/>
++          <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
+         </BottomNavigation>
+       </div>
+     );
+Index: src/apps/Lab/libraries/SGDataLib/datatypes/MachineClass.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/datatypes/MachineClass.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/datatypes/MachineClass.ts	(date 1565405625662)
+@@ -1,4 +1,4 @@
+-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
++import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+ import FirebaseDataType from './internal/FirebaseDataType';
+
+ const cleanDeep = require('clean-deep');
+@@ -47,17 +47,17 @@
+           inputs: data.inputslots,
+           outputs: data.outputslots,
+           upgradeLevels: [
+-            {upgradeTier: data.upgradelevel1},
+-            {upgradeTier: data.upgradelevel2},
+-            {upgradeTier: data.upgradelevel3},
+-            {upgradeTier: data.upgradelevel4},
+-            {upgradeTier: data.upgradelevel5},
+-            {upgradeTier: data.upgradelevel6}
++            { upgradeTier: data.upgradelevel1 },
++            { upgradeTier: data.upgradelevel2 },
++            { upgradeTier: data.upgradelevel3 },
++            { upgradeTier: data.upgradelevel4 },
++            { upgradeTier: data.upgradelevel5 },
++            { upgradeTier: data.upgradelevel6 }
+           ].filter((item: any) => item && item.upgradeTier),
+           powerLevel: [
+-            {tier: data.upgradelevel1, power: data.powerlevel1},
+-            {tier: data.upgradelevel2, power: data.powerlevel2},
+-            {tier: data.upgradelevel3, power: data.powerlevel3},
++            { tier: data.upgradelevel1, power: data.powerlevel1 },
++            { tier: data.upgradelevel2, power: data.powerlevel2 },
++            { tier: data.upgradelevel3, power: data.powerlevel3 }
+           ].filter((item: any) => item && item.tier && item.power)
+         };
+
+@@ -70,13 +70,13 @@
+   // https://docs.google.com/spreadsheets/d/1QTdoUFIJ3GQFodgaDkrj2wbkl151EIwym99Wm3xFLOQ/edit#gid=0
+   dataMapping() {
+     return {
+-      identifier: {type: 'string'},
++      identifier: { type: 'string' },
+       upgradeLevels: [
+-        {identifier: 'upgradeTier', type: 'string', ref: 'UpgradeTier'}
++        { identifier: 'upgradeTier', type: 'string', ref: 'UpgradeTier' }
+       ],
+       powerLevel: [
+-        {identifier: 'tier', type: 'string', ref: 'UpgradeTier'},
+-        {identifier: 'power', type: 'number'}
++        { identifier: 'tier', type: 'string', ref: 'UpgradeTier' },
++        { identifier: 'power', type: 'number' }
+       ]
+     };
+   }
+Index: src/apps/Lab/libraries/SGDataLib/datatypes/Item.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/datatypes/Item.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/datatypes/Item.ts	(date 1565405625662)
+@@ -1,4 +1,4 @@
+-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
++import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+ import FirebaseDataType from './internal/FirebaseDataType';
+
+ export default class Item extends FirebaseDataType {
+@@ -26,7 +26,6 @@
+     const promiseList: any = [];
+     this.grabPageData().then((data: any) => {
+       data.forEach((item: any) => {
+-
+         const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
+         data.iconPath = data.identifier + '.png';
+         console.error(data.identifier);
+@@ -35,21 +34,21 @@
+       });
+     });
+     Promise.all(promiseList).then(() => {
+-      console.error("All done!");
+-    })
++      console.error('All done!');
++    });
+   }
+
+   dataMapping() {
+     return {
+-      iconPath: {type: 'string'}
++      iconPath: { type: 'string' }
+       // testNumber: {type: 'number'},
+       // testMultiple: [{identifier: 'a', type: 'number'}, {identifier: 'b', type: 'number'}]
+     };
+   }
+
+   saveProto(docs: any, protoRoot: any): any {
+-    const Item = protoRoot.lookupType("Item");
+-    const ItemList = protoRoot.lookupType("ItemList");
++    const Item = protoRoot.lookupType('Item');
++    const ItemList = protoRoot.lookupType('ItemList');
+     const itemsList: any[] = [];
+     docs.forEach((d: any) => {
+       const docItem = Item.create({
+@@ -58,14 +57,14 @@
+         hidden: false
+       });
+
+-      itemsList.push(docItem)
++      itemsList.push(docItem);
+     });
+
+     console.error(JSON.stringify(itemsList));
+
+-    const message = ItemList.create({data: itemsList});
++    const message = ItemList.create({ data: itemsList });
+     const buffer = ItemList.encode(message).finish();
+-    const filename = "ItemList.s2";
++    const filename = 'ItemList.s2';
+
+     return {
+       table: buffer,
+Index: src/apps/Lab/libraries/SGDataLib/datatypes/Recipe.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/datatypes/Recipe.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/datatypes/Recipe.ts	(date 1565405625663)
+@@ -1,4 +1,4 @@
+-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
++import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
+ import FirebaseDataType from './internal/FirebaseDataType';
+
+ export default class Recipe extends FirebaseDataType {
+@@ -95,10 +95,10 @@
+               outputItemQuantity: data.unitsproduced,
+               time: data.timeperbatch,
+               input: [
+-                {itemId: data.resource1, itemQty: data.perbatch1},
+-                {itemId: data.resource2, itemQty: data.perbatch2},
+-                {itemId: data.resource3, itemQty: data.perbatch3},
+-                {itemId: data.resource4, itemQty: data.perbatch4}
++                { itemId: data.resource1, itemQty: data.perbatch1 },
++                { itemId: data.resource2, itemQty: data.perbatch2 },
++                { itemId: data.resource3, itemQty: data.perbatch3 },
++                { itemId: data.resource4, itemQty: data.perbatch4 }
+               ].filter((item: any) => item && item.itemId)
+             };
+             // if (newPojo.name === "hazmat_filter" ) {
+@@ -113,23 +113,21 @@
+     });
+   }
+
+-
+   dataMapping() {
+     return {
+-      name: {type: 'string'},
+-      outputItemId: {type: 'string', ref: 'Item'},
+-      outputItemQuantity: {type: 'number'},
+-      alternateName: {type: 'string'},
+-      isAltRecipe: {type: 'boolean'},
+-      machineClass: {type: 'string', ref: 'MachineClass'},
++      name: { type: 'string' },
++      outputItemId: { type: 'string', ref: 'Item' },
++      outputItemQuantity: { type: 'number' },
++      alternateName: { type: 'string' },
++      isAltRecipe: { type: 'boolean' },
++      machineClass: { type: 'string', ref: 'MachineClass' },
+       input: [
+-        {identifier: 'itemId', type: 'string', ref: 'Item'},
+-        {identifier: 'itemQty', type: 'number'}
++        { identifier: 'itemId', type: 'string', ref: 'Item' },
++        { identifier: 'itemQty', type: 'number' }
+       ]
+     };
+   }
+
+-
+   saveProto(docs: any, protoRoot: any): any {
+     console.log(JSON.stringify(docs));
+   }
+Index: src/apps/Lab/libraries/SGDataLib/constants/tableConstants.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/constants/tableConstants.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/constants/tableConstants.ts	(date 1565405625661)
+@@ -15,9 +15,11 @@
+ export const getTables = (versions: any) => {
+   return (versions || [])
+     .map((version: any) =>
+-      Object.keys(tableMapping).reverse().map(name => {
+-        return [fabrics[0], version, name].join('/');
+-      })
++      Object.keys(tableMapping)
++        .reverse()
++        .map(name => {
++          return [fabrics[0], version, name].join('/');
++        })
+     )
+     .flat();
+ };
+Index: src/apps/Lab/libraries/SGDataLib/utils/BuilderFactory.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/utils/BuilderFactory.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/utils/BuilderFactory.ts	(date 1565405625665)
+@@ -1,6 +1,6 @@
+ export default function BuilderFactory<T, S>(
+   interfaceObject: T,
+-  type: { new(): S }
++  type: { new (): S }
+ ): S {
+   const starterObject: any = new type();
+
+@@ -32,7 +32,7 @@
+
+ export function BuilderFactoryFirebase<S>(
+   firebaseObject: any,
+-  type: { new(): S }
++  type: { new (): S }
+ ): S {
+   const starterObject: any = new type();
+
+Index: src/redux/actions/common/commonActions.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/actions/common/commonActions.js	(date 1565394545000)
++++ src/redux/actions/common/commonActions.js	(date 1565405625679)
+@@ -3,4 +3,4 @@
+     type: 'SET_UPDATE_AVAILABLE',
+     payload: data
+   });
+-};
+\ No newline at end of file
++};
+Index: src/common/react/LoadingBar.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/LoadingBar.jsx	(date 1565394545000)
++++ src/common/react/LoadingBar.jsx	(date 1565405625669)
+@@ -1,24 +1,30 @@
+-import React, {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {stringGen} from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+-import {getTranslate} from 'react-localize-redux';
+-import {connect} from 'react-redux';
+-import PropTypes from "prop-types";
++import React, {
++  useCallback,
++  useEffect,
++  useLayoutEffect,
++  useMemo,
++  useRef,
++  useState
++} from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
++import { getTranslate } from 'react-localize-redux';
++import { connect } from 'react-redux';
++import PropTypes from 'prop-types';
+
+ const styles = () => ({
+   canvasContainer: {
+-    overflow: "hidden",
+-    display: "grid",
+-    gridTemplateAreas:
+-      `"spacerTop"
++    overflow: 'hidden',
++    display: 'grid',
++    gridTemplateAreas: `"spacerTop"
+        "loader"
+        "spacerBottom"`,
+-    gridTemplateRows: "minmax(0, 1fr) min-content minmax(0, 1fr)",
+-    gridTemplateColumns: "minmax(0, 1fr)",
++    gridTemplateRows: 'minmax(0, 1fr) min-content minmax(0, 1fr)',
++    gridTemplateColumns: 'minmax(0, 1fr)'
+   },
+   canvas: {
+-    gridArea: 'loader',
+-  },
++    gridArea: 'loader'
++  }
+ });
+
+ function useBoundingBoxRect(props) {
+@@ -30,25 +36,30 @@
+   const [canvasContainerCurrent, setCanvasContainerCurrent] = useState(null);
+   const [canvasCurrent, setCanvasCurrent] = useState(null);
+
+-  const ref = useCallback((node => {
++  const ref = useCallback(node => {
+     setCanvasContainerCurrent(node);
+-  }), []);
++  }, []);
+
+-  const canvasRef = useCallback((node => {
++  const canvasRef = useCallback(node => {
+     setCanvasCurrent(node);
+-  }), []);
++  }, []);
+
+-  const {heightOverride, widthOverride} = props;
++  const { heightOverride, widthOverride } = props;
+
+   useEffect(() => {
+     function measureElement() {
+       if (canvasContainerCurrent) {
+         const boundingRect = canvasContainerCurrent.getBoundingClientRect();
+         if (canvasCurrent) {
+-          canvasCurrent.style.width = Math.round(widthOverride || rect.width) + 'px';
+-          canvasCurrent.style.height = Math.round(heightOverride || rect.height) + 'px';
++          canvasCurrent.style.width =
++            Math.round(widthOverride || rect.width) + 'px';
++          canvasCurrent.style.height =
++            Math.round(heightOverride || rect.height) + 'px';
+         }
+-        if (boundingRect.width !== rect.width || boundingRect.height !== rect.height) {
++        if (
++          boundingRect.width !== rect.width ||
++          boundingRect.height !== rect.height
++        ) {
+           setRect(boundingRect);
+         }
+       }
+@@ -57,7 +68,13 @@
+     measureElement();
+     window.addEventListener('resize', measureElement, false);
+     return () => window.removeEventListener('resize', measureElement, false);
+-  }, [rect, canvasCurrent, canvasContainerCurrent, heightOverride, widthOverride]);
++  }, [
++    rect,
++    canvasCurrent,
++    canvasContainerCurrent,
++    heightOverride,
++    widthOverride
++  ]);
+
+   const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
+
+@@ -66,28 +83,20 @@
+
+ const useAnimationFrame = callback => {
+   const callbackRef = useRef(callback);
+-  useLayoutEffect(
+-    () => {
+-      callbackRef.current = callback;
+-    },
+-    [callback]
+-  );
++  useLayoutEffect(() => {
++    callbackRef.current = callback;
++  }, [callback]);
+
+   const frameRef = useRef();
+   useLayoutEffect(() => {
+     const loop = () => {
+-      frameRef.current = requestAnimationFrame(
+-        loop
+-      );
++      frameRef.current = requestAnimationFrame(loop);
+       const cb = callbackRef.current;
+       cb();
+     };
+
+-    frameRef.current = requestAnimationFrame(
+-      loop
+-    );
+-    return () =>
+-      cancelAnimationFrame(frameRef.current);
++    frameRef.current = requestAnimationFrame(loop);
++    return () => cancelAnimationFrame(frameRef.current);
+   }, []);
+ };
+
+@@ -102,75 +111,83 @@
+   context.fill();
+ }
+
+-const LoadingCanvas = (props) => {
++const LoadingCanvas = props => {
+   const canvasId = useMemo(() => stringGen(10), []);
+   const [rect, ref, canvasRef, canvasContext] = useBoundingBoxRect(props);
+   const ratio = window.devicePixelRatio || 1;
+-  const {heightOverride, widthOverride} = props;
++  const { heightOverride, widthOverride } = props;
+
+-  const [loadingText, setLoadingText] = useState(props.translate('loadingText_message0'));
++  const [loadingText, setLoadingText] = useState(
++    props.translate('loadingText_message0')
++  );
+   const [offset, setOffset] = useState(0);
+
+   const usedHeight = heightOverride || rect.height;
+   const usedWidth = widthOverride || rect.width;
+
+   useAnimationFrame(() => {
+-      if (!canvasContext)
+-        return;
++    if (!canvasContext) return;
+
+-      canvasContext.save();
+-      canvasContext.scale(ratio, ratio);
++    canvasContext.save();
++    canvasContext.scale(ratio, ratio);
+
+-      const width = usedWidth;
++    const width = usedWidth;
+
+-      const rhombusHeight = 50;
+-      const rhombusWidth = 100;
+-      const numberOfRhombus = width / rhombusWidth + 2;
+-      const loadingTextLength = 12;
++    const rhombusHeight = 50;
++    const rhombusWidth = 100;
++    const numberOfRhombus = width / rhombusWidth + 2;
++    const loadingTextLength = 12;
+
+-      setOffset((offset - 1) % rhombusWidth);
++    setOffset((offset - 1) % rhombusWidth);
+
+-      const starting = offset - rhombusWidth;
+-      canvasContext.clearRect(0, 0, usedWidth, usedHeight);
+-      //
+-      for (let i = 0; i < numberOfRhombus; i++) {
+-        drawRhombus(
+-          canvasContext,
+-          starting + i * rhombusWidth,
+-          0,
+-          rhombusHeight,
+-          rhombusWidth
+-        );
+-      }
+-      //
+-      if (props.loadingText) {
+-        canvasContext.textBaseline = 'middle';
+-        canvasContext.textAlign = 'center';
+-        canvasContext.font = '20px monospace';
+-        canvasContext.fillStyle = 'white';
+-        if (!(offset % 15)) {
+-          const rand = Math.floor(Math.random() * loadingTextLength);
+-          setLoadingText(props.translate('loadingText_message' + rand));
+-        }
++    const starting = offset - rhombusWidth;
++    canvasContext.clearRect(0, 0, usedWidth, usedHeight);
++    //
++    for (let i = 0; i < numberOfRhombus; i++) {
++      drawRhombus(
++        canvasContext,
++        starting + i * rhombusWidth,
++        0,
++        rhombusHeight,
++        rhombusWidth
++      );
++    }
++    //
++    if (props.loadingText) {
++      canvasContext.textBaseline = 'middle';
++      canvasContext.textAlign = 'center';
++      canvasContext.font = '20px monospace';
++      canvasContext.fillStyle = 'white';
++      if (!(offset % 15)) {
++        const rand = Math.floor(Math.random() * loadingTextLength);
++        setLoadingText(props.translate('loadingText_message' + rand));
++      }
+
+-        canvasContext.fillText(loadingText, parseInt(`${width / 2}`), parseInt(`${rhombusHeight + 30}`));
+-      }
++      canvasContext.fillText(
++        loadingText,
++        parseInt(`${width / 2}`),
++        parseInt(`${rhombusHeight + 30}`)
++      );
++    }
+
+-      canvasContext.restore();
+-    }
+-  );
++    canvasContext.restore();
++  });
+
+   return (
+-    <div ref={ref} className={props.classes.canvasContainer} style={{overflow: 'hidden'}}>
++    <div
++      ref={ref}
++      className={props.classes.canvasContainer}
++      style={{ overflow: 'hidden' }}
++    >
+       <canvas
+         id={canvasId}
+         className={props.classes.canvas}
+         ref={canvasRef}
+-        height={(usedHeight) * ratio}
+-        width={(usedWidth) * ratio}
++        height={usedHeight * ratio}
++        width={usedWidth * ratio}
+       />
+     </div>
+-  )
++  );
+ };
+
+ LoadingCanvas.propTypes = {
+@@ -181,4 +198,4 @@
+   translate: getTranslate(state.localize)
+ });
+
+-export default connect(mapStateToProps)(withStyles(styles)(LoadingCanvas));
+\ No newline at end of file
++export default connect(mapStateToProps)(withStyles(styles)(LoadingCanvas));
+Index: src/apps/Lab/libraries/SGDataLib/utils/dataLoader.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Lab/libraries/SGDataLib/utils/dataLoader.ts	(date 1565394545000)
++++ src/apps/Lab/libraries/SGDataLib/utils/dataLoader.ts	(date 1565405625665)
+@@ -5,9 +5,9 @@
+   tableCallback: any,
+   versionCallback: any
+ ) => {
+-  database.collection('versions').onSnapshot(function (querySnapshot: any) {
++  database.collection('versions').onSnapshot(function(querySnapshot: any) {
+     const versions: any = [];
+-    querySnapshot.forEach(function (doc: any) {
++    querySnapshot.forEach(function(doc: any) {
+       versions.push(doc.id);
+     });
+
+@@ -31,19 +31,17 @@
+       });
+
+       const tableRef = ref;
+-      tableRef.onSnapshot(
+-        (snapshot: any): any => {
+-          const returnMapping: any[] = [];
+-          snapshot.forEach((doc: any) => {
+-            const dataMapping = tableMapping[lastTableName];
++      tableRef.onSnapshot((snapshot: any): any => {
++        const returnMapping: any[] = [];
++        snapshot.forEach((doc: any) => {
++          const dataMapping = tableMapping[lastTableName];
+
+-            const item = dataMapping.fromFirebase(doc);
+-            returnMapping.push({id: doc.id, data: item});
+-          });
++          const item = dataMapping.fromFirebase(doc);
++          returnMapping.push({ id: doc.id, data: item });
++        });
+
+-          tableCallback(tableName, returnMapping);
+-        }
+-      );
++        tableCallback(tableName, returnMapping);
++      });
+     });
+   });
+ };
+Index: src/common/react/InternalCanvas.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/InternalCanvas.jsx	(date 1565394545000)
++++ src/common/react/InternalCanvas.jsx	(date 1565405625668)
+@@ -1,6 +1,5 @@
+-import React, {Component} from 'react';
+-import {stringGen} from "../../apps/Graph/libraries/SGLib/utils/stringUtils";
+-
++import React, { Component } from 'react';
++import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+
+ class InternalCanvas extends Component {
+   constructor(props) {
+@@ -11,7 +10,7 @@
+   render() {
+     return (
+       <canvas
+-        style={{display: 'block'}}
++        style={{ display: 'block' }}
+         id={this.canvasId}
+         ref={this.props.reference}
+         width={this.props.width}
+Index: src/common/react/Canvas.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/Canvas.jsx	(date 1565394545000)
++++ src/common/react/Canvas.jsx	(date 1565405625667)
+@@ -1,6 +1,6 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import InternalCanvas from "./InternalCanvas";
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
++import InternalCanvas from './InternalCanvas';
+
+ const styles = theme => ({
+   canvasContainer: {
+@@ -53,11 +53,11 @@
+   }
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <div className={classes.container}>
+-        <div className={classes.headingSpacer}/>
++        <div className={classes.headingSpacer} />
+         <div ref={this.canvasContainer} className={classes.canvasContainer}>
+           {this.state.width && this.state.height ? (
+             <InternalCanvas
+@@ -72,4 +72,4 @@
+   }
+ }
+
+-export default (withStyles(styles)(Canvas));
++export default withStyles(styles)(Canvas);
+Index: src/common/react/HeaderMessaging.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/HeaderMessaging.jsx	(date 1565394545000)
++++ src/common/react/HeaderMessaging.jsx	(date 1565405625668)
+@@ -1,8 +1,8 @@
+ import React from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {useServiceWorker} from "./ServiceWorkerProvider";
+-import {connect} from 'react-redux';
+-import {getTranslate} from "react-localize-redux";
++import { withStyles } from '@material-ui/core/styles';
++import { useServiceWorker } from './ServiceWorkerProvider';
++import { connect } from 'react-redux';
++import { getTranslate } from 'react-localize-redux';
+
+ const styles = theme => ({
+   container: {
+@@ -12,31 +12,38 @@
+     textAlign: 'center',
+     cursor: 'pointer',
+     zIndex: theme.zIndex.drawer + 2,
+-    display: "table",
+-    overflow: "hidden",
+-    width: "100%",
++    display: 'table',
++    overflow: 'hidden',
++    width: '100%'
+   },
+   invisible: {
+     gridArea: 'update',
+     display: 'none'
+   },
+   messaging: {
+-    display: "table-cell",
++    display: 'table-cell',
+     verticalAlign: 'middle'
+   }
+ });
+
+ function HeaderMessaging(props) {
+-  const {assetsUpdateReady, updateAssets} = useServiceWorker();
++  const { assetsUpdateReady, updateAssets } = useServiceWorker();
+
+   const update = () => {
+-    console.error("Updating assets...");
++    console.error('Updating assets...');
+     updateAssets();
+   };
+
+   return (
+-    <div onClick={update} className={assetsUpdateReady ? props.classes.container : props.classes.invisible}>
+-      <div className={props.classes.messaging}>{props.translate('headerMessaging_newData')}</div>
++    <div
++      onClick={update}
++      className={
++        assetsUpdateReady ? props.classes.container : props.classes.invisible
++      }
++    >
++      <div className={props.classes.messaging}>
++        {props.translate('headerMessaging_newData')}
++      </div>
+     </div>
+   );
+ }
+Index: src/common/react/ServiceWorkerProvider.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/ServiceWorkerProvider.jsx	(date 1565394545000)
++++ src/common/react/ServiceWorkerProvider.jsx	(date 1565405625670)
+@@ -1,7 +1,7 @@
+-import React from "react";
+-import * as serviceWorker from "../../serviceWorkerCustom";
+-import {connect} from 'react-redux';
+-import {setUpdateAvailable} from "../../redux/actions/common/commonActions";
++import React from 'react';
++import * as serviceWorker from '../../serviceWorkerCustom';
++import { connect } from 'react-redux';
++import { setUpdateAvailable } from '../../redux/actions/common/commonActions';
+
+ const ServiceWorkerContext = React.createContext();
+
+@@ -17,13 +17,13 @@
+       // Call when the user confirm update of application and reload page
+       updateAssets: () => {
+         if (waitingServiceWorker) {
+-          waitingServiceWorker.addEventListener("statechange", event => {
+-            if (event.target.state === "activated") {
+-              window.location.reload()
++          waitingServiceWorker.addEventListener('statechange', event => {
++            if (event.target.state === 'activated') {
++              window.location.reload();
+             }
+           });
+
+-          waitingServiceWorker.postMessage({type: "SKIP_WAITING"});
++          waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
+         }
+       }
+     }),
+@@ -53,7 +53,7 @@
+
+   if (!context) {
+     throw new Error(
+-      "useServiceWorker must be used within a ServiceWorkerProvider"
++      'useServiceWorker must be used within a ServiceWorkerProvider'
+     );
+   }
+
+@@ -63,7 +63,10 @@
+ const mapStateToProps = () => ({});
+
+ const mapDispatchToProps = dispatch => ({
+-  setUpdateAvailable: data => dispatch(setUpdateAvailable(data)),
++  setUpdateAvailable: data => dispatch(setUpdateAvailable(data))
+ });
+
+-export default connect(mapStateToProps, mapDispatchToProps)(ServiceWorkerProvider);
++export default connect(
++  mapStateToProps,
++  mapDispatchToProps
++)(ServiceWorkerProvider);
+Index: src/apps/Graph/components/GraphHelpButton.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphHelpButton.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphHelpButton.jsx	(date 1565405625653)
+@@ -1,6 +1,6 @@
+-import {withStyles} from '@material-ui/core';
+-import React, {Component} from 'react';
+-import {connect} from 'react-redux';
++import { withStyles } from '@material-ui/core';
++import React, { Component } from 'react';
++import { connect } from 'react-redux';
+ import Typography from '@material-ui/core/Typography';
+ import Link from '@material-ui/core/Link';
+
+@@ -12,16 +12,15 @@
+
+ class GraphHelpButton extends Component {
+   render() {
+-
+     return (
+-      <GraphAppBarButton label="Help" icon={<HelpIcon/>}>
++      <GraphAppBarButton label="Help" icon={<HelpIcon />}>
+         <Typography variant="h4">Welcome to SatisGraphtory!</Typography>
+         <Typography variant="body1">
+           This is a factory planner/optimizer/analyzer tool for factories old
+           and new, meant to accompany the game Satisfactory by Coffee Stain
+           Studios.{' '}
+         </Typography>
+-        <br/>
++        <br />
+         <Typography variant="body1">
+           We are looking for more developers! If you know React, reach out to us
+           on our{' '}
+@@ -57,9 +56,9 @@
+           </Link>
+           !
+         </Typography>
+-        <br/>
++        <br />
+         <Typography variant="h5">This tool will always be free.</Typography>
+-        <br/>
++        <br />
+         <Typography variant="h5">Graph Basics</Typography>
+         <ul>
+           <Typography variant="body1">
+@@ -94,21 +93,21 @@
+         <Typography variant="body1">
+           Generate a share code by using the Share button in the top right.
+         </Typography>
+-        <br/>
++        <br />
+         <Typography variant="h5">Legend</Typography>
+         <Typography variant="body1">
+-          <span style={{color: 'orange'}}>Orange</span> numbers means the
++          <span style={{ color: 'orange' }}>Orange</span> numbers means the
+           machine wastes time doing nothing.
+         </Typography>
+         <Typography variant="body1">
+-          <span style={{color: 'LightCoral'}}>Red</span> numbers means the
++          <span style={{ color: 'LightCoral' }}>Red</span> numbers means the
+           machine isn't processing fast enough.
+         </Typography>
+         <Typography variant="body1">
+-          <span style={{color: 'Blue'}}>Blue</span> numbers means the belt
++          <span style={{ color: 'Blue' }}>Blue</span> numbers means the belt
+           capacity was overridden (and you need to fix it ASAP!)
+         </Typography>
+-        <br/>
++        <br />
+         <Typography variant="h5">About/Disclaimers</Typography>
+         {/*<Typography variant="body1">Special thanks to the following testers: GeekyMeerkat, Stay, HartWeed, safken, marcspc, Laugexd</Typography>*/}
+         <Typography variant="body1">
+@@ -149,7 +148,7 @@
+           Images sourced from the Satisfactory Wiki, which is sourced from
+           Coffee Stain Studios AB's Satisfactory.
+         </Typography>
+-        <br/>
++        <br />
+         <Typography variant="body1">
+           Revisit these instructions anytime by clicking on the <b>?</b> in the
+           top right.
+Index: src/apps/Graph/components/GraphAppBarButton.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphAppBarButton.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphAppBarButton.jsx	(date 1565405625652)
+@@ -1,6 +1,6 @@
+ import React from 'react';
+-import {withStyles} from '@material-ui/core/styles';
+-import {connect} from 'react-redux';
++import { withStyles } from '@material-ui/core/styles';
++import { connect } from 'react-redux';
+ import Button from '@material-ui/core/Button';
+ import Dialog from '@material-ui/core/Dialog';
+ import DialogActions from '@material-ui/core/DialogActions';
+@@ -34,7 +34,7 @@
+ });
+
+ function GraphAppBarButton(props) {
+-  const {classes} = props;
++  const { classes } = props;
+   const [openDialog, setOpenDialog] = React.useState(false);
+   // function setOpenDialog(event, newValue) {
+   //   setValue(newValue);
+Index: src/apps/Home/HomeApp.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Home/HomeApp.jsx	(date 1565394545000)
++++ src/apps/Home/HomeApp.jsx	(date 1565405625659)
+@@ -1,7 +1,7 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
+
+-import {connect} from 'react-redux';
++import { connect } from 'react-redux';
+ import LoadingBar from '../../common/react/LoadingBar';
+
+ const styles = theme => {
+@@ -13,11 +13,10 @@
+     container: {
+       background: '#333333',
+       gridArea: 'body',
+-      display: "grid",
+-      gridTemplateAreas:
+-        `"fullHeight"`,
+-      gridTemplateRows: "1fr",
+-      gridTemplateColumns: "1fr",
++      display: 'grid',
++      gridTemplateAreas: `"fullHeight"`,
++      gridTemplateRows: '1fr',
++      gridTemplateColumns: '1fr'
+     }
+   };
+ };
+@@ -28,11 +27,11 @@
+   };
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <div className={classes.container}>
+-        <LoadingBar loadingText heightOverride={100}/>
++        <LoadingBar loadingText heightOverride={100} />
+       </div>
+     );
+   }
+@@ -42,6 +41,4 @@
+   ...state
+ });
+
+-export default connect(
+-  mapStateToProps
+-)(withStyles(styles)(HomeApp));
++export default connect(mapStateToProps)(withStyles(styles)(HomeApp));
+Index: src/apps/Graph/components/GraphSettingsButton.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphSettingsButton.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphSettingsButton.jsx	(date 1565405625656)
+@@ -1,6 +1,6 @@
+-import {withStyles} from '@material-ui/core';
++import { withStyles } from '@material-ui/core';
+ import React from 'react';
+-import {connect} from 'react-redux';
++import { connect } from 'react-redux';
+ import Checkbox from '@material-ui/core/Checkbox';
+ import FormGroup from '@material-ui/core/FormGroup';
+ import FormControlLabel from '@material-ui/core/FormControlLabel';
+@@ -8,19 +8,19 @@
+ import SettingsIcon from '@material-ui/icons/Settings';
+
+ import GraphAppBarButton from './GraphAppBarButton';
+-import {setGraphFidelity} from '../../../redux/actions/Graph/graphActions';
++import { setGraphFidelity } from '../../../redux/actions/Graph/graphActions';
+
+ const styles = theme => ({});
+
+ function GraphSettingsButton(props) {
+-  const {graphFidelity} = props;
++  const { graphFidelity } = props;
+
+   function handleChange(event, newValue) {
+     props.setGraphFidelity(newValue ? 'high' : 'low');
+   }
+
+   return (
+-    <GraphAppBarButton label="Settings" icon={<SettingsIcon/>}>
++    <GraphAppBarButton label="Settings" icon={<SettingsIcon />}>
+       <FormGroup>
+         <FormControlLabel
+           control={
+Index: src/apps/Graph/components/GraphShareButton.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphShareButton.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphShareButton.jsx	(date 1565405625656)
+@@ -1,6 +1,6 @@
+-import {withStyles} from '@material-ui/core';
+-import React, {Component} from 'react';
+-import {connect} from 'react-redux';
++import { withStyles } from '@material-ui/core';
++import React, { Component } from 'react';
++import { connect } from 'react-redux';
+ import TextField from '@material-ui/core/TextField';
+ import Button from '@material-ui/core/Button';
+
+@@ -19,10 +19,10 @@
+
+ class GraphShareButton extends Component {
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+-      <GraphAppBarButton label="Share" icon={<ShareIcon/>}>
++      <GraphAppBarButton label="Share" icon={<ShareIcon />}>
+         <div className={classes.shareDialog}>
+           <TextField
+             spellCheck={false}
+@@ -39,20 +39,20 @@
+                 document.execCommand('copy');
+                 resolve(true);
+               }).then(a => {
+-                this.setState({statusMessage: 'Copied!'}, () => {
++                this.setState({ statusMessage: 'Copied!' }, () => {
+                   setTimeout(() => {
+-                    this.setState({statusMessage: ''});
++                    this.setState({ statusMessage: '' });
+                   }, 3000);
+                 });
+               })
+             }
+           >
+-            <FileCopyIcon/>
++            <FileCopyIcon />
+             <div className={classes.label}>Copy Code</div>
+           </Button>
+
+           <Button fullWidth color="primary">
+-            <PhotoSizeSelectActualIcon/>
++            <PhotoSizeSelectActualIcon />
+             <div className={classes.label}>Export Image</div>
+           </Button>
+         </div>
+Index: src/apps/Hub/HubApp.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Hub/HubApp.jsx	(date 1565394545000)
++++ src/apps/Hub/HubApp.jsx	(date 1565405625659)
+@@ -1,8 +1,8 @@
+-import React, {Component} from 'react';
+-import {withStyles} from '@material-ui/core/styles';
++import React, { Component } from 'react';
++import { withStyles } from '@material-ui/core/styles';
+
+-import {connect} from 'react-redux';
+-import LoadingBar from "../../common/react/LoadingBar";
++import { connect } from 'react-redux';
++import LoadingBar from '../../common/react/LoadingBar';
+
+ const styles = theme => {
+   return {
+@@ -25,11 +25,11 @@
+   };
+
+   render() {
+-    const {classes} = this.props;
++    const { classes } = this.props;
+
+     return (
+       <div className={classes.container}>
+-        <LoadingBar/>
++        <LoadingBar />
+       </div>
+     );
+   }
+Index: public/electron.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/electron.js	(date 1565394545000)
++++ public/electron.js	(date 1565405625648)
+@@ -1,47 +1,60 @@
+ const electron = require('electron');
+-const electron_is_dev = require("electron-is-dev");
++const { protocol } = electron;
++const electron_is_dev = require('electron-is-dev');
+ // Module to control application life.
+ const app = electron.app;
+ // Module to create native browser window.
+ const BrowserWindow = electron.BrowserWindow;
+
+ const path = require('path');
+-const url = require('url');
++
++protocol.registerSchemesAsPrivileged([
++  {
++    scheme: 'file',
++    privileges: {
++      standard: true,
++      bypassCSP: true,
++      supportFetchAPI: true,
++      allowServiceWorkers: true
++    }
++  }
++]);
+
+ // Keep a global reference of the window object, if you don't, the window will
+ // be closed automatically when the JavaScript object is garbage collected.
+ let mainWindow;
+
+ function createWindow() {
+-    // Create the browser window.
+-    mainWindow = new BrowserWindow({width: 800, height: 600});
+-
+-    // Remove menu bar
+-    mainWindow.removeMenu();
+-    // This is a workaround for electron#16521
+-    mainWindow.setMenuBarVisibility(true);
++  // Create the browser window.
++  mainWindow = new BrowserWindow({
++    width: 1024,
++    height: 1024,
++    title: 'SatisGraphtory',
++    webPreferences: {
++      allowEval: false // This is the key!
++    }
++  });
++
++  // Remove menu bar
++  mainWindow.removeMenu();
++  // This is a workaround for electron#16521
++  mainWindow.setMenuBarVisibility(true);
+
+-    // and load the index.html of the app.
+-    let startUrl =
+-        electron_is_dev
+-        ? "http://localhost:3000"
+-        : `file://${path.join(__dirname, '../build/index.html')}`
+-    ;
+-
+-    mainWindow.webContents.openDevTools();
++  // and load the index.html of the app.
++  let startUrl = electron_is_dev
++    ? 'http://localhost:3000'
++    : `file://${path.join(__dirname, '../build/index.html')}`;
++  mainWindow.webContents.openDevTools();
+
+-
+-    mainWindow.loadURL(startUrl);
++  mainWindow.loadURL(startUrl);
+
+-
+-
+-    // Emitted when the window is closed.
+-    mainWindow.on('closed', function () {
+-        // Dereference the window object, usually you would store windows
+-        // in an array if your app supports multi windows, this is the time
+-        // when you should delete the corresponding element.
+-        mainWindow = null
+-    })
++  // Emitted when the window is closed.
++  mainWindow.on('closed', function() {
++    // Dereference the window object, usually you would store windows
++    // in an array if your app supports multi windows, this is the time
++    // when you should delete the corresponding element.
++    mainWindow = null;
++  });
+ }
+
+ // This method will be called when Electron has finished
+@@ -50,20 +63,20 @@
+ app.on('ready', createWindow);
+
+ // Quit when all windows are closed.
+-app.on('window-all-closed', function () {
+-    // On OS X it is common for applications and their menu bar
+-    // to stay active until the user quits explicitly with Cmd + Q
+-    if (process.platform !== 'darwin') {
+-        app.quit()
+-    }
++app.on('window-all-closed', function() {
++  // On OS X it is common for applications and their menu bar
++  // to stay active until the user quits explicitly with Cmd + Q
++  if (process.platform !== 'darwin') {
++    app.quit();
++  }
+ });
+
+-app.on('activate', function () {
+-    // On OS X it's common to re-create a window in the app when the
+-    // dock icon is clicked and there are no other windows open.
+-    if (mainWindow === null) {
+-        createWindow()
+-    }
++app.on('activate', function() {
++  // On OS X it's common to re-create a window in the app when the
++  // dock icon is clicked and there are no other windows open.
++  if (mainWindow === null) {
++    createWindow();
++  }
+ });
+
+ // In this file you can include the rest of your app's specific main process
+Index: src/generated/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/generated/index.js	(date 1565394545000)
++++ src/generated/index.js	(date 1565405625671)
+@@ -7,4 +7,4 @@
+   globalSchemas[version] = schemas.default[item];
+ });
+
+-export default globalSchemas;
+\ No newline at end of file
++export default globalSchemas;
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- package.json	(date 1565394545000)
++++ package.json	(date 1565405625647)
+@@ -74,9 +74,10 @@
+     "build-storybook": "build-storybook -s public",
+     "electron-start": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
+-    "electron-build": "electron-builder",
+-    "electron-build-cross": "electron-builder -mwl",
+-    "electron-publish": "electron-builder -mwl --publish always"
++    "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
++    "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
++    "electron-publish": "electron-builder -mwl --publish always",
++    "pretty": "prettier --single-quote --write src/**/*"
+   },
+   "eslintConfig": {
+     "extends": "react-app"
+@@ -115,6 +116,10 @@
+     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+       "prettier --single-quote --write",
+       "git add"
++    ],
++    "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
++      "prettier --single-quote --write",
++      "git add"
+     ]
+   },
+   "build": {
+@@ -123,7 +128,8 @@
+     "copyright": "Copyright © 2019 ${author}",
+     "mac": {
+       "category": "public.app-category.utilities",
+-      "target": "dir"
++      "target": "dir",
++      "asar": false
+     },
+     "win": {
+       "target": [
+Index: src/apps/Graph/components/GraphCanvasLoadable.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/apps/Graph/components/GraphCanvasLoadable.jsx	(date 1565394545000)
++++ src/apps/Graph/components/GraphCanvasLoadable.jsx	(date 1565405625653)
+@@ -1,7 +1,7 @@
+-import Loadable from "react-loadable";
+-import React from "react";
+-import LoadingBar from "../../../common/react/LoadingBar";
+-import {imageRepositoryPromise} from "../libraries/SGLib/repositories/imageRepository";
++import Loadable from 'react-loadable';
++import React from 'react';
++import LoadingBar from '../../../common/react/LoadingBar';
++import { imageRepositoryPromise } from '../libraries/SGLib/repositories/imageRepository';
+
+ const FontFaceObserver = require('fontfaceobserver');
+
+@@ -18,12 +18,11 @@
+       // })
+     ]).then(() => import('./GraphCanvas'));
+   },
+-  loading: LoadingBar,
++  loading: LoadingBar
+ });
+
+ export default class GraphCanvasLoadable extends React.Component {
+-
+   render() {
+-    return <LoadableComponent/>;
++    return <LoadableComponent />;
+   }
+-}
+\ No newline at end of file
++}
+Index: src/common/react/AsyncComponent.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/react/AsyncComponent.jsx	(date 1565394545000)
++++ src/common/react/AsyncComponent.jsx	(date 1565405625667)
+@@ -1,7 +1,6 @@
+-import React from "react";
++import React from 'react';
+
+ export default function AsyncComponent(importComponentInput) {
+-
+   // const importComponent = import(importComponentInput);
+
+   // class AsyncComponentInner extends Component {
+@@ -29,4 +28,4 @@
+   // }
+
+   return React.lazy(() => importComponentInput);
+-}
+\ No newline at end of file
++}
+Index: src/common/workers/animation.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/workers/animation.js	(date 1565394545000)
++++ src/common/workers/animation.js	(date 1565405625670)
+@@ -21,8 +21,6 @@
+ //   }
+ // }
+
+-const animation = () => {
++const animation = () => {};
+
+-};
+-
+-export default animation;
+\ No newline at end of file
++export default animation;
+Index: src/graphql/typeDefs.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/graphql/typeDefs.js	(date 1565394545000)
++++ src/graphql/typeDefs.js	(date 1565405625672)
+@@ -63,4 +63,4 @@
+   }
+ `;
+ // cityWeather(city_name: String! applicable_date: String): CityWeather
+-export default typeDefs;
+\ No newline at end of file
++export default typeDefs;
+Index: src/graphql/resolvers.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/graphql/resolvers.js	(date 1565394545000)
++++ src/graphql/resolvers.js	(date 1565405625672)
+@@ -1,19 +1,23 @@
+-import schemas from "../generated";
++import schemas from '../generated';
+
+-const protobuf = require("protobufjs/light");
++const protobuf = require('protobufjs/light');
+
+-const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
++const root = protobuf.Root.fromJSON(schemas['0.1.0']);
+
+ const loadData = (filename, mapper) => {
+   const ItemList = root.lookupType(filename);
+-  return fetch(`${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`).then(data => data.arrayBuffer())
+-    .then(buffer => new Uint8Array(buffer)).then((buffer) => {
++  return fetch(`${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`)
++    .then(data => data.arrayBuffer())
++    .then(buffer => new Uint8Array(buffer))
++    .then(buffer => {
+       return ItemList.decode(buffer);
+-    }).then(data => ItemList.toObject(data).data).then(data => mapper(data))
++    })
++    .then(data => ItemList.toObject(data).data)
++    .then(data => mapper(data));
+ };
+
+-const iDataMapper = (data) => {
+-  const Item = root.lookupEnum("Item");
++const iDataMapper = data => {
++  const Item = root.lookupEnum('Item');
+   const map = {};
+   data.forEach(item => {
+     map[item.id] = item;
+@@ -22,10 +26,10 @@
+   return map;
+ };
+
+-const itemListPromise = loadData("ItemList", iDataMapper);
++const itemListPromise = loadData('ItemList', iDataMapper);
+
+-const mcDataMapper = (data) => {
+-  const MachineClass = root.lookupEnum("MachineClass");
++const mcDataMapper = data => {
++  const MachineClass = root.lookupEnum('MachineClass');
+   const map = {};
+   data.forEach(item => {
+     map[item.id] = item;
+@@ -34,10 +38,10 @@
+   return map;
+ };
+
+-const machineClassListPromise = loadData("MachineClassList", mcDataMapper);
++const machineClassListPromise = loadData('MachineClassList', mcDataMapper);
+
+-const mIDataMapper = (data) => {
+-  const MachineClass = root.lookupEnum("MachineClass");
++const mIDataMapper = data => {
++  const MachineClass = root.lookupEnum('MachineClass');
+   const map = {};
+   data.forEach(item => {
+     item.id = MachineClass.valuesById[item.id];
+@@ -46,10 +50,10 @@
+   return map;
+ };
+
+-const machineInstanceListPromise = loadData("MachineClassList", mIDataMapper);
++const machineInstanceListPromise = loadData('MachineClassList', mIDataMapper);
+
+-const rDataMapper = (data) => {
+-  const Recipe = root.lookupEnum("Recipe");
++const rDataMapper = data => {
++  const Recipe = root.lookupEnum('Recipe');
+   const map = {};
+   data.forEach(item => {
+     map[item.id] = item;
+@@ -58,7 +62,7 @@
+   return map;
+ };
+
+-const recipeListPromise = loadData("RecipeList", rDataMapper);
++const recipeListPromise = loadData('RecipeList', rDataMapper);
+
+ // resolvers -> get where on earth id -> get consolidated_weather data and return
+ const resolvers = {
+@@ -66,13 +70,17 @@
+     getMachineClassByName(obj, args, context, info) {
+       return machineClassListPromise.then(mcMap => {
+         let values = Object.values(mcMap).filter(value => {
+-          return value.id === args.class_name
++          return value.id === args.class_name;
+         });
+
+         if (values.length === 1) {
+           return values[0];
+         } else if (values.length > 1) {
+-          throw new Error(`Multiple values found for ${args.class_name}: ${JSON.stringify(values)}`);
++          throw new Error(
++            `Multiple values found for ${args.class_name}: ${JSON.stringify(
++              values
++            )}`
++          );
+         }
+
+         return null;
+@@ -85,9 +93,13 @@
+     },
+     getCraftingMachineClasses(obj, args, context, info) {
+       return recipeListPromise.then(rMap => {
+-        const acceptedMachineClasses = new Set(Object.values(rMap).map(recipe => recipe.machineClass));
++        const acceptedMachineClasses = new Set(
++          Object.values(rMap).map(recipe => recipe.machineClass)
++        );
+         return machineClassListPromise.then(mcMap => {
+-          return Array.from(acceptedMachineClasses).map(classId => mcMap[classId]);
++          return Array.from(acceptedMachineClasses).map(
++            classId => mcMap[classId]
++          );
+         });
+       });
+     },
+@@ -112,30 +124,30 @@
+       return recipeListPromise.then(rMap => {
+         return Object.values(rMap).filter(recipe => {
+           return (recipe.output || []).some(elem => elem.item === args.item_id);
+-        })
++        });
+       });
+     },
+     getRecipeByInputItemId(obj, args, context, info) {
+       return recipeListPromise.then(rMap => {
+         return Object.values(rMap).filter(recipe => {
+           return (recipe.input || []).some(elem => elem.item === args.item_id);
+-        })
++        });
+       });
+     },
+     getRecipeByOutputItemName(obj, args, context, info) {
+-      const itemEnum = root.lookupEnum("Item").values[args.item_name];
++      const itemEnum = root.lookupEnum('Item').values[args.item_name];
+       return recipeListPromise.then(rMap => {
+         return Object.values(rMap).filter(recipe => {
+           return (recipe.output || []).some(elem => elem.item === itemEnum);
+-        })
++        });
+       });
+     },
+     getRecipeByInputItemName(obj, args, context, info) {
+-      const itemEnum = root.lookupEnum("Item").values[args.item_name];
++      const itemEnum = root.lookupEnum('Item').values[args.item_name];
+       return recipeListPromise.then(rMap => {
+         return Object.values(rMap).filter(recipe => {
+           return (recipe.input || []).some(elem => elem.item === itemEnum);
+-        })
++        });
+       });
+     }
+   },
+@@ -144,7 +156,7 @@
+       return Item.name;
+     },
+     icon(Item) {
+-      return Item.icon || (Item.name);
++      return Item.icon || Item.name;
+     }
+   },
+   ResourcePacket: {
+@@ -155,8 +167,8 @@
+   Recipe: {
+     machineClass(Recipe) {
+       return machineClassListPromise.then(mcMap => {
+-        return mcMap[Recipe.machineClass]
+-      })
++        return mcMap[Recipe.machineClass];
++      });
+     },
+     input(Recipe) {
+       return Recipe.input || [];
+@@ -167,39 +179,45 @@
+   },
+   MachineInstance: {
+     icon(MachineInstance) {
+-      return MachineInstance.icon || (MachineInstance.name);
++      return MachineInstance.icon || MachineInstance.name;
+     },
+     machineClass(MachineInstance) {
+       return machineClassListPromise.then(mcMap => {
+-        const filteredInstances = Object.values(mcMap).filter(machineClassInstance => {
+-          return machineClassInstance.id === MachineInstance.id
+-        });
++        const filteredInstances = Object.values(mcMap).filter(
++          machineClassInstance => {
++            return machineClassInstance.id === MachineInstance.id;
++          }
++        );
+
+         if (filteredInstances.length === 1) {
+-          return filteredInstances[0]
++          return filteredInstances[0];
+         }
+
+         return null;
+       });
+     },
+     name(MachineInstance) {
+-      const UpgradeTiers = root.lookupEnum("UpgradeTiers");
++      const UpgradeTiers = root.lookupEnum('UpgradeTiers');
+       if (UpgradeTiers.valuesById[MachineInstance.tier] === 'NA') {
+         return MachineInstance.id;
+       }
+-      return MachineInstance.id + '_' + UpgradeTiers.valuesById[MachineInstance.tier];
++      return (
++        MachineInstance.id + '_' + UpgradeTiers.valuesById[MachineInstance.tier]
++      );
+     }
+   },
+   MachineClass: {
+     icon(machineClass) {
+-      return machineClass.icon || (machineClass.name);
++      return machineClass.icon || machineClass.name;
+     },
+     recipes(machineClass) {
+-      const machineClassId = root.lookupEnum("MachineClass").values[machineClass.id];
++      const machineClassId = root.lookupEnum('MachineClass').values[
++        machineClass.id
++      ];
+       return recipeListPromise.then(rMap => {
+         const recipes = Object.keys(rMap).filter(recipeKey => {
+           const recipe = rMap[recipeKey];
+-          return recipe.machineClass === machineClassId
++          return recipe.machineClass === machineClassId;
+         });
+
+         return recipes.map(key => rMap[key]);
+@@ -207,17 +225,19 @@
+     },
+     instances(machineClass) {
+       return machineInstanceListPromise.then(mcMap => {
+-        return Object.values(mcMap).filter(machineClassInstance => {
+-          return machineClassInstance.id === machineClass.id
+-        }).sort((m1, m2) => {
+-          return m1.tier - m2.tier
+-        })
++        return Object.values(mcMap)
++          .filter(machineClassInstance => {
++            return machineClassInstance.id === machineClass.id;
++          })
++          .sort((m1, m2) => {
++            return m1.tier - m2.tier;
++          });
+       });
+     },
+     hasUpgrades(machineClass) {
+       return machineInstanceListPromise.then(mcMap => {
+         const instances = Object.values(mcMap).filter(machineClassInstance => {
+-          return machineClassInstance.id === machineClass.id
++          return machineClassInstance.id === machineClass.id;
+         });
+
+         return instances.length > 1;
+@@ -226,13 +246,13 @@
+   },
+   UpgradeTier: {
+     name(upgradeTier) {
+-      const UpgradeTiers = root.lookupEnum("UpgradeTiers");
++      const UpgradeTiers = root.lookupEnum('UpgradeTiers');
+       return UpgradeTiers.valuesById[upgradeTier];
+     },
+     value(upgradeTier) {
+-      return upgradeTier
++      return upgradeTier;
+     }
+   }
+ };
+
+-export default resolvers;
+\ No newline at end of file
++export default resolvers;
+Index: src/common/workers/canvasWorker.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/workers/canvasWorker.js	(date 1565394545000)
++++ src/common/workers/canvasWorker.js	(date 1565405625670)
+@@ -1,5 +1,3 @@
+-const canvasWorker = () => {
++const canvasWorker = () => {};
+
+-};
+-
+-export default canvasWorker;
+\ No newline at end of file
++export default canvasWorker;

@@ -1,6 +1,6 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 function GraphAppBarButton(props) {
-  const {classes} = props;
+  const { classes } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
   // function setOpenDialog(event, newValue) {
   //   setValue(newValue);

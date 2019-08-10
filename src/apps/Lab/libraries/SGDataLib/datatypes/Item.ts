@@ -1,4 +1,4 @@
-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
+import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
 
 export default class Item extends FirebaseDataType {
@@ -26,7 +26,6 @@ export default class Item extends FirebaseDataType {
     const promiseList: any = [];
     this.grabPageData().then((data: any) => {
       data.forEach((item: any) => {
-
         const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
         data.iconPath = data.identifier + '.png';
         console.error(data.identifier);
@@ -35,21 +34,21 @@ export default class Item extends FirebaseDataType {
       });
     });
     Promise.all(promiseList).then(() => {
-      console.error("All done!");
-    })
+      console.error('All done!');
+    });
   }
 
   dataMapping() {
     return {
-      iconPath: {type: 'string'}
+      iconPath: { type: 'string' }
       // testNumber: {type: 'number'},
       // testMultiple: [{identifier: 'a', type: 'number'}, {identifier: 'b', type: 'number'}]
     };
   }
 
   saveProto(docs: any, protoRoot: any): any {
-    const Item = protoRoot.lookupType("Item");
-    const ItemList = protoRoot.lookupType("ItemList");
+    const Item = protoRoot.lookupType('Item');
+    const ItemList = protoRoot.lookupType('ItemList');
     const itemsList: any[] = [];
     docs.forEach((d: any) => {
       const docItem = Item.create({
@@ -58,14 +57,14 @@ export default class Item extends FirebaseDataType {
         hidden: false
       });
 
-      itemsList.push(docItem)
+      itemsList.push(docItem);
     });
 
     console.error(JSON.stringify(itemsList));
 
-    const message = ItemList.create({data: itemsList});
+    const message = ItemList.create({ data: itemsList });
     const buffer = ItemList.encode(message).finish();
-    const filename = "ItemList.s2";
+    const filename = 'ItemList.s2';
 
     return {
       table: buffer,

@@ -1,9 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-import {traverseDocPath} from '../../utils/BuilderFactory';
+import { traverseDocPath } from '../../utils/BuilderFactory';
 import firebaseFirestore from '../../../../../../common/firebase/firebaseFirestore';
-import schemas from "../../../../../../generated";
+import schemas from '../../../../../../generated';
 
 const hiddenFieldPrefix = '__sglib__';
 const complexArrayFieldPrefix = '__sglibarrcomplex__';
@@ -22,11 +22,10 @@ export function padIndex(i: number) {
   return (i + '').padStart(10, '0');
 }
 
-
 function saveAs(blob: any, fileName: any) {
   const url = window.URL.createObjectURL(blob);
 
-  const anchorElem = document.createElement("a");
+  const anchorElem = document.createElement('a');
   // anchorElem.style = "display: none";
   anchorElem.href = url;
   anchorElem.download = fileName;
@@ -37,11 +36,10 @@ function saveAs(blob: any, fileName: any) {
 
   // On Edge, revokeObjectURL should be called only after
   // a.click() has completed, atleast on EdgeHTML 15.15048
-  setTimeout(function () {
+  setTimeout(function() {
     window.URL.revokeObjectURL(url);
   }, 1000);
 }
-
 
 export default abstract class FirebaseDataType {
   identifierAsDocumentName: boolean = false;
@@ -57,44 +55,52 @@ export default abstract class FirebaseDataType {
   public abstract saveProto(docs: any, protoRoot: any): any;
 
   public downloadDataToProto(path: any): any {
-    const protobuf = require("protobufjs/light");
-    console.error(schemas, "AAAA");
-    const root = protobuf.Root.fromJSON((schemas as any)["0.1.0"]);
+    const protobuf = require('protobufjs/light');
+    console.error(schemas, 'AAAA');
+    const root = protobuf.Root.fromJSON((schemas as any)['0.1.0']);
     const table = traverseDocPath(path, firebaseFirestore);
 
     table.get().then((querySnapshot: any) => {
-
       const totalQuery: any = [];
 
       querySnapshot.forEach((doc: any) => {
         totalQuery.push(doc.data());
       });
 
-      const {table, filename} = this.saveProto(totalQuery, root);
-      const blob = new Blob([table], {type: "application/octet-stream"});
+      const { table, filename } = this.saveProto(totalQuery, root);
+      const blob = new Blob([table], { type: 'application/octet-stream' });
       saveAs(blob, filename);
 
-      const ItemList = root.lookupType("ItemList");
+      const ItemList = root.lookupType('ItemList');
 
       // new Response(blob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
       //   const message = ItemList.decode(buffer);
       //   console.error(message);
       // })
       //
-      fetch("/proto/0.1.0/ItemList.s2").then(resp => resp.blob()).then(blob => new Response(blob).arrayBuffer()).then(buffer => new Uint8Array(buffer)).then((buffer: any) => {
-        const message = ItemList.decode(buffer);
-        console.error(message);
-      })
+      fetch('/proto/0.1.0/ItemList.s2')
+        .then(resp => resp.blob())
+        .then(blob => new Response(blob).arrayBuffer())
+        .then(buffer => new Uint8Array(buffer))
+        .then((buffer: any) => {
+          const message = ItemList.decode(buffer);
+          console.error(message);
+        });
     });
   }
 
-  unpackDataFromSpreadSheet(keys: any, data: any, parseFunctions: any, keyAlternateName: any = {}): any {
+  unpackDataFromSpreadSheet(
+    keys: any,
+    data: any,
+    parseFunctions: any,
+    keyAlternateName: any = {}
+  ): any {
     const prefix = 'gsx$';
     const dict: any = {};
     keys.forEach((key: any) => {
       const func =
         parseFunctions[key] ||
-        function (a: any) {
+        function(a: any) {
           return a;
         };
       if (keyAlternateName[key]) {
@@ -109,7 +115,6 @@ export default abstract class FirebaseDataType {
           delete dict[key];
         }
       }
-
     });
 
     return dict;
@@ -135,11 +140,10 @@ export default abstract class FirebaseDataType {
     newPath.push(siblingName);
     const table = traverseDocPath(newPath.join('/'), firebaseFirestore);
 
-    return table.get().then(function (querySnapshot: any) {
-
+    return table.get().then(function(querySnapshot: any) {
       const totalQuery: any = [];
 
-      querySnapshot.forEach(function (doc: any) {
+      querySnapshot.forEach(function(doc: any) {
         totalQuery.push(doc.data());
       });
 
@@ -176,7 +180,7 @@ export default abstract class FirebaseDataType {
 
           for (let i = 0; i < numEntries; i++) {
             map[item].forEach((descriptor: any) => {
-              const {identifier, type, ref} = descriptor;
+              const { identifier, type, ref } = descriptor;
               // this.__sglib__addedFieldsMetadata[item] = this.__sglib__addedFieldsMetadata[item] || {};
               // this.__sglib__addedFieldsMetadata[item].fields = this.__sglib__addedFieldsMetadata[item].fields || new Set();
               // this.__sglib__addedFieldsMetadata[item].fields.add(identifier);
@@ -193,7 +197,7 @@ export default abstract class FirebaseDataType {
                 paddedIndex +
                 secretDelimiter +
                 identifier;
-              generatedDataMap[obfuscatedName] = {type, ref};
+              generatedDataMap[obfuscatedName] = { type, ref };
               if (((this as any)[item] || []).length === 0) {
                 // create blanks?
               } else {
@@ -204,7 +208,7 @@ export default abstract class FirebaseDataType {
                 ) {
                   (this as any)[obfuscatedName] = (this as any)[item][i][
                     identifier
-                    ];
+                  ];
                 }
               }
             });
@@ -262,7 +266,7 @@ export default abstract class FirebaseDataType {
       this.__sglib__firebaseRef = docRef;
       this.__sglib__firebaseRefPath = path + '/' + name;
 
-      return docRef.get().then(function (doc: any) {
+      return docRef.get().then(function(doc: any) {
         if (doc.exists && !overwrite) {
           return Promise.reject(`Entry with name ${name} already exists!`);
         } else {
@@ -299,11 +303,10 @@ export default abstract class FirebaseDataType {
           });
       } catch (e) {
         console.error(e);
-        console.error("!!!!!", JSON.stringify(initialPojo));
+        console.error('!!!!!', JSON.stringify(initialPojo));
       }
 
-
-      return result
+      return result;
     }
   }
 
@@ -332,9 +335,9 @@ export default abstract class FirebaseDataType {
         if (!this.__sglib__addedFields.has(key)) {
           resultantPojso[key] = (this as any)[key] || null;
           if (resultantPojso[key] === 'false') {
-            resultantPojso[key] = false
+            resultantPojso[key] = false;
           } else if (resultantPojso[key] === 'true') {
-            resultantPojso[key] = true
+            resultantPojso[key] = true;
           }
         }
       }
@@ -351,8 +354,8 @@ export default abstract class FirebaseDataType {
     const documentData = this.getData();
 
     documentData[
-    hiddenFieldPrefix + 'timestamp'
-      ] = firebase.firestore.Timestamp.now();
+      hiddenFieldPrefix + 'timestamp'
+    ] = firebase.firestore.Timestamp.now();
     const pojso = cleanDeep(documentData);
     let result = null;
 
@@ -363,13 +366,12 @@ export default abstract class FirebaseDataType {
         .catch((err: any) => {
           console.error(err);
         });
-
     } catch (e) {
       console.error(e);
-      console.error("!!!!!", pojso);
+      console.error('!!!!!', pojso);
     }
 
-    return result
+    return result;
   }
 
   public delete(): any {

@@ -1,5 +1,3 @@
-const canvasWorker = () => {
-
-};
+const canvasWorker = () => {};
 
 export default canvasWorker;

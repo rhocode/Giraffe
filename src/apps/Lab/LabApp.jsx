@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
-import {connect} from 'react-redux';
-import {simpleAction} from '../../redux/actions/simpleAction';
+import { connect } from 'react-redux';
+import { simpleAction } from '../../redux/actions/simpleAction';
 // import DatabaseEditor from './components/DatabaseEditor';
 import recipes from '../../json/Recipe';
 import items from '../../json/Items';
@@ -19,11 +19,10 @@ const styles = theme => {
     },
     container: {
       gridArea: 'body',
-      display: "grid",
-      gridTemplateAreas:
-        `"fullHeight"`,
-      gridTemplateRows: "1fr",
-      gridTemplateColumns: "1fr",
+      display: 'grid',
+      gridTemplateAreas: `"fullHeight"`,
+      gridTemplateRows: '1fr',
+      gridTemplateColumns: '1fr'
     }
   };
 };
@@ -32,7 +31,8 @@ const styles = theme => {
 // const REDIRECT_URI = "http://localhost:3000/lab";
 
 function replaceSpecial(item) {
-  return item.replace(/\./g, '')
+  return item
+    .replace(/\./g, '')
     .replace(/\(/g, '')
     .replace(/\)/g, '')
     .replace(/-/g, '')
@@ -51,27 +51,39 @@ class LabApp extends Component {
 
   generateResources() {
     const DefaultJSON = {
-      "isAltRecipe": false,
-      "machineClass": "miner",
-      "name": "nuclear_fuel_rod",
-      "outputItemId": "nuclear_fuel_rod",
-      "outputItemQuantity": "1",
-      "input": []
+      isAltRecipe: false,
+      machineClass: 'miner',
+      name: 'nuclear_fuel_rod',
+      outputItemId: 'nuclear_fuel_rod',
+      outputItemQuantity: '1',
+      input: []
     };
 
     //30, 60, 120
-    const normalResources = ['bauxite', 'caterium_ore', 'coal', 'copper_ore', 'crude_oil', 'iron_ore', 'limestone', 'raw_quartz', 'sam_ore', 'sulfur', 'uranium'];
+    const normalResources = [
+      'bauxite',
+      'caterium_ore',
+      'coal',
+      'copper_ore',
+      'crude_oil',
+      'iron_ore',
+      'limestone',
+      'raw_quartz',
+      'sam_ore',
+      'sulfur',
+      'uranium'
+    ];
     const list = [];
     const purities = ['impure', 'normal', 'pure'];
     normalResources.forEach(resource => {
       purities.forEach(purity => {
         const doc = JSON.parse(JSON.stringify(DefaultJSON));
 
-        doc.time = "1";
+        doc.time = '1';
 
         if (resource === 'crude_oil') {
           doc.machineClass = 'oil_pump';
-          doc.time = "0.5";
+          doc.time = '0.5';
         }
 
         doc.name = purity + '_' + resource + '_node';
@@ -79,35 +91,42 @@ class LabApp extends Component {
         doc.outputItemId = resource;
 
         list.push(doc);
-      })
+      });
     });
     return list;
   }
 
   processJSON() {
-
     // don't add it since it's already added
     // recipes.push(...this.generateResources());
     // console.error(JSON.stringify(recipes, null, 2));
 
-    const itemsJSON = items.map(item => item.id).map(item => replaceSpecial(item)).sort();
+    const itemsJSON = items
+      .map(item => item.id)
+      .map(item => replaceSpecial(item))
+      .sort();
     const mcJSON = machineclass.map(item => item.identifier).sort();
-    const raJSON = recipes.map(item => item.alternateName).filter(item => item).map(item => replaceSpecial(item));
-    const rnJSON = recipes.filter(item => !item.alternateName).map(item => item.name).map(item => replaceSpecial(item));
+    const raJSON = recipes
+      .map(item => item.alternateName)
+      .filter(item => item)
+      .map(item => replaceSpecial(item));
+    const rnJSON = recipes
+      .filter(item => !item.alternateName)
+      .map(item => item.name)
+      .map(item => replaceSpecial(item));
 
     if (raJSON.length !== new Set(raJSON).size) {
-      console.error("AAAAASSSS");
+      console.error('AAAAASSSS');
     }
 
     if (rnJSON.length !== new Set(rnJSON).size) {
-      console.error("AAAAAB");
-      console.error(rnJSON.sort(), new Set(rnJSON).size)
+      console.error('AAAAAB');
+      console.error(rnJSON.sort(), new Set(rnJSON).size);
     }
 
     // let intersection = new Set(
     //   [...new Set(raJSON)].filter(x => new Set(rnJSON).has(x)));
     // console.log(intersection);
-
 
     const ItemEnumMap = {};
     const RecipeEnumMap = {};
@@ -117,7 +136,7 @@ class LabApp extends Component {
     itemsJSON.forEach(item => {
       ItemEnumMap[item] = counter++;
     });
-    console.error(machineclass, "AAAAA");
+    console.error(machineclass, 'AAAAA');
     counter = 0;
     mcJSON.forEach(mc => {
       MachineClassUnlockMap[mc] = counter++;
@@ -132,20 +151,19 @@ class LabApp extends Component {
       RecipeEnumMap[r] = counter++;
     });
 
-
     //nested OUTPUT
     // console.error(JSON.stringify(RecipeEnumMap));
 
-    const protobuf = require("protobufjs/light");
+    const protobuf = require('protobufjs/light');
 
-    const root = protobuf.Root.fromJSON(schemas["0.1.0"]);
+    const root = protobuf.Root.fromJSON(schemas['0.1.0']);
 
     // console.error(root);
 
     function saveAs(blob, fileName) {
       const url = window.URL.createObjectURL(blob);
 
-      const anchorElem = document.createElement("a");
+      const anchorElem = document.createElement('a');
       // anchorElem.style = "display: none";
       anchorElem.href = url;
       anchorElem.download = fileName;
@@ -156,13 +174,12 @@ class LabApp extends Component {
 
       // On Edge, revokeObjectURL should be called only after
       // a.click() has completed, atleast on EdgeHTML 15.15048
-      setTimeout(function () {
+      setTimeout(function() {
         window.URL.revokeObjectURL(url);
       }, 1000);
     }
 
-
-    const ItemData = root.lookupType("ItemData");
+    const ItemData = root.lookupType('ItemData');
 
     const itemsList = items.map(item => {
       const processedName = replaceSpecial(item.id);
@@ -176,17 +193,23 @@ class LabApp extends Component {
       return ItemData.fromObject(data);
     });
 
-    const ItemList = root.lookupType("ItemList");
-    const encoding = ItemList.encode(ItemList.fromObject({data: itemsList})).finish();
-    const ItemListBlob = new Blob([encoding], {type: "application/octet-stream"});
-    new Response(ItemListBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-      ItemList.decode(buffer);
-      console.error(ItemList.decode(buffer));
-      saveAs(ItemListBlob, "ItemList.s2");
+    const ItemList = root.lookupType('ItemList');
+    const encoding = ItemList.encode(
+      ItemList.fromObject({ data: itemsList })
+    ).finish();
+    const ItemListBlob = new Blob([encoding], {
+      type: 'application/octet-stream'
     });
+    new Response(ItemListBlob)
+      .arrayBuffer()
+      .then(buffer => new Uint8Array(buffer))
+      .then(buffer => {
+        ItemList.decode(buffer);
+        console.error(ItemList.decode(buffer));
+        saveAs(ItemListBlob, 'ItemList.s2');
+      });
 
-
-    const MachineClassData = root.lookupType("MachineClassData");
+    const MachineClassData = root.lookupType('MachineClassData');
 
     function processUpgradeLevels(level, solo = false) {
       if (solo) {
@@ -426,7 +449,6 @@ class LabApp extends Component {
         default:
           return null;
       }
-
     }
 
     const machineClassList = [];
@@ -448,21 +470,30 @@ class LabApp extends Component {
           localOrdering: index
         };
         machineClassList.push(MachineClassData.fromObject(data));
-      })
+      });
     });
 
-    const MachineClassList = root.lookupType("MachineClassList");
-    const MCEncoding = MachineClassList.encode(MachineClassList.fromObject({data: machineClassList})).finish();
-    const MachineClassBlob = new Blob([MCEncoding], {type: "application/octet-stream"});
-    new Response(MachineClassBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-      MachineClassList.decode(buffer);
-      saveAs(MachineClassBlob, "MachineClassList.s2");
+    const MachineClassList = root.lookupType('MachineClassList');
+    const MCEncoding = MachineClassList.encode(
+      MachineClassList.fromObject({ data: machineClassList })
+    ).finish();
+    const MachineClassBlob = new Blob([MCEncoding], {
+      type: 'application/octet-stream'
     });
-
+    new Response(MachineClassBlob)
+      .arrayBuffer()
+      .then(buffer => new Uint8Array(buffer))
+      .then(buffer => {
+        MachineClassList.decode(buffer);
+        saveAs(MachineClassBlob, 'MachineClassList.s2');
+      });
 
     function processResourcePacket(packet) {
       const processedName = replaceSpecial(packet.itemId);
-      return {item: ItemEnumMap[processedName], itemQuantity: parseInt(packet.itemQty)}
+      return {
+        item: ItemEnumMap[processedName],
+        itemQuantity: parseInt(packet.itemQty)
+      };
     }
 
     const recipeList = recipes.map(item => {
@@ -475,7 +506,12 @@ class LabApp extends Component {
           machineClass: machineNum,
           time: parseFloat(item.time),
           input: item.input.map(item => processResourcePacket(item)),
-          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
+          output: [
+            processResourcePacket({
+              itemId: item.outputItemId,
+              itemQty: item.outputItemQuantity
+            })
+          ],
           hidden: false,
           alt: true
         };
@@ -488,30 +524,33 @@ class LabApp extends Component {
           machineClass: machineNum,
           time: parseFloat(item.time),
           input: item.input.map(item => processResourcePacket(item)),
-          output: [processResourcePacket({itemId: item.outputItemId, itemQty: item.outputItemQuantity})],
+          output: [
+            processResourcePacket({
+              itemId: item.outputItemId,
+              itemQty: item.outputItemQuantity
+            })
+          ],
           hidden: false
         };
       }
     });
 
-
     function humanize(str) {
       const frags = str.split('_');
-      for (let i=0; i<frags.length; i++) {
+      for (let i = 0; i < frags.length; i++) {
         frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
       }
       return frags.join(' ');
     }
 
-
     const z = {};
-    recipeList.map(item => item.name).forEach(item => {
-      z[item] = humanize(item);
-    });
+    recipeList
+      .map(item => item.name)
+      .forEach(item => {
+        z[item] = humanize(item);
+      });
 
-
-
-    console.error(JSON.stringify(z, null, 2), "AAAAAAAA");
+    console.error(JSON.stringify(z, null, 2), 'AAAAAAAA');
 
     //   var frags = str.split('_');
     //   for (let i=0; i<frags.length; i++) {
@@ -520,18 +559,22 @@ class LabApp extends Component {
     //   return frags.join(' ');
     // }
 
-
-    const RecipeList = root.lookupType("RecipeList");
-    const RCEncoding = RecipeList.encode(RecipeList.fromObject({data: recipeList})).finish();
-    const RDBlob = new Blob([RCEncoding], {type: "application/octet-stream"});
-    new Response(RDBlob).arrayBuffer().then(buffer => new Uint8Array(buffer)).then((buffer) => {
-      console.error(RecipeList.decode(buffer));
-      saveAs(RDBlob, "RecipeList.s2");
-    })
+    const RecipeList = root.lookupType('RecipeList');
+    const RCEncoding = RecipeList.encode(
+      RecipeList.fromObject({ data: recipeList })
+    ).finish();
+    const RDBlob = new Blob([RCEncoding], { type: 'application/octet-stream' });
+    new Response(RDBlob)
+      .arrayBuffer()
+      .then(buffer => new Uint8Array(buffer))
+      .then(buffer => {
+        console.error(RecipeList.decode(buffer));
+        saveAs(RDBlob, 'RecipeList.s2');
+      });
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.container}>

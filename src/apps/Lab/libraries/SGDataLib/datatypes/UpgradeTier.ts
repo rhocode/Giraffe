@@ -1,4 +1,4 @@
-import {BuilderFactoryFirebase} from '../utils/BuilderFactory';
+import { BuilderFactoryFirebase } from '../utils/BuilderFactory';
 import FirebaseDataType from './internal/FirebaseDataType';
 
 export default class UpgradeTier extends FirebaseDataType {
@@ -10,15 +10,13 @@ export default class UpgradeTier extends FirebaseDataType {
     return BuilderFactoryFirebase<UpgradeTier>(firebaseRef, UpgradeTier);
   }
 
-  import() {
-  }
+  import() {}
 
   dataMapping() {
     return {
-      identifier: {type: 'string'}
+      identifier: { type: 'string' }
     };
   }
 
-  saveProto(docs: any, protoRoot: any): any {
-  }
+  saveProto(docs: any, protoRoot: any): any {}
 }
