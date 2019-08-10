@@ -5,6 +5,7 @@
   "author": "Rhocode",
   "homepage": "./",
   "private": true,
+  "description": "SatisGraphtory App",
   "dependencies": {
     "@emotion/core": "^10.0.15",
     "@material-ui/core": "^4.0.0-rc.0",
@@ -77,8 +78,8 @@
     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
     "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
     "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
-    "preelectron-publish": "npm run build",
-    "electron-publish": "electron-builder -c.extraMetadata.main=build/electron.js --publish always",
+    "prerelease": "npm run build",
+    "release": "electron-builder --publish always",
     "pretty": "prettier --single-quote --write src/**/*"
   },
   "eslintConfig": {
@@ -128,34 +129,17 @@
     "appId": "com.my-website.my-app",
     "productName": "cra-test",
     "copyright": "Copyright © 2019 ${author}",
-    "mac": {
-      "publish": ["github"],
-      "category": "public.app-category.utilities",
-      "target": "dir"
-    },
-    "win": {
-      "publish": ["github"],
-      "target": [
-        {
-          "target": "dir",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    },
-    "linux": {
-      "publish": ["github"],
-      "target": "dir"
-    },
+    "publish": [{
+      "provider": "github",
+      "owner": "rhocode",
+      "repo": "Giraffe"
+    }],
     "files": [
       "build/**/*",
       "node_modules/**/*"
     ],
     "directories": {
       "buildResources": "assets"
-    },
-    "npmRebuild": false
+    }
   }
 }
