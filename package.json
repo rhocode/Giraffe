@@ -129,11 +129,12 @@
     "productName": "cra-test",
     "copyright": "Copyright © 2019 ${author}",
     "mac": {
+      "publish": ["github"],
       "category": "public.app-category.utilities",
-      "target": "dir",
-      "asar": false
+      "target": "dir"
     },
     "win": {
+      "publish": ["github"],
       "target": [
         {
           "target": "dir",
@@ -145,6 +146,7 @@
       ]
     },
     "linux": {
+      "publish": ["github"],
       "target": "dir"
     },
     "files": [
