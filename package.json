@@ -5,6 +5,7 @@
   "author": "Rhocode",
   "homepage": "./",
   "private": true,
+  "description": "SatisGraphtory App",
   "dependencies": {
     "@emotion/core": "^10.0.15",
     "@material-ui/core": "^4.0.0-rc.0",
@@ -63,20 +64,25 @@
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
     "prebuild": "npm run generate",
+    "pretest": "npm run generate",
     "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json src/proto/DataTypes.proto -o src/generated/generated-$npm_package_version-schema.json",
     "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto",
     "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension",
     "generate-images": "npm run generate-images-items && npm run generate-images-machines",
+    "generate-images-alt": "npm run generate-images-machines-alt",
     "generate-images-items": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/items es6WithFileExtension",
     "generate-images-machines": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/machines es6WithFileExtension",
-    "generate": "npm run proto && npm run generate-schemas && npm run generate-images",
+    "generate-images-machines-alt": "cross-env-shell metagen --filter=png src/apps/Graph/libraries/SGLib/images/alt/machines es6WithFileExtension",
+    "generate": "npm run proto && npm run generate-schemas && npm run generate-images && npm run generate-images-alt",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "electron-start": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
-    "electron-build": "electron-builder",
-    "electron-build-cross": "electron-builder -mwl",
-    "electron-publish": "electron-builder -mwl --publish always"
+    "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
+    "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
+    "prerelease": "npm run build",
+    "release": "electron-builder --publish always",
+    "pretty": "prettier --single-quote --write src/**/*"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -115,37 +121,27 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write",
       "git add"
+    ],
+    "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
     ]
   },
   "build": {
     "appId": "com.my-website.my-app",
     "productName": "cra-test",
     "copyright": "Copyright © 2019 ${author}",
-    "mac": {
-      "category": "public.app-category.utilities",
-      "target": "dir"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "dir",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    },
-    "linux": {
-      "target": "dir"
-    },
+    "publish": [{
+      "provider": "github",
+      "owner": "rhocode",
+      "repo": "Giraffe"
+    }],
     "files": [
       "build/**/*",
       "node_modules/**/*"
     ],
     "directories": {
       "buildResources": "assets"
-    },
-    "npmRebuild": false
+    }
   }
 }

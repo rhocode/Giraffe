@@ -1,5 +1,3 @@
-const derp = () => {
-
-};
+const derp = () => {};
 
 export default derp;

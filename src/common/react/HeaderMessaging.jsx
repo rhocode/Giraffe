@@ -1,8 +1,8 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {useServiceWorker} from "./ServiceWorkerProvider";
-import {connect} from 'react-redux';
-import {getTranslate} from "react-localize-redux";
+import { withStyles } from '@material-ui/core/styles';
+import { useServiceWorker } from './ServiceWorkerProvider';
+import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
 
 const styles = theme => ({
   container: {
@@ -12,31 +12,38 @@ const styles = theme => ({
     textAlign: 'center',
     cursor: 'pointer',
     zIndex: theme.zIndex.drawer + 2,
-    display: "table",
-    overflow: "hidden",
-    width: "100%",
+    display: 'table',
+    overflow: 'hidden',
+    width: '100%'
   },
   invisible: {
     gridArea: 'update',
     display: 'none'
   },
   messaging: {
-    display: "table-cell",
+    display: 'table-cell',
     verticalAlign: 'middle'
   }
 });
 
 function HeaderMessaging(props) {
-  const {assetsUpdateReady, updateAssets} = useServiceWorker();
+  const { assetsUpdateReady, updateAssets } = useServiceWorker();
 
   const update = () => {
-    console.error("Updating assets...");
+    console.error('Updating assets...');
     updateAssets();
   };
 
   return (
-    <div onClick={update} className={assetsUpdateReady ? props.classes.container : props.classes.invisible}>
-      <div className={props.classes.messaging}>{props.translate('headerMessaging_newData')}</div>
+    <div
+      onClick={update}
+      className={
+        assetsUpdateReady ? props.classes.container : props.classes.invisible
+      }
+    >
+      <div className={props.classes.messaging}>
+        {props.translate('headerMessaging_newData')}
+      </div>
     </div>
   );
 }

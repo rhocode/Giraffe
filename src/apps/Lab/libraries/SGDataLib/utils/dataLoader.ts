@@ -5,9 +5,9 @@ const dataLoader = (
   tableCallback: any,
   versionCallback: any
 ) => {
-  database.collection('versions').onSnapshot(function (querySnapshot: any) {
+  database.collection('versions').onSnapshot(function(querySnapshot: any) {
     const versions: any = [];
-    querySnapshot.forEach(function (doc: any) {
+    querySnapshot.forEach(function(doc: any) {
       versions.push(doc.id);
     });
 
@@ -31,19 +31,17 @@ const dataLoader = (
       });
 
       const tableRef = ref;
-      tableRef.onSnapshot(
-        (snapshot: any): any => {
-          const returnMapping: any[] = [];
-          snapshot.forEach((doc: any) => {
-            const dataMapping = tableMapping[lastTableName];
+      tableRef.onSnapshot((snapshot: any): any => {
+        const returnMapping: any[] = [];
+        snapshot.forEach((doc: any) => {
+          const dataMapping = tableMapping[lastTableName];
 
-            const item = dataMapping.fromFirebase(doc);
-            returnMapping.push({id: doc.id, data: item});
-          });
+          const item = dataMapping.fromFirebase(doc);
+          returnMapping.push({ id: doc.id, data: item });
+        });
 
-          tableCallback(tableName, returnMapping);
-        }
-      );
+        tableCallback(tableName, returnMapping);
+      });
     });
   });
 };

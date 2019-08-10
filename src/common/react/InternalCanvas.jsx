@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {stringGen} from "../../apps/Graph/libraries/SGLib/utils/stringUtils";
-
+import React, { Component } from 'react';
+import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
 
 class InternalCanvas extends Component {
   constructor(props) {
@@ -11,7 +10,7 @@ class InternalCanvas extends Component {
   render() {
     return (
       <canvas
-        style={{display: 'block'}}
+        style={{ display: 'block' }}
         id={this.canvasId}
         ref={this.props.reference}
         width={this.props.width}

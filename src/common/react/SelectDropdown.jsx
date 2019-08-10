@@ -1,11 +1,11 @@
 import React from 'react';
 import Select from 'react-select';
-import {makeStyles, useTheme} from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import {emphasize} from '@material-ui/core/styles/colorManipulator';
+import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
@@ -79,7 +79,7 @@ NoOptionsMessage.propTypes = {
   selectProps: PropTypes.object.isRequired
 };
 
-function inputComponent({inputRef, ...props}) {
+function inputComponent({ inputRef, ...props }) {
   return <div ref={inputRef} {...props} />;
 }
 
@@ -92,7 +92,7 @@ function Control(props) {
     children,
     innerProps,
     innerRef,
-    selectProps: {classes, TextFieldProps, helperText, label, value}
+    selectProps: { classes, TextFieldProps, helperText, label, value }
   } = props;
 
   const actualValue = value && value.value ? value.value : '';
@@ -244,7 +244,7 @@ function SelectDropdown(props) {
     return change => {
       const actualChange = change.value;
       if (propFunc) {
-        propFunc({target: {value: actualChange}});
+        propFunc({ target: { value: actualChange } });
       }
     };
   };
@@ -261,7 +261,7 @@ function SelectDropdown(props) {
         options={props.suggestions}
         label={props.label}
         components={components}
-        value={{label: props.value, value: props.value}}
+        value={{ label: props.value, value: props.value }}
         onChange={wrappedFunc(props.onChange)}
         onKeyUp={wrappedFunc(props.onKeyUp)}
         onKeyDown={wrappedFunc(props.onKeyDown)}

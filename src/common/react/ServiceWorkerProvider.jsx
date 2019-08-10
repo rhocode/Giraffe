@@ -1,7 +1,7 @@
-import React from "react";
-import * as serviceWorker from "../../serviceWorkerCustom";
-import {connect} from 'react-redux';
-import {setUpdateAvailable} from "../../redux/actions/common/commonActions";
+import React from 'react';
+import * as serviceWorker from '../../serviceWorkerCustom';
+import { connect } from 'react-redux';
+import { setUpdateAvailable } from '../../redux/actions/common/commonActions';
 
 const ServiceWorkerContext = React.createContext();
 
@@ -17,13 +17,13 @@ function ServiceWorkerProvider(props) {
       // Call when the user confirm update of application and reload page
       updateAssets: () => {
         if (waitingServiceWorker) {
-          waitingServiceWorker.addEventListener("statechange", event => {
-            if (event.target.state === "activated") {
-              window.location.reload()
+          waitingServiceWorker.addEventListener('statechange', event => {
+            if (event.target.state === 'activated') {
+              window.location.reload();
             }
           });
 
-          waitingServiceWorker.postMessage({type: "SKIP_WAITING"});
+          waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
         }
       }
     }),
@@ -53,7 +53,7 @@ export function useServiceWorker() {
 
   if (!context) {
     throw new Error(
-      "useServiceWorker must be used within a ServiceWorkerProvider"
+      'useServiceWorker must be used within a ServiceWorkerProvider'
     );
   }
 
@@ -63,7 +63,10 @@ export function useServiceWorker() {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  setUpdateAvailable: data => dispatch(setUpdateAvailable(data)),
+  setUpdateAvailable: data => dispatch(setUpdateAvailable(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceWorkerProvider);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ServiceWorkerProvider);

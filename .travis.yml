@@ -1,0 +1,46 @@
+sudo: false
+
+language: node_js
+node_js:
+  - "stable"
+
+branches:
+  only:
+    - master
+    - stable
+    -
+cache:
+  directories:
+    - $HOME/.npm
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
+stages:
+  - name: Test
+  - name: Deploy Windows & Mac
+    if: branch = master
+  - name: Deploy Linux
+    if: branch = master
+
+jobs:
+  include:
+    - stage: Test
+      script:
+        - npm test
+    - stage: Deploy Windows & Mac
+      os: osx
+      osx_image: xcode10.1
+      script:
+        - npm run release -- --mac --win
+      before_cache:
+        - rm -rf $HOME/.cache/electron-builder/wine
+    - stage: Deploy Linux
+      os: linux
+      dist: trusty
+      script:
+        - npm run release -- --linux -c.snap.publish=github

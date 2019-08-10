@@ -1,7 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
-import {Toolbar, withStyles} from '@material-ui/core';
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import { Toolbar, withStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 
 import GraphSettingsButton from './GraphSettingsButton';
@@ -34,11 +34,11 @@ const styles = theme => ({
 
 class GraphAppBar extends Component {
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar classes={{root: classes.toolbar}}>
+        <Toolbar classes={{ root: classes.toolbar }}>
           <Hidden xsDown implementation="css">
             <img
               src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
@@ -53,10 +53,10 @@ class GraphAppBar extends Component {
               className={classes.logoSmall}
             />
           </Hidden>
-          <div className={classes.grow}/>
-          <GraphShareButton/>
-          <GraphSettingsButton/>
-          <GraphHelpButton/>
+          <div className={classes.grow} />
+          <GraphShareButton />
+          <GraphSettingsButton />
+          <GraphHelpButton />
         </Toolbar>
       </AppBar>
     );

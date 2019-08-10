@@ -1,9 +1,8 @@
-import gql from "graphql-tag";
-import {getClient} from "../../../graphql";
-import {urlRepository} from "../libraries/SGLib/repositories/imageRepository";
+import gql from 'graphql-tag';
+import { getClient } from '../../../graphql';
 
 const GET_MACHINE_NODE_DATA = gql`
-  query ($className: String) {
+  query($className: String) {
     getMachineClassByName(class_name: $className) {
       name
       icon
@@ -17,14 +16,15 @@ const GET_MACHINE_NODE_DATA = gql`
   }
 `;
 
-export const getMachineClass = (className) => {
+export const getMachineClass = className => {
   const client = getClient();
-  return client.query({
-    query: GET_MACHINE_NODE_DATA,
-    variables: {
-      className
-    }
-  })
+  return client
+    .query({
+      query: GET_MACHINE_NODE_DATA,
+      variables: {
+        className
+      }
+    })
     .then(response => response.data.getMachineClassByName)
-    .catch(error => console.error(error))
+    .catch(error => console.error(error));
 };

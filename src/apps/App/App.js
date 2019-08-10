@@ -9,6 +9,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 
 import en from '../../translations/en.json';
+import discord from '../../translations/discord.json';
+
 import AsyncComponent from '../../common/react/AsyncComponent';
 import HomeApp from '../../apps/Home/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
@@ -38,9 +40,8 @@ class DebugRouter extends Router {
   }
 }
 
-// const ReactRouter = process.env.NODE_ENV === 'production' ? Router : DebugRouter;
 const ReactRouter =
-  process.env.NODE_ENV === 'production' ? DebugRouter : DebugRouter;
+  process.env.NODE_ENV === 'production' ? Router : DebugRouter;
 
 class AppWrapper extends Component {
   render() {
@@ -78,16 +79,13 @@ const styles = () => ({
   }
 });
 
-//TODO: Change this when the new version of CRA comes out where it exposes PUBLIC_URL in devo mode.
-const basePath = process.env.NODE_ENV === 'production' ? `` : ``;
-
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const languages = ['en'];
-    const defaultLanguage =
-      window.localStorage.getItem('languageCode') || languages[0];
+    const languages = ['en', 'discord'];
+    // const defaultLanguage =
+    //   window.localStorage.getItem('languageCode') || languages[0];
     // window.localStorage.setItem("languageCode", curLangCode);
 
     const onMissingTranslation = ({ translationId, languageCode }) => {
@@ -101,24 +99,28 @@ class App extends Component {
     };
 
     this.props.initialize({
-      languages: [{ name: 'English', code: 'en' }],
+      languages: [
+        { name: 'English', code: 'en' },
+        { name: 'Discord', code: 'discord' }
+      ],
 
       options: {
         onMissingTranslation,
         renderToStaticMarkup,
-        defaultLanguage
+        defaultLanguage: languages[1]
+        // defaultLanguage
       }
     });
 
     props.addTranslationForLanguage(en, 'en');
+    props.addTranslationForLanguage(discord, 'discord');
   }
 
   static getGraphApp(local = false) {
-    console.error(`${basePath}/graph/:graphId?`, local);
     return (
       <Route
         key={'graph'}
-        path={local ? `${basePath}/graph/:graphId?` : `${basePath}/:graphId?`}
+        path={local ? `/graph/:graphId?` : `/:graphId?`}
         exact={!local}
         component={GraphApp}
       />
@@ -129,7 +131,7 @@ class App extends Component {
     return (
       <Route
         key={'hub'}
-        path={local ? `${basePath}/hub` : `${basePath}/`}
+        path={local ? `/hub` : `/`}
         exact={!local}
         component={HubApp}
       />
@@ -140,7 +142,7 @@ class App extends Component {
     return (
       <Route
         key={'lab'}
-        path={local ? `${basePath}/lab` : `${basePath}/`}
+        path={local ? `/lab` : `/`}
         exact={!local}
         component={LabApp}
       />
@@ -148,9 +150,7 @@ class App extends Component {
   }
 
   static getHomeApp() {
-    return (
-      <Route key={'home'} path={`${basePath}/`} exact component={HomeApp} />
-    );
+    return <Route key={'home'} path={`/`} exact component={HomeApp} />;
   }
 
   static resolveDomain() {

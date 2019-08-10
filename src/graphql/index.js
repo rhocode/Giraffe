@@ -1,19 +1,18 @@
-import {ApolloClient} from 'apollo-client';
-import {InMemoryCache} from 'apollo-cache-inmemory';
-import {SchemaLink} from "apollo-link-schema";
-import {makeExecutableSchema} from 'graphql-tools';
-import typeDefs from "./typeDefs";
-import resolvers from "./resolvers";
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { SchemaLink } from 'apollo-link-schema';
+import { makeExecutableSchema } from 'graphql-tools';
+import typeDefs from './typeDefs';
+import resolvers from './resolvers';
 import gql from 'graphql-tag';
 
 const queryText = gql`
-  query ($className: String, $classId: Int) {
-    getRecipes { 
+  query($className: String, $classId: Int) {
+    getRecipes {
       name
     }
   }
 `;
-
 
 //
 // getMachineClasses(class_name: $className, class_id: $classId) {
@@ -46,7 +45,7 @@ export const getClient = () => {
     //  `/graphql` endpoint on the same host
     // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
     // to a different host
-    link: new SchemaLink({schema}),
+    link: new SchemaLink({ schema }),
     cache: new InMemoryCache({
       addTypename: false
     })
@@ -55,17 +54,17 @@ export const getClient = () => {
 
 const testGraphQL = () => {
   const client = getClient();
-  client.query({
-    query: queryText,
-    variables: {
-      cityName: "San Diego",
-      className: "color_cartridge",
-      classId: 27
-    }
-  })
+  client
+    .query({
+      query: queryText,
+      variables: {
+        cityName: 'San Diego',
+        className: 'color_cartridge',
+        classId: 27
+      }
+    })
     .then(data => console.log(data.data))
     .catch(error => console.error(error));
 };
-
 
 export default testGraphQL;

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -45,7 +45,7 @@ class AddRowModal extends Component {
   };
 
   render() {
-    const {open, handleClose, classes} = this.props;
+    const { open, handleClose, classes } = this.props;
 
     return (
       <Modal
