@@ -110,7 +110,6 @@ class App extends Component {
   }
 
   static getGraphApp(local = false) {
-    console.error(`/graph/:graphId?`, local);
     return (
       <Route
         key={'graph'}
