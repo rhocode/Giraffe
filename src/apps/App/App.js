@@ -84,8 +84,8 @@ class App extends Component {
     super(props);
 
     const languages = ['en', 'discord'];
-    const defaultLanguage =
-      window.localStorage.getItem('languageCode') || languages[0];
+    // const defaultLanguage =
+    //   window.localStorage.getItem('languageCode') || languages[0];
     // window.localStorage.setItem("languageCode", curLangCode);
 
     const onMissingTranslation = ({ translationId, languageCode }) => {
