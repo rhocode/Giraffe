@@ -31,7 +31,7 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine-02.17 \
-        /bin/bash -c "npm run electron-publish"
+        /bin/bash -c "./node_modules/.bin/electron-builder -mwl --publish always"
     else
       npm run electron-publish
     fi

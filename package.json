@@ -77,7 +77,6 @@
     "preelectron-build": "cross-env REACT_APP_ELECTRON=true npm run build",
     "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
     "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
-    "electron-publish": "electron-builder -mwl --publish always",
     "pretty": "prettier --single-quote --write src/**/*"
   },
   "eslintConfig": {
