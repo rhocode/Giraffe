@@ -32,9 +32,9 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine-02.17 \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn run electron-publish"
+        /bin/bash -c "npm run electron-publish"
     else
-      yarn electron-publish
+      npm run electron-publish
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
