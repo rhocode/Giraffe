@@ -20,7 +20,7 @@
     "clsx": "^1.0.4",
     "d3": "^5.9.7",
     "electron-is-dev": "^1.1.0",
-    "firebase": "^6.3.4",
+    "firebase": "^6.3.5",
     "flow-bin": "^0.98.1",
     "fontfaceobserver": "^2.1.0",
     "graphql": "^14.4.2",
