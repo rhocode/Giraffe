@@ -1,10 +1,5 @@
-const electron = require('electron');
-const { protocol } = electron;
+const { protocol, app, BrowserWindow } = require('electron');
 const electron_is_dev = require('electron-is-dev');
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 
@@ -44,7 +39,7 @@ function createWindow() {
   let startUrl = electron_is_dev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`;
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(startUrl);
 
