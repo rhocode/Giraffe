@@ -41,7 +41,7 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   //   this.resourceOut = resourceOut;
   // }
 
-  abstract processInputs(): void;
+  abstract processInputs(blacklist?: Set<Belt>): void;
 
   abstract distributeOutputs(): void;
 }

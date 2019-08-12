@@ -2,9 +2,10 @@ import GroupNode from '../../datatypes/graph/groupNode';
 import ResourcePacket from '../../datatypes/primitives/resourcePacket';
 import Recipe from '../../datatypes/primitives/recipe';
 import StrictProducerNode from '../../datatypes/satisgraphtory/strictProducerNode';
-import BalancedPropagatorNode from '../../datatypes/satisgraphtory/balancedPropagatorNode';
 import RecipeProcessorNode from '../../datatypes/satisgraphtory/recipeProcessorNode';
 import processLoop from './selfFeedingLoop';
+import MergerNode from '../../datatypes/satisgraphtory/mergerNode';
+import SplitterNode from '../../datatypes/satisgraphtory/splitterNode';
 
 const createLoop = () => {
   const coal = new ResourcePacket(0, 1);
@@ -14,9 +15,9 @@ const createLoop = () => {
   const coalProcessingRecipe = new Recipe([coal], [diamond], 1);
 
   const start = new StrictProducerNode(null, coalRecipe);
-  const merger = new BalancedPropagatorNode(null);
-  const firstTwoWaySplit = new BalancedPropagatorNode(null);
-  const secondTwoWaySplit = new BalancedPropagatorNode(null);
+  const merger = new MergerNode(null);
+  const firstTwoWaySplit = new SplitterNode(null);
+  const secondTwoWaySplit = new SplitterNode(null);
   const terminalOne = new RecipeProcessorNode(null, coalProcessingRecipe);
   const terminalTwo = new RecipeProcessorNode(null, coalProcessingRecipe);
 

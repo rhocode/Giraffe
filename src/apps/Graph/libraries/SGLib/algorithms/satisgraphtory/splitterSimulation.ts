@@ -1,4 +1,6 @@
-const greatestCommonDivisor = (a: number, b: number): number => {
+import Fraction from '../../datatypes/primitives/fraction';
+
+export const greatestCommonDivisor = (a: number, b: number): number => {
   if (isNaN(a) || isNaN(b)) {
     return 0;
   }
@@ -11,11 +13,11 @@ export const gcf = (list: Array<number>): number => {
   return list.reduce(greatestCommonDivisor);
 };
 
-const leastCommonFactor = (a: number, b: number): number => {
+export const leastCommonFactor = (a: number, b: number): number => {
   return (a * b) / greatestCommonDivisor(a, b);
 };
 
-const leastCommonMultiple = (list: Array<number>): number => {
+export const leastCommonMultiple = (list: Array<number>): number => {
   return list.reduce(leastCommonFactor);
 };
 
@@ -66,6 +68,37 @@ const generateSplitterIterator = (beltSpeeds: BeltTuple) => {
   };
 };
 
+const fractionalSplitterCalculator = (
+  inputSpeed: Fraction,
+  outputsSpeed: Array<Fraction>
+) => {
+  const denominators = [
+    inputSpeed.denominator,
+    ...outputsSpeed.map(fraction => fraction.denominator)
+  ];
+  const lcm = leastCommonMultiple(denominators);
+  const factor = new Fraction(lcm, 1);
+  const fixedInputs = inputSpeed.multiply(factor).reduce();
+  const fixedOutputs = outputsSpeed.map(item => item.multiply(factor).reduce());
+
+  [
+    fixedInputs.denominator,
+    ...fixedOutputs.map(item => item.denominator)
+  ].forEach(item => {
+    if (item !== 1) {
+      throw new Error('Not properly reduced!');
+    }
+  });
+
+  return {
+    result: splitterCalculator(
+      fixedInputs.numerator,
+      fixedOutputs.map(item => item.numerator)
+    ),
+    factor: lcm
+  };
+};
+
 const splitterCalculator = (
   inputSpeed: number,
   outputsSpeed: Array<number>
@@ -93,10 +126,12 @@ const splitterCalculator = (
     splitterCalculatorHelper(inputSpeed, out)
   );
 
-  const bestOutput = Math.max(...outputted.map(i => i.adjustedInput));
+  const bestOutput = Math.max(
+    ...outputted.map(i => i.adjustedInput.toNumber())
+  );
 
   const choices = outputted
-    .filter(i => i.adjustedInput === bestOutput)
+    .filter(i => i.adjustedInput.toNumber() === bestOutput)
     .sort((setting1: any, setting2: any) => {
       let counter1 = 0;
       let counter2 = 0;
@@ -239,7 +274,8 @@ const splitterCalculatorHelper = (
     (rightSplit * 60) / totalTime
   ];
 
-  const numerator = (timeIndex - nonZeroItems.length + 1) * 60;
+  //TODO: should mult by 60?
+  const numerator = timeIndex - nonZeroItems.length + 1;
   const denominator = 2 * inputSpeed;
   const [reducedNumerator, reducedDenominator] = reduceRatio([
     numerator,
@@ -256,10 +292,21 @@ const splitterCalculatorHelper = (
     { qty: rightSplit, seconds: totalTimeFraction }
   ];
 
+  const adjustedInput = new Fraction(0, 1);
+  beltPackets.forEach(item => {
+    const qty = item.qty;
+    const seconds = totalTimeFraction;
+    const thisFraction = new Fraction(qty, 1);
+    thisFraction.mutateDivide(
+      new Fraction(seconds.numerator, seconds.denominator)
+    );
+    adjustedInput.addMutate(thisFraction);
+  });
+
   return {
     timeScale,
     sequence: left,
-    adjustedInput: (itemsTransported * 60) / totalTime,
+    adjustedInput, //or (itemsTransported * 60) / totalTime,
     beltOutputs,
     beltPackets,
     // // manifoldInput,
@@ -281,6 +328,30 @@ const memoizedSplitterCalculatorFunction = (): any => {
   };
 };
 
+const memoizedFractionalSplitterCalculatorFunction = () => {
+  const inputMemo: { [key: string]: any } = {};
+  return (inputSpeed: Fraction, outputsSpeed: Array<Fraction>) => {
+    const resultArray = [
+      new Fraction(0, 1),
+      new Fraction(0, 1),
+      new Fraction(0, 1)
+    ];
+
+    outputsSpeed.forEach((item, index) => {
+      resultArray[index] = item;
+    });
+
+    const key = `${inputSpeed}:${resultArray}`;
+    if (inputMemo[key]) {
+      return inputMemo[key];
+    } else {
+      inputMemo[key] = fractionalSplitterCalculator(inputSpeed, resultArray);
+      return inputMemo[key];
+    }
+  };
+};
+
 const memoizedSplitterCalculator = memoizedSplitterCalculatorFunction();
+export const memoizedFractionalSplitterCalculator = memoizedFractionalSplitterCalculatorFunction();
 
 export default memoizedSplitterCalculator;

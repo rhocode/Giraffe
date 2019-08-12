@@ -2,11 +2,12 @@ import topologicalSort from '../graphProcessor';
 import generatePools from '../calculatePool';
 import SimpleCluster from '../../datatypes/graph/simpleCluster';
 import RecipeProcessorNode from '../../datatypes/satisgraphtory/recipeProcessorNode';
-import BalancedPropagatorNode from '../../datatypes/satisgraphtory/balancedPropagatorNode';
 import ResourcePacket from '../../datatypes/primitives/resourcePacket';
 import Recipe from '../../datatypes/primitives/recipe';
 import StrictProducerNode from '../../datatypes/satisgraphtory/strictProducerNode';
 import propagateFlows from './propagateFlows';
+import SplitterNode from '../../datatypes/satisgraphtory/splitterNode';
+import MergerNode from '../../datatypes/satisgraphtory/mergerNode';
 
 const generateSimpleCluster = () => {
   const coal = new ResourcePacket(0, 1);
@@ -16,8 +17,8 @@ const generateSimpleCluster = () => {
   const coalProcessingRecipe = new Recipe([coal], [diamond], 1);
 
   const start = new StrictProducerNode(null, coalRecipe);
-  const split = new BalancedPropagatorNode(null);
-  const join = new BalancedPropagatorNode(null);
+  const split = new SplitterNode(null);
+  const join = new MergerNode(null);
   const terminal = new RecipeProcessorNode(null, coalProcessingRecipe);
 
   start.addOutput(split).setSpeed(60);
