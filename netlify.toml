@@ -72,3 +72,13 @@
   from = "https://hub.*satisgraphtory2.com/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "http://satisgraphtory2.com/*"
+  to = "http://www.landing.satisgraphtory2.com/*"
+  status = 200
+
+[[redirects]]
+  from = "http://www.satisgraphtory2.com/*"
+  to = "http://www.landing.satisgraphtory2.com/*"
+  status = 200
