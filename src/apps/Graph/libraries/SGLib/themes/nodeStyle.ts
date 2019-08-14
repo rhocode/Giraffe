@@ -2,7 +2,7 @@ import { imageRepository } from '../repositories/imageRepository';
 import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 
-const img = imageRepository.machines['constructor'];
+const img = imageRepository.machinesAlt['constructor'];
 
 function drawNodePlug(
   context: any,
