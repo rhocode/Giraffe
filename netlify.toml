@@ -77,8 +77,10 @@
   from = "http://satisgraphtory2.com/*"
   to = "http://www.landing.satisgraphtory2.com/*"
   status = 200
+  force = true
 
 [[redirects]]
   from = "http://www.satisgraphtory2.com/*"
   to = "http://www.landing.satisgraphtory2.com/*"
   status = 200
+  force = true

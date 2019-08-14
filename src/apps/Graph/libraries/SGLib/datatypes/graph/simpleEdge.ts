@@ -16,5 +16,11 @@ export default class SimpleEdge {
 
   setWeight(weight: number) {
     this.weight = weight;
+    return this;
+  }
+
+  setData(data: Nullable<Object>) {
+    this.data = data;
+    return this;
   }
 }

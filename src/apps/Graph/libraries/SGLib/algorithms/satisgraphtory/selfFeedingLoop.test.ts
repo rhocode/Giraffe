@@ -3,9 +3,10 @@ import ResourcePacket from '../../datatypes/primitives/resourcePacket';
 import Recipe from '../../datatypes/primitives/recipe';
 import StrictProducerNode from '../../datatypes/satisgraphtory/strictProducerNode';
 import RecipeProcessorNode from '../../datatypes/satisgraphtory/recipeProcessorNode';
-import processLoop from './selfFeedingLoop';
+import { processLoopNew } from './selfFeedingLoop';
 import MergerNode from '../../datatypes/satisgraphtory/mergerNode';
 import SplitterNode from '../../datatypes/satisgraphtory/splitterNode';
+import SimpleNode from '../../datatypes/graph/simpleNode';
 
 const createLoop = () => {
   const coal = new ResourcePacket(0, 1);
@@ -34,12 +35,28 @@ const createLoop = () => {
   return new GroupNode([merger, firstTwoWaySplit, secondTwoWaySplit]);
 };
 
+const createSimpleLoop = () => {
+  const A = new SimpleNode(null);
+  const B = new SimpleNode(null);
+  const C = new SimpleNode(null);
+  const D = new SimpleNode(null);
+  const E = new SimpleNode(null);
+
+  A.addOutput(B).setWeight(1);
+  B.addOutput(C).setWeight(0);
+  C.addOutput(D).setWeight(0);
+  D.addOutput(B).setWeight(0);
+  D.addOutput(E).setWeight(0);
+
+  return new GroupNode([B, C, D]);
+};
+
 it('creates the loop', () => {
   const loop = createLoop();
   expect(loop).toBeDefined();
 });
 
-it('processes the loop', () => {
-  const loop = createLoop();
-  processLoop(loop);
+it('processes the loop (new)', () => {
+  const loop = createSimpleLoop();
+  processLoopNew(loop);
 });

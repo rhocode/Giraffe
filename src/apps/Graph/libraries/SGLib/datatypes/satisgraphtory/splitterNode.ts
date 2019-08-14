@@ -63,7 +63,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
       allResources.forEach(rate => {
         const fractionalResource = rate.fractional(localRate);
-        console.error('Adding to this belt', fractionalResource);
+        // console.error('Adding to this belt', fractionalResource);
         belt.addResource(this, fractionalResource);
         //TODO: clear belt first?
       });
