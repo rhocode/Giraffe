@@ -17,7 +17,7 @@ export default class HistoryFractionalEdge extends SimpleEdge {
   }
 
   archive() {
-    this.archivedWeight.addMutate(this.fractionalWeight);
+    this.archivedWeight.mutateAdd(this.fractionalWeight);
   }
 
   clearWeight() {

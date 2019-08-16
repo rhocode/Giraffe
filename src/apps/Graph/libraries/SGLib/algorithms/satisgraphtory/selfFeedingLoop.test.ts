@@ -60,3 +60,8 @@ it('processes the loop (new)', () => {
   const loop = createSimpleLoop();
   processLoopNew(loop);
 });
+
+//TODO: write a test where in the middle of some shit, everything propagates to a container with NO OUTPUT!!!!!!
+
+//todo: verify a-> b, a->c, b-> d, d->c, c->b, d-> e works!!!!
+//as in,

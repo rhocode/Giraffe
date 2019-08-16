@@ -300,7 +300,7 @@ const splitterCalculatorHelper = (
     thisFraction.mutateDivide(
       new Fraction(seconds.numerator, seconds.denominator)
     );
-    adjustedInput.addMutate(thisFraction);
+    adjustedInput.mutateAdd(thisFraction);
   });
 
   return {

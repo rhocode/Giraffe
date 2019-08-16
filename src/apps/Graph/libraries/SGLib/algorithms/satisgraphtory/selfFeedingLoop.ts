@@ -3,6 +3,7 @@ import SimpleNode from '../../datatypes/graph/simpleNode';
 import HistoryFractionalEdge from '../../datatypes/graph/historyFractionalEdge';
 import Belt from '../../datatypes/satisgraphtory/belt';
 import SimpleEdge from '../../datatypes/graph/simpleEdge';
+import Fraction from '../../datatypes/primitives/fraction';
 
 type Nullable<T> = T | null;
 
@@ -20,6 +21,8 @@ export const processLoopNew = (group: GroupNode) => {
     localNodeMapping.set(node, cloneNode);
   });
 
+  const processedBelts: Set<SimpleEdge> = new Set();
+
   group.subNodes.forEach(node => {
     const thisCloneNode = localNodeMapping.get(node);
     if (thisCloneNode === undefined) {
@@ -28,6 +31,12 @@ export const processLoopNew = (group: GroupNode) => {
 
     Array.from(node.inputs.entries()).forEach(input => {
       const belt = input[0];
+
+      if (processedBelts.has(belt)) {
+        return;
+      } else {
+        processedBelts.add(belt);
+      }
 
       const sourceNode = input[1];
       if (!localNodeMapping.has(sourceNode)) {
@@ -39,6 +48,7 @@ export const processLoopNew = (group: GroupNode) => {
       if (sourceCloneNode === undefined) {
         throw new Error('Should not be undefined');
       }
+
       sourceCloneNode
         .addOutput(thisCloneNode, false, HistoryFractionalEdge)
         .setWeight(belt.weight)
@@ -47,6 +57,13 @@ export const processLoopNew = (group: GroupNode) => {
 
     Array.from(node.outputs.entries()).forEach(input => {
       const belt = input[0];
+
+      if (processedBelts.has(belt)) {
+        return;
+      } else {
+        processedBelts.add(belt);
+      }
+
       const targetNode = input[1];
       if (!localNodeMapping.has(targetNode)) {
         const cloneNode = new SimpleNode(targetNode);
@@ -62,6 +79,13 @@ export const processLoopNew = (group: GroupNode) => {
         .setWeight(0)
         .setData(belt);
     });
+  });
+
+  // TODO: replace this with the clone graph
+  group.subNodes.forEach(node => {
+    const zz = localNodeMapping.get(node) as SimpleNode;
+
+    // console.error(zz.outputs.size)
   });
 
   const independentInputEdges = Array.from(thisNodeSet)
@@ -93,14 +117,15 @@ export const processLoopNew = (group: GroupNode) => {
   );
 
   //todo: Ensure this number is actually nonzero and that fraction of time is possible!
-  if (inputMax > 0 && independentOutputEdges.length == 0) {
+  if (inputMax > 0 && independentOutputEdges.length === 0) {
     //todo: make this a visible error
     throw new Error('cycle is not propagatable');
   }
 
-  independentInputEdges.forEach(edge => {
-    const blackListedEdges = new Set(independentInputEdges);
-    blackListedEdges.delete(edge);
+  const blackListedEdges = new Set(independentInputEdges);
+
+  independentInputEdges.forEach(currentMasterEdge => {
+    blackListedEdges.delete(currentMasterEdge);
 
     // if we see the other edges, we should ignore them.
 
@@ -110,8 +135,8 @@ export const processLoopNew = (group: GroupNode) => {
     const processed: Set<SimpleNode> = new Set();
     const parentEdge: Map<SimpleNode, SimpleEdge> = new Map();
 
-    queue.push(edge.target);
-    parentEdge.set(edge.target, edge);
+    queue.push(currentMasterEdge.target);
+    parentEdge.set(currentMasterEdge.target, currentMasterEdge);
 
     while (queue.length) {
       const popped = queue.shift();
@@ -139,20 +164,20 @@ export const processLoopNew = (group: GroupNode) => {
         const sourceWeight = (sourceEdge as HistoryFractionalEdge)
           .fractionalWeight;
 
-        console.error(sourceWeight);
+        const split = popped.outputs.size;
 
         // ONLY for first iteration. ?
         Array.from(popped.outputs.entries()).forEach(entry => {
           const source = popped;
-          const edge = entry[0];
+          const edge = entry[0] as HistoryFractionalEdge;
           const target = entry[1];
 
           if (!parentEdge.has(target)) {
             parentEdge.set(target, edge);
           }
-        });
 
-        // popped.BLAH;
+          edge.setWeight(sourceWeight.multiply(new Fraction(1, split)));
+        });
 
         Array.from(popped.outputs.entries()).forEach(entry => {
           const belt = entry[0];
@@ -164,6 +189,180 @@ export const processLoopNew = (group: GroupNode) => {
         });
       }
     }
+
+    const usedParentEdges = new Set(Array.from(parentEdge.values()));
+
+    const postCycleProcessingEdges = Array.from(thisNodeSet)
+      .map(node => {
+        const originalNodeInputs = Array.from(node.inputs.keys())
+          .filter(item => {
+            return !blackListedEdges.has(item) && !usedParentEdges.has(item);
+          })
+          .map(item => item as HistoryFractionalEdge);
+
+        console.error('This has outputs', originalNodeInputs.length);
+
+        return originalNodeInputs;
+      })
+      .flat(1);
+
+    const processingBlacklistedEdges: Set<HistoryFractionalEdge> = new Set(
+      postCycleProcessingEdges
+    );
+
+    postCycleProcessingEdges.forEach(postEdge => {
+      processingBlacklistedEdges.delete(postEdge);
+
+      const fractionalEdge = postEdge as HistoryFractionalEdge;
+      const recursiveNode = postEdge.target;
+
+      // This is guaranteed to be an ACTUAL merger. JK, actually, because fucking industrial containers exist,
+      // this is no longer true.
+      const whitelistedOutputEdges = Array.from(
+        recursiveNode.outputs.keys()
+      ).filter(item => {
+        return !processingBlacklistedEdges.has(item as HistoryFractionalEdge);
+      });
+
+      const whitelistedInputEdges = Array.from(
+        recursiveNode.inputs.keys()
+      ).filter(item => {
+        return (
+          !processingBlacklistedEdges.has(item as HistoryFractionalEdge) &&
+          !blackListedEdges.has(item as HistoryFractionalEdge)
+        );
+      });
+
+      //TODO; propagate that dank original edge propagation? Probably only after the first cyclic completion.
+      // jk, that's a fucking sham.
+      // from the original edge, use the above algorithm. However, change if (!thisNodeSet.has(popped)) { to
+      // also include if the node is recursiveNode.
+      // Take the fractional subtraction!!!! 1 +> 0.5 means 0.5 subtracts
+
+      // const startingEdgeFraction = (currentMasterEdge as HistoryFractionalEdge).fractionalWeight;
+      // const startingNodeFractions = Array.from(currentMasterEdge.target.inputs.keys()).filter(edge => {
+      //   return !processingBlacklistedEdges.has(edge as HistoryFractionalEdge) && !blackListedEdges.has(edge as HistoryFractionalEdge)
+      // }).map(edge => {
+      //   const hfe = edge as HistoryFractionalEdge;
+      //
+      //   return hfe.fractionalWeight;
+      // });
+      //
+      // const startingNodeSum = new Fraction(0, 1);
+      //
+      // startingNodeFractions.forEach(fraction => {
+      //   startingNodeSum.mutateAdd(fraction);
+      // });
+      //
+      // const remainder = startingNodeSum.mutateSubtract(startingEdgeFraction);
+      // const finalFraction = remainder.mutateDivide(startingNodeSum);
+      //
+      //
+      //
+      // const redistributionQueue: Array<SimpleNode> = [];
+      // const redistributionProcessed: Set<SimpleNode> = new Set();
+      //
+      // redistributionQueue.push(postEdge.target);
+      //
+      //
+      // while (redistributionQueue.length) {
+      //   const popped = redistributionQueue.shift();
+      //
+      //   if (popped === undefined) {
+      //     throw new Error(
+      //       "Somehow the queue length was defined but now it isn't"
+      //     );
+      //   }
+      //
+      //   // this node is not part of the internal set.
+      //   if (!thisNodeSet.has(popped) || recursiveNode === popped) {
+      //     continue;
+      //   }
+      //
+      //   if (!redistributionProcessed.has(popped)) {
+      //     redistributionProcessed.add(popped);
+      //
+      //     Array.from(popped.outputs.entries()).forEach(entry => {
+      //       const edge = entry[0] as HistoryFractionalEdge;
+      //       const node = entry[1];
+      //       const currentWeight = edge.fractionalWeight;
+      //       const newWeight = currentWeight.multiply(finalFraction)
+      //
+      //       edge.setWeight(newWeight);
+      //
+      //       if (!redistributionProcessed.has(node)) {
+      //         redistributionQueue.push(node);
+      //       }
+      //     });
+      //   }
+      // }
+      // Uncomment the above if this is indeed needed please.
+
+      //TODO: fix this initial input. (?)
+      const initialInput = (postEdge as HistoryFractionalEdge).fractionalWeight;
+
+      const initialOutputFractions = Array.from(
+        postEdge.target.outputs.keys()
+      ).map(edge => {
+        const convertedEdge = edge as HistoryFractionalEdge;
+        return convertedEdge.fractionalWeight;
+      });
+
+      const initialOutput = new Fraction(0, 1);
+      initialOutputFractions.forEach(frac => {
+        initialOutput.mutateAdd(frac);
+      });
+
+      const a1 = initialInput;
+      const an = initialInput.divide(initialOutput);
+
+      const geometricSum = a1.divide(new Fraction(1, 1).mutateSubtract(an));
+
+      console.error(geometricSum);
+
+      const multiplier = geometricSum.divide(initialOutput);
+
+      console.error(multiplier);
+
+      const propagationQueue: Array<SimpleNode> = [];
+      const propagationProcessed: Set<SimpleNode> = new Set();
+
+      propagationQueue.push(recursiveNode);
+
+      while (propagationQueue.length) {
+        const popped = propagationQueue.shift();
+
+        if (popped === undefined) {
+          throw new Error(
+            "Somehow the queue length was defined but now it isn't"
+          );
+        }
+
+        // this node is not part of the internal set.
+        if (!thisNodeSet.has(popped) || recursiveNode === popped) {
+          continue;
+        }
+
+        if (!propagationProcessed.has(popped)) {
+          propagationProcessed.add(popped);
+
+          Array.from(popped.outputs.entries()).forEach(entry => {
+            const edge = entry[0] as HistoryFractionalEdge;
+            const node = entry[1];
+            const currentWeight = edge.fractionalWeight;
+
+            const additionalWeight = currentWeight.multiply(multiplier);
+            const totalWeight = currentWeight.add(additionalWeight);
+
+            edge.setWeight(totalWeight);
+
+            if (!propagationProcessed.has(node)) {
+              propagationQueue.push(node);
+            }
+          });
+        }
+      }
+    });
   });
 };
 //

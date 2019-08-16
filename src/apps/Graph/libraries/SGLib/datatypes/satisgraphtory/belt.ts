@@ -36,7 +36,7 @@ export default class Belt extends SimpleEdge {
 
     const totalResourceRate = new Fraction(0, 1);
     resourceRate.forEach(rate => {
-      totalResourceRate.addMutate(
+      totalResourceRate.mutateAdd(
         new Fraction(rate.resource.itemQty, rate.time)
       );
     });

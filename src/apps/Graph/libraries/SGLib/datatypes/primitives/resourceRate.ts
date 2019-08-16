@@ -26,7 +26,7 @@ class ResourceRate {
     );
     const result = new Fraction(0, 1);
     fractions.forEach(fraction => {
-      result.addMutate(fraction);
+      result.mutateAdd(fraction);
     });
 
     result.mutateReduce();
@@ -59,7 +59,7 @@ class ResourceRate {
       );
       const result = new Fraction(0, 1);
       fractions.forEach(fraction => {
-        result.addMutate(fraction);
+        result.mutateAdd(fraction);
       });
       result.mutateReduce();
 

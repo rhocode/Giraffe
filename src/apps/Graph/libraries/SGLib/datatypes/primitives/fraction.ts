@@ -63,7 +63,22 @@ class Fraction {
     return new Fraction(factor1 + factor2, commonDenominator).reduce();
   }
 
-  addMutate(fraction: Fraction) {
+  subtract(fraction: Fraction) {
+    const negativeFrac = new Fraction(
+      -1 * fraction.numerator,
+      fraction.denominator
+    );
+    return this.add(negativeFrac);
+  }
+
+  mutateSubtract(fraction: Fraction) {
+    const result = this.subtract(fraction);
+    this.numerator = result.numerator;
+    this.denominator = result.denominator;
+    return this;
+  }
+
+  mutateAdd(fraction: Fraction) {
     const result = this.add(fraction);
     this.numerator = result.numerator;
     this.denominator = result.denominator;
