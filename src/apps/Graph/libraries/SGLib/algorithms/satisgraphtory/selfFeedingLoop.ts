@@ -1,6 +1,8 @@
 import GroupNode from '../../datatypes/graph/groupNode';
 import SimpleNode from '../../datatypes/graph/simpleNode';
 import HistoryFractionalEdge from '../../datatypes/graph/historyFractionalEdge';
+import Belt from '../../datatypes/satisgraphtory/belt';
+import SimpleEdge from '../../datatypes/graph/simpleEdge';
 
 type Nullable<T> = T | null;
 
@@ -26,20 +28,20 @@ export const processLoopNew = (group: GroupNode) => {
 
     Array.from(node.inputs.entries()).forEach(input => {
       const belt = input[0];
-      const targetNode = input[1];
-      if (!localNodeMapping.has(targetNode)) {
-        const cloneNode = new SimpleNode(targetNode);
-        localNodeMapping.set(targetNode, cloneNode);
+
+      const sourceNode = input[1];
+      if (!localNodeMapping.has(sourceNode)) {
+        const cloneNode = new SimpleNode(sourceNode);
+        localNodeMapping.set(sourceNode, cloneNode);
       }
 
-      const targetCloneNode = localNodeMapping.get(targetNode);
-      if (targetCloneNode === undefined) {
+      const sourceCloneNode = localNodeMapping.get(sourceNode);
+      if (sourceCloneNode === undefined) {
         throw new Error('Should not be undefined');
       }
-
-      thisCloneNode
-        .addOutput(targetCloneNode, false, HistoryFractionalEdge)
-        .setWeight(0)
+      sourceCloneNode
+        .addOutput(thisCloneNode, false, HistoryFractionalEdge)
+        .setWeight(belt.weight)
         .setData(belt);
     });
 
@@ -55,9 +57,8 @@ export const processLoopNew = (group: GroupNode) => {
       if (targetCloneNode === undefined) {
         throw new Error('Should not be undefined');
       }
-
-      targetCloneNode
-        .addOutput(thisCloneNode, false, HistoryFractionalEdge)
+      thisCloneNode
+        .addOutput(targetCloneNode, false, HistoryFractionalEdge)
         .setWeight(0)
         .setData(belt);
     });
@@ -73,6 +74,30 @@ export const processLoopNew = (group: GroupNode) => {
     })
     .flat(1);
 
+  const independentOutputEdges = Array.from(thisNodeSet)
+    .map(node => {
+      return Array.from(node.outputs.entries())
+        .filter(item => {
+          return !thisNodeSet.has(item[1]);
+        })
+        .map(item => item[0]);
+    })
+    .flat(1);
+
+  const inputMax = Math.max(
+    ...independentInputEdges.map(item => {
+      const belt = item as HistoryFractionalEdge;
+
+      return belt.fractionalWeight.toNumber();
+    })
+  );
+
+  //todo: Ensure this number is actually nonzero and that fraction of time is possible!
+  if (inputMax > 0 && independentOutputEdges.length == 0) {
+    //todo: make this a visible error
+    throw new Error('cycle is not propagatable');
+  }
+
   independentInputEdges.forEach(edge => {
     const blackListedEdges = new Set(independentInputEdges);
     blackListedEdges.delete(edge);
@@ -83,11 +108,14 @@ export const processLoopNew = (group: GroupNode) => {
 
     const queue: Array<SimpleNode> = [];
     const processed: Set<SimpleNode> = new Set();
+    const parentEdge: Map<SimpleNode, SimpleEdge> = new Map();
 
     queue.push(edge.target);
+    parentEdge.set(edge.target, edge);
 
     while (queue.length) {
       const popped = queue.shift();
+
       if (popped === undefined) {
         throw new Error(
           "Somehow the queue length was defined but now it isn't"
@@ -101,6 +129,28 @@ export const processLoopNew = (group: GroupNode) => {
 
       if (!processed.has(popped)) {
         processed.add(popped);
+
+        const sourceEdge = parentEdge.get(popped);
+
+        if (sourceEdge === null) {
+          throw new Error('the parent source was somehow null!!');
+        }
+
+        const sourceWeight = (sourceEdge as HistoryFractionalEdge)
+          .fractionalWeight;
+
+        console.error(sourceWeight);
+
+        // ONLY for first iteration. ?
+        Array.from(popped.outputs.entries()).forEach(entry => {
+          const source = popped;
+          const edge = entry[0];
+          const target = entry[1];
+
+          if (!parentEdge.has(target)) {
+            parentEdge.set(target, edge);
+          }
+        });
 
         // popped.BLAH;
 
