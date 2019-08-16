@@ -210,6 +210,8 @@ export const processLoopNew = (group: GroupNode) => {
       postCycleProcessingEdges
     );
 
+    // TODO: add some logic in case we don't actually have a cycle!!!!! so run a gd traversal through all whitelisted edges to ensure
+    // that postEdge actually completes the cycle!
     postCycleProcessingEdges.forEach(postEdge => {
       processingBlacklistedEdges.delete(postEdge);
 
