@@ -7,6 +7,7 @@ export default class SimpleNode {
   endpoint: boolean;
   inputs: Map<SimpleEdge, SimpleNode> = new Map();
   outputs: Map<SimpleEdge, SimpleNode> = new Map();
+  internalDescriptor: String = '';
 
   isClusterBoundary: boolean = false;
 
@@ -17,6 +18,11 @@ export default class SimpleNode {
 
   setClusterBoundary(isClusterBoundary: boolean = true) {
     this.isClusterBoundary = isClusterBoundary;
+  }
+
+  setInternalDescriptor(desc: String) {
+    this.internalDescriptor = desc;
+    return this;
   }
 
   addOutput(

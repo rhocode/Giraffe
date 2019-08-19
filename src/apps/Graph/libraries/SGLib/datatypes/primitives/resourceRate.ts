@@ -34,6 +34,12 @@ class ResourceRate {
     return result;
   }
 
+  static numUniqueResources(rates: ResourceRate[]) {
+    const resources = new Set(rates.map(item => item.resource.itemId));
+
+    return resources.size;
+  }
+
   static collect(rates: ResourceRate[]) {
     const mapping: Map<number, Array<ResourceRate>> = new Map();
     rates.forEach(rate => {

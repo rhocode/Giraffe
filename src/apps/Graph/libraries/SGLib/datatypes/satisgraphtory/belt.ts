@@ -11,6 +11,10 @@ export default class Belt extends SimpleEdge {
   resources: Map<SimpleNode, Array<ResourceRate>> = new Map();
   clampedSpeed: Fraction = new Fraction(0, 1);
 
+  clearResources() {
+    this.resources = new Map();
+  }
+
   addResource(node: SimpleNode, resourceRate: ResourceRate) {
     if (this.resources.get(node) === undefined) {
       this.resources.set(node, []);
@@ -29,24 +33,25 @@ export default class Belt extends SimpleEdge {
   }
 
   getAllResourceRates() {
-    const resourceRate = Array.from(this.resources.values()).flat(1);
-
-    // todo: make an error when the resourceRate is
-    // console.error("Node exceeds ")
+    const resourceRateRaw = Array.from(this.resources.values()).flat(1);
 
     const totalResourceRate = new Fraction(0, 1);
-    resourceRate.forEach(rate => {
+    resourceRateRaw.forEach(rate => {
       totalResourceRate.mutateAdd(
         new Fraction(rate.resource.itemQty, rate.time)
       );
     });
 
-    totalResourceRate.mutateMultiply(new Fraction(60, 1)).reduce();
+    // This resource rate would be per minute!
+    // totalResourceRate.mutateMultiply(new Fraction(60, 1)).reduce();
+    totalResourceRate.mutateReduce();
 
     let overflowed = false;
     let errored = false;
+    const excessResourceRates: ResourceRate[] = [];
 
-    if (totalResourceRate.toNumber() > this.speed.toNumber()) {
+    let resourceRate = resourceRateRaw;
+    if (totalResourceRate.toNumber() > this.clampedSpeed.toNumber()) {
       overflowed = true;
       const resources = new Set(
         Array.from(this.resources.values())
@@ -56,22 +61,40 @@ export default class Belt extends SimpleEdge {
       if (resources.size > 1) {
         errored = true;
       }
+
+      const difference = totalResourceRate.subtract(this.clampedSpeed);
+
+      difference.mutateDivide(totalResourceRate);
+
+      resourceRate = [];
+
+      const actualFraction = this.clampedSpeed.divide(totalResourceRate);
+
+      resourceRateRaw.forEach(rate => {
+        excessResourceRates.push(rate.fractional(difference));
+        resourceRate.push(rate.fractional(actualFraction));
+      });
     }
 
     return {
       resourceRate,
+      excessResourceRates,
       overflowed,
       errored
     };
   }
 
   setSpeed(speed: number) {
-    this.speed = new Fraction(speed, 60);
-    this.clampedSpeed = new Fraction(speed, 60);
+    this.speed = new Fraction(speed, 60).mutateReduce();
+    this.clampedSpeed = new Fraction(speed, 60).mutateReduce();
   }
 
   getSpeedInItemsPerSecond() {
-    return this.speed.reduce();
+    return this.clampedSpeed.reduce();
+  }
+
+  getSpeedInItemsPerMinute() {
+    return this.clampedSpeed.reduce().multiply(new Fraction(60, 1));
   }
 
   setClampedSpeed(speed: number) {

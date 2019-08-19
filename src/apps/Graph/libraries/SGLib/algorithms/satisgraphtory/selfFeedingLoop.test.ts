@@ -3,7 +3,7 @@ import ResourcePacket from '../../datatypes/primitives/resourcePacket';
 import Recipe from '../../datatypes/primitives/recipe';
 import StrictProducerNode from '../../datatypes/satisgraphtory/strictProducerNode';
 import RecipeProcessorNode from '../../datatypes/satisgraphtory/recipeProcessorNode';
-import { processLoopNew } from './selfFeedingLoop';
+import { processLoop } from './selfFeedingLoop';
 import MergerNode from '../../datatypes/satisgraphtory/mergerNode';
 import SplitterNode from '../../datatypes/satisgraphtory/splitterNode';
 import SimpleNode from '../../datatypes/graph/simpleNode';
@@ -36,17 +36,17 @@ const createLoop = () => {
 };
 
 const createSimpleLoop = () => {
-  const A = new SimpleNode(null);
-  const B = new SimpleNode(null);
-  const C = new SimpleNode(null);
-  const D = new SimpleNode(null);
-  const E = new SimpleNode(null);
+  const A = new SimpleNode(null).setInternalDescriptor('A');
+  const B = new SimpleNode(null).setInternalDescriptor('B');
+  const C = new SimpleNode(null).setInternalDescriptor('C');
+  const D = new SimpleNode(null).setInternalDescriptor('D');
+  const E = new SimpleNode(null).setInternalDescriptor('E');
 
   A.addOutput(B).setWeight(1);
   B.addOutput(C).setWeight(0);
   C.addOutput(D).setWeight(0);
   D.addOutput(B).setWeight(0);
-  D.addOutput(E).setWeight(0);
+  C.addOutput(E).setWeight(0);
 
   return new GroupNode([B, C, D]);
 };
@@ -58,7 +58,7 @@ it('creates the loop', () => {
 
 it('processes the loop (new)', () => {
   const loop = createSimpleLoop();
-  processLoopNew(loop);
+  processLoop(loop);
 });
 
 //TODO: write a test where in the middle of some shit, everything propagates to a container with NO OUTPUT!!!!!!

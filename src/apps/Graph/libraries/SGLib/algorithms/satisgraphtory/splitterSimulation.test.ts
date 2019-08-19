@@ -4,10 +4,11 @@ import memoizedSplitterCalculator, {
 import Fraction from '../../datatypes/primitives/fraction';
 
 it('calculates the splitter', () => {
-  const beltOutputs = [30, 20, 40];
-  const beltInputs = 90;
+  const beltOutputs = [30, 90, 60];
+  const beltInputs = 180;
   const calculation = memoizedSplitterCalculator(beltInputs, beltOutputs);
   expect(calculation).toBeDefined();
+  // console.error(calculation)
   // console.error(JSON.stringify(calculation));
   // expect(calculation.actual.originalOutput)
   //   .toEqual(expect.arrayContaining(beltOutputs));

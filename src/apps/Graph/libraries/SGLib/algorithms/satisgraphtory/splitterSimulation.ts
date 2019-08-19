@@ -195,7 +195,13 @@ const splitterCalculatorHelper = (
   let startTime = 0;
   let usedNextFreeTime = false;
 
-  while (timeIndex < 10000) {
+  let lcm = leastCommonMultiple([...outputsSpeed].filter(item => item > 0));
+
+  const upperBound = Math.round((lcm + 500) / 1000);
+
+  const iterator = upperBound * 1000;
+
+  while (timeIndex < iterator) {
     const time = timeIndex * timeScale;
 
     let beltChanged = false;
@@ -281,15 +287,13 @@ const splitterCalculatorHelper = (
     numerator,
     denominator
   ]);
-  const totalTimeFraction = {
-    numerator: reducedNumerator,
-    denominator: reducedDenominator
-  };
+
+  const totalTimeFraction = new Fraction(reducedNumerator, reducedDenominator);
 
   const beltPackets = [
-    { qty: leftSplit, seconds: totalTimeFraction },
-    { qty: middleSplit, seconds: totalTimeFraction },
-    { qty: rightSplit, seconds: totalTimeFraction }
+    { qty: leftSplit, seconds: totalTimeFraction.reduce() },
+    { qty: middleSplit, seconds: totalTimeFraction.reduce() },
+    { qty: rightSplit, seconds: totalTimeFraction.reduce() }
   ];
 
   const adjustedInput = new Fraction(0, 1);

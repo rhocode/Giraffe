@@ -1,5 +1,7 @@
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 import Recipe from '../primitives/recipe';
+import Belt from './belt';
+import DistributedOutput from './distributedOutput';
 
 type Nullable<T> = T | null;
 
@@ -13,7 +15,38 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
     this.recipe = recipe;
   }
 
-  distributeOutputs(): void {}
+  distributeOutputs(): DistributedOutput {
+    if (this.recipe) {
+      const inputEdges = Array.from(this.inputs.keys()).map(
+        item => item as Belt
+      );
 
-  processInputs(): void {}
+      const allResourceRates = inputEdges
+        .map(inp => {
+          return Array.from(inp.resources.values()).flat(1);
+        })
+        .flat(1);
+
+      const resourcePackets = Recipe.formRecipeOutput(
+        this.recipe,
+        allResourceRates
+      );
+
+      return new DistributedOutput(false, []);
+    }
+
+    // const num_outputs = this.outputs.size;
+    // Array.from(this.outputs.keys()).forEach(output => {
+    //
+    // });
+
+    return new DistributedOutput(false, []);
+  }
+
+  processInputs(): void {
+    //TODO: DO NOT DISTRIBUTE OUTPUTS IN THE PROPAGATE FLOWS!!!!!!
+    // OTHERWISE, THE NEW SHIT WILL BE WRONG!!!!;
+    // noop!
+    // const simplifiedRates = ResourceRate.collect(inputEdges.map(edge => edge.getAllResourceRates().resourceRate).flat(1));
+  }
 }

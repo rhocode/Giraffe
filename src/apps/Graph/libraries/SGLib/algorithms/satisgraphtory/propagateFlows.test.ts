@@ -16,15 +16,20 @@ const generateSimpleCluster = () => {
 
   const coalProcessingRecipe = new Recipe([coal], [diamond], 1);
 
-  const start = new StrictProducerNode(null, coalRecipe);
-  const split = new SplitterNode(null);
-  const join = new MergerNode(null);
-  const terminal = new RecipeProcessorNode(null, coalProcessingRecipe);
+  const start = new StrictProducerNode(null, coalRecipe).setInternalDescriptor(
+    'start'
+  );
+  const split = new SplitterNode(null).setInternalDescriptor('start');
+  const join = new MergerNode(null).setInternalDescriptor('start');
+  const terminal = new RecipeProcessorNode(
+    null,
+    coalProcessingRecipe
+  ).setInternalDescriptor('end');
 
   start.addOutput(split).setSpeed(60);
   split.addOutput(join).setSpeed(30);
-  split.addOutput(join).setSpeed(30);
-  join.addOutput(terminal).setSpeed(60);
+  split.addOutput(join).setSpeed(20);
+  join.addOutput(terminal).setSpeed(10);
 
   return new SimpleCluster([start, split, join, terminal]);
 };
@@ -35,6 +40,5 @@ it('Runs a simple propagation test on generator to sink node', () => {
   const { normal } = topologicalSort(nonCyclic);
 
   const poolData = generatePools(nonCyclic, normal);
-
   propagateFlows(poolData);
 });

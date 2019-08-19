@@ -1,13 +1,12 @@
 import GroupNode from '../../datatypes/graph/groupNode';
 import SimpleNode from '../../datatypes/graph/simpleNode';
 import HistoryFractionalEdge from '../../datatypes/graph/historyFractionalEdge';
-import Belt from '../../datatypes/satisgraphtory/belt';
 import SimpleEdge from '../../datatypes/graph/simpleEdge';
 import Fraction from '../../datatypes/primitives/fraction';
 
 type Nullable<T> = T | null;
 
-export const processLoopNew = (group: GroupNode) => {
+export const processLoop = (group: GroupNode) => {
   //0. TODO: clone graph first.
 
   //0. separate per input!
@@ -79,13 +78,6 @@ export const processLoopNew = (group: GroupNode) => {
         .setWeight(0)
         .setData(belt);
     });
-  });
-
-  // TODO: replace this with the clone graph
-  group.subNodes.forEach(node => {
-    const zz = localNodeMapping.get(node) as SimpleNode;
-
-    // console.error(zz.outputs.size)
   });
 
   const independentInputEdges = Array.from(thisNodeSet)
@@ -200,7 +192,7 @@ export const processLoopNew = (group: GroupNode) => {
           })
           .map(item => item as HistoryFractionalEdge);
 
-        console.error('This has outputs', originalNodeInputs.length);
+        // console.error('This has outputs', originalNodeInputs.length);
 
         return originalNodeInputs;
       })
@@ -301,7 +293,44 @@ export const processLoopNew = (group: GroupNode) => {
       // Uncomment the above if this is indeed needed please.
 
       //TODO: fix this initial input. (?)
-      const initialInput = (postEdge as HistoryFractionalEdge).fractionalWeight;
+
+      //READ NE: TOTAL input to the source node, then you can tell what the output resulted in!
+
+      const initialInput = new Fraction(0, 1);
+      const summedInitialInput = new Fraction(0, 1);
+
+      const initialInputs = Array.from(postEdge.target.inputs.keys())
+        .map(edge => {
+          return edge as HistoryFractionalEdge;
+        })
+        .filter(edge => {
+          return (
+            !processingBlacklistedEdges.has(edge) &&
+            !blackListedEdges.has(edge) &&
+            edge !== currentMasterEdge
+          );
+        });
+
+      const allInitialInputs = Array.from(postEdge.target.inputs.keys())
+        .map(edge => {
+          return edge as HistoryFractionalEdge;
+        })
+        .filter(edge => {
+          return (
+            !processingBlacklistedEdges.has(edge) &&
+            !blackListedEdges.has(edge) &&
+            edge !== postEdge
+          );
+          //TODO: INVESTIGATE IF THIS IS NEEDED PAST THE FIRST CYCLE
+        });
+
+      allInitialInputs.forEach(edge => {
+        summedInitialInput.mutateAdd(edge.fractionalWeight);
+      });
+
+      initialInputs.forEach(edge => {
+        initialInput.mutateAdd(edge.fractionalWeight);
+      });
 
       const initialOutputFractions = Array.from(
         postEdge.target.outputs.keys()
@@ -315,16 +344,31 @@ export const processLoopNew = (group: GroupNode) => {
         initialOutput.mutateAdd(frac);
       });
 
+      // console.error("INITIAL", initialInput);
+      // console.error("INITIALOUT", initialOutput);
+
       const a1 = initialInput;
       const an = initialInput.divide(initialOutput);
 
       const geometricSum = a1.divide(new Fraction(1, 1).mutateSubtract(an));
 
-      console.error(geometricSum);
+      // console.error("GEOSUM", geometricSum);
 
-      const multiplier = geometricSum.divide(initialOutput);
+      const addition = initialOutput.multiply(geometricSum);
+      const totalAddition = initialOutput.add(addition);
 
-      console.error(multiplier);
+      // console.error("TOTAL ADDITION", totalAddition)
+
+      const multiplier = totalAddition.divide(initialOutput);
+
+      // console.error("TOTAL MULTIPLIER", multiplier);
+
+      // do a small check
+
+      // const difference = summedInitialInput.subtract(initialOutput);
+      //
+      // console.error("THIS IS MY MULTIPLIER", multiplier)
+      // console.error(summedInitialInput, difference, initialInput)
 
       const propagationQueue: Array<SimpleNode> = [];
       const propagationProcessed: Set<SimpleNode> = new Set();
@@ -341,7 +385,7 @@ export const processLoopNew = (group: GroupNode) => {
         }
 
         // this node is not part of the internal set.
-        if (!thisNodeSet.has(popped) || recursiveNode === popped) {
+        if (!thisNodeSet.has(popped)) {
           continue;
         }
 
@@ -354,9 +398,10 @@ export const processLoopNew = (group: GroupNode) => {
             const currentWeight = edge.fractionalWeight;
 
             const additionalWeight = currentWeight.multiply(multiplier);
-            const totalWeight = currentWeight.add(additionalWeight);
 
-            edge.setWeight(totalWeight);
+            // console.error("WEI", edge.source.data.internalDescriptor, currentWeight, additionalWeight, edge.target.data.internalDescriptor);
+
+            edge.setWeight(additionalWeight);
 
             if (!propagationProcessed.has(node)) {
               propagationQueue.push(node);
@@ -365,7 +410,43 @@ export const processLoopNew = (group: GroupNode) => {
         }
       }
     });
+    // end of recursive processing.
+
+    //TODO: fix that shit
+
+    group.subNodes.forEach(node => {
+      const subNode = localNodeMapping.get(node) as SimpleNode;
+
+      Array.from(subNode.outputs.keys()).forEach(edge => {
+        if (!(edge instanceof HistoryFractionalEdge)) {
+          throw new Error('not a historical edge!');
+        }
+        const castedEdge = edge as HistoryFractionalEdge;
+        castedEdge.archive();
+      });
+    });
   });
+
+  const edgeMapping: Map<SimpleEdge, Fraction> = new Map();
+
+  group.subNodes.forEach(node => {
+    const subNode = localNodeMapping.get(node) as SimpleNode;
+
+    Array.from(subNode.outputs.keys()).forEach(edge => {
+      if (!(edge instanceof HistoryFractionalEdge)) {
+        throw new Error('not a historical edge!');
+      }
+      const castedEdge = edge as HistoryFractionalEdge;
+      const originalEdge = castedEdge.data;
+      if (originalEdge === null) {
+        throw new Error('edge data is null!');
+      }
+
+      edgeMapping.set(originalEdge as SimpleEdge, castedEdge.archivedWeight);
+    });
+  });
+
+  return edgeMapping;
 };
 //
 // const processLoop = (group: GroupNode) => {

@@ -2,11 +2,12 @@ import SatisGraphtoryLoopableNode from './satisGraphtoryLoopableNode';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
+import DistributedOutput from './distributedOutput';
 
 // Used for splitters and mergers (although not smart splitters)
 export default abstract class BalancedPropagatorNode extends SatisGraphtoryLoopableNode {
   isClusterBoundary: boolean = false;
-  abstract distributeOutputs(): void;
+  abstract distributeOutputs(): DistributedOutput;
 
   processInputs(blacklist: Set<Belt> = new Set()): void {
     Array.from(this.inputs.entries())

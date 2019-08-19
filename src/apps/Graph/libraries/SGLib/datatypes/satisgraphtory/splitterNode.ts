@@ -3,9 +3,10 @@ import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
 import { memoizedFractionalSplitterCalculator } from '../../algorithms/satisgraphtory/splitterSimulation';
 import Fraction from '../primitives/fraction';
+import DistributedOutput from './distributedOutput';
 
 export default class SplitterNode extends BalancedPropagatorNode {
-  distributeOutputs(): void {
+  distributeOutputs() {
     const input = Array.from(this.resourceIn.values()).flat(1);
 
     const inputRate = ResourceRate.getTotalItemRate(input);
@@ -22,28 +23,39 @@ export default class SplitterNode extends BalancedPropagatorNode {
     //TODO: Figure out the OPTIMAL configuration
     const calculation = memoizedFractionalSplitterCalculator(inputRate, speeds);
 
-    const { result } = calculation;
-    // Not needed since it is now relative
-    // {factor}
+    const { result, factor } = calculation;
+
     const actual = result.actual;
 
     const packets = actual.beltPackets;
 
-    //This is not required since it is now relative
-    // const divisor = new Fraction(1, factor);
+    actual.beltPackets.forEach((packet: any) => {
+      packet.seconds.mutateMultiply(new Fraction(factor, 1));
+    });
 
     const adjustedInput = actual.adjustedInput;
+    const actualInput = adjustedInput.multiply(new Fraction(1, factor));
 
-    // TODO: check if adjustedInput is matching to the throughput of this node :(
+    const missingInput = inputRate.subtract(actualInput);
+
+    const excess: ResourceRate[] = [];
 
     const allResources = ResourceRate.collect(input);
 
+    allResources.forEach(rate => {
+      const fractionalResource = rate.fractional(missingInput);
+
+      console.error('Missing fractional resource', fractionalResource);
+      excess.push(fractionalResource);
+    });
+
     outputBelts.forEach((belt, index) => {
       const packet = packets[index];
+
       const localRate = new Fraction(packet.qty, 1);
-      localRate.mutateDivide(
-        new Fraction(packet.seconds.numerator, packet.seconds.denominator)
-      );
+
+      localRate.mutateDivide(packet.seconds);
+
       // 30/50 or something like that
 
       if (localRate.numerator > localRate.denominator) {
@@ -51,25 +63,33 @@ export default class SplitterNode extends BalancedPropagatorNode {
       }
 
       if (adjustedInput === 0) {
-        return; // ??? TODO: fix this short-circuit?
-      }
+        return new DistributedOutput(false, []);
 
-      localRate.mutateDivide(new Fraction(adjustedInput, 1)); // this gets a fractional portion
+        // ??? TODO: fix this short-circuit?
+      }
 
       // The below is not needed since everything is now relative.
       // localRate.mutateMultiply(divisor); // this should now be the resource rate that you apply to each input
 
       //TODO: refactor this shit to be legible?
+      belt.clearResources();
 
       allResources.forEach(rate => {
         const fractionalResource = rate.fractional(localRate);
-        // console.error('Adding to this belt', fractionalResource);
+
+        console.error('Adding fractional resource', fractionalResource);
         belt.addResource(this, fractionalResource);
-        //TODO: clear belt first?
       });
     });
-
-    //TODO: figure out if the splitter cannot handle too many inputs
+    console.error(
+      'Splitter output',
+      ResourceRate.numUniqueResources(excess) > 1,
+      excess
+    );
+    return new DistributedOutput(
+      ResourceRate.numUniqueResources(excess) > 1,
+      excess
+    );
   }
 
   processInputs(blacklist: Set<Belt> = new Set()): void {

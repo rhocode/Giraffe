@@ -1,6 +1,7 @@
 import SimpleNode from '../graph/simpleNode';
 import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
+import DistributedOutput from './distributedOutput';
 
 export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   resourceIn: Map<Belt, Array<ResourceRate>> = new Map();
@@ -43,5 +44,5 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
 
   abstract processInputs(blacklist?: Set<Belt>): void;
 
-  abstract distributeOutputs(): void;
+  abstract distributeOutputs(): DistributedOutput;
 }

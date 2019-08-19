@@ -106,6 +106,22 @@ class Fraction {
   reciprocal() {
     return new Fraction(this.denominator, this.numerator);
   }
+
+  public max(fraction: Fraction) {
+    if (this.toNumber() < fraction.toNumber()) {
+      return fraction;
+    }
+
+    return this;
+  }
+
+  public min(fraction: Fraction) {
+    if (this.toNumber() > fraction.toNumber()) {
+      return fraction;
+    }
+
+    return this;
+  }
 }
 
 export default Fraction;
