@@ -99,7 +99,7 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
 
     while (shouldRedistribute) {
       if (redistribution.size > 0) {
-        redistribute(nodeOrder, redistribution);
+        redistribute(sourceCluster, nodeOrder, redistribution);
       }
 
       redistribution = distribute(nodeOrder);
@@ -115,11 +115,39 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
   });
 };
 
+const backPropagation = (
+  terminalSet: Set<SimpleNode>,
+  node: GroupNode,
+  resourceRates: ResourceRate[]
+) => {
+  if (terminalSet.has(node)) {
+    return;
+    // ??? should we actually do anything
+  }
+
+  if (node.isCyclic()) {
+    const castedNode = new SatisGraphtoryGroupNode(node);
+    castedNode.backPropagation(resourceRates);
+  } else {
+    const innerNode = node.singleNode();
+    if (!(innerNode instanceof SatisGraphtoryAbstractNode)) {
+      throw new Error('Not the right kind of node');
+    }
+
+    const castedNode = innerNode as SatisGraphtoryAbstractNode;
+    castedNode.backPropagation(resourceRates);
+  }
+};
+
 const redistribute = (
+  sources: Array<SimpleNode>,
   nodeOrder: Array<SimpleNode>,
   redistribution: Map<GroupNode, ResourceRate[]>
 ) => {
-  console.error('AAAAAA', redistribution);
+  const terminal = new Set(sources);
+  Array.from(redistribution.entries()).forEach(entry => {
+    backPropagation(terminal, entry[0], entry[1]);
+  });
 };
 
 export default propagateFlows;

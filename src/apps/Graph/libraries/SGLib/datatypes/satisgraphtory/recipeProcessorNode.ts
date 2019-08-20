@@ -2,6 +2,7 @@ import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 import Recipe from '../primitives/recipe';
 import Belt from './belt';
 import DistributedOutput from './distributedOutput';
+import ResourceRate from '../primitives/resourceRate';
 
 type Nullable<T> = T | null;
 
@@ -48,5 +49,12 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
     // OTHERWISE, THE NEW SHIT WILL BE WRONG!!!!;
     // noop!
     // const simplifiedRates = ResourceRate.collect(inputEdges.map(edge => edge.getAllResourceRates().resourceRate).flat(1));
+  }
+
+  backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
+    throw new Error('Unimplemented!');
+    return new Map();
   }
 }

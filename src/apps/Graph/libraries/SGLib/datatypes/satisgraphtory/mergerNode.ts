@@ -2,6 +2,7 @@ import BalancedPropagatorNode from './balancedPropagatorNode';
 import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
 import DistributedOutput from './distributedOutput';
+import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 
 export default class MergerNode extends BalancedPropagatorNode {
   distributeOutputs() {
@@ -49,5 +50,12 @@ export default class MergerNode extends BalancedPropagatorNode {
 
   processInputs(blacklist: Set<Belt> = new Set()): void {
     super.processInputs(blacklist);
+  }
+
+  backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
+    throw new Error('Unimplemented!');
+    return new Map();
   }
 }

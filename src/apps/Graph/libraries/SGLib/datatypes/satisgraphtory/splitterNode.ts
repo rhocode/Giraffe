@@ -4,6 +4,7 @@ import ResourceRate from '../primitives/resourceRate';
 import { memoizedFractionalSplitterCalculator } from '../../algorithms/satisgraphtory/splitterSimulation';
 import Fraction from '../primitives/fraction';
 import DistributedOutput from './distributedOutput';
+import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 
 export default class SplitterNode extends BalancedPropagatorNode {
   distributeOutputs() {
@@ -94,5 +95,12 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
   processInputs(blacklist: Set<Belt> = new Set()): void {
     super.processInputs(blacklist);
+  }
+
+  backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
+    throw new Error('Unimplemented!');
+    return new Map();
   }
 }

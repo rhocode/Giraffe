@@ -3,6 +3,7 @@ import ResourceRate from '../primitives/resourceRate';
 import Belt from './belt';
 import DistributedOutput from './distributedOutput';
 import Recipe from '../primitives/recipe';
+import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 
 // Used for normal recipe processors
 export default class StrictProducerNode extends RecipeProcessorNode {
@@ -66,5 +67,12 @@ export default class StrictProducerNode extends RecipeProcessorNode {
 
   processInputs(): void {
     // Noop, since a strict producer cannot have inputs.
+  }
+
+  backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
+    throw new Error('Unimplemented!');
+    return new Map();
   }
 }

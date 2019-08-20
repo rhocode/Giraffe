@@ -1,5 +1,7 @@
 import GroupNode from '../graph/groupNode';
 import { processLoop } from '../../algorithms/satisgraphtory/selfFeedingLoop';
+import ResourceRate from '../primitives/resourceRate';
+import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 
 export default class SatisGraphtoryGroupNode extends GroupNode {
   constructor(group: GroupNode) {
@@ -10,9 +12,17 @@ export default class SatisGraphtoryGroupNode extends GroupNode {
     // no-op I thinK?
   }
 
+  // todo: relate this back to a SatisGraphtoryAbstractNode somehow!
   distributeOutputs() {
     const fractionalEdges = processLoop(this);
     console.error(fractionalEdges);
     //TODO: fix this output shit
+  }
+
+  backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
+    throw new Error('Unimplemented!');
+    return new Map();
   }
 }

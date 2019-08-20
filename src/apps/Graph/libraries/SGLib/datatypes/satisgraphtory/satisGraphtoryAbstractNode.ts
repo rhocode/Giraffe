@@ -45,4 +45,8 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   abstract processInputs(blacklist?: Set<Belt>): void;
 
   abstract distributeOutputs(): DistributedOutput;
+
+  abstract backPropagation(
+    resourceRate: ResourceRate[]
+  ): Map<SatisGraphtoryAbstractNode, ResourceRate>;
 }
