@@ -11,6 +11,10 @@ export default class Belt extends SimpleEdge {
   resources: Map<SimpleNode, Array<ResourceRate>> = new Map();
   clampedSpeed: Fraction = new Fraction(0, 1);
 
+  constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
+    super(data, source, target);
+  }
+
   clearResources() {
     this.resources = new Map();
   }
@@ -26,10 +30,6 @@ export default class Belt extends SimpleEdge {
     }
 
     resourceArray.push(resourceRate);
-  }
-
-  constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
-    super(data, source, target);
   }
 
   getAllResourceRates() {

@@ -43,24 +43,6 @@ class Recipe {
     this.time = time;
   }
 
-  getInputs() {
-    return Array.from(this.input.entries()).map(entry => {
-      return new ResourceRate(
-        new ResourcePacket(entry[0], entry[1]),
-        this.time
-      );
-    });
-  }
-
-  getOutputs() {
-    return Array.from(this.output.entries()).map(entry => {
-      return new ResourceRate(
-        new ResourcePacket(entry[0], entry[1]),
-        this.time
-      );
-    });
-  }
-
   static formRecipeOutput = (recipe: Recipe, resources: ResourceRate[]) => {
     const collectedResources = ResourceRate.collect(resources);
     let actualRate = new Fraction(Infinity, 1);
@@ -120,6 +102,24 @@ class Recipe {
       return mappedResources;
     }
   };
+
+  getInputs() {
+    return Array.from(this.input.entries()).map(entry => {
+      return new ResourceRate(
+        new ResourcePacket(entry[0], entry[1]),
+        this.time
+      );
+    });
+  }
+
+  getOutputs() {
+    return Array.from(this.output.entries()).map(entry => {
+      return new ResourceRate(
+        new ResourcePacket(entry[0], entry[1]),
+        this.time
+      );
+    });
+  }
 }
 
 export default Recipe;

@@ -7,6 +7,7 @@ import DistributedOutput from './distributedOutput';
 // Used for splitters and mergers (although not smart splitters)
 export default abstract class BalancedPropagatorNode extends SatisGraphtoryLoopableNode {
   isClusterBoundary: boolean = false;
+
   abstract distributeOutputs(): DistributedOutput;
 
   processInputs(blacklist: Set<Belt> = new Set()): void {

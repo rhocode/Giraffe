@@ -102,6 +102,7 @@ function NodeDrawer(props) {
   function handleChange(event, newValue) {
     setValue(newValue);
   }
+
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
 
   return (

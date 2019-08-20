@@ -10,16 +10,6 @@ class ResourceRate {
     this.time = time;
   }
 
-  fractional(fraction: Fraction) {
-    const reduced = new Fraction(this.resource.itemQty, this.time);
-    reduced.mutateMultiply(fraction).reduce();
-
-    return new ResourceRate(
-      new ResourcePacket(this.resource.itemId, reduced.numerator),
-      reduced.denominator
-    );
-  }
-
   static getTotalItemRate(rates: ResourceRate[]): Fraction {
     const fractions = rates.map(
       item => new Fraction(item.resource.itemQty, item.time)
@@ -78,6 +68,16 @@ class ResourceRate {
     });
 
     return totalResourceRates;
+  }
+
+  fractional(fraction: Fraction) {
+    const reduced = new Fraction(this.resource.itemQty, this.time);
+    reduced.mutateMultiply(fraction).reduce();
+
+    return new ResourceRate(
+      new ResourcePacket(this.resource.itemId, reduced.numerator),
+      reduced.denominator
+    );
   }
 }
 

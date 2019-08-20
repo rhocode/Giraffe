@@ -11,10 +11,6 @@ export default class TinyQueue<T> {
     this.reheapify();
   }
 
-  private updateLength() {
-    this.length = this.data.length;
-  }
-
   reheapify(): void {
     if (this.length > 0) {
       for (let i = (this.length >> 1) - 1; i >= 0; i--) {
@@ -59,6 +55,10 @@ export default class TinyQueue<T> {
   peek() {
     if (this.length === 0) return undefined;
     return this.data[0];
+  }
+
+  private updateLength() {
+    this.length = this.data.length;
   }
 
   private up(pos: number) {

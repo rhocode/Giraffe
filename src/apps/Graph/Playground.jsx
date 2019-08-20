@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-
-import GraphAppBar from './components/GraphAppBar';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import GraphCanvasLoadable from './components/GraphCanvasLoadable';
-import GraphNodeDrawer from './components/GraphNodeDrawer';
 import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
-import { getCraftingMachineClasses } from './graphql/queries';
 import { getTranslate } from 'react-localize-redux';
 // import GraphRightPanel from './components/GraphRightPanel';
 

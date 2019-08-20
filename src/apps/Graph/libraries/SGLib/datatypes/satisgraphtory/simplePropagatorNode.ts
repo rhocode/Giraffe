@@ -6,6 +6,7 @@ import ResourceRate from '../primitives/resourceRate';
 // Used for normal containers
 export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
   isClusterBoundary: boolean = false;
+
   distributeOutputs(): DistributedOutput {
     return new DistributedOutput(false, []);
   }

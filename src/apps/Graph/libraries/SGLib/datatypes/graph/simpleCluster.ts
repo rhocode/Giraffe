@@ -78,6 +78,7 @@ export default class SimpleCluster extends SimpleGraph {
       this.nonCyclic = cyclic;
     }
   }
+
   generateNonCyclicCluster() {
     const nodeGroups = stronglyConnectedComponents(this);
 

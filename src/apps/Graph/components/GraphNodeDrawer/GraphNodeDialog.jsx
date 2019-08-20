@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { isMobile, BrowserView, MobileView } from 'react-device-detect';
+import { BrowserView, isMobile, MobileView } from 'react-device-detect';
 import SelectDropdown from '../../../../common/react/SelectDropdown';
 import { getTranslate } from 'react-localize-redux';
 import {
