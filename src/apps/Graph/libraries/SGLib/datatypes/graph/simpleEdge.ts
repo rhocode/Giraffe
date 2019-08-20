@@ -8,10 +8,34 @@ export default class SimpleEdge {
   target: SimpleNode;
   weight: number = Infinity;
 
+  static readonly NULL_EDGE = new SimpleEdge(
+    null,
+    SimpleNode.NULL_NODE,
+    SimpleNode.NULL_NODE
+  );
+
+  static createNullTerminalEdge(data: Nullable<Object>, target: SimpleNode) {
+    return new SimpleEdge(data, SimpleNode.NULL_NODE, target);
+  }
+
   constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
     this.data = data;
     this.source = source;
     this.target = target;
+  }
+
+  isNullEdge() {
+    return (
+      this.source === SimpleNode.NULL_NODE &&
+      this.target === SimpleNode.NULL_NODE
+    );
+  }
+
+  isFakeEdge() {
+    return (
+      this.source === SimpleNode.NULL_NODE &&
+      this.target !== SimpleNode.NULL_NODE
+    );
   }
 
   setWeight(weight: number) {

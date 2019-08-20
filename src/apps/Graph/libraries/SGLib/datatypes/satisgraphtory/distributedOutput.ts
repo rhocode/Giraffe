@@ -1,15 +1,16 @@
 import ResourceRate from '../primitives/resourceRate';
+import SimpleEdge from '../graph/simpleEdge';
 
 export default class DistributedOutput {
   errored: boolean = false;
-  excess: Array<ResourceRate> = [];
+  excess: Map<SimpleEdge, ResourceRate[]> = new Map();
 
-  constructor(errored: boolean, excess: Array<ResourceRate>) {
+  constructor(errored: boolean, excess: Map<SimpleEdge, ResourceRate[]>) {
     this.errored = errored;
     this.excess = excess;
   }
 
   hasExcess() {
-    return this.excess.length > 0;
+    return this.excess.size > 0;
   }
 }

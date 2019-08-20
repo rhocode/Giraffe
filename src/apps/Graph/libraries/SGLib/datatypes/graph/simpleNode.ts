@@ -11,6 +11,8 @@ export default class SimpleNode {
 
   isClusterBoundary: boolean = false;
 
+  static readonly NULL_NODE = new SimpleNode(null);
+
   constructor(data: Nullable<Object>, endpoint: boolean = false) {
     this.data = data;
     this.endpoint = endpoint;

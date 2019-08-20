@@ -3,6 +3,7 @@ import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
 import DistributedOutput from './distributedOutput';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
+import SimpleEdge from '../graph/simpleEdge';
 
 export default class MergerNode extends BalancedPropagatorNode {
   distributeOutputs() {
@@ -28,7 +29,11 @@ export default class MergerNode extends BalancedPropagatorNode {
     });
 
     let isError = false;
-    const excess: Array<ResourceRate> = [];
+    const excess: Map<SimpleEdge, ResourceRate[]> = new Map();
+
+    const excessResourceRates = [];
+
+    //TODO: FIX THIS GD RESOURCE RATE FFS
 
     outputBelts.forEach(belt => {
       console.error(JSON.stringify(Array.from(belt.resources.values())));
@@ -41,10 +46,13 @@ export default class MergerNode extends BalancedPropagatorNode {
 
       isError = isError || errored;
       if (overflowed && !errored) {
-        excess.push(...excessResourceRates);
+        // excess.set(belt, excessResourceRates);
       }
     });
+
+    //TODO: fix merger input rates :(
     console.error('Merger output', isError, excess);
+    throw new Error('MERGER OUTPUT INCOMPLETE');
     return new DistributedOutput(isError, excess);
   }
 

@@ -4,6 +4,7 @@ import Belt from './belt';
 import DistributedOutput from './distributedOutput';
 import Recipe from '../primitives/recipe';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
+import SimpleEdge from '../graph/simpleEdge';
 
 // Used for normal recipe processors
 export default class StrictProducerNode extends RecipeProcessorNode {
@@ -58,11 +59,19 @@ export default class StrictProducerNode extends RecipeProcessorNode {
           excess.push(...excessResourceRates);
         }
       });
+
+      const nullExcess: Map<SimpleEdge, ResourceRate[]> = new Map();
+
+      const nullEdge = SimpleEdge.createNullTerminalEdge(null, this);
+
+      nullExcess.set(nullEdge, excess);
+
       console.error('Strict producer', excess);
-      return new DistributedOutput(isError, excess);
+
+      return new DistributedOutput(isError, nullExcess);
     }
 
-    return new DistributedOutput(false, []);
+    return new DistributedOutput(false, new Map());
   }
 
   processInputs(): void {

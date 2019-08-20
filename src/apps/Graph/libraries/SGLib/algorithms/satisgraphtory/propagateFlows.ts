@@ -4,9 +4,10 @@ import SatisGraphtoryAbstractNode from '../../datatypes/satisgraphtory/satisGrap
 import SatisGraphtoryGroupNode from '../../datatypes/satisgraphtory/satisGraphtoryGroupNode';
 import SimpleNode from '../../datatypes/graph/simpleNode';
 import ResourceRate from '../../datatypes/primitives/resourceRate';
+import SimpleEdge from '../../datatypes/graph/simpleEdge';
 
 function distribute(nodeOrder: Array<SimpleNode>) {
-  const redistribution: Map<GroupNode, ResourceRate[]> = new Map();
+  const redistribution: Map<SimpleEdge, ResourceRate[]> = new Map();
 
   nodeOrder.forEach(node => {
     if (node instanceof GroupNode) {
@@ -41,19 +42,22 @@ function distribute(nodeOrder: Array<SimpleNode>) {
           //TODO: IF THIS NODE IS A PART OF targetCluster, DO NOT!!!!!!!!!!!!!!!!!!! DISTRI BYTE OUTPUTS
 
           const distributeOutput = castedNode.distributeOutputs();
-          if (distributeOutput && distributeOutput.hasExcess()) {
-            if (redistribution.has(node)) {
-              const arr = redistribution.get(node);
-              if (arr === undefined) {
-                throw new Error('Arr is undefined');
-              }
 
-              arr.push(...distributeOutput.excess);
-            } else {
-              redistribution.set(node as GroupNode, [
-                ...distributeOutput.excess
-              ]);
-            }
+          if (distributeOutput && distributeOutput.hasExcess()) {
+            Array.from(distributeOutput.excess.entries()).forEach(entry => {
+              const edge = entry[0];
+              const resources = entry[1];
+              if (redistribution.has(edge)) {
+                const arr = redistribution.get(edge);
+                if (arr === undefined) {
+                  throw new Error('Arr is undefined');
+                }
+
+                arr.push(...resources);
+              } else {
+                redistribution.set(edge, [...resources]);
+              }
+            });
           }
         }
       }
@@ -117,9 +121,15 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
 
 const backPropagation = (
   terminalSet: Set<SimpleNode>,
-  node: GroupNode,
+  edge: SimpleEdge,
   resourceRates: ResourceRate[]
 ) => {
+  const node = edge.target;
+
+  if (!(node instanceof GroupNode)) {
+    throw new Error('Not a groupNode');
+  }
+
   if (terminalSet.has(node)) {
     return;
     // ??? should we actually do anything
@@ -136,13 +146,15 @@ const backPropagation = (
 
     const castedNode = innerNode as SatisGraphtoryAbstractNode;
     castedNode.backPropagation(resourceRates);
+
+    //TODO: Fix the backprop here too
   }
 };
 
 const redistribute = (
   sources: Array<SimpleNode>,
   nodeOrder: Array<SimpleNode>,
-  redistribution: Map<GroupNode, ResourceRate[]>
+  redistribution: Map<SimpleEdge, ResourceRate[]>
 ) => {
   const terminal = new Set(sources);
   Array.from(redistribution.entries()).forEach(entry => {

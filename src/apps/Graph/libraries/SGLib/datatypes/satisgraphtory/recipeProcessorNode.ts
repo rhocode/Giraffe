@@ -33,7 +33,7 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
         allResourceRates
       );
 
-      return new DistributedOutput(false, []);
+      return new DistributedOutput(false, new Map());
     }
 
     // const num_outputs = this.outputs.size;
@@ -41,7 +41,7 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
     //
     // });
 
-    return new DistributedOutput(false, []);
+    return new DistributedOutput(false, new Map());
   }
 
   processInputs(): void {

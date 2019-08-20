@@ -8,7 +8,7 @@ export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
   isClusterBoundary: boolean = false;
 
   distributeOutputs(): DistributedOutput {
-    return new DistributedOutput(false, []);
+    return new DistributedOutput(false, new Map());
   }
 
   processInputs(): void {}

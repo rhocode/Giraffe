@@ -5,6 +5,7 @@ import { memoizedFractionalSplitterCalculator } from '../../algorithms/satisgrap
 import Fraction from '../primitives/fraction';
 import DistributedOutput from './distributedOutput';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
+import SimpleEdge from '../graph/simpleEdge';
 
 export default class SplitterNode extends BalancedPropagatorNode {
   distributeOutputs() {
@@ -39,15 +40,28 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const missingInput = inputRate.subtract(actualInput);
 
-    const excess: ResourceRate[] = [];
+    const excess: Map<SimpleEdge, ResourceRate[]> = new Map();
 
     const allResources = ResourceRate.collect(input);
+
+    const inputBelts = Array.from(this.inputs.keys()).map(item => {
+      if (!(item instanceof Belt)) {
+        throw new Error('Not a belt!');
+      }
+      return item as Belt;
+    });
+
+    const excessResources: Array<ResourceRate> = [];
 
     allResources.forEach(rate => {
       const fractionalResource = rate.fractional(missingInput);
 
       console.error('Missing fractional resource', fractionalResource);
-      excess.push(fractionalResource);
+      excessResources.push(fractionalResource);
+    });
+
+    inputBelts.forEach(belt => {
+      excess.set(belt, excessResources);
     });
 
     outputBelts.forEach((belt, index) => {
@@ -64,7 +78,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
       }
 
       if (adjustedInput === 0) {
-        return new DistributedOutput(false, []);
+        return new DistributedOutput(false, new Map());
 
         // ??? TODO: fix this short-circuit?
       }
@@ -82,13 +96,14 @@ export default class SplitterNode extends BalancedPropagatorNode {
         belt.addResource(this, fractionalResource);
       });
     });
-    console.error(
-      'Splitter output',
-      ResourceRate.numUniqueResources(excess) > 1,
-      excess
-    );
+    // console.error(
+    //   'Splitter output',
+    //   ResourceRate.numUniqueResources(excess) > 1,
+    //   excess
+    // );
+
     return new DistributedOutput(
-      ResourceRate.numUniqueResources(excess) > 1,
+      ResourceRate.numUniqueResources(excessResources) > 1,
       excess
     );
   }
