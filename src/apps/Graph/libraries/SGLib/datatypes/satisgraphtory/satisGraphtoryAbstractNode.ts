@@ -2,6 +2,7 @@ import SimpleNode from '../graph/simpleNode';
 import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
 import DistributedOutput from './distributedOutput';
+import SimpleEdge from '../graph/simpleEdge';
 
 export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   resourceIn: Map<Belt, Array<ResourceRate>> = new Map();
@@ -47,6 +48,7 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   abstract distributeOutputs(): DistributedOutput;
 
   abstract backPropagation(
-    resourceRate: ResourceRate[]
+    resourceRate: ResourceRate[],
+    edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate>;
 }

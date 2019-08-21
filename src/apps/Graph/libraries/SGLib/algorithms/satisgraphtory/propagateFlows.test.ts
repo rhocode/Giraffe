@@ -19,8 +19,8 @@ const generateSimpleCluster = () => {
   const start = new StrictProducerNode(null, coalRecipe).setInternalDescriptor(
     'start'
   );
-  const split = new SplitterNode(null).setInternalDescriptor('start');
-  const join = new MergerNode(null).setInternalDescriptor('start');
+  const split = new SplitterNode(null).setInternalDescriptor('splitter');
+  const join = new MergerNode(null).setInternalDescriptor('merger');
   const terminal = new RecipeProcessorNode(
     null,
     coalProcessingRecipe
@@ -28,7 +28,7 @@ const generateSimpleCluster = () => {
 
   start.addOutput(split).setSpeed(60);
   split.addOutput(join).setSpeed(30);
-  split.addOutput(join).setSpeed(20);
+  split.addOutput(join).setSpeed(30);
   join.addOutput(terminal).setSpeed(10);
 
   return new SimpleCluster([start, split, join, terminal]);
@@ -90,8 +90,8 @@ const generateSuperComplexCluster = () => {
   const start = new StrictProducerNode(null, coalRecipe).setInternalDescriptor(
     'start'
   );
-  const split = new SplitterNode(null).setInternalDescriptor('start');
-  const join = new MergerNode(null).setInternalDescriptor('start');
+  const split = new SplitterNode(null).setInternalDescriptor('splitter');
+  const join = new MergerNode(null).setInternalDescriptor('merger');
   const terminal1 = new RecipeProcessorNode(
     null,
     coalProcessingRecipe

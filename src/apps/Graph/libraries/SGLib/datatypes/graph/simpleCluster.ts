@@ -6,8 +6,8 @@ import SimpleGraph from './simpleGraph';
 type Nullable<T> = T | null;
 
 export default class SimpleCluster extends SimpleGraph {
-  sourceNode: SimpleNode;
-  targetNode: SimpleNode;
+  // sourceNode: SimpleNode;
+  // targetNode: SimpleNode;
   nonCyclic: boolean;
   partial: boolean;
 
@@ -46,23 +46,23 @@ export default class SimpleCluster extends SimpleGraph {
       throw new Error('No inputs found!');
     }
 
-    if (inputs.length === 1) {
-      this.sourceNode = inputs[0];
-    } else {
-      this.sourceNode = new SimpleNode(null, true);
-      inputs.forEach(input => {
-        this.sourceNode.addOutput(input);
-      });
-    }
-
-    if (outputs.length === 1) {
-      this.targetNode = outputs[0];
-    } else {
-      this.targetNode = new SimpleNode(null, true);
-      outputs.forEach(output => {
-        this.targetNode.addInput(output);
-      });
-    }
+    // if (inputs.length === 1) {
+    //   this.sourceNode = inputs[0];
+    // } else {
+    //   this.sourceNode = new SimpleNode(null, true);
+    //   inputs.forEach(input => {
+    //     this.sourceNode.addOutput(input);
+    //   });
+    // }
+    //
+    // if (outputs.length === 1) {
+    //   this.targetNode = outputs[0];
+    // } else {
+    //   this.targetNode = new SimpleNode(null, true);
+    //   outputs.forEach(output => {
+    //     this.targetNode.addInput(output);
+    //   });
+    // }
 
     this.partial = partial;
 
@@ -142,8 +142,8 @@ export default class SimpleCluster extends SimpleGraph {
     });
 
     return {
-      s: this.nodeLookup.get(this.sourceNode) || 0,
-      t: this.nodeLookup.get(this.targetNode) || 0,
+      s: null, //this.nodeLookup.get(this.sourceNode) || 0,
+      t: null, //this.nodeLookup.get(this.targetNode) || 0,
       graph: adjacencyMap
     };
   }

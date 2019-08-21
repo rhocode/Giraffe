@@ -5,9 +5,19 @@ import SatisGraphtoryGroupNode from '../../datatypes/satisgraphtory/satisGraphto
 import SimpleNode from '../../datatypes/graph/simpleNode';
 import ResourceRate from '../../datatypes/primitives/resourceRate';
 import SimpleEdge from '../../datatypes/graph/simpleEdge';
+import Belt from '../../datatypes/satisgraphtory/belt';
 
 function distribute(nodeOrder: Array<SimpleNode>) {
   const redistribution: Map<SimpleEdge, ResourceRate[]> = new Map();
+
+  nodeOrder.forEach(node => {
+    if (node instanceof GroupNode) {
+      const groupNode = node as GroupNode;
+      groupNode.visited = false;
+    } else {
+      throw new Error('Must be run through with the cyclic checker!');
+    }
+  });
 
   nodeOrder.forEach(node => {
     if (node instanceof GroupNode) {
@@ -61,8 +71,6 @@ function distribute(nodeOrder: Array<SimpleNode>) {
           }
         }
       }
-    } else {
-      throw new Error('Must be run through with the cyclic checker!');
     }
   });
 
@@ -72,9 +80,10 @@ function distribute(nodeOrder: Array<SimpleNode>) {
 const propagateFlows = (clusters: Array<ClusterChain>) => {
   clusters.forEach(clusterChain => {
     // 1. Process the sources
-    const sourceCluster = clusterChain.sources.orderedNodeArray;
-    const intermediateCluster = clusterChain.intermediates.orderedNodeArray;
-    const targetCluster = clusterChain.targets.orderedNodeArray;
+    const sourceCluster = clusterChain.sources.orderedNodeArray as GroupNode[];
+    const intermediateCluster = clusterChain.intermediates
+      .orderedNodeArray as GroupNode[];
+    const targetCluster = clusterChain.targets.orderedNodeArray as GroupNode[];
 
     const nodeOrder = [
       ...sourceCluster,
@@ -82,39 +91,35 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
       ...targetCluster
     ];
 
-    console.error(
-      'Nodes in this cluster:',
-      sourceCluster.length,
-      intermediateCluster.length,
-      targetCluster.length
-    );
-
     const initialDistribution = distribute(nodeOrder);
 
-    const sourceSet = new Set(sourceCluster);
+    const sourceSet = new Set(
+      sourceCluster.map(cluster => cluster.subNodes).flat(1)
+    );
 
     let shouldRedistribute =
       initialDistribution.size > 0 &&
-      Array.from(initialDistribution.keys()).some(node => {
+      Array.from(initialDistribution.keys()).some(edge => {
+        const node = edge.source;
         return !sourceSet.has(node);
       });
 
     let redistribution = initialDistribution;
-
+    let i = 0;
     while (shouldRedistribute) {
       if (redistribution.size > 0) {
-        redistribute(sourceCluster, nodeOrder, redistribution);
+        redistribute(sourceSet, nodeOrder, redistribution);
       }
 
       redistribution = distribute(nodeOrder);
 
       shouldRedistribute =
         redistribution.size > 0 &&
-        Array.from(redistribution.keys()).some(node => {
+        Array.from(redistribution.keys()).some(edge => {
+          const node = edge.source;
           return !sourceSet.has(node);
         });
-
-      break;
+      i++;
     }
   });
 };
@@ -137,7 +142,7 @@ const backPropagation = (
 
   if (node.isCyclic()) {
     const castedNode = new SatisGraphtoryGroupNode(node);
-    castedNode.backPropagation(resourceRates);
+    castedNode.backPropagation(resourceRates, edge);
   } else {
     const innerNode = node.singleNode();
     if (!(innerNode instanceof SatisGraphtoryAbstractNode)) {
@@ -145,20 +150,30 @@ const backPropagation = (
     }
 
     const castedNode = innerNode as SatisGraphtoryAbstractNode;
-    castedNode.backPropagation(resourceRates);
+    castedNode.backPropagation(resourceRates, edge);
 
     //TODO: Fix the backprop here too
   }
 };
 
 const redistribute = (
-  sources: Array<SimpleNode>,
+  terminal: Set<SimpleNode>,
   nodeOrder: Array<SimpleNode>,
   redistribution: Map<SimpleEdge, ResourceRate[]>
 ) => {
-  const terminal = new Set(sources);
   Array.from(redistribution.entries()).forEach(entry => {
-    backPropagation(terminal, entry[0], entry[1]);
+    const target = entry[0].source;
+    const edge = entry[0];
+    if (!terminal.has(target)) {
+      if (!(edge instanceof Belt)) {
+        throw new Error('This is not a belt!');
+      }
+
+      edge.reduceClampFlow(entry[1]);
+    }
+
+    // May have to revisit in the future. for now, let's do a shitty backprop using iterative methods.
+    // backPropagation(terminal, entry[0], entry[1]);
   });
 };
 

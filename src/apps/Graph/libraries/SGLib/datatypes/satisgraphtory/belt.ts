@@ -5,6 +5,8 @@ import Fraction from '../primitives/fraction';
 
 type Nullable<T> = T | null;
 
+type FractionOrNumber = Fraction | number;
+
 // Used for belts
 export default class Belt extends SimpleEdge {
   speed: Fraction = new Fraction(0, 1);
@@ -13,6 +15,10 @@ export default class Belt extends SimpleEdge {
 
   constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
     super(data, source, target);
+  }
+
+  static createNullTerminalEdge(data: Nullable<Object>, target: SimpleNode) {
+    return new Belt(data, SimpleNode.NULL_NODE, target);
   }
 
   clearResources() {
@@ -97,14 +103,38 @@ export default class Belt extends SimpleEdge {
     return this.clampedSpeed.reduce().multiply(new Fraction(60, 1));
   }
 
-  setClampedSpeed(speed: number) {
-    const newSpeed = new Fraction(speed, 60);
-    if (newSpeed.toNumber() > this.speed.toNumber()) {
+  clampFlow(rate: ResourceRate[]) {
+    const newRate = ResourceRate.getTotalItemRate(rate);
+    this.setClampedSpeed(newRate);
+  }
+
+  reduceClampFlow(rate: ResourceRate[]) {
+    const newRate = ResourceRate.getTotalItemRate(rate);
+
+    if (newRate.toNumber() === 0) {
+      return;
+    }
+
+    const currentSpeed = this.clampedSpeed;
+
+    const difference = currentSpeed.subtract(newRate);
+
+    if (difference.toNumber() < 0) {
+      this.setClampedSpeed(new Fraction(0, 1));
+    } else {
+      this.setClampedSpeed(difference);
+    }
+    // console.error("Reducing flow of", this.target.internalDescriptor, "to", this.clampedSpeed);
+  }
+
+  setClampedSpeed(speed: Fraction) {
+    if (speed.toNumber() > this.speed.toNumber()) {
       // super.setWeight(this.speed);
       this.clampedSpeed = this.speed;
     } else {
       // super.setWeight(speed);
-      this.clampedSpeed = newSpeed;
+      this.clampedSpeed = speed;
     }
+    // console.error("[Redistribution] clamping speed to", this.clampedSpeed.toNumber(), speed.toNumber(), "target", this.target.internalDescriptor);
   }
 }

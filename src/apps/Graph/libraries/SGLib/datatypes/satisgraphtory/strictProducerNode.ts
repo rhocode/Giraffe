@@ -48,25 +48,14 @@ export default class StrictProducerNode extends RecipeProcessorNode {
         }
 
         const belt = edge as Belt;
-        const {
-          excessResourceRates,
-          overflowed,
-          errored
-        } = belt.getAllResourceRates();
+        const { errored } = belt.getAllResourceRates();
 
         isError = isError || errored;
-        if (overflowed && !errored) {
-          excess.push(...excessResourceRates);
-        }
       });
 
       const nullExcess: Map<SimpleEdge, ResourceRate[]> = new Map();
 
-      const nullEdge = SimpleEdge.createNullTerminalEdge(null, this);
-
-      nullExcess.set(nullEdge, excess);
-
-      console.error('Strict producer', excess);
+      // console.error('Strict producer cannot have excess itself, it will propagate to the node');
 
       return new DistributedOutput(isError, nullExcess);
     }
@@ -79,7 +68,8 @@ export default class StrictProducerNode extends RecipeProcessorNode {
   }
 
   backPropagation(
-    resourceRate: ResourceRate[]
+    resourceRate: ResourceRate[],
+    edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
     return new Map();

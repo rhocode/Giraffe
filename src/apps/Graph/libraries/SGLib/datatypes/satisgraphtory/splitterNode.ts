@@ -9,9 +9,22 @@ import SimpleEdge from '../graph/simpleEdge';
 
 export default class SplitterNode extends BalancedPropagatorNode {
   distributeOutputs() {
-    const input = Array.from(this.resourceIn.values()).flat(1);
+    const excessResources: Array<ResourceRate> = [];
 
-    const inputRate = ResourceRate.getTotalItemRate(input);
+    const incomingBelts = Array.from(this.resourceIn.keys());
+    const totalBeltInput = incomingBelts
+      .map(belt => {
+        const rates = belt.getAllResourceRates();
+        if (rates.overflowed) {
+          excessResources.push(...rates.excessResourceRates);
+        }
+
+        return rates.resourceRate;
+      })
+      .flat(1);
+
+    //TODO: fix excess input rates
+    const inputRate = ResourceRate.getTotalItemRate(totalBeltInput);
 
     const outputBelts = Array.from(this.outputs.keys()).map(item => {
       if (!(item instanceof Belt)) {
@@ -31,8 +44,11 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const packets = actual.beltPackets;
 
-    actual.beltPackets.forEach((packet: any) => {
-      packet.seconds.mutateMultiply(new Fraction(factor, 1));
+    const beltPackets = actual.beltPackets.map((packet: any) => {
+      return {
+        qty: packet.qty,
+        seconds: packet.seconds.multiply(new Fraction(factor, 1))
+      };
     });
 
     const adjustedInput = actual.adjustedInput;
@@ -42,7 +58,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const excess: Map<SimpleEdge, ResourceRate[]> = new Map();
 
-    const allResources = ResourceRate.collect(input);
+    const allResources = ResourceRate.collect(totalBeltInput);
 
     const inputBelts = Array.from(this.inputs.keys()).map(item => {
       if (!(item instanceof Belt)) {
@@ -51,21 +67,23 @@ export default class SplitterNode extends BalancedPropagatorNode {
       return item as Belt;
     });
 
-    const excessResources: Array<ResourceRate> = [];
+    if (missingInput.toNumber() > 0) {
+      allResources.forEach(rate => {
+        const fractionalResource = rate.fractional(missingInput);
 
-    allResources.forEach(rate => {
-      const fractionalResource = rate.fractional(missingInput);
+        // console.error('[Splitter] Missing fractional resource', fractionalResource);
+        excessResources.push(fractionalResource);
+      });
+    }
 
-      console.error('Missing fractional resource', fractionalResource);
-      excessResources.push(fractionalResource);
-    });
-
-    inputBelts.forEach(belt => {
-      excess.set(belt, excessResources);
-    });
+    if (excessResources.length > 0) {
+      inputBelts.forEach(belt => {
+        excess.set(belt, excessResources);
+      });
+    }
 
     outputBelts.forEach((belt, index) => {
-      const packet = packets[index];
+      const packet = beltPackets[index];
 
       const localRate = new Fraction(packet.qty, 1);
 
@@ -77,14 +95,14 @@ export default class SplitterNode extends BalancedPropagatorNode {
         throw new Error('This should NEVER be more than 1');
       }
 
-      if (adjustedInput === 0) {
-        return new DistributedOutput(false, new Map());
+      if (adjustedInput.toNumber() === 0) {
+        return new DistributedOutput(
+          ResourceRate.numUniqueResources(excessResources) > 1,
+          excess
+        );
 
         // ??? TODO: fix this short-circuit?
       }
-
-      // The below is not needed since everything is now relative.
-      // localRate.mutateMultiply(divisor); // this should now be the resource rate that you apply to each input
 
       //TODO: refactor this shit to be legible?
       belt.clearResources();
@@ -92,15 +110,10 @@ export default class SplitterNode extends BalancedPropagatorNode {
       allResources.forEach(rate => {
         const fractionalResource = rate.fractional(localRate);
 
-        console.error('Adding fractional resource', fractionalResource);
+        // console.error('[Splitter] Adding fractional resource', fractionalResource);
         belt.addResource(this, fractionalResource);
       });
     });
-    // console.error(
-    //   'Splitter output',
-    //   ResourceRate.numUniqueResources(excess) > 1,
-    //   excess
-    // );
 
     return new DistributedOutput(
       ResourceRate.numUniqueResources(excessResources) > 1,
@@ -113,7 +126,8 @@ export default class SplitterNode extends BalancedPropagatorNode {
   }
 
   backPropagation(
-    resourceRate: ResourceRate[]
+    resourceRate: ResourceRate[],
+    edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
     return new Map();

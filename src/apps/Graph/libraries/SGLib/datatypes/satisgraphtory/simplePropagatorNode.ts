@@ -2,6 +2,7 @@ import SatisGraphtoryLoopableNode from './satisGraphtoryLoopableNode';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 import DistributedOutput from './distributedOutput';
 import ResourceRate from '../primitives/resourceRate';
+import SimpleEdge from '../graph/simpleEdge';
 
 // Used for normal containers
 export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
@@ -20,7 +21,8 @@ export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
   processPresentInputs(nodeSubset: Set<SatisGraphtoryAbstractNode>): void {}
 
   backPropagation(
-    resourceRate: ResourceRate[]
+    resourceRate: ResourceRate[],
+    edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
     return new Map();

@@ -8,12 +8,6 @@ export default class SimpleEdge {
   target: SimpleNode;
   weight: number = Infinity;
 
-  static readonly NULL_EDGE = new SimpleEdge(
-    null,
-    SimpleNode.NULL_NODE,
-    SimpleNode.NULL_NODE
-  );
-
   static createNullTerminalEdge(data: Nullable<Object>, target: SimpleNode) {
     return new SimpleEdge(data, SimpleNode.NULL_NODE, target);
   }

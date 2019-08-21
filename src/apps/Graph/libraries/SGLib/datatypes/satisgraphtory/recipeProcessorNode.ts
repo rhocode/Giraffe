@@ -3,6 +3,7 @@ import Recipe from '../primitives/recipe';
 import Belt from './belt';
 import DistributedOutput from './distributedOutput';
 import ResourceRate from '../primitives/resourceRate';
+import SimpleEdge from '../graph/simpleEdge';
 
 type Nullable<T> = T | null;
 
@@ -52,7 +53,8 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
   }
 
   backPropagation(
-    resourceRate: ResourceRate[]
+    resourceRate: ResourceRate[],
+    edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
     return new Map();

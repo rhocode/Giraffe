@@ -301,9 +301,8 @@ const splitterCalculatorHelper = (
     const qty = item.qty;
     const seconds = totalTimeFraction;
     const thisFraction = new Fraction(qty, 1);
-    thisFraction.mutateDivide(
-      new Fraction(seconds.numerator, seconds.denominator)
-    );
+    thisFraction.mutateDivide(seconds);
+
     adjustedInput.mutateAdd(thisFraction);
   });
 
