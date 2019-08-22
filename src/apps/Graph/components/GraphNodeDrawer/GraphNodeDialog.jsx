@@ -15,7 +15,8 @@ import SelectDropdown from '../../../../common/react/SelectDropdown';
 import { getTranslate } from 'react-localize-redux';
 import {
   addOpenedModal,
-  closeOpenedModal
+  closeOpenedModal,
+  setSelectedMachine
 } from '../../../../redux/actions/Graph/graphActions';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
@@ -36,7 +37,15 @@ const styles = theme => ({
 });
 
 function GraphNodeDialog(props) {
-  const { classes, nodeClass, translate, openDialog, setOpenDialog } = props;
+  const {
+    classes,
+    nodeClass,
+    translate,
+    openDialog,
+    setOpenDialog,
+    setSelectedMachine,
+    closeDrawerFunction
+  } = props;
   const [upgradeLevel, setUpgradeLevel] = React.useState(
     nodeClass.instances[0].tier.name
   );
@@ -144,7 +153,18 @@ function GraphNodeDialog(props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-        <Button color="primary" onClick={() => setOpenDialog(false)}>
+        <Button
+          color="primary"
+          onClick={() => {
+            setSelectedMachine({
+              recipe: resource,
+              class: nodeClass,
+              tier: upgradeLevel
+            });
+            setOpenDialog(false);
+            closeDrawerFunction(false);
+          }}
+        >
           Set
         </Button>
       </DialogActions>
@@ -162,10 +182,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  // return {
-  //   setOpenDialog: (data) => dispatch(setOpenDialog(data))
-  // };
   return {
+    setSelectedMachine: data => dispatch(setSelectedMachine(data)),
     addOpenedModal: () => dispatch(addOpenedModal()),
     closeOpenedModal: () => dispatch(closeOpenedModal())
   };

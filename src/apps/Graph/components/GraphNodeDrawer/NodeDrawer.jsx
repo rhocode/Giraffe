@@ -99,11 +99,27 @@ function NodeDrawer(props) {
   const { classes, drawerOpen, translate, selectedMachine } = props;
   const [value, setValue] = React.useState(0);
 
+  const [expanded, setExpanded] = React.useState(true);
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
 
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
+
+  const tier =
+    selectedMachine && selectedMachine.tier
+      ? ' ' + translate(selectedMachine.tier)
+      : '';
+
+  const recipe =
+    selectedMachine && selectedMachine.recipe
+      ? ' (' + translate(selectedMachine.recipe) + ')'
+      : '';
+
+  const selectedText = selectedMachine
+    ? translate(selectedMachine.class.name) + tier + recipe
+    : translate('selected_none');
 
   return (
     <Drawer
@@ -113,17 +129,19 @@ function NodeDrawer(props) {
       classes={{ paper: usedClass }}
       variant="persistent"
     >
-      <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
+      <ExpansionPanel
+        expanded={expanded}
+        onChange={(event, expanded) => {
+          setExpanded(expanded);
+        }}
+        TransitionProps={{ unmountOnExit: true }}
+      >
         <ExpansionPanelSummary
           expandIcon={drawerOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         >
           <Typography>
             {`${translate('currently_selected')} `}
-            <span className={classes.current}>
-              {selectedMachine
-                ? selectedMachine.name
-                : translate('selected_none')}
-            </span>
+            <span className={classes.current}>{selectedText}</span>
           </Typography>
         </ExpansionPanelSummary>
 
@@ -136,6 +154,7 @@ function NodeDrawer(props) {
                     nodeClass={classObject}
                     key={classObject.name}
                     label={translate(classObject.name)}
+                    closeDrawerFunction={setExpanded}
                   />
                 );
               })}

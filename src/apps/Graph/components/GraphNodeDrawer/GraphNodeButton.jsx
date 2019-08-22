@@ -49,7 +49,7 @@ const styles = theme => ({
 });
 
 function GraphNodeButton(props) {
-  const { classes, nodeClass } = props;
+  const { classes, nodeClass, closeDrawerFunction } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   return (
@@ -79,6 +79,7 @@ function GraphNodeButton(props) {
             nodeClass={nodeClass}
             openDialog={openDialog}
             setOpenDialog={setOpenDialog}
+            closeDrawerFunction={closeDrawerFunction}
           />
         ) : null}
       </div>

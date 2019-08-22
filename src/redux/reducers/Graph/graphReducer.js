@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
         ...state,
         machineClasses: action.payload
       };
-    case 'SET_SELECTED_MACHINE_CLASS':
+    case 'SET_SELECTED_MACHINE':
       return {
         ...state,
         selectedMachine: action.payload

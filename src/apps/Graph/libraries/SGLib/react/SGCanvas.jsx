@@ -130,6 +130,10 @@ class SGCanvas extends Component {
     }
 
     const zoomed = () => {
+      if (this.props.mouseMode !== 'pan') {
+        return;
+      }
+
       const transform = (this.transform = d3.event.transform); // REQUIRED for updating the zoom
 
       if (graphFidelity !== 'low' && transform.k !== thisAccessor.k) {
@@ -143,9 +147,11 @@ class SGCanvas extends Component {
     };
 
     const clicked = context => {
+      console.error('CLICKED');
       if (d3.event.defaultPrevented) {
         return;
       }
+      console.error('CLICKED2');
 
       const transform = this.transform;
 
@@ -163,10 +169,20 @@ class SGCanvas extends Component {
         }
       }
 
-      console.error(x, y);
-      this.selectedNodes = {};
-      this.selectedEdges = {};
-      simulationUpdate();
+      if (this.props.mouseMode === 'add' && this.props.selectedMachine) {
+        const newGraph = Object.assign({}, this.props.graphData);
+
+        // d3.event.x, y: d3.event.y
+
+        newGraph.nodes.push(new MachineNode(0, 0, 0, x, y, true));
+        this.props.setGraphData(newGraph);
+        console.error(x, y);
+      } else {
+        console.error(x, y);
+        this.selectedNodes = {};
+        this.selectedEdges = {};
+        simulationUpdate();
+      }
     };
 
     const dragSubject = () => {
@@ -472,7 +488,8 @@ function mapStateToProps(state) {
     graphData: state.graphReducer.graphData,
     graphTransform: state.graphReducer.graphTransform,
     graphFidelity: state.graphReducer.graphFidelity,
-    mouseMode: state.graphReducer.mouseMode
+    mouseMode: state.graphReducer.mouseMode,
+    selectedMachine: state.graphReducer.selectedMachine
     // dragCurrent: state.graphReducer.dragCurrent,
     // dragStart: state.graphReducer.dragStart
   };

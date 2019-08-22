@@ -44,6 +44,13 @@ export abstract class GraphNode {
     this.selected = option;
   }
 
+  fixPosition() {
+    this.fx = this.x - this.width / 2;
+    this.fy = this.y - this.height;
+    this.x = this.x - this.width / 2;
+    this.y = this.y - this.height;
+  }
+
   serialize() {
     return {
       id: this.id,
@@ -214,7 +221,8 @@ export default class MachineNode extends GraphNode {
     overclock: number,
     recipeId: number,
     x: number,
-    y: number
+    y: number,
+    fixPosition = false
   ) {
     super(x, y);
     this.machineId = machineId;
@@ -222,6 +230,9 @@ export default class MachineNode extends GraphNode {
     this.recipeId = recipeId;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
+    if (fixPosition) {
+      this.fixPosition();
+    }
   }
 
   drawPathToTarget(context: any, target: GraphEdge): void {
