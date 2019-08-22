@@ -250,6 +250,7 @@ export default class MachineNode extends GraphNode {
 
   preRender(transform: any, debugContext: any = this.context): void {
     debugContext.save();
+
     this.zoomedContext.save();
     super.preRender(transform);
     defaultNodeThemeSprite(debugContext, this);

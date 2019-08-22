@@ -275,7 +275,7 @@ class SGCanvas extends Component {
   };
 
   dragStartFunc = () => {
-    let { graphCanvas, simulation } = this;
+    let { simulation } = this;
 
     const transform = this.transform;
 
@@ -305,8 +305,6 @@ class SGCanvas extends Component {
   };
 
   draggedFunc = () => {
-    let { graphCanvas, simulation } = this;
-
     const transform = this.transform;
     const x = transform.invertX(d3.event.x);
     const y = transform.invertY(d3.event.y);
@@ -345,7 +343,7 @@ class SGCanvas extends Component {
   };
 
   dragEndFunc = () => {
-    let { graphCanvas, simulation } = this;
+    let { simulation } = this;
     let { graphData } = this.props;
 
     if (!d3.event.active) simulation.alphaTarget(0);
