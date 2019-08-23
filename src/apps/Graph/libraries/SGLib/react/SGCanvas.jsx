@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import { stringGen } from '../utils/stringUtils';
 import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
-import { setGraphData } from '../../../../../redux/actions/Graph/graphActions';
+import {
+  setGraphData,
+  setGraphSourceNode
+} from '../../../../../redux/actions/Graph/graphActions';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 import { withStyles } from '@material-ui/core';
 
@@ -93,6 +96,19 @@ class SGCanvas extends Component {
     this.props.setGraphData(data);
   }
 
+  componentWillReceiveProps = newProps => {
+    console.error(newProps.mouseMode);
+    if (this.props.mouseMode === 'link' && newProps.mouseMode !== 'link') {
+      if (
+        this.props.graphSourceNode !== null ||
+        newProps.graphSourceNode !== null
+      ) {
+        this.props.setGraphSourceNode(null);
+        console.error('RESET SOURCE');
+      }
+    }
+  };
+
   componentDidUpdate = () => {
     if (!this.initialized) {
       this.initialized = true;
@@ -178,15 +194,20 @@ class SGCanvas extends Component {
     context.globalAlpha = 1.0;
 
     context.save();
+
+    const selectedNode = this.props.graphSourceNode;
+
     if (graphFidelity === 'low') {
       context.scale(transform.k, transform.k);
 
       Object.keys(this.selectedNodes).forEach(nodeId => {
-        this.selectedNodes[nodeId].lowRender(context);
+        const node = this.selectedNodes[nodeId];
+        node.lowRender(context, selectedNode === node);
       });
     } else {
       Object.keys(this.selectedNodes).forEach(nodeId => {
-        this.selectedNodes[nodeId].render(context, transform);
+        const node = this.selectedNodes[nodeId];
+        node.render(context, transform, selectedNode === node);
       });
     }
 
@@ -201,14 +222,15 @@ class SGCanvas extends Component {
     }
 
     context.save();
+
     if (graphFidelity === 'low') {
       context.scale(transform.k, transform.k);
       graphData.nodes.forEach(function(d) {
-        d.lowRender(context);
+        d.lowRender(context, selectedNode === d);
       });
     } else {
       graphData.nodes.forEach(function(d) {
-        d.render(context, transform);
+        d.render(context, transform, selectedNode === d);
       });
     }
     context.restore();
@@ -236,16 +258,17 @@ class SGCanvas extends Component {
   };
 
   clicked = context => {
-    console.error('CLICKED');
     if (d3.event.defaultPrevented) {
       return;
     }
-    console.error('CLICKED2');
 
     const transform = this.transform;
 
-    const x = transform.invertX(d3.event.x);
-    const y = transform.invertY(d3.event.y);
+    // Changed from x and y, because apparently they dont match up with the dragSubject???
+    const x = transform.invertX(d3.event.offsetX);
+    const y = transform.invertY(d3.event.offsetY);
+
+    const { graphData } = this.props;
 
     const selectedNodeKeys = Object.keys(this.selectedNodes);
 
@@ -265,9 +288,57 @@ class SGCanvas extends Component {
 
       newGraph.nodes.push(new MachineNode(0, 0, 0, x, y, true));
       this.props.setGraphData(newGraph);
-      console.error(x, y);
+    } else if (this.props.mouseMode === 'link') {
+      let selectedNode = null;
+
+      let i = 0;
+
+      for (i = graphData.nodes.length - 1; i >= 0; --i) {
+        const node = graphData.nodes[i];
+        node.fx = node.x;
+        node.fy = node.y;
+      }
+
+      for (i = graphData.nodes.length - 1; i >= 0; --i) {
+        const node = graphData.nodes[i];
+        if (node.intersectsPoint(x, y)) {
+          selectedNode = node;
+          break;
+        }
+      }
+
+      if (this.props.graphSourceNode) {
+        if (selectedNode) {
+          if (this.props.graphSourceNode === selectedNode) {
+            this.props.setGraphSourceNode(null);
+          } else {
+            const graphData = this.props.graphData;
+
+            try {
+              const edge = new GraphEdge(
+                this.props.graphSourceNode,
+                selectedNode
+              );
+              graphData.edges.push(edge);
+              this.props.setGraphData(graphData);
+              this.props.setGraphSourceNode(null);
+            } catch (e) {
+              console.error('Output slot full!', e);
+            }
+          }
+        } else {
+          this.props.setGraphSourceNode(null);
+        }
+      } else {
+        if (selectedNode) {
+          this.props.setGraphSourceNode(selectedNode);
+        }
+      }
+
+      // if (!selectedNode) {
+      //   console.error("LINKMODE FAILED");
+      // }
     } else {
-      console.error(x, y);
       this.selectedNodes = {};
       this.selectedEdges = {};
       this.simulationUpdate();
@@ -398,9 +469,15 @@ class SGCanvas extends Component {
 
     const transform = this.transform;
 
+    if (this.props.mouseMode === 'link') {
+      return null;
+    }
+
     let i,
       x = transform.invertX(d3.event.x),
       y = transform.invertY(d3.event.y);
+
+    // console.error("DRAGSUB", x, y);
 
     if (this.props.mouseMode === 'select') {
       return { x: d3.event.x, y: d3.event.y };
@@ -486,9 +563,12 @@ class SGCanvas extends Component {
         d3
           .zoom()
           .filter(function() {
-            console.error('AAAAA', d3.event.type !== 'dblclick');
             if (thisAccessor.props.mouseMode === 'add') {
               return d3.event.type !== 'dblclick';
+            }
+
+            if (thisAccessor.props.mouseMode === 'link') {
+              return false;
             }
             return true;
           })
@@ -518,7 +598,8 @@ function mapStateToProps(state) {
     graphTransform: state.graphReducer.graphTransform,
     graphFidelity: state.graphReducer.graphFidelity,
     mouseMode: state.graphReducer.mouseMode,
-    selectedMachine: state.graphReducer.selectedMachine
+    selectedMachine: state.graphReducer.selectedMachine,
+    graphSourceNode: state.graphReducer.graphSourceNode
     // dragCurrent: state.graphReducer.dragCurrent,
     // dragStart: state.graphReducer.dragStart
   };
@@ -526,7 +607,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGraphData: data => dispatch(setGraphData(data))
+    setGraphData: data => dispatch(setGraphData(data)),
+    setGraphSourceNode: data => dispatch(setGraphSourceNode(data))
     // setDragStart: data => dispatch(setDragStart(data)),
     // setDragCurrent: data => dispatch(setDragCurrent(data)),
   };

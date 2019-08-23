@@ -2,7 +2,7 @@ import { imageRepository } from '../repositories/imageRepository';
 import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 
-const img = imageRepository.machinesAlt['constructor'];
+const img = imageRepository.machines['constructor'];
 
 function drawNodePlug(
   context: any,
@@ -73,6 +73,33 @@ export function drawPath(
   graphEdge.setCoordinates(x1, x2, y1, y2);
   context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
   context.stroke();
+  context.restore();
+}
+
+export function defaultNodeThemeSpriteOutline(context: any, d: GraphNode) {
+  context.save();
+
+  const w = d.width - d.xRenderBuffer;
+  const h = d.height - d.yRenderBuffer;
+
+  const x = d.xRenderBuffer;
+  const y = d.yRenderBuffer;
+
+  let r = 6;
+
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  context.beginPath();
+  context.moveTo(x + r, y);
+  context.arcTo(x + w, y, x + w, y + h, r);
+  context.arcTo(x + w, y + h, x, y + h, r);
+  context.arcTo(x, y + h, x, y, r);
+  context.arcTo(x, y, x + w, y, r);
+  context.closePath();
+  context.lineWidth = 20;
+  context.strokeStyle = '#E65100';
+  context.stroke();
+
   context.restore();
 }
 

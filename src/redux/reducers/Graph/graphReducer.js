@@ -7,7 +7,8 @@ const initialState = {
   drawerOpen: false,
   machineClasses: [],
   selectedMachine: null,
-  openModals: 0
+  openModals: 0,
+  graphSourceNode: null
 };
 
 export default (state = initialState, action) => {
@@ -61,6 +62,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         openModals: state.openModals - 1
+      };
+    case 'SET_GRAPH_SOURCE_NODE':
+      return {
+        ...state,
+        graphSourceNode: action.payload
       };
     default:
       return state;

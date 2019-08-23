@@ -1,4 +1,8 @@
-import { defaultNodeThemeSprite, drawPath } from '../../themes/nodeStyle';
+import {
+  defaultNodeThemeSprite,
+  defaultNodeThemeSpriteOutline,
+  drawPath
+} from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
 
 type Nullable<T> = T | null;
@@ -15,8 +19,12 @@ export abstract class GraphNode {
   outputSlots: Nullable<GraphEdge>[] = [];
   canvas: any;
   context: any;
+  canvasOutlined: any;
+  contextOutlined: any;
   zoomedCanvas: any;
   zoomedContext: any;
+  zoomedCanvasOutlined: any;
+  zoomedContextOutlined: any;
   abstract width: number;
   abstract height: number;
   abstract xRenderBuffer: number;
@@ -35,8 +43,16 @@ export abstract class GraphNode {
     this.y = y;
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
+
+    this.canvasOutlined = document.createElement('canvas');
+    this.contextOutlined = this.canvasOutlined.getContext('2d');
+
     this.zoomedCanvas = document.createElement('canvas');
     this.zoomedContext = this.zoomedCanvas.getContext('2d');
+
+    this.zoomedCanvasOutlined = document.createElement('canvas');
+    this.zoomedContextOutlined = this.zoomedCanvasOutlined.getContext('2d');
+
     this.preRender();
   }
 
@@ -90,17 +106,26 @@ export abstract class GraphNode {
 
   abstract render(context: any, transform: any): void;
 
-  abstract lowRender(context: any): void;
+  abstract lowRender(context: any, selected: boolean): void;
 
   preRender(transform: any = null): void {
     const transformObj = transform || { k: 1 };
     this.canvas.width = (this.width + 2 * this.xRenderBuffer) * transformObj.k;
     this.canvas.height =
       (this.height + 2 * this.yRenderBuffer) * transformObj.k;
+
+    this.canvasOutlined.width = this.canvas.width;
+    this.canvasOutlined.height = this.canvas.height;
+
     this.zoomedCanvas.width = (this.width + 2 * this.xRenderBuffer) * 10;
     this.zoomedCanvas.height = (this.height + 2 * this.yRenderBuffer) * 10;
+
+    this.zoomedCanvasOutlined.width = this.zoomedCanvas.width;
+    this.zoomedCanvasOutlined.height = this.zoomedCanvas.height;
+
     if (transform) {
       this.context.scale(transform.k, transform.k);
+      this.contextOutlined.scale(transform.k, transform.k);
     }
   }
 
@@ -249,21 +274,37 @@ export default class MachineNode extends GraphNode {
   }
 
   preRender(transform: any, debugContext: any = this.context): void {
+    //TODO: fix the prerendering
     debugContext.save();
-
+    this.contextOutlined.save();
     this.zoomedContext.save();
+    this.zoomedContextOutlined.save();
     super.preRender(transform);
     defaultNodeThemeSprite(debugContext, this);
+    defaultNodeThemeSpriteOutline(this.contextOutlined, this);
 
+    this.zoomedContextOutlined.scale(10, 10);
     this.zoomedContext.scale(10, 10);
     defaultNodeThemeSprite(this.zoomedContext, this);
+    defaultNodeThemeSpriteOutline(this.zoomedContextOutlined, this);
 
+    this.zoomedContextOutlined.restore();
     this.zoomedContext.restore();
     debugContext.restore();
+    this.contextOutlined.restore();
   }
 
   lowRender(context: any, selected: boolean = false): void {
     context.save();
+    if (selected) {
+      context.drawImage(
+        this.zoomedCanvasOutlined,
+        this.fx,
+        this.fy,
+        this.canvas.width,
+        this.canvas.height
+      );
+    }
     context.drawImage(
       this.zoomedCanvas,
       this.fx,
@@ -276,6 +317,13 @@ export default class MachineNode extends GraphNode {
 
   render(context: any, transform: any, selected: boolean = false): void {
     context.save();
+    if (selected) {
+      context.drawImage(
+        this.canvasOutlined,
+        this.fx * transform.k,
+        this.fy * transform.k
+      );
+    }
     context.drawImage(
       this.canvas,
       this.fx * transform.k,

@@ -107,7 +107,7 @@ class App extends Component {
       options: {
         onMissingTranslation,
         renderToStaticMarkup,
-        defaultLanguage: languages[1]
+        defaultLanguage: languages[0]
         // defaultLanguage
       }
     });

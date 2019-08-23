@@ -65,3 +65,10 @@ export const closeOpenedModal = () => dispatch => {
     type: 'CLOSE_OPENED_MODAL'
   });
 };
+
+export const setGraphSourceNode = data => dispatch => {
+  dispatch({
+    type: 'SET_GRAPH_SOURCE_NODE',
+    payload: data
+  });
+};
