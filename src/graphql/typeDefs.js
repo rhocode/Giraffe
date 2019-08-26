@@ -24,6 +24,7 @@ const typeDefs = `
   }
   
   type MachineClass {
+    id: Int! 
     name: String!
     icon: String
     inputs: Int!
@@ -51,6 +52,7 @@ const typeDefs = `
   type Query {
     getMachineClasses: [MachineClass]
     getCraftingMachineClasses: [MachineClass]
+    getAllMachineClasses: [MachineClass]
     getMachineClassByName(class_name: String!): MachineClass
     getMachineClassById(class_id: Int!): MachineClass
     getMachineInstances(class_name: String): [MachineClass]

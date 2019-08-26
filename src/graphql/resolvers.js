@@ -10,6 +10,27 @@ const loadData = (filename, mapper) => {
     .then(data => data.arrayBuffer())
     .then(buffer => new Uint8Array(buffer))
     .then(buffer => {
+      // TODO: use this for the data decoder
+      // const decodeTest = ItemList.decode(buffer);
+      // const encodeTest = ItemList.fromObject(decodeTest);
+      // const encoder = ItemList.encode(encodeTest).finish();
+      //
+      // const redecode = ItemList.decode(encoder);
+
+      // const RCEncoding = RecipeList.encode(
+      //   RecipeList.fromObject({ data: recipeList })
+      // ).finish();
+      // const RDBlob = new Blob([RCEncoding], { type: 'application/octet-stream' });
+      // new Response(RDBlob)
+      //   .arrayBuffer()
+      //   .then(buffer => new Uint8Array(buffer))
+      //   .then(buffer => {
+      //     console.error(RecipeList.decode(buffer));
+      //     saveAs(RDBlob, 'RecipeList.s2');
+      //   });
+
+      // console.error("AAAAAAA", redecode);
+
       return ItemList.decode(buffer);
     })
     .then(data => ItemList.toObject(data).data)
@@ -30,7 +51,7 @@ const itemListPromise = loadData('ItemList', iDataMapper);
 
 const mcDataMapper = data => {
   const MachineClass = root.lookupEnum('MachineClass');
-  const map = {};
+  const map = new Map();
   data.forEach(item => {
     map[item.id] = item;
     item.id = MachineClass.valuesById[item.id];
@@ -101,6 +122,11 @@ const resolvers = {
             classId => mcMap[classId]
           );
         });
+      });
+    },
+    getAllMachineClasses(obj, args, context, info) {
+      return machineClassListPromise.then(mcMap => {
+        return Array.from(Object.keys(mcMap).map(key => mcMap[key]));
       });
     },
     getMachineClasses(obj, args, context, info) {
@@ -207,6 +233,15 @@ const resolvers = {
     }
   },
   MachineClass: {
+    id(machineClass) {
+      return root.lookupEnum('MachineClass').values[machineClass.id];
+    },
+    inputs(machineClass) {
+      return machineClass.inputs;
+    },
+    outputs(machineClass) {
+      return machineClass.outputs;
+    },
     icon(machineClass) {
       return machineClass.icon || machineClass.name;
     },

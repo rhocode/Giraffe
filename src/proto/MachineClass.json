@@ -22,7 +22,10 @@
             "quantum_encoder": 15,
             "remote_storage": 16,
             "smelter": 17,
-            "storage_container": 18
+            "storage_container": 18,
+            "splitter": 19,
+            "merger": 20,
+            "smart_splitter": 21
           }
         }
       }
