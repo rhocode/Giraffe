@@ -191,5 +191,6 @@
   "pure_sulfur_node": "Pure Sulfur Node",
   "impure_uranium_node": "Impure Uranium Node",
   "normal_uranium_node": "Normal Uranium Node",
-  "pure_uranium_node": "Pure Uranium Node"
+  "pure_uranium_node": "Pure Uranium Node",
+  "no_production": "Idle"
 }

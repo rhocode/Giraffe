@@ -1,8 +1,5 @@
-import { imageRepository } from '../repositories/imageRepository';
 import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
-
-const img = imageRepository.machines['constructor'];
 
 function drawNodePlug(
   context: any,
@@ -143,16 +140,17 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   context.fill();
   context.stroke();
 
-  context.drawImage(img, x + 3, y + 4, 100, 100); // Or at whatever offset you like
+  context.drawImage(d.getImage(), x + 13, y + 5, 90, 90); // Or at whatever offset you like
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';
-  const text = Math.random() < 0.5 ? 'IRON INGOT (Alt.)' : 'IRON PLATE';
+  const text = d.getTagLine();
+
   context.fillText(text, x + 6, y + h - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText('Mk. II', w / 2 + 30, h / 2 - 10);
+  context.fillText(d.getVersion(), w / 2 + 30, h / 2 - 10);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = '#15CB07';

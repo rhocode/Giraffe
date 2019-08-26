@@ -8,6 +8,44 @@ const GET_CRAFTING_MACHINE_CLASSES = gql`
       name
       icon
       hasUpgrades
+      id
+      inputs
+      outputs
+      recipes {
+        id
+        name
+        input {
+          item {
+            name
+          }
+          itemQuantity
+        }
+        output {
+          item {
+            name
+          }
+          itemQuantity
+        }
+      }
+      instances {
+        tier {
+          name
+          value
+        }
+      }
+    }
+  }
+`;
+
+const GET_ALL_MACHINE_CLASSES = gql`
+  {
+    getAllMachineClasses {
+      name
+      icon
+      hasUpgrades
+      id
+      inputs
+      outputs
       recipes {
         id
         name
@@ -43,6 +81,36 @@ export const getCraftingMachineClasses = (alt = false) => {
     })
     .then(response => {
       return response.data.getCraftingMachineClasses
+        .sort((machine1, machine2) => {
+          return machine1.name.localeCompare(machine2.name);
+        })
+        .map(machine => {
+          let icon = imageBaseUrl[machine.icon];
+          if (!icon) {
+            console.error('Missing file ' + machine.icon);
+            icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
+          }
+
+          return {
+            ...machine,
+            name: machine.name,
+            icon: icon
+          };
+        });
+    })
+    .catch(error => console.error(error));
+};
+
+export const getAllMachineClasses = (alt = false) => {
+  const client = getClient();
+  const imageBaseUrl = alt ? urlRepository.machinesAlt : urlRepository.machines;
+  return client
+    .query({
+      query: GET_ALL_MACHINE_CLASSES
+    })
+    .then(response => {
+      console.error(response.data);
+      return response.data.getAllMachineClasses
         .sort((machine1, machine2) => {
           return machine1.name.localeCompare(machine2.name);
         })

@@ -9,6 +9,7 @@ import {
 } from '../../../../../redux/actions/Graph/graphActions';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 import { withStyles } from '@material-ui/core';
+import { getTranslate } from 'react-localize-redux';
 
 const styles = () => ({
   canvas: {
@@ -286,12 +287,24 @@ class SGCanvas extends Component {
 
       // d3.event.x, y: d3.event.y
 
-      newGraph.nodes.push(new MachineNode(0, 0, 0, x, y, true));
+      console.error(this.props.selectedMachine);
+
+      newGraph.nodes.push(
+        new MachineNode(
+          this.props.selectedMachine,
+          0,
+          0,
+          x,
+          y,
+          true,
+          this.props.translate
+        )
+      );
       this.props.setGraphData(newGraph);
     } else if (this.props.mouseMode === 'link') {
       let selectedNode = null;
 
-      let i = 0;
+      let i;
 
       for (i = graphData.nodes.length - 1; i >= 0; --i) {
         const node = graphData.nodes[i];
@@ -315,6 +328,7 @@ class SGCanvas extends Component {
             const graphData = this.props.graphData;
 
             try {
+              console.error('AAAAA', this.props.graphSourceNode, selectedNode);
               const edge = new GraphEdge(
                 this.props.graphSourceNode,
                 selectedNode
@@ -551,6 +565,7 @@ class SGCanvas extends Component {
       .call(
         d3
           .drag()
+          .clickDistance(4)
           .subject(this.dragSubject)
           .on('start', this.dragStartFunc)
           .on('drag', this.draggedFunc)
@@ -599,7 +614,8 @@ function mapStateToProps(state) {
     graphFidelity: state.graphReducer.graphFidelity,
     mouseMode: state.graphReducer.mouseMode,
     selectedMachine: state.graphReducer.selectedMachine,
-    graphSourceNode: state.graphReducer.graphSourceNode
+    graphSourceNode: state.graphReducer.graphSourceNode,
+    translate: getTranslate(state.localize)
     // dragCurrent: state.graphReducer.dragCurrent,
     // dragStart: state.graphReducer.dragStart
   };

@@ -4,6 +4,9 @@ import {
   drawPath
 } from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
+import { imageRepository } from '../../repositories/imageRepository';
+import schemas from '../../../../../../generated';
+import * as protobuf from 'protobufjs/light';
 
 type Nullable<T> = T | null;
 
@@ -62,9 +65,9 @@ export abstract class GraphNode {
 
   fixPosition() {
     this.fx = this.x - this.width / 2;
-    this.fy = this.y - this.height;
+    this.fy = this.y - this.height / 2;
     this.x = this.x - this.width / 2;
-    this.y = this.y - this.height;
+    this.y = this.y - this.height / 2;
   }
 
   serialize() {
@@ -230,6 +233,12 @@ export abstract class GraphNode {
       }
     });
   };
+
+  abstract getImage(): any;
+
+  abstract getTagLine(): string;
+
+  abstract getVersion(): string;
 }
 
 export default class MachineNode extends GraphNode {
@@ -240,24 +249,48 @@ export default class MachineNode extends GraphNode {
   height: number = 155;
   xRenderBuffer: number = 15;
   yRenderBuffer: number = 15;
+  machineObject: any;
+  translator: any = null;
 
   constructor(
-    machineId: number,
+    machineObject: any,
     overclock: number,
     recipeId: number,
     x: number,
     y: number,
-    fixPosition = false
+    fixPosition = false,
+    translator = null
   ) {
     super(x, y);
-    this.machineId = machineId;
+    this.machineObject = JSON.parse(JSON.stringify(machineObject));
+    this.machineId = machineObject ? machineObject.class.id : 0;
     this.overclock = overclock;
     this.recipeId = recipeId;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
+
+    if (this.machineObject && this.machineObject.class) {
+      console.error('ALL DONE!!!!');
+      this.inputSlots = [];
+      this.outputSlots = [];
+
+      for (let i = 0; i < this.machineObject.class.inputs; i++) {
+        this.inputSlots.push(null);
+      }
+      for (let i = 0; i < this.machineObject.class.outputs; i++) {
+        this.outputSlots.push(null);
+      }
+    }
+
+    console.error(this.inputSlots, this.outputSlots, this.machineObject);
+
+    this.translator = translator;
+
     if (fixPosition) {
       this.fixPosition();
     }
+
+    this.getImage();
   }
 
   drawPathToTarget(context: any, target: GraphEdge): void {
@@ -271,6 +304,42 @@ export default class MachineNode extends GraphNode {
       recipeId: this.recipeId,
       machineId: this.machineId
     };
+  }
+
+  getImage() {
+    const root = protobuf.Root.fromJSON((schemas as any)['0.1.0'] as any);
+    const MachineClass = root.lookupEnum('MachineClass');
+
+    const name = MachineClass.valuesById[this.machineId] || 'assembler';
+    return (
+      imageRepository.machines[name] || imageRepository.machines['assembler']
+    );
+  }
+
+  getTagLine() {
+    const translate =
+      this.translator ||
+      function(a: any) {
+        return a;
+      };
+    if (this.machineObject && this.machineObject.recipe) {
+      return translate(this.machineObject.recipe);
+    }
+
+    return translate('no_production');
+  }
+
+  getVersion() {
+    const translate =
+      this.translator ||
+      function(a: any) {
+        return a;
+      };
+    if (this.machineObject && this.machineObject.tier) {
+      return translate(this.machineObject.tier);
+    }
+
+    return '';
   }
 
   preRender(transform: any, debugContext: any = this.context): void {
