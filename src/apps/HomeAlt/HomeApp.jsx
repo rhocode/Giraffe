@@ -7,6 +7,12 @@ import Card from './components/Card';
 import Section from './components/Section';
 import Spotlight from './components/Spotlight';
 import Copyright from './components/Copyright';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTwitter,
+  faDiscord,
+  faReddit
+} from '@fortawesome/free-brands-svg-icons';
 
 class HomeApp extends React.Component {
   state = {
@@ -154,13 +160,16 @@ class HomeApp extends React.Component {
               </div>
             </form>
             <ul className="contact">
-              <li className="icon brands fa-twitter">
+              <li>
+                <FontAwesomeIcon icon={faTwitter} />
                 <a href="https://twitter.com/satisgraphtory">@satisgraphtory</a>
               </li>
-              <li className="icon brands fa-discord">
+              <li>
+                <FontAwesomeIcon icon={faDiscord} />
                 <a href="https://discord.gg/ZRpcgqY">Discord Server</a>
               </li>
-              <li className="icon brands fa-reddit">
+              <li>
+                <FontAwesomeIcon icon={faReddit} />
                 <a href="https://reddit.com/r/satisgraphtory">
                   /r/satisgraphtory
                 </a>
