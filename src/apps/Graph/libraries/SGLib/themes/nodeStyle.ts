@@ -160,6 +160,7 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   d.inputSlotMapping = {};
   d.outputSlotMapping = {};
 
+  // TODO: refactor so that the node spacing can be calculated based on height and width, etc
   calculateNodeSpacing(y + h / 2, d.inputSlots.length).forEach(
     (inputY: number, index: number) => {
       d.inputSlotMapping[index] = { x, y: inputY };

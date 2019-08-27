@@ -173,7 +173,8 @@ export abstract class GraphNode {
         const xB = b.fx - this.fx;
 
         if (yB / xB === yA / xA) {
-          return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
+          return ea.id - eb.id;
+          // return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
         }
 
         return yA / xA - yB / xB;
@@ -200,7 +201,8 @@ export abstract class GraphNode {
         const xB = this.fx - b.fx;
 
         if (yB / xB === yA / xA) {
-          return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
+          return ea.id - eb.id;
+          // return Math.abs(Math.hypot(xA, yA)) - Math.abs(Math.hypot(xB, yB));
         }
 
         return yB / xB - yA / xA;

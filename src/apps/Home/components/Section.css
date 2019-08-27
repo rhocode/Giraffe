@@ -35,20 +35,27 @@
   background-color: #4c5c96;
 }
 
-.Section.style1.right::before {
-  background: linear-gradient(to bottom right, transparent 50%, #4c5c96 50%);
+.Section.style1::before {
+  box-shadow: inset 0 -1px 0 0 #4c5c96, 0 10px 0 0 #4c5c96;
+}
+
+.Section.style1::after {
+  box-shadow: inset 0 -1px 0 0 #4c5c96, 0 10px 0 0 #4c5c96;
+}
+
+.Section.style1::before,
+.Section.style1::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%234c5c96%3B' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .Section.style1.right::after {
-  background: linear-gradient(to top right, transparent 50%, #4c5c96 50%);
+  transform: scaleY(-1);
 }
 
 .Section.style1.left::before {
-  background: linear-gradient(to bottom left, transparent 50%, #4c5c96 50%);
-}
-
-.Section.style1.left::after {
-  background: linear-gradient(to top left, transparent 50%, #4c5c96 50%);
+  transform: scaleY(-1);
 }
 
 /* Style2 */
@@ -56,20 +63,35 @@
   background-color: #45558d;
 }
 
-.Section.style2.right::before {
-  background: linear-gradient(to bottom right, transparent 50%, #45558d 50%);
+.Section.style2::before {
+  box-shadow: inset 0 -1px 0 0 #45558d, 0 10px 0 0 #45558d;
 }
 
-.Section.style2.right::after {
-  background: linear-gradient(to top right, transparent 50%, #45558d 50%);
+.Section.style2::after {
+  box-shadow: inset 0 -1px 0 0 #45558d, 0 10px 0 0 #45558d;
+}
+
+.Section.style2::before,
+.Section.style2::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%2345558d%3B' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .Section.style2.left::before {
-  background: linear-gradient(to bottom left, transparent 50%, #45558d 50%);
+  transform: scaleX(-1);
 }
 
 .Section.style2.left::after {
-  background: linear-gradient(to top left, transparent 50%, #45558d 50%);
+  transform: scaleX(-1) scaleY(-1);
+}
+
+.Section.style2.right::before {
+  transform: scaleX(-1) scaleY(-1);
+}
+
+.Section.style2.right::after {
+  transform: scaleX(-1);
 }
 
 /* Style3 */
@@ -77,20 +99,27 @@
   background-color: #3f4e85;
 }
 
-.Section.style3.right::before {
-  background: linear-gradient(to bottom right, transparent 50%, #3f4e85 50%);
+.Section.style3::before {
+  box-shadow: inset 0 -1px 0 0 #3f4e85, 0 10px 0 0 #3f4e85;
+}
+
+.Section.style3::after {
+  box-shadow: inset 0 -1px 0 0 #3f4e85, 0 10px 0 0 #3f4e85;
+}
+
+.Section.style3::before,
+.Section.style3::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='0,100 100,0 100,100' style='fill:%233f4e85%3B' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .Section.style3.right::after {
-  background: linear-gradient(to top right, transparent 50%, #3f4e85 50%);
+  transform: scaleY(-1);
 }
 
 .Section.style3.left::before {
-  background: linear-gradient(to bottom left, transparent 50%, #3f4e85 50%);
-}
-
-.Section.style3.left::after {
-  background: linear-gradient(to top left, transparent 50%, #3f4e85 50%);
+  transform: scaleY(-1);
 }
 
 @media screen and (min-width: 736px) {

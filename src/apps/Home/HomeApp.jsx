@@ -23,6 +23,16 @@ class HomeApp extends Component {
     this.setState({ showMenu });
   };
 
+  componentDidMount() {
+    if (!!this.props.location.hash) {
+      window.location.href =
+        window.location.protocol +
+        '//old.satisgraphtory.com' +
+        window.location.pathname +
+        window.location.search;
+    }
+  }
+
   render() {
     return (
       <Page>
@@ -68,7 +78,7 @@ class HomeApp extends Component {
               <h2>Satisgraphtory</h2>
             </div>
 
-            <p>Presenting version 2 of Satisgraphtory. Now new and improved.</p>
+            <p>Presenting version 2 of SatisGraphtory. Now new and improved.</p>
 
             <p>Launch the alpha.</p>
 
