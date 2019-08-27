@@ -1,0 +1,51 @@
+.Spotlight {
+  display: block;
+}
+
+.Spotlight.right {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.Spotlight .image {
+  margin-bottom: 1em;
+  width: 12em;
+}
+
+.Spotlight.right .image {
+  margin-left: 2em;
+}
+
+.Spotlight.left .image {
+  margin-right: 2em;
+}
+
+.Spotlight .image img {
+  width: 100%;
+}
+
+.Spotlight .content {
+  width: 100%;
+  -ms-flex: 2;
+}
+
+@media screen and (min-width: 640px) {
+  .Spotlight {
+    align-items: center;
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 736px) {
+  .Spotlight .image {
+    margin: 0 1.75em 2em 0;
+    width: 19em;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .Spotlight .image {
+    margin: 0 2em 2em 0;
+    width: 32em;
+  }
+}
