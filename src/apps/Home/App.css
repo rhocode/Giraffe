@@ -1774,11 +1774,6 @@ body {
 }
 
 /* Basic */
-
-@-ms-viewport {
-  width: device-width;
-}
-
 body {
   -ms-overflow-style: scrollbar;
 }
@@ -2964,12 +2959,6 @@ body.is-menu-visible #menu .inner {
   #banner {
     padding: 7em 0 8.25em 0;
     background-color: #2e3141;
-    background-image: linear-gradient(
-        to top,
-        rgba(46, 49, 65, 0.8),
-        rgba(46, 49, 65, 0.8)
-      ),
-      url('/public/images/bg.jpg');
     background-size: auto, cover;
     background-position: center, center;
     margin-bottom: -6.5em;
@@ -3073,12 +3062,6 @@ body.is-loading #banner p {
   #wrapper > header {
     padding: 9em 0 6.25em 0;
     background-color: #2e3141;
-    background-image: linear-gradient(
-        to top,
-        rgba(46, 49, 65, 0.8),
-        rgba(46, 49, 65, 0.8)
-      ),
-      url('/public/images/bg.jpg');
     background-size: auto, cover;
     background-position: center, 0% 30%;
     margin-bottom: -6.5em;
@@ -3373,7 +3356,7 @@ body.is-loading #banner p {
 
   .wrapper.spotlight .inner {
     -moz-align-items: -moz-flex-start;
-    -webkit-align-items: -webkit-flex-start;
+    -webkit-align-items: flex-start;
     -ms-align-items: -ms-flex-start;
     align-items: flex-start;
   }
@@ -3407,6 +3390,10 @@ body.is-loading #banner p {
 }
 
 /* Footer */
+
+#footer {
+  margin-bottom: 20px;
+}
 
 #footer .inner {
   padding: 5em 0 3em 0;
@@ -3454,8 +3441,7 @@ body.is-loading #banner p {
   font-size: 0.9em;
   line-height: 1;
   margin-left: 1em;
-  padding: 0;
-  padding-left: 1em;
+  padding: 0 0 0 1em;
 }
 
 #footer .inner .copyright li:first-child {
@@ -3471,12 +3457,6 @@ body.is-loading #banner p {
 @media screen and (max-width: 1280px) {
   #footer {
     background-color: #2e3141;
-    background-image: linear-gradient(
-        to top,
-        rgba(46, 49, 65, 0.8),
-        rgba(46, 49, 65, 0.8)
-      ),
-      url('/public/images/bg.jpg');
     background-size: auto, cover;
     background-position: center, center;
     margin-top: -6.5em;
