@@ -7,7 +7,7 @@
   "private": true,
   "description": "SatisGraphtory App",
   "dependencies": {
-    "@emotion/core": "^10.0.15",
+    "@emotion/core": "^10.0.16",
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
