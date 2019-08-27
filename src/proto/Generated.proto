@@ -165,7 +165,7 @@ enum MachineClass {
     storage_container = 18;
     splitter = 19;
     merger = 20;
-    smart splitter = 21;
+    smart_splitter = 21;
 }
 
 enum Item {

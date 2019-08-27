@@ -1,0 +1,33 @@
+.Copyright {
+  border-top: solid 2px rgba(255, 255, 255, 0.125);
+  display: block;
+  list-style: none;
+  margin: 2em 0;
+  padding-top: 2em;
+  width: 100%;
+}
+
+.Copyright a {
+  color: inherit;
+}
+
+.Copyright > * {
+  color: rgba(255, 255, 255, 0.35);
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 1;
+  margin: 0;
+  padding-right: 1em;
+}
+
+.Copyright > *:not(:last-child)::after {
+  border-right: solid 2px rgba(255, 255, 255, 0.125);
+  content: '';
+  margin-left: 1em;
+}
+
+@media screen and (max-width: 980px) {
+  .Copyright {
+    margin: 4em 0 2em 0;
+  }
+}

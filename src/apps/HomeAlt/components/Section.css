@@ -1,0 +1,144 @@
+.Section {
+  background-color: #2e3141;
+  margin: 2.5em 0;
+  position: relative;
+}
+
+.SectionContent {
+  margin: 0 1em;
+  max-width: 55em;
+  padding: 2em 0;
+}
+
+/* Alt styles base */
+.Section[class*='style']::before,
+.Section[class*='style']::after {
+  content: '';
+  display: block;
+  height: 2.5em;
+  position: absolute;
+  width: 100%;
+}
+
+.Section[class*='style'].right::before,
+.Section[class*='style'].left::before {
+  top: -2.5em;
+}
+
+.Section[class*='style'].right::after,
+.Section[class*='style'].left::after {
+  bottom: -2.5em;
+}
+
+/* Style1 */
+.Section.style1 {
+  background-color: #4c5c96;
+}
+
+.Section.style1.right::before {
+  background: linear-gradient(to bottom right, transparent 50%, #4c5c96 50%);
+}
+
+.Section.style1.right::after {
+  background: linear-gradient(to top right, transparent 50%, #4c5c96 50%);
+}
+
+.Section.style1.left::before {
+  background: linear-gradient(to bottom left, transparent 50%, #4c5c96 50%);
+}
+
+.Section.style1.left::after {
+  background: linear-gradient(to top left, transparent 50%, #4c5c96 50%);
+}
+
+/* Style2 */
+.Section.style2 {
+  background-color: #45558d;
+}
+
+.Section.style2.right::before {
+  background: linear-gradient(to bottom right, transparent 50%, #45558d 50%);
+}
+
+.Section.style2.right::after {
+  background: linear-gradient(to top right, transparent 50%, #45558d 50%);
+}
+
+.Section.style2.left::before {
+  background: linear-gradient(to bottom left, transparent 50%, #45558d 50%);
+}
+
+.Section.style2.left::after {
+  background: linear-gradient(to top left, transparent 50%, #45558d 50%);
+}
+
+/* Style3 */
+.Section.style3 {
+  background-color: #3f4e85;
+}
+
+.Section.style3.right::before {
+  background: linear-gradient(to bottom right, transparent 50%, #3f4e85 50%);
+}
+
+.Section.style3.right::after {
+  background: linear-gradient(to top right, transparent 50%, #3f4e85 50%);
+}
+
+.Section.style3.left::before {
+  background: linear-gradient(to bottom left, transparent 50%, #3f4e85 50%);
+}
+
+.Section.style3.left::after {
+  background: linear-gradient(to top left, transparent 50%, #3f4e85 50%);
+}
+
+@media screen and (min-width: 736px) {
+  .Section {
+    margin: 4.75em 0;
+  }
+
+  .Section[class*='style']::before,
+  .Section[class*='style']::after {
+    height: 4.75em;
+  }
+
+  .Section[class*='style'].right::before,
+  .Section[class*='style'].left::before {
+    top: -4.75em;
+  }
+
+  .Section[class*='style'].right::after,
+  .Section[class*='style'].left::after {
+    bottom: -4.75em;
+  }
+
+  .SectionContent {
+    padding: 3em 0;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .Section {
+    margin: 6.5em 0;
+  }
+
+  .Section[class*='style']::before,
+  .Section[class*='style']::after {
+    height: 6.5em;
+  }
+
+  .Section[class*='style'].right::before,
+  .Section[class*='style'].left::before {
+    top: -6.5em;
+  }
+
+  .Section[class*='style'].right::after,
+  .Section[class*='style'].left::after {
+    bottom: -6.5em;
+  }
+
+  .SectionContent {
+    margin: 0 auto;
+  }
+}

@@ -12,7 +12,7 @@ import en from '../../translations/en.json';
 import discord from '../../translations/discord.json';
 
 import AsyncComponent from '../../common/react/AsyncComponent';
-import HomeApp from '../../apps/Home/HomeApp';
+import HomeApp from '../../apps/HomeAlt/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 import { ApolloProvider } from 'react-apollo';
 import { getClient } from '../../graphql';

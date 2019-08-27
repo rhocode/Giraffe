@@ -1,0 +1,20 @@
+.card {
+  background-color: #353849;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.image {
+  border: none;
+  display: block;
+  font-size: 0;
+}
+
+.image img {
+  border-radius: 0;
+  width: 100%;
+}
+
+.content {
+  padding: 1.25em 1.75em 0;
+}
