@@ -9,6 +9,11 @@ import Spotlight from './components/Spotlight';
 import Copyright from './components/Copyright';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faDownload } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTwitter,
+  faDiscord,
+  faRedditAlien
+} from '@fortawesome/free-brands-svg-icons';
 
 class HomeApp extends Component {
   state = {
@@ -22,7 +27,13 @@ class HomeApp extends Component {
     return (
       <Page>
         <Header>
-          <h1>SatisGraphtory</h1>
+          <h1>
+            <img
+              alt="satisgraphtory logo"
+              className="header-logo"
+              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory_square.png"
+            />
+          </h1>
           <MenuTrigger onClick={() => this.toggleMenu(true)} />
         </Header>
         <Menu
@@ -63,13 +74,13 @@ class HomeApp extends Component {
 
             <p>
               <a
-                href="https://satisgraphtory.com/graph"
-                className="button large primary"
+                href="https://satisgraphtory.com/#"
+                className="button large primary disabled"
               >
-                Launch web app <FontAwesomeIcon icon={faArrowRight} />
+                Launch web app (soon) <FontAwesomeIcon icon={faArrowRight} />
               </a>
               <a
-                href="https://github.com/rhocode/Giraffe/releases"
+                href="https://satisgraphtory.com/#"
                 className="button disabled"
               >
                 Get desktop app (soon) <FontAwesomeIcon icon={faDownload} />
@@ -84,9 +95,11 @@ class HomeApp extends Component {
         </section>
 
         <main id="wrapper">
-          <Section id="new" style1 right>
+          <div id="new"></div>
+          <Section id="one" style1 right>
             <Spotlight
-              imgSrc="https://unsplash.it/450/450/?random"
+              img="https://unsplash.it/450/450/?random"
+              imgAlt="fast"
               title="Fast."
               desc="Now with a completely new HTML5 Canvas based graphics
               engine, SatisGraphtory is faster than ever.
@@ -95,7 +108,8 @@ class HomeApp extends Component {
           </Section>
           <Section id="two" style2 left>
             <Spotlight
-              imgSrc="https://unsplash.it/450/450/?random"
+              img="https://unsplash.it/450/450/?random"
+              imgAlt="updates"
               title="Easy Updates."
               desc="With a completely new data storage backend, it's now
               easier than ever for us (and admins) to update recipes
@@ -106,7 +120,8 @@ class HomeApp extends Component {
           </Section>
           <Section id="three" style3 right>
             <Spotlight
-              imgSrc="https://unsplash.it/450/450/?random"
+              img="https://unsplash.it/450/450/?random"
+              imgAlt="simulations"
               title="More accurate simulations."
               desc="With more research and development, we can fully simulate
               an entire factory system and alert you to bottlenecks and
@@ -115,7 +130,8 @@ class HomeApp extends Component {
           </Section>
           <Section id="four" style2 left>
             <Spotlight
-              imgSrc="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
+              img="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
+              imgAlt="ui overhaul"
               title="UI Overhaul."
               desc='Designed with a "mobile-first" mentality, the layout and
               menus are designed to be used on a small, medium, or large
@@ -167,19 +183,34 @@ class HomeApp extends Component {
         <footer id="footer">
           <div className="inner" id="contact">
             <h2 className="major">Talk to us</h2>
-            <ul className="contact">
-              <li className="icon brands fa-twitter">
-                <a href="https://twitter.com/satisgraphtory">@satisgraphtory</a>
-              </li>
-              <li className="icon brands fa-discord">
-                <a href="https://discord.gg/ZRpcgqY">Discord Server</a>
-              </li>
-              <li className="icon brands fa-reddit">
-                <a href="https://reddit.com/r/satisgraphtory">
-                  /r/satisgraphtory
-                </a>
-              </li>
-            </ul>
+
+            <a
+              className="button contact-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/satisgraphtory"
+            >
+              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{' '}
+              @satisgraphtory
+            </a>
+            <a
+              className="button contact-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://discord.gg/ZRpcgqY"
+            >
+              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{' '}
+              Discord Server
+            </a>
+            <a
+              className="button contact-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://reddit.com/r/satisgraphtory"
+            >
+              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{' '}
+              /r/satisgraphtory
+            </a>
             <Copyright>
               <p>
                 &copy; <a href="https://rhocode.com">rhoCode</a> 2019

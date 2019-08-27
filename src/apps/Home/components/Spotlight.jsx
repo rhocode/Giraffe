@@ -11,10 +11,10 @@ const Spotlight = props => {
   }
   return (
     <div className={classNames.join(' ')}>
-      {img && to && (
-        <a href={to} className="image">
+      {img && (
+        <span className="image">
           <img src={img} alt={imgAlt} />
-        </a>
+        </span>
       )}
       <div className="content">
         {title && <h2 className="major">{title}</h2>}

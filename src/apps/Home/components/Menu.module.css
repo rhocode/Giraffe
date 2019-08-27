@@ -30,7 +30,6 @@
 }
 
 .close {
-  background: url('/images/close.svg');
   background-size: cover;
   border: 0;
   box-shadow: none;
@@ -41,7 +40,6 @@
   position: absolute;
   right: 0;
   text-align: center;
-  text-indent: 3em;
   top: 0;
   width: 3em;
 }
@@ -89,12 +87,6 @@
   text-indent: -5em;
   white-space: nowrap;
   width: 4em;
-}
-
-.trigger::after {
-  content: '\f0c9';
-  font-family: FontAwesome;
-  margin-left: 1.75em;
 }
 
 .modal {
