@@ -228,13 +228,13 @@ class HomeApp extends Component {
             <Copyright>
               <p>
                 &copy; <a href="https://rhocode.com">rhoCode</a> 2019
-              </p>
-              <p>
+                <br />
+                <br />
                 Not affiliated with Satisfactory, Coffee Stain Studios AB, or
                 THQ Nordic AB. Images sourced from the Satisfactory wiki, which
                 is sourced from Coffee Stain Studios AB's Satisfactory.
-              </p>
-              <p>
+                <br />
+                <br />
                 Site Design: <a href="http://html5up.net">HTML5 UP</a>, licensed
                 for use under the Creative Commons Attribution license. Modified
                 for use by rhoCode.
@@ -242,6 +242,17 @@ class HomeApp extends Component {
             </Copyright>
           </div>
         </footer>
+        <a
+          href="https://www.netlify.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="netlify"
+        >
+          <img
+            src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+            alt="netlify logo"
+          />
+        </a>
       </Page>
     );
   }
