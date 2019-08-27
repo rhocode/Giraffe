@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+
 import Page from './components/Page';
 import Header from './components/Header';
 import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
@@ -22,6 +22,10 @@ class HomeApp extends Component {
   toggleMenu = (showMenu = false) => {
     this.setState({ showMenu });
   };
+
+  componentWillMount() {
+    require('./App.css');
+  }
 
   componentDidMount() {
     if (!!this.props.location.hash) {
