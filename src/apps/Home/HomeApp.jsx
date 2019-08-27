@@ -10,9 +10,9 @@ import Copyright from './components/Copyright';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faDownload } from '@fortawesome/free-solid-svg-icons';
 import {
-  faTwitter,
   faDiscord,
-  faRedditAlien
+  faRedditAlien,
+  faTwitter
 } from '@fortawesome/free-brands-svg-icons';
 
 class HomeApp extends Component {
@@ -98,6 +98,7 @@ class HomeApp extends Component {
           <div id="new"></div>
           <Section id="one" style1 right>
             <Spotlight
+              right
               img="https://unsplash.it/450/450/?random"
               imgAlt="fast"
               title="Fast."
@@ -108,6 +109,7 @@ class HomeApp extends Component {
           </Section>
           <Section id="two" style2 left>
             <Spotlight
+              left
               img="https://unsplash.it/450/450/?random"
               imgAlt="updates"
               title="Easy Updates."
@@ -120,6 +122,7 @@ class HomeApp extends Component {
           </Section>
           <Section id="three" style3 right>
             <Spotlight
+              right
               img="https://unsplash.it/450/450/?random"
               imgAlt="simulations"
               title="More accurate simulations."
@@ -130,6 +133,7 @@ class HomeApp extends Component {
           </Section>
           <Section id="four" style2 left>
             <Spotlight
+              left
               img="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
               imgAlt="ui overhaul"
               title="UI Overhaul."

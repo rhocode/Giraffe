@@ -7,6 +7,11 @@
   text-align: right;
 }
 
+/*.Spotlight.left {*/
+/*  flex-direction: row;*/
+/*  text-align: left;*/
+/*}*/
+
 .Spotlight .image {
   margin-bottom: 1em;
   width: 12em;

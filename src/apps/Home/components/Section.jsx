@@ -9,6 +9,8 @@ const Section = props => {
   if (!!props.style2) classNames.push('style2');
   if (!!props.style3) classNames.push('style3');
 
+  console.error(classNames);
+
   return (
     <section className={classNames.join(' ')}>
       <div className="SectionContent">{props.children}</div>
