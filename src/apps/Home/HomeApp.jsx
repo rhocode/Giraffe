@@ -68,6 +68,12 @@ class HomeApp extends Component {
         </Menu>
 
         <section id="banner">
+          {/*<img*/}
+          {/*  className="bubble"*/}
+          {/*  alt="satisgraphtory logo"*/}
+          {/*  width="100"*/}
+          {/*  src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory_square.png"*/}
+          {/*></img>*/}
           <div className="inner">
             <div className="logo">
               <img

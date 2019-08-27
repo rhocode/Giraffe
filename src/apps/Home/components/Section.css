@@ -4,6 +4,13 @@
   position: relative;
 }
 
+.bubble {
+  position: absolute;
+  right: 8vw;
+  top: 50vh;
+  z-index: 0;
+}
+
 .SectionContent {
   margin: 0 1em;
   max-width: 55em;
