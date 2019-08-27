@@ -3570,3 +3570,11 @@ body.is-loading #banner p {
     height: 2em;
   }
 }
+
+.netlify {
+  bottom: 0.5em;
+  left: 1em;
+  position: fixed;
+  text-decoration: none;
+  border: none;
+}

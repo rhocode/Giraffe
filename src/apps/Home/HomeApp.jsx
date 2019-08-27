@@ -232,6 +232,12 @@ class HomeApp extends Component {
             </Copyright>
           </div>
         </footer>
+        <a href="https://www.netlify.com" className="netlify">
+          <img
+            src="https://www.netlify.com/img/global/badges/netlify-light.svg"
+            alt="netlify logo"
+          />
+        </a>
       </Page>
     );
   }
