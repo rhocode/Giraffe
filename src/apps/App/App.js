@@ -20,6 +20,7 @@ import { getClient } from '../../graphql';
 const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
 const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
 const LabApp = AsyncComponent(import('../../apps/Lab/LabApp'));
+const DataApp = AsyncComponent(import('../../apps/Data/DataApp'));
 
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
@@ -149,6 +150,17 @@ class App extends Component {
     );
   }
 
+  static getDataApp(local = false) {
+    return (
+      <Route
+        key={'data'}
+        path={local ? `/data` : `/`}
+        exact={!local}
+        component={DataApp}
+      />
+    );
+  }
+
   static getHomeApp() {
     return <Route key={'home'} path={`/`} exact component={HomeApp} />;
   }
@@ -167,11 +179,15 @@ class App extends Component {
     } else if (domain === 'lab') {
       // lab subdomain
       domainList.push(App.getLabApp());
+    } else if (domain === 'data') {
+      // lab subdomain
+      domainList.push(App.getDataApp());
     } else {
       domainList.push(App.getHomeApp());
       domainList.push(App.getGraphApp(true));
       domainList.push(App.getLabApp(true));
       domainList.push(App.getHubApp(true));
+      domainList.push(App.getDataApp(true));
     }
 
     return domainList;
