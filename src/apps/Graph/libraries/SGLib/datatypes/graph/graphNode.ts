@@ -312,8 +312,10 @@ export default class MachineNode extends GraphNode {
     const root = protobuf.Root.fromJSON((schemas as any)['0.1.0'] as any);
     const MachineClass = root.lookupEnum('MachineClass');
 
-    const name = MachineClass.valuesById[this.machineId] || 'miner';
-    return imageRepository.machines[name] || imageRepository.machines['miner'];
+    const name = MachineClass.valuesById[this.machineId] || 'miner_mk1';
+    return (
+      imageRepository.machines[name] || imageRepository.machines['miner_mk1']
+    );
   }
 
   getTagLine() {
