@@ -24,6 +24,7 @@ class HomeApp extends Component {
   };
 
   componentWillMount() {
+    console.error('Added app.css here');
     require('./App.css');
   }
 
