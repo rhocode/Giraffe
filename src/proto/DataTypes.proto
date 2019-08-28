@@ -83,3 +83,22 @@ message PlayerUnlockList {
 message MachineClassList {
     repeated MachineClassData data = 1;
 }
+
+message Node {
+    int32 id = 1;
+    MachineClass class = 2;
+    UpgradeTiers tier = 3;
+    int32 overclock = 4;
+}
+
+message Edge {
+    int32 source = 1;
+    int32 target = 2;
+    int32 sourceIndex = 3;
+    int32 targetIndex = 4;
+}
+
+message SaveFile {
+    repeated Edge edges = 1;
+    repeated Node nodes = 2;
+}

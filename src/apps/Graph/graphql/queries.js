@@ -88,7 +88,7 @@ export const getCraftingMachineClasses = (alt = false) => {
           let icon = imageBaseUrl[machine.icon];
           if (!icon) {
             console.error('Missing file ' + machine.icon);
-            icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
+            icon = imageBaseUrl['miner_mk1'];
           }
 
           return {

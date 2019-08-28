@@ -5,8 +5,8 @@ import {
 } from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
 import { imageRepository } from '../../repositories/imageRepository';
-import schemas from '../../../../../../generated';
 import * as protobuf from 'protobufjs/light';
+import getLatestSchema from '../../utils/getLatestSchema';
 
 type Nullable<T> = T | null;
 
@@ -309,7 +309,7 @@ export default class MachineNode extends GraphNode {
   }
 
   getImage() {
-    const root = protobuf.Root.fromJSON((schemas as any)['0.1.0'] as any);
+    const root = protobuf.Root.fromJSON(getLatestSchema());
     const MachineClass = root.lookupEnum('MachineClass');
 
     const name = MachineClass.valuesById[this.machineId] || 'miner_mk1';
