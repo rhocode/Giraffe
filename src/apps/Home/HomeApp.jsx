@@ -14,6 +14,7 @@ import {
   faRedditAlien,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
+import AsyncComponent from '../../common/react/AsyncComponent';
 
 class HomeApp extends Component {
   state = {
@@ -22,11 +23,6 @@ class HomeApp extends Component {
   toggleMenu = (showMenu = false) => {
     this.setState({ showMenu });
   };
-
-  componentWillMount() {
-    console.error('Added app.css here');
-    require('./App.css');
-  }
 
   componentDidMount() {
     if (!!this.props.location.hash) {
@@ -39,8 +35,10 @@ class HomeApp extends Component {
   }
 
   render() {
+    const Css = AsyncComponent(import('./CssWrapper'));
     return (
       <Page>
+        <Css />
         <Header>
           <h1>
             <img
