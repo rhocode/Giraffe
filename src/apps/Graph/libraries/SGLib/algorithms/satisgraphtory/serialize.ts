@@ -2,6 +2,7 @@ import * as protobuf from 'protobufjs/light';
 import MachineNode, { GraphNode } from '../../datatypes/graph/graphNode';
 import { b64fromBuffer, ErrMsg, validB64Chars } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
+import { GraphEdge } from '../../datatypes/graph/graphEdge';
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -96,8 +97,64 @@ const serializeNode = (
   return finalMapping;
 };
 
-const serializeEdgesFromNodes = (nodes: GraphNode[], serializer: any) => {
-  return [];
+const serializeEdgesFromNodes = (nodes: GraphNode[], enumMapper: any) => {
+  const sourceEdgeIndexMap: Map<GraphEdge, number> = new Map();
+  const targetEdgeIndexMap: Map<GraphEdge, number> = new Map();
+
+  nodes.forEach(node => {
+    node.inputSlots.forEach((possibleEdge, index) => {
+      if (possibleEdge instanceof GraphEdge) {
+        targetEdgeIndexMap.set(possibleEdge, index);
+      }
+    });
+
+    node.outputSlots.forEach((possibleEdge, index) => {
+      if (possibleEdge instanceof GraphEdge) {
+        sourceEdgeIndexMap.set(possibleEdge, index);
+      }
+    });
+  });
+
+  const allEdges: any = [];
+
+  Array.from(sourceEdgeIndexMap.entries()).forEach(entry => {
+    const edge = entry[0];
+    if (targetEdgeIndexMap.has(edge)) {
+      const retrieval = targetEdgeIndexMap.get(edge);
+
+      if (retrieval === undefined) {
+        throw new Error('Undefined retrieval of edge');
+      }
+
+      const index = entry[1];
+
+      const edgeSerialized: any = edge.serialize();
+
+      const mappedEnums: any = {};
+
+      Object.keys(enumMapper).forEach(fieldName => {
+        const fetchedData = edgeSerialized[fieldName];
+
+        if (fetchedData !== null && fetchedData !== undefined) {
+          mappedEnums[fieldName] = enumMapper[fieldName](fetchedData);
+        }
+      });
+
+      allEdges.push(
+        Object.assign(
+          {},
+          edgeSerialized,
+          {
+            sourceIndex: index,
+            targetIndex: retrieval
+          },
+          mappedEnums
+        )
+      );
+    }
+  });
+
+  return allEdges;
 };
 
 const dataMapper = (root: any, enumName: string) => {
@@ -201,12 +258,14 @@ const serialize = (schema: any, graph: saveFile) => {
     nodes.push(new MachineNode(0, 0, 300, 500));
   }
 
+  const edges = [];
+
+  edges.push(new GraphEdge(nodes[0], nodes[1]));
+
   const nodeEnumMapper = {
     machineClass: MachineClass.toEnum,
     recipe: Recipe.toEnum,
-    tier: UpgradeTiers.toEnum,
-    inputSlots: () => null,
-    outputSlots: () => null
+    tier: UpgradeTiers.toEnum
   };
 
   const nodeEnumFlagger = {
@@ -217,9 +276,15 @@ const serialize = (schema: any, graph: saveFile) => {
     serializeNode(node, Node, nodeEnumMapper, nodeEnumFlagger)
   );
 
-  const serializedEdges = serializeEdgesFromNodes(nodes, null);
+  const edgeEnumMapper = {
+    tier: UpgradeTiers.toEnum
+  };
+
+  const serializedEdges = serializeEdgesFromNodes(nodes, edgeEnumMapper);
   // We must serialize the edges from the nodes, since in the future we may only
   // need to serialize portions of the nodes + edges.
+
+  console.log(serializedEdges);
 
   const SaveFile = root.lookupType('SaveFile');
   const buffer = SaveFile.encode({
@@ -252,6 +317,7 @@ const serialize = (schema: any, graph: saveFile) => {
 
   console.log(u8arr2);
   console.log(buffer);
+  console.log(furtherCompressedEncoding);
 
   const originalJSON = JSON.stringify({
     edges: serializedEdges,

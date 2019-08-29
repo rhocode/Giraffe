@@ -2,7 +2,7 @@ import { GraphNode } from './graphNode';
 
 type Nullable<T> = T | null;
 
-export abstract class GraphEdge {
+export class GraphEdge {
   static nextEdgeId: number = 0;
   source: number;
   sourceNode: GraphNode;
@@ -13,8 +13,13 @@ export abstract class GraphEdge {
   x2: number = 0;
   y1: number = 0;
   y2: number = 0;
+  speedEnum: string = 'MK1';
 
-  protected constructor(source: GraphNode, target: GraphNode) {
+  constructor(
+    source: GraphNode,
+    target: GraphNode,
+    speed_enum: string = 'MK1'
+  ) {
     this.sourceNode = source;
     this.targetNode = target;
     this.source = source.id;
@@ -22,6 +27,7 @@ export abstract class GraphEdge {
     this.id = GraphEdge.nextEdgeId++;
     source.addTarget(this);
     target.addSource(this);
+    this.speedEnum = speed_enum;
   }
 
   public setCoordinates(x1: number, x2: number, y1: number, y2: number) {
@@ -29,6 +35,15 @@ export abstract class GraphEdge {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+  }
+
+  serialize() {
+    return {
+      id: this.id,
+      tier: this.speedEnum,
+      sourceNodeId: this.source,
+      targetNodeId: this.target
+    };
   }
 
   public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
