@@ -74,9 +74,7 @@ export abstract class GraphNode {
     return {
       id: this.id,
       fx: this.fx,
-      fy: this.fy,
-      inputSlots: this.inputSlots,
-      outputSlots: this.outputSlots
+      fy: this.fy
     };
   }
 
@@ -130,6 +128,20 @@ export abstract class GraphNode {
       this.context.scale(transform.k, transform.k);
       this.contextOutlined.scale(transform.k, transform.k);
     }
+  }
+
+  setSource(source: GraphEdge, index: number): void {
+    if (this.inputSlots[index]) {
+      throw new Error('Source index is not null!');
+    }
+    this.inputSlots[index] = source;
+  }
+
+  setTarget(target: GraphEdge, index: number): void {
+    if (this.outputSlots[index]) {
+      throw new Error('Target index is not null!');
+    }
+    this.outputSlots[index] = target;
   }
 
   addSource(source: GraphEdge) {
