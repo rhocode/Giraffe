@@ -89,6 +89,8 @@ message Node {
     MachineClass class = 2;
     UpgradeTiers tier = 3;
     int32 overclock = 4;
+    Recipe recipe = 5;
+    bool hasRecipe = 6;
 }
 
 message Edge {
