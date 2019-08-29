@@ -68,7 +68,7 @@ class SGCanvas extends Component {
     const num_nodes = 5;
 
     for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, 0, i * 300, 500));
+      nodes.push(new MachineNode(0, 0, i * 300, 500));
     }
 
     for (let i = 0; i < num_nodes - 1; i++) {
@@ -292,7 +292,6 @@ class SGCanvas extends Component {
       newGraph.nodes.push(
         new MachineNode(
           this.props.selectedMachine,
-          0,
           0,
           x,
           y,

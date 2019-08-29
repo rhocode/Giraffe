@@ -245,7 +245,6 @@ export abstract class GraphNode {
 
 export default class MachineNode extends GraphNode {
   overclock: number;
-  recipeId: number;
   machineId: number;
   width: number = 205;
   height: number = 155;
@@ -257,7 +256,6 @@ export default class MachineNode extends GraphNode {
   constructor(
     machineObject: any,
     overclock: number,
-    recipeId: number,
     x: number,
     y: number,
     fixPosition = false,
@@ -267,7 +265,6 @@ export default class MachineNode extends GraphNode {
     this.machineObject = JSON.parse(JSON.stringify(machineObject));
     this.machineId = machineObject ? machineObject.class.id : 0;
     this.overclock = overclock;
-    this.recipeId = recipeId;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
 
@@ -284,8 +281,6 @@ export default class MachineNode extends GraphNode {
       }
     }
 
-    console.error(this.inputSlots, this.outputSlots, this.machineObject);
-
     this.translator = translator;
 
     if (fixPosition) {
@@ -300,10 +295,90 @@ export default class MachineNode extends GraphNode {
   }
 
   serialize() {
+    if (!this.machineObject) {
+      this.machineObject = {
+        recipe: 'iron_ingot_alloy',
+        class: {
+          name: 'foundry',
+          icon: '/static/media/Foundry.23ceb7cd.png',
+          hasUpgrades: true,
+          id: 5,
+          inputs: 2,
+          outputs: 1,
+          recipes: [
+            {
+              id: 'alternate_electromagnetic_control_rod',
+              name: 'enriched_steel_ingot',
+              input: [
+                { item: { name: 'iron_ore' }, itemQuantity: 6 },
+                {
+                  item: { name: 'compacted_coal' },
+                  itemQuantity: 3
+                }
+              ],
+              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 6 }]
+            },
+            {
+              id: 'iron_ingot_alloy',
+              name: 'alternate:_steel_ingot',
+              input: [
+                { item: { name: 'iron_ingot' }, itemQuantity: 3 },
+                {
+                  item: { name: 'coal' },
+                  itemQuantity: 6
+                }
+              ],
+              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 6 }]
+            },
+            {
+              id: 'alternate_plastic',
+              name: 'iron_ingot_alloy',
+              input: [
+                { item: { name: 'iron_ore' }, itemQuantity: 1 },
+                {
+                  item: { name: 'copper_ore' },
+                  itemQuantity: 1
+                }
+              ],
+              output: [{ item: { name: 'iron_ingot' }, itemQuantity: 3 }]
+            },
+            {
+              id: 'supercomputer',
+              name: 'aluminum_ingot',
+              input: [
+                { item: { name: 'bauxite' }, itemQuantity: 7 },
+                {
+                  item: { name: 'silica' },
+                  itemQuantity: 6
+                }
+              ],
+              output: [{ item: { name: 'aluminum_ingot' }, itemQuantity: 2 }]
+            },
+            {
+              id: 'uranium_cell',
+              name: 'steel_ingot',
+              input: [
+                { item: { name: 'iron_ore' }, itemQuantity: 3 },
+                { item: { name: 'coal' }, itemQuantity: 3 }
+              ],
+              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 2 }]
+            }
+          ],
+          instances: [
+            { tier: { name: 'MK1', value: 0 } },
+            { tier: { name: 'MK2', value: 1 } }
+          ]
+        },
+        tier: 'MK2'
+      };
+    }
+
     return {
       ...super.serialize(),
+      machineClass: this.machineObject.class.name,
+      recipe: this.machineObject.recipe,
+      tier: this.machineObject.tier,
       overclock: this.overclock,
-      recipeId: this.recipeId,
       machineId: this.machineId
     };
   }
