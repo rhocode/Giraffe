@@ -23,7 +23,7 @@
     "@waiting/base64": "^4.2.9",
     "apollo-boost": "^0.4.4",
     "apollo-link-schema": "^1.2.3",
-    "clean-deep": "^3.0.2",
+    "clean-deep": "^3.0.4",
     "clsx": "^1.0.4",
     "d3": "^5.9.7",
     "electron-is-dev": "^1.1.0",
