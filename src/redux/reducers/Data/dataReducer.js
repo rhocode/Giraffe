@@ -1,3 +1,5 @@
+import * as Immutable from 'seamless-immutable';
+
 const initialState = {};
 
 export default (state = initialState, action) => {
@@ -5,7 +7,7 @@ export default (state = initialState, action) => {
     case 'SET_DATA':
       return {
         ...state,
-        [action.payload.dataName]: Object.assign({}, action.payload.data)
+        [action.payload.dataName]: Immutable(action.payload.data)
       };
     default:
       return state;
