@@ -5,10 +5,19 @@ const initialState = {};
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'SET_DATA':
-      return {
-        ...state,
-        [action.payload.dataName]: Immutable(action.payload.data)
-      };
+      const data = Immutable(action.payload.data);
+      if (!state[action.payload.dataName])
+        return {
+          ...state,
+          [action.payload.dataName]: data,
+          [action.payload.dataName + '_original']: data
+        };
+      else {
+        return {
+          ...state,
+          [action.payload.dataName]: data
+        };
+      }
     default:
       return state;
   }
