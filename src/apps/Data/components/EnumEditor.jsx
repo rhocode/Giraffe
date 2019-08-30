@@ -46,6 +46,10 @@ const getRowId = row => row.id;
 //   </TableCell>
 // );
 
+const ActionButton = props => {
+  return <TableEditColumn.Command {...props} />;
+};
+
 const EditCell = props => {
   const [text, setText] = useState(props.value ? '' + props.value : '');
 
@@ -155,7 +159,6 @@ function EnumEditor(props) {
       const startingAddedId = Math.max(...rows.map(item => item.id), -1) + 1;
       const addedRows = added
         .map((row, index) => {
-          console.error('AAAAAA', row);
           return {
             id: startingAddedId + index,
             local: true,
@@ -215,6 +218,7 @@ function EnumEditor(props) {
           showEditCommand
           showDeleteCommand
           cellComponent={CommandCell}
+          commandComponent={ActionButton}
         />
       </Grid>
     </div>
@@ -222,7 +226,8 @@ function EnumEditor(props) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.dataReducer[ownProps.objectName]
+  data: state.dataReducer[ownProps.objectName],
+  data_original: state.dataReducer[ownProps.objectName + '_original']
 });
 
 const mapDispatchToProps = dispatch => ({

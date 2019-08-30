@@ -102,8 +102,8 @@ function DataApp(props) {
         className={classes.tabs}
       >
         <Tab label="Item (Enum)" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab label="MachineClass (Enum)" {...a11yProps(1)} />
+        <Tab label="Recipe (Enum)" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
@@ -114,13 +114,19 @@ function DataApp(props) {
           <EnumEditor objectName={'Item'} />
         </TabPanel>
       ) : null}
-      {value === 1 ? <TabPanel className={classes.tab}>Hello</TabPanel> : null}
-      {value === 2 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
+      {value === 1 ? (
+        <TabPanel className={classes.tab}>
+          <EnumEditor objectName={'MachineClass'} />
+        </TabPanel>
+      ) : null}
+      {value === 2 ? (
+        <TabPanel className={classes.tab}>
+          <EnumEditor objectName={'Recipe'} />
+        </TabPanel>
+      ) : null}
       {value === 3 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
       {value === 4 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
       {value === 5 ? <TabPanel className={classes.tab}></TabPanel> : null}
-      {value === 6 ? <TabPanel className={classes.tab}></TabPanel> : null}
-      {value === 7 ? <TabPanel className={classes.tab}></TabPanel> : null}
     </div>
   );
 }
