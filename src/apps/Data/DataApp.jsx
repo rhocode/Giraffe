@@ -54,11 +54,11 @@ const useStyles = makeStyles(theme => ({
     gridArea: 'sidebar'
   },
   tab: {
-    gridArea: 'main',
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '1fr',
-    gridTemplateAreas: `'datagrid'`
+    gridArea: 'main'
+    // display: 'grid',
+    // gridTemplateColumns: '1fr',
+    // gridTemplateRows: '1fr',
+    // gridTemplateAreas: `'datagrid'`
   }
 }));
 
