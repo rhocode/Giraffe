@@ -7,25 +7,25 @@ import {
   Table,
   TableEditColumn,
   TableEditRow,
+  TableFilterRow,
   TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   EditingState,
+  FilteringState,
+  IntegratedFiltering,
   IntegratedSorting,
   SortingState
 } from '@devexpress/dx-react-grid';
 import { setEditorData } from '../../../redux/actions/Data/dataActions';
 import TextField from '@material-ui/core/TextField';
 import TableCell from '@material-ui/core/TableCell';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import { throttle } from 'throttle-debounce';
 
 const styles = theme => {
   return {
     dataGrid: {
-      gridArea: 'gridarea'
+      // gridArea: 'gridarea',
+      // justifySelf: 'start'
     }
   };
 };
@@ -199,6 +199,8 @@ function EnumEditor(props) {
   return (
     <div className={props.classes.dataGrid}>
       <Grid rows={rows} columns={columns} getRowId={getRowId}>
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
         <SortingState
           defaultSorting={[{ columnName: 'id', direction: 'desc' }]}
         />
@@ -209,6 +211,7 @@ function EnumEditor(props) {
         <IntegratedSorting />
         <Table />
         <TableHeaderRow showSortingControls />
+        <TableFilterRow />
         <TableEditRow cellComponent={EditCell} />
         <TableEditColumn
           showAddCommand
