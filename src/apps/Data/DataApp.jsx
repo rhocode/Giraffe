@@ -7,12 +7,73 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import EnumEditor from './components/EnumEditor';
 import PageCloseHandler from './PageCloseHandler';
+import NestedEditor from './components/NestedEditor';
+import {
+  machineClassListPromise,
+  recipeListPromise
+} from '../../graphql/resolvers';
+
+const machineClassMapper = raw => {
+  return [];
+};
+
+const recipeClassMapper = raw => {
+  const data = Object.values(raw);
+  const rootRows = [];
+  data.forEach(row => {
+    const thisRow = {
+      alt: row.alt || false,
+      hidden: row.hidden || false,
+      id: row.id,
+      machineClass: row.machineClass,
+      name: row.name,
+      time: row.time,
+      internalId: 0
+    };
+
+    let idCounter = 1;
+
+    const leafRowsInput = row.input
+      ? row.input.map(entry => {
+          return {
+            parentId: row.id,
+            inputItem: entry.item,
+            inputQty: entry.itemQuantity,
+            internalId: idCounter++
+          };
+        })
+      : [];
+    const leafRowsOutput = row.output
+      ? row.output.map(entry => {
+          return {
+            parentId: row.id,
+            outputItem: entry.item,
+            outputQty: entry.itemQuantity,
+            internalId: idCounter++
+          };
+        })
+      : [];
+
+    thisRow.childRows = [...leafRowsInput, ...leafRowsOutput];
+
+    rootRows.push(thisRow);
+  });
+
+  return rootRows.slice(0, 10);
+};
 
 const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
+const dataLists = [
+  { name: 'RecipeList', mapper: recipeClassMapper, data: recipeListPromise },
+  {
+    name: 'MachineClassList',
+    mapper: machineClassMapper,
+    data: machineClassListPromise
+  }
+];
 
 const importEnumJSON = enm => {
   const data = require('../../proto/' + enm + '.json');
-  console.error(data);
   const enums = data.nested.satisgraphtory.nested[enm].values;
   const reserved = data.nested.satisgraphtory.nested[enm].reserved;
 
@@ -85,6 +146,18 @@ function DataApp(props) {
         }
       });
     });
+
+    dataLists.forEach(promise => {
+      promise.data.then(data => {
+        const mappedData = promise.mapper(data);
+        props.setData({
+          dataName: promise.name,
+          data: {
+            rows: mappedData
+          }
+        });
+      });
+    });
   }, [props]);
 
   function handleChange(event, newValue) {
@@ -109,7 +182,7 @@ function DataApp(props) {
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
       </Tabs>
-      {value === 0 ? (
+      {value === 4 ? (
         <TabPanel className={classes.tab}>
           <EnumEditor objectName={'Item'} />
         </TabPanel>
@@ -129,7 +202,11 @@ function DataApp(props) {
           <EnumEditor objectName={'MachineClass'} />
         </TabPanel>
       ) : null}
-      {value === 4 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
+      {value === 0 ? (
+        <TabPanel className={classes.tab}>
+          <NestedEditor objectName={'RecipeList'} />
+        </TabPanel>
+      ) : null}
       {value === 5 ? <TabPanel className={classes.tab}></TabPanel> : null}
       {value === 6 ? <TabPanel className={classes.tab}></TabPanel> : null}
     </div>

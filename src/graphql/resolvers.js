@@ -37,17 +37,17 @@ const loadData = (filename, mapper) => {
     .then(data => mapper(data));
 };
 
-const iDataMapper = data => {
-  const Item = root.lookupEnum('Item');
-  const map = {};
-  data.forEach(item => {
-    map[item.id] = item;
-    item.id = Item.valuesById[item.id];
-  });
-  return map;
-};
+// const iDataMapper = data => {
+//   const Item = root.lookupEnum('Item');
+//   const map = {};
+//   data.forEach(item => {
+//     map[item.id] = item;
+//     item.id = Item.valuesById[item.id];
+//   });
+//   return map;
+// };
 
-const itemListPromise = loadData('ItemList', iDataMapper);
+// export const itemListPromise = loadData('ItemList', iDataMapper);
 
 const mcDataMapper = data => {
   const MachineClass = root.lookupEnum('MachineClass');
@@ -59,7 +59,10 @@ const mcDataMapper = data => {
   return map;
 };
 
-const machineClassListPromise = loadData('MachineClassList', mcDataMapper);
+export const machineClassListPromise = loadData(
+  'MachineClassList',
+  mcDataMapper
+);
 
 const mIDataMapper = data => {
   const MachineClass = root.lookupEnum('MachineClass');
@@ -83,7 +86,7 @@ const rDataMapper = data => {
   return map;
 };
 
-const recipeListPromise = loadData('RecipeList', rDataMapper);
+export const recipeListPromise = loadData('RecipeList', rDataMapper);
 
 // resolvers -> get where on earth id -> get consolidated_weather data and return
 const resolvers = {
@@ -179,15 +182,17 @@ const resolvers = {
   },
   Item: {
     name(Item) {
-      return Item.name;
+      return Item;
     },
     icon(Item) {
-      return Item.icon || Item.name;
+      //TODO: deprecate this maybe
+      return Item;
     }
   },
   ResourcePacket: {
     item(ResourcePacket) {
-      return itemListPromise.then(itemMap => itemMap[ResourcePacket.item]);
+      const Item = root.lookupEnum('Item');
+      return Item.valuesById[ResourcePacket.item];
     }
   },
   Recipe: {
@@ -205,7 +210,7 @@ const resolvers = {
   },
   MachineInstance: {
     icon(MachineInstance) {
-      return MachineInstance.icon || MachineInstance.name;
+      return MachineInstance.icon || MachineInstance.id;
     },
     machineClass(MachineInstance) {
       return machineClassListPromise.then(mcMap => {
@@ -243,7 +248,7 @@ const resolvers = {
       return machineClass.outputs;
     },
     icon(machineClass) {
-      return machineClass.icon || machineClass.name;
+      return machineClass.icon || machineClass.id;
     },
     recipes(machineClass) {
       const machineClassId = root.lookupEnum('MachineClass').values[
