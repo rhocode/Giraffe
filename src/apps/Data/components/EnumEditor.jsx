@@ -46,10 +46,7 @@ const getRowId = row => row.id;
 //   </TableCell>
 // );
 
-const MemoizedTable = React.memo(Table);
-
 const EditCell = props => {
-  const [errored, setErrored] = useState(true);
   const [text, setText] = useState(props.value ? '' + props.value : '');
 
   const copiedProps = {};
