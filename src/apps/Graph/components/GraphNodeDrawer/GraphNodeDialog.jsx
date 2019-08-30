@@ -59,7 +59,7 @@ function GraphNodeDialog(props) {
 
   const recipes = nodeClass.recipes
     .map(recipe => {
-      return recipe.name;
+      return recipe.id;
     })
     .flat(1)
     .map(item => {
