@@ -7,6 +7,7 @@ function PageCloseHandler(props) {
       const check =
         props.Item === props.Item_original &&
         props.MachineClass === props.MachineClass_original &&
+        props.UpgradeTiers === props.UpgradeTiers_original &&
         props.Recipe === props.Recipe_original;
 
       console.error(check);
@@ -25,7 +26,9 @@ function PageCloseHandler(props) {
     props.MachineClass,
     props.MachineClass_original,
     props.Recipe,
-    props.Recipe_original
+    props.Recipe_original,
+    props.UpgradeTiers,
+    props.UpgradeTiers_original
   ]);
 
   return <div />;
@@ -37,7 +40,9 @@ const mapStateToProps = state => ({
   Recipe: state.dataReducer.Recipe,
   Item_original: state.dataReducer.Item_original,
   MachineClass_original: state.dataReducer.MachineClass_original,
-  Recipe_original: state.dataReducer.Recipe_original
+  Recipe_original: state.dataReducer.Recipe_original,
+  UpgradeTiers: state.dataReducer.UpgradeTiers,
+  UpgradeTiers_original: state.dataReducer.UpgradeTiers_original
 });
 
 const mapDispatchToProps = () => ({});

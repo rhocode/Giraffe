@@ -2,6 +2,28 @@ syntax = "proto3";
 
 package satisgraphtory;
 
+enum UpgradeTiers {
+
+    MK1 = 0;
+    MK2 = 1;
+    MK3 = 2;
+    MK4 = 3;
+    MK5 = 4;
+    MK6 = 5;
+    MK7 = 6;
+    MK8 = 7;
+    MK9 = 8;
+    MK10 = 9;
+    MK11 = 10;
+    MK12 = 11;
+    MK13 = 12;
+    MK14 = 13;
+    MK15 = 14;
+    MK16 = 15;
+    UNSET = 16;
+    NA = 17;
+}
+
 enum Recipe {
 
     alternate_quickwire = 0;

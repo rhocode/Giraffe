@@ -8,10 +8,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import EnumEditor from './components/EnumEditor';
 import PageCloseHandler from './PageCloseHandler';
 
-const enums = ['Item', 'MachineClass', 'Recipe'];
+const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
 
 const importEnumJSON = enm => {
   const data = require('../../proto/' + enm + '.json');
+  console.error(data);
   const enums = data.nested.satisgraphtory.nested[enm].values;
   const reserved = data.nested.satisgraphtory.nested[enm].reserved;
 
@@ -102,12 +103,11 @@ function DataApp(props) {
         className={classes.tabs}
       >
         <Tab label="Item (Enum)" {...a11yProps(0)} />
-        <Tab label="MachineClass (Enum)" {...a11yProps(1)} />
-        <Tab label="Recipe (Enum)" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
+        <Tab label="Recipe (Enum)" {...a11yProps(1)} />
+        <Tab label="Upgrades (Enum)" {...a11yProps(2)} />
+        <Tab label="MachineClass (Enum)" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
       {value === 0 ? (
         <TabPanel className={classes.tab}>
@@ -116,17 +116,22 @@ function DataApp(props) {
       ) : null}
       {value === 1 ? (
         <TabPanel className={classes.tab}>
-          <EnumEditor objectName={'MachineClass'} />
+          <EnumEditor objectName={'Recipe'} />
         </TabPanel>
       ) : null}
       {value === 2 ? (
         <TabPanel className={classes.tab}>
-          <EnumEditor objectName={'Recipe'} />
+          <EnumEditor objectName={'UpgradeTiers'} />
         </TabPanel>
       ) : null}
-      {value === 3 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
+      {value === 3 ? (
+        <TabPanel className={classes.tab}>
+          <EnumEditor objectName={'MachineClass'} />
+        </TabPanel>
+      ) : null}
       {value === 4 ? <TabPanel className={classes.tab}>hello</TabPanel> : null}
       {value === 5 ? <TabPanel className={classes.tab}></TabPanel> : null}
+      {value === 6 ? <TabPanel className={classes.tab}></TabPanel> : null}
     </div>
   );
 }
