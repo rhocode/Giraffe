@@ -28,7 +28,8 @@ const recipeClassMapper = raw => {
       machineClass: row.machineClass,
       name: row.name,
       time: row.time,
-      internalId: 0
+      internalId: 0,
+      parentId: null
     };
 
     let idCounter = 1;
@@ -37,9 +38,11 @@ const recipeClassMapper = raw => {
       ? row.input.map(entry => {
           return {
             parentId: row.id,
-            inputItem: entry.item,
-            inputQty: entry.itemQuantity,
-            internalId: idCounter++
+            item: entry.item,
+            qty: entry.itemQuantity,
+            internalId: idCounter++,
+            itemType: 'input',
+            parentPointer: thisRow
           };
         })
       : [];
@@ -47,19 +50,22 @@ const recipeClassMapper = raw => {
       ? row.output.map(entry => {
           return {
             parentId: row.id,
-            outputItem: entry.item,
-            outputQty: entry.itemQuantity,
-            internalId: idCounter++
+            item: entry.item,
+            qty: entry.itemQuantity,
+            internalId: idCounter++,
+            itemType: 'output',
+            parentPointer: thisRow
           };
         })
       : [];
 
-    thisRow.childRows = [...leafRowsInput, ...leafRowsOutput];
+    // thisRow.childRows = [...leafRowsInput, ...leafRowsOutput];
 
     rootRows.push(thisRow);
+    rootRows.push(...leafRowsInput, ...leafRowsOutput);
   });
 
-  return rootRows.slice(0, 10);
+  return rootRows.slice(0, 20);
 };
 
 const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
