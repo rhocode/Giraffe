@@ -22,6 +22,7 @@ import getLatestSchema from '../../Graph/libraries/SGLib/utils/getLatestSchema';
 import TableCell from '@material-ui/core/TableCell';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => {
   return {
@@ -33,20 +34,6 @@ const styles = theme => {
 };
 
 const getRowId = row => (row.id || row.parentId) + '_' + row.internalId;
-
-// const LookupEditCellBase = ({ value, onValueChange, classes, customDropDownItems }) => (
-//   <TableCell
-//     className={classes.lookupEditCell}
-//   >
-//     <Select
-//       // ...
-//     >
-//       {customDropDownItems.map(item => (
-//         <MenuItem key={item} value={item}>{item}</MenuItem>
-//       ))}
-//     </Select>
-//   </TableCell>
-// );
 
 const ActionButton = props => {
   return <TableEditColumn.Command {...props} />;
@@ -100,6 +87,9 @@ const useStyles = makeStyles(theme => ({
   },
   selectBox: {
     width: '100%'
+  },
+  filterTop: {
+    marginTop: 0
   }
 }));
 
@@ -112,10 +102,18 @@ const EditCell = props => {
     props.value === undefined ? '' : props.value
   );
 
+  const [searchValue, setSearchValue] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+
   function handleChange(event) {
+    console.error('!!NJ@KNKJENKDK', event.target.value);
     const newValue = event.target.value;
-    setValue(newValue);
-    props.onValueChange(newValue);
+
+    if (newValue !== INVALID_KEY_ITEM) {
+      setSearchOpen(false);
+      setValue(newValue);
+      props.onValueChange(newValue);
+    }
   }
 
   React.useEffect(() => {
@@ -142,7 +140,6 @@ const EditCell = props => {
 
     if (parentRow) {
       if (parentEditableSet.has(props.column.name)) {
-        console.error(parentRow[props.column.name]);
         newProps.value =
           parentRow[props.column.name] === undefined
             ? ''
@@ -166,6 +163,9 @@ const EditCell = props => {
     }
   }
 
+  const INVALID_KEY_ITEM = 'INVALID_KEY_ITEM';
+  const ITEM_INPUT_ID = 'ITEM_INPUT_ID';
+
   if (lookup !== undefined) {
     const usedValue = useParentValue ? newProps.value : value;
     return (
@@ -174,12 +174,34 @@ const EditCell = props => {
           className={classes.selectBox}
           value={usedValue}
           onChange={handleChange}
-          inputProps={{
-            name: 'age',
-            id: 'age-simple'
+          open={searchOpen}
+          onOpen={() => {
+            setSearchOpen(true);
+          }}
+          onClose={evt => {
+            console.error('HUH WHAT', evt.target.id);
+            if (evt.target && evt.target.id !== ITEM_INPUT_ID) {
+              console.error('RAM??');
+              setSearchOpen(false);
+            }
+            // noop
           }}
           disabled={disableDropdown}
+          MenuProps={{
+            disableAutoFocusItem: true
+          }}
         >
+          <MenuItem key={INVALID_KEY_ITEM} value={INVALID_KEY_ITEM}>
+            <TextField
+              id={ITEM_INPUT_ID}
+              label="Filter"
+              className={classes.filterTop}
+              value={searchValue}
+              onChange={event => setSearchValue(event.target.value)}
+              margin="normal"
+              fullWidth
+            />
+          </MenuItem>
           {Object.keys(lookup).map(key => {
             const value = lookup[key];
             return (
@@ -195,6 +217,21 @@ const EditCell = props => {
 
   return <TableEditRow.Cell {...props} {...newProps} />;
 };
+
+const Control = props => (
+  <TextField
+    fullWidth
+    InputProps={{
+      inputProps: {
+        className: props.selectProps.classes.input,
+        inputRef: props.innerRef,
+        children: props.children,
+        ...props.innerProps
+      }
+    }}
+    {...props.selectProps.textFieldProps}
+  />
+);
 
 const CommandCell = props => (
   <TableEditColumn.Cell {...props}>
@@ -333,10 +370,11 @@ function NestedEditor(props) {
     }
     if (changed) {
       const newParentMapping = new Map();
-      const changedIntermediate = rows.map(row => {
+      const changedIntermediate = [];
+
+      rows.forEach(row => {
         let setMapping = false;
         if (changed[getRowId(row)] && row.parentId === null) {
-          // newParentMapping.set(row.id, row)
           setMapping = true;
         }
 
@@ -345,16 +383,21 @@ function NestedEditor(props) {
           if (setMapping) {
             newParentMapping.set(row.id, newRow);
           }
-          return newRow;
+
+          changedIntermediate.push(newRow);
+          return;
         }
 
-        return row;
+        changedIntermediate.push(row);
       });
 
       changedRows = changedIntermediate.map(row => {
         if (newParentMapping.get(row.parentId)) {
-          console.error('CHANGED PARENT POINTER');
-          return { ...row, parentPointer: newParentMapping.get(row.parentId) };
+          return {
+            ...row,
+            parentPointer: newParentMapping.get(row.parentId),
+            parentId: newParentMapping.get(row.parentId).id
+          };
         }
 
         return row;
