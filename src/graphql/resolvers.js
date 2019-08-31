@@ -74,7 +74,10 @@ const mIDataMapper = data => {
   return map;
 };
 
-const machineInstanceListPromise = loadData('MachineClassList', mIDataMapper);
+export const machineInstanceListPromise = loadData(
+  'MachineClassList',
+  mIDataMapper
+);
 
 const rDataMapper = data => {
   const Recipe = root.lookupEnum('Recipe');
