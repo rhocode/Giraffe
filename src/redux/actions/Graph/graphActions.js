@@ -56,13 +56,13 @@ export const setSelectedMachine = data => dispatch => {
 
 export const addOpenedModal = () => dispatch => {
   dispatch({
-    type: 'ADD_OPENED_MODAL'
+    type: 'ADD_OPENED_MODAL_NODES'
   });
 };
 
 export const closeOpenedModal = () => dispatch => {
   dispatch({
-    type: 'CLOSE_OPENED_MODAL'
+    type: 'CLOSE_OPENED_MODAL_NODES'
   });
 };
 

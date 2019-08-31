@@ -9,7 +9,7 @@ import GraphNodeDrawer from './components/GraphNodeDrawer';
 import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
 import { getCraftingMachineClasses } from './graphql/queries';
 import { getActiveLanguage, getTranslate } from 'react-localize-redux';
-// import GraphRightPanel from './components/GraphRightPanel';
+import GraphRightPanel from './components/GraphRightPanel';
 
 const styles = theme => {
   console.log(theme);
@@ -100,7 +100,7 @@ class GraphApp extends Component {
             <title>{helmet.title}</title>
           </Helmet>
           <GraphAppBar />
-          {/* <GraphRightPanel /> */}
+          <GraphRightPanel />
           <GraphCanvasLoadable />
 
           <GraphNodeDrawer />
