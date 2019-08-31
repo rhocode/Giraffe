@@ -10,43 +10,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutdan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' }
-];
-
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => {}, ref, ...other } = inputProps;
 
@@ -87,7 +50,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
   );
 }
 
-function getSuggestions(value) {
+function getSuggestions(suggestions, value) {
   const inputValue = deburr(value.trim()).toLowerCase();
 
   return suggestions.filter(suggestion => {
@@ -131,25 +94,34 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function IntegrationAutosuggest() {
+export default function IntegrationAutosuggest(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [state, setState] = React.useState({
     single: '',
-    popper: ''
+    popper: props.initialValue || ''
   });
 
-  const [stateSuggestions, setSuggestions] = React.useState(suggestions);
+  const [stateSuggestions, setSuggestions] = React.useState(props.suggestions);
 
   const handleSuggestionsFetchRequested = ({ value }) => {
-    setSuggestions(getSuggestions(value));
+    setSuggestions(getSuggestions(props.suggestions, value));
   };
 
   const handleSuggestionsClearRequested = () => {
-    setSuggestions(suggestions);
+    setSuggestions(props.suggestions);
   };
 
   const handleChange = name => (event, { newValue }) => {
+    if (props.postChangeEvent) {
+      const translate =
+        props.translate ||
+        function(a) {
+          return a;
+        };
+      props.postChangeEvent(translate(newValue));
+    }
+
     setState({
       ...state,
       [name]: newValue
@@ -175,6 +147,7 @@ export default function IntegrationAutosuggest() {
         inputRef: node => {
           setAnchorEl(node);
         },
+        disabled: props.disabled,
         InputLabelProps: {
           shrink: true
         }

@@ -9,12 +9,13 @@ import EnumEditor from './components/EnumEditor';
 import PageCloseHandler from './PageCloseHandler';
 import NestedEditor from './components/NestedEditor';
 import {
-  machineClassListPromise,
+  machineInstanceListPromise,
   recipeListPromise
 } from '../../graphql/resolvers';
+import FlatEditor from './components/FlatEditor';
 
 const machineClassMapper = raw => {
-  return [];
+  return Object.values(raw);
 };
 
 const recipeClassMapper = raw => {
@@ -59,13 +60,11 @@ const recipeClassMapper = raw => {
         })
       : [];
 
-    // thisRow.childRows = [...leafRowsInput, ...leafRowsOutput];
-
     rootRows.push(thisRow);
     rootRows.push(...leafRowsInput, ...leafRowsOutput);
   });
 
-  return rootRows.slice(0, 20);
+  return rootRows;
 };
 
 const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
@@ -74,7 +73,7 @@ const dataLists = [
   {
     name: 'MachineClassList',
     mapper: machineClassMapper,
-    data: machineClassListPromise
+    data: machineInstanceListPromise
   }
 ];
 
@@ -185,10 +184,10 @@ function DataApp(props) {
         <Tab label="Recipe (Enum)" {...a11yProps(1)} />
         <Tab label="Upgrades (Enum)" {...a11yProps(2)} />
         <Tab label="MachineClass (Enum)" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
+        <Tab label="Recipe List" {...a11yProps(4)} />
+        <Tab label="Machine Class List" {...a11yProps(5)} />
       </Tabs>
-      {value === 4 ? (
+      {value === 0 ? (
         <TabPanel className={classes.tab}>
           <EnumEditor objectName={'Item'} />
         </TabPanel>
@@ -208,13 +207,16 @@ function DataApp(props) {
           <EnumEditor objectName={'MachineClass'} />
         </TabPanel>
       ) : null}
-      {value === 0 ? (
+      {value === 4 ? (
         <TabPanel className={classes.tab}>
           <NestedEditor objectName={'RecipeList'} />
         </TabPanel>
       ) : null}
-      {value === 5 ? <TabPanel className={classes.tab}></TabPanel> : null}
-      {value === 6 ? <TabPanel className={classes.tab}></TabPanel> : null}
+      {value === 5 ? (
+        <TabPanel className={classes.tab}>
+          <FlatEditor objectName={'MachineClassList'} />
+        </TabPanel>
+      ) : null}
     </div>
   );
 }
