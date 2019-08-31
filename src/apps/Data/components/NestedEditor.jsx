@@ -7,6 +7,7 @@ import {
   Table,
   TableEditColumn,
   TableEditRow,
+  TableFilterRow,
   TableHeaderRow,
   TableTreeColumn
 } from '@devexpress/dx-react-grid-material-ui';
@@ -14,14 +15,17 @@ import {
   CustomTreeData,
   DataTypeProvider,
   EditingState,
+  FilteringState,
+  IntegratedFiltering,
+  SortingState,
   TreeDataState
 } from '@devexpress/dx-react-grid';
 import { setEditorData } from '../../../redux/actions/Data/dataActions';
 import * as protobuf from 'protobufjs/light';
 import getLatestSchema from '../../Graph/libraries/SGLib/utils/getLatestSchema';
 import TableCell from '@material-ui/core/TableCell';
-import TextField from '@material-ui/core/TextField';
-import AutoSuggest from './AutoSuggest2';
+import AutoSuggest from './AutoSuggest';
+import deburr from 'lodash/deburr';
 
 const styles = theme => {
   return {
@@ -43,9 +47,21 @@ const root = protobuf.Root.fromJSON(getLatestSchema());
 const MachineClassFormatter = ({ value }) => {
   return MachineClass.valuesById[value] || '';
 };
+const availableFilterOperations = [
+  'equal',
+  'notEqual',
+  'greaterThan',
+  'greaterThanOrEqual',
+  'lessThan',
+  'lessThanOrEqual'
+];
 
 const MachineClassProvider = props => (
-  <DataTypeProvider formatterComponent={MachineClassFormatter} {...props} />
+  <DataTypeProvider
+    availableFilterOperations={availableFilterOperations}
+    formatterComponent={MachineClassFormatter}
+    {...props}
+  />
 );
 
 const ItemFormatter = ({ value }) => {
@@ -53,7 +69,11 @@ const ItemFormatter = ({ value }) => {
 };
 
 const ItemProvider = props => (
-  <DataTypeProvider formatterComponent={ItemFormatter} {...props} />
+  <DataTypeProvider
+    availableFilterOperations={availableFilterOperations}
+    formatterComponent={ItemFormatter}
+    {...props}
+  />
 );
 
 const MachineClass = root.lookupEnum('MachineClass');
@@ -61,14 +81,14 @@ const Item = root.lookupEnum('Item');
 
 const machineClassEnumToString = {};
 
-Object.keys(MachineClass.values).map(key => {
+Object.keys(MachineClass.values).forEach(key => {
   const enm = MachineClass.values[key];
   machineClassEnumToString[enm] = key;
 });
 
 const itemEnumToString = {};
 
-Object.keys(Item.values).map(key => {
+Object.keys(Item.values).forEach(key => {
   const enm = Item.values[key];
   itemEnumToString[enm] = key;
 });
@@ -101,20 +121,6 @@ const EditCell = props => {
     props.value === undefined ? '' : props.value
   );
 
-  const [searchValue, setSearchValue] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
-
-  function handleChange(event) {
-    console.error('!!NJ@KNKJENKDK', event.target.value);
-    const newValue = event.target.value;
-
-    if (newValue !== INVALID_KEY_ITEM) {
-      setSearchOpen(false);
-      setValue(newValue);
-      props.onValueChange(newValue);
-    }
-  }
-
   React.useEffect(() => {
     const data = props.row.parentPointer
       ? props.row.parentPointer[props.column.name]
@@ -124,7 +130,7 @@ const EditCell = props => {
         setValue(data);
       }
     }
-  }, [props.row.parentPointer]);
+  }, [props.column.name, props.row.parentPointer, value]);
 
   let newProps = {};
 
@@ -162,78 +168,32 @@ const EditCell = props => {
     }
   }
 
-  const INVALID_KEY_ITEM = 'INVALID_KEY_ITEM';
-  const ITEM_INPUT_ID = 'ITEM_INPUT_ID';
-
-  let popperNode;
-
   if (lookup !== undefined) {
     const usedValue = useParentValue ? newProps.value : value;
+
+    const reverseLookup = {};
+    const suggestions = Object.keys(lookup).map(key => {
+      reverseLookup[lookup[key]] = key;
+      return { label: lookup[key], value: key };
+    });
+
     return (
       <TableCell className={classes.lookupEditCell}>
-        <AutoSuggest />
-        {/*<Select*/}
-        {/*  className={classes.selectBox}*/}
-        {/*  value={usedValue}*/}
-        {/*  onChange={handleChange}*/}
-        {/*  open={searchOpen}*/}
-        {/*  onOpen={() => {*/}
-        {/*    setSearchOpen(true);*/}
-        {/*  }}*/}
-        {/*  onClose={evt => {*/}
-        {/*    console.error('HUH WHAT', evt.target.id);*/}
-        {/*    if (evt.target && evt.target.id !== ITEM_INPUT_ID) {*/}
-        {/*      console.error('RAM??');*/}
-        {/*      setSearchOpen(false);*/}
-        {/*    }*/}
-        {/*    // noop*/}
-        {/*  }}*/}
-        {/*  disabled={disableDropdown}*/}
-        {/*  MenuProps={{*/}
-        {/*    disableAutoFocusItem: true*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <MenuItem key={INVALID_KEY_ITEM} value={INVALID_KEY_ITEM} onClick={null}>*/}
-        {/*    <TextField*/}
-        {/*      id={ITEM_INPUT_ID}*/}
-        {/*      label="Filter"*/}
-        {/*      className={classes.filterTop}*/}
-        {/*      value={searchValue}*/}
-        {/*      onChange={event => setSearchValue(event.target.value)}*/}
-        {/*      margin="normal"*/}
-        {/*      fullWidth*/}
-        {/*    />*/}
-        {/*  </MenuItem>*/}
-        {/*  {Object.keys(lookup).map(key => {*/}
-        {/*    const value = lookup[key];*/}
-        {/*    return (*/}
-        {/*      <MenuItem key={key + '_' + value} value={key}>*/}
-        {/*        {value}*/}
-        {/*      </MenuItem>*/}
-        {/*    );*/}
-        {/*  })}*/}
-        {/*</Select>*/}
+        <AutoSuggest
+          initialValue={lookup[usedValue]}
+          suggestions={suggestions}
+          disabled={disableDropdown}
+          translate={a => reverseLookup[a]}
+          postChangeEvent={value => {
+            props.onValueChange(value);
+          }}
+        />
       </TableCell>
     );
   }
 
   return <TableEditRow.Cell {...props} {...newProps} />;
 };
-
-const Control = props => (
-  <TextField
-    fullWidth
-    InputProps={{
-      inputProps: {
-        className: props.selectProps.classes.input,
-        inputRef: props.innerRef,
-        children: props.children,
-        ...props.innerProps
-      }
-    }}
-    {...props.selectProps.textFieldProps}
-  />
-);
 
 const CommandCell = props => (
   <TableEditColumn.Cell {...props}>
@@ -250,11 +210,6 @@ const CommandCell = props => (
     })}
   </TableEditColumn.Cell>
 );
-
-function removeChars(validChars, inputString) {
-  var regex = new RegExp('[^' + validChars + ']', 'g');
-  return inputString.replace(regex, '');
-}
 
 const getChildRows = (row, rootRows) => {
   const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
@@ -274,6 +229,15 @@ function NestedEditor(props) {
     { name: 'qty', title: 'Item Quantity' }
   ]);
 
+  const intColumns = new Set([
+    'machineClass',
+    'time',
+    'outputs',
+    'item',
+    'qty'
+  ]);
+  const decimalColumns = new Set([]);
+
   const rows = props.data ? props.data.rows : [];
   const rowSet = new Set(rows.filter(row => row.id).map(row => row.id));
   const [tableColumnExtensions] = useState([{ columnName: 'id', width: 300 }]);
@@ -286,7 +250,7 @@ function NestedEditor(props) {
 
       added
         .filter(row => row.id)
-        .map((row, index) => {
+        .forEach((row, index) => {
           const modified = {};
 
           let maxInternalId =
@@ -426,6 +390,38 @@ function NestedEditor(props) {
       changedRows = rows.filter(row => !allDeleted.has(getRowId(row)));
     }
 
+    changedRows = changedRows
+      .map(row => {
+        const newData = {};
+        Object.keys(row).forEach(key => {
+          let value = row[key];
+          if (value === undefined || value === null) {
+            value = '';
+          }
+          if (intColumns.has(key)) {
+            const newValue = parseInt(value);
+            if (!isNaN(newValue)) {
+              newData[key] = newValue;
+            }
+          } else if (decimalColumns.has(key)) {
+            const newValue = parseFloat(value);
+            if (!isNaN(newValue)) {
+              newData[key] = newValue;
+            }
+          } else if (typeof value === 'boolean') {
+            newData[key] = value;
+          } else {
+            const inputValue = deburr(value.trim()).toLowerCase();
+            if (inputValue !== '') {
+              newData[key] = deburr(value.trim());
+            }
+          }
+        });
+
+        return newData;
+      })
+      .filter(data => Object.keys(data).length > 0);
+
     const newDict = {
       rows: changedRows
     };
@@ -441,6 +437,11 @@ function NestedEditor(props) {
       <Grid rows={rows} columns={columns} getRowId={getRowId}>
         <MachineClassProvider for={['machineClass']} />
         <ItemProvider for={['item']} />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
+        <SortingState
+          defaultSorting={[{ columnName: 'id', direction: 'desc' }]}
+        />
         <TreeDataState />
         <CustomTreeData getChildRows={getChildRows} />
         <EditingState
@@ -448,7 +449,8 @@ function NestedEditor(props) {
           columnExtensions={tableColumnExtensions}
         />
         <Table columnExtensions={tableColumnExtensions} />
-        <TableHeaderRow />
+        <TableHeaderRow showSortingControls />
+        <TableFilterRow />
         <TableTreeColumn for="id" />
         <TableEditRow cellComponent={EditCell} />
         <TableEditColumn
@@ -458,16 +460,6 @@ function NestedEditor(props) {
           cellComponent={CommandCell}
           commandComponent={ActionButton}
         />
-        {/*<FilteringState defaultFilters={[]} />*/}
-        {/*<IntegratedFiltering />*/}
-        {/*<SortingState*/}
-        {/*  defaultSorting={[{ columnName: 'id', direction: 'desc' }]}*/}
-        {/*/>*/}
-
-        {/*<IntegratedSorting />*/}
-        {/*<Table />*/}
-        {/*<TableHeaderRow showSortingControls />*/}
-        {/*<TableFilterRow />*/}
       </Grid>
     </div>
   );
