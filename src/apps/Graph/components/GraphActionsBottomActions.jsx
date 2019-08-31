@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import LinkIcon from '@material-ui/icons/Link';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import AddIcon from '@material-ui/icons/Add';
@@ -22,7 +22,8 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    zIndex: theme.zIndex.drawer + 1
   },
   navigation: {
     borderRadius: 5,
@@ -58,7 +59,7 @@ class GraphActionsBottomActions extends Component {
           <BottomNavigationAction
             label="Link"
             value="link"
-            icon={<DeviceHubIcon />}
+            icon={<LinkIcon />}
           />
           <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
         </BottomNavigation>

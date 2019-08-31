@@ -53,12 +53,12 @@ export default (state = initialState, action) => {
         ...state,
         selectedMachine: action.payload
       };
-    case 'ADD_OPENED_MODAL':
+    case 'ADD_OPENED_MODAL_NODES':
       return {
         ...state,
         openModals: state.openModals + 1
       };
-    case 'CLOSE_OPENED_MODAL':
+    case 'CLOSE_OPENED_MODAL_NODES':
       return {
         ...state,
         openModals: state.openModals - 1
