@@ -20,9 +20,8 @@ import { setEditorData } from '../../../redux/actions/Data/dataActions';
 import * as protobuf from 'protobufjs/light';
 import getLatestSchema from '../../Graph/libraries/SGLib/utils/getLatestSchema';
 import TableCell from '@material-ui/core/TableCell';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import AutoSuggest from './AutoSuggest2';
 
 const styles = theme => {
   return {
@@ -166,51 +165,54 @@ const EditCell = props => {
   const INVALID_KEY_ITEM = 'INVALID_KEY_ITEM';
   const ITEM_INPUT_ID = 'ITEM_INPUT_ID';
 
+  let popperNode;
+
   if (lookup !== undefined) {
     const usedValue = useParentValue ? newProps.value : value;
     return (
       <TableCell className={classes.lookupEditCell}>
-        <Select
-          className={classes.selectBox}
-          value={usedValue}
-          onChange={handleChange}
-          open={searchOpen}
-          onOpen={() => {
-            setSearchOpen(true);
-          }}
-          onClose={evt => {
-            console.error('HUH WHAT', evt.target.id);
-            if (evt.target && evt.target.id !== ITEM_INPUT_ID) {
-              console.error('RAM??');
-              setSearchOpen(false);
-            }
-            // noop
-          }}
-          disabled={disableDropdown}
-          MenuProps={{
-            disableAutoFocusItem: true
-          }}
-        >
-          <MenuItem key={INVALID_KEY_ITEM} value={INVALID_KEY_ITEM}>
-            <TextField
-              id={ITEM_INPUT_ID}
-              label="Filter"
-              className={classes.filterTop}
-              value={searchValue}
-              onChange={event => setSearchValue(event.target.value)}
-              margin="normal"
-              fullWidth
-            />
-          </MenuItem>
-          {Object.keys(lookup).map(key => {
-            const value = lookup[key];
-            return (
-              <MenuItem key={key + '_' + value} value={key}>
-                {value}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        <AutoSuggest />
+        {/*<Select*/}
+        {/*  className={classes.selectBox}*/}
+        {/*  value={usedValue}*/}
+        {/*  onChange={handleChange}*/}
+        {/*  open={searchOpen}*/}
+        {/*  onOpen={() => {*/}
+        {/*    setSearchOpen(true);*/}
+        {/*  }}*/}
+        {/*  onClose={evt => {*/}
+        {/*    console.error('HUH WHAT', evt.target.id);*/}
+        {/*    if (evt.target && evt.target.id !== ITEM_INPUT_ID) {*/}
+        {/*      console.error('RAM??');*/}
+        {/*      setSearchOpen(false);*/}
+        {/*    }*/}
+        {/*    // noop*/}
+        {/*  }}*/}
+        {/*  disabled={disableDropdown}*/}
+        {/*  MenuProps={{*/}
+        {/*    disableAutoFocusItem: true*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <MenuItem key={INVALID_KEY_ITEM} value={INVALID_KEY_ITEM} onClick={null}>*/}
+        {/*    <TextField*/}
+        {/*      id={ITEM_INPUT_ID}*/}
+        {/*      label="Filter"*/}
+        {/*      className={classes.filterTop}*/}
+        {/*      value={searchValue}*/}
+        {/*      onChange={event => setSearchValue(event.target.value)}*/}
+        {/*      margin="normal"*/}
+        {/*      fullWidth*/}
+        {/*    />*/}
+        {/*  </MenuItem>*/}
+        {/*  {Object.keys(lookup).map(key => {*/}
+        {/*    const value = lookup[key];*/}
+        {/*    return (*/}
+        {/*      <MenuItem key={key + '_' + value} value={key}>*/}
+        {/*        {value}*/}
+        {/*      </MenuItem>*/}
+        {/*    );*/}
+        {/*  })}*/}
+        {/*</Select>*/}
       </TableCell>
     );
   }
@@ -274,7 +276,7 @@ function NestedEditor(props) {
 
   const rows = props.data ? props.data.rows : [];
   const rowSet = new Set(rows.filter(row => row.id).map(row => row.id));
-  const [tableColumnExtensions] = useState([{ columnName: 'id', width: 450 }]);
+  const [tableColumnExtensions] = useState([{ columnName: 'id', width: 300 }]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
