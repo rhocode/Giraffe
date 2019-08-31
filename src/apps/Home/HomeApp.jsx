@@ -118,7 +118,7 @@ class HomeApp extends Component {
           <Section id="one" style1 right>
             <Spotlight
               right
-              img="https://unsplash.it/450/450/?random"
+              img="https://cdn.discordapp.com/attachments/129647483738390528/617464176146907137/unknown.png"
               imgAlt="fast"
               title="Fast."
               desc="Now with a completely new HTML5 Canvas based graphics
@@ -129,7 +129,7 @@ class HomeApp extends Component {
           <Section id="two" style2 left>
             <Spotlight
               left
-              img="https://unsplash.it/450/450/?random"
+              img="https://cdn.discordapp.com/attachments/129647483738390528/617464278848634880/unknown.png"
               imgAlt="updates"
               title="Easy Updates."
               desc="With a completely new data storage backend, it's now
@@ -176,13 +176,13 @@ class HomeApp extends Component {
               </p>
               <section className="features">
                 <Card
-                  imgSrc="https://unsplash.it/575/330/?random"
+                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617467631209021456/unknown.png"
                   imgAlt="Add/Remove nodes"
                   title="Add/Remove nodes"
                   desc="Now with an improved menu!"
                 />
                 <Card
-                  imgSrc="https://unsplash.it/575/330/?random"
+                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617467174524551168/unknown.png"
                   imgAlt="Connect nodes"
                   title="Connect nodes"
                   desc="Improved graphics!"
