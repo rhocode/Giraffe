@@ -264,11 +264,38 @@ function DiffUploader(props) {
         const files = {};
         const promises = [];
         Object.keys(rawFiles).forEach(item => {
-          let promise = blobToBase64(rawFiles[item]);
+          var reader = new FileReader();
+          reader.readAsText(rawFiles[item]);
+          reader.onload = function() {
+            console.log(reader.result);
+          };
+
+          let promise = new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = function() {
+              const dataUrl = reader.result;
+              const base64 = dataUrl.split(',')[1];
+              console.error(base64);
+              resolve(base64);
+            };
+            reader.readAsDataURL(rawFiles[item]);
+          })
+            .then(data => {
+              return client.git.createBlob({
+                owner: 'rhocode',
+                repo: 'Giraffe',
+                content: data,
+                encoding: 'base64'
+              });
+            })
+            .then(data => {
+              console.log(data);
+              return data.data.sha;
+            })
+            .then(data => {
+              files[item] = data;
+            });
           promises.push(promise);
-          promise.then(data => {
-            files[item] = data;
-          });
         });
 
         Promise.all(promises).then(() => {
@@ -277,7 +304,7 @@ function DiffUploader(props) {
             .createPullRequest({
               owner: 'rhocode',
               repo: 'Giraffe',
-              title: 'Bump data to' + getNextSchemaName(),
+              title: 'Bump data to ' + getNextSchemaName(),
               body: `This pull request adds {put data here} data and bumps the version.`,
               head: getNextSchemaName() + Math.floor(Math.random() * 10),
               changes: {
