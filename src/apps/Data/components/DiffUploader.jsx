@@ -31,9 +31,10 @@ function DiffUploader(props) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.dataReducer[ownProps.objectName],
-  data_original: state.dataReducer[ownProps.objectName + '_original'],
-  MachineClass: state.dataReducer['MachineClass']
+  // MachineClass: state.dataReducer['MachineClass'],
+  // MachineClassOriginal: state.dataReducer['MachineClass_original'],
+  // Item: state.dataReducer['Item'],
+  // ItemOriginal: state.dataReducer['Item_original']
 });
 
 const mapDispatchToProps = dispatch => ({

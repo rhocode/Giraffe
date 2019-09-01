@@ -98,14 +98,10 @@ export const machineInstanceListPromise = loadData(
 const rDataMapper = data => {
   const Recipe = root.lookupEnum('Recipe');
   const map = {};
-  console.error(Recipe.valuesById);
-  const consoleList = [];
   data.forEach(item => {
     map[item.id] = item;
-    consoleList.push([item.id, item.name, Recipe.valuesById[item.id]]);
     item.id = Recipe.valuesById[item.id];
   });
-  console.log(JSON.stringify(consoleList, null, 4));
   return map;
 };
 
