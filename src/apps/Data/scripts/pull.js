@@ -40,6 +40,34 @@ async function createPullRequest(
   let latestCommitSha = response.data[0].sha;
   const treeSha = response.data[0].commit.tree.sha;
 
+  const fileContents = {};
+
+  const allPromises = Object.keys(changes.files).map(path => {
+    const contents = changes.files[path];
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const dataUrl = reader.result;
+        const base64 = dataUrl.split(',')[1];
+        resolve(base64);
+      };
+      reader.readAsDataURL(contents);
+    })
+      .then(data => {
+        return octokit.git.createBlob({
+          owner: fork,
+          repo,
+          content: data,
+          encoding: 'base64'
+        });
+      })
+      .then(data => {
+        fileContents[path] = data.data.sha;
+      });
+  });
+
+  await Promise.all(allPromises);
+
   response = await octokit.git.createTree({
     owner: fork,
     repo,
@@ -49,7 +77,7 @@ async function createPullRequest(
         type: 'blob',
         path,
         mode: '100644',
-        sha: changes.files[path]
+        sha: fileContents[path]
       };
     })
   });
