@@ -13,6 +13,7 @@ import {
   recipeListPromise
 } from '../../graphql/resolvers';
 import FlatEditor from './components/FlatEditor';
+import DiffUploader from './components/DiffUploader';
 
 const machineClassMapper = raw => {
   return Object.values(raw);
@@ -186,6 +187,7 @@ function DataApp(props) {
         <Tab label="MachineClass (Enum)" {...a11yProps(3)} />
         <Tab label="Recipe List" {...a11yProps(4)} />
         <Tab label="Machine Class List" {...a11yProps(5)} />
+        <Tab label="Data Diff" {...a11yProps(6)} />
       </Tabs>
       {value === 0 ? (
         <TabPanel className={classes.tab}>
@@ -215,6 +217,11 @@ function DataApp(props) {
       {value === 5 ? (
         <TabPanel className={classes.tab}>
           <FlatEditor objectName={'MachineClassList'} />
+        </TabPanel>
+      ) : null}
+      {value === 6 ? (
+        <TabPanel className={classes.tab}>
+          <DiffUploader />
         </TabPanel>
       ) : null}
     </div>
