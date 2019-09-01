@@ -32,20 +32,6 @@ const styles = theme => {
 
 const getRowId = row => row.id;
 
-// const LookupEditCellBase = ({ value, onValueChange, classes, customDropDownItems }) => (
-//   <TableCell
-//     className={classes.lookupEditCell}
-//   >
-//     <Select
-//       // ...
-//     >
-//       {customDropDownItems.map(item => (
-//         <MenuItem key={item} value={item}>{item}</MenuItem>
-//       ))}
-//     </Select>
-//   </TableCell>
-// );
-
 const ActionButton = props => {
   return <TableEditColumn.Command {...props} />;
 };
@@ -86,38 +72,6 @@ const EditCell = props => {
   const newProps = Object.assign({}, props, copiedProps);
 
   return <TableEditRow.Cell {...newProps} />;
-
-  // return <TableCell>
-  //   {/*<Select*/}
-  //   {/*  value={text}*/}
-  //   {/*  onChange={event => {*/}
-  //   {/*    props.onValueChange(event.target.value);*/}
-  //   {/*    setText(event.target.value);*/}
-  //   {/*  }}*/}
-  //   {/*  input={*/}
-  //   {/*    <Input*/}
-  //   {/*      // classes={{ root: classes.inputRoot }}*/}
-  //   {/*    />*/}
-  //   {/*  }*/}
-  //   {/*>*/}
-  //   {/*  {[{id: 1, name: "1"}, {id: 2, name: "12"}].map(item => (*/}
-  //   {/*    <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>*/}
-  //   {/*  ))}*/}
-  //   {/*</Select>*/}
-  //   <TextField
-  //      value={text}
-  //      onChange={(e) => setText(e.target.value)}
-  //      margin="normal"
-  //      fullWidth
-  //   />
-  //
-  // </TableCell>
-
-  // <TextField
-  //   value={text}
-  //   onChange={(e) => setText(e.target.value)}
-  //   margin="normal"
-  // />
 };
 
 const CommandCell = props => (
