@@ -21,8 +21,6 @@ import {
   TreeDataState
 } from '@devexpress/dx-react-grid';
 import { setEditorData } from '../../../redux/actions/Data/dataActions';
-import * as protobuf from 'protobufjs/light';
-import getLatestSchema from '../../Graph/libraries/SGLib/utils/getLatestSchema';
 import TableCell from '@material-ui/core/TableCell';
 import AutoSuggest from './AutoSuggest';
 import deburr from 'lodash/deburr';
@@ -37,20 +35,13 @@ const styles = theme => {
 };
 
 const getRowId = row => {
-  const item = (row.id || row.parentId) + '_' + row.internalId;
-  console.log(item);
-  return item;
+  return (row.id || row.parentId) + '_' + row.internalId;
 };
 
 const ActionButton = props => {
   return <TableEditColumn.Command {...props} />;
 };
 
-const root = protobuf.Root.fromJSON(getLatestSchema());
-
-const MachineClassFormatter = ({ value }) => {
-  return MachineClass.valuesById[value] || '';
-};
 const availableFilterOperations = [
   'equal',
   'notEqual',
@@ -59,49 +50,6 @@ const availableFilterOperations = [
   'lessThan',
   'lessThanOrEqual'
 ];
-
-const MachineClassProvider = props => (
-  <DataTypeProvider
-    availableFilterOperations={availableFilterOperations}
-    formatterComponent={MachineClassFormatter}
-    {...props}
-  />
-);
-
-const ItemFormatter = ({ value }) => {
-  return Item.valuesById[value] || '';
-};
-
-const ItemProvider = props => (
-  <DataTypeProvider
-    availableFilterOperations={availableFilterOperations}
-    formatterComponent={ItemFormatter}
-    {...props}
-  />
-);
-
-const MachineClass = root.lookupEnum('MachineClass');
-const Item = root.lookupEnum('Item');
-
-const machineClassEnumToString = {};
-
-Object.keys(MachineClass.values).forEach(key => {
-  const enm = MachineClass.values[key];
-  machineClassEnumToString[enm] = key;
-});
-
-const itemEnumToString = {};
-
-Object.keys(Item.values).forEach(key => {
-  const enm = Item.values[key];
-  itemEnumToString[enm] = key;
-});
-
-const columnLookup = {
-  machineClass: machineClassEnumToString,
-  item: itemEnumToString,
-  itemType: { input: 'input', output: 'output' }
-};
 
 const useStyles = makeStyles(theme => ({
   lookupEditCell: {
@@ -116,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EditCell = props => {
+const EditCell = (props, columnLookup) => {
   const classes = useStyles();
 
   const lookup = columnLookup[props.column.name];
@@ -216,13 +164,9 @@ const CommandCell = props => (
 );
 
 const getChildRows = (row, rootRows) => {
-  console.log(row, rootRows);
   const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
-  console.log('WELL, WE RETURN', childRows.length ? childRows : null);
   return childRows.length ? childRows : null;
 };
-
-// https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/data-formatting/
 
 function NestedEditor(props) {
   // Declare a new state variable, which we'll call "count"
@@ -246,8 +190,6 @@ function NestedEditor(props) {
 
   const rows = props.data ? props.data.rows : [];
 
-  console.log('ORIGINAL', rows);
-
   const rowSet = new Set(rows.filter(row => row.id).map(row => row.id));
   const [tableColumnExtensions] = useState([{ columnName: 'id', width: 300 }]);
 
@@ -259,7 +201,7 @@ function NestedEditor(props) {
 
       added
         .filter(row => row.id)
-        .forEach((row, index) => {
+        .forEach(row => {
           const modified = {};
 
           let maxInternalId =
@@ -439,12 +381,6 @@ function NestedEditor(props) {
       })
       .filter(data => Object.keys(data).length > 0);
 
-    console.log(
-      'FKNJDSFMNKDSFMSFLKMSFKMLSFKMSLFLFKSFF',
-      changedRows,
-      props.objectName
-    );
-
     const newDict = {
       rows: changedRows
     };
@@ -455,7 +391,49 @@ function NestedEditor(props) {
     });
   };
 
-  console.log('These used props', rows, columns);
+  const machineClassMapper = {};
+  if (props.MachineClass && props.MachineClass.rows) {
+    props.MachineClass.rows.forEach(row => {
+      machineClassMapper[row.id] = row.enum;
+    });
+  }
+
+  const MachineClassFormatter = ({ value }) => {
+    return machineClassMapper[value] || '';
+  };
+
+  const MachineClassProvider = props => (
+    <DataTypeProvider
+      availableFilterOperations={availableFilterOperations}
+      formatterComponent={MachineClassFormatter}
+      {...props}
+    />
+  );
+
+  const itemMapper = {};
+  if (props.Item && props.Item.rows) {
+    props.Item.rows.forEach(row => {
+      itemMapper[row.id] = row.enum;
+    });
+  }
+
+  const ItemFormatter = ({ value }) => {
+    return itemMapper[value] || '';
+  };
+
+  const ItemProvider = props => (
+    <DataTypeProvider
+      availableFilterOperations={availableFilterOperations}
+      formatterComponent={ItemFormatter}
+      {...props}
+    />
+  );
+
+  const columnLookup = {
+    machineClass: machineClassMapper,
+    item: itemMapper,
+    itemType: { input: 'input', output: 'output' }
+  };
 
   return (
     <div className={props.classes.dataGrid}>
@@ -477,7 +455,7 @@ function NestedEditor(props) {
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableTreeColumn for="id" />
-        <TableEditRow cellComponent={EditCell} />
+        <TableEditRow cellComponent={props => EditCell(props, columnLookup)} />
         <TableEditColumn
           showAddCommand
           showEditCommand
@@ -493,7 +471,8 @@ function NestedEditor(props) {
 const mapStateToProps = (state, ownProps) => ({
   data: state.dataReducer[ownProps.objectName],
   data_original: state.dataReducer[ownProps.objectName + '_original'],
-  MachineClass: state.dataReducer['MachineClass']
+  MachineClass: state.dataReducer['MachineClass'],
+  Item: state.dataReducer['Item']
 });
 
 const mapDispatchToProps = dispatch => ({
