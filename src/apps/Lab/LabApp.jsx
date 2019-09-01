@@ -550,15 +550,6 @@ class LabApp extends Component {
         z[item] = humanize(item);
       });
 
-    console.error(JSON.stringify(z, null, 2), 'AAAAAAAA');
-
-    //   var frags = str.split('_');
-    //   for (let i=0; i<frags.length; i++) {
-    //     frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
-    //   }
-    //   return frags.join(' ');
-    // }
-
     const RecipeList = root.lookupType('RecipeList');
     const RCEncoding = RecipeList.encode(
       RecipeList.fromObject({ data: recipeList })
