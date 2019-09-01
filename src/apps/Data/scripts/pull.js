@@ -49,7 +49,7 @@ async function createPullRequest(
         type: 'blob',
         path,
         mode: '100644',
-        content: changes.files[path]
+        sha: changes.files[path]
       };
     })
   });
