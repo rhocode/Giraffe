@@ -13,7 +13,6 @@ import * as protobuf from 'protobufjs';
 import getLatestSchema, {
   getNextSchemaName
 } from '../../Graph/libraries/SGLib/utils/getLatestSchema';
-import { blobToBase64 } from 'base64-blob';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -261,59 +260,28 @@ function DiffUploader(props) {
   const primeData = rawFiles => {
     return () =>
       loginWithGithub().then(client => {
-        const files = {};
-        const promises = [];
-        Object.keys(rawFiles).forEach(item => {
-          var reader = new FileReader();
-          reader.readAsText(rawFiles[item]);
-          reader.onload = function() {
-            console.log(reader.result);
-          };
-
-          let promise = new Promise(resolve => {
-            const reader = new FileReader();
-            reader.onload = function() {
-              const dataUrl = reader.result;
-              const base64 = dataUrl.split(',')[1];
-              console.error(base64);
-              resolve(base64);
-            };
-            reader.readAsDataURL(rawFiles[item]);
+        console.log('Creating Pull Request...');
+        client
+          .createPullRequest({
+            owner: 'rhocode',
+            repo: 'Giraffe',
+            title: 'Bump data to ' + getNextSchemaName(),
+            body: `This pull request adds {put data here} data and bumps the version.`,
+            head:
+              getNextSchemaName() +
+              '-' +
+              Math.random()
+                .toString(36)
+                .substring(2, 15) +
+              Math.random()
+                .toString(36)
+                .substring(2, 15),
+            changes: {
+              files: rawFiles,
+              commit: 'Bump all data files to ' + getNextSchemaName()
+            }
           })
-            .then(data => {
-              return client.git.createBlob({
-                owner: 'rhocode',
-                repo: 'Giraffe',
-                content: data,
-                encoding: 'base64'
-              });
-            })
-            .then(data => {
-              console.log(data);
-              return data.data.sha;
-            })
-            .then(data => {
-              files[item] = data;
-            });
-          promises.push(promise);
-        });
-
-        Promise.all(promises).then(() => {
-          console.log('Creating Pull Request...');
-          client
-            .createPullRequest({
-              owner: 'rhocode',
-              repo: 'Giraffe',
-              title: 'Bump data to ' + getNextSchemaName(),
-              body: `This pull request adds {put data here} data and bumps the version.`,
-              head: getNextSchemaName() + Math.floor(Math.random() * 10),
-              changes: {
-                files,
-                commit: 'Bump all data files to' + getNextSchemaName()
-              }
-            })
-            .then(pr => console.log('Pull request created: ' + pr.data.number));
-        });
+          .then(pr => console.log('Pull request created: ' + pr.data.number));
       });
   };
 
