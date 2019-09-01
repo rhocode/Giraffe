@@ -131,12 +131,12 @@ function EnumEditor(props) {
     }
     if (changed) {
       changedRows = rows.map(row =>
-        changed[row.id] ? { ...row, ...changed[row.id] } : row
+        changed[getRowId(row)] ? { ...row, ...changed[getRowId(row)] } : row
       );
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      changedRows = rows.filter(row => !deletedSet.has(row.id));
+      changedRows = rows.filter(row => !deletedSet.has(getRowId(row)));
     }
 
     const newDict = {

@@ -21,8 +21,6 @@ import {
 import { setEditorData } from '../../../redux/actions/Data/dataActions';
 import TextField from '@material-ui/core/TextField';
 import TableCell from '@material-ui/core/TableCell';
-import * as protobuf from 'protobufjs/light';
-import getLatestSchema from '../../Graph/libraries/SGLib/utils/getLatestSchema';
 import AutoSuggest from './AutoSuggest';
 import deburr from 'lodash/deburr';
 
@@ -43,24 +41,7 @@ const ActionButton = props => {
   return <TableEditColumn.Command {...props} />;
 };
 
-const tierEnumToString = {};
-
-const root = protobuf.Root.fromJSON(getLatestSchema());
-const UpgradeTiers = root.lookupEnum('UpgradeTiers');
-const UpgradeTierFormatter = ({ value }) => {
-  return UpgradeTiers.valuesById[value] || '';
-};
-
-Object.keys(UpgradeTiers.values).forEach(key => {
-  const enm = UpgradeTiers.values[key];
-  tierEnumToString[enm] = key;
-});
-
-const columnLookup = {
-  tier: tierEnumToString
-};
-
-const EditCell = props => {
+const EditCell = (props, columnLookup) => {
   const [text, setText] = useState(
     props.value !== undefined ? '' + props.value : ''
   );
@@ -117,10 +98,6 @@ const CommandCell = props => (
   </TableEditColumn.Cell>
 );
 
-const UpgradeTierProvider = props => (
-  <DataTypeProvider formatterComponent={UpgradeTierFormatter} {...props} />
-);
-
 function FlatEditor(props) {
   // Declare a new state variable, which we'll call "count"
   const [columns] = useState([
@@ -162,14 +139,16 @@ function FlatEditor(props) {
       ];
     }
     if (changed) {
-      changedRows = rows.map(row =>
-        changed[row.id] ? { ...row, ...changed[row.id] } : row
-      );
+      changedRows = rows.map(row => {
+        return changed[getRowId(row)]
+          ? { ...row, ...changed[getRowId(row)] }
+          : row;
+      });
     }
 
     if (deleted) {
       const deletedSet = new Set(deleted);
-      changedRows = rows.filter(row => !deletedSet.has(row.id));
+      changedRows = rows.filter(row => !deletedSet.has(getRowId(row)));
     }
 
     changedRows = changedRows
@@ -213,6 +192,25 @@ function FlatEditor(props) {
       data: newDict
     });
   };
+
+  const upgradeMapper = {};
+  if (props.UpgradeTiers && props.UpgradeTiers.rows) {
+    props.UpgradeTiers.rows.forEach(row => {
+      upgradeMapper[row.id] = row.enum;
+    });
+  }
+  const UpgradeTierFormatter = ({ value }) => {
+    return upgradeMapper[value] || '';
+  };
+
+  const UpgradeTierProvider = props => (
+    <DataTypeProvider formatterComponent={UpgradeTierFormatter} {...props} />
+  );
+
+  const columnLookup = {
+    tier: upgradeMapper
+  };
+
   return (
     <div className={props.classes.dataGrid}>
       <Grid rows={rows} columns={columns} getRowId={getRowId}>
@@ -227,7 +225,7 @@ function FlatEditor(props) {
         <Table columnExtensions={tableColumnExtensions} />
         <TableHeaderRow showSortingControls />
         <TableFilterRow />
-        <TableEditRow cellComponent={EditCell} />
+        <TableEditRow cellComponent={props => EditCell(props, columnLookup)} />
         <TableEditColumn
           showAddCommand
           showEditCommand
@@ -242,7 +240,8 @@ function FlatEditor(props) {
 
 const mapStateToProps = (state, ownProps) => ({
   data: state.dataReducer[ownProps.objectName],
-  data_original: state.dataReducer[ownProps.objectName + '_original']
+  data_original: state.dataReducer[ownProps.objectName + '_original'],
+  UpgradeTiers: state.dataReducer['UpgradeTiers']
 });
 
 const mapDispatchToProps = dispatch => ({
