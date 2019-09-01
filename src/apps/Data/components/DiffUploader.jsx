@@ -290,8 +290,6 @@ function DiffUploader(props) {
       });
   };
 
-  console.log(presentableData);
-
   const buttonFunc = primeData(presentableData);
 
   return (
@@ -379,9 +377,7 @@ const mapDispatchToProps = dispatch => ({
   setData: data => dispatch(setEditorData(data))
 });
 
-export default React.memo(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(DiffUploader)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DiffUploader);
