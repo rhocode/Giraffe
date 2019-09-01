@@ -182,7 +182,7 @@ class HomeApp extends Component {
                   desc="Now with an improved menu!"
                 />
                 <Card
-                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617467174524551168/unknown.png"
+                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617629393405083648/unknown.png"
                   imgAlt="Connect nodes"
                   title="Connect nodes"
                   desc="Improved graphics!"
