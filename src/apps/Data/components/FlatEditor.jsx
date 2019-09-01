@@ -190,7 +190,7 @@ function FlatEditor(props) {
             if (!isNaN(newValue)) {
               newData[key] = newValue;
             }
-          } else if (typeof value === 'boolean') {
+          } else if (typeof value === 'boolean' || typeof value === 'number') {
             newData[key] = value;
           } else {
             const inputValue = deburr(value.trim()).toLowerCase();

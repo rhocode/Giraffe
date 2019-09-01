@@ -36,7 +36,11 @@ const styles = theme => {
   };
 };
 
-const getRowId = row => (row.id || row.parentId) + '_' + row.internalId;
+const getRowId = row => {
+  const item = (row.id || row.parentId) + '_' + row.internalId;
+  console.log(item);
+  return item;
+};
 
 const ActionButton = props => {
   return <TableEditColumn.Command {...props} />;
@@ -154,8 +158,8 @@ const EditCell = props => {
         useParentValue = true;
       }
     } else {
-      if (parentEditableSet.has(props.column.name)) {
-        newProps.value = '(disabled)';
+      if (!parentEditableSet.has(props.column.name)) {
+        newProps.value = '';
         newProps.editingEnabled = false;
         disableDropdown = true;
       }
@@ -212,7 +216,9 @@ const CommandCell = props => (
 );
 
 const getChildRows = (row, rootRows) => {
+  console.log(row, rootRows);
   const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
+  console.log('WELL, WE RETURN', childRows.length ? childRows : null);
   return childRows.length ? childRows : null;
 };
 
@@ -239,6 +245,9 @@ function NestedEditor(props) {
   const decimalColumns = new Set([]);
 
   const rows = props.data ? props.data.rows : [];
+
+  console.log('ORIGINAL', rows);
+
   const rowSet = new Set(rows.filter(row => row.id).map(row => row.id));
   const [tableColumnExtensions] = useState([{ columnName: 'id', width: 300 }]);
 
@@ -408,19 +417,33 @@ function NestedEditor(props) {
             if (!isNaN(newValue)) {
               newData[key] = newValue;
             }
-          } else if (typeof value === 'boolean') {
+          } else if (
+            typeof value === 'boolean' ||
+            typeof value === 'number' ||
+            typeof value === 'object'
+          ) {
             newData[key] = value;
           } else {
+            if (value === undefined || value === null) {
+              value = '';
+            }
             const inputValue = deburr(value.trim()).toLowerCase();
             if (inputValue !== '') {
               newData[key] = deburr(value.trim());
             }
           }
         });
-
-        return newData;
+        const parentId =
+          newData.parentId !== undefined ? newData.parentId : null;
+        return { ...newData, parentId };
       })
       .filter(data => Object.keys(data).length > 0);
+
+    console.log(
+      'FKNJDSFMNKDSFMSFLKMSFKMLSFKMSLFLFKSFF',
+      changedRows,
+      props.objectName
+    );
 
     const newDict = {
       rows: changedRows
@@ -431,6 +454,8 @@ function NestedEditor(props) {
       data: newDict
     });
   };
+
+  console.log('These used props', rows, columns);
 
   return (
     <div className={props.classes.dataGrid}>
@@ -475,9 +500,7 @@ const mapDispatchToProps = dispatch => ({
   setData: data => dispatch(setEditorData(data))
 });
 
-export default React.memo(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withStyles(styles)(NestedEditor))
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(NestedEditor));

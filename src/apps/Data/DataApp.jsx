@@ -159,7 +159,7 @@ function DataApp(props) {
         props.setData({
           dataName: promise.name,
           data: {
-            rows: mappedData
+            rows: mappedData.slice(0, 20)
           }
         });
       });
