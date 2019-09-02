@@ -47,8 +47,8 @@ class GraphActionsBottomActions extends Component {
           className={classes.navigation}
         >
           <BottomNavigationAction
-            label="Pan"
-            value="pan"
+            label="Move"
+            value="move"
             icon={<OpenWithIcon />}
           />
           <BottomNavigationAction

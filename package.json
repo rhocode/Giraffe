@@ -29,6 +29,7 @@
     "apollo-link-schema": "^1.2.3",
     "autosuggest-highlight": "^3.1.1",
     "base64-blob": "^1.4.1",
+    "canvas-5-polyfill": "^0.1.5",
     "clean-deep": "^3.0.4",
     "clsx": "^1.0.4",
     "d3": "^5.11.0",
