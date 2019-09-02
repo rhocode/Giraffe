@@ -294,7 +294,6 @@ class SGCanvas extends Component {
     const y = transform.invertY(d3.event.offsetY);
 
     const selectedNodeKeys = Object.keys(this.selectedNodes);
-    const selectedEdgeKeys = Object.keys(this.selectedEdges);
 
     if (this.props.mouseMode === 'select') {
       // First, check the node clicking:
@@ -332,7 +331,6 @@ class SGCanvas extends Component {
         }
       }
 
-      console.log('WE ENDED HERE');
       this.selectedNodes = {};
       this.selectedEdges = {};
       this.simulationUpdate();
