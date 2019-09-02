@@ -24,7 +24,7 @@ class SGCanvas extends Component {
   constructor(props) {
     super(props);
     this.canvasId = stringGen(10);
-    this.initializeSGLib();
+
     this.transform = d3.zoomIdentity;
     this.state = {
       loaded: false
@@ -34,8 +34,6 @@ class SGCanvas extends Component {
     this.selectedEdges = {};
     this.initialized = false;
   }
-
-  initializeSGLib() {}
 
   componentDidMount() {
     const width = this.props.width;
@@ -618,7 +616,6 @@ class SGCanvas extends Component {
       if (node.intersectsPoint(x, y)) {
         node.x = transform.applyX(node.x);
         node.y = transform.applyY(node.y);
-        console.log('SELECTED!!!');
         this.selectedNodes = {};
         this.selectedEdges = {};
         return node;
