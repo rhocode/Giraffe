@@ -30,7 +30,7 @@ jobs:
         - npm test
     - stage: lighthouse-keeper
       script:
-        - npm run build && npx lighthouse-keeper
+        - npm run build && npx codechecks
     - stage: Deploy Windows & Mac
       os: osx
       osx_image: xcode10.1
