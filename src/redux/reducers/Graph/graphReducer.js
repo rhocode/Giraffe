@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 const initialState = {
   graphTransform: d3.zoomIdentity,
   graphFidelity: 'high',
-  mouseMode: 'pan',
+  mouseMode: 'move',
   drawerOpen: false,
   machineClasses: [],
   selectedMachine: null,
@@ -14,9 +14,14 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'SET_GRAPH_DATA':
+      const newNodes = new Set(action.payload.nodes);
       return {
         ...state,
-        graphData: Object.assign({}, action.payload)
+        graphData: Object.assign({}, action.payload),
+        //unset the graph source node if it has been deleted
+        graphSourceNode: newNodes.has(state.graphSourceNode)
+          ? state.graphSourceNode
+          : null
       };
     case 'SET_GRAPH_TRANSFORM':
       return {

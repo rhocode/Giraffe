@@ -44,32 +44,7 @@ export function drawPath(
   graphEdge: GraphEdge
 ) {
   context.save();
-  context.beginPath();
-
-  const target = graphEdge.targetNode;
-
-  const outputSlot =
-    source.outputSlotMapping[source.outputSlots.indexOf(graphEdge)];
-
-  const inputSlot =
-    target.inputSlotMapping[target.inputSlots.indexOf(graphEdge)];
-
-  const x1 = source.fx + outputSlot.x;
-  const y1 = source.fy + outputSlot.y;
-  const x2 = target.fx + inputSlot.x;
-  const y2 = target.fy + inputSlot.y;
-  const avg = (x1 + x2) / 2;
-
-  context.strokeStyle = '#7122D5';
-  context.lineWidth = 8;
-
-  context.moveTo(x1, y1);
-
-  // context.lineTo(x2, y2);
-  // console.error(x1, y1, x2, y2);
-  graphEdge.setCoordinates(x1, x2, y1, y2);
-  context.bezierCurveTo(avg, y1, avg, y2, x2, y2);
-  context.stroke();
+  graphEdge.paintEdge(context);
   context.restore();
 }
 

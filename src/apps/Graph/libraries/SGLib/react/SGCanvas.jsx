@@ -5,7 +5,8 @@ import { stringGen } from '../utils/stringUtils';
 import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
 import {
   setGraphData,
-  setGraphSourceNode
+  setGraphSourceNode,
+  setMouseMode
 } from '../../../../../redux/actions/Graph/graphActions';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 import { withStyles } from '@material-ui/core';
@@ -98,7 +99,6 @@ class SGCanvas extends Component {
   }
 
   componentWillReceiveProps = newProps => {
-    console.error(newProps.mouseMode);
     if (this.props.mouseMode === 'link' && newProps.mouseMode !== 'link') {
       if (
         this.props.graphSourceNode !== null ||
@@ -127,6 +127,28 @@ class SGCanvas extends Component {
     let { simulation } = this;
     const { graphData } = this.props;
 
+    const newSelectedNodes = {};
+    const newSelectedEdges = {};
+
+    const nodeSet = new Set(graphData.nodes.map(item => item.id.toString()));
+    const edgeSet = new Set(graphData.edges.map(item => item.id.toString()));
+
+    Object.keys(this.selectedEdges).forEach(id => {
+      if (edgeSet.has(id)) {
+        newSelectedEdges[id] = this.selectedEdges[id];
+      }
+    });
+
+    this.selectedEdges = newSelectedEdges;
+
+    Object.keys(this.selectedNodes).forEach(id => {
+      if (nodeSet.has(id)) {
+        newSelectedNodes[id] = this.selectedNodes[id];
+      }
+    });
+
+    this.selectedNodes = newSelectedNodes;
+
     this.regenerateFidelity();
 
     simulation.nodes(graphData.nodes).on('tick', this.simulationUpdate);
@@ -137,7 +159,7 @@ class SGCanvas extends Component {
   zoomed = () => {
     const { graphData, graphFidelity } = this.props;
 
-    if (this.props.mouseMode !== 'pan' && this.props.mouseMode !== 'add') {
+    if (this.props.mouseMode !== 'move' && this.props.mouseMode !== 'add') {
       return;
     }
 
@@ -263,21 +285,101 @@ class SGCanvas extends Component {
       return;
     }
 
+    const { graphData } = this.props;
+
     const transform = this.transform;
 
     // Changed from x and y, because apparently they dont match up with the dragSubject???
     const x = transform.invertX(d3.event.offsetX);
     const y = transform.invertY(d3.event.offsetY);
 
-    const { graphData } = this.props;
-
     const selectedNodeKeys = Object.keys(this.selectedNodes);
+    const selectedEdgeKeys = Object.keys(this.selectedEdges);
 
-    if (this.props.mouseMode === 'pan' && selectedNodeKeys.length) {
+    if (this.props.mouseMode === 'select') {
+      // First, check the node clicking:
+
+      const nodes = this.props.graphData.nodes;
+
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        if (node.intersectsPoint(x, y)) {
+          this.selectedNodes[node.id] = node;
+          this.simulationUpdate();
+          return;
+        }
+      }
+
+      const innerCanvas = document.createElement('canvas');
+      const innerContext = innerCanvas.getContext('2d');
+      innerContext.canvas.width = 3;
+      innerContext.canvas.height = 3;
+
+      innerContext.translate(-x + 1, -y + 1);
+
+      const edges = this.props.graphData.edges;
+
+      for (let i = 0; i < edges.length; i++) {
+        // console.time("paintCheck");
+        const edge = edges[i];
+        edge.paintEdge(innerContext);
+        const innerData = innerContext.getImageData(1, 1, 1, 1).data;
+        // console.timeEnd("paintCheck");
+        if (innerData.every(item => item !== 0)) {
+          this.selectedEdges[edge.id] = edge;
+          this.simulationUpdate();
+          return;
+        }
+      }
+
+      console.log('WE ENDED HERE');
+      this.selectedNodes = {};
+      this.selectedEdges = {};
+      this.simulationUpdate();
+      this.props.setMouseMode('move');
+      return;
+    } else if (this.props.mouseMode === 'move' && selectedNodeKeys.length) {
       for (let i = 0; i < selectedNodeKeys.length; i++) {
         const node = this.selectedNodes[selectedNodeKeys[i]];
         if (node.intersectsPoint(x, y)) {
           return; // noop for now
+        }
+      }
+    } else if (this.props.mouseMode === 'move') {
+      // First, check the node clicking:
+
+      const nodes = this.props.graphData.nodes;
+
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        if (node.intersectsPoint(x, y)) {
+          this.selectedNodes[node.id] = node;
+          this.simulationUpdate();
+          this.props.setMouseMode('select');
+          return;
+        }
+      }
+
+      const innerCanvas = document.createElement('canvas');
+      const innerContext = innerCanvas.getContext('2d');
+      innerContext.canvas.width = 3;
+      innerContext.canvas.height = 3;
+
+      innerContext.translate(-x + 1, -y + 1);
+
+      const edges = this.props.graphData.edges;
+
+      for (let i = 0; i < edges.length; i++) {
+        // console.time("paintCheck");
+        const edge = edges[i];
+        edge.paintEdge(innerContext);
+        const innerData = innerContext.getImageData(1, 1, 1, 1).data;
+        // console.timeEnd("paintCheck");
+        if (innerData.every(item => item !== 0)) {
+          this.selectedEdges[edge.id] = edge;
+          this.simulationUpdate();
+          this.props.setMouseMode('select');
+          return;
         }
       }
     }
@@ -286,8 +388,6 @@ class SGCanvas extends Component {
       const newGraph = Object.assign({}, this.props.graphData);
 
       // d3.event.x, y: d3.event.y
-
-      console.error(this.props.selectedMachine);
 
       newGraph.nodes.push(
         new MachineNode(
@@ -347,14 +447,6 @@ class SGCanvas extends Component {
           this.props.setGraphSourceNode(selectedNode);
         }
       }
-
-      // if (!selectedNode) {
-      //   console.error("LINKMODE FAILED");
-      // }
-    } else {
-      this.selectedNodes = {};
-      this.selectedEdges = {};
-      this.simulationUpdate();
     }
   };
 
@@ -374,7 +466,7 @@ class SGCanvas extends Component {
       this.dragStart = { x: d3.event.x, y: d3.event.y, ex: x, ey: y };
     }
 
-    // if (this.props.mouseMode === 'pan' && ) {
+    // if (this.props.mouseMode === 'move' && ) {
     //   this.dragStart = {x: d3.event.x, y: d3.event.y, ex: x, ey: y };
     // }
     //
@@ -434,7 +526,7 @@ class SGCanvas extends Component {
 
     if (this.props.mouseMode === 'select') {
       // TODO: Selection logic
-
+      console.log('DRAGENDED!!!!!');
       this.selectedNodes = {};
       this.selectedEdges = {};
       const x1 = this.dragStart.ex;
@@ -500,7 +592,7 @@ class SGCanvas extends Component {
 
     let draggingGroup = false;
 
-    if (this.props.mouseMode === 'pan' && selectedNodeKeys.length) {
+    if (this.props.mouseMode === 'move' && selectedNodeKeys.length) {
       for (i = 0; i < selectedNodeKeys.length; i++) {
         const node = this.selectedNodes[selectedNodeKeys[i]];
         if (node.intersectsPoint(x, y)) {
@@ -528,6 +620,7 @@ class SGCanvas extends Component {
       if (node.intersectsPoint(x, y)) {
         node.x = transform.applyX(node.x);
         node.y = transform.applyY(node.y);
+        console.log('SELECTED!!!');
         this.selectedNodes = {};
         this.selectedEdges = {};
         return node;
@@ -623,7 +716,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setGraphData: data => dispatch(setGraphData(data)),
-    setGraphSourceNode: data => dispatch(setGraphSourceNode(data))
+    setGraphSourceNode: data => dispatch(setGraphSourceNode(data)),
+    setMouseMode: data => dispatch(setMouseMode(data))
+
     // setDragStart: data => dispatch(setDragStart(data)),
     // setDragCurrent: data => dispatch(setDragCurrent(data)),
   };
