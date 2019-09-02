@@ -1,28 +1,28 @@
-import { getTranslate } from 'react-localize-redux';
+import { getTranslate } from "react-localize-redux";
 import {
   setGraphData,
   setGraphSourceNode,
   setMouseMode
-} from '../../../../../redux/actions/Graph/graphActions';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { stringGen } from '../utils/stringUtils';
-import * as d3 from 'd3';
-import MachineNode from '../datatypes/graph/graphNode';
-import { GraphEdge } from '../datatypes/graph/graphEdge';
-import GraphActionsBottomActions from '../../../components/GraphActionsBottomActions';
-import clickPlugin from './plugins/clickFunction';
+} from "../../../../../redux/actions/Graph/graphActions";
+import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { stringGen } from "../utils/stringUtils";
+import * as d3 from "d3";
+import MachineNode from "../datatypes/graph/graphNode";
+import { GraphEdge } from "../datatypes/graph/graphEdge";
+import GraphActionsBottomActions from "../../../components/GraphActionsBottomActions";
+import clickPlugin from "./plugins/clickFunction";
 import {
   dragDuringPlugin,
   dragEndPlugin,
   dragStartPlugin,
   dragSubjectPlugin
-} from './plugins/dragFunctions';
-import zoomPlugin from './plugins/zoomFunction';
+} from "./plugins/dragFunctions";
+import zoomPlugin from "./plugins/zoomFunction";
 
-if (process.env.NODE_ENV !== 'production') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+if (process.env.NODE_ENV !== "production") {
+  const whyDidYouRender = require("@welldone-software/why-did-you-render");
   whyDidYouRender(React, {
     trackHooks: true
   });
@@ -47,37 +47,34 @@ function useBoundingBoxRect(props) {
 
   const { heightOverride, widthOverride } = props;
 
-  useEffect(() => {
-    function measureElement() {
-      if (canvasContainerCurrent) {
-        const boundingRect = canvasContainerCurrent.getBoundingClientRect();
-        if (canvasCurrent) {
-          canvasCurrent.style.width =
-            Math.round(widthOverride || rect.width) + 'px';
-          canvasCurrent.style.height =
-            Math.round(heightOverride || rect.height) + 'px';
-        }
-        if (
-          boundingRect.width !== rect.width ||
-          boundingRect.height !== rect.height
-        ) {
-          setRect(boundingRect);
+  useEffect(
+    () => {
+      function measureElement() {
+        if (canvasContainerCurrent) {
+          const boundingRect = canvasContainerCurrent.getBoundingClientRect();
+          if (canvasCurrent) {
+            canvasCurrent.style.width =
+              Math.round(widthOverride || rect.width) + "px";
+            canvasCurrent.style.height =
+              Math.round(heightOverride || rect.height) + "px";
+          }
+          if (
+            boundingRect.width !== rect.width ||
+            boundingRect.height !== rect.height
+          ) {
+            setRect(boundingRect);
+          }
         }
       }
-    }
 
-    measureElement();
-    window.addEventListener('resize', measureElement, false);
-    return () => window.removeEventListener('resize', measureElement, false);
-  }, [
-    rect,
-    canvasCurrent,
-    canvasContainerCurrent,
-    heightOverride,
-    widthOverride
-  ]);
+      measureElement();
+      window.addEventListener("resize", measureElement, false);
+      return () => window.removeEventListener("resize", measureElement, false);
+    },
+    [rect, canvasCurrent, canvasContainerCurrent, heightOverride, widthOverride]
+  );
 
-  const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
+  const canvasContext = canvasCurrent ? canvasCurrent.getContext("2d") : null;
 
   return [rect, ref, canvasRef, canvasContext, canvasCurrent];
 }
@@ -98,41 +95,44 @@ function SGCanvasRefactored(props) {
   } = props;
 
   // Initial load on component
-  useEffect(() => {
-    const nodes = [];
-    const edges = [];
+  useEffect(
+    () => {
+      const nodes = [];
+      const edges = [];
 
-    const num_nodes = 5;
+      const num_nodes = 5;
 
-    for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(0, 0, i * 300, 500));
-    }
+      for (let i = 0; i < num_nodes; i++) {
+        nodes.push(new MachineNode(0, 0, i * 300, 500));
+      }
 
-    for (let i = 0; i < num_nodes - 1; i++) {
-      edges.push(new GraphEdge(nodes[i], nodes[i + 1]));
-    }
+      for (let i = 0; i < num_nodes - 1; i++) {
+        edges.push(new GraphEdge(nodes[i], nodes[i + 1]));
+      }
 
-    edges.push(new GraphEdge(nodes[0], nodes[1]));
-    edges.push(new GraphEdge(nodes[1], nodes[3]));
-    edges.push(new GraphEdge(nodes[1], nodes[3]));
-    edges.push(new GraphEdge(nodes[3], nodes[4]));
+      edges.push(new GraphEdge(nodes[0], nodes[1]));
+      edges.push(new GraphEdge(nodes[1], nodes[3]));
+      edges.push(new GraphEdge(nodes[1], nodes[3]));
+      edges.push(new GraphEdge(nodes[3], nodes[4]));
 
-    const data = {
-      nodes: nodes,
-      edges: edges
-    };
+      const data = {
+        nodes: nodes,
+        edges: edges
+      };
 
-    const nodeMapping = {};
-    data.nodes.forEach(node => {
-      nodeMapping[node.id] = node;
-    });
+      const nodeMapping = {};
+      data.nodes.forEach(node => {
+        nodeMapping[node.id] = node;
+      });
 
-    data.nodes.forEach(node => {
-      node.sortSlots();
-    });
+      data.nodes.forEach(node => {
+        node.sortSlots();
+      });
 
-    setGraphData(data);
-  }, [setGraphData]);
+      setGraphData(data);
+    },
+    [setGraphData]
+  );
 
   const canvasId = useMemo(() => stringGen(10), []);
   const [
@@ -165,7 +165,7 @@ function SGCanvasRefactored(props) {
       canvasContext.translate(localTransform.x, localTransform.y);
 
       canvasContext.save();
-      canvasContext.lineCap = 'round';
+      canvasContext.lineCap = "round";
 
       canvasContext.globalAlpha = 1.0;
       canvasContext.scale(localTransform.k, localTransform.k);
@@ -199,7 +199,7 @@ function SGCanvasRefactored(props) {
 
       const selectedNode = graphSourceNode;
 
-      if (graphFidelity === 'low') {
+      if (graphFidelity === "low") {
         canvasContext.scale(localTransform.k, localTransform.k);
 
         Object.keys(selectedNodes).forEach(nodeId => {
@@ -222,7 +222,7 @@ function SGCanvasRefactored(props) {
 
       canvasContext.save();
 
-      if (graphFidelity === 'low') {
+      if (graphFidelity === "low") {
         canvasContext.scale(localTransform.k, localTransform.k);
         graphNodes.forEach(function(d) {
           d.lowRender(canvasContext, selectedNode === d);
@@ -244,11 +244,11 @@ function SGCanvasRefactored(props) {
         const y2 = dragCurrent.y;
 
         canvasContext.globalAlpha = 0.15;
-        canvasContext.fillStyle = '#FFA328';
+        canvasContext.fillStyle = "#FFA328";
         canvasContext.fillRect(x1, y1, x2 - x1, y2 - y1);
 
         canvasContext.setLineDash([8, 2]);
-        canvasContext.strokeStyle = '#FFA328';
+        canvasContext.strokeStyle = "#FFA328";
         canvasContext.globalAlpha = 1.0;
 
         canvasContext.strokeRect(x1, y1, x2 - x1, y2 - y1);
@@ -270,12 +270,12 @@ function SGCanvasRefactored(props) {
 
   const simulation = d3
     .forceSimulation()
-    .force('center', d3.forceCenter(usedWidth / 2, usedHeight / 2))
-    .force('x', d3.forceX(usedWidth / 2).strength(0.1))
-    .force('y', d3.forceY(usedHeight / 2).strength(0.1))
-    .force('charge', d3.forceManyBody().strength(-50))
+    .force("center", d3.forceCenter(usedWidth / 2, usedHeight / 2))
+    .force("x", d3.forceX(usedWidth / 2).strength(0.1))
+    .force("y", d3.forceY(usedHeight / 2).strength(0.1))
+    .force("charge", d3.forceManyBody().strength(-50))
     .force(
-      'link',
+      "link",
       d3
         .forceLink()
         .strength(1)
@@ -286,61 +286,67 @@ function SGCanvasRefactored(props) {
     .alphaTarget(0)
     .alphaDecay(1);
 
-  useEffect(() => {
-    if (!canvasCurrent) return;
-    d3.select(canvasCurrent)
-      .call(
-        d3
-          .drag()
-          .clickDistance(4)
-          .subject(() => dragSubjectPlugin())
-          .on('start', () => dragStartPlugin())
-          .on('drag', () => dragDuringPlugin())
-          .on('end', () => dragEndPlugin())
-      )
-      .on('click', function() {
-        clickPlugin(this);
-      })
-      .call(
-        d3
-          .zoom()
-          .filter(function() {
-            if (mouseMode === 'add') {
-              return d3.event.type !== 'dblclick';
-            }
+  useEffect(
+    () => {
+      if (!canvasCurrent) return;
+      d3.select(canvasCurrent)
+        .call(
+          d3
+            .drag()
+            .clickDistance(4)
+            .subject(() => dragSubjectPlugin())
+            .on("start", () => dragStartPlugin())
+            .on("drag", () => dragDuringPlugin())
+            .on("end", () => dragEndPlugin())
+        )
+        .on("click", function() {
+          clickPlugin(this);
+        })
+        .call(
+          d3
+            .zoom()
+            .filter(function() {
+              if (mouseMode === "add") {
+                return d3.event.type !== "dblclick";
+              }
 
-            return mouseMode !== 'link';
-          })
-          .scaleExtent([1 / 10, 8])
-          .on('zoom', () =>
-            zoomPlugin(
-              graphData,
-              graphFidelity,
-              mouseMode,
-              setTransform,
-              transform,
-              simulationUpdate
+              return mouseMode !== "link";
+            })
+            .scaleExtent([1 / 10, 8])
+            .on("zoom", () =>
+              zoomPlugin(
+                graphData,
+                graphFidelity,
+                mouseMode,
+                setTransform,
+                transform,
+                simulationUpdate
+              )
             )
-          )
-      );
-  }, [canvasCurrent, graphData, graphFidelity, mouseMode, simulationUpdate]);
+        );
+    },
+    [canvasCurrent, graphData, graphFidelity, mouseMode, simulationUpdate]
+  );
 
-  useEffect(() => {
-    if (!graphEdges || !graphNodes) return;
+  useEffect(
+    () => {
+      if (!graphEdges || !graphNodes) return;
 
-    simulation.nodes(graphNodes).on('tick', simulationUpdate);
-    simulation.force('link').links(graphEdges);
+      simulation.nodes(graphNodes).on("tick", simulationUpdate);
+      simulation.force("link").links(graphEdges);
 
-    if (graphFidelity === 'low') {
-      graphNodes.forEach(node => {
-        node.preRender(d3.zoomIdentity);
-      });
-    } else {
-      graphNodes.forEach(node => {
-        node.preRender(transform);
-      });
-    }
-  }, [graphEdges, graphFidelity, graphNodes, simulation, simulationUpdate]);
+      if (graphFidelity === "low") {
+        graphNodes.forEach(node => {
+          node.preRender(d3.zoomIdentity);
+        });
+      } else {
+        graphNodes.forEach(node => {
+          node.preRender(transform);
+        });
+      }
+    },
+    [graphEdges, graphFidelity, graphNodes, simulation, simulationUpdate]
+  );
 
   // console.log(JSON.stringify({...props, graphNodes: []}));
 
@@ -361,17 +367,17 @@ function SGCanvasRefactored(props) {
 
 const styles = () => ({
   canvasContainer: {
-    display: 'grid',
-    gridArea: 'canvasArea',
+    display: "grid",
+    gridArea: "canvasArea",
     gridTemplateAreas: `"canvasElement"`,
-    gridTemplateRows: 'minmax(0, 1fr)',
-    gridTemplateColumns: '1fr',
+    gridTemplateRows: "minmax(0, 1fr)",
+    gridTemplateColumns: "1fr",
     minWidth: 0,
     minHeight: 0,
-    position: 'relative'
+    position: "relative"
   },
   canvas: {
-    gridArea: 'canvasElement',
+    gridArea: "canvasElement",
     minWidth: 0,
     minHeight: 0
   }

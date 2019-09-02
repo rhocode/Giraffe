@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 const zoomPlugin = (
   graphData,
@@ -8,7 +8,7 @@ const zoomPlugin = (
   transform,
   simulationUpdate
 ) => {
-  if (mouseMode !== 'move' && mouseMode !== 'add') {
+  if (mouseMode !== "move" && mouseMode !== "add") {
     return;
   }
 
@@ -16,7 +16,7 @@ const zoomPlugin = (
 
   setTransform(localTransform);
 
-  if (graphFidelity !== 'low' && localTransform.k !== transform.k) {
+  if (graphFidelity !== "low" && localTransform.k !== transform.k) {
     graphData.nodes.forEach(node => {
       node.preRender(localTransform);
     });

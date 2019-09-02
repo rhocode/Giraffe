@@ -1,5 +1,5 @@
 const canvasClickFunction = context => {
-  console.log('Clicked', context);
+  console.log("Clicked", context);
 };
 
 export default canvasClickFunction;
