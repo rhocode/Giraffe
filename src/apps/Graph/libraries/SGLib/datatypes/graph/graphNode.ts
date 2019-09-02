@@ -7,7 +7,6 @@ import { GraphEdge } from './graphEdge';
 import { imageRepository } from '../../repositories/imageRepository';
 import * as protobuf from 'protobufjs/light';
 import getLatestSchema from '../../utils/getLatestSchema';
-import * as d3 from 'd3';
 
 type Nullable<T> = T | null;
 
@@ -34,9 +33,6 @@ export abstract class GraphNode {
   abstract xRenderBuffer: number;
   abstract yRenderBuffer: number;
   k: number = 1;
-  lastTransform = d3.zoomIdentity;
-  private lastWidth = 0;
-  private lastHeight = 0;
 
   // These are filled in during render time to cache the assigned output slots
   inputSlotMapping: any = {};
@@ -59,7 +55,7 @@ export abstract class GraphNode {
 
     this.zoomedCanvasOutlined = document.createElement('canvas');
     this.zoomedContextOutlined = this.zoomedCanvasOutlined.getContext('2d');
-    this.setCanvasDimensions();
+
     this.preRender();
   }
 
@@ -113,8 +109,8 @@ export abstract class GraphNode {
 
   abstract lowRender(context: any, selected: boolean): void;
 
-  setCanvasDimensions(): void {
-    const transformObj = { k: 10 };
+  preRender(transform: any = null): void {
+    const transformObj = transform || { k: 1 };
     this.canvas.width = (this.width + 2 * this.xRenderBuffer) * transformObj.k;
     this.canvas.height =
       (this.height + 2 * this.yRenderBuffer) * transformObj.k;
@@ -128,48 +124,9 @@ export abstract class GraphNode {
     this.zoomedCanvasOutlined.width = this.zoomedCanvas.width;
     this.zoomedCanvasOutlined.height = this.zoomedCanvas.height;
 
-    this.lastWidth = this.width;
-    this.lastHeight = this.height;
-  }
-
-  clearCanvases(): void {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.contextOutlined.clearRect(
-      0,
-      0,
-      this.canvasOutlined.width,
-      this.canvasOutlined.height
-    );
-    this.zoomedContext.clearRect(
-      0,
-      0,
-      this.zoomedCanvas.width,
-      this.zoomedCanvas.height
-    );
-    this.zoomedContextOutlined.clearRect(
-      0,
-      0,
-      this.zoomedCanvasOutlined.width,
-      this.zoomedCanvasOutlined.height
-    );
-  }
-
-  preRender(transform: any = null): void {
-    const transformObj = transform || { k: 1 };
-
-    if (this.lastHeight !== this.height || this.lastWidth !== this.width) {
-      this.setCanvasDimensions();
-    } else {
-      if (
-        this.lastTransform.k !== transformObj.k ||
-        this.lastTransform.x !== transformObj.x ||
-        this.lastTransform.y !== transformObj.y
-      ) {
-        this.lastTransform = transformObj;
-        this.clearCanvases();
-        this.context.scale(transformObj.k, transformObj.k);
-        this.contextOutlined.scale(transformObj.k, transformObj.k);
-      }
+    if (transform) {
+      this.context.scale(transform.k, transform.k);
+      this.contextOutlined.scale(transform.k, transform.k);
     }
   }
 
@@ -307,7 +264,6 @@ export default class MachineNode extends GraphNode {
   yRenderBuffer: number = 15;
   machineObject: any;
   translator: any = null;
-  renderedContexts: any = new Set();
 
   constructor(
     machineObject: any,
@@ -323,7 +279,6 @@ export default class MachineNode extends GraphNode {
     this.overclock = overclock;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
-    this.renderedContexts = new Set();
 
     if (this.machineObject && this.machineObject.class) {
       console.error('ALL DONE!!!!');
@@ -477,35 +432,24 @@ export default class MachineNode extends GraphNode {
   }
 
   preRender(transform: any, debugContext: any = this.context): void {
-    const transformObj = transform || { k: 1, x: 0, y: 0 };
-    if (
-      (this.renderedContexts && !this.renderedContexts.has(debugContext)) ||
-      this.lastTransform.k !== transformObj.k
-    ) {
-      if (this.renderedContexts) {
-        this.renderedContexts.add(debugContext);
-      }
-      this.lastTransform = transform;
-      // //TODO: fix the prerendering
-      debugContext.save();
-      this.contextOutlined.save();
-      this.zoomedContext.save();
-      this.zoomedContextOutlined.save();
-      super.preRender(transform);
-      defaultNodeThemeSprite(debugContext, this);
-      defaultNodeThemeSpriteOutline(this.contextOutlined, this);
+    //TODO: fix the prerendering
+    debugContext.save();
+    this.contextOutlined.save();
+    this.zoomedContext.save();
+    this.zoomedContextOutlined.save();
+    super.preRender(transform);
+    defaultNodeThemeSprite(debugContext, this);
+    defaultNodeThemeSpriteOutline(this.contextOutlined, this);
 
-      this.zoomedContextOutlined.scale(10, 10);
-      this.zoomedContext.scale(10, 10);
-      defaultNodeThemeSprite(this.zoomedContext, this);
-      defaultNodeThemeSpriteOutline(this.zoomedContextOutlined, this);
+    this.zoomedContextOutlined.scale(10, 10);
+    this.zoomedContext.scale(10, 10);
+    defaultNodeThemeSprite(this.zoomedContext, this);
+    defaultNodeThemeSpriteOutline(this.zoomedContextOutlined, this);
 
-      this.zoomedContextOutlined.restore();
-      this.zoomedContext.restore();
-      debugContext.restore();
-      this.contextOutlined.restore();
-      console.log('Prerendering call');
-    }
+    this.zoomedContextOutlined.restore();
+    this.zoomedContext.restore();
+    debugContext.restore();
+    this.contextOutlined.restore();
   }
 
   lowRender(context: any, selected: boolean = false): void {
