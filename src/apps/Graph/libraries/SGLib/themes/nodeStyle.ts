@@ -115,7 +115,7 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
   context.fill();
   context.stroke();
 
-  context.drawImage(d.getImage(), x + 13, y + 5, 90, 90); // Or at whatever offset you like
+  // context.drawImage(d.getImage(), x + 13, y + 5, 90, 90); // Or at whatever offset you like
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';

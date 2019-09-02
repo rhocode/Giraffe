@@ -16,7 +16,7 @@ const LoadableComponent = Loadable({
       //     resolve(10);
       //   }, 1000)
       // })
-    ]).then(() => import('./GraphCanvas'));
+    ]).then(() => import('../libraries/SGLib/react/SGCanvasRefactored'));
   },
   loading: LoadingBar
 });
