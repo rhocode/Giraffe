@@ -46,6 +46,34 @@ export class GraphEdge {
     };
   }
 
+  public paintEdge(
+    drawnContext: any,
+    color: string = '#7122D5',
+    width: number = 8
+  ) {
+    const target = this.targetNode;
+    const source = this.sourceNode;
+
+    const outputSlot =
+      source.outputSlotMapping[source.outputSlots.indexOf(this)];
+
+    const inputSlot = target.inputSlotMapping[target.inputSlots.indexOf(this)];
+
+    const x1 = source.fx + outputSlot.x;
+    const y1 = source.fy + outputSlot.y;
+    const x2 = target.fx + inputSlot.x;
+    const y2 = target.fy + inputSlot.y;
+    const avg = (x1 + x2) / 2;
+    this.setCoordinates(x1, x2, y1, y2);
+    drawnContext.beginPath();
+    drawnContext.strokeStyle = color;
+    drawnContext.lineWidth = width;
+
+    drawnContext.moveTo(x1, y1);
+    drawnContext.bezierCurveTo(avg, y1, avg, y2, x2, y2);
+    drawnContext.stroke();
+  }
+
   public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
     const lowerXRect = Math.min(x1, x2);
     const upperXRect = Math.max(x1, x2);

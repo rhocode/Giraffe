@@ -27,7 +27,7 @@ import FastRewindIcon from '@material-ui/icons/FastRewind';
 import Slider from '@material-ui/core/Slider';
 import Fab from '@material-ui/core/Fab';
 import { isMobile } from 'react-device-detect';
-import SelectDropdown from 'common/react/SelectDropdown';
+import SelectDropdown from '../../../common/react/SelectDropdown';
 
 const styles = theme => ({
   drawer: {
@@ -148,10 +148,8 @@ function GraphRightPanel(props) {
                   <Typography variant="h6">Miners</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.expandPanel}>
-                  <Typography variant="body1">
-                    Recipe
-                    <SelectDropdown fullWidth></SelectDropdown>
-                  </Typography>
+                  <Typography variant="body1">Recipe</Typography>
+                  <SelectDropdown fullWidth></SelectDropdown>
                   <Divider className={classes.divider} />
 
                   <div className={classes.tiers}>
@@ -185,25 +183,23 @@ function GraphRightPanel(props) {
                   </div>
                   <Divider className={classes.divider} />
 
-                  <Typography variant="body1">
-                    Miner Efficiency
-                    <TextField
-                      id="overclock-val"
-                      label="Overclock (%)"
-                      className={classes.overclockTextField}
-                      fullWidth
-                      // value={}
-                      // onChange={}
-                    />
-                    <Slider
-                      classes={classes.slider}
-                      // value={}
-                      min={0}
-                      max={250}
-                      step={1}
-                      // onChange={}
-                    />
-                  </Typography>
+                  <Typography variant="body1">Miner Efficiency</Typography>
+                  <TextField
+                    id="overclock-val"
+                    label="Overclock (%)"
+                    className={classes.overclockTextField}
+                    fullWidth
+                    value={''}
+                    // onChange={}
+                  />
+                  <Slider
+                    classes={classes.slider}
+                    // value={}
+                    min={0}
+                    max={250}
+                    step={1}
+                    // onChange={}
+                  />
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>
                   <IconButton color="secondary">
