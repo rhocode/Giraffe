@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -31,41 +31,35 @@ const styles = theme => ({
   }
 });
 
-class GraphActionsBottomActions extends Component {
-  handleChange = (event, value) => {
-    this.props.setMouseMode(value);
+function GraphActionsBottomActions(props) {
+  const { classes, mouseMode } = props;
+
+  const handleChange = (event, value) => {
+    props.setMouseMode(value);
   };
 
-  render() {
-    const { classes, mouseMode } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <BottomNavigation
-          value={mouseMode}
-          onChange={this.handleChange}
-          className={classes.navigation}
-        >
-          <BottomNavigationAction
-            label="Move"
-            value="move"
-            icon={<OpenWithIcon />}
-          />
-          <BottomNavigationAction
-            label="Select"
-            value="select"
-            icon={<CropFreeIcon />}
-          />
-          <BottomNavigationAction
-            label="Link"
-            value="link"
-            icon={<LinkIcon />}
-          />
-          <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
-        </BottomNavigation>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <BottomNavigation
+        value={mouseMode}
+        onChange={handleChange}
+        className={classes.navigation}
+      >
+        <BottomNavigationAction
+          label="Move"
+          value="move"
+          icon={<OpenWithIcon />}
+        />
+        <BottomNavigationAction
+          label="Select"
+          value="select"
+          icon={<CropFreeIcon />}
+        />
+        <BottomNavigationAction label="Link" value="link" icon={<LinkIcon />} />
+        <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
+      </BottomNavigation>
+    </div>
+  );
 }
 
 function mapStateToProps(state) {
