@@ -1,0 +1,4 @@
+checks:
+  - name: lighthouse-keeper
+    options:
+      buildPath: ./build
