@@ -339,7 +339,8 @@ function SGCanvasRefactored(props) {
               dragStart,
               dragCurrent,
               setSelectedNodes,
-              setSelectedEdges
+              setSelectedEdges,
+              transform
             )
           )
       )
