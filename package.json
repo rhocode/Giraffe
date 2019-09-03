@@ -7,7 +7,7 @@
   "private": true,
   "description": "SatisGraphtory App",
   "dependencies": {
-    "@devexpress/dx-react-core": "^2.0.3",
+    "@devexpress/dx-react-core": "^2.0.4",
     "@devexpress/dx-react-grid": "^2.0.3",
     "@devexpress/dx-react-grid-material-ui": "^2.0.4",
     "@emotion/core": "^10.0.17",
