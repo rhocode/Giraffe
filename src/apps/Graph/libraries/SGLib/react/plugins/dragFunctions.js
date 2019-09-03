@@ -6,6 +6,10 @@ export const dragStartPlugin = (
   mouseMode,
   setDragStart
 ) => {
+  console.error(d3.event.x, d3.event.y);
+  d3.event.subject.fx = transform.invertX(d3.event.x);
+  d3.event.subject.fy = transform.invertY(d3.event.y);
+
   // if (!d3.event.active) simulation.alphaTarget(0.3).restart();
   // const x = transform.invertX(d3.event.x);
   // const y = transform.invertY(d3.event.y);
@@ -31,21 +35,19 @@ export const dragDuringPlugin = (
 ) => {
   const subject = d3.event.subject;
 
+  d3.event.subject.fx = transform.invertX(d3.event.x);
+  d3.event.subject.fy = transform.invertY(d3.event.y);
+
   // subject.fx = Math.floor(d3.event.dx / transform.k);
   // subject.fy += Math.floor(d3.event.dy / transform.k);
   //
 
-  const initialX = transform.k * d3.event.x + transform.x;
-  const initialY = transform.k * d3.event.y + transform.y;
-
-  // subject.fx = transform.applyX(d3.event.x)
-  //   // subject.fy = transform.applyY(d3.event.y)
-
-  console.log('TRANSFORM', d3.event.x, d3.event.y);
-
-  subject.fx = transform.invertX(transform.applyX(d3.event.x) / transform.k);
-  subject.fy = transform.invertY(transform.applyY(d3.event.y) / transform.k);
-
+  //
+  // // subject.fx = transform.applyX(d3.event.x)
+  // //   // subject.fy = transform.applyY(d3.event.y)
+  //
+  // console.log('TRANSFORM', d3.event.x, d3.event.y);
+  //
   // const x = transform.invertX(d3.event.x);
   // const y = transform.invertY(d3.event.y);
   //
@@ -87,8 +89,17 @@ export const dragEndPlugin = (
   dragStart,
   dragCurrent,
   setSelectedNodes,
-  setSelectedEdges
+  setSelectedEdges,
+  transform
 ) => {
+  const node = d3.event.subject;
+
+  node.x = transform.invertX(d3.event.x);
+  node.y = transform.invertY(d3.event.y);
+
+  d3.event.subject.fx = transform.invertX(d3.event.x);
+  d3.event.subject.fy = transform.invertY(d3.event.y);
+
   // if (!d3.event.active) simulation.alphaTarget(0);
   //
   // if (mouseMode === 'select') {
@@ -185,8 +196,10 @@ export const dragSubjectPlugin = (
       // node.x =
       // node.y =
       console.log('TRANSFORM MEEEE', transform, node.x, node.y);
-      node.fx = transform.applyX(node.x);
-      node.fy = transform.applyY(node.y);
+      node.x = transform.applyX(node.x);
+      node.y = transform.applyY(node.y);
+      node.fx = null;
+      node.fy = null;
       setSelectedNodes({});
       setSelectedEdges({});
       return node;
