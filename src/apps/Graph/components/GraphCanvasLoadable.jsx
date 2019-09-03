@@ -20,7 +20,7 @@ const LoadableComponent = Loadable({
   },
   loading: LoadingBar
 });
-
+// import('../libraries/SGLib/react/SGCanvasRefactored')
 export default class GraphCanvasLoadable extends React.Component {
   render() {
     return <LoadableComponent />;
