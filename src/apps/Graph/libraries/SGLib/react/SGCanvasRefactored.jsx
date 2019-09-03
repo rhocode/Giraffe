@@ -21,13 +21,6 @@ import {
 } from './plugins/dragFunctions';
 import zoomPlugin from './plugins/zoomFunction';
 
-if (process.env.NODE_ENV !== 'production') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  whyDidYouRender(React, {
-    trackHooks: true
-  });
-}
-
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
     width: 0,
@@ -85,7 +78,20 @@ function useBoundingBoxRect(props) {
 let transform = d3.zoomIdentity;
 
 const setTransform = t => {
+  console.log('set transform as', t);
   transform = t;
+};
+
+let dragStart = null;
+
+const setDragStart = t => {
+  dragStart = t;
+};
+
+let dragCurrent = null;
+
+const setDragCurrent = t => {
+  dragCurrent = t;
 };
 
 function SGCanvasRefactored(props) {
@@ -94,7 +100,10 @@ function SGCanvasRefactored(props) {
     mouseMode,
     graphData,
     graphSourceNode,
-    graphFidelity
+    graphFidelity,
+    translate,
+    selectedMachine,
+    setGraphSourceNode
   } = props;
 
   // Initial load on component
@@ -145,11 +154,8 @@ function SGCanvasRefactored(props) {
   const ratio = window.devicePixelRatio || 1;
   const { heightOverride, widthOverride } = props;
 
-  const selectedEdges = {};
-  const selectedNodes = {};
-
-  const dragStart = null;
-  const dragCurrent = null;
+  const [selectedEdges, setSelectedEdges] = useState({});
+  const [selectedNodes, setSelectedNodes] = useState({});
 
   const graphEdges = graphData ? graphData.edges : null;
   const graphNodes = graphData ? graphData.nodes : null;
@@ -159,6 +165,7 @@ function SGCanvasRefactored(props) {
 
   const simulationUpdate = React.useCallback(
     (localTransform = transform) => {
+      if (!canvasContext) return;
       canvasContext.save();
 
       canvasContext.clearRect(0, 0, usedWidth, usedHeight);
@@ -225,10 +232,12 @@ function SGCanvasRefactored(props) {
       if (graphFidelity === 'low') {
         canvasContext.scale(localTransform.k, localTransform.k);
         graphNodes.forEach(function(d) {
+          // console.log("LOWRENDERED");
           d.lowRender(canvasContext, selectedNode === d);
         });
       } else {
         graphNodes.forEach(function(d) {
+          // console.log("HIGHRENDERED");
           d.render(canvasContext, localTransform, selectedNode === d);
         });
       }
@@ -283,8 +292,13 @@ function SGCanvasRefactored(props) {
           return d.id;
         })
     )
-    .alphaTarget(0)
+    .alphaTarget(1)
     .alphaDecay(1);
+
+  useEffect(() => {
+    simulation.restart();
+    simulation.alphaDecay(1);
+  }, [graphFidelity, simulation, selectedEdges, selectedNodes, graphData]);
 
   useEffect(() => {
     if (!canvasCurrent) return;
@@ -292,15 +306,59 @@ function SGCanvasRefactored(props) {
       .call(
         d3
           .drag()
+          .container(canvasCurrent)
           .clickDistance(4)
-          .subject(() => dragSubjectPlugin())
-          .on('start', () => dragStartPlugin())
-          .on('drag', () => dragDuringPlugin())
-          .on('end', () => dragEndPlugin())
+          .subject(() =>
+            dragSubjectPlugin(
+              graphData,
+              transform,
+              mouseMode,
+              selectedNodes,
+              setSelectedNodes,
+              setSelectedEdges
+            )
+          )
+          .on('start', () =>
+            dragStartPlugin(simulation, transform, mouseMode, setDragStart)
+          )
+          .on('drag', () =>
+            dragDuringPlugin(
+              transform,
+              mouseMode,
+              setDragCurrent,
+              selectedNodes
+            )
+          )
+          .on('end', () =>
+            dragEndPlugin(
+              simulation,
+              graphData,
+              mouseMode,
+              setDragStart,
+              setDragCurrent,
+              dragStart,
+              dragCurrent,
+              setSelectedNodes,
+              setSelectedEdges
+            )
+          )
       )
-      .on('click', function() {
-        clickPlugin(this);
-      })
+      .on('click', () =>
+        clickPlugin(
+          graphSourceNode,
+          setGraphSourceNode,
+          translate,
+          setGraphData,
+          graphData,
+          selectedMachine,
+          setMouseMode,
+          transform,
+          setSelectedEdges,
+          selectedNodes,
+          setSelectedNodes,
+          mouseMode
+        )
+      )
       .call(
         d3
           .zoom()
@@ -323,7 +381,20 @@ function SGCanvasRefactored(props) {
             )
           )
       );
-  }, [canvasCurrent, graphData, graphFidelity, mouseMode, simulationUpdate]);
+  }, [
+    canvasCurrent,
+    graphData,
+    graphFidelity,
+    graphSourceNode,
+    mouseMode,
+    selectedMachine,
+    selectedNodes,
+    setGraphData,
+    setGraphSourceNode,
+    simulation,
+    simulationUpdate,
+    translate
+  ]);
 
   useEffect(() => {
     if (!graphEdges || !graphNodes) return;
@@ -342,9 +413,6 @@ function SGCanvasRefactored(props) {
     }
   }, [graphEdges, graphFidelity, graphNodes, simulation, simulationUpdate]);
 
-  // console.log(JSON.stringify({...props, graphNodes: []}));
-
-  // console.log(props);
   return (
     <div ref={ref} className={props.classes.canvasContainer}>
       <canvas
@@ -376,8 +444,6 @@ const styles = () => ({
     minHeight: 0
   }
 });
-
-SGCanvasRefactored.whyDidYouRender = true;
 
 function mapStateToProps(state) {
   return {
