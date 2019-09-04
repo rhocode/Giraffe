@@ -1,33 +1,33 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import LinkIcon from '@material-ui/icons/Link';
-import OpenWithIcon from '@material-ui/icons/OpenWith';
-import CropFreeIcon from '@material-ui/icons/CropFree';
-import AddIcon from '@material-ui/icons/Add';
-import { setMouseMode } from '../../../redux/actions/Graph/graphActions';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import LinkIcon from "@material-ui/icons/Link";
+import OpenWithIcon from "@material-ui/icons/OpenWith";
+import CropFreeIcon from "@material-ui/icons/CropFree";
+import AddIcon from "@material-ui/icons/Add";
+import { setMouseMode } from "../../../redux/actions/Graph/graphActions";
 
 const styles = theme => ({
   default: {
     zIndex: theme.zIndex.drawer
   },
   root: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     height: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
     zIndex: theme.zIndex.drawer + 1
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto'
+    pointerEvents: "auto"
   }
 });
 

@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as d3 from 'd3';
-import { stringGen } from '../utils/stringUtils';
-import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as d3 from "d3";
+import { stringGen } from "../utils/stringUtils";
+import MachineNode, { GraphNode } from "../datatypes/graph/graphNode";
 import {
   setGraphData,
   setGraphSourceNode,
   setMouseMode
-} from '../../../../../redux/actions/Graph/graphActions';
-import { GraphEdge } from '../datatypes/graph/graphEdge';
-import { withStyles } from '@material-ui/core';
-import { getTranslate } from 'react-localize-redux';
+} from "../../../../../redux/actions/Graph/graphActions";
+import { GraphEdge } from "../datatypes/graph/graphEdge";
+import { withStyles } from "@material-ui/core";
+import { getTranslate } from "react-localize-redux";
 
 const styles = () => ({
   canvas: {
-    gridArea: 'canvasElement',
+    gridArea: "canvasElement",
     minWidth: 0,
     minHeight: 0
   }
@@ -39,16 +39,16 @@ class SGCanvas extends Component {
     const width = this.props.width;
     const height = this.props.height;
 
-    this.graphCanvas = d3.select('#' + this.canvasId).node();
+    this.graphCanvas = d3.select("#" + this.canvasId).node();
 
     this.simulation = d3
       .forceSimulation()
-      .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('x', d3.forceX(width / 2).strength(0.1))
-      .force('y', d3.forceY(height / 2).strength(0.1))
-      .force('charge', d3.forceManyBody().strength(-50))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX(width / 2).strength(0.1))
+      .force("y", d3.forceY(height / 2).strength(0.1))
+      .force("charge", d3.forceManyBody().strength(-50))
       .force(
-        'link',
+        "link",
         d3
           .forceLink()
           .strength(1)
@@ -59,7 +59,7 @@ class SGCanvas extends Component {
       .alphaTarget(0)
       .alphaDecay(1);
 
-    this.graphContext = this.graphCanvas.getContext('2d');
+    this.graphContext = this.graphCanvas.getContext("2d");
 
     const nodes = [];
     const edges = [];
@@ -97,13 +97,13 @@ class SGCanvas extends Component {
   }
 
   componentWillReceiveProps = newProps => {
-    if (this.props.mouseMode === 'link' && newProps.mouseMode !== 'link') {
+    if (this.props.mouseMode === "link" && newProps.mouseMode !== "link") {
       if (
         this.props.graphSourceNode !== null ||
         newProps.graphSourceNode !== null
       ) {
         this.props.setGraphSourceNode(null);
-        console.error('RESET SOURCE');
+        console.error("RESET SOURCE");
       }
     }
   };
@@ -111,11 +111,11 @@ class SGCanvas extends Component {
   componentDidUpdate = () => {
     if (!this.initialized) {
       this.initialized = true;
-      this.graphContext = this.graphCanvas.getContext('2d');
+      this.graphContext = this.graphCanvas.getContext("2d");
       this.initGraph();
       this.simulation.restart(0.3);
     } else {
-      this.graphContext = this.graphCanvas.getContext('2d');
+      this.graphContext = this.graphCanvas.getContext("2d");
       this.updateGraph();
       this.simulation.restart(0.3);
     }
@@ -149,21 +149,21 @@ class SGCanvas extends Component {
 
     this.regenerateFidelity();
 
-    simulation.nodes(graphData.nodes).on('tick', this.simulationUpdate);
+    simulation.nodes(graphData.nodes).on("tick", this.simulationUpdate);
 
-    simulation.force('link').links(graphData.edges);
+    simulation.force("link").links(graphData.edges);
   };
 
   zoomed = () => {
     const { graphData, graphFidelity } = this.props;
 
-    if (this.props.mouseMode !== 'move' && this.props.mouseMode !== 'add') {
+    if (this.props.mouseMode !== "move" && this.props.mouseMode !== "add") {
       return;
     }
 
     const transform = (this.transform = d3.event.transform); // REQUIRED for updating the zoom
 
-    if (graphFidelity !== 'low' && transform.k !== this.k) {
+    if (graphFidelity !== "low" && transform.k !== this.k) {
       this.k = transform.k;
       graphData.nodes.forEach(node => {
         node.preRender(transform);
@@ -185,7 +185,7 @@ class SGCanvas extends Component {
     context.translate(transform.x, transform.y);
 
     context.save();
-    context.lineCap = 'round';
+    context.lineCap = "round";
 
     context.globalAlpha = 1.0;
     context.scale(transform.k, transform.k);
@@ -218,7 +218,7 @@ class SGCanvas extends Component {
 
     const selectedNode = this.props.graphSourceNode;
 
-    if (graphFidelity === 'low') {
+    if (graphFidelity === "low") {
       context.scale(transform.k, transform.k);
 
       Object.keys(this.selectedNodes).forEach(nodeId => {
@@ -244,7 +244,7 @@ class SGCanvas extends Component {
 
     context.save();
 
-    if (graphFidelity === 'low') {
+    if (graphFidelity === "low") {
       context.scale(transform.k, transform.k);
       graphData.nodes.forEach(function(d) {
         d.lowRender(context, selectedNode === d);
@@ -266,11 +266,11 @@ class SGCanvas extends Component {
       const y2 = this.dragCurrent.y;
 
       context.globalAlpha = 0.15;
-      context.fillStyle = '#FFA328';
+      context.fillStyle = "#FFA328";
       context.fillRect(x1, y1, x2 - x1, y2 - y1);
 
       context.setLineDash([8, 2]);
-      context.strokeStyle = '#FFA328';
+      context.strokeStyle = "#FFA328";
       context.globalAlpha = 1.0;
 
       context.strokeRect(x1, y1, x2 - x1, y2 - y1);
@@ -293,7 +293,7 @@ class SGCanvas extends Component {
 
     const selectedNodeKeys = Object.keys(this.selectedNodes);
 
-    if (this.props.mouseMode === 'select') {
+    if (this.props.mouseMode === "select") {
       // First, check the node clicking:
 
       const nodes = this.props.graphData.nodes;
@@ -307,8 +307,8 @@ class SGCanvas extends Component {
         }
       }
 
-      const innerCanvas = document.createElement('canvas');
-      const innerContext = innerCanvas.getContext('2d');
+      const innerCanvas = document.createElement("canvas");
+      const innerContext = innerCanvas.getContext("2d");
       innerContext.canvas.width = 3;
       innerContext.canvas.height = 3;
 
@@ -332,16 +332,16 @@ class SGCanvas extends Component {
       this.selectedNodes = {};
       this.selectedEdges = {};
       this.simulationUpdate();
-      this.props.setMouseMode('move');
+      this.props.setMouseMode("move");
       return;
-    } else if (this.props.mouseMode === 'move' && selectedNodeKeys.length) {
+    } else if (this.props.mouseMode === "move" && selectedNodeKeys.length) {
       for (let i = 0; i < selectedNodeKeys.length; i++) {
         const node = this.selectedNodes[selectedNodeKeys[i]];
         if (node.intersectsPoint(x, y)) {
           return; // noop for now
         }
       }
-    } else if (this.props.mouseMode === 'move') {
+    } else if (this.props.mouseMode === "move") {
       // First, check the node clicking:
 
       const nodes = this.props.graphData.nodes;
@@ -351,13 +351,13 @@ class SGCanvas extends Component {
         if (node.intersectsPoint(x, y)) {
           this.selectedNodes[node.id] = node;
           this.simulationUpdate();
-          this.props.setMouseMode('select');
+          this.props.setMouseMode("select");
           return;
         }
       }
 
-      const innerCanvas = document.createElement('canvas');
-      const innerContext = innerCanvas.getContext('2d');
+      const innerCanvas = document.createElement("canvas");
+      const innerContext = innerCanvas.getContext("2d");
       innerContext.canvas.width = 3;
       innerContext.canvas.height = 3;
 
@@ -374,13 +374,13 @@ class SGCanvas extends Component {
         if (innerData.every(item => item !== 0)) {
           this.selectedEdges[edge.id] = edge;
           this.simulationUpdate();
-          this.props.setMouseMode('select');
+          this.props.setMouseMode("select");
           return;
         }
       }
     }
 
-    if (this.props.mouseMode === 'add' && this.props.selectedMachine) {
+    if (this.props.mouseMode === "add" && this.props.selectedMachine) {
       const newGraph = Object.assign({}, this.props.graphData);
 
       // d3.event.x, y: d3.event.y
@@ -396,7 +396,7 @@ class SGCanvas extends Component {
         )
       );
       this.props.setGraphData(newGraph);
-    } else if (this.props.mouseMode === 'link') {
+    } else if (this.props.mouseMode === "link") {
       let selectedNode = null;
 
       let i;
@@ -423,7 +423,7 @@ class SGCanvas extends Component {
             const graphData = this.props.graphData;
 
             try {
-              console.error('AAAAA', this.props.graphSourceNode, selectedNode);
+              console.error("AAAAA", this.props.graphSourceNode, selectedNode);
               const edge = new GraphEdge(
                 this.props.graphSourceNode,
                 selectedNode
@@ -432,7 +432,7 @@ class SGCanvas extends Component {
               this.props.setGraphData(graphData);
               this.props.setGraphSourceNode(null);
             } catch (e) {
-              console.error('Output slot full!', e);
+              console.error("Output slot full!", e);
             }
           }
         } else {
@@ -458,7 +458,7 @@ class SGCanvas extends Component {
     d3.event.subject.fy = y;
 
     // Set the drag start
-    if (this.props.mouseMode === 'select') {
+    if (this.props.mouseMode === "select") {
       this.dragStart = { x: d3.event.x, y: d3.event.y, ex: x, ey: y };
     }
 
@@ -481,7 +481,7 @@ class SGCanvas extends Component {
     const x = transform.invertX(d3.event.x);
     const y = transform.invertY(d3.event.y);
 
-    if (this.props.mouseMode === 'select') {
+    if (this.props.mouseMode === "select") {
       this.dragCurrent = { x: d3.event.x, y: d3.event.y, ex: x, ey: y };
     }
 
@@ -493,7 +493,7 @@ class SGCanvas extends Component {
       subject.sortSlots();
       subject.sortConnectedNodeSlots();
     } else if (
-      this.props.mouseMode !== 'select' &&
+      this.props.mouseMode !== "select" &&
       Object.keys(this.selectedNodes).length
     ) {
       // It's a grouping of nodes
@@ -520,9 +520,9 @@ class SGCanvas extends Component {
 
     if (!d3.event.active) simulation.alphaTarget(0);
 
-    if (this.props.mouseMode === 'select') {
+    if (this.props.mouseMode === "select") {
       // TODO: Selection logic
-      console.log('DRAGENDED!!!!!');
+      console.log("DRAGENDED!!!!!");
       this.selectedNodes = {};
       this.selectedEdges = {};
       const x1 = this.dragStart.ex;
@@ -554,7 +554,7 @@ class SGCanvas extends Component {
       const node = graphData.nodes[i];
       // node.fx = node.x - deltaX;
       // node.fy = node.y - deltaY;
-      console.error('ENDED');
+      console.error("ENDED");
       node.x = node.fx;
       node.y = node.fy;
       // node.fx = null;
@@ -570,7 +570,7 @@ class SGCanvas extends Component {
 
     const transform = this.transform;
 
-    if (this.props.mouseMode === 'link') {
+    if (this.props.mouseMode === "link") {
       return null;
     }
 
@@ -580,7 +580,7 @@ class SGCanvas extends Component {
 
     // console.error("DRAGSUB", x, y);
 
-    if (this.props.mouseMode === 'select') {
+    if (this.props.mouseMode === "select") {
       return { x: d3.event.x, y: d3.event.y };
     }
 
@@ -588,7 +588,7 @@ class SGCanvas extends Component {
 
     let draggingGroup = false;
 
-    if (this.props.mouseMode === 'move' && selectedNodeKeys.length) {
+    if (this.props.mouseMode === "move" && selectedNodeKeys.length) {
       for (i = 0; i < selectedNodeKeys.length; i++) {
         const node = this.selectedNodes[selectedNodeKeys[i]];
         if (node.intersectsPoint(x, y)) {
@@ -622,7 +622,7 @@ class SGCanvas extends Component {
       }
     }
 
-    if (this.props.mouseMode === 'add') {
+    if (this.props.mouseMode === "add") {
       return { x: d3.event.x, y: d3.event.y };
     }
 
@@ -632,7 +632,7 @@ class SGCanvas extends Component {
   regenerateFidelity = () => {
     const { graphData, graphFidelity } = this.props;
 
-    if (graphFidelity === 'low') {
+    if (graphFidelity === "low") {
       graphData.nodes.forEach(node => {
         node.preRender(d3.zoomIdentity);
       });
@@ -654,28 +654,28 @@ class SGCanvas extends Component {
           .drag()
           .clickDistance(4)
           .subject(this.dragSubject)
-          .on('start', this.dragStartFunc)
-          .on('drag', this.draggedFunc)
-          .on('end', this.dragEndFunc)
+          .on("start", this.dragStartFunc)
+          .on("drag", this.draggedFunc)
+          .on("end", this.dragEndFunc)
       )
-      .on('click', function() {
+      .on("click", function() {
         thisAccessor.clicked(this);
       })
       .call(
         d3
           .zoom()
           .filter(function() {
-            if (thisAccessor.props.mouseMode === 'add') {
-              return d3.event.type !== 'dblclick';
+            if (thisAccessor.props.mouseMode === "add") {
+              return d3.event.type !== "dblclick";
             }
 
-            if (thisAccessor.props.mouseMode === 'link') {
+            if (thisAccessor.props.mouseMode === "link") {
               return false;
             }
             return true;
           })
           .scaleExtent([1 / 10, 8])
-          .on('zoom', this.zoomed)
+          .on("zoom", this.zoomed)
       );
     this.updateGraph();
   };
@@ -684,7 +684,7 @@ class SGCanvas extends Component {
     return (
       <canvas
         className={this.props.classes.canvas}
-        style={{ display: 'block' }}
+        style={{ display: "block" }}
         id={this.canvasId}
         ref={this.props.reference}
         width={this.props.width}

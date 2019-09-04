@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Page from './components/Page';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
-import Card from './components/Card';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
-import Copyright from './components/Copyright';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faDownload } from '@fortawesome/free-solid-svg-icons';
+import Page from "./components/Page";
+import Header from "./components/Header";
+import { Menu, MenuLinks, MenuTrigger } from "./components/Menu";
+import Card from "./components/Card";
+import Section from "./components/Section";
+import Spotlight from "./components/Spotlight";
+import Copyright from "./components/Copyright";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faDownload } from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
   faRedditAlien,
   faTwitter
-} from '@fortawesome/free-brands-svg-icons';
-import AsyncComponent from '../../common/react/AsyncComponent';
-import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
+} from "@fortawesome/free-brands-svg-icons";
+import AsyncComponent from "../../common/react/AsyncComponent";
+import satisgraphtory2_square from "../../images/satisgraphtory2_square.png";
 
 class HomeApp extends Component {
   state = {
@@ -29,14 +29,14 @@ class HomeApp extends Component {
     if (!!this.props.location.hash) {
       window.location.href =
         window.location.protocol +
-        '//old.satisgraphtory.com' +
+        "//old.satisgraphtory.com" +
         window.location.pathname +
         window.location.search;
     }
   }
 
   render() {
-    const Css = AsyncComponent(import('./CssWrapper'));
+    const Css = AsyncComponent(import("./CssWrapper"));
     return (
       <Page>
         <Css />
@@ -84,7 +84,7 @@ class HomeApp extends Component {
                 alt="satisgraphtory logo"
                 width="100"
                 src={satisgraphtory2_square}
-              ></img>
+              />
               <h2>Satisgraphtory</h2>
             </div>
 
@@ -113,7 +113,7 @@ class HomeApp extends Component {
         </section>
 
         <main id="wrapper">
-          <div id="new"></div>
+          <div id="new" />
           <Section id="one" style1 right>
             <Spotlight
               right
@@ -155,12 +155,12 @@ class HomeApp extends Component {
               img="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
               imgAlt="ui overhaul"
               title="UI Overhaul."
-              desc='Designed with a "mobile-first" mentality, the layout and
+              desc="Designed with a &quot;mobile-first&quot; mentality, the layout and
               menus are designed to be used on a small, medium, or large
               mobile device. Desktop is, of course, perfectly
               acceptable. With the addition of new selector, pan, and
               revamped machine tools, creating a factory is easier than
-              ever.'
+              ever."
             />
           </Section>
 
@@ -212,7 +212,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://twitter.com/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{" "}
               @satisgraphtory
             </a>
             <a
@@ -221,7 +221,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://discord.gg/ZRpcgqY"
             >
-              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{" "}
               Discord Server
             </a>
             <a
@@ -230,7 +230,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://reddit.com/r/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{" "}
               /r/satisgraphtory
             </a>
             <Copyright>
