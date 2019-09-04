@@ -14,8 +14,6 @@ const zoomPlugin = (
 
   const localTransform = d3.event.transform;
 
-  console.log('FDSKFSDFKMSFMSDF', d3.event.transform);
-
   setTransform(localTransform);
 
   if (graphFidelity !== 'low' && localTransform.k !== transform.k) {

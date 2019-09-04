@@ -7,6 +7,9 @@ import Hidden from '@material-ui/core/Hidden';
 import GraphSettingsButton from './GraphSettingsButton';
 import GraphHelpButton from './GraphHelpButton';
 import GraphShareButton from './GraphShareButton';
+import Badge from '@material-ui/core/Badge';
+import satisgraphtory2 from '../../../images/satisgraphtory2.png';
+import satisgraphtory2_square from '../../../images/satisgraphtory2_square.png';
 
 const styles = theme => ({
   appBar: {
@@ -29,6 +32,9 @@ const styles = theme => ({
   },
   toolbar: {
     minHeight: theme.overrides.GraphAppBar.height
+  },
+  margin: {
+    padding: theme.spacing(0, 3)
   }
 });
 
@@ -40,15 +46,21 @@ class GraphAppBar extends Component {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar classes={{ root: classes.toolbar }}>
           <Hidden xsDown implementation="css">
-            <img
-              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2.png"
-              alt="Satisgraphtory!"
-              className={classes.logo}
-            />
+            <Badge
+              className={classes.margin}
+              badgeContent={'Pre-Alpha'}
+              color="secondary"
+            >
+              <img
+                src={satisgraphtory2}
+                alt="Satisgraphtory!"
+                className={classes.logo}
+              />
+            </Badge>
           </Hidden>
           <Hidden smUp implementation="css">
             <img
-              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory2_square.png"
+              src={satisgraphtory2_square}
               alt="Satisgraphtory!"
               className={classes.logoSmall}
             />

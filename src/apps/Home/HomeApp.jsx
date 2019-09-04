@@ -15,6 +15,7 @@ import {
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
 import AsyncComponent from '../../common/react/AsyncComponent';
+import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 
 class HomeApp extends Component {
   state = {
@@ -44,7 +45,7 @@ class HomeApp extends Component {
             <img
               alt="satisgraphtory logo"
               className="header-logo"
-              src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory_square.png"
+              src={satisgraphtory2_square}
             />
           </h1>
           <MenuTrigger onClick={() => this.toggleMenu(true)} />
@@ -82,12 +83,12 @@ class HomeApp extends Component {
               <img
                 alt="satisgraphtory logo"
                 width="100"
-                src="https://raw.githubusercontent.com/rhocode/rhocode.github.io/master/img/satisgraphtory_square.png"
+                src={satisgraphtory2_square}
               ></img>
               <h2>Satisgraphtory</h2>
             </div>
 
-            <p>Presenting version 2 of SatisGraphtory. Now new and improved.</p>
+            <p>Presenting version 2 of SatisGraphtory. Better than ever.</p>
 
             <p>Launch the alpha.</p>
 
