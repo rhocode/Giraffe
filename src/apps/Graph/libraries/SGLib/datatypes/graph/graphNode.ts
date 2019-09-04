@@ -7,6 +7,7 @@ import { GraphEdge } from './graphEdge';
 import { imageRepository } from '../../repositories/imageRepository';
 import * as protobuf from 'protobufjs/light';
 import getLatestSchema from '../../utils/getLatestSchema';
+import * as d3 from 'd3';
 
 type Nullable<T> = T | null;
 
@@ -55,8 +56,6 @@ export abstract class GraphNode {
 
     this.zoomedCanvasOutlined = document.createElement('canvas');
     this.zoomedContextOutlined = this.zoomedCanvasOutlined.getContext('2d');
-
-    this.preRender();
   }
 
   setSelected(option: boolean) {
@@ -258,8 +257,8 @@ export abstract class GraphNode {
 export default class MachineNode extends GraphNode {
   overclock: number;
   machineId: number;
-  width: number = 205;
-  height: number = 155;
+  readonly width: number = 205;
+  readonly height: number = 155;
   xRenderBuffer: number = 15;
   yRenderBuffer: number = 15;
   machineObject: any;
@@ -281,7 +280,6 @@ export default class MachineNode extends GraphNode {
     this.outputSlots = [null, null, null];
 
     if (this.machineObject && this.machineObject.class) {
-      console.error('ALL DONE!!!!');
       this.inputSlots = [];
       this.outputSlots = [];
 
@@ -300,6 +298,8 @@ export default class MachineNode extends GraphNode {
     }
 
     this.getImage();
+
+    this.initialRender();
   }
 
   drawPathToTarget(context: any, target: GraphEdge): void {
@@ -429,6 +429,10 @@ export default class MachineNode extends GraphNode {
     }
 
     return '';
+  }
+
+  initialRender(): void {
+    this.preRender(d3.zoomIdentity);
   }
 
   preRender(transform: any, debugContext: any = this.context): void {
