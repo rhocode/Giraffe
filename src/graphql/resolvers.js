@@ -3,18 +3,32 @@ import * as protobuf from 'protobufjs/light';
 
 const root = () => protobuf.Root.fromJSON(schemas['0.1.0']);
 
-const loadData = (filename, mapper) => {
-  console.error('Somehow is loading these files!');
-  const ItemList = root().lookupType(filename);
-  return fetch(`${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`)
-    .then(data => data.arrayBuffer())
-    .then(buffer => new Uint8Array(buffer))
-    .then(buffer => {
-      return ItemList.decode(buffer);
-    })
-    .then(data => ItemList.toObject(data).data)
-    .then(data => mapper(data));
+const loadDataRaw = () => {
+  console.error('LoadData was called');
+  const memoizedLoadData = {};
+  return (filename, mapper) => {
+    if (memoizedLoadData[filename]) {
+      return memoizedLoadData[filename];
+    } else {
+      console.error('Loading', filename);
+      const ItemList = root().lookupType(filename);
+      const promise = fetch(
+        `${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`
+      )
+        .then(data => data.arrayBuffer())
+        .then(buffer => new Uint8Array(buffer))
+        .then(buffer => {
+          return ItemList.decode(buffer);
+        })
+        .then(data => ItemList.toObject(data).data)
+        .then(data => mapper(data));
+      memoizedLoadData[filename] = promise;
+      return promise;
+    }
+  };
 };
+
+const loadData = loadDataRaw();
 
 // const iDataMapper = data => {
 //   const Item = root().lookupEnum('Item');
