@@ -11,16 +11,34 @@ import { withLocalize } from 'react-localize-redux';
 import en from '../../translations/en.json';
 import discord from '../../translations/discord.json';
 
-import AsyncComponent from '../../common/react/AsyncComponent';
-import HomeApp from '../../apps/Home/HomeApp';
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 import { ApolloProvider } from 'react-apollo';
 import { getClient } from '../../graphql';
 
-const GraphApp = AsyncComponent(import('../../apps/Graph/GraphApp'));
-const HubApp = AsyncComponent(import('../../apps/Hub/HubApp'));
-const LabApp = AsyncComponent(import('../../apps/Lab/LabApp'));
-const DataApp = AsyncComponent(import('../../apps/Data/DataApp'));
+const chooseLoadingStyle = importFunc => {
+  if (process.env.REACT_APP_ELECTRON === 'true') {
+    // Preloading enabled!
+    const appPromise = importFunc();
+    return React.lazy(() => appPromise);
+  } else {
+    return React.lazy(importFunc);
+  }
+};
+
+const HomeImport = () => import('../../apps/Home/HomeApp');
+const HomeApp = chooseLoadingStyle(HomeImport);
+
+const GraphImport = () => import('../../apps/Graph/GraphApp');
+const GraphApp = chooseLoadingStyle(GraphImport);
+
+const HubImport = () => import('../../apps/Hub/HubApp');
+const HubApp = chooseLoadingStyle(HubImport);
+
+const LabImport = () => import('../../apps/Lab/LabApp');
+const LabApp = chooseLoadingStyle(LabImport);
+
+const DataImport = () => import('../../apps/Data/DataApp');
+const DataApp = chooseLoadingStyle(DataImport);
 
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;

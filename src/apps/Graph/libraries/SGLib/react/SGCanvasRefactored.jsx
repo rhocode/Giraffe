@@ -23,6 +23,10 @@ import zoomPlugin from './plugins/zoomFunction';
 
 import { setEquals } from '../utils/sets';
 import { defaultMachineObjectMock } from '../../../../../mocks/dataMocks';
+import serialize from '../algorithms/satisgraphtory/serialize';
+import getLatestSchema from '../utils/getLatestSchema';
+import deserialize from '../algorithms/satisgraphtory/deserialize';
+import hydrate from '../algorithms/satisgraphtory/hydrate';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -140,17 +144,20 @@ function SGCanvasRefactored(props) {
       edges: edges
     };
 
-    const nodeMapping = {};
-    data.nodes.forEach(node => {
-      nodeMapping[node.id] = node;
-    });
+    // TODO: uncomment after hydrate works
+    // const schema = getLatestSchema();
+    // const serialized = serialize(schema, data);
+    // const deserialized = deserialize(serialized);
+    // hydrate(deserialized, translate, data => {
+    //   setGraphData(data);
+    // });
 
     data.nodes.forEach(node => {
       node.sortSlots();
     });
 
     setGraphData(data);
-  }, [setGraphData]);
+  }, [setGraphData, translate]);
 
   const canvasId = useMemo(() => stringGen(10), []);
   const [

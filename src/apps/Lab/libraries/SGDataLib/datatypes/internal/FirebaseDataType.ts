@@ -78,6 +78,7 @@ export default abstract class FirebaseDataType {
       //   console.error(message);
       // })
       //
+      console.log('FKNANKFLMKF');
       fetch('/proto/0.1.0/ItemList.s2')
         .then(resp => resp.blob())
         .then(blob => new Response(blob).arrayBuffer())

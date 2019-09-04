@@ -280,12 +280,12 @@ export default class MachineNode extends GraphNode {
     x: number,
     y: number,
     fixPosition = false,
-    translator = null
+    translator = null,
+    initialTransform = d3.zoomIdentity
   ) {
     super(x, y);
-    console.log(machineObject);
     this.machineObject = { ...machineObject };
-
+    console.log(machineObject);
     this.overclock = overclock;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
@@ -310,7 +310,7 @@ export default class MachineNode extends GraphNode {
 
     this.getImage();
 
-    this.initialRender();
+    this.initialRender(initialTransform);
   }
 
   drawEdgePath(context: any, edge: GraphEdge): void {
@@ -361,8 +361,8 @@ export default class MachineNode extends GraphNode {
     return '';
   }
 
-  initialRender(): void {
-    this.preRender(d3.zoomIdentity);
+  initialRender(initialTransform: any): void {
+    this.preRender(initialTransform);
   }
 
   preRender(transform: any, debugContext: any = this.context): void {

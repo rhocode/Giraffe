@@ -65,16 +65,18 @@ message MachineClassList {
 
 message Node {
     int32 id = 1;
-    MachineClass class = 2;
-    UpgradeTiers tier = 3;
-    int32 overclock = 4;
-    Recipe recipe = 5;
-    bool hasRecipe = 6;
+    int32 fx = 2;
+    int32 fy = 3;
+    MachineClass class = 4;
+    UpgradeTiers tier = 5;
+    int32 overclock = 6;
+    Recipe recipe = 7;
+    bool hasRecipe = 8;
 }
 
 message Edge {
-    int32 source = 1;
-    int32 target = 2;
+    int32 sourceNodeId = 1;
+    int32 targetNodeId = 2;
     int32 sourceIndex = 3;
     int32 targetIndex = 4;
 }
