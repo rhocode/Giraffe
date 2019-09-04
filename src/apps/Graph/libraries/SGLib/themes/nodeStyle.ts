@@ -1,4 +1,4 @@
-import MachineNode, { GraphNode } from '../datatypes/graph/graphNode';
+import { GraphNode } from '../datatypes/graph/graphNode';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
 
 function drawNodePlug(
@@ -38,13 +38,8 @@ function calculateNodeSpacing(y: number, n: number): number[] {
   return output;
 }
 
-export function drawPath(
-  context: any,
-  source: MachineNode,
-  graphEdge: GraphEdge
-) {
+export function drawPath(context: any, graphEdge: GraphEdge) {
   context.save();
-  graphEdge.updateCoordinates();
   graphEdge.paintEdge(context);
   context.restore();
 }

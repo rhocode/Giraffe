@@ -260,7 +260,7 @@ function SGCanvasRefactored(props) {
       Object.keys(selectedEdges).forEach(edgeId => {
         const edge = selectedEdges[edgeId];
         const startNode = edge.sourceNode;
-        startNode.drawPathToTarget(canvasContext, edge);
+        startNode.drawEdgePath(canvasContext, edge);
       });
 
       if (selectedEdgesLength > 0 || selectedNodesLength > 0) {
@@ -272,7 +272,7 @@ function SGCanvasRefactored(props) {
         // Skip rendering this edge if we have already rendered;
         if (selectedEdges[edge.id]) return;
         const startNode = edge.sourceNode;
-        startNode.drawPathToTarget(canvasContext, edge);
+        startNode.drawEdgePath(canvasContext, edge);
       });
 
       canvasContext.restore();
