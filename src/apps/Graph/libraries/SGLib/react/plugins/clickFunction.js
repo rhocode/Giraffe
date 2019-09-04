@@ -15,7 +15,7 @@ const canvasClickFunction = (
   selectedNodes,
   setSelectedNodes,
   mouseMode,
-  setSelectedData
+  setNodesAndEdges
 ) => {
   if (d3.event.defaultPrevented) {
     return;
@@ -33,7 +33,7 @@ const canvasClickFunction = (
   if (mouseMode === 'select') {
     // First, check the node clicking:
 
-    const nodes = graphData;
+    const nodes = graphData.nodes;
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -66,7 +66,7 @@ const canvasClickFunction = (
       }
     }
 
-    setSelectedData({}, {});
+    setNodesAndEdges({}, {});
     setMouseMode('move');
     return;
   } else if (mouseMode === 'move' && selectedNodeKeys.length) {
