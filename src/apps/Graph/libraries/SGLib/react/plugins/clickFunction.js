@@ -14,7 +14,8 @@ const canvasClickFunction = (
   setSelectedEdges,
   selectedNodes,
   setSelectedNodes,
-  mouseMode
+  mouseMode,
+  setSelectedData
 ) => {
   if (d3.event.defaultPrevented) {
     return;
@@ -59,14 +60,13 @@ const canvasClickFunction = (
       const innerData = innerContext.getImageData(1, 1, 1, 1).data;
       // console.timeEnd("paintCheck");
       if (innerData.every(item => item !== 0)) {
-        localSelectedNodes[edge.id] = edge;
-        setSelectedNodes(localSelectedNodes);
+        localSelectedEdges[edge.id] = edge;
+        setSelectedEdges(localSelectedEdges);
         return;
       }
     }
 
-    setSelectedNodes({});
-    setSelectedEdges({});
+    setSelectedData({}, {});
     setMouseMode('move');
     return;
   } else if (mouseMode === 'move' && selectedNodeKeys.length) {
