@@ -1,28 +1,21 @@
 import * as protobuf from 'protobufjs/light';
-import MachineNode, { GraphNode } from '../../datatypes/graph/graphNode';
-import { b64fromBuffer, ErrMsg, validB64Chars } from '@waiting/base64';
+import { GraphNode } from '../../datatypes/graph/graphNode';
+import { b64fromBuffer } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
 import { GraphEdge } from '../../datatypes/graph/graphEdge';
-import { defaultMachineObjectMock } from '../../../../../../mocks/dataMocks';
+import { getLatestSchemaName } from '../../utils/getLatestSchema';
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 const lookup: string[] = [];
-const revLookup: number[] = [];
 
 for (let i = 0, len = baseChars.length; i < len; ++i) {
   lookup[i] = baseChars[i];
-  revLookup[baseChars.charCodeAt(i)] = i;
 }
 
-// Support decoding URL-safe base64 strings, as Node.js does.
-// See: https://en.wikipedia.org/wiki/Base64#URL_applications
-revLookup['-'.charCodeAt(0)] = 62;
-revLookup['_'.charCodeAt(0)] = 63;
-
-type saveFile = {
-  edges: any;
-  nodes: any;
+export type saveFile = {
+  edges: GraphEdge[];
+  nodes: GraphNode[];
 };
 
 function toString(num: number) {
@@ -69,6 +62,8 @@ const serializeNode = (
 ) => {
   const data: any = node.serialize();
 
+  console.log(data);
+
   const mappedEnums: any = {};
 
   Object.keys(enumMapper).forEach(fieldName => {
@@ -94,6 +89,8 @@ const serializeNode = (
   if (verify) {
     throw new Error('Serializer error: ' + verify);
   }
+
+  console.log(finalMapping);
 
   return finalMapping;
 };
@@ -167,82 +164,6 @@ const dataMapper = (root: any, enumName: string) => {
   };
 };
 
-function parseDecodeInputBase64(base64: string): string {
-  if (!validB64Chars(base64)) {
-    throw new TypeError(ErrMsg.notValidB64String);
-  }
-
-  return base64;
-}
-
-function toUint8Array(b64: string): Uint8Array {
-  /* tslint:disable: no-bitwise */
-  const lens = getLens(b64);
-  const validLen = lens[0];
-  const placeHoldersLen = lens[1];
-  const arr = new Uint8Array(_byteLength(validLen, placeHoldersLen));
-  let curByte = 0;
-
-  // if there are placeholders, only get up to the last complete 4 chars
-  const len = placeHoldersLen ? validLen - 4 : validLen;
-
-  let i = 0;
-
-  for (; i < len; i += 4) {
-    const tmp =
-      (revLookup[b64.charCodeAt(i)] << 18) |
-      (revLookup[b64.charCodeAt(i + 1)] << 12) |
-      (revLookup[b64.charCodeAt(i + 2)] << 6) |
-      revLookup[b64.charCodeAt(i + 3)];
-    arr[curByte++] = (tmp >> 16) & 0xff;
-    arr[curByte++] = (tmp >> 8) & 0xff;
-    arr[curByte++] = tmp & 0xff;
-  }
-
-  if (placeHoldersLen === 2) {
-    arr[curByte] =
-      (revLookup[b64.charCodeAt(i)] << 2) |
-      (revLookup[b64.charCodeAt(i + 1)] >> 4);
-  } else if (placeHoldersLen === 1) {
-    const tmp =
-      (revLookup[b64.charCodeAt(i)] << 10) |
-      (revLookup[b64.charCodeAt(i + 1)] << 4) |
-      (revLookup[b64.charCodeAt(i + 2)] >> 2);
-    arr[curByte++] = (tmp >> 8) & 0xff;
-    arr[curByte] = tmp & 0xff;
-  }
-
-  /* tslint:enable: no-bitwise */
-  return arr;
-}
-
-export function getLens(input: string): [number, number] {
-  /* tslint:disable: no-bitwise */
-  const len = input.length;
-
-  if (len & 3 || len <= 0) {
-    throw new Error(ErrMsg.base64Invalidlength);
-  }
-
-  // Trim off extra bytes after placeholder bytes are found
-  // See: https://github.com/beatgammit/base64-js/issues/42
-  let validLen = input.indexOf('=');
-  if (validLen === -1) {
-    validLen = len;
-  }
-
-  // 0 to 3 characters of padding so total length is a multiple of 4
-  const placeHoldersLen = 3 - ((validLen + 3) & 3);
-
-  /* tslint:enable: no-bitwise */
-  return [validLen, placeHoldersLen];
-}
-
-export function _byteLength(validLen: number, placeHoldersLen: number): number {
-  // tslint:disable-next-line: no-bitwise
-  return (((validLen + placeHoldersLen) * 3) >> 2) - placeHoldersLen;
-}
-
 const serialize = (schema: any, graph: saveFile) => {
   const root = protobuf.Root.fromJSON(schema);
 
@@ -253,15 +174,7 @@ const serialize = (schema: any, graph: saveFile) => {
   const UpgradeTiers = dataMapper(root, 'UpgradeTiers');
   const Recipe = dataMapper(root, 'Recipe');
 
-  const nodes = [];
-
-  for (let i = 0; i < 1000; i++) {
-    nodes.push(new MachineNode(defaultMachineObjectMock, 0, 300, 500));
-  }
-
-  const edges = [];
-
-  edges.push(new GraphEdge(nodes[0], nodes[1]));
+  const nodes = graph.nodes;
 
   const nodeEnumMapper = {
     machineClass: MachineClass.toEnum,
@@ -293,32 +206,20 @@ const serialize = (schema: any, graph: saveFile) => {
     nodes: serializedNodes
   }).finish();
 
-  console.time('compress');
+  let num_iterations = 0;
+  let lastSize = Infinity;
+  let thisSize = Infinity;
 
-  const encodedText = b64fromBuffer(buffer);
+  let currentBuffer = buffer;
 
-  const compressedEncoding = LZUTF8.compress(encodedText);
+  do {
+    const encodedText = b64fromBuffer(currentBuffer);
+    currentBuffer = LZUTF8.compress(encodedText);
 
-  const furtherEncoding = b64fromBuffer(compressedEncoding);
-  //
-  const furtherCompressedEncoding = LZUTF8.compress(furtherEncoding);
-  //
-  console.timeEnd('compress');
-  console.time('decompress');
-
-  const decompressedEncoding = LZUTF8.decompress(furtherCompressedEncoding);
-
-  const str = parseDecodeInputBase64(decompressedEncoding);
-  const u8arr = toUint8Array(str);
-
-  const decompressedEncoding2 = LZUTF8.decompress(u8arr);
-
-  const str2 = parseDecodeInputBase64(decompressedEncoding2);
-  const u8arr2 = toUint8Array(str2);
-
-  console.log(u8arr2);
-  console.log(buffer);
-  console.log(furtherCompressedEncoding);
+    lastSize = thisSize;
+    thisSize = encodedText.length;
+    num_iterations++;
+  } while (thisSize < lastSize);
 
   const originalJSON = JSON.stringify({
     edges: serializedEdges,
@@ -327,13 +228,13 @@ const serialize = (schema: any, graph: saveFile) => {
 
   console.log('Total JSON size: ' + formatBytes(originalJSON.length * 8));
   console.log(
-    'Total serialized size: ' + formatBytes(compressedEncoding.length * 8)
+    'Total serialized size: ' + formatBytes(currentBuffer.length * 8)
   );
   console.log('Adding this would cost $' + toString(0.05 / 10000));
   console.log('Updating this would cost $' + toString(0.05 / 10000));
   console.log(
     'Storing this per month would cost $' +
-      toString((compressedEncoding.length / 1000000000) * 0.12)
+      toString((currentBuffer.length / 1000000000) * 0.12)
   );
   const num_reads = 2000;
   console.log(
@@ -347,6 +248,11 @@ const serialize = (schema: any, graph: saveFile) => {
       toString(1 / (0.0004 / 10000)) +
       ' times for $1'
   );
+  return {
+    d: b64fromBuffer(currentBuffer),
+    i: num_iterations,
+    v: getLatestSchemaName()
+  };
 };
 
 export default serialize;

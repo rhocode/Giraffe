@@ -13,12 +13,12 @@ export class GraphEdge {
   x2: number = 0;
   y1: number = 0;
   y2: number = 0;
-  speedEnum: string = 'MK1';
+  speedEnum: string;
 
   constructor(
     source: GraphNode,
     target: GraphNode,
-    speed_enum: string = 'MK1'
+    speed_enum: string = 'mk1'
   ) {
     this.sourceNode = source;
     this.targetNode = target;
@@ -30,7 +30,7 @@ export class GraphEdge {
     this.speedEnum = speed_enum;
   }
 
-  public updateCoordinates() {
+  updateCoordinates() {
     const target = this.targetNode;
     const source = this.sourceNode;
 

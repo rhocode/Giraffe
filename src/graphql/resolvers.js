@@ -1,36 +1,15 @@
 import schemas from '../generated';
+import * as protobuf from 'protobufjs/light';
 
-const protobuf = require('protobufjs/light');
-
-const root = protobuf.Root.fromJSON(schemas['0.1.0']);
+const root = () => protobuf.Root.fromJSON(schemas['0.1.0']);
 
 const loadData = (filename, mapper) => {
-  const ItemList = root.lookupType(filename);
+  console.error('Somehow is loading these files!');
+  const ItemList = root().lookupType(filename);
   return fetch(`${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`)
     .then(data => data.arrayBuffer())
     .then(buffer => new Uint8Array(buffer))
     .then(buffer => {
-      // TODO: use this for the data decoder
-      // const decodeTest = ItemList.decode(buffer);
-      // const encodeTest = ItemList.fromObject(decodeTest);
-      // const encoder = ItemList.encode(encodeTest).finish();
-      //
-      // const redecode = ItemList.decode(encoder);
-
-      // const RCEncoding = RecipeList.encode(
-      //   RecipeList.fromObject({ data: recipeList })
-      // ).finish();
-      // const RDBlob = new Blob([RCEncoding], { type: 'application/octet-stream' });
-      // new Response(RDBlob)
-      //   .arrayBuffer()
-      //   .then(buffer => new Uint8Array(buffer))
-      //   .then(buffer => {
-      //     console.error(RecipeList.decode(buffer));
-      //     saveAs(RDBlob, 'RecipeList.s2');
-      //   });
-
-      // console.error("AAAAAAA", redecode);
-
       return ItemList.decode(buffer);
     })
     .then(data => ItemList.toObject(data).data)
@@ -38,35 +17,23 @@ const loadData = (filename, mapper) => {
 };
 
 // const iDataMapper = data => {
-//   const Item = root.lookupEnum('Item');
+//   const Item = root().lookupEnum('Item');
 //   const map = {};
+//   // console.error(Item.valuesById);
+//   // const consoleList = [];
 //   data.forEach(item => {
 //     map[item.id] = item;
+//     // consoleList.push([item.id, item.name, Item.valuesById[item.id]]);
 //     item.id = Item.valuesById[item.id];
 //   });
+//   // console.log(JSON.stringify(consoleList, null, 4));
 //   return map;
 // };
-
-// export const itemListPromise = loadData('ItemList', iDataMapper);
-
-const iDataMapper = data => {
-  const Item = root.lookupEnum('Item');
-  const map = {};
-  // console.error(Item.valuesById);
-  // const consoleList = [];
-  data.forEach(item => {
-    map[item.id] = item;
-    // consoleList.push([item.id, item.name, Item.valuesById[item.id]]);
-    item.id = Item.valuesById[item.id];
-  });
-  // console.log(JSON.stringify(consoleList, null, 4));
-  return map;
-};
-
-export const itemPromise = loadData('ItemList', iDataMapper);
+//
+// export const itemPromise = loadData('ItemList', iDataMapper);
 
 const mcDataMapper = data => {
-  const MachineClass = root.lookupEnum('MachineClass');
+  const MachineClass = root().lookupEnum('MachineClass');
   const map = new Map();
   data.forEach(item => {
     map[item.id] = item;
@@ -75,13 +42,11 @@ const mcDataMapper = data => {
   return map;
 };
 
-export const machineClassListPromise = loadData(
-  'MachineClassList',
-  mcDataMapper
-);
+export const machineClassListPromise = () =>
+  loadData('MachineClassList', mcDataMapper);
 
 const mIDataMapper = data => {
-  const MachineClass = root.lookupEnum('MachineClass');
+  const MachineClass = root().lookupEnum('MachineClass');
   const map = {};
   data.forEach(item => {
     item.id = MachineClass.valuesById[item.id];
@@ -90,13 +55,11 @@ const mIDataMapper = data => {
   return map;
 };
 
-export const machineInstanceListPromise = loadData(
-  'MachineClassList',
-  mIDataMapper
-);
+export const machineInstanceListPromise = () =>
+  loadData('MachineClassList', mIDataMapper);
 
 const rDataMapper = data => {
-  const Recipe = root.lookupEnum('Recipe');
+  const Recipe = root().lookupEnum('Recipe');
   const map = {};
   data.forEach(item => {
     map[item.id] = item;
@@ -105,13 +68,13 @@ const rDataMapper = data => {
   return map;
 };
 
-export const recipeListPromise = loadData('RecipeList', rDataMapper);
+export const recipeListPromise = () => loadData('RecipeList', rDataMapper);
 
 // resolvers -> get where on earth id -> get consolidated_weather data and return
 const resolvers = {
   Query: {
     getMachineClassByName(obj, args, context, info) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         let values = Object.values(mcMap).filter(value => {
           return value.id === args.class_name;
         });
@@ -130,16 +93,16 @@ const resolvers = {
       });
     },
     getMachineClassById(obj, args, context, info) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         return mcMap[args.class_id];
       });
     },
     getCraftingMachineClasses(obj, args, context, info) {
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         const acceptedMachineClasses = new Set(
           Object.values(rMap).map(recipe => recipe.machineClass)
         );
-        return machineClassListPromise.then(mcMap => {
+        return machineClassListPromise().then(mcMap => {
           return Array.from(acceptedMachineClasses).map(
             classId => mcMap[classId]
           );
@@ -147,52 +110,52 @@ const resolvers = {
       });
     },
     getAllMachineClasses(obj, args, context, info) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         return Array.from(Object.keys(mcMap).map(key => mcMap[key]));
       });
     },
     getMachineClasses(obj, args, context, info) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         const values = Object.values(mcMap);
 
         return values;
       });
     },
     getRecipes(obj, args, context, info) {
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         return Object.values(rMap);
       });
     },
     getRecipeById(obj, args, context, info) {
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         return rMap[args.recipe_id];
       });
     },
     getRecipeByOutputItemId(obj, args, context, info) {
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         return Object.values(rMap).filter(recipe => {
           return (recipe.output || []).some(elem => elem.item === args.item_id);
         });
       });
     },
     getRecipeByInputItemId(obj, args, context, info) {
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         return Object.values(rMap).filter(recipe => {
           return (recipe.input || []).some(elem => elem.item === args.item_id);
         });
       });
     },
     getRecipeByOutputItemName(obj, args, context, info) {
-      const itemEnum = root.lookupEnum('Item').values[args.item_name];
-      return recipeListPromise.then(rMap => {
+      const itemEnum = root().lookupEnum('Item').values[args.item_name];
+      return recipeListPromise().then(rMap => {
         return Object.values(rMap).filter(recipe => {
           return (recipe.output || []).some(elem => elem.item === itemEnum);
         });
       });
     },
     getRecipeByInputItemName(obj, args, context, info) {
-      const itemEnum = root.lookupEnum('Item').values[args.item_name];
-      return recipeListPromise.then(rMap => {
+      const itemEnum = root().lookupEnum('Item').values[args.item_name];
+      return recipeListPromise().then(rMap => {
         return Object.values(rMap).filter(recipe => {
           return (recipe.input || []).some(elem => elem.item === itemEnum);
         });
@@ -210,13 +173,13 @@ const resolvers = {
   },
   ResourcePacket: {
     item(ResourcePacket) {
-      const Item = root.lookupEnum('Item');
+      const Item = root().lookupEnum('Item');
       return Item.valuesById[ResourcePacket.item];
     }
   },
   Recipe: {
     machineClass(Recipe) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         return mcMap[Recipe.machineClass];
       });
     },
@@ -232,7 +195,7 @@ const resolvers = {
       return MachineInstance.icon || MachineInstance.id;
     },
     machineClass(MachineInstance) {
-      return machineClassListPromise.then(mcMap => {
+      return machineClassListPromise().then(mcMap => {
         const filteredInstances = Object.values(mcMap).filter(
           machineClassInstance => {
             return machineClassInstance.id === MachineInstance.id;
@@ -247,7 +210,7 @@ const resolvers = {
       });
     },
     name(MachineInstance) {
-      const UpgradeTiers = root.lookupEnum('UpgradeTiers');
+      const UpgradeTiers = root().lookupEnum('UpgradeTiers');
       if (UpgradeTiers.valuesById[MachineInstance.tier] === 'NA') {
         return MachineInstance.id;
       }
@@ -258,7 +221,7 @@ const resolvers = {
   },
   MachineClass: {
     id(machineClass) {
-      return root.lookupEnum('MachineClass').values[machineClass.id];
+      return root().lookupEnum('MachineClass').values[machineClass.id];
     },
     inputs(machineClass) {
       return machineClass.inputs;
@@ -270,10 +233,10 @@ const resolvers = {
       return machineClass.icon || machineClass.id;
     },
     recipes(machineClass) {
-      const machineClassId = root.lookupEnum('MachineClass').values[
+      const machineClassId = root().lookupEnum('MachineClass').values[
         machineClass.id
       ];
-      return recipeListPromise.then(rMap => {
+      return recipeListPromise().then(rMap => {
         const recipes = Object.keys(rMap).filter(recipeKey => {
           const recipe = rMap[recipeKey];
           return recipe.machineClass === machineClassId;
@@ -283,7 +246,7 @@ const resolvers = {
       });
     },
     instances(machineClass) {
-      return machineInstanceListPromise.then(mcMap => {
+      return machineInstanceListPromise().then(mcMap => {
         return Object.values(mcMap)
           .filter(machineClassInstance => {
             return machineClassInstance.id === machineClass.id;
@@ -294,7 +257,7 @@ const resolvers = {
       });
     },
     hasUpgrades(machineClass) {
-      return machineInstanceListPromise.then(mcMap => {
+      return machineInstanceListPromise().then(mcMap => {
         const instances = Object.values(mcMap).filter(machineClassInstance => {
           return machineClassInstance.id === machineClass.id;
         });
@@ -305,7 +268,7 @@ const resolvers = {
   },
   UpgradeTier: {
     name(upgradeTier) {
-      const UpgradeTiers = root.lookupEnum('UpgradeTiers');
+      const UpgradeTiers = root().lookupEnum('UpgradeTiers');
       return UpgradeTiers.valuesById[upgradeTier];
     },
     value(upgradeTier) {

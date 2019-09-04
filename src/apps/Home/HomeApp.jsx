@@ -14,7 +14,6 @@ import {
   faRedditAlien,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
-import AsyncComponent from '../../common/react/AsyncComponent';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 
@@ -37,7 +36,7 @@ class HomeApp extends Component {
   }
 
   render() {
-    const Css = AsyncComponent(import('./CssWrapper'));
+    const Css = React.lazy(() => import('./CssWrapper'));
     return (
       <Page>
         <Css />
