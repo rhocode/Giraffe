@@ -23,10 +23,10 @@ import zoomPlugin from './plugins/zoomFunction';
 
 import { setEquals } from '../utils/sets';
 import { defaultMachineObjectMock } from '../../../../../mocks/dataMocks';
-import serialize from '../algorithms/satisgraphtory/serialize';
-import getLatestSchema from '../utils/getLatestSchema';
-import deserialize from '../algorithms/satisgraphtory/deserialize';
-import hydrate from '../algorithms/satisgraphtory/hydrate';
+// import serialize from '../algorithms/satisgraphtory/serialize';
+// import getLatestSchema from '../utils/getLatestSchema';
+// import deserialize from '../algorithms/satisgraphtory/deserialize';
+// import hydrate from '../algorithms/satisgraphtory/hydrate';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
