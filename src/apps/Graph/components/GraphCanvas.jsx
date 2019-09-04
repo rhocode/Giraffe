@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 // import {canvasBackgroundColor} from "../../../theme";
-import SGCanvas from '../libraries/SGLib/react/SGCanvas';
-import GraphActionsBottomActions from './GraphActionsBottomActions';
+import SGCanvas from "../libraries/SGLib/react/SGCanvas";
+import GraphActionsBottomActions from "./GraphActionsBottomActions";
 
 const styles = theme => ({
   canvasContainer: {
-    display: 'grid',
-    gridArea: 'canvasArea',
+    display: "grid",
+    gridArea: "canvasArea",
     gridTemplateAreas: `"canvasElement"`,
-    gridTemplateRows: 'minmax(0, 1fr)',
-    gridTemplateColumns: '1fr',
+    gridTemplateRows: "minmax(0, 1fr)",
+    gridTemplateColumns: "1fr",
     minWidth: 0,
     minHeight: 0,
-    position: 'relative'
+    position: "relative"
     // overflow: "hidden"
   }
 });
