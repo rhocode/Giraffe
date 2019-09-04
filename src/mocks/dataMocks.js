@@ -5,8 +5,8 @@ export const defaultMachineObjectMock = {
     icon: '/static/media/Foundry.23ceb7cd.png',
     hasUpgrades: true,
     id: 5,
-    inputs: 2,
-    outputs: 1,
+    inputs: 3,
+    outputs: 3,
     recipes: [
       {
         id: 'alternate_electromagnetic_control_rod',
@@ -67,9 +67,9 @@ export const defaultMachineObjectMock = {
       }
     ],
     instances: [
-      { tier: { name: 'MK1', value: 0 } },
-      { tier: { name: 'MK2', value: 1 } }
+      { tier: { name: 'mk1', value: 0 } },
+      { tier: { name: 'mk2', value: 1 } }
     ]
   },
-  tier: 'MK2'
+  tier: 'mk2'
 };

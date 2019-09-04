@@ -30,11 +30,21 @@ export class GraphEdge {
     this.speedEnum = speed_enum;
   }
 
-  public setCoordinates(x1: number, x2: number, y1: number, y2: number) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+  public updateCoordinates() {
+    const target = this.targetNode;
+    const source = this.sourceNode;
+
+    const outputSlot =
+      source.outputSlotMapping[source.outputSlots.indexOf(this)];
+
+    const inputSlot = target.inputSlotMapping[target.inputSlots.indexOf(this)];
+
+    const x1 = source.fx + outputSlot.x;
+    const y1 = source.fy + outputSlot.y;
+    const x2 = target.fx + inputSlot.x;
+    const y2 = target.fy + inputSlot.y;
+
+    this.setCoordinatesInternal(x1, x2, y1, y2);
   }
 
   serialize() {
@@ -51,20 +61,12 @@ export class GraphEdge {
     color: string = '#7122D5',
     width: number = 8
   ) {
-    const target = this.targetNode;
-    const source = this.sourceNode;
-
-    const outputSlot =
-      source.outputSlotMapping[source.outputSlots.indexOf(this)];
-
-    const inputSlot = target.inputSlotMapping[target.inputSlots.indexOf(this)];
-
-    const x1 = source.fx + outputSlot.x;
-    const y1 = source.fy + outputSlot.y;
-    const x2 = target.fx + inputSlot.x;
-    const y2 = target.fy + inputSlot.y;
+    const x1 = this.x1;
+    const y1 = this.y1;
+    const x2 = this.x2;
+    const y2 = this.y2;
     const avg = (x1 + x2) / 2;
-    this.setCoordinates(x1, x2, y1, y2);
+
     drawnContext.beginPath();
     drawnContext.strokeStyle = color;
     drawnContext.lineWidth = width;
@@ -72,6 +74,18 @@ export class GraphEdge {
     drawnContext.moveTo(x1, y1);
     drawnContext.bezierCurveTo(avg, y1, avg, y2, x2, y2);
     drawnContext.stroke();
+  }
+
+  private setCoordinatesInternal(
+    x1: number,
+    x2: number,
+    y1: number,
+    y2: number
+  ) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 
   public intersectsRect(x1: number, y1: number, x2: number, y2: number) {

@@ -44,6 +44,7 @@ export function drawPath(
   graphEdge: GraphEdge
 ) {
   context.save();
+  graphEdge.updateCoordinates();
   graphEdge.paintEdge(context);
   context.restore();
 }
