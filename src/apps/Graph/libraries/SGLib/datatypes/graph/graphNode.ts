@@ -283,6 +283,7 @@ export default class MachineNode extends GraphNode {
     translator = null
   ) {
     super(x, y);
+    console.log(machineObject);
     this.machineObject = { ...machineObject };
 
     this.overclock = overclock;
