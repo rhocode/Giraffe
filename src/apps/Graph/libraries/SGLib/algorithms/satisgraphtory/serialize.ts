@@ -3,6 +3,7 @@ import MachineNode, { GraphNode } from '../../datatypes/graph/graphNode';
 import { b64fromBuffer, ErrMsg, validB64Chars } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
 import { GraphEdge } from '../../datatypes/graph/graphEdge';
+import { defaultMachineObjectMock } from '../../../../../../mocks/dataMocks';
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -255,7 +256,7 @@ const serialize = (schema: any, graph: saveFile) => {
   const nodes = [];
 
   for (let i = 0; i < 1000; i++) {
-    nodes.push(new MachineNode(0, 0, 300, 500));
+    nodes.push(new MachineNode(defaultMachineObjectMock, 0, 300, 500));
   }
 
   const edges = [];

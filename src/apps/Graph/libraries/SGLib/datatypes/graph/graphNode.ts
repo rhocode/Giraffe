@@ -5,8 +5,6 @@ import {
 } from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
 import { imageRepository } from '../../repositories/imageRepository';
-import * as protobuf from 'protobufjs/light';
-import getLatestSchema from '../../utils/getLatestSchema';
 import * as d3 from 'd3';
 
 type Nullable<T> = T | null;
@@ -254,9 +252,21 @@ export abstract class GraphNode {
   abstract getVersion(): string;
 }
 
+type MachineClass = {
+  id: number; // deprecate in favor of name directly?
+  inputs: number;
+  outputs: number;
+  name: String;
+};
+
+type MachineObject = {
+  class: MachineClass;
+  recipe: String;
+  tier: String;
+};
+
 export default class MachineNode extends GraphNode {
   overclock: number;
-  machineId: number;
   readonly width: number = 205;
   readonly height: number = 155;
   xRenderBuffer: number = 15;
@@ -265,7 +275,7 @@ export default class MachineNode extends GraphNode {
   translator: any = null;
 
   constructor(
-    machineObject: any,
+    machineObject: MachineObject,
     overclock: number,
     x: number,
     y: number,
@@ -273,8 +283,8 @@ export default class MachineNode extends GraphNode {
     translator = null
   ) {
     super(x, y);
-    this.machineObject = JSON.parse(JSON.stringify(machineObject));
-    this.machineId = machineObject ? machineObject.class.id : 0;
+    this.machineObject = { ...machineObject };
+
     this.overclock = overclock;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
@@ -307,99 +317,17 @@ export default class MachineNode extends GraphNode {
   }
 
   serialize() {
-    if (!this.machineObject) {
-      this.machineObject = {
-        recipe: 'iron_ingot_alloy',
-        class: {
-          name: 'foundry',
-          icon: '/static/media/Foundry.23ceb7cd.png',
-          hasUpgrades: true,
-          id: 5,
-          inputs: 2,
-          outputs: 1,
-          recipes: [
-            {
-              id: 'alternate_electromagnetic_control_rod',
-              name: 'enriched_steel_ingot',
-              input: [
-                { item: { name: 'iron_ore' }, itemQuantity: 6 },
-                {
-                  item: { name: 'compacted_coal' },
-                  itemQuantity: 3
-                }
-              ],
-              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 6 }]
-            },
-            {
-              id: 'iron_ingot_alloy',
-              name: 'alternate:_steel_ingot',
-              input: [
-                { item: { name: 'iron_ingot' }, itemQuantity: 3 },
-                {
-                  item: { name: 'coal' },
-                  itemQuantity: 6
-                }
-              ],
-              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 6 }]
-            },
-            {
-              id: 'alternate_plastic',
-              name: 'iron_ingot_alloy',
-              input: [
-                { item: { name: 'iron_ore' }, itemQuantity: 1 },
-                {
-                  item: { name: 'copper_ore' },
-                  itemQuantity: 1
-                }
-              ],
-              output: [{ item: { name: 'iron_ingot' }, itemQuantity: 3 }]
-            },
-            {
-              id: 'supercomputer',
-              name: 'aluminum_ingot',
-              input: [
-                { item: { name: 'bauxite' }, itemQuantity: 7 },
-                {
-                  item: { name: 'silica' },
-                  itemQuantity: 6
-                }
-              ],
-              output: [{ item: { name: 'aluminum_ingot' }, itemQuantity: 2 }]
-            },
-            {
-              id: 'uranium_cell',
-              name: 'steel_ingot',
-              input: [
-                { item: { name: 'iron_ore' }, itemQuantity: 3 },
-                { item: { name: 'coal' }, itemQuantity: 3 }
-              ],
-              output: [{ item: { name: 'steel_ingot' }, itemQuantity: 2 }]
-            }
-          ],
-          instances: [
-            { tier: { name: 'MK1', value: 0 } },
-            { tier: { name: 'MK2', value: 1 } }
-          ]
-        },
-        tier: 'MK2'
-      };
-    }
-
     return {
       ...super.serialize(),
       machineClass: this.machineObject.class.name,
       recipe: this.machineObject.recipe,
       tier: this.machineObject.tier,
-      overclock: this.overclock,
-      machineId: this.machineId
+      overclock: this.overclock
     };
   }
 
   getImage() {
-    const root = protobuf.Root.fromJSON(getLatestSchema());
-    const MachineClass = root.lookupEnum('MachineClass');
-
-    const name = MachineClass.valuesById[this.machineId] || 'miner_mk1';
+    const name = this.machineObject.name || 'miner_mk1';
     return (
       imageRepository.machines[name] || imageRepository.machines['miner_mk1']
     );
