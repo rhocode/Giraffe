@@ -10,6 +10,12 @@ const getLatestSchema = () => {
   return (schemas as any)[latestVersion];
 };
 
+export const getLatestSchemaName = () => {
+  const versions = Object.keys(schemas);
+  versions.sort(versionCompare);
+  return versions[versions.length - 1];
+};
+
 export const getNextSchemaName = () => {
   const versions = Object.keys(schemas);
   versions.sort(versionCompare);

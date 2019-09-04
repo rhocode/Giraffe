@@ -68,16 +68,6 @@ const recipeClassMapper = raw => {
   return rootRows;
 };
 
-const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
-const dataLists = [
-  { name: 'RecipeList', mapper: recipeClassMapper, data: recipeListPromise },
-  {
-    name: 'MachineClassList',
-    mapper: machineClassMapper,
-    data: machineInstanceListPromise
-  }
-];
-
 const importEnumJSON = enm => {
   const data = require('../../proto/' + enm + '.json');
   const enums = data.nested.satisgraphtory.nested[enm].values;
@@ -130,9 +120,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
+
 function DataApp(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const [dataLists] = React.useState([
+    {
+      name: 'RecipeList',
+      mapper: recipeClassMapper,
+      data: recipeListPromise()
+    },
+    {
+      name: 'MachineClassList',
+      mapper: machineClassMapper,
+      data: machineInstanceListPromise()
+    }
+  ]);
 
   useEffect(() => {
     enums.forEach(enm => {
@@ -164,7 +169,7 @@ function DataApp(props) {
         });
       });
     });
-  }, [props]);
+  }, [dataLists, props]);
 
   function handleChange(event, newValue) {
     setValue(newValue);
