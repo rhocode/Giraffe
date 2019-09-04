@@ -6,6 +6,7 @@ export const setGraphData = data => dispatch => {
 };
 
 export const setMouseMode = data => dispatch => {
+  console.log('SET MOUSE MODE!!!');
   dispatch({
     type: 'SET_MOUSE_MODE',
     payload: data

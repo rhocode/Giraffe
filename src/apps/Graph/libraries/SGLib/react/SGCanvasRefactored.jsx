@@ -21,6 +21,8 @@ import {
 } from './plugins/dragFunctions';
 import zoomPlugin from './plugins/zoomFunction';
 
+import { setEquals } from '../utils/sets';
+
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
     width: 0,
@@ -78,7 +80,6 @@ function useBoundingBoxRect(props) {
 let transform = d3.zoomIdentity;
 
 const setTransform = t => {
-  console.log('set transform as', t);
   transform = t;
 };
 
@@ -103,7 +104,8 @@ function SGCanvasRefactored(props) {
     graphFidelity,
     translate,
     selectedMachine,
-    setGraphSourceNode
+    setGraphSourceNode,
+    setMouseMode
   } = props;
 
   // Initial load on component
@@ -154,8 +156,76 @@ function SGCanvasRefactored(props) {
   const ratio = window.devicePixelRatio || 1;
   const { heightOverride, widthOverride } = props;
 
-  const [selectedEdges, setSelectedEdges] = useState({});
-  const [selectedNodes, setSelectedNodes] = useState({});
+  const [selectedData, setSelectedData] = useState({});
+
+  const selectedNodes = selectedData.nodes || {};
+  const selectedEdges = selectedData.edges || {};
+
+  const setSelectedEdges = React.useCallback(
+    edges => {
+      const oldSet = new Set(Object.keys(selectedData.edges || {}));
+      const newSet = new Set(Object.keys(edges));
+      if (!setEquals(oldSet, newSet)) {
+        const newData = { ...selectedData };
+
+        newData[edges] = { ...edges };
+
+        setSelectedData(newData);
+      }
+    },
+    [selectedData]
+  );
+
+  const setSelectedNodes = React.useCallback(
+    nodes => {
+      const oldSet = new Set(Object.keys(selectedData.nodes || {}));
+      const newSet = new Set(Object.keys(nodes));
+      if (!setEquals(oldSet, newSet)) {
+        const newData = { ...selectedData };
+
+        newData[nodes] = { ...nodes };
+
+        setSelectedData(newData);
+      }
+    },
+    [selectedData]
+  );
+
+  const setNodesAndEdges = React.useCallback(
+    (nodes, edges) => {
+      const oldNodeSet = new Set(Object.keys(selectedData.nodes || {}));
+      const newNodeSet = new Set(Object.keys(nodes));
+
+      const oldEdgeSet = new Set(Object.keys(selectedData.nodes || {}));
+      const newEdgeSet = new Set(Object.keys(nodes));
+
+      let nodesChanged = false;
+      let edgesChanged = false;
+
+      if (!setEquals(oldNodeSet, newNodeSet)) {
+        nodesChanged = true;
+      }
+
+      if (!setEquals(oldEdgeSet, newEdgeSet)) {
+        edgesChanged = true;
+      }
+
+      if (nodesChanged || edgesChanged) {
+        const newData = { ...selectedData };
+
+        if (nodesChanged) {
+          newData['nodes'] = { ...nodes };
+        }
+
+        if (edgesChanged) {
+          newData['edges'] = { ...edges };
+        }
+
+        setSelectedData(newData);
+      }
+    },
+    [selectedData]
+  );
 
   const graphEdges = graphData ? graphData.edges : null;
   const graphNodes = graphData ? graphData.nodes : null;
@@ -292,7 +362,6 @@ function SGCanvasRefactored(props) {
           return d.id;
         })
     )
-    .alphaTarget(1)
     .alphaDecay(1);
 
   useEffect(() => {
@@ -314,8 +383,7 @@ function SGCanvasRefactored(props) {
               transform,
               mouseMode,
               selectedNodes,
-              setSelectedNodes,
-              setSelectedEdges
+              setNodesAndEdges
             )
           )
           .on('start', () =>
@@ -338,9 +406,9 @@ function SGCanvasRefactored(props) {
               setDragCurrent,
               dragStart,
               dragCurrent,
-              setSelectedNodes,
-              setSelectedEdges,
-              transform
+              setNodesAndEdges,
+              transform,
+              selectedNodes
             )
           )
       )
@@ -357,7 +425,8 @@ function SGCanvasRefactored(props) {
           setSelectedEdges,
           selectedNodes,
           setSelectedNodes,
-          mouseMode
+          mouseMode,
+          setSelectedData
         )
       )
       .call(
@@ -392,6 +461,10 @@ function SGCanvasRefactored(props) {
     selectedNodes,
     setGraphData,
     setGraphSourceNode,
+    setMouseMode,
+    setNodesAndEdges,
+    setSelectedEdges,
+    setSelectedNodes,
     simulation,
     simulationUpdate,
     translate
