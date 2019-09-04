@@ -4,9 +4,9 @@ import * as protobuf from 'protobufjs/light';
 const root = () => protobuf.Root.fromJSON(schemas['0.1.0']);
 
 const loadDataRaw = () => {
-  console.error('LoadData was called');
   const memoizedLoadData = {};
   return (filename, mapper) => {
+    console.error('LoadData was called');
     if (memoizedLoadData[filename]) {
       return memoizedLoadData[filename];
     } else {
