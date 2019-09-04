@@ -219,7 +219,7 @@ export abstract class GraphNode {
     );
   };
 
-  abstract drawPathToTarget(context: any, target: GraphEdge): void;
+  abstract drawEdgePath(context: any, edge: GraphEdge): void;
 
   sortSlots = () => {
     this.sortInputSlots();
@@ -313,8 +313,9 @@ export default class MachineNode extends GraphNode {
     this.initialRender();
   }
 
-  drawPathToTarget(context: any, target: GraphEdge): void {
-    drawPath(context, this, target);
+  drawEdgePath(context: any, edge: GraphEdge): void {
+    edge.updateCoordinates();
+    drawPath(context, edge);
   }
 
   serialize() {
