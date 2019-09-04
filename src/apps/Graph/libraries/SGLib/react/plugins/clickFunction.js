@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
-import MachineNode from '../../datatypes/graph/graphNode';
-import { GraphEdge } from '../../datatypes/graph/graphEdge';
+import * as d3 from "d3";
+import MachineNode from "../../datatypes/graph/graphNode";
+import { GraphEdge } from "../../datatypes/graph/graphEdge";
 
 const canvasClickFunction = (
   graphSourceNode,
@@ -30,7 +30,7 @@ const canvasClickFunction = (
   const localSelectedNodes = {};
   const localSelectedEdges = {};
 
-  if (mouseMode === 'select') {
+  if (mouseMode === "select") {
     // First, check the node clicking:
 
     const nodes = graphData.nodes;
@@ -44,8 +44,8 @@ const canvasClickFunction = (
       }
     }
 
-    const innerCanvas = document.createElement('canvas');
-    const innerContext = innerCanvas.getContext('2d');
+    const innerCanvas = document.createElement("canvas");
+    const innerContext = innerCanvas.getContext("2d");
     innerContext.canvas.width = 3;
     innerContext.canvas.height = 3;
 
@@ -67,16 +67,16 @@ const canvasClickFunction = (
     }
 
     setNodesAndEdges({}, {});
-    setMouseMode('move');
+    setMouseMode("move");
     return;
-  } else if (mouseMode === 'move' && selectedNodeKeys.length) {
+  } else if (mouseMode === "move" && selectedNodeKeys.length) {
     for (let i = 0; i < selectedNodeKeys.length; i++) {
       const node = selectedNodes[selectedNodeKeys[i]];
       if (node.intersectsPoint(x, y)) {
         return; // noop for now
       }
     }
-  } else if (mouseMode === 'move') {
+  } else if (mouseMode === "move") {
     // First, check the node clicking:
 
     const nodes = graphData.nodes;
@@ -86,13 +86,13 @@ const canvasClickFunction = (
       if (node.intersectsPoint(x, y)) {
         localSelectedNodes[node.id] = node;
         setSelectedNodes(localSelectedNodes);
-        setMouseMode('select');
+        setMouseMode("select");
         return;
       }
     }
 
-    const innerCanvas = document.createElement('canvas');
-    const innerContext = innerCanvas.getContext('2d');
+    const innerCanvas = document.createElement("canvas");
+    const innerContext = innerCanvas.getContext("2d");
     innerContext.canvas.width = 3;
     innerContext.canvas.height = 3;
 
@@ -109,13 +109,13 @@ const canvasClickFunction = (
       if (innerData.every(item => item !== 0)) {
         localSelectedEdges[edge.id] = edge;
         setSelectedEdges(localSelectedEdges);
-        setMouseMode('select');
+        setMouseMode("select");
         return;
       }
     }
   }
 
-  if (mouseMode === 'add' && selectedMachine) {
+  if (mouseMode === "add" && selectedMachine) {
     const newGraph = Object.assign({}, graphData);
 
     // d3.event.x, y: d3.event.y
@@ -124,7 +124,7 @@ const canvasClickFunction = (
       new MachineNode(selectedMachine, 0, x, y, true, translate)
     );
     setGraphData(newGraph);
-  } else if (mouseMode === 'link') {
+  } else if (mouseMode === "link") {
     let selectedNode = null;
 
     let i;
@@ -154,7 +154,7 @@ const canvasClickFunction = (
             setGraphData(graphData);
             setGraphSourceNode(null);
           } catch (e) {
-            console.error('Output slot full!', e);
+            console.error("Output slot full!", e);
           }
         }
       } else {
