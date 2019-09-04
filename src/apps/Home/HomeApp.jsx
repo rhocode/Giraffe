@@ -93,11 +93,9 @@ class HomeApp extends Component {
             <p>Launch the alpha.</p>
 
             <p>
-              <a
-                href="https://satisgraphtory.com/#"
-                className="button large primary disabled"
-              >
-                Launch web app (soon) <FontAwesomeIcon icon={faArrowRight} />
+              <a href="/graph" className="button large primary">
+                Launch web app
+                <FontAwesomeIcon icon={faArrowRight} />
               </a>
               <a
                 href="https://satisgraphtory.com/#"

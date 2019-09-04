@@ -23,8 +23,11 @@ export const dragDuringPlugin = (
   transform,
   mouseMode,
   setDragCurrent,
-  selectedNodes
+  selectedNodes,
+  setDidDrag
 ) => {
+  setDidDrag(true);
+
   d3.event.subject.fx = transform.invertX(d3.event.x);
   d3.event.subject.fy = transform.invertY(d3.event.y);
 
@@ -71,8 +74,16 @@ export const dragEndPlugin = (
   dragCurrent,
   setNodesAndEdges,
   transform,
-  selectedNodes
+  selectedNodes,
+  didDrag,
+  setDidDrag
 ) => {
+  const localDidDrag = didDrag;
+
+  if (didDrag) {
+    setDidDrag(false);
+  }
+
   if (!d3.event.active) simulation.alphaTarget(0);
 
   if (mouseMode === 'select') {
@@ -98,30 +109,32 @@ export const dragEndPlugin = (
       }
     });
 
-    setNodesAndEdges(localSelectedNodes, localSelectedEdges);
+    if (localDidDrag) {
+      setNodesAndEdges(localSelectedNodes, localSelectedEdges);
+    } else {
+      // didn't hit any nodes, which means we should
+      if (localSelectedEdges.size === 0 || localSelectedNodes.size === 0) {
+        setNodesAndEdges({}, {});
+      }
+    }
+  } else {
+    const node = d3.event.subject;
 
-    setDragStart(null);
-    setDragCurrent(null);
-    return;
+    node.x = transform.invertX(d3.event.x);
+    node.y = transform.invertY(d3.event.y);
+
+    node.fx = transform.invertX(d3.event.x);
+    node.fy = transform.invertY(d3.event.y);
+
+    Object.keys(selectedNodes).forEach(key => {
+      const node = selectedNodes[key];
+      node.x = node.fx;
+      node.y = node.fy;
+    });
   }
 
   setDragStart(null);
   setDragCurrent(null);
-
-  const node = d3.event.subject;
-
-  node.x = transform.invertX(d3.event.x);
-  node.y = transform.invertY(d3.event.y);
-
-  node.fx = transform.invertX(d3.event.x);
-  node.fy = transform.invertY(d3.event.y);
-
-  Object.keys(selectedNodes).forEach(key => {
-    const node = selectedNodes[key];
-    node.x = node.fx;
-    node.y = node.fy;
-  });
-
   // todo; fix group dragging
   // for (let i = graphData.nodes.length - 1; i >= 0; --i) {
   //   const node = graphData.nodes[i];
