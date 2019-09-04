@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { GraphNode } from '../../datatypes/graph/graphNode';
 
 export const dragStartPlugin = (
   simulation,
@@ -6,25 +7,16 @@ export const dragStartPlugin = (
   mouseMode,
   setDragStart
 ) => {
-  console.error(d3.event.x, d3.event.y);
-  d3.event.subject.fx = transform.invertX(d3.event.x);
-  d3.event.subject.fy = transform.invertY(d3.event.y);
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  const x = transform.invertX(d3.event.x);
+  const y = transform.invertY(d3.event.y);
+  d3.event.subject.fx = x;
+  d3.event.subject.fy = y;
 
-  // if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  // const x = transform.invertX(d3.event.x);
-  // const y = transform.invertY(d3.event.y);
-  //
-  // console.log(d3.event.x, d3.event.y, transform.invertX(d3.event.x), transform.invertY(d3.event.y), transform)
-  //
-  //
-  // // Set the drag start
-  // if (mouseMode === 'select') {
-  //   setDragStart({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
-  // }
-  // subject.x = subject.fx;
-  // subject.y = subject.fy;
-  // subject.fx = transform.invertX(d3.event.x);
-  // subject.fy = transform.invertY(d3.event.y);
+  // Set the drag start
+  if (mouseMode === 'select') {
+    setDragStart({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
+  }
 };
 
 export const dragDuringPlugin = (
@@ -33,51 +25,40 @@ export const dragDuringPlugin = (
   setDragCurrent,
   selectedNodes
 ) => {
-  const subject = d3.event.subject;
-
   d3.event.subject.fx = transform.invertX(d3.event.x);
   d3.event.subject.fy = transform.invertY(d3.event.y);
 
-  // subject.fx = Math.floor(d3.event.dx / transform.k);
-  // subject.fy += Math.floor(d3.event.dy / transform.k);
-  //
+  const x = transform.invertX(d3.event.x);
+  const y = transform.invertY(d3.event.y);
 
-  //
-  // // subject.fx = transform.applyX(d3.event.x)
-  // //   // subject.fy = transform.applyY(d3.event.y)
-  //
-  // console.log('TRANSFORM', d3.event.x, d3.event.y);
-  //
-  // const x = transform.invertX(d3.event.x);
-  // const y = transform.invertY(d3.event.y);
-  //
-  // console.log(d3.event.x, d3.event.y, transform.invertX(d3.event.x), transform.invertY(d3.event.y))
-  //
-  //
-  // if (mouseMode === 'select') {
-  //   setDragCurrent({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
-  // }
-  //
-  // const subject = d3.event.subject;
-  //
-  // if (subject instanceof GraphNode) {
-  //   subject.fx = transform.invertX(d3.event.x);
-  //   subject.fy = transform.invertY(d3.event.y);
-  //   subject.sortSlots();
-  //   subject.sortConnectedNodeSlots();
-  // } else if (mouseMode !== 'select' && Object.keys(selectedNodes).length) {
-  //   // It's a grouping of nodes
-  //   Object.keys(selectedNodes).forEach(key => {
-  //     const node = selectedNodes[key];
-  //     node.fx = node.dx - (transform.invertX(subject.x) - transform.invertX(d3.event.x));
-  //     node.fy = node.dy - (transform.invertY(subject.y) - transform.invertY(d3.event.y));
-  //     node.sortSlots();
-  //     node.sortConnectedNodeSlots();
-  //   });
-  // } else {
-  //   subject.fx = x;
-  //   subject.fy = y;
-  // }
+  if (mouseMode === 'select') {
+    setDragCurrent({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
+  }
+
+  const subject = d3.event.subject;
+
+  if (subject instanceof GraphNode) {
+    subject.fx = x;
+    subject.fy = y;
+    subject.sortSlots();
+    subject.sortConnectedNodeSlots();
+  } else if (mouseMode !== 'select' && Object.keys(selectedNodes).length) {
+    // It's a grouping of nodes
+    Object.keys(selectedNodes).forEach(key => {
+      const node = selectedNodes[key];
+      node.fx =
+        node.dx -
+        (transform.invertX(subject.x) - transform.invertX(d3.event.x));
+      node.fy =
+        node.dy -
+        (transform.invertY(subject.y) - transform.invertY(d3.event.y));
+      node.sortSlots();
+      node.sortConnectedNodeSlots();
+    });
+  } else {
+    subject.fx = x;
+    subject.fy = y;
+  }
 };
 
 export const dragEndPlugin = (
@@ -88,58 +69,65 @@ export const dragEndPlugin = (
   setDragCurrent,
   dragStart,
   dragCurrent,
-  setSelectedNodes,
-  setSelectedEdges,
-  transform
+  setNodesAndEdges,
+  transform,
+  selectedNodes
 ) => {
+  if (!d3.event.active) simulation.alphaTarget(0);
+
+  if (mouseMode === 'select') {
+    // TODO: Selection logic
+
+    const x1 = dragStart.ex;
+    const y1 = dragStart.ey;
+    const x2 = (dragCurrent || dragStart).ex;
+    const y2 = (dragCurrent || dragStart).ey;
+
+    const localSelectedEdges = {};
+    const localSelectedNodes = {};
+
+    graphData.nodes.forEach(node => {
+      if (node.intersectsRect(x1, y1, x2, y2)) {
+        localSelectedNodes[node.id] = node;
+      }
+    });
+
+    graphData.edges.forEach(edge => {
+      if (edge.intersectsRect(x1, y1, x2, y2)) {
+        localSelectedEdges[edge.id] = edge;
+      }
+    });
+
+    setNodesAndEdges(localSelectedNodes, localSelectedEdges);
+
+    setDragStart(null);
+    setDragCurrent(null);
+    return;
+  }
+
+  setDragStart(null);
+  setDragCurrent(null);
+
   const node = d3.event.subject;
 
   node.x = transform.invertX(d3.event.x);
   node.y = transform.invertY(d3.event.y);
 
-  d3.event.subject.fx = transform.invertX(d3.event.x);
-  d3.event.subject.fy = transform.invertY(d3.event.y);
+  node.fx = transform.invertX(d3.event.x);
+  node.fy = transform.invertY(d3.event.y);
 
-  // if (!d3.event.active) simulation.alphaTarget(0);
-  //
-  // if (mouseMode === 'select') {
-  //   // TODO: Selection logic
-  //
-  //   const localSelectedNodes = {};
-  //   const localSelectedEdges = {};
-  //
-  //   const x1 = dragStart.ex;
-  //   const y1 = dragStart.ey;
-  //   const x2 = (dragCurrent || dragStart).ex;
-  //   const y2 = (dragCurrent || dragStart).ey;
-  //
-  //   graphData.nodes.forEach(node => {
-  //     if (node.intersectsRect(x1, y1, x2, y2)) {
-  //       localSelectedNodes[node.id] = node;
-  //     }
-  //   });
-  //
-  //   graphData.edges.forEach(edge => {
-  //     if (edge.intersectsRect(x1, y1, x2, y2)) {
-  //       localSelectedEdges[edge.id] = edge;
-  //     }
-  //   });
-  //
-  //   setSelectedNodes(localSelectedNodes);
-  //   setSelectedEdges(localSelectedEdges);
-  //
-  //   setDragStart(null);
-  //   setDragCurrent(null);
-  //   return;
-  // }
-  //
-  // setDragStart(null);
-  // setDragCurrent(null);
-  //
+  Object.keys(selectedNodes).forEach(key => {
+    const node = selectedNodes[key];
+    node.x = node.fx;
+    node.y = node.fy;
+  });
+
+  // todo; fix group dragging
   // for (let i = graphData.nodes.length - 1; i >= 0; --i) {
   //   const node = graphData.nodes[i];
   //   node.x = node.fx;
   //   node.y = node.fy;
+  //
   // }
 };
 
@@ -148,8 +136,7 @@ export const dragSubjectPlugin = (
   transform,
   mouseMode,
   selectedNodes,
-  setSelectedNodes,
-  setSelectedEdges
+  setNodesAndEdges
 ) => {
   if (mouseMode === 'link') {
     return null;
@@ -173,10 +160,10 @@ export const dragSubjectPlugin = (
       if (node.intersectsPoint(x, y)) {
         draggingGroup = true;
       }
-      node.x = node.fx;
-      node.y = node.fy;
-      node.dx = node.fx;
-      node.dy = node.fy;
+      node.x = transform.applyX(node.x);
+      node.y = transform.applyY(node.y);
+      node.fx = null;
+      node.fy = null;
     }
   }
 
@@ -184,24 +171,22 @@ export const dragSubjectPlugin = (
     return { x: d3.event.x, y: d3.event.y };
   }
 
-  for (i = graphData.nodes.length - 1; i >= 0; --i) {
-    const node = graphData.nodes[i];
-    // node.fx = node.x;
-    // node.fy = node.y;
-  }
+  // for (i = graphData.nodes.length - 1; i >= 0; --i) {
+  //   // const node = graphData.nodes[i];
+  //   // node.fx = node.x;
+  //   // node.fy = node.y;
+  // }
 
   for (i = graphData.nodes.length - 1; i >= 0; --i) {
     const node = graphData.nodes[i];
     if (node.intersectsPoint(x, y)) {
       // node.x =
       // node.y =
-      console.log('TRANSFORM MEEEE', transform, node.x, node.y);
       node.x = transform.applyX(node.x);
       node.y = transform.applyY(node.y);
       node.fx = null;
       node.fy = null;
-      setSelectedNodes({});
-      setSelectedEdges({});
+      setNodesAndEdges({}, {});
       return node;
     }
   }
