@@ -95,6 +95,12 @@ const setDragCurrent = t => {
   dragCurrent = t;
 };
 
+let didDrag = false;
+
+const setDidDrag = t => {
+  didDrag = t;
+};
+
 function SGCanvasRefactored(props) {
   const {
     setGraphData,
@@ -168,7 +174,7 @@ function SGCanvasRefactored(props) {
       if (!setEquals(oldSet, newSet)) {
         const newData = { ...selectedData };
 
-        newData[edges] = { ...edges };
+        newData['edges'] = { ...edges };
 
         setSelectedData(newData);
       }
@@ -183,7 +189,7 @@ function SGCanvasRefactored(props) {
       if (!setEquals(oldSet, newSet)) {
         const newData = { ...selectedData };
 
-        newData[nodes] = { ...nodes };
+        newData['nodes'] = { ...nodes };
 
         setSelectedData(newData);
       }
@@ -394,7 +400,8 @@ function SGCanvasRefactored(props) {
               transform,
               mouseMode,
               setDragCurrent,
-              selectedNodes
+              selectedNodes,
+              setDidDrag
             )
           )
           .on('end', () =>
@@ -408,7 +415,9 @@ function SGCanvasRefactored(props) {
               dragCurrent,
               setNodesAndEdges,
               transform,
-              selectedNodes
+              selectedNodes,
+              didDrag,
+              setDidDrag
             )
           )
       )
@@ -426,7 +435,7 @@ function SGCanvasRefactored(props) {
           selectedNodes,
           setSelectedNodes,
           mouseMode,
-          setSelectedData
+          setNodesAndEdges
         )
       )
       .call(
