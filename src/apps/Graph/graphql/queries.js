@@ -11,6 +11,9 @@ const GET_CRAFTING_MACHINE_CLASSES = gql`
       id
       inputs
       outputs
+      tiers {
+        name
+      }
       recipes {
         id
         name
@@ -46,6 +49,9 @@ const GET_ALL_MACHINE_CLASSES = gql`
       id
       inputs
       outputs
+      tiers {
+        name
+      }
       recipes {
         id
         name
@@ -85,10 +91,30 @@ export const getCraftingMachineClasses = (alt = false) => {
           return machine1.name.localeCompare(machine2.name);
         })
         .map(machine => {
+          const tiers = machine.tiers.length;
           let icon = imageBaseUrl[machine.icon];
-          if (!icon) {
-            console.error('Missing file ' + machine.icon);
-            icon = imageBaseUrl['miner_mk1'];
+          if (tiers === 0) {
+            if (!icon) {
+              console.error('Missing file ' + machine.icon);
+              icon = imageBaseUrl['miner_mk1'];
+            }
+          } else {
+            const tierName = machine.tiers[0].name;
+            const baseName = machine.name;
+            const baseNameWithTier = machine.name + '_' + tierName;
+            const name = baseName || 'miner_mk1';
+
+            const tieredChoice = imageBaseUrl[baseNameWithTier];
+            const baseChoice = imageBaseUrl[name];
+
+            if (tieredChoice) {
+              icon = tieredChoice;
+            } else if (baseChoice) {
+              icon = baseChoice;
+            } else {
+              console.error('Missing file ' + machine.icon);
+              icon = imageBaseUrl['miner_mk1'];
+            }
           }
 
           return {
@@ -114,10 +140,30 @@ export const getPlaceableMachineClasses = (alt = false) => {
           return machine1.name.localeCompare(machine2.name);
         })
         .map(machine => {
+          const tiers = machine.tiers.length;
           let icon = imageBaseUrl[machine.icon];
-          if (!icon) {
-            console.error('Missing file ' + machine.icon);
-            icon = imageBaseUrl[Object.keys(imageBaseUrl)[0]];
+          if (tiers === 0) {
+            if (!icon) {
+              console.error('Missing file ' + machine.icon);
+              icon = imageBaseUrl['miner_mk1'];
+            }
+          } else {
+            const tierName = machine.tiers[0].name;
+            const baseName = machine.name;
+            const baseNameWithTier = machine.name + '_' + tierName;
+            const name = baseName || 'miner_mk1';
+
+            const tieredChoice = imageBaseUrl[baseNameWithTier];
+            const baseChoice = imageBaseUrl[name];
+
+            if (tieredChoice) {
+              icon = tieredChoice;
+            } else if (baseChoice) {
+              icon = baseChoice;
+            } else {
+              console.error('Missing file ' + machine.icon);
+              icon = imageBaseUrl['miner_mk1'];
+            }
           }
 
           return {
