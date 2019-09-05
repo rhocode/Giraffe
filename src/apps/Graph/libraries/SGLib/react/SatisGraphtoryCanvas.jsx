@@ -116,22 +116,17 @@ function SatisGraphtoryCanvas(props) {
 
   // Initial load on component
   useEffect(() => {
-    const serialized = {
+    const secondary = {
       d:
-        'VVRKa2RsTlZSa05SVlVwSVVWVkdibEZWVUVWQk9HZFJVbGRrUWxVNFkxRlZhMFpFZWxOQ1UxRlZWRkJKUlZKxDBzYmxGWGJraEZSMnBGUlUxemQyVkZSa1l3YUVSSFVVVldiMUpqVW5kUlZXUlJWVlZTU2xGV1ZuWlJWbEpDVVZVNVEwOVZSa0pWYTJ4VVVUQkdSbFZZU2tKVFZtczFVVlV4YmxGc1RtNVJhekZDVVZSU1NVMUZSa05TVjJoS1UxVkdiMUpHYkVOUmJXOTNVVmhzUWxKcmRFSlNXR1JDVWtka2JWVlZSa1pWTUZadVdqQlNSbE5XUmtreGJFSlNWVmhPUW1FNVJsRT0=',
+        'VVRKa00xTlZSa05SVlVaSVVWVldibEZWVG01UlZURkNVVlYwUlZGWFpFWlNWVVpDVjFWR1ZGRlZTa3hSVlZZelVWVkdkbFJWVGtKU1ZrWkNWVzFrUkbEUEppTUVaRlVWVklSVTlGU2zEYHBJVVZVeGJsRlfEYGMyTTBVakJXUWxKV2JFSmxWVVpFVXpCR1NuaDZhRXBWVlVadldqQlVUVTlGUmpSUlZWSklVVlpJVFdORmFFWuQAoGFVV3RRU0dORlNrcFZhMDVDVVZaR1FsRnRiM2RSV0d4Q1VuTlZWVkpIWkcxxFBHVlRCV2Jsb3dTa1pUTTJSRVVqRkNVbEpGYkVKV1Z6bENWa1ZHUWxRd1NUVuQBEFRVMVpRUldKRVNrSlZWbXMxNVFDUWRWbEJiRVJTU1UxRlJrTlNWMmhLVTFWR05GRXdWa05sVGxaUlVsVldUVkZWY2xKVlJrVTVVRkU5UFE9PQ==',
       i: 3,
       v: '0.1.0'
     };
 
-    const deserialized = deserialize(serialized);
+    const deserialized = deserialize(secondary);
     hydrate(deserialized, translate, transform, data => {
-      console.log('Loaded the data', data);
       setGraphData(data);
     });
-
-    // data.nodes.forEach(node => {
-    //   node.sortSlots();
-    // });
   }, [setGraphData, translate]);
 
   const canvasId = useMemo(() => stringGen(10), []);
