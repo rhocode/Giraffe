@@ -34,6 +34,7 @@ const typeDefs = `
     recipes: [Recipe]
     hasUpgrades: Boolean
     instances: [MachineInstance]
+    tiers: [UpgradeTier]
   }
 
   type MachineInstance {

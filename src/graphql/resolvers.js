@@ -244,7 +244,15 @@ const resolvers = {
       return machineClass.outputs;
     },
     icon(machineClass) {
-      return machineClass.icon || machineClass.id;
+      if (machineClass.icon) {
+        return machineClass.icon;
+      }
+      return machineInstanceListPromise().then(mcMap => {
+        const upgrades = Object.values(mcMap).filter(machineClassInstance => {
+          return machineClassInstance.id === machineClass.id;
+        });
+        return upgrades[0].id;
+      });
     },
     recipes(machineClass) {
       const machineClassId = root().lookupEnum('MachineClass').values[
@@ -277,6 +285,18 @@ const resolvers = {
         });
 
         return instances.length > 1;
+      });
+    },
+    tiers(machineClass) {
+      return machineInstanceListPromise().then(mcMap => {
+        return Object.values(mcMap)
+          .filter(machineClassInstance => {
+            return machineClassInstance.id === machineClass.id;
+          })
+          .sort((m1, m2) => {
+            return m1.tier - m2.tier;
+          })
+          .map(item => item.tier);
       });
     }
   },
