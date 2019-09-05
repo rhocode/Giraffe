@@ -198,8 +198,6 @@ const serialize = (schema: any, graph: saveFile) => {
   // We must serialize the edges from the nodes, since in the future we may only
   // need to serialize portions of the nodes + edges.
 
-  console.log(serializedEdges);
-
   const SaveFile = root.lookupType('SaveFile');
   const buffer = SaveFile.encode({
     edges: serializedEdges,

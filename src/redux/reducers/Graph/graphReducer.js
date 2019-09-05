@@ -8,7 +8,11 @@ const initialState = {
   machineClasses: [],
   selectedMachine: null,
   openModals: 0,
-  graphSourceNode: null
+  graphSourceNode: null,
+  graphData: {
+    edges: [],
+    nodes: []
+  }
 };
 
 export default (state = initialState, action) => {

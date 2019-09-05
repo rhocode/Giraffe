@@ -96,6 +96,7 @@ const deserialize = (jsonData: any) => {
   const root = protobuf.Root.fromJSON(getLatestSchema());
 
   const { d, i } = jsonData;
+
   // console.log(d, i, v);
 
   // const nodeEnumFlagger = {

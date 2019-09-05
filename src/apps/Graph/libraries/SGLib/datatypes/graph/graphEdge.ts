@@ -62,13 +62,10 @@ export class GraphEdge {
     const target = this.targetNode;
     const source = this.sourceNode;
 
-    const outputSlot = source.outputSlotMapping[
-      source.outputSlots.indexOf(this)
-    ] || { x: 0, y: 0 };
+    const outputSlot =
+      source.outputSlotMapping[source.outputSlots.indexOf(this)];
 
-    const inputSlot = target.inputSlotMapping[
-      target.inputSlots.indexOf(this)
-    ] || { x: 0, y: 0 };
+    const inputSlot = target.inputSlotMapping[target.inputSlots.indexOf(this)];
 
     const x1 = source.fx + outputSlot.x;
     const y1 = source.fy + outputSlot.y;
