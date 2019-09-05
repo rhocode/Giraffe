@@ -119,7 +119,6 @@ const canvasClickFunction = (
     const newGraph = Object.assign({}, graphData);
 
     // d3.event.x, y: d3.event.y
-
     newGraph.nodes.push(
       new MachineNode(selectedMachine, 0, x, y, true, translate, transform)
     );

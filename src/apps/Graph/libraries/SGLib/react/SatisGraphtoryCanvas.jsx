@@ -9,8 +9,6 @@ import { withStyles } from '@material-ui/core';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { stringGen } from '../utils/stringUtils';
 import * as d3 from 'd3';
-import MachineNode from '../datatypes/graph/graphNode';
-import { GraphEdge } from '../datatypes/graph/graphEdge';
 import GraphActionsBottomActions from '../../../components/GraphActionsBottomActions';
 import clickPlugin from './plugins/clickFunction';
 import {
@@ -22,11 +20,8 @@ import {
 import zoomPlugin from './plugins/zoomFunction';
 
 import { setEquals } from '../utils/sets';
-import { defaultMachineObjectMock } from '../../../../../mocks/dataMocks';
-// import serialize from '../algorithms/satisgraphtory/serialize';
-// import getLatestSchema from '../utils/getLatestSchema';
-// import deserialize from '../algorithms/satisgraphtory/deserialize';
-// import hydrate from '../algorithms/satisgraphtory/hydrate';
+import deserialize from '../algorithms/satisgraphtory/deserialize';
+import hydrate from '../algorithms/satisgraphtory/hydrate';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -106,7 +101,7 @@ const setDidDrag = t => {
   didDrag = t;
 };
 
-function SGCanvasRefactored(props) {
+function SatisGraphtoryCanvas(props) {
   const {
     setGraphData,
     mouseMode,
@@ -121,42 +116,21 @@ function SGCanvasRefactored(props) {
 
   // Initial load on component
   useEffect(() => {
-    const nodes = [];
-    const edges = [];
-
-    const num_nodes = 5;
-
-    for (let i = 0; i < num_nodes; i++) {
-      nodes.push(new MachineNode(defaultMachineObjectMock, 0, i * 300, 500));
-    }
-
-    for (let i = 0; i < num_nodes - 1; i++) {
-      edges.push(new GraphEdge(nodes[i], nodes[i + 1]));
-    }
-
-    edges.push(new GraphEdge(nodes[0], nodes[1]));
-    edges.push(new GraphEdge(nodes[1], nodes[3]));
-    edges.push(new GraphEdge(nodes[1], nodes[3]));
-    edges.push(new GraphEdge(nodes[3], nodes[4]));
-
-    const data = {
-      nodes: nodes,
-      edges: edges
+    const serialized = {
+      d:
+        'VVRKa2RsTlZSa05SVlVwSVVWVkdibEZWVUVWQk9HZFJVbGRrUWxVNFkxRlZhMFpFZWxOQ1UxRlZWRkJKUlZKxDBzYmxGWGJraEZSMnBGUlUxemQyVkZSa1l3YUVSSFVVVldiMUpqVW5kUlZXUlJWVlZTU2xGV1ZuWlJWbEpDVVZVNVEwOVZSa0pWYTJ4VVVUQkdSbFZZU2tKVFZtczFVVlV4YmxGc1RtNVJhekZDVVZSU1NVMUZSa05TVjJoS1UxVkdiMUpHYkVOUmJXOTNVVmhzUWxKcmRFSlNXR1JDVWtka2JWVlZSa1pWTUZadVdqQlNSbE5XUmtreGJFSlNWVmhPUW1FNVJsRT0=',
+      i: 3,
+      v: '0.1.0'
     };
 
-    // TODO: uncomment after hydrate works
-    // const schema = getLatestSchema();
-    // const serialized = serialize(schema, data);
-    // const deserialized = deserialize(serialized);
-    // hydrate(deserialized, translate, data => {
-    //   setGraphData(data);
-    // });
-
-    data.nodes.forEach(node => {
-      node.sortSlots();
+    const deserialized = deserialize(serialized);
+    hydrate(deserialized, translate, transform, data => {
+      setGraphData(data);
     });
 
-    setGraphData(data);
+    // data.nodes.forEach(node => {
+    //   node.sortSlots();
+    // });
   }, [setGraphData, translate]);
 
   const canvasId = useMemo(() => stringGen(10), []);
@@ -559,4 +533,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(SGCanvasRefactored));
+)(withStyles(styles)(SatisGraphtoryCanvas));

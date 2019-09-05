@@ -41,7 +41,6 @@ export default class MachineClass extends FirebaseDataType {
     this.grabPageData().then((data: any) => {
       data.forEach((item: any) => {
         const data = this.unpackDataFromSpreadSheet(keys, item, parseFunctions);
-        console.error(data);
         const newPojo = {
           identifier: data.identifier,
           inputs: data.inputslots,

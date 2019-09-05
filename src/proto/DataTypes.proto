@@ -67,7 +67,7 @@ message Node {
     int32 id = 1;
     int32 fx = 2;
     int32 fy = 3;
-    MachineClass class = 4;
+    MachineClass machineClass = 4;
     UpgradeTiers tier = 5;
     int32 overclock = 6;
     Recipe recipe = 7;
@@ -75,10 +75,12 @@ message Node {
 }
 
 message Edge {
-    int32 sourceNodeId = 1;
-    int32 targetNodeId = 2;
-    int32 sourceIndex = 3;
-    int32 targetIndex = 4;
+    int32 id = 1;
+    int32 sourceNodeId = 2;
+    int32 targetNodeId = 3;
+    int32 sourceIndex = 4;
+    int32 targetIndex = 5;
+    UpgradeTiers tier = 6;
 }
 
 message SaveFile {

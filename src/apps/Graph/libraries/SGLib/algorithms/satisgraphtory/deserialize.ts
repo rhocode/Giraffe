@@ -95,8 +95,8 @@ export function _byteLength(validLen: number, placeHoldersLen: number): number {
 const deserialize = (jsonData: any) => {
   const root = protobuf.Root.fromJSON(getLatestSchema());
 
-  const { d, i, v } = jsonData;
-  console.log(d, i, v);
+  const { d, i } = jsonData;
+  // console.log(d, i, v);
 
   // const nodeEnumFlagger = {
   //     recipe: 'hasRecipe'

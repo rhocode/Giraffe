@@ -6,11 +6,10 @@ const root = () => protobuf.Root.fromJSON(schemas['0.1.0']);
 const loadDataRaw = () => {
   const memoizedLoadData = {};
   return (filename, mapper) => {
-    console.error('LoadData was called');
-    if (memoizedLoadData[filename]) {
-      return memoizedLoadData[filename];
+    const key = filename + '-' + mapper.name;
+    if (memoizedLoadData[key]) {
+      return memoizedLoadData[key];
     } else {
-      console.error('Loading', filename);
       const ItemList = root().lookupType(filename);
       const promise = fetch(
         `${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`
@@ -22,7 +21,7 @@ const loadDataRaw = () => {
         })
         .then(data => ItemList.toObject(data).data)
         .then(data => mapper(data));
-      memoizedLoadData[filename] = promise;
+      memoizedLoadData[key] = promise;
       return promise;
     }
   };
@@ -48,7 +47,7 @@ const loadData = loadDataRaw();
 
 const mcDataMapper = data => {
   const MachineClass = root().lookupEnum('MachineClass');
-  const map = new Map();
+  const map = {};
   data.forEach(item => {
     map[item.id] = item;
     item.id = MachineClass.valuesById[item.id];
@@ -61,10 +60,11 @@ export const machineClassListPromise = () =>
 
 const mIDataMapper = data => {
   const MachineClass = root().lookupEnum('MachineClass');
+  const UpgradeTiers = root().lookupEnum('UpgradeTiers');
   const map = {};
   data.forEach(item => {
     item.id = MachineClass.valuesById[item.id];
-    map[item.id + '_' + item.tier] = item;
+    map[item.id + '_' + UpgradeTiers.values[item.tier]] = item;
   });
   return map;
 };

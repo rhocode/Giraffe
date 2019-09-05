@@ -45,7 +45,7 @@ class GraphApp extends Component {
 
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    // getAllMachineClasses(language.code === 'discord').then(classes =>
+    // getPlaceableMachineClasses(language.code === 'discord').then(classes =>
     //   this.props.setMachineClasses(classes)
     // );
 
