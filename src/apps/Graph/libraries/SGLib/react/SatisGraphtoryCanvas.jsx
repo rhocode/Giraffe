@@ -125,6 +125,7 @@ function SatisGraphtoryCanvas(props) {
 
     const deserialized = deserialize(serialized);
     hydrate(deserialized, translate, transform, data => {
+      console.log('Loaded the data', data);
       setGraphData(data);
     });
 
