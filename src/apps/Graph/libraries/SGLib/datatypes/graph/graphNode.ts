@@ -163,6 +163,14 @@ export abstract class GraphNode {
     this.outputSlots[nextNullIndex] = target;
   }
 
+  addTargetAtIndex(target: GraphEdge, index: number) {
+    this.outputSlots[index] = target;
+  }
+
+  addSourceAtIndex(source: GraphEdge, index: number) {
+    this.inputSlots[index] = source;
+  }
+
   sortOutputSlots = () => {
     this.outputSlots.sort(
       (ea: Nullable<GraphEdge>, eb: Nullable<GraphEdge>): number => {
@@ -281,11 +289,19 @@ export default class MachineNode extends GraphNode {
     y: number,
     fixPosition = false,
     translator = null,
-    initialTransform = d3.zoomIdentity
+    initialTransform = d3.zoomIdentity,
+    internalId: number = -1
   ) {
     super(x, y);
+
+    if (internalId !== -1) {
+      this.id = internalId;
+      if (GraphNode.nextMachineNodeId <= internalId) {
+        GraphNode.nextMachineNodeId = internalId + 1;
+      }
+    }
+
     this.machineObject = { ...machineObject };
-    console.log(machineObject);
     this.overclock = overclock;
     this.inputSlots = [null, null, null];
     this.outputSlots = [null, null, null];
@@ -329,10 +345,23 @@ export default class MachineNode extends GraphNode {
   }
 
   getImage() {
-    const name = this.machineObject.name || 'miner_mk1';
-    return (
-      imageRepository.machines[name] || imageRepository.machines['miner_mk1']
-    );
+    const baseName = this.machineObject.class.name;
+    const baseNameWithTier =
+      this.machineObject.class.name + '_' + this.machineObject.tier;
+    const name = baseName || 'miner_mk1';
+
+    const tieredChoice = imageRepository.machines[baseNameWithTier];
+    const baseChoice = imageRepository.machines[name];
+
+    if (tieredChoice) {
+      return tieredChoice;
+    }
+
+    if (baseChoice) {
+      return baseChoice;
+    }
+
+    return imageRepository.machines['miner_mk1'];
   }
 
   getTagLine() {

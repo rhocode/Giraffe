@@ -1,6 +1,11 @@
 import { GraphNode } from './graphNode';
 
 type Nullable<T> = T | null;
+type ManualEdgeData = {
+  id: number;
+  sourceIndex: number;
+  targetIndex: number;
+};
 
 export class GraphEdge {
   static nextEdgeId: number = 0;
@@ -18,16 +23,39 @@ export class GraphEdge {
   constructor(
     source: GraphNode,
     target: GraphNode,
-    speed_enum: string = 'mk1'
+    speed_enum: string = 'mk1',
+    manualCreation: boolean = false,
+    manualData: ManualEdgeData
   ) {
-    this.sourceNode = source;
-    this.targetNode = target;
-    this.source = source.id;
-    this.target = target.id;
-    this.id = GraphEdge.nextEdgeId++;
-    source.addTarget(this);
-    target.addSource(this);
-    this.speedEnum = speed_enum;
+    if (!manualCreation) {
+      this.sourceNode = source;
+      this.targetNode = target;
+      this.source = source.id;
+      this.target = target.id;
+      this.id = GraphEdge.nextEdgeId++;
+      source.addTarget(this);
+      target.addSource(this);
+      this.speedEnum = speed_enum;
+    } else {
+      this.sourceNode = source;
+      this.targetNode = target;
+      this.source = source.id;
+      this.target = target.id;
+
+      if (manualData.id === undefined) {
+        this.id = GraphEdge.nextEdgeId++;
+      } else {
+        this.id = manualData.id;
+        if (GraphEdge.nextEdgeId <= this.id) {
+          GraphEdge.nextEdgeId = this.id + 1;
+        }
+      }
+
+      this.speedEnum = speed_enum;
+
+      source.addTargetAtIndex(this, manualData.sourceIndex);
+      target.addSourceAtIndex(this, manualData.targetIndex);
+    }
   }
 
   updateCoordinates() {

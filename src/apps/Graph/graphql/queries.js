@@ -101,7 +101,7 @@ export const getCraftingMachineClasses = (alt = false) => {
     .catch(error => console.error(error));
 };
 
-export const getAllMachineClasses = (alt = false) => {
+export const getPlaceableMachineClasses = (alt = false) => {
   const client = getClient();
   const imageBaseUrl = alt ? urlRepository.machinesAlt : urlRepository.machines;
   return client
@@ -109,7 +109,6 @@ export const getAllMachineClasses = (alt = false) => {
       query: GET_ALL_MACHINE_CLASSES
     })
     .then(response => {
-      console.error(response.data);
       return response.data.getAllMachineClasses
         .sort((machine1, machine2) => {
           return machine1.name.localeCompare(machine2.name);
