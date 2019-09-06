@@ -57,7 +57,7 @@
     "react-autosuggest": "^9.4.3",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^1.7.5",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.9.0",
     "react-flip-toolkit": "^7.0.4",
     "react-focus-trap": "^2.7.1",
     "react-helmet": "^5.2.1",
