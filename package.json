@@ -27,7 +27,7 @@
     "@waiting/base64": "^4.2.9",
     "@welldone-software/why-did-you-render": "^3.3.3",
     "apollo-boost": "^0.4.4",
-    "apollo-link-schema": "^1.2.3",
+    "apollo-link-schema": "^1.2.4",
     "autosuggest-highlight": "^3.1.1",
     "base64-blob": "^1.4.1",
     "canvas-5-polyfill": "^0.1.5",
