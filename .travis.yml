@@ -44,9 +44,11 @@ jobs:
     - stage: Test
       script:
         - npm test
+      env: TRAVIS_BUILD_OS=linux
     - stage: lighthouse-keeper
       script:
-        - npm run build && npx codechecks
+        - npm run build
+        - npx codechecks
       env: TRAVIS_BUILD_OS=linux
     - stage: Deploy Mac
       script:
