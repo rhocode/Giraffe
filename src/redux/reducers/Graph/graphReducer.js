@@ -1,7 +1,6 @@
-import * as d3 from 'd3';
+import produce from 'immer';
 
 const initialState = {
-  graphTransform: d3.zoomIdentity,
   graphFidelity: 'high',
   mouseMode: 'move',
   drawerOpen: false,
@@ -12,71 +11,80 @@ const initialState = {
   graphData: {
     edges: [],
     nodes: []
-  }
+  },
+  selectedData: {}
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'SET_GRAPH_DATA':
       const newNodes = new Set(action.payload.nodes);
-      return {
-        ...state,
-        graphData: Object.assign({}, action.payload),
-        //unset the graph source node if it has been deleted
-        graphSourceNode: newNodes.has(state.graphSourceNode)
-          ? state.graphSourceNode
-          : null
+      const newEdges = new Set(action.payload.edges);
+
+      const selectedEdges = state.selectedData.edges || {};
+      const selectedNodes = state.selectedData.nodes || {};
+
+      const newSelectedEdges = {};
+      const newSelectedNodes = {};
+
+      Object.keys(selectedEdges).forEach(edgeId => {
+        const edgeItem = selectedEdges[edgeId];
+        if (newEdges.has(edgeItem)) {
+          newSelectedEdges[edgeId] = edgeItem;
+        }
+      });
+
+      Object.keys(selectedNodes).forEach(nodeId => {
+        const nodeItem = selectedNodes[nodeId];
+        if (newNodes.has(nodeItem)) {
+          newSelectedNodes[nodeId] = nodeItem;
+        }
+      });
+
+      const selectedData = {
+        nodes: newSelectedNodes,
+        edges: newSelectedEdges
       };
-    case 'SET_GRAPH_TRANSFORM':
-      return {
-        ...state,
-        graphTransform: action.payload
-      };
+
+      return produce(state, draftState => {
+        draftState.graphData = action.payload;
+        draftState.graphSourceNode = newNodes.has(draftState.graphSourceNode)
+          ? draftState.graphSourceNode
+          : null;
+        draftState.selectedData = selectedData;
+      });
+    case 'SET_SELECTED_DATA':
+      return produce(state, draftState => {
+        draftState.selectedData = action.payload;
+      });
     case 'SET_GRAPH_FIDELITY':
-      return {
-        ...state,
-        graphFidelity: action.payload
-      };
+      return produce(state, draftState => {
+        draftState.graphFidelity = action.payload;
+      });
     case 'SET_MOUSE_MODE':
-      return {
-        ...state,
-        mouseMode: action.payload
-      };
-    case 'SET_DRAG_START':
-      return {
-        ...state,
-        dragStart: action.payload
-      };
-    case 'SET_DRAG_CURRENT':
-      return {
-        ...state,
-        dragCurrent: action.payload
-      };
+      return produce(state, draftState => {
+        draftState.mouseMode = action.payload;
+      });
     case 'SET_MACHINE_CLASSES':
-      return {
-        ...state,
-        machineClasses: action.payload
-      };
+      return produce(state, draftState => {
+        draftState.machineClasses = action.payload;
+      });
     case 'SET_SELECTED_MACHINE':
-      return {
-        ...state,
-        selectedMachine: action.payload
-      };
+      return produce(state, draftState => {
+        draftState.selectedMachine = action.payload;
+      });
     case 'ADD_OPENED_MODAL_NODES':
-      return {
-        ...state,
-        openModals: state.openModals + 1
-      };
+      return produce(state, draftState => {
+        draftState.openModals = draftState.openModals + 1;
+      });
     case 'CLOSE_OPENED_MODAL_NODES':
-      return {
-        ...state,
-        openModals: state.openModals - 1
-      };
+      return produce(state, draftState => {
+        draftState.openModals = draftState.openModals - 1;
+      });
     case 'SET_GRAPH_SOURCE_NODE':
-      return {
-        ...state,
-        graphSourceNode: action.payload
-      };
+      return produce(state, draftState => {
+        draftState.graphSourceNode = action.payload;
+      });
     default:
       return state;
   }

@@ -3,14 +3,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Drawer from '@material-ui/core/Drawer';
 import {
-  Typography,
   Button,
-  TextField,
   Divider,
   ExpansionPanel,
-  ExpansionPanelSummary,
+  ExpansionPanelActions,
   ExpansionPanelDetails,
-  ExpansionPanelActions
+  ExpansionPanelSummary,
+  TextField,
+  Typography
 } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -28,6 +28,11 @@ import Slider from '@material-ui/core/Slider';
 import Fab from '@material-ui/core/Fab';
 import { isMobile } from 'react-device-detect';
 import SelectDropdown from '../../../common/react/SelectDropdown';
+import { setGraphData } from '../../../redux/actions/Graph/graphActions';
+import {
+  removeEdges,
+  removeNodes
+} from '../libraries/SGLib/utils/deletionUtils';
 
 const styles = theme => ({
   drawer: {
@@ -104,7 +109,16 @@ function GraphRightPanel(props) {
               <Typography variant="h5">All Node Settings</Typography>
               <Divider className={classes.divider} />
 
-              <Button color="secondary">
+              <Button
+                color="secondary"
+                onClick={() => {
+                  const newSelection = removeNodes(
+                    Object.values(props.selectedData.nodes) || [],
+                    props.graphData
+                  );
+                  props.setGraphData(newSelection);
+                }}
+              >
                 <DeleteIcon /> Delete ALL selected nodes
               </Button>
               <Divider className={classes.divider} />
@@ -149,7 +163,7 @@ function GraphRightPanel(props) {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.expandPanel}>
                   <Typography variant="body1">Recipe</Typography>
-                  <SelectDropdown fullWidth></SelectDropdown>
+                  <SelectDropdown fullWidth />
                   <Divider className={classes.divider} />
 
                   <div className={classes.tiers}>
@@ -228,7 +242,16 @@ function GraphRightPanel(props) {
               <Typography variant="h5">All Belt Settings</Typography>
               <Divider className={classes.divider} />
 
-              <Button color="secondary">
+              <Button
+                color="secondary"
+                onClick={() => {
+                  const newSelection = removeEdges(
+                    Object.values(props.selectedData.edges) || [],
+                    props.graphData
+                  );
+                  props.setGraphData(newSelection);
+                }}
+              >
                 <DeleteIcon /> Delete ALL selected belts
               </Button>
               <Divider className={classes.divider} />
@@ -273,12 +296,16 @@ function GraphRightPanel(props) {
 
 function mapStateToProps(state) {
   return {
-    selectMode: state.graphReducer.mouseMode === 'select'
+    selectMode: state.graphReducer.mouseMode === 'select',
+    selectedData: state.graphReducer.selectedData,
+    graphData: state.graphReducer.graphData
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setGraphData: data => dispatch(setGraphData(data))
+  };
 }
 
 export default connect(

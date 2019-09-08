@@ -6,34 +6,39 @@ type GraphData = {
   edges: GraphEdge[];
 };
 
-export const removeEdge = (
-  edge: GraphEdge,
+export const removeEdges = (
+  edges: GraphEdge[],
   graphData: GraphData
 ): GraphData => {
+  const nodeSet: Set<GraphEdge> = new Set(edges);
   return {
     nodes: graphData.nodes,
-    edges: graphData.edges.filter(item => item !== edge)
+    edges: graphData.edges.filter(item => !nodeSet.has(item))
   };
 };
 
-export const removeNode = (
-  node: GraphNode,
+export const removeNodes = (
+  nodes: GraphNode[],
   graphData: GraphData
 ): GraphData => {
+  const nodeSet: Set<GraphNode> = new Set(nodes);
+
   const removedEdges: Set<GraphEdge> = new Set();
-  node.outputSlots.forEach(item => {
-    if (item !== null) {
-      removedEdges.add(item);
-    }
-  });
-  node.inputSlots.forEach(item => {
-    if (item !== null) {
-      removedEdges.add(item);
-    }
+  nodes.forEach(node => {
+    node.outputSlots.forEach(item => {
+      if (item !== null) {
+        removedEdges.add(item);
+      }
+    });
+    node.inputSlots.forEach(item => {
+      if (item !== null) {
+        removedEdges.add(item);
+      }
+    });
   });
 
   return {
-    nodes: graphData.nodes.filter(item => item !== node),
+    nodes: graphData.nodes.filter(item => !nodeSet.has(item)),
     edges: graphData.edges.filter(item => !removedEdges.has(item))
   };
 };

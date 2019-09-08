@@ -9,6 +9,9 @@ import * as d3 from 'd3';
 
 type Nullable<T> = T | null;
 
+const zoomedCanvasRatio = 3;
+export const maxCanvasRatio = 8;
+
 export abstract class GraphNode {
   static nextMachineNodeId: number = 0;
   id: number;
@@ -32,6 +35,7 @@ export abstract class GraphNode {
   abstract xRenderBuffer: number;
   abstract yRenderBuffer: number;
   k: number = 1;
+  cacheInitialized: boolean = false;
 
   // These are filled in during render time to cache the assigned output slots
   inputSlotMapping: any = {};
@@ -115,11 +119,16 @@ export abstract class GraphNode {
     this.canvasOutlined.width = this.canvas.width;
     this.canvasOutlined.height = this.canvas.height;
 
-    this.zoomedCanvas.width = (this.width + 2 * this.xRenderBuffer) * 10;
-    this.zoomedCanvas.height = (this.height + 2 * this.yRenderBuffer) * 10;
+    if (!this.cacheInitialized) {
+      this.cacheInitialized = true;
+      this.zoomedCanvas.width =
+        (this.width + 2 * this.xRenderBuffer) * zoomedCanvasRatio;
+      this.zoomedCanvas.height =
+        (this.height + 2 * this.yRenderBuffer) * zoomedCanvasRatio;
 
-    this.zoomedCanvasOutlined.width = this.zoomedCanvas.width;
-    this.zoomedCanvasOutlined.height = this.zoomedCanvas.height;
+      this.zoomedCanvasOutlined.width = this.zoomedCanvas.width;
+      this.zoomedCanvasOutlined.height = this.zoomedCanvas.height;
+    }
 
     if (transform) {
       this.context.scale(transform.k, transform.k);
@@ -404,8 +413,8 @@ export default class MachineNode extends GraphNode {
     defaultNodeThemeSprite(debugContext, this);
     defaultNodeThemeSpriteOutline(this.contextOutlined, this);
 
-    this.zoomedContextOutlined.scale(10, 10);
-    this.zoomedContext.scale(10, 10);
+    this.zoomedContextOutlined.scale(zoomedCanvasRatio, zoomedCanvasRatio);
+    this.zoomedContext.scale(zoomedCanvasRatio, zoomedCanvasRatio);
     defaultNodeThemeSprite(this.zoomedContext, this);
     defaultNodeThemeSpriteOutline(this.zoomedContextOutlined, this);
 
