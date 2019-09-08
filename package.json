@@ -33,7 +33,7 @@
     "canvas-5-polyfill": "^0.1.5",
     "clean-deep": "^3.0.4",
     "clsx": "^1.0.4",
-    "d3": "^5.11.0",
+    "d3": "^5.12.0",
     "deep-diff": "^1.0.2",
     "electron-is-dev": "^1.1.0",
     "firebase": "6.6.0",
