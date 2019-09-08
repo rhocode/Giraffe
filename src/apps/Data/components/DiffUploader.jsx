@@ -65,7 +65,6 @@ function DiffUploader(props) {
       const client = new Octokit({
         auth: result.credential.accessToken
       });
-      // setOctoClient(client);
 
       return client;
     });
@@ -303,12 +302,12 @@ function DiffUploader(props) {
               Errors:
             </Typography>
             <Typography variant="body2" component="p">
-              {errorArray.map(item => {
+              {errorArray.map((item, index) => {
                 return (
-                  <>
+                  <div key={index}>
                     {item}
                     <br />
-                  </>
+                  </div>
                 );
               })}
             </Typography>

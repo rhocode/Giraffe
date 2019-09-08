@@ -205,7 +205,7 @@ const serialize = (schema: any, graph: saveFile) => {
   }).finish();
 
   let num_iterations = 0;
-  let lastSize = Infinity;
+  let lastSize;
   let thisSize = Infinity;
 
   let currentBuffer = buffer;
