@@ -37,7 +37,7 @@ stages:
   - name: Deploy Windows & Linux
     if: type != pull_request AND branch = master
   - name: Deploy Mac
-    if:type != pull_request AND branch = master
+    if: type != pull_request AND branch = master
 
 jobs:
   include:
