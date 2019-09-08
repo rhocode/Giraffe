@@ -10,7 +10,7 @@ node_js: "stable"
 matrix:
   include:
     - os: osx
-      osx_image: xcode10.2
+      osx_image: xcode11
       env:
         - TRAVIS_BUILD_OS=osx
     - os: linux
