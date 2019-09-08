@@ -1,20 +1,11 @@
 sudo: false
 
 language: node_js
-node_js: "stable"
+node_js:
+  - "stable"
 
-matrix:
-  include:
-    - os: osx
-      osx_image: xcode11
-      env:
-        - TRAVIS_BUILD_OS=osx
-    - os: linux
-      dist: trusty
-      services: docker
-      language: generic
-      env:
-        - TRAVIS_BUILD_OS=linux
+services:
+  - docker
 
 cache:
   directories:
@@ -38,22 +29,22 @@ stages:
 jobs:
   include:
     - stage: Test
-      if: os = linux
       script:
         - npm test
     - stage: lighthouse-keeper
-      if: os = linux
       script:
         - npm run build
         - npx codechecks
     - stage: Deploy Mac
-      if: os = osx
+      os: osx
+      osx_image: xcode11
       script:
         - npm run release -- --mac
       before_cache:
         - rm -rf $HOME/.cache/electron-builder/wine
     - stage: Deploy Linux
-      if: os = linux
+      os: linux
+      dist: trusty
       script:
         - docker run --rm \
               --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
