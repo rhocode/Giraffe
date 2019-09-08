@@ -2,7 +2,8 @@ import { getTranslate } from 'react-localize-redux';
 import {
   setGraphData,
   setGraphSourceNode,
-  setMouseMode
+  setMouseMode,
+  setSelectedData
 } from '../../../../../redux/actions/Graph/graphActions';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
@@ -22,6 +23,7 @@ import zoomPlugin from './plugins/zoomFunction';
 import { setEquals } from '../utils/sets';
 import deserialize from '../algorithms/satisgraphtory/deserialize';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
+import { maxCanvasRatio } from '../datatypes/graph/graphNode';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -122,10 +124,12 @@ function SatisGraphtoryCanvas(props) {
       i: 3,
       v: '0.1.0'
     };
+    console.time('LoadingTimeForData');
 
     const deserialized = deserialize(secondary);
     hydrate(deserialized, translate, transform, data => {
       setGraphData(data);
+      console.timeEnd('LoadingTimeForData');
     });
   }, [setGraphData, translate]);
 
@@ -138,9 +142,12 @@ function SatisGraphtoryCanvas(props) {
     canvasCurrent
   ] = useBoundingBoxRect(props);
   const ratio = window.devicePixelRatio || 1;
-  const { heightOverride, widthOverride } = props;
-
-  const [selectedData, setSelectedData] = useState({});
+  const {
+    heightOverride,
+    widthOverride,
+    setSelectedDataFunc,
+    selectedData
+  } = props;
 
   const selectedNodes = selectedData.nodes || {};
   const selectedEdges = selectedData.edges || {};
@@ -154,10 +161,10 @@ function SatisGraphtoryCanvas(props) {
 
         newData['edges'] = { ...edges };
 
-        setSelectedData(newData);
+        setSelectedDataFunc(newData);
       }
     },
-    [selectedData]
+    [selectedData, setSelectedDataFunc]
   );
 
   const setSelectedNodes = React.useCallback(
@@ -169,10 +176,10 @@ function SatisGraphtoryCanvas(props) {
 
         newData['nodes'] = { ...nodes };
 
-        setSelectedData(newData);
+        setSelectedDataFunc(newData);
       }
     },
-    [selectedData]
+    [selectedData, setSelectedDataFunc]
   );
 
   const setNodesAndEdges = React.useCallback(
@@ -180,8 +187,8 @@ function SatisGraphtoryCanvas(props) {
       const oldNodeSet = new Set(Object.keys(selectedData.nodes || {}));
       const newNodeSet = new Set(Object.keys(nodes));
 
-      const oldEdgeSet = new Set(Object.keys(selectedData.nodes || {}));
-      const newEdgeSet = new Set(Object.keys(nodes));
+      const oldEdgeSet = new Set(Object.keys(selectedData.edges || {}));
+      const newEdgeSet = new Set(Object.keys(edges));
 
       let nodesChanged = false;
       let edgesChanged = false;
@@ -205,10 +212,10 @@ function SatisGraphtoryCanvas(props) {
           newData['edges'] = { ...edges };
         }
 
-        setSelectedData(newData);
+        setSelectedDataFunc(newData);
       }
     },
-    [selectedData]
+    [selectedData, setSelectedDataFunc]
   );
 
   const graphEdges = graphData ? graphData.edges : null;
@@ -426,7 +433,7 @@ function SatisGraphtoryCanvas(props) {
 
             return mouseMode !== 'link';
           })
-          .scaleExtent([1 / 10, 8])
+          .scaleExtent([1 / 10, maxCanvasRatio])
           .on('zoom', () =>
             zoomPlugin(
               graphData,
@@ -509,11 +516,11 @@ const styles = () => ({
 function mapStateToProps(state) {
   return {
     graphData: state.graphReducer.graphData,
-    graphTransform: state.graphReducer.graphTransform,
     graphFidelity: state.graphReducer.graphFidelity,
     mouseMode: state.graphReducer.mouseMode,
     selectedMachine: state.graphReducer.selectedMachine,
     graphSourceNode: state.graphReducer.graphSourceNode,
+    selectedData: state.graphReducer.selectedData,
     translate: getTranslate(state.localize)
   };
 }
@@ -522,7 +529,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setGraphData: data => dispatch(setGraphData(data)),
     setGraphSourceNode: data => dispatch(setGraphSourceNode(data)),
-    setMouseMode: data => dispatch(setMouseMode(data))
+    setMouseMode: data => dispatch(setMouseMode(data)),
+    setSelectedDataFunc: data => dispatch(setSelectedData(data))
   };
 }
 

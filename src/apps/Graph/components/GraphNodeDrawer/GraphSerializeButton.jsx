@@ -24,7 +24,6 @@ const styles = () => ({});
 function mapStateToProps(state) {
   return {
     graphData: state.graphReducer.graphData,
-    graphTransform: state.graphReducer.graphTransform,
     graphFidelity: state.graphReducer.graphFidelity,
     mouseMode: state.graphReducer.mouseMode,
     selectedMachine: state.graphReducer.selectedMachine,
