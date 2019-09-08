@@ -113,7 +113,7 @@ function GraphRightPanel(props) {
                 color="secondary"
                 onClick={() => {
                   const newSelection = removeNodes(
-                    Object.values(props.selectedData.nodes) || [],
+                    Object.values(props.selectedData.nodes || {}),
                     props.graphData
                   );
                   props.setGraphData(newSelection);
@@ -246,7 +246,7 @@ function GraphRightPanel(props) {
                 color="secondary"
                 onClick={() => {
                   const newSelection = removeEdges(
-                    Object.values(props.selectedData.edges) || [],
+                    Object.values(props.selectedData.edges || {}),
                     props.graphData
                   );
                   props.setGraphData(newSelection);

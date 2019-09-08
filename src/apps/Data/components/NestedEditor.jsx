@@ -366,9 +366,9 @@ function NestedEditor(props) {
           ) {
             newData[key] = value;
           } else {
-            if (value === undefined || value === null) {
-              value = '';
-            }
+            // if (value === undefined || value === null) {
+            //   value = '';
+            // }
             const inputValue = deburr(value.trim()).toLowerCase();
             if (inputValue !== '') {
               newData[key] = deburr(value.trim());
