@@ -39,11 +39,13 @@ jobs:
         - rm -rf $HOME/.cache/electron-builder/wine
     -
       os: linux
-      dist: trusty
+      sudo: required
+      dist: xenial
       script:
         - npm run release -- --linux -c.snap.publish=github
     -
       os: linux
-      dist: trusty
+      sudo: required
+      dist: xenial
       script:
         - npm run release -- --win
