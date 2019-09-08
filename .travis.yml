@@ -44,8 +44,7 @@ jobs:
       script:
         - npm run release -- --linux -c.snap.publish=github
     -
-      os: linux
-      sudo: required
-      dist: xenial
+      os: osx
+      osx_image: xcode11
       script:
-        - npm run release -- --win -c.snap.publish=github
+        - npm run release -- --win
