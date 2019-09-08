@@ -29,12 +29,13 @@ jobs:
     - stage: lighthouse-keeper
       script:
         - npm run build
-        - npx codechecks
+        - travis_retry npx codechecks
     - stage: Deploy Electron
       os: osx
       osx_image: xcode11
       script:
-        - npm run release -- --mac
+        - npm run build
+        - reavis_retry npm run release-standalone -- --mac
       before_cache:
         - rm -rf $HOME/.cache/electron-builder/wine
     -
@@ -42,7 +43,8 @@ jobs:
       sudo: required
       dist: xenial
       script:
-        - npm run release -- --linux -c.snap.publish=github
+        - npm run build
+        - travis_retry npm run release-standalone -- --linux -c.snap.publish=github
     -
       os: osx
       osx_image: xcode11
