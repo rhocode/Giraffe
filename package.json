@@ -102,7 +102,8 @@
     "electron-build": "electron-builder -c.extraMetadata.main=build/electron.js",
     "electron-build-cross": "electron-builder -mwl -c.extraMetadata.main=build/electron.js",
     "prerelease": "npm run build",
-    "release": "electron-builder --publish always",
+    "release": "npm run release-standalone",
+    "release-standalone": "electron-builder --publish always",
     "pretty": "prettier --single-quote --write src/**/*"
   },
   "eslintConfig": {
