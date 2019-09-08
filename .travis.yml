@@ -48,4 +48,4 @@ jobs:
       osx_image: xcode11
       script:
         - npm run build
-        - travis-retry npm run release-standalone -- --win
+        - travis_retry npm run release-standalone -- --win
