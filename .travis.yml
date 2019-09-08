@@ -48,4 +48,4 @@ jobs:
       sudo: required
       dist: xenial
       script:
-        - npm run release -- --win
+        - npm run release -- --win -c.snap.publish=github
