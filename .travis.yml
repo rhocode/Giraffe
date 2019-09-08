@@ -47,4 +47,5 @@ jobs:
       os: osx
       osx_image: xcode11
       script:
-        - npm run release -- --win
+        - npm run build
+        - travis-retry npm run release-standalone -- --win
