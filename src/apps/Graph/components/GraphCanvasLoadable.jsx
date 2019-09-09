@@ -19,12 +19,7 @@ const LoadableComponent = Loadable({
       new FontFaceObserver('Roboto Condensed').load(),
       ...imageRepositoryPromise.machines,
       ...imageRepositoryPromise.items,
-      getPlaceableMachineClasses(),
-      new Promise(resolve => {
-        setTimeout(() => {
-          resolve(0);
-        }, 2000);
-      })
+      getPlaceableMachineClasses()
     ]).then(() => import('../libraries/SGLib/react/SatisGraphtoryCanvas'));
   },
   loading: AutoSizedLoadingWrapper
