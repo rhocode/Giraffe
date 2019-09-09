@@ -10,6 +10,7 @@ import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
 import { getCraftingMachineClasses } from './graphql/queries';
 import { getActiveLanguage, getTranslate } from 'react-localize-redux';
 import GraphRightPanel from './components/GraphRightPanel';
+import GraphLeftFab from './components/GraphLeftFab';
 
 const styles = theme => {
   console.log(theme);
@@ -102,9 +103,8 @@ class GraphApp extends Component {
           <GraphAppBar />
           <GraphRightPanel />
           <GraphCanvasLoadable />
-
+          <GraphLeftFab />
           <GraphNodeDrawer />
-          {/*<div className={classes.thing1}>HELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLOHELLO<br />HELLO</div>*/}
         </div>
       );
     } else {

@@ -21,7 +21,6 @@ import {
 import zoomPlugin from './plugins/zoomFunction';
 
 import { setEquals } from '../utils/sets';
-import deserialize from '../algorithms/satisgraphtory/deserialize';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
 
@@ -113,25 +112,16 @@ function SatisGraphtoryCanvas(props) {
     translate,
     selectedMachine,
     setGraphSourceNode,
-    setMouseMode
+    setMouseMode,
+    initialLoadedData
   } = props;
 
   // Initial load on component
   useEffect(() => {
-    const secondary = {
-      d:
-        'VVRKa00xTlZSa05SVlVaSVVWVldibEZWVG01UlZURkNVVlYwUlZGWFpFWlNWVVpDVjFWR1ZGRlZTa3hSVlZZelVWVkdkbFJWVGtKU1ZrWkNWVzFrUkbEUEppTUVaRlVWVklSVTlGU2zEYHBJVVZVeGJsRlfEYGMyTTBVakJXUWxKV2JFSmxWVVpFVXpCR1NuaDZhRXBWVlVadldqQlVUVTlGUmpSUlZWSklVVlpJVFdORmFFWuQAoGFVV3RRU0dORlNrcFZhMDVDVVZaR1FsRnRiM2RSV0d4Q1VuTlZWVkpIWkcxxFBHVlRCV2Jsb3dTa1pUTTJSRVVqRkNVbEpGYkVKV1Z6bENWa1ZHUWxRd1NUVuQBEFRVMVpRUldKRVNrSlZWbXMxNVFDUWRWbEJiRVJTU1UxRlJrTlNWMmhLVTFWR05GRXdWa05sVGxaUlVsVldUVkZWY2xKVlJrVTVVRkU5UFE9PQ==',
-      i: 3,
-      v: '0.1.0'
-    };
-    console.time('LoadingTimeForData');
-
-    const deserialized = deserialize(secondary);
-    hydrate(deserialized, translate, transform, data => {
+    hydrate(initialLoadedData, translate, transform, data => {
       setGraphData(data);
-      console.timeEnd('LoadingTimeForData');
     });
-  }, [setGraphData, translate]);
+  }, [initialLoadedData, setGraphData, translate]);
 
   const canvasId = useMemo(() => stringGen(10), []);
   const [
@@ -510,6 +500,13 @@ const styles = () => ({
     gridArea: 'canvasElement',
     minWidth: 0,
     minHeight: 0
+  },
+  loadingContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
   }
 });
 
@@ -521,6 +518,7 @@ function mapStateToProps(state) {
     selectedMachine: state.graphReducer.selectedMachine,
     graphSourceNode: state.graphReducer.graphSourceNode,
     selectedData: state.graphReducer.selectedData,
+    initialLoadedData: state.graphReducer.initialLoadedData,
     translate: getTranslate(state.localize)
   };
 }
