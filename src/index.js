@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import App from './apps/App/App';
 
@@ -13,7 +13,7 @@ require('typeface-roboto-condensed');
 
 const store = getStore();
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <ServiceWorkerProvider>
       <LocalizeProvider store={store}>
