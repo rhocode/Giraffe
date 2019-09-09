@@ -10,7 +10,9 @@ const hydrate = (
 ) => {
   const nodes = deserializedData.nodes;
   const edges = deserializedData.edges;
+  console.time('initial load of classes');
   getPlaceableMachineClasses().then((classes: any) => {
+    console.timeEnd('initial load of classes');
     const mapping: any = {};
     Object.values(classes).forEach((value: any) => {
       mapping[value.name] = value;

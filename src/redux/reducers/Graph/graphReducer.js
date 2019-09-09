@@ -12,7 +12,9 @@ const initialState = {
     edges: [],
     nodes: []
   },
-  selectedData: {}
+  selectedData: {},
+  initialLoadedData: null,
+  rightPanelOpen: false
 };
 
 export default (state = initialState, action) => {
@@ -84,6 +86,14 @@ export default (state = initialState, action) => {
     case 'SET_GRAPH_SOURCE_NODE':
       return produce(state, draftState => {
         draftState.graphSourceNode = action.payload;
+      });
+    case 'SET_INITIAL_LOADED_DATA':
+      return produce(state, draftState => {
+        draftState.initialLoadedData = action.payload;
+      });
+    case 'SET_RIGHT_PANEL_OPEN':
+      return produce(state, draftState => {
+        draftState.rightPanelOpen = action.payload;
       });
     default:
       return state;

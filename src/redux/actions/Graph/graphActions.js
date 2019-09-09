@@ -58,3 +58,17 @@ export const setGraphSourceNode = data => dispatch => {
     payload: data
   });
 };
+
+export const setInitialLoadedData = data => dispatch => {
+  dispatch({
+    type: 'SET_INITIAL_LOADED_DATA',
+    payload: data
+  });
+};
+
+export const setRightPanelOpen = data => dispatch => {
+  dispatch({
+    type: 'SET_RIGHT_PANEL_OPEN',
+    payload: data
+  });
+};

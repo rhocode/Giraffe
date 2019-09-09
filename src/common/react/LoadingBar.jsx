@@ -11,19 +11,28 @@ import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
 import { getTranslate } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import anvil from '../images/anvil.gif';
 
 const styles = () => ({
   canvasContainer: {
     overflow: 'hidden',
     display: 'grid',
     gridTemplateAreas: `"spacerTop"
+       "topText"
        "loader"
        "spacerBottom"`,
-    gridTemplateRows: 'minmax(0, 1fr) min-content minmax(0, 1fr)',
+    gridTemplateRows: 'minmax(0, 1fr) min-content min-content minmax(0, 1fr)',
     gridTemplateColumns: 'minmax(0, 1fr)'
   },
   canvas: {
     gridArea: 'loader'
+  },
+  loadingTopText: {
+    gridArea: 'topText'
+  },
+  loadingTopImage: {
+    display: 'block',
+    margin: 'auto'
   }
 });
 
@@ -179,6 +188,13 @@ const LoadingCanvas = props => {
       className={props.classes.canvasContainer}
       style={{ overflow: 'hidden' }}
     >
+      <div className={props.classes.loadingTopText}>
+        <img
+          className={props.classes.loadingTopImage}
+          alt={'loading'}
+          src={anvil}
+        />
+      </div>
       <canvas
         id={canvasId}
         className={props.classes.canvas}

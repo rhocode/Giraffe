@@ -127,7 +127,7 @@ export const getCraftingMachineClasses = (alt = false) => {
     .catch(error => console.error(error));
 };
 
-export const getPlaceableMachineClasses = (alt = false) => {
+export const lazyLoadedGetPlaceableMachineClasses = (alt = false) => {
   const client = getClient();
   const imageBaseUrl = alt ? urlRepository.machinesAlt : urlRepository.machines;
   return client
@@ -175,3 +175,26 @@ export const getPlaceableMachineClasses = (alt = false) => {
     })
     .catch(error => console.error(error));
 };
+
+export const getPlaceableMachineClasses = (() => {
+  let query = null;
+  let queryAlt = null;
+
+  return (alt = false) => {
+    if (alt) {
+      if (queryAlt) {
+        return queryAlt;
+      } else {
+        queryAlt = lazyLoadedGetPlaceableMachineClasses(alt);
+        return queryAlt;
+      }
+    } else {
+      if (query) {
+        return query;
+      } else {
+        query = lazyLoadedGetPlaceableMachineClasses(alt);
+        return query;
+      }
+    }
+  };
+})();
