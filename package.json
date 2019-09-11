@@ -80,7 +80,7 @@
     "seamless-immutable": "^7.1.4",
     "throttle-debounce": "^2.1.0",
     "typeface-roboto-condensed": "0.0.75",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.3"
   },
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
