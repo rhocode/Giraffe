@@ -62,8 +62,6 @@ const serializeNode = (
 ) => {
   const data: any = node.serialize();
 
-  console.log(data);
-
   const mappedEnums: any = {};
 
   Object.keys(enumMapper).forEach(fieldName => {
@@ -197,8 +195,6 @@ const serialize = (schema: any, graph: saveFile) => {
   const serializedEdges = serializeEdgesFromNodes(nodes, edgeEnumMapper);
   // We must serialize the edges from the nodes, since in the future we may only
   // need to serialize portions of the nodes + edges.
-
-  console.error('KNJAFNJNLKDASFLKDSA', serializedEdges);
 
   const SaveFile = root.lookupType('SaveFile');
   const buffer = SaveFile.encode({
