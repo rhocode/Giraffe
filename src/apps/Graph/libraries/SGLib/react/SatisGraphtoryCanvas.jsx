@@ -233,7 +233,7 @@ function SatisGraphtoryCanvas(props) {
 
       Object.keys(selectedEdges).forEach(edgeId => {
         const edge = selectedEdges[edgeId];
-        const startNode = edge.sourceNode;
+        const startNode = edge.source;
         startNode.drawEdgePath(canvasContext, edge);
       });
 
@@ -245,7 +245,7 @@ function SatisGraphtoryCanvas(props) {
       graphEdges.forEach(edge => {
         // Skip rendering this edge if we have already rendered;
         if (selectedEdges[edge.id]) return;
-        const startNode = edge.sourceNode;
+        const startNode = edge.source;
         startNode.drawEdgePath(canvasContext, edge);
       });
 

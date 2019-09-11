@@ -198,6 +198,8 @@ const serialize = (schema: any, graph: saveFile) => {
   // We must serialize the edges from the nodes, since in the future we may only
   // need to serialize portions of the nodes + edges.
 
+  console.error('KNJAFNJNLKDASFLKDSA', serializedEdges);
+
   const SaveFile = root.lookupType('SaveFile');
   const buffer = SaveFile.encode({
     edges: serializedEdges,
@@ -219,12 +221,6 @@ const serialize = (schema: any, graph: saveFile) => {
     num_iterations++;
   } while (thisSize < lastSize);
 
-  const originalJSON = JSON.stringify({
-    edges: serializedEdges,
-    nodes: serializedNodes
-  });
-
-  console.log('Total JSON size: ' + formatBytes(originalJSON.length * 8));
   console.log(
     'Total serialized size: ' + formatBytes(currentBuffer.length * 8)
   );
