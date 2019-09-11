@@ -9,10 +9,8 @@ type ManualEdgeData = {
 
 export class GraphEdge {
   static nextEdgeId: number = 0;
-  source: number;
-  sourceNode: GraphNode;
-  target: number;
-  targetNode: GraphNode;
+  source: GraphNode;
+  target: GraphNode;
   id: number = 0;
   x1: number = 0;
   x2: number = 0;
@@ -28,20 +26,15 @@ export class GraphEdge {
     manualData: ManualEdgeData
   ) {
     if (!manualCreation) {
-      this.sourceNode = source;
-      this.targetNode = target;
-      this.source = source.id;
-      this.target = target.id;
+      this.source = source;
+      this.target = target;
       this.id = GraphEdge.nextEdgeId++;
       source.addTarget(this);
       target.addSource(this);
       this.speedEnum = speed_enum;
     } else {
-      this.sourceNode = source;
-      this.targetNode = target;
-      this.source = source.id;
-      this.target = target.id;
-
+      this.source = source;
+      this.target = target;
       if (manualData.id === undefined) {
         this.id = GraphEdge.nextEdgeId++;
       } else {
@@ -59,8 +52,8 @@ export class GraphEdge {
   }
 
   updateCoordinates() {
-    const target = this.targetNode;
-    const source = this.sourceNode;
+    const target = this.target;
+    const source = this.source;
 
     const outputSlot =
       source.outputSlotMapping[source.outputSlots.indexOf(this)];
@@ -79,8 +72,8 @@ export class GraphEdge {
     return {
       id: this.id,
       tier: this.speedEnum,
-      sourceNodeId: this.source,
-      targetNodeId: this.target
+      sourceNodeId: this.source.id,
+      targetNodeId: this.target.id
     };
   }
 

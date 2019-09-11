@@ -9,6 +9,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual';
 
 import GraphAppBarButton from './GraphAppBarButton';
+import GraphSerializeButton from './GraphNodeDrawer/GraphSerializeButton';
 
 const styles = theme => ({
   shareDialog: {
@@ -55,6 +56,7 @@ class GraphShareButton extends Component {
             <PhotoSizeSelectActualIcon />
             <div className={classes.label}>Export Image</div>
           </Button>
+          <GraphSerializeButton />
         </div>
       </GraphAppBarButton>
     );

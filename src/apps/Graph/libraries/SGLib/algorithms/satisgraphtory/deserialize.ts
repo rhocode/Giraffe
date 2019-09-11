@@ -97,6 +97,13 @@ const deserialize = (jsonData: any) => {
 
   const { d, i } = jsonData;
 
+  if (d === '') {
+    return {
+      nodes: [],
+      edges: []
+    };
+  }
+
   // console.log(d, i, v);
 
   // const nodeEnumFlagger = {

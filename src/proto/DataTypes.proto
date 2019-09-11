@@ -65,8 +65,8 @@ message MachineClassList {
 
 message Node {
     int32 id = 1;
-    int32 fx = 2;
-    int32 fy = 3;
+    float fx = 2;
+    float fy = 3;
     MachineClass machineClass = 4;
     UpgradeTiers tier = 5;
     int32 overclock = 6;

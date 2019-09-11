@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import { GraphNode } from "../../datatypes/graph/graphNode";
+import * as d3 from 'd3';
+import { GraphNode } from '../../datatypes/graph/graphNode';
 
 export const dragStartPlugin = (
   simulation,
@@ -14,7 +14,7 @@ export const dragStartPlugin = (
   d3.event.subject.fy = y;
 
   // Set the drag start
-  if (mouseMode === "select") {
+  if (mouseMode === 'select') {
     setDragStart({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
   }
 };
@@ -34,7 +34,7 @@ export const dragDuringPlugin = (
   const x = transform.invertX(d3.event.x);
   const y = transform.invertY(d3.event.y);
 
-  if (mouseMode === "select") {
+  if (mouseMode === 'select') {
     setDragCurrent({ x: d3.event.x, y: d3.event.y, ex: x, ey: y });
   }
 
@@ -45,7 +45,7 @@ export const dragDuringPlugin = (
     subject.fy = y;
     subject.sortSlots();
     subject.sortConnectedNodeSlots();
-  } else if (mouseMode !== "select" && Object.keys(selectedNodes).length) {
+  } else if (mouseMode !== 'select' && Object.keys(selectedNodes).length) {
     // It's a grouping of nodes
     Object.keys(selectedNodes).forEach(key => {
       const node = selectedNodes[key];
@@ -86,7 +86,7 @@ export const dragEndPlugin = (
 
   if (!d3.event.active) simulation.alphaTarget(0);
 
-  if (mouseMode === "select") {
+  if (mouseMode === 'select') {
     // TODO: Selection logic
 
     const x1 = dragStart.ex;
@@ -110,6 +110,7 @@ export const dragEndPlugin = (
     });
 
     if (localDidDrag) {
+      console.error('AKNJDSADKMNAS', localSelectedNodes, localSelectedEdges);
       setNodesAndEdges(localSelectedNodes, localSelectedEdges);
     } else {
       // didn't hit any nodes, which means we should
@@ -151,7 +152,7 @@ export const dragSubjectPlugin = (
   selectedNodes,
   setNodesAndEdges
 ) => {
-  if (mouseMode === "link") {
+  if (mouseMode === 'link') {
     return null;
   }
 
@@ -159,7 +160,7 @@ export const dragSubjectPlugin = (
     x = transform.invertX(d3.event.x),
     y = transform.invertY(d3.event.y);
 
-  if (mouseMode === "select") {
+  if (mouseMode === 'select') {
     return { x: d3.event.x, y: d3.event.y };
   }
 
@@ -167,7 +168,7 @@ export const dragSubjectPlugin = (
 
   let draggingGroup = false;
 
-  if (mouseMode === "move" && selectedNodeKeys.length) {
+  if (mouseMode === 'move' && selectedNodeKeys.length) {
     for (i = 0; i < selectedNodeKeys.length; i++) {
       const node = selectedNodes[selectedNodeKeys[i]];
       if (node.intersectsPoint(x, y)) {
@@ -204,7 +205,7 @@ export const dragSubjectPlugin = (
     }
   }
 
-  if (mouseMode === "add") {
+  if (mouseMode === 'add') {
     return { x: d3.event.x, y: d3.event.y };
   }
 
