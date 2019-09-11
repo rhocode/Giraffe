@@ -31,7 +31,7 @@
     "autosuggest-highlight": "^3.1.1",
     "base64-blob": "^1.4.1",
     "canvas-5-polyfill": "^0.1.5",
-    "clean-deep": "^3.0.4",
+    "clean-deep": "^3.0.5",
     "clsx": "^1.0.4",
     "d3": "^5.12.0",
     "dagre": "^0.8.4",
