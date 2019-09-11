@@ -190,8 +190,8 @@ export abstract class GraphNode {
           return 1;
         }
 
-        const a = ea.targetNode;
-        const b = eb.targetNode;
+        const a = ea.target;
+        const b = eb.target;
 
         const yA = a.fy - this.fy;
         const xA = a.fx - this.fx;
@@ -218,8 +218,8 @@ export abstract class GraphNode {
           return 1;
         }
 
-        const a = ea.sourceNode;
-        const b = eb.sourceNode;
+        const a = ea.source;
+        const b = eb.source;
 
         const yA = this.fy - a.fy;
         const xA = this.fx - a.fx;
@@ -247,7 +247,7 @@ export abstract class GraphNode {
     const nodeSorted: any = {};
     this.inputSlots.forEach(edge => {
       if (!edge) return;
-      const node = edge.sourceNode;
+      const node = edge.source;
       nodeSorted[node.id] = nodeSorted[node.id] + 1 || 0;
       if (!nodeSorted[node.id]) {
         node.sortOutputSlots();
@@ -255,7 +255,7 @@ export abstract class GraphNode {
     });
     this.outputSlots.forEach(edge => {
       if (!edge) return;
-      const node = edge.targetNode;
+      const node = edge.target;
       if (!nodeSorted[node.id]) {
         node.sortInputSlots();
       }
