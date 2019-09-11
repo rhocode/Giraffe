@@ -23,6 +23,7 @@ import zoomPlugin from './plugins/zoomFunction';
 import { setEquals } from '../utils/sets';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
+import transformGraph from '../algorithms/satisgraphtory/transform';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -349,6 +350,12 @@ function SatisGraphtoryCanvas(props) {
     simulation.restart();
     simulation.alphaDecay(1);
   }, [graphFidelity, simulation, selectedEdges, selectedNodes, graphData]);
+
+  useEffect(() => {
+    if (graphData) {
+      transformGraph(graphData);
+    }
+  }, [graphData]);
 
   useEffect(() => {
     if (!canvasCurrent) return;

@@ -192,7 +192,7 @@ const splitterCalculatorHelper = (
 
   let minimumElementsPassed = false;
   // let startRecording = false;
-  let startTime = 0;
+  // let startTime = 0;
   let usedNextFreeTime = false;
 
   let lcm = leastCommonMultiple([...outputsSpeed].filter(item => item > 0));
@@ -269,7 +269,7 @@ const splitterCalculatorHelper = (
 
   const totalTime = ((timeIndex - nonZeroItems.length + 1) / 2) * timeScale;
 
-  const itemsTransported = left.filter(i => i >= 0).length;
+  // const itemsTransported = left.filter(i => i >= 0).length;
 
   const leftSplit = left.filter(i => i === 0).length;
   const middleSplit = left.filter(i => i === 1).length;

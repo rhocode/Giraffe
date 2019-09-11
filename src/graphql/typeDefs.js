@@ -15,6 +15,7 @@ const typeDefs = `
   type Recipe {
     id: String! 
     name: String!
+    _internalId: Int!
     input: [ResourcePacket]!
     output: [ResourcePacket]!
     machineClass: MachineClass
