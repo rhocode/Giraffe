@@ -4,13 +4,16 @@ import { GraphEdge } from '../../datatypes/graph/graphEdge';
 import { recipeListPromise } from '../../../../../../graphql/resolvers';
 import ResourcePacket from '../../datatypes/primitives/resourcePacket';
 import Recipe from '../../datatypes/primitives/recipe';
+import SatisGraphtoryAbstractNode from '../../datatypes/satisgraphtory/satisGraphtoryAbstractNode';
+import RecipeProcessorNode from '../../datatypes/satisgraphtory/recipeProcessorNode';
+import StrictProducerNode from '../../datatypes/satisgraphtory/strictProducerNode';
 
 type GraphData = {
   nodes: GraphNode[];
   edges: GraphEdge[];
 };
 
-const recipeRepository = () => {
+const recipeRepositoryRaw = () => {
   let cachedResult: any = null;
   return () => {
     if (!cachedResult) {
@@ -33,6 +36,8 @@ const recipeRepository = () => {
           );
         });
 
+        finalMapping.set('', new Recipe([], [], 1));
+
         return finalMapping;
       });
     }
@@ -41,25 +46,45 @@ const recipeRepository = () => {
   };
 };
 
-recipeRepository();
+const recipeRepository = recipeRepositoryRaw();
 
 const transformGraph = (graphData: GraphData) => {
   const nodes = graphData.nodes || [];
 
-  // const transformedNodes: SatisGraphtoryAbstractNode[] = [];
-  nodes.forEach(node => {
-    if (node instanceof MachineNode) {
-      // Todo: maybe make different versions?
-      if (node.machineObject) {
-        switch (node.machineObject.class.name) {
-          case 'container':
-          default:
-            break;
+  recipeRepository().then((recipeData: any) => {
+    const transformedNodes: SatisGraphtoryAbstractNode[] = [];
+    nodes.forEach(node => {
+      if (node instanceof MachineNode) {
+        // Todo: maybe make different versions?
+        if (node.machineObject) {
+          const recipe = recipeData.get(node.machineObject.recipe);
+          switch (node.machineObject.class.name) {
+            case 'miner':
+              transformedNodes.push(new StrictProducerNode(node, recipe));
+              break;
+            case 'smelter':
+            case 'constructor':
+            case 'assembler':
+              transformedNodes.push(new RecipeProcessorNode(node, recipe));
+              break;
+            case 'container':
+            default:
+              console.error(
+                'Unhandled machine type',
+                node.machineObject.class.name
+              );
+              break;
+            // transformedNodes.push(new RecipeProcessorNode(node, ))
+            // return;
+          }
+          // const type = node.machineObject.class
+          console.log(
+            node.machineObject.class.name,
+            recipeData.get(node.machineObject.recipe)
+          );
         }
-        // const type = node.machineObject.class
-        console.log(node.machineObject.class.name);
       }
-    }
+    });
   });
 };
 
