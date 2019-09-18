@@ -92,7 +92,8 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
     ];
 
     const initialDistribution = distribute(nodeOrder);
-
+    console.error('Done distributing!');
+    console.log();
     const sourceSet = new Set(
       sourceCluster.map(cluster => cluster.subNodes).flat(1)
     );

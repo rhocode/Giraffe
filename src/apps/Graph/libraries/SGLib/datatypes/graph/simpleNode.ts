@@ -30,7 +30,8 @@ export default class SimpleNode {
   addOutput(
     target: SimpleNode,
     dedupe: boolean = false,
-    constructorClass = SimpleEdge
+    constructorClass = SimpleEdge,
+    edgeData: any = null
   ): SimpleEdge {
     if (dedupe) {
       if (Array.from(this.outputs.values()).includes(target)) {
@@ -46,14 +47,18 @@ export default class SimpleNode {
       }
     }
 
-    const newEdge = new constructorClass(null, this, target);
+    const newEdge = new constructorClass(edgeData, this, target);
     this.outputs.set(newEdge, target);
     target.inputs.set(newEdge, this);
     return newEdge;
   }
 
-  addInput(source: SimpleNode, constructorClass = SimpleEdge): SimpleEdge {
-    const newEdge = new constructorClass(null, source, this);
+  addInput(
+    source: SimpleNode,
+    constructorClass = SimpleEdge,
+    edgeData: any = null
+  ): SimpleEdge {
+    const newEdge = new constructorClass(edgeData, source, this);
     this.inputs.set(newEdge, source);
     source.outputs.set(newEdge, this);
     return newEdge;

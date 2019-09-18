@@ -13,7 +13,11 @@ export default class StrictProducerNode extends RecipeProcessorNode {
   distributeOutputs() {
     if (this.recipe) {
       const recipeInput = this.recipe.getInputs();
-      const recipeOutputs = Recipe.formRecipeOutput(this.recipe, []);
+      const recipeOutputs = Recipe.formRecipeOutput(
+        this.recipe,
+        [],
+        this.overclock
+      );
 
       if (recipeInput.length) {
         throw new Error('StrictProducer should not have any recipe inputs!');
@@ -40,7 +44,8 @@ export default class StrictProducerNode extends RecipeProcessorNode {
       });
 
       let isError = false;
-      const excess: Array<ResourceRate> = [];
+
+      const excessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
 
       Array.from(this.outputs.keys()).forEach(edge => {
         if (!(edge instanceof Belt)) {
@@ -48,16 +53,28 @@ export default class StrictProducerNode extends RecipeProcessorNode {
         }
 
         const belt = edge as Belt;
-        const { errored } = belt.getAllResourceRates();
+        const {
+          resourceRate,
+          excessResourceRates,
+          overflowed,
+          errored
+        } = belt.getAllResourceRates();
+
+        console.log('Strict producer is adding', resourceRate);
+
+        if (overflowed) {
+          excessRate.set(belt, excessResourceRates);
+        }
 
         isError = isError || errored;
       });
 
-      const nullExcess: Map<SimpleEdge, ResourceRate[]> = new Map();
+      //TODO: This strictProducer should not add excess. Instead, it should set its own data to reflect actual vs
+      // expected rate.
 
       // console.error('Strict producer cannot have excess itself, it will propagate to the node');
 
-      return new DistributedOutput(isError, nullExcess);
+      return new DistributedOutput(isError, new Map());
     }
 
     return new DistributedOutput(false, new Map());

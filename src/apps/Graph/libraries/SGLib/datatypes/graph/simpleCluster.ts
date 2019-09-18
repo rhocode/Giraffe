@@ -38,12 +38,14 @@ export default class SimpleCluster extends SimpleGraph {
       );
     });
 
-    if (inputs.length === 0) {
-      throw new Error('No inputs found!');
-    }
+    if (!(inputs.length === 0 && outputs.length === 0)) {
+      if (inputs.length === 0) {
+        throw new Error('No inputs found!');
+      }
 
-    if (outputs.length === 0) {
-      throw new Error('No inputs found!');
+      if (outputs.length === 0) {
+        throw new Error('No outputs found!');
+      }
     }
 
     // if (inputs.length === 1) {
