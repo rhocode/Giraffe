@@ -43,7 +43,12 @@ class Recipe {
     this.time = time;
   }
 
-  static formRecipeOutput = (recipe: Recipe, resources: ResourceRate[]) => {
+  static formRecipeOutput = (
+    recipe: Recipe,
+    resources: ResourceRate[],
+    speed: number
+  ) => {
+    //TODO; (breaking): fix excess recipes
     const collectedResources = ResourceRate.collect(resources);
     let actualRate = new Fraction(Infinity, 1);
     collectedResources.forEach(incomingResource => {
@@ -58,7 +63,10 @@ class Recipe {
         incomingResource.resource.itemQty,
         incomingResource.time
       );
-      const thisResource = new Fraction(correspondingItemQty, recipe.time);
+      const thisResource = new Fraction(
+        correspondingItemQty,
+        recipe.time
+      ).multiply(new Fraction(speed, 100));
 
       const minimum = externalResource.min(thisResource);
 

@@ -36,6 +36,10 @@ export default class Belt extends SimpleEdge {
     }
 
     resourceArray.push(resourceRate);
+
+    if (this.data !== null) {
+      console.error('Inside Belt', (this.data as any).id, resourceArray);
+    }
   }
 
   getAllResourceRates() {
