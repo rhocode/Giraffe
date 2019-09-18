@@ -87,3 +87,12 @@ message SaveFile {
     repeated Edge edges = 1;
     repeated Node nodes = 2;
 }
+
+message BeltSpeed {
+    UpgradeTiers tier = 1;
+    int32 speed = 2;
+}
+
+message BeltSpeeds {
+    repeated BeltSpeed speeds = 1;
+}

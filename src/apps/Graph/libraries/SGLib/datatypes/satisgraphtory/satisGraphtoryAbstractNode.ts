@@ -9,8 +9,12 @@ export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   resourceOut: Map<Belt, Array<ResourceRate>> = new Map();
   overclock: number = 100;
 
-  addOutput(target: SimpleNode, dedupe: boolean = false): Belt {
-    return super.addOutput(target, dedupe, Belt) as Belt;
+  addOutput(
+    target: SimpleNode,
+    dedupe: boolean = false,
+    beltData: any = null
+  ): Belt {
+    return super.addOutput(target, dedupe, Belt, beltData) as Belt;
   }
 
   addInput(source: SimpleNode): Belt {
