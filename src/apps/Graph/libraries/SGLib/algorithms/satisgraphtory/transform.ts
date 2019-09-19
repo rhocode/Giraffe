@@ -144,11 +144,7 @@ const transformGraph = (graphData: GraphData) => {
     const { normal } = topologicalSort(nonCyclic);
 
     const poolData = generatePools(nonCyclic, normal);
-
-    console.log('Done with sorting', poolData);
     propagateFlows(poolData);
-
-    console.error(cluster);
   });
 };
 
