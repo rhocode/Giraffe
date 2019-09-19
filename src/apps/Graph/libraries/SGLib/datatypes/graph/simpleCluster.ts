@@ -6,8 +6,7 @@ import SimpleGraph from './simpleGraph';
 type Nullable<T> = T | null;
 
 export default class SimpleCluster extends SimpleGraph {
-  // sourceNode: SimpleNode;
-  // targetNode: SimpleNode;
+  processed: boolean = false;
   nonCyclic: boolean;
   partial: boolean;
 

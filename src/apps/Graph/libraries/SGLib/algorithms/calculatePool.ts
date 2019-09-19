@@ -264,6 +264,8 @@ const generatePools = (
   const visitedPools: Set<number> = new Set();
   const clusters: Array<ClusterChain> = [];
 
+  const visitedCluster: Set<SimpleNode[]> = new Set();
+
   topologicalOrder.forEach(nodeIndex => {
     const node = cluster.nodes.get(nodeIndex);
     if (node === undefined) {
@@ -303,39 +305,41 @@ const generatePools = (
       }
     }
 
-    if (reversePoolOutputLookup.has(node)) {
-      // is a tail, I think this one may be redundant
-      const poolId = reversePoolOutputLookup.get(node);
-      if (poolId === undefined) {
-        throw new Error('undefined poolId in reversePool');
-      }
-      if (!visitedPools.has(poolId)) {
-        visitedPools.add(poolId);
-        const start = poolInputs.get(poolId);
-        const middle = poolIntermediates.get(poolId) || [];
-        const end = poolOutputs.get(poolId);
-
-        if (start === undefined) {
-          throw new Error('PoolId ' + poolId + ' is undefined in start');
-        }
-
-        if (end === undefined) {
-          throw new Error('PoolId ' + poolId + ' is undefined in start');
-        }
-
-        const startCluster = new SimpleCluster(start, false, true);
-        const middleCluster = new SimpleCluster(middle, false, true);
-        const endCluster = new SimpleCluster(end, false, true);
-
-        const clusterChain = new ClusterChain(
-          startCluster,
-          middleCluster,
-          endCluster
-        );
-        clusters.push(clusterChain);
-      }
-    }
+    // if (reversePoolOutputLookup.has(node)) {
+    //   // is a tail, I think this one may be redundant
+    //   const poolId = reversePoolOutputLookup.get(node);
+    //   if (poolId === undefined) {
+    //     throw new Error('undefined poolId in reversePool');
+    //   }
+    //   if (!visitedPools.has(poolId)) {
+    //     visitedPools.add(poolId);
+    //     const start = poolInputs.get(poolId);
+    //     const middle = poolIntermediates.get(poolId) || [];
+    //     const end = poolOutputs.get(poolId);
+    //
+    //     if (start === undefined) {
+    //       throw new Error('PoolId ' + poolId + ' is undefined in start');
+    //     }
+    //
+    //     if (end === undefined) {
+    //       throw new Error('PoolId ' + poolId + ' is undefined in start');
+    //     }
+    //
+    //     const startCluster = new SimpleCluster(start, false, true);
+    //     const middleCluster = new SimpleCluster(middle, false, true);
+    //     const endCluster = new SimpleCluster(end, false, true);
+    //
+    //     const clusterChain = new ClusterChain(
+    //       startCluster,
+    //       middleCluster,
+    //       endCluster
+    //     );
+    //     clusters.push(clusterChain);
+    //   }
+    // }
   });
+
+  console.log('Generated clusters', clusters);
 
   return clusters;
 };
