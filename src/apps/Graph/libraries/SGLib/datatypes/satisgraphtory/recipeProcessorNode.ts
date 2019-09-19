@@ -29,11 +29,6 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
         this.overclock
       );
 
-      console.error(
-        'Based on the recipe, this node will yield an excess of',
-        excessResources
-      );
-
       const outputExcessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
 
       Array.from(excessResources.entries()).forEach(entry => {
@@ -43,8 +38,6 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
       });
 
       const resourcePackets = recipeOutputs;
-
-      console.log('Recipe processor determined output to be', resourcePackets);
 
       // Clear everything from the belt
       Array.from(this.outputs.keys()).forEach(edge => {
@@ -82,23 +75,12 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
           errored
         } = belt.getAllResourceRates();
 
-        console.log(
-          'recipe processor producer is adding',
-          resourceRate,
-          'with excess',
-          excessResourceRates,
-          'OVERFLOWERD?',
-          overflowed
-        );
-
         if (overflowed) {
           outputExcessRate.set(belt, excessResourceRates);
         }
 
         isError = isError || errored;
       });
-
-      console.log('Recipe Processor excess', outputExcessRate);
 
       return new DistributedOutput(false, outputExcessRate);
     }
