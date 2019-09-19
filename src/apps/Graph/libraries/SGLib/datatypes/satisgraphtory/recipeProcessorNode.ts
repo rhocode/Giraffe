@@ -23,26 +23,26 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
         item => item as Belt
       );
 
-      const allResourceRates = inputEdges
-        .map(inp => {
-          const { resourceRate } = inp.getAllResourceRates();
-          return resourceRate;
-        })
-        .flat(1);
-
-      if (this.data) {
-        console.log(
-          'Incoming resources for recipe processor:',
-          allResourceRates,
-          (this.data as any).id
-        );
-      }
-
-      const resourcePackets = Recipe.formRecipeOutput(
+      const { recipeOutputs, excessResources } = Recipe.calculateRecipeYield(
         this.recipe,
-        allResourceRates,
+        inputEdges,
         this.overclock
       );
+
+      console.error(
+        'Based on the recipe, this node will yield an excess of',
+        excessResources
+      );
+
+      const outputExcessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
+
+      Array.from(excessResources.entries()).forEach(entry => {
+        const belt = entry[0];
+        const rate = entry[1];
+        outputExcessRate.set(belt, rate);
+      });
+
+      const resourcePackets = recipeOutputs;
 
       console.log('Recipe processor determined output to be', resourcePackets);
 
@@ -69,8 +69,6 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
 
       let isError = false;
 
-      const excessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
-
       Array.from(this.outputs.keys()).forEach(edge => {
         if (!(edge instanceof Belt)) {
           throw new Error("It's not a belt!");
@@ -88,19 +86,21 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
           'recipe processor producer is adding',
           resourceRate,
           'with excess',
-          excessResourceRates
+          excessResourceRates,
+          'OVERFLOWERD?',
+          overflowed
         );
 
         if (overflowed) {
-          excessRate.set(belt, excessResourceRates);
+          outputExcessRate.set(belt, excessResourceRates);
         }
 
         isError = isError || errored;
       });
 
-      console.log('Recipe Processor excess', excessRate);
+      console.log('Recipe Processor excess', outputExcessRate);
 
-      return new DistributedOutput(false, excessRate);
+      return new DistributedOutput(false, outputExcessRate);
     }
 
     return new DistributedOutput(false, new Map());

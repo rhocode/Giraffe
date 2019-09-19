@@ -10,6 +10,10 @@ class ResourceRate {
     this.time = time;
   }
 
+  toFraction() {
+    return new Fraction(this.resource.itemQty, this.time);
+  }
+
   static getTotalItemRate(rates: ResourceRate[]): Fraction {
     const fractions = rates.map(
       item => new Fraction(item.resource.itemQty, item.time)
