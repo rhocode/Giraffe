@@ -1,6 +1,12 @@
 import ResourcePacket from './resourcePacket';
 import ResourceRate from './resourceRate';
 import Fraction from './fraction';
+import Belt from '../satisgraphtory/belt';
+
+type RecipeCalculation = {
+  recipeOutputs: ResourceRate[];
+  excessResources: Map<Belt, ResourceRate[]>;
+};
 
 class Recipe {
   private input: Map<number, number>;
@@ -43,14 +49,34 @@ class Recipe {
     this.time = time;
   }
 
-  static formRecipeOutput = (
+  static calculateRecipeYield = (
     recipe: Recipe,
-    resources: ResourceRate[],
+    belts: Belt[],
     speed: number
-  ) => {
+  ): RecipeCalculation => {
     //TODO; (breaking): fix excess recipes
+
+    const beltResourceRateMap: Map<Belt, ResourceRate[]> = new Map();
+    const beltExcessResourceRateMap: Map<Belt, ResourceRate[]> = new Map();
+    const resources = belts
+      .map(inp => {
+        const { resourceRate } = inp.getAllResourceRates();
+        beltResourceRateMap.set(inp, resourceRate);
+        beltExcessResourceRateMap.set(inp, []);
+        return resourceRate;
+      })
+      .flat(1);
+
+    console.error(
+      'Processing recipe. According to this, the resources in are:',
+      resources
+    );
+
     const collectedResources = ResourceRate.collect(resources);
+
     let actualRate = new Fraction(Infinity, 1);
+
+    // Calculate the rate at which the item is produced.
     collectedResources.forEach(incomingResource => {
       const itemId = incomingResource.resource.itemId;
       const correspondingItemQty = recipe.input.get(itemId);
@@ -75,8 +101,69 @@ class Recipe {
       actualRate = actualRate.min(efficiency);
     });
 
+    const excessResourceRate: Map<number, Fraction> = new Map();
+
+    collectedResources.forEach(incomingResource => {
+      const itemId = incomingResource.resource.itemId;
+      const correspondingItemQty = recipe.input.get(itemId);
+
+      if (correspondingItemQty === undefined) {
+        throw new Error('Should not be able to get here!');
+      }
+
+      const externalResource = new Fraction(
+        incomingResource.resource.itemQty,
+        incomingResource.time
+      );
+      const thisResource = new Fraction(
+        correspondingItemQty,
+        recipe.time
+      ).multiply(new Fraction(speed, 100));
+
+      const recipeResourceFraction = thisResource.divide(actualRate);
+
+      const scaledExternalResourceRate = externalResource.multiply(
+        recipeResourceFraction
+      );
+
+      const excessExternalResourceRate = externalResource
+        .subtract(scaledExternalResourceRate)
+        .reduce();
+
+      excessResourceRate.set(itemId, excessExternalResourceRate);
+    });
+
+    // Resolve the belt rates
+    Array.from(beltResourceRateMap.entries()).forEach(entry => {
+      const belt = entry[0];
+      const rates = entry[1];
+      rates.forEach(rate => {
+        const fetchedRate = excessResourceRate.get(rate.resource.itemId);
+        const beltExcess = beltExcessResourceRateMap.get(belt);
+        if (fetchedRate !== undefined && beltExcess !== undefined) {
+          if (fetchedRate.numerator !== 0) {
+            const scaledExcess = rate.toFraction().multiply(fetchedRate);
+            beltExcess.push(
+              new ResourceRate(
+                new ResourcePacket(
+                  rate.resource.itemId,
+                  scaledExcess.numerator
+                ),
+                scaledExcess.denominator
+              )
+            );
+          }
+        } else {
+          throw new Error('Fetched rate or belt excess is undefined');
+        }
+      });
+    });
+
     if (actualRate.numerator === Infinity && recipe.input.size > 0) {
-      return [];
+      return {
+        recipeOutputs: [],
+        excessResources: beltExcessResourceRateMap
+      };
     } else if (actualRate.numerator === Infinity && recipe.input.size === 0) {
       const mappedResources = Array.from(recipe.output.entries()).map(entry => {
         const itemId = entry[0];
@@ -90,7 +177,10 @@ class Recipe {
         );
       });
 
-      return mappedResources;
+      return {
+        recipeOutputs: mappedResources,
+        excessResources: beltExcessResourceRateMap
+      };
     } else {
       const mappedResources = Array.from(recipe.output.entries()).map(entry => {
         const itemId = entry[0];
@@ -107,7 +197,10 @@ class Recipe {
         );
       });
 
-      return mappedResources;
+      return {
+        recipeOutputs: mappedResources,
+        excessResources: beltExcessResourceRateMap
+      };
     }
   };
 

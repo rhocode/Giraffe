@@ -10,7 +10,7 @@ type FractionOrNumber = Fraction | number;
 // Used for belts
 export default class Belt extends SimpleEdge {
   speed: Fraction = new Fraction(0, 1);
-  resources: Map<SimpleNode, Array<ResourceRate>> = new Map();
+  resources: Array<ResourceRate> = [];
   clampedSpeed: Fraction = new Fraction(0, 1);
 
   constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
@@ -22,15 +22,11 @@ export default class Belt extends SimpleEdge {
   }
 
   clearResources() {
-    this.resources = new Map();
+    this.resources = [];
   }
 
   addResource(node: SimpleNode, resourceRate: ResourceRate) {
-    if (this.resources.get(node) === undefined) {
-      this.resources.set(node, []);
-    }
-
-    const resourceArray = this.resources.get(node);
+    const resourceArray = this.resources;
     if (resourceArray === undefined) {
       throw new Error('ResourceArray is undefined');
     }
@@ -42,8 +38,8 @@ export default class Belt extends SimpleEdge {
     }
   }
 
-  getAllResourceRates() {
-    const resourceRateRaw = Array.from(this.resources.values()).flat(1);
+  getAllResourceRates(discardExcess = false) {
+    const resourceRateRaw = this.resources;
 
     const totalResourceRate = new Fraction(0, 1);
     resourceRateRaw.forEach(rate => {
@@ -64,9 +60,7 @@ export default class Belt extends SimpleEdge {
     if (totalResourceRate.toNumber() > this.clampedSpeed.toNumber()) {
       overflowed = true;
       const resources = new Set(
-        Array.from(this.resources.values())
-          .flat(1)
-          .map(item => item.resource.itemId)
+        this.resources.map(item => item.resource.itemId)
       );
       if (resources.size > 1) {
         errored = true;
@@ -85,6 +79,13 @@ export default class Belt extends SimpleEdge {
         resourceRate.push(rate.fractional(actualFraction));
       });
     }
+
+    if (discardExcess) {
+      //TODO: maybe throw an error when we discard excess IF there is more than one resource?
+      this.resources = resourceRate;
+    }
+
+    console.error('INSIDE THE BELT', this.clampedSpeed, resourceRate);
 
     return {
       resourceRate,
@@ -132,6 +133,7 @@ export default class Belt extends SimpleEdge {
   }
 
   setClampedSpeed(speed: Fraction) {
+    console.error('SETTING CLAMPEDSPEED TO', speed);
     if (speed.toNumber() > this.speed.toNumber()) {
       // super.setWeight(this.speed);
       this.clampedSpeed = this.speed;

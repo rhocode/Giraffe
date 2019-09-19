@@ -13,7 +13,7 @@ export default class StrictProducerNode extends RecipeProcessorNode {
   distributeOutputs() {
     if (this.recipe) {
       const recipeInput = this.recipe.getInputs();
-      const recipeOutputs = Recipe.formRecipeOutput(
+      const { recipeOutputs, excessResources } = Recipe.calculateRecipeYield(
         this.recipe,
         [],
         this.overclock
@@ -58,7 +58,7 @@ export default class StrictProducerNode extends RecipeProcessorNode {
           excessResourceRates,
           overflowed,
           errored
-        } = belt.getAllResourceRates();
+        } = belt.getAllResourceRates(true);
 
         console.log('Strict producer is adding', resourceRate);
 
