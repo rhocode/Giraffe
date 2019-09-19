@@ -67,11 +67,6 @@ class Recipe {
       })
       .flat(1);
 
-    console.error(
-      'Processing recipe. According to this, the resources in are:',
-      resources
-    );
-
     const collectedResources = ResourceRate.collect(resources);
 
     let actualRate = new Fraction(Infinity, 1);
@@ -120,7 +115,11 @@ class Recipe {
         recipe.time
       ).multiply(new Fraction(speed, 100));
 
-      const recipeResourceFraction = thisResource.divide(actualRate);
+      const recipeFractionNumerator = thisResource.divide(actualRate);
+
+      const recipeResourceFraction = recipeFractionNumerator.divide(
+        thisResource
+      );
 
       const scaledExternalResourceRate = externalResource.multiply(
         recipeResourceFraction
@@ -159,10 +158,20 @@ class Recipe {
       });
     });
 
+    const reducedExcessResourceRate: Map<Belt, ResourceRate[]> = new Map();
+
+    Array.from(beltExcessResourceRateMap.entries()).forEach(entry => {
+      const key = entry[0];
+      const list = entry[1];
+      if (list.length > 0) {
+        reducedExcessResourceRate.set(key, list);
+      }
+    });
+
     if (actualRate.numerator === Infinity && recipe.input.size > 0) {
       return {
         recipeOutputs: [],
-        excessResources: beltExcessResourceRateMap
+        excessResources: reducedExcessResourceRate
       };
     } else if (actualRate.numerator === Infinity && recipe.input.size === 0) {
       const mappedResources = Array.from(recipe.output.entries()).map(entry => {
@@ -179,7 +188,7 @@ class Recipe {
 
       return {
         recipeOutputs: mappedResources,
-        excessResources: beltExcessResourceRateMap
+        excessResources: reducedExcessResourceRate
       };
     } else {
       const mappedResources = Array.from(recipe.output.entries()).map(entry => {
@@ -199,7 +208,7 @@ class Recipe {
 
       return {
         recipeOutputs: mappedResources,
-        excessResources: beltExcessResourceRateMap
+        excessResources: reducedExcessResourceRate
       };
     }
   };

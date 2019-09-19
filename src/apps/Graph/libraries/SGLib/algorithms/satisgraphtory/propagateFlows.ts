@@ -53,8 +53,6 @@ function distribute(nodeOrder: Array<SimpleNode>) {
 
           const distributeOutput = castedNode.distributeOutputs();
 
-          console.error('Casted Node distribution result:', distributeOutput);
-
           if (distributeOutput && distributeOutput.hasExcess()) {
             Array.from(distributeOutput.excess.entries()).forEach(entry => {
               const edge = entry[0];
@@ -85,7 +83,6 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
   let i = 0;
   do {
     repropagateFlows = false;
-    console.error('STARTING REPROP');
     for (let i = 0; i < clusters.length; i++) {
       // 1. Process the sources
       const clusterChain = clusters[i];
@@ -102,11 +99,6 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
         ...targetCluster
       ];
 
-      const nonSourceSet = new Set([
-        ...intermediateCluster.map(cluster => cluster.subNodes).flat(1),
-        ...targetCluster.map(cluster => cluster.subNodes).flat(1)
-      ]);
-
       const allNodeSet = new Set([
         ...sourceCluster.map(cluster => cluster.subNodes).flat(1),
         ...intermediateCluster.map(cluster => cluster.subNodes).flat(1),
@@ -116,38 +108,32 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
       let shouldRedistribute = false;
       do {
         if (redistribution.size > 0) {
-          redistribute(nonSourceSet, nodeOrder, redistribution);
+          redistribute(nodeOrder, redistribution);
         }
         redistribution = distribute(nodeOrder);
 
-        console.error('DIST RESULT', redistribution, allNodeSet);
         shouldRedistribute =
           redistribution.size > 0 &&
           Array.from(redistribution.keys()).some(edge => {
             const node = edge.source;
-            return nonSourceSet.has(node);
+            return allNodeSet.has(node);
           });
         repropagateFlows =
           redistribution.size > 0 &&
           Array.from(redistribution.keys()).some(edge => {
             const node = edge.source;
-            console.error('CHECKING', node, allNodeSet);
             return !allNodeSet.has(node);
           });
 
-        console.error(
-          'Looping Decisions:',
-          shouldRedistribute,
-          repropagateFlows
-        );
+        // if (i++ === 3) {
+        //   break;
+        // }
       } while (shouldRedistribute);
     }
-    if (i++ === 3) {
-      break;
-    }
+    // if (i++ === 3) {
+    //   break;
+    // }
   } while (repropagateFlows);
-
-  console.error('REACHED END HERE');
 };
 
 const backPropagation = (
@@ -183,20 +169,16 @@ const backPropagation = (
 };
 
 const redistribute = (
-  nonTerminal: Set<SimpleNode>,
   nodeOrder: Array<SimpleNode>,
   redistribution: Map<SimpleEdge, ResourceRate[]>
 ) => {
   Array.from(redistribution.entries()).forEach(entry => {
-    const target = entry[0].source;
     const edge = entry[0];
-    // if (nonTerminal.has(target)) {
     if (!(edge instanceof Belt)) {
       throw new Error('This is not a belt!');
     }
 
     edge.reduceClampFlow(entry[1]);
-    // }
 
     // May have to revisit in the future. for now, let's do a shitty backprop using iterative methods.
     // backPropagation(terminal, entry[0], entry[1]);
