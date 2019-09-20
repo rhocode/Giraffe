@@ -5,11 +5,13 @@ import { imageRepositoryPromise } from '../libraries/SGLib/repositories/imageRep
 import deserialize from '../libraries/SGLib/algorithms/satisgraphtory/deserialize';
 import { getTranslate } from 'react-localize-redux';
 import {
+  setDataLibrary,
   setGraphData,
   setInitialLoadedData
 } from '../../../redux/actions/Graph/graphActions';
 import { connect } from 'react-redux';
 import { getPlaceableMachineClasses } from '../graphql/queries';
+import { preloadAllEnums } from '../libraries/SGLib/repositories/objectRepository';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -17,6 +19,8 @@ const LoadableComponent = Loadable({
   loader: () => {
     return Promise.all([
       new FontFaceObserver('Roboto Condensed').load(),
+      new FontFaceObserver('Bebas Neue').load(),
+      preloadAllEnums,
       ...imageRepositoryPromise.machines,
       ...imageRepositoryPromise.items,
       getPlaceableMachineClasses()
@@ -54,7 +58,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setGraphData: data => dispatch(setGraphData(data)),
-    setInitialLoadedData: data => dispatch(setInitialLoadedData(data))
+    setInitialLoadedData: data => dispatch(setInitialLoadedData(data)),
+    setDataLibrary: data => dispatch(setDataLibrary(data))
   };
 }
 

@@ -17,3 +17,7 @@ export function camelize(str: string): string {
     })
     .replace(/\s+/g, '');
 }
+
+export function stringRound(num: number, n: number) {
+  return num.toFixed(n).toString();
+}

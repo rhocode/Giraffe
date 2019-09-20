@@ -1,5 +1,6 @@
 import { GraphNode } from '../datatypes/graph/graphNode';
 import { GraphEdge } from '../datatypes/graph/graphEdge';
+import { stringRound } from '../utils/stringUtils';
 
 function drawNodePlug(
   context: any,
@@ -47,8 +48,10 @@ export function drawPath(context: any, graphEdge: GraphEdge) {
 export function defaultNodeThemeSpriteOutline(context: any, d: GraphNode) {
   context.save();
 
-  const w = d.width - d.xRenderBuffer;
-  const h = d.height - d.yRenderBuffer;
+  const w = d.width;
+  // - d.xRenderBuffer;
+  const h = d.height;
+  // - d.yRenderBuffer;
 
   const x = d.xRenderBuffer;
   const y = d.yRenderBuffer;
@@ -71,11 +74,15 @@ export function defaultNodeThemeSpriteOutline(context: any, d: GraphNode) {
   context.restore();
 }
 
-export function defaultNodeThemeSprite(context: any, d: GraphNode) {
+export function defaultNodeThemeSprite(
+  context: any,
+  d: GraphNode,
+  dataLibrary: any = null
+) {
   context.save();
 
-  const w = d.width - d.xRenderBuffer;
-  const h = d.height - d.yRenderBuffer;
+  const w = d.width;
+  const h = d.height;
 
   const x = d.xRenderBuffer;
   const y = d.yRenderBuffer;
@@ -115,21 +122,69 @@ export function defaultNodeThemeSprite(context: any, d: GraphNode) {
 
   context.font = '15px Roboto Condensed';
   context.fillStyle = 'white';
-  const text = d.getTagLine();
+  const text = d.getTagLine().toUpperCase();
 
-  context.fillText(text, x + 6, y + h - 10);
+  context.fillText(text, x + 6, y + h - 12);
 
+  // context.textBaseline = "middle";
   context.font = '25px Roboto Condensed';
   context.fillStyle = 'white';
-  context.fillText(d.getVersion(), w / 2 + 30, h / 2 - 10);
+  context.fillText(d.getVersion(), x + w / 2 + 10, y + h / 2 - 20);
 
   context.font = '25px Roboto Condensed';
   context.fillStyle = '#15CB07';
-  context.fillText('100%', w / 2 + 30, h / 2 + 20);
+  context.fillText('100%', x + w / 2 + 10, y + h / 2 + 10);
 
   // Reset the slot mappings
   d.inputSlotMapping = {};
   d.outputSlotMapping = {};
+
+  let startingIndex = y + h + 10;
+  if (d.inputPropagationData.size && dataLibrary) {
+    d.inputPropagationData.forEach((value, key) => {
+      const itemLookup = dataLibrary.itemEnums.get(key);
+      // const displayName = d.getTranslation(itemLookup.name);
+      const displayImage = dataLibrary.itemImages[itemLookup.name];
+      context.drawImage(displayImage, x + 10, startingIndex, 20, 20);
+
+      const numerator = value.numerator;
+      const denominator = value.denominator;
+
+      const decimalPercentage = stringRound(value.toNumber() * 100, 1);
+
+      context.font = '20px Roboto Condensed';
+      context.fillStyle = '#15CB07';
+      context.fillText(
+        `${numerator}/${denominator} (${decimalPercentage}%)`,
+        x + 10 + 30,
+        startingIndex + 15
+      );
+      startingIndex += 30;
+    });
+  }
+
+  if (d.outputPropagationData.size && dataLibrary) {
+    d.outputPropagationData.forEach((value, key) => {
+      const itemLookup = dataLibrary.itemEnums.get(key);
+      // const displayName = d.getTranslation(itemLookup.name);
+      const displayImage = dataLibrary.itemImages[itemLookup.name];
+      context.drawImage(displayImage, x + 10, startingIndex, 20, 20);
+
+      const numerator = value.numerator;
+      const denominator = value.denominator;
+
+      const decimalPercentage = stringRound(value.toNumber() * 100, 1);
+
+      context.font = '20px Roboto Condensed';
+      context.fillStyle = '#FFA328';
+      context.fillText(
+        `${numerator}/${denominator} (${decimalPercentage}%)`,
+        x + 10 + 30,
+        startingIndex + 15
+      );
+      startingIndex += 30;
+    });
+  }
 
   // TODO: refactor so that the node spacing can be calculated based on height and width, etc
   calculateNodeSpacing(y + h / 2, d.inputSlots.length).forEach(

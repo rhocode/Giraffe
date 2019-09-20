@@ -3,11 +3,22 @@ import Belt from './belt';
 import ResourceRate from '../primitives/resourceRate';
 import DistributedOutput from './distributedOutput';
 import SimpleEdge from '../graph/simpleEdge';
+import { GraphNode } from '../graph/graphNode';
+import Fraction from '../primitives/fraction';
 
 export default abstract class SatisGraphtoryAbstractNode extends SimpleNode {
   resourceIn: Map<Belt, Array<ResourceRate>> = new Map();
   resourceOut: Map<Belt, Array<ResourceRate>> = new Map();
   overclock: number = 100;
+
+  setPropagationData(
+    inputProp: Map<number, Fraction> = new Map(),
+    outputProp: Map<number, Fraction> = new Map()
+  ) {
+    if (this.data instanceof GraphNode) {
+      this.data.setPropagationData(inputProp, outputProp);
+    }
+  }
 
   addOutput(
     target: SimpleNode,

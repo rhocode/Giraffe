@@ -80,7 +80,6 @@ function distribute(nodeOrder: Array<SimpleNode>) {
 const propagateFlows = (clusters: Array<ClusterChain>) => {
   let repropagateFlows = false;
   let redistribution = new Map();
-  let i = 0;
   do {
     repropagateFlows = false;
     for (let i = 0; i < clusters.length; i++) {
@@ -111,19 +110,20 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
           redistribute(nodeOrder, redistribution);
         }
         redistribution = distribute(nodeOrder);
-
         shouldRedistribute =
           redistribution.size > 0 &&
           Array.from(redistribution.keys()).some(edge => {
             const node = edge.source;
             return allNodeSet.has(node);
           });
+
         repropagateFlows =
-          redistribution.size > 0 &&
-          Array.from(redistribution.keys()).some(edge => {
-            const node = edge.source;
-            return !allNodeSet.has(node);
-          });
+          repropagateFlows ||
+          (redistribution.size > 0 &&
+            Array.from(redistribution.keys()).some(edge => {
+              const node = edge.source;
+              return !allNodeSet.has(node);
+            }));
 
         // if (i++ === 3) {
         //   break;
@@ -136,37 +136,37 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
   } while (repropagateFlows);
 };
 
-const backPropagation = (
-  terminalSet: Set<SimpleNode>,
-  edge: SimpleEdge,
-  resourceRates: ResourceRate[]
-) => {
-  const node = edge.target;
-
-  if (!(node instanceof GroupNode)) {
-    throw new Error('Not a groupNode');
-  }
-
-  if (terminalSet.has(node)) {
-    return;
-    // ??? should we actually do anything
-  }
-
-  if (node.isCyclic()) {
-    const castedNode = new SatisGraphtoryGroupNode(node);
-    castedNode.backPropagation(resourceRates, edge);
-  } else {
-    const innerNode = node.singleNode();
-    if (!(innerNode instanceof SatisGraphtoryAbstractNode)) {
-      throw new Error('Not the right kind of node');
-    }
-
-    const castedNode = innerNode as SatisGraphtoryAbstractNode;
-    castedNode.backPropagation(resourceRates, edge);
-
-    //TODO: Fix the backprop here too
-  }
-};
+// const backPropagation = (
+//   terminalSet: Set<SimpleNode>,
+//   edge: SimpleEdge,
+//   resourceRates: ResourceRate[]
+// ) => {
+//   const node = edge.target;
+//
+//   if (!(node instanceof GroupNode)) {
+//     throw new Error('Not a groupNode');
+//   }
+//
+//   if (terminalSet.has(node)) {
+//     return;
+//     // ??? should we actually do anything
+//   }
+//
+//   if (node.isCyclic()) {
+//     const castedNode = new SatisGraphtoryGroupNode(node);
+//     castedNode.backPropagation(resourceRates, edge);
+//   } else {
+//     const innerNode = node.singleNode();
+//     if (!(innerNode instanceof SatisGraphtoryAbstractNode)) {
+//       throw new Error('Not the right kind of node');
+//     }
+//
+//     const castedNode = innerNode as SatisGraphtoryAbstractNode;
+//     castedNode.backPropagation(resourceRates, edge);
+//
+//     //TODO: Fix the backprop here too
+//   }
+// };
 
 const redistribute = (
   nodeOrder: Array<SimpleNode>,
