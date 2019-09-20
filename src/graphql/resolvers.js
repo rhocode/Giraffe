@@ -29,22 +29,6 @@ const loadDataRaw = () => {
 
 const loadData = loadDataRaw();
 
-// const iDataMapper = data => {
-//   const Item = root().lookupEnum('Item');
-//   const map = {};
-//   // console.error(Item.valuesById);
-//   // const consoleList = [];
-//   data.forEach(item => {
-//     map[item.id] = item;
-//     // consoleList.push([item.id, item.name, Item.valuesById[item.id]]);
-//     item.id = Item.valuesById[item.id];
-//   });
-//   // console.log(JSON.stringify(consoleList, null, 4));
-//   return map;
-// };
-//
-// export const itemPromise = loadData('ItemList', iDataMapper);
-
 const mcDataMapper = data => {
   const MachineClass = root().lookupEnum('MachineClass');
   const map = {};
@@ -84,7 +68,6 @@ const rDataMapper = data => {
 
 export const recipeListPromise = () => loadData('RecipeList', rDataMapper);
 
-// resolvers -> get where on earth id -> get consolidated_weather data and return
 const resolvers = {
   Query: {
     getMachineClassByName(obj, args, context, info) {

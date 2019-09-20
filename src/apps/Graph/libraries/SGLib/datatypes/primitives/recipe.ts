@@ -6,6 +6,7 @@ import Belt from '../satisgraphtory/belt';
 type RecipeCalculation = {
   recipeOutputs: ResourceRate[];
   excessResources: Map<Belt, ResourceRate[]>;
+  recipeRates: Map<number, Fraction>;
 };
 
 class Recipe {
@@ -69,7 +70,7 @@ class Recipe {
 
     const collectedResources = ResourceRate.collect(resources);
 
-    let actualRate = new Fraction(Infinity, 1);
+    let rateEfficiency = new Fraction(Infinity, 1);
 
     // Calculate the rate at which the item is produced.
     collectedResources.forEach(incomingResource => {
@@ -93,10 +94,11 @@ class Recipe {
 
       const efficiency = minimum.divide(thisResource);
 
-      actualRate = actualRate.min(efficiency);
+      rateEfficiency = rateEfficiency.min(efficiency);
     });
 
     const excessResourceRate: Map<number, Fraction> = new Map();
+    const recipeRates: Map<number, Fraction> = new Map();
 
     collectedResources.forEach(incomingResource => {
       const itemId = incomingResource.resource.itemId;
@@ -110,24 +112,30 @@ class Recipe {
         incomingResource.resource.itemQty,
         incomingResource.time
       );
+
       const thisResource = new Fraction(
         correspondingItemQty,
         recipe.time
       ).multiply(new Fraction(speed, 100));
 
-      const recipeFractionNumerator = thisResource.divide(actualRate);
-
-      const recipeResourceFraction = recipeFractionNumerator.divide(
-        thisResource
-      );
-
-      const scaledExternalResourceRate = externalResource.multiply(
-        recipeResourceFraction
-      );
-
+      //How much of this resource is required!
+      const thisResourceRequiredAmount = thisResource.multiply(rateEfficiency);
+      //How much excess we have of the external resource
       const excessExternalResourceRate = externalResource
-        .subtract(scaledExternalResourceRate)
+        .subtract(thisResourceRequiredAmount)
+        .max(new Fraction(0, 1))
         .reduce();
+
+      const rateNumerator = externalResource
+        .multiply(new Fraction(60, 1))
+        .reduce();
+      const rateDenominator = thisResource
+        .multiply(new Fraction(60, 1))
+        .reduce();
+      recipeRates.set(
+        itemId,
+        new Fraction(rateNumerator.toNumber(), rateDenominator.toNumber())
+      );
 
       excessResourceRate.set(itemId, excessExternalResourceRate);
     });
@@ -168,12 +176,16 @@ class Recipe {
       }
     });
 
-    if (actualRate.numerator === Infinity && recipe.input.size > 0) {
+    if (rateEfficiency.numerator === Infinity && recipe.input.size > 0) {
       return {
+        recipeRates,
         recipeOutputs: [],
         excessResources: reducedExcessResourceRate
       };
-    } else if (actualRate.numerator === Infinity && recipe.input.size === 0) {
+    } else if (
+      rateEfficiency.numerator === Infinity &&
+      recipe.input.size === 0
+    ) {
       const mappedResources = Array.from(recipe.output.entries()).map(entry => {
         const itemId = entry[0];
         const itemQty = entry[1];
@@ -187,6 +199,7 @@ class Recipe {
       });
 
       return {
+        recipeRates,
         recipeOutputs: mappedResources,
         excessResources: reducedExcessResourceRate
       };
@@ -198,7 +211,7 @@ class Recipe {
 
         const rate = new Fraction(itemQty, time);
 
-        rate.mutateMultiply(actualRate).mutateReduce();
+        rate.mutateMultiply(rateEfficiency).mutateReduce();
 
         return new ResourceRate(
           new ResourcePacket(itemId, rate.numerator),
@@ -207,6 +220,7 @@ class Recipe {
       });
 
       return {
+        recipeRates,
         recipeOutputs: mappedResources,
         excessResources: reducedExcessResourceRate
       };

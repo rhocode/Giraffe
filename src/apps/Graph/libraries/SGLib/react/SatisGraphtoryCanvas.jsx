@@ -1,5 +1,7 @@
 import { getTranslate } from 'react-localize-redux';
 import {
+  forceRefreshGraph,
+  setDataLibrary,
   setGraphData,
   setGraphSourceNode,
   setMouseMode,
@@ -24,6 +26,7 @@ import { setEquals } from '../utils/sets';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
 import transformGraph from '../algorithms/satisgraphtory/transform';
+import setEnums from '../repositories/objectRepository';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -114,7 +117,15 @@ function SatisGraphtoryCanvas(props) {
     selectedMachine,
     setGraphSourceNode,
     setMouseMode,
-    initialLoadedData
+    initialLoadedData,
+    forceRefreshGraph,
+    heightOverride,
+    widthOverride,
+    setSelectedDataFunc,
+    selectedData,
+    refreshGraphData,
+    setDataLibrary,
+    dataLibrary
   } = props;
 
   // Initial load on component
@@ -122,7 +133,8 @@ function SatisGraphtoryCanvas(props) {
     hydrate(initialLoadedData, translate, transform, data => {
       setGraphData(data);
     });
-  }, [initialLoadedData, setGraphData, translate]);
+    setEnums(setDataLibrary);
+  }, [initialLoadedData, setDataLibrary, setGraphData, translate]);
 
   const canvasId = useMemo(() => stringGen(10), []);
   const [
@@ -133,12 +145,6 @@ function SatisGraphtoryCanvas(props) {
     canvasCurrent
   ] = useBoundingBoxRect(props);
   const ratio = window.devicePixelRatio || 1;
-  const {
-    heightOverride,
-    widthOverride,
-    setSelectedDataFunc,
-    selectedData
-  } = props;
 
   const selectedNodes = selectedData.nodes || {};
   const selectedEdges = selectedData.edges || {};
@@ -353,9 +359,12 @@ function SatisGraphtoryCanvas(props) {
 
   useEffect(() => {
     if (graphData) {
-      transformGraph(graphData);
+      transformGraph(graphData, () => {
+        forceRefreshGraph();
+        // console.error("AAAAAAAAA");
+      });
     }
-  }, [graphData]);
+  }, [forceRefreshGraph, graphData]);
 
   useEffect(() => {
     if (!canvasCurrent) return;
@@ -438,12 +447,14 @@ function SatisGraphtoryCanvas(props) {
               mouseMode,
               setTransform,
               transform,
-              simulationUpdate
+              simulationUpdate,
+              dataLibrary
             )
           )
       );
   }, [
     canvasCurrent,
+    dataLibrary,
     graphData,
     graphFidelity,
     graphSourceNode,
@@ -463,20 +474,27 @@ function SatisGraphtoryCanvas(props) {
 
   useEffect(() => {
     if (!graphEdges || !graphNodes) return;
-
     simulation.nodes(graphNodes).on('tick', simulationUpdate);
     simulation.force('link').links(graphEdges);
 
     if (graphFidelity === 'low') {
       graphNodes.forEach(node => {
-        node.preRender(d3.zoomIdentity);
+        node.preRender(d3.zoomIdentity, dataLibrary);
       });
     } else {
       graphNodes.forEach(node => {
-        node.preRender(transform);
+        node.preRender(transform, dataLibrary);
       });
     }
-  }, [graphEdges, graphFidelity, graphNodes, simulation, simulationUpdate]);
+  }, [
+    graphEdges,
+    graphFidelity,
+    graphNodes,
+    simulation,
+    simulationUpdate,
+    refreshGraphData,
+    dataLibrary
+  ]);
 
   return (
     <div ref={ref} className={props.classes.canvasContainer}>
@@ -526,7 +544,9 @@ function mapStateToProps(state) {
     graphSourceNode: state.graphReducer.graphSourceNode,
     selectedData: state.graphReducer.selectedData,
     initialLoadedData: state.graphReducer.initialLoadedData,
-    translate: getTranslate(state.localize)
+    refreshGraphData: state.graphReducer.__toggledState,
+    translate: getTranslate(state.localize),
+    dataLibrary: state.graphReducer.dataLibrary
   };
 }
 
@@ -535,7 +555,9 @@ function mapDispatchToProps(dispatch) {
     setGraphData: data => dispatch(setGraphData(data)),
     setGraphSourceNode: data => dispatch(setGraphSourceNode(data)),
     setMouseMode: data => dispatch(setMouseMode(data)),
-    setSelectedDataFunc: data => dispatch(setSelectedData(data))
+    setSelectedDataFunc: data => dispatch(setSelectedData(data)),
+    forceRefreshGraph: () => dispatch(forceRefreshGraph()),
+    setDataLibrary: data => dispatch(setDataLibrary(data))
   };
 }
 

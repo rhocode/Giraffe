@@ -15,7 +15,7 @@ export const processLoop = (group: GroupNode) => {
 
   // TODO: replace this with the clone graph
   group.subNodes.forEach(node => {
-    const cloneNode = new SimpleNode(node);
+    const cloneNode = new SimpleNode(node.data);
     thisNodeSet.add(cloneNode);
     localNodeMapping.set(node, cloneNode);
   });
@@ -39,7 +39,7 @@ export const processLoop = (group: GroupNode) => {
 
       const sourceNode = input[1];
       if (!localNodeMapping.has(sourceNode)) {
-        const cloneNode = new SimpleNode(sourceNode);
+        const cloneNode = new SimpleNode(sourceNode.data);
         localNodeMapping.set(sourceNode, cloneNode);
       }
 
@@ -65,7 +65,7 @@ export const processLoop = (group: GroupNode) => {
 
       const targetNode = input[1];
       if (!localNodeMapping.has(targetNode)) {
-        const cloneNode = new SimpleNode(targetNode);
+        const cloneNode = new SimpleNode(targetNode.data);
         localNodeMapping.set(targetNode, cloneNode);
       }
 
@@ -160,7 +160,7 @@ export const processLoop = (group: GroupNode) => {
 
         // ONLY for first iteration. ?
         Array.from(popped.outputs.entries()).forEach(entry => {
-          const source = popped;
+          // const source = popped;
           const edge = entry[0] as HistoryFractionalEdge;
           const target = entry[1];
 
@@ -172,7 +172,7 @@ export const processLoop = (group: GroupNode) => {
         });
 
         Array.from(popped.outputs.entries()).forEach(entry => {
-          const belt = entry[0];
+          // const belt = entry[0];
           const node = entry[1];
 
           if (!processed.has(node)) {
@@ -207,25 +207,25 @@ export const processLoop = (group: GroupNode) => {
     postCycleProcessingEdges.forEach(postEdge => {
       processingBlacklistedEdges.delete(postEdge);
 
-      const fractionalEdge = postEdge as HistoryFractionalEdge;
+      // const fractionalEdge = postEdge as HistoryFractionalEdge;
       const recursiveNode = postEdge.target;
 
       // This is guaranteed to be an ACTUAL merger. JK, actually, because fucking industrial containers exist,
       // this is no longer true.
-      const whitelistedOutputEdges = Array.from(
-        recursiveNode.outputs.keys()
-      ).filter(item => {
-        return !processingBlacklistedEdges.has(item as HistoryFractionalEdge);
-      });
-
-      const whitelistedInputEdges = Array.from(
-        recursiveNode.inputs.keys()
-      ).filter(item => {
-        return (
-          !processingBlacklistedEdges.has(item as HistoryFractionalEdge) &&
-          !blackListedEdges.has(item as HistoryFractionalEdge)
-        );
-      });
+      // const whitelistedOutputEdges = Array.from(
+      //   recursiveNode.outputs.keys()
+      // ).filter(item => {
+      //   return !processingBlacklistedEdges.has(item as HistoryFractionalEdge);
+      // });
+      //
+      // const whitelistedInputEdges = Array.from(
+      //   recursiveNode.inputs.keys()
+      // ).filter(item => {
+      //   return (
+      //     !processingBlacklistedEdges.has(item as HistoryFractionalEdge) &&
+      //     !blackListedEdges.has(item as HistoryFractionalEdge)
+      //   );
+      // });
 
       //TODO; propagate that dank original edge propagation? Probably only after the first cyclic completion.
       // jk, that's a fucking sham.

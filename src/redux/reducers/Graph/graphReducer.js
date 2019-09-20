@@ -14,7 +14,9 @@ const initialState = {
   },
   selectedData: {},
   initialLoadedData: null,
-  rightPanelOpen: false
+  rightPanelOpen: false,
+  __toggledState: false,
+  dataLibrary: null
 };
 
 export default (state = initialState, action) => {
@@ -94,6 +96,14 @@ export default (state = initialState, action) => {
     case 'SET_RIGHT_PANEL_OPEN':
       return produce(state, draftState => {
         draftState.rightPanelOpen = action.payload;
+      });
+    case 'SET_DATA_LIBRARY':
+      return produce(state, draftState => {
+        draftState.dataLibrary = action.payload;
+      });
+    case 'FORCE_REFRESH_GRAPH':
+      return produce(state, draftState => {
+        draftState.__toggledState = !state.__toggledState;
       });
     default:
       return state;

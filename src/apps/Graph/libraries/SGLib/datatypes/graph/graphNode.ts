@@ -6,6 +6,7 @@ import {
 import { GraphEdge } from './graphEdge';
 import { imageRepository } from '../../repositories/imageRepository';
 import * as d3 from 'd3';
+import Fraction from '../primitives/fraction';
 
 type Nullable<T> = T | null;
 
@@ -36,12 +37,15 @@ export abstract class GraphNode {
   abstract yRenderBuffer: number;
   k: number = 1;
   cacheInitialized: boolean = false;
+  inputPropagationData: Map<number, Fraction> = new Map();
+  outputPropagationData: Map<number, Fraction> = new Map();
+  translator: Nullable<(s: string) => string> = str => str;
 
   // These are filled in during render time to cache the assigned output slots
   inputSlotMapping: any = {};
   outputSlotMapping: any = {};
 
-  protected constructor(x: number, y: number) {
+  protected constructor(x: number, y: number, translator: any = null) {
     this.id = GraphNode.nextMachineNodeId++;
     this.fx = x;
     this.fy = y;
@@ -58,10 +62,24 @@ export abstract class GraphNode {
 
     this.zoomedCanvasOutlined = document.createElement('canvas');
     this.zoomedContextOutlined = this.zoomedCanvasOutlined.getContext('2d');
+    this.translator = translator;
   }
 
   setSelected(option: boolean) {
     this.selected = option;
+  }
+
+  clearPropagationData() {
+    this.inputPropagationData = new Map();
+    this.outputPropagationData = new Map();
+  }
+
+  setPropagationData(
+    inputData: Map<number, Fraction>,
+    outputData: Map<number, Fraction>
+  ) {
+    this.inputPropagationData = inputData;
+    this.outputPropagationData = outputData;
   }
 
   fixPosition() {
@@ -81,9 +99,9 @@ export abstract class GraphNode {
 
   public intersectsPoint(x: number, y: number) {
     const lowerX = this.fx + this.xRenderBuffer;
-    const upperX = this.fx + this.width;
+    const upperX = lowerX + this.width;
     const lowerY = this.fy + this.yRenderBuffer;
-    const upperY = this.fy + this.height;
+    const upperY = lowerY + this.height;
 
     return lowerX <= x && x <= upperX && (lowerY <= y && y <= upperY);
   }
@@ -267,6 +285,13 @@ export abstract class GraphNode {
   abstract getTagLine(): string;
 
   abstract getVersion(): string;
+
+  getTranslation(str: string): string {
+    if (this.translator) {
+      return this.translator(str);
+    }
+    return str;
+  }
 }
 
 type MachineClass = {
@@ -285,11 +310,10 @@ type MachineObject = {
 export default class MachineNode extends GraphNode {
   overclock: number;
   readonly width: number = 205;
-  readonly height: number = 155;
-  xRenderBuffer: number = 15;
-  yRenderBuffer: number = 15;
+  readonly height: number = 140;
+  xRenderBuffer: number = 100;
+  yRenderBuffer: number = 100;
   machineObject: any;
-  translator: any = null;
 
   constructor(
     machineObject: MachineObject,
@@ -301,7 +325,7 @@ export default class MachineNode extends GraphNode {
     initialTransform = d3.zoomIdentity,
     internalId: number = -1
   ) {
-    super(x, y);
+    super(x, y, translator);
 
     if (internalId !== -1) {
       this.id = internalId;
@@ -351,6 +375,22 @@ export default class MachineNode extends GraphNode {
       tier: this.machineObject.tier,
       overclock: this.overclock
     };
+  }
+
+  getResourceImage(itemId: number) {
+    //
+    // const tieredChoice = imageRepository.items[itemId];
+    // const baseChoice = imageRepository.machines[name];
+    //
+    // if (tieredChoice) {
+    //   return tieredChoice;
+    // }
+    //
+    // if (baseChoice) {
+    //   return baseChoice;
+    // }
+    //
+    // return imageRepository.machines['miner_mk1'];
   }
 
   getImage() {
@@ -403,24 +443,26 @@ export default class MachineNode extends GraphNode {
     this.preRender(initialTransform);
   }
 
-  preRender(transform: any, debugContext: any = this.context): void {
+  preRender(transform: any, dataLibrary: any = null): void {
+    const mainContext: any = this.context;
+
     //TODO: fix the prerendering
-    debugContext.save();
+    mainContext.save();
     this.contextOutlined.save();
     this.zoomedContext.save();
     this.zoomedContextOutlined.save();
     super.preRender(transform);
-    defaultNodeThemeSprite(debugContext, this);
+    defaultNodeThemeSprite(mainContext, this, dataLibrary);
     defaultNodeThemeSpriteOutline(this.contextOutlined, this);
 
     this.zoomedContextOutlined.scale(zoomedCanvasRatio, zoomedCanvasRatio);
     this.zoomedContext.scale(zoomedCanvasRatio, zoomedCanvasRatio);
-    defaultNodeThemeSprite(this.zoomedContext, this);
+    defaultNodeThemeSprite(this.zoomedContext, this, dataLibrary);
     defaultNodeThemeSpriteOutline(this.zoomedContextOutlined, this);
 
     this.zoomedContextOutlined.restore();
     this.zoomedContext.restore();
-    debugContext.restore();
+    mainContext.restore();
     this.contextOutlined.restore();
   }
 

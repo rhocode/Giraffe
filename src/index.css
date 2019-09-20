@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: local('Bebas Neue'),
+    url('./fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
