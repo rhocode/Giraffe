@@ -34,6 +34,21 @@ class ResourceRate {
     return resources.size;
   }
 
+  static toResourceMap(rates: ResourceRate[]) {
+    const reducedRates = ResourceRate.collect(rates);
+    const mapping: Map<number, ResourceRate> = new Map();
+    reducedRates.forEach(rate => {
+      const itemId = rate.resource.itemId;
+      if (mapping.get(itemId) === undefined) {
+        mapping.set(itemId, rate);
+      } else {
+        throw new Error('Rate should not exist');
+      }
+    });
+
+    return mapping;
+  }
+
   static collect(rates: ResourceRate[]) {
     const mapping: Map<number, Array<ResourceRate>> = new Map();
     rates.forEach(rate => {

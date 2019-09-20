@@ -8,7 +8,7 @@ import getStore from './redux/store';
 
 import { LocalizeProvider } from 'react-localize-redux';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
-
+import './fonts/BebasNeue-Regular.ttf';
 require('typeface-roboto-condensed');
 
 const store = getStore();

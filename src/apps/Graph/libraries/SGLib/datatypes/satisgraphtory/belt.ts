@@ -13,9 +13,9 @@ export default class Belt extends SimpleEdge {
   resources: Array<ResourceRate> = [];
   clampedSpeed: Fraction = new Fraction(0, 1);
 
-  constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
-    super(data, source, target);
-  }
+  // constructor(data: Nullable<Object>, source: SimpleNode, target: SimpleNode) {
+  //   super(data, source, target);
+  // }
 
   static createNullTerminalEdge(data: Nullable<Object>, target: SimpleNode) {
     return new Belt(data, SimpleNode.NULL_NODE, target);

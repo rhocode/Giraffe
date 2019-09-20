@@ -264,8 +264,6 @@ const generatePools = (
   const visitedPools: Set<number> = new Set();
   const clusters: Array<ClusterChain> = [];
 
-  const visitedCluster: Set<SimpleNode[]> = new Set();
-
   topologicalOrder.forEach(nodeIndex => {
     const node = cluster.nodes.get(nodeIndex);
     if (node === undefined) {

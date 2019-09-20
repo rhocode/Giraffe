@@ -5,6 +5,7 @@ import DistributedOutput from './distributedOutput';
 import Recipe from '../primitives/recipe';
 import SatisGraphtoryAbstractNode from './satisGraphtoryAbstractNode';
 import SimpleEdge from '../graph/simpleEdge';
+import Fraction from '../primitives/fraction';
 
 // Used for normal recipe processors
 export default class StrictProducerNode extends RecipeProcessorNode {
@@ -18,6 +19,12 @@ export default class StrictProducerNode extends RecipeProcessorNode {
         [],
         this.overclock
       );
+
+      if (excessResources.size) {
+        throw new Error(
+          'Strict producer should not show any excess resources from the recipe'
+        );
+      }
 
       if (recipeInput.length) {
         throw new Error('StrictProducer should not have any recipe inputs!');
@@ -46,6 +53,7 @@ export default class StrictProducerNode extends RecipeProcessorNode {
       let isError = false;
 
       const excessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
+      const actualRate: Map<SimpleEdge, ResourceRate[]> = new Map();
 
       Array.from(this.outputs.keys()).forEach(edge => {
         if (!(edge instanceof Belt)) {
@@ -60,14 +68,40 @@ export default class StrictProducerNode extends RecipeProcessorNode {
           errored
         } = belt.getAllResourceRates(true);
 
-        console.log('Strict producer is adding', resourceRate);
-
         if (overflowed) {
           excessRate.set(belt, excessResourceRates);
         }
-
+        actualRate.set(belt, resourceRate);
         isError = isError || errored;
       });
+
+      const graphUsedRate = ResourceRate.toResourceMap(
+        Array.from(actualRate.values()).flat(1)
+      );
+      const normalRate = ResourceRate.toResourceMap(recipeOutputs);
+
+      const recipeRates: Map<number, Fraction> = new Map();
+
+      normalRate.forEach((value, key) => {
+        const correspondingUsedRate = graphUsedRate.get(key);
+        const produced = value
+          .toFraction()
+          .multiply(new Fraction(60, 1))
+          .reduce();
+        if (correspondingUsedRate === undefined) {
+          throw new Error('Corresponding rate should not be null');
+        }
+        const needed = correspondingUsedRate
+          .toFraction()
+          .multiply(new Fraction(60, 1))
+          .reduce();
+        recipeRates.set(
+          key,
+          new Fraction(produced.toNumber(), needed.toNumber())
+        );
+      });
+
+      this.setPropagationData(new Map(), recipeRates);
 
       //TODO: This strictProducer should not add excess. Instead, it should set its own data to reflect actual vs
       // expected rate.
@@ -89,6 +123,5 @@ export default class StrictProducerNode extends RecipeProcessorNode {
     edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
-    return new Map();
   }
 }

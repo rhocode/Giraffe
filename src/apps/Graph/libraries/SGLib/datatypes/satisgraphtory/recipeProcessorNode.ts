@@ -4,6 +4,7 @@ import Belt from './belt';
 import DistributedOutput from './distributedOutput';
 import ResourceRate from '../primitives/resourceRate';
 import SimpleEdge from '../graph/simpleEdge';
+import Fraction from '../primitives/fraction';
 
 type Nullable<T> = T | null;
 
@@ -23,11 +24,11 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
         item => item as Belt
       );
 
-      const { recipeOutputs, excessResources } = Recipe.calculateRecipeYield(
-        this.recipe,
-        inputEdges,
-        this.overclock
-      );
+      const {
+        recipeOutputs,
+        excessResources,
+        recipeRates
+      } = Recipe.calculateRecipeYield(this.recipe, inputEdges, this.overclock);
 
       const outputExcessRate: Map<SimpleEdge, ResourceRate[]> = new Map();
 
@@ -49,6 +50,41 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
         belt.clearResources();
       });
 
+      // Has no belts hooked up
+      if (this.outputs.size === 0) {
+        const graphUsedRate = ResourceRate.toResourceMap(recipeOutputs);
+        const normalRate = ResourceRate.toResourceMap(recipeOutputs);
+
+        const outputRecipeRates: Map<number, Fraction> = new Map();
+
+        normalRate.forEach((value, key) => {
+          const correspondingUsedRate = graphUsedRate.get(key);
+          const produced = value
+            .toFraction()
+            .multiply(new Fraction(60, 1))
+            .reduce();
+          if (correspondingUsedRate === undefined) {
+            throw new Error('Corresponding rate should not be null');
+          }
+          const needed = correspondingUsedRate
+            .toFraction()
+            .multiply(new Fraction(60, 1))
+            .reduce();
+          outputRecipeRates.set(
+            key,
+            new Fraction(produced.toNumber(), needed.toNumber())
+          );
+        });
+
+        this.setPropagationData(recipeRates, outputRecipeRates);
+
+        //TODO:
+        // set yourself with resourcePackets
+
+        return new DistributedOutput(false, outputExcessRate);
+        // This node has no outputs!
+      }
+
       resourcePackets.forEach(rate => {
         Array.from(this.outputs.keys()).forEach(edge => {
           if (!(edge instanceof Belt)) {
@@ -61,6 +97,10 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
       });
 
       let isError = false;
+
+      const nodeResourceRates: any = [];
+
+      const actualUsedRate: Map<SimpleEdge, ResourceRate[]> = new Map();
 
       Array.from(this.outputs.keys()).forEach(edge => {
         if (!(edge instanceof Belt)) {
@@ -79,8 +119,39 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
           outputExcessRate.set(belt, excessResourceRates);
         }
 
+        actualUsedRate.set(belt, resourceRate);
+
         isError = isError || errored;
+        nodeResourceRates.push(resourceRate);
       });
+
+      const graphUsedRate = ResourceRate.toResourceMap(
+        Array.from(actualUsedRate.values()).flat(1)
+      );
+      const normalRate = ResourceRate.toResourceMap(recipeOutputs);
+
+      const outputRecipeRates: Map<number, Fraction> = new Map();
+
+      normalRate.forEach((value, key) => {
+        const correspondingUsedRate = graphUsedRate.get(key);
+        const produced = value
+          .toFraction()
+          .multiply(new Fraction(60, 1))
+          .reduce();
+        if (correspondingUsedRate === undefined) {
+          throw new Error('Corresponding rate should not be null');
+        }
+        const needed = correspondingUsedRate
+          .toFraction()
+          .multiply(new Fraction(60, 1))
+          .reduce();
+        outputRecipeRates.set(
+          key,
+          new Fraction(produced.toNumber(), needed.toNumber())
+        );
+      });
+
+      this.setPropagationData(recipeRates, outputRecipeRates);
 
       return new DistributedOutput(false, outputExcessRate);
     }
@@ -100,6 +171,5 @@ export default class RecipeProcessorNode extends SatisGraphtoryAbstractNode {
     edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
-    return new Map();
   }
 }

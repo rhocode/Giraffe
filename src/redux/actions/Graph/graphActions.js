@@ -72,3 +72,16 @@ export const setRightPanelOpen = data => dispatch => {
     payload: data
   });
 };
+
+export const forceRefreshGraph = () => dispatch => {
+  dispatch({
+    type: 'FORCE_REFRESH_GRAPH'
+  });
+};
+
+export const setDataLibrary = data => dispatch => {
+  dispatch({
+    type: 'SET_DATA_LIBRARY',
+    payload: data
+  });
+};
