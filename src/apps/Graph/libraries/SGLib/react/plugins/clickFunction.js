@@ -116,6 +116,7 @@ const canvasClickFunction = (
   }
 
   if (mouseMode === 'add' && selectedMachine) {
+    console.error('CLICKED ADD HERE');
     const newGraph = Object.assign({}, graphData);
 
     // d3.event.x, y: d3.event.y

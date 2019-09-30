@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import GraphAppBar from './components/GraphAppBar';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
 import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
@@ -41,7 +41,7 @@ class GraphApp extends Component {
     ready: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { match, language } = this.props;
 
     const graphId = (match && match.params && match.params.graphId) || null;

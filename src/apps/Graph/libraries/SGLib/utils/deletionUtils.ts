@@ -37,6 +37,8 @@ export const removeNodes = (
     });
   });
 
+  console.error(nodeSet, removedEdges);
+
   return {
     nodes: graphData.nodes.filter(item => !nodeSet.has(item)),
     edges: graphData.edges.filter(item => !removedEdges.has(item))

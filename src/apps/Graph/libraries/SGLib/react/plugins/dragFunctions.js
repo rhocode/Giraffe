@@ -152,6 +152,7 @@ export const dragSubjectPlugin = (
   selectedNodes,
   setNodesAndEdges
 ) => {
+  console.error('DRAG SUBJECTED');
   if (mouseMode === 'link') {
     return null;
   }
