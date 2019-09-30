@@ -30,8 +30,9 @@ class Canvas extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.addEventListener('resize', this.measureCanvas, false);
+    this.measureCanvas();
   }
 
   componentWillUnmount() {
@@ -47,10 +48,6 @@ class Canvas extends Component {
       });
     }
   };
-
-  componentDidMount() {
-    this.measureCanvas();
-  }
 
   render() {
     const { classes } = this.props;

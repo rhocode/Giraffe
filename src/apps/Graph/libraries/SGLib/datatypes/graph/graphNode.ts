@@ -83,10 +83,10 @@ export abstract class GraphNode {
   }
 
   fixPosition() {
-    this.fx = this.x - this.width / 2;
-    this.fy = this.y - this.height / 2;
-    this.x = this.x - this.width / 2;
-    this.y = this.y - this.height / 2;
+    this.fx = this.x - this.xRenderBuffer - +this.width / 2;
+    this.fy = this.y - this.yRenderBuffer - this.height / 2;
+    this.x = this.fx;
+    this.y = this.fy;
   }
 
   serialize() {

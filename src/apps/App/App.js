@@ -11,6 +11,8 @@ import { withLocalize } from 'react-localize-redux';
 import en from '../../translations/en.json';
 import discord from '../../translations/discord.json';
 
+import { HelmetProvider } from 'react-helmet-async';
+
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 import { ApolloProvider } from 'react-apollo';
 import { getClient } from '../../graphql';
@@ -67,13 +69,15 @@ class AppWrapper extends Component {
     const { children } = this.props;
 
     return (
-      <ReactRouter>
-        <MuiThemeProvider theme={themeDark}>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ApolloProvider client={getClient()}>{children}</ApolloProvider>
-          </React.Suspense>
-        </MuiThemeProvider>
-      </ReactRouter>
+      <HelmetProvider>
+        <ReactRouter>
+          <MuiThemeProvider theme={themeDark}>
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <ApolloProvider client={getClient()}>{children}</ApolloProvider>
+            </React.Suspense>
+          </MuiThemeProvider>
+        </ReactRouter>
+      </HelmetProvider>
     );
   }
 }

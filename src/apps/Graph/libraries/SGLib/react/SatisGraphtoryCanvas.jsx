@@ -1,6 +1,5 @@
 import { getTranslate } from 'react-localize-redux';
 import {
-  forceRefreshGraph,
   setDataLibrary,
   setGraphData,
   setGraphSourceNode,
@@ -25,7 +24,6 @@ import zoomPlugin from './plugins/zoomFunction';
 import { setEquals } from '../utils/sets';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
-import transformGraph from '../algorithms/satisgraphtory/transform';
 import setEnums from '../repositories/objectRepository';
 
 function useBoundingBoxRect(props) {
@@ -118,7 +116,6 @@ function SatisGraphtoryCanvas(props) {
     setGraphSourceNode,
     setMouseMode,
     initialLoadedData,
-    forceRefreshGraph,
     heightOverride,
     widthOverride,
     setSelectedDataFunc,
@@ -357,23 +354,30 @@ function SatisGraphtoryCanvas(props) {
     simulation.alphaDecay(1);
   }, [graphFidelity, simulation, selectedEdges, selectedNodes, graphData]);
 
-  useEffect(() => {
-    if (graphData) {
-      transformGraph(graphData, () => {
-        forceRefreshGraph();
-        // console.error("AAAAAAAAA");
-      });
-    }
-  }, [forceRefreshGraph, graphData]);
+  // useEffect(() => {
+  //   if (graphData) {
+  //     transformGraph(graphData, () => {
+  //       forceRefreshGraph();
+  //       // console.error("AAAAAAAAA");
+  //     });
+  //   }
+  // }, [forceRefreshGraph, graphData]);
 
   useEffect(() => {
     if (!canvasCurrent) return;
+
+    let dragDistance = 10;
+
+    if (mouseMode === 'add') {
+      dragDistance = 200;
+    }
+
     d3.select(canvasCurrent)
       .call(
         d3
           .drag()
           .container(canvasCurrent)
-          .clickDistance(4)
+          .clickDistance(dragDistance)
           .subject(() =>
             dragSubjectPlugin(
               graphData,
@@ -556,7 +560,6 @@ function mapDispatchToProps(dispatch) {
     setGraphSourceNode: data => dispatch(setGraphSourceNode(data)),
     setMouseMode: data => dispatch(setMouseMode(data)),
     setSelectedDataFunc: data => dispatch(setSelectedData(data)),
-    forceRefreshGraph: () => dispatch(forceRefreshGraph()),
     setDataLibrary: data => dispatch(setDataLibrary(data))
   };
 }
