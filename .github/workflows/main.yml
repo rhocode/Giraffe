@@ -19,4 +19,4 @@ jobs:
     - name: Runs a LightHouse-Keeper Analysis
       run: |
         npm run build
-        travis_retry npx codechecks
+        npx codechecks
