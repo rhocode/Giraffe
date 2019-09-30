@@ -20,3 +20,5 @@ jobs:
       run: |
         npm run build
         npx codechecks
+      env: 
+      CC_SECRET: ${{ secrets.CC_SECRET }}
