@@ -10,7 +10,7 @@ import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
 import { getCraftingMachineClasses } from './graphql/queries';
 import { getActiveLanguage, getTranslate } from 'react-localize-redux';
 import GraphRightPanel from './components/GraphRightPanel';
-import GraphLeftFab from './components/GraphLeftFab';
+import GraphRightFab from './components/GraphRightFab';
 
 const styles = theme => {
   console.log(theme);
@@ -103,7 +103,7 @@ class GraphApp extends Component {
           <GraphAppBar />
           <GraphRightPanel />
           <GraphCanvasLoadable />
-          <GraphLeftFab />
+          <GraphRightFab />
           <GraphNodeDrawer />
         </div>
       );

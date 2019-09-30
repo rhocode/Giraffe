@@ -30,7 +30,6 @@ const versionCompare = (v1: string, v2: string) => {
       return 1;
     }
     if (v1parts_num[i] === v2parts_num[i]) {
-      continue;
     } else if (v1parts_num[i] > v2parts_num[i]) {
       return 1;
     } else {
