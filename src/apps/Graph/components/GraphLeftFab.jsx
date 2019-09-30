@@ -11,15 +11,15 @@ import {
 
 const styles = theme => ({
   fab: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: '2em',
-    right: '2em',
+    left: '2em',
     zIndex: theme.zIndex.drawer + 1
   },
   fabMobile: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: '7em',
-    right: '2em',
+    left: '2em',
     zIndex: theme.zIndex.drawer + 1
   }
 });
