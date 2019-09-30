@@ -80,6 +80,7 @@ const transformGraph = (graphData: GraphData, callback: any = null) => {
               case 'smelter':
               case 'constructor':
               case 'assembler':
+              case 'manufacturer':
                 const recipeNode = new RecipeProcessorNode(node, recipe);
                 nodeMapping.set(node, recipeNode);
                 transformedNodes.push(recipeNode);
@@ -103,17 +104,20 @@ const transformGraph = (graphData: GraphData, callback: any = null) => {
         }
       });
 
+      console.error(nodes, edges);
+
       edges.forEach(edge => {
         const source = nodeMapping.get(edge.source);
         const target = nodeMapping.get(edge.target);
         if (source === undefined || target === undefined) {
-          throw new Error(
+          console.error(
             'Undefined source or target' +
               edge.source.id +
               edge.target.id +
               source +
               target
           );
+          return;
         }
 
         const producedEdge = source.addOutput(target, undefined, edge);

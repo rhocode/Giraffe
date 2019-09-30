@@ -1,5 +1,4 @@
-import Loadable from 'react-loadable';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import AutoSizedLoadingWrapper from '../../../common/react/AutoSizedLoadingWrapper';
 import { imageRepositoryPromise } from '../libraries/SGLib/repositories/imageRepository';
 import deserialize from '../libraries/SGLib/algorithms/satisgraphtory/deserialize';
@@ -15,19 +14,24 @@ import { preloadAllEnums } from '../libraries/SGLib/repositories/objectRepositor
 
 const FontFaceObserver = require('fontfaceobserver');
 
-const LoadableComponent = Loadable({
-  loader: () => {
-    return Promise.all([
-      new FontFaceObserver('Roboto Condensed').load(),
-      new FontFaceObserver('Bebas Neue').load(),
-      preloadAllEnums,
-      ...imageRepositoryPromise.machines,
-      ...imageRepositoryPromise.items,
-      getPlaceableMachineClasses()
-    ]).then(() => import('../libraries/SGLib/react/SatisGraphtoryCanvas'));
-  },
-  loading: AutoSizedLoadingWrapper
+const InnerComponent = React.lazy(() => {
+  return Promise.all([
+    new FontFaceObserver('Roboto Condensed').load(),
+    new FontFaceObserver('Bebas Neue').load(),
+    preloadAllEnums,
+    ...imageRepositoryPromise.machines,
+    ...imageRepositoryPromise.items,
+    getPlaceableMachineClasses()
+  ]).then(() => import('../libraries/SGLib/react/SatisGraphtoryCanvas'));
 });
+
+const LoadableComponent = () => {
+  return (
+    <Suspense fallback={<AutoSizedLoadingWrapper />}>
+      <InnerComponent />
+    </Suspense>
+  );
+};
 
 function GraphCanvasLoadable(props) {
   const { initialLoadedData, setInitialLoadedData } = props;

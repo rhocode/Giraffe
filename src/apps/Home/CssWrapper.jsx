@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class CssWrapper extends Component {
-  componentWillMount() {
+  componentDidMount() {
     require('./App.css');
   }
 

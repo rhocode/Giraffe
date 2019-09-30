@@ -190,6 +190,7 @@ export function defaultNodeThemeSprite(
   calculateNodeSpacing(y + h / 2, d.inputSlots.length).forEach(
     (inputY: number, index: number) => {
       d.inputSlotMapping[index] = { x, y: inputY };
+      // console.log(d.inputSlots, d.id)
       drawNodePlug(context, x, inputY, '#1D1E20', '#15CB07');
     }
   );
