@@ -11,20 +11,20 @@ import {
 
 const styles = theme => ({
   fab: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: '2em',
-    left: '2em',
+    right: '2em',
     zIndex: theme.zIndex.drawer + 1
   },
   fabMobile: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: '7em',
-    left: '2em',
+    right: '2em',
     zIndex: theme.zIndex.drawer + 1
   }
 });
 
-function GraphRightFab(props) {
+function GraphLeftFab(props) {
   const { classes, setDrawerOpen } = props;
 
   if (props.selectMode) {
@@ -44,7 +44,7 @@ function GraphRightFab(props) {
 
 function mapStateToProps(state) {
   return {
-    selectMode: state.graphReducer.mouseMode === 'select' || true
+    selectMode: state.graphReducer.mouseMode === 'select'
   };
 }
 
@@ -58,4 +58,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(GraphRightFab));
+)(withStyles(styles)(GraphLeftFab));
