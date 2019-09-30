@@ -16,7 +16,7 @@ jobs:
       run: npm test
       env:
         CI: true
-    - name: Runs a LightHouse-Keeper Analysis
+    - name: Runs a Lighthouse-Keeper Analysis
       run: |
         npm run build
         npx codechecks
