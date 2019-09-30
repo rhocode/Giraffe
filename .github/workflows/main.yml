@@ -11,6 +11,8 @@ jobs:
       run: npm ci
     - name: Runs Tests
       run: npm test
+      env:
+        CI: true
     - name: Runs a LightHouse-Keeper Analysis
       run: |
         npm run build
