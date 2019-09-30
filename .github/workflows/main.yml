@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Runs Tests
+      run: npm test
+    - name: Runs a LightHouse-Keeper Analysis
+      run: |
+        npm run build
+        travis_retry npx codechecks
