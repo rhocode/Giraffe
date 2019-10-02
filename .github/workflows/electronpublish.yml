@@ -26,7 +26,8 @@ jobs:
     needs: build
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: docker://electronuserland/builder:wine
+      - name: Loading docker
+        uses: docker://electronuserland/builder:wine
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
