@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - master
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,11 +19,14 @@ jobs:
       - run: npm test
         env:
           CI: true
-
   publish-electron:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
     needs: build
-    runs-on: macOS-latest
+    runs-on: ${{ matrix.os }}
     steps:
+      - uses: docker://electronuserland/builder:wine
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
@@ -32,6 +34,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: npm run release-standalone -- --mac --linux -c.snap.publish=github --win
+      - run: npm run release-standalone -- -c.snap.publish=github
         env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
