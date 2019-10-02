@@ -17,37 +17,9 @@ env:
 
 stages:
   - name: Test
-  - name: lighthouse-keeper
-  - name: Deploy Electron
-    if: type != pull_request AND branch = master
 
 jobs:
   include:
     - stage: Test
       script:
         - npm test
-    - stage: lighthouse-keeper
-      script:
-        - npm run build
-        - travis_retry npx codechecks
-    - stage: Deploy Electron
-      os: osx
-      osx_image: xcode11
-      script:
-        - npm run build
-        - travis_retry npm run release-standalone -- --mac
-      before_cache:
-        - rm -rf $HOME/.cache/electron-builder/wine
-    -
-      os: linux
-      sudo: required
-      dist: xenial
-      script:
-        - npm run build
-        - travis_retry npm run release-standalone -- --linux -c.snap.publish=github
-    -
-      os: osx
-      osx_image: xcode11
-      script:
-        - npm run build
-        - travis_retry npm run release-standalone -- --win
