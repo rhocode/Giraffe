@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import GraphCanvasLoadable from './components/GraphCanvasLoadable';
 import GraphNodeDrawer from './components/GraphNodeDrawer';
 import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
-import { getCraftingMachineClasses } from './graphql/queries';
+import { getPlaceableMachineClasses } from './graphql/queries';
 import { getActiveLanguage, getTranslate } from 'react-localize-redux';
 import GraphRightPanel from './components/GraphRightPanel';
 import GraphRightFab from './components/GraphRightFab';
@@ -46,13 +46,14 @@ class GraphApp extends Component {
 
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    // getPlaceableMachineClasses(language.code === 'discord').then(classes =>
+    getPlaceableMachineClasses(language.code === 'discord').then(classes => {
+      console.error(classes);
+      this.props.setMachineClasses(classes);
+    });
+
+    // getCraftingMachineClasses(language.code === 'discord').then(classes =>
     //   this.props.setMachineClasses(classes)
     // );
-
-    getCraftingMachineClasses(language.code === 'discord').then(classes =>
-      this.props.setMachineClasses(classes)
-    );
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
