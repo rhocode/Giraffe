@@ -55,7 +55,7 @@
     "protobufjs": "^6.8.8",
     "protocol-buffers-encodings": "^1.1.0",
     "react": "16.9.0",
-    "react-apollo": "^3.1.0",
+    "react-apollo": "^3.1.2",
     "react-autosuggest": "^9.4.3",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^1.7.5",
