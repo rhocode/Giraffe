@@ -61,7 +61,7 @@
     "react-device-detect": "^1.7.5",
     "react-dom": "^16.9.0",
     "react-dropdown-select": "^3.5.0",
-    "react-flip-toolkit": "^7.0.5",
+    "react-flip-toolkit": "^7.0.6",
     "react-focus-trap": "^2.7.1",
     "react-helmet-async": "^1.0.3",
     "react-localize-redux": "^3.5.3",
