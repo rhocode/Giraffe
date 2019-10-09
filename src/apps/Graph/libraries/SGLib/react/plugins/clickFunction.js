@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import MachineNode from '../../datatypes/graph/graphNode';
 import { GraphEdge } from '../../datatypes/graph/graphEdge';
+import { produce } from 'immer';
 
 const canvasClickFunction = (
   graphSourceNode,
@@ -117,12 +118,15 @@ const canvasClickFunction = (
 
   if (mouseMode === 'add' && selectedMachine) {
     console.error('CLICKED ADD HERE');
-    const newGraph = Object.assign({}, graphData);
+
+    const newGraph = produce(graphData, draftState => {
+      draftState.nodes.push(
+        new MachineNode(selectedMachine, 0, x, y, true, translate, transform)
+      );
+    });
 
     // d3.event.x, y: d3.event.y
-    newGraph.nodes.push(
-      new MachineNode(selectedMachine, 0, x, y, true, translate, transform)
-    );
+
     setGraphData(newGraph);
   } else if (mouseMode === 'link') {
     let selectedNode = null;

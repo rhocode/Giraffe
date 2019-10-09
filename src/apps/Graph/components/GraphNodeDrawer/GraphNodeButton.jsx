@@ -57,8 +57,8 @@ function GraphNodeButton(props) {
       <div className={classes.buttonContainer}>
         <Button
           size="large"
-          color={props.selected ? 'primary' : null}
-          variant={props.selected ? 'contained' : null}
+          color={props.selected ? 'primary' : undefined}
+          variant={props.selected ? 'contained' : undefined}
           className={classes.buttonSquare}
           onClick={() => setOpenDialog(true)}
         >
