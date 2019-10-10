@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core';
+import { produce } from 'immer';
 
 const paletteLight = {
   type: 'light',
@@ -41,8 +42,12 @@ export const baseTheme = {
 };
 
 export const themeDark = createMuiTheme(
-  Object.assign({}, baseTheme, { palette: paletteDark })
+  produce(baseTheme, draftState => {
+    draftState.palette = paletteDark;
+  })
 );
 export const themeLight = createMuiTheme(
-  Object.assign({}, baseTheme, { palette: paletteLight })
+  produce(baseTheme, draftState => {
+    draftState.palette = paletteLight;
+  })
 );
