@@ -30,7 +30,8 @@ const styles = theme => ({
     minHeight: baseTheme.overrides.GraphAddMachineButton.height,
     maxWidth: baseTheme.overrides.GraphAddMachineButton.width,
     maxHeight: baseTheme.overrides.GraphAddMachineButton.height,
-    margin: baseTheme.overrides.GraphAddMachineButton.margin
+    margin: baseTheme.overrides.GraphAddMachineButton.margin,
+    textTransform: 'none'
   },
   buttonContents: {
     display: 'flex',
