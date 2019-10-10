@@ -149,7 +149,6 @@ function NodeDrawer(props) {
           {value === 0 && (
             <TabContainer {...props} classes={classes}>
               {props.machineClasses.map(classObject => {
-                console.log(classObject.name, translate(classObject.name));
                 return (
                   <GraphNodeButton
                     nodeClass={classObject}
