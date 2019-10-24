@@ -10,7 +10,7 @@
     "@devexpress/dx-react-core": "^2.0.4",
     "@devexpress/dx-react-grid": "^2.0.4",
     "@devexpress/dx-react-grid-material-ui": "^2.0.4",
-    "@emotion/core": "^10.0.17",
+    "@emotion/core": "^10.0.22",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-brands-svg-icons": "^5.10.2",
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
