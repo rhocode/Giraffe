@@ -22,7 +22,7 @@
     "@types/jest": "24.0.18",
     "@types/mathjs": "^6.0.2",
     "@types/node": "12.7.11",
-    "@types/react": "16.9.2",
+    "@types/react": "16.9.12",
     "@types/react-dom": "^16.9.1",
     "@waiting/base64": "^4.2.9",
     "@welldone-software/why-did-you-render": "^3.3.3",
