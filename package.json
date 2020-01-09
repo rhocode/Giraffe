@@ -47,7 +47,7 @@
     "lint-staged": "^9.2.5",
     "lodash": "^4.17.15",
     "lzutf8": "^0.5.5",
-    "mathjs": "6.2.1",
+    "mathjs": "6.5.0",
     "multi-metagen": "^2.6.0",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.18.2",
