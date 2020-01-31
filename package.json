@@ -39,7 +39,7 @@
     "electron-is-dev": "^1.1.0",
     "eslint-plugin-flowtype": "^3.13.0",
     "fibers": "^4.0.2",
-    "firebase": "^6.6.2",
+    "firebase": "^7.7.0",
     "fontfaceobserver": "^2.1.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.1",
