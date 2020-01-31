@@ -44,7 +44,7 @@
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.6",
-    "husky": "^3.1.0",
+    "husky": "^4.2.1",
     "immer": "^4.0.2",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.15",
