@@ -79,7 +79,7 @@
     "redux-thunk": "^2.3.0",
     "roboto-fontface": "^0.10.0",
     "sass": "^1.25.0",
-    "scheduler": "^0.15.0",
+    "scheduler": "^0.18.0",
     "seamless-immutable": "^7.1.4",
     "throttle-debounce": "^2.1.0",
     "typeface-roboto-condensed": "^0.0.75",
