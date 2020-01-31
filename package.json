@@ -74,7 +74,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.1",
     "react-select": "^3.0.8",
-    "react-syntax-highlighter": "^11.0.2",
+    "react-syntax-highlighter": "^12.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "roboto-fontface": "^0.10.0",
