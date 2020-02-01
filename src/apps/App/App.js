@@ -30,7 +30,7 @@ const chooseLoadingStyle = importFunc => {
 const HomeImport = () => import('../../apps/Home/HomeApp');
 const HomeApp = chooseLoadingStyle(HomeImport);
 
-const GraphImport = () => import('../../apps/Graph/GraphApp');
+const GraphImport = () => import('../../v3/apps/GraphV2/GraphApp');
 const GraphApp = chooseLoadingStyle(GraphImport);
 
 const HubImport = () => import('../../apps/Hub/HubApp');
@@ -102,130 +102,134 @@ const styles = () => ({
   }
 });
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const languages = ['en', 'discord'];
 
-    const languages = ['en', 'discord'];
-    // const defaultLanguage =
-    //   window.localStorage.getItem('languageCode') || languages[0];
-    // window.localStorage.setItem("languageCode", curLangCode);
+function App(props) {
+  // const defaultLanguage =
+  //   window.localStorage.getItem('languageCode') || languages[0];
+  // window.localStorage.setItem("languageCode", curLangCode);
 
-    const onMissingTranslation = ({ translationId, languageCode }) => {
-      const text = `No Translation for ${translationId} - ${languageCode}`;
-      if (process.env.NODE_ENV === 'production') {
-        return translationId;
-      } else {
-        console.error(text);
-        return text;
-      }
-    };
-
-    this.props.initialize({
-      languages: [
-        { name: 'English', code: 'en' },
-        { name: 'Discord', code: 'discord' }
-      ],
-
-      options: {
-        onMissingTranslation,
-        renderToStaticMarkup,
-        defaultLanguage: languages[0]
-        // defaultLanguage
-      }
-    });
-
-    props.addTranslationForLanguage(en, 'en');
-    props.addTranslationForLanguage(discord, 'discord');
-  }
-
-  static getGraphApp(local = false) {
-    return (
-      <Route
-        key={'graph'}
-        path={local ? `/graph/:graphId?` : `/:graphId?`}
-        exact={!local}
-        component={GraphApp}
-      />
-    );
-  }
-
-  static getHubApp(local = false) {
-    return (
-      <Route
-        key={'hub'}
-        path={local ? `/hub` : `/`}
-        exact={!local}
-        component={HubApp}
-      />
-    );
-  }
-
-  static getLabApp(local = false) {
-    return (
-      <Route
-        key={'lab'}
-        path={local ? `/lab` : `/`}
-        exact={!local}
-        component={LabApp}
-      />
-    );
-  }
-
-  static getDataApp(local = false) {
-    return (
-      <Route
-        key={'data'}
-        path={local ? `/data` : `/`}
-        exact={!local}
-        component={DataApp}
-      />
-    );
-  }
-
-  static getHomeApp() {
-    return <Route key={'home'} path={`/`} exact component={HomeApp} />;
-  }
-
-  static resolveDomain() {
-    const domain = window.location.host.split('.')[1]
-      ? window.location.host.split('.')[0]
-      : false;
-    const domainList = [];
-
-    if (domain === 'graph') {
-      domainList.push(App.getGraphApp());
-    } else if (domain === 'hub') {
-      // hub subdomain
-      domainList.push(App.getHubApp());
-    } else if (domain === 'lab') {
-      // lab subdomain
-      domainList.push(App.getLabApp());
-    } else if (domain === 'data') {
-      // lab subdomain
-      domainList.push(App.getDataApp());
+  const onMissingTranslation = ({ translationId, languageCode }) => {
+    const text = `No Translation for ${translationId} - ${languageCode}`;
+    if (process.env.NODE_ENV === 'production') {
+      return translationId;
     } else {
-      domainList.push(App.getHomeApp());
-      domainList.push(App.getGraphApp(true));
-      domainList.push(App.getLabApp(true));
-      domainList.push(App.getHubApp(true));
-      domainList.push(App.getDataApp(true));
+      console.error(text);
+      return text;
     }
+  };
 
-    return domainList;
+  const { initialize, addTranslationForLanguage } = props;
+
+  const initializedHack = React.useRef(false);
+  React.useEffect(() => {
+    if (!initializedHack.current) {
+      initializedHack.current = true;
+      initialize({
+        languages: [
+          { name: 'English', code: 'en' },
+          { name: 'Discord', code: 'discord' }
+        ],
+
+        options: {
+          onMissingTranslation,
+          renderToStaticMarkup,
+          defaultLanguage: languages[0]
+          // defaultLanguage
+        }
+      });
+
+      addTranslationForLanguage(en, 'en');
+      addTranslationForLanguage(discord, 'discord');
+    }
+  }, [addTranslationForLanguage, initialize]);
+
+  const { classes } = props;
+
+  return (
+    <AppWrapper>
+      <div id={'mainRootDiv'} className={classes.root}>
+        <HeaderMessaging />
+        <div className={classes.body}>{resolveDomain()}</div>
+      </div>
+    </AppWrapper>
+  );
+}
+
+function getGraphApp(local = false) {
+  return (
+    <Route
+      key={'graph'}
+      path={local ? `/graph/:graphId?` : `/:graphId?`}
+      exact={!local}
+      component={GraphApp}
+    />
+  );
+}
+
+function getHubApp(local = false) {
+  return (
+    <Route
+      key={'hub'}
+      path={local ? `/hub` : `/`}
+      exact={!local}
+      component={HubApp}
+    />
+  );
+}
+
+function getLabApp(local = false) {
+  return (
+    <Route
+      key={'lab'}
+      path={local ? `/lab` : `/`}
+      exact={!local}
+      component={LabApp}
+    />
+  );
+}
+
+function getDataApp(local = false) {
+  return (
+    <Route
+      key={'data'}
+      path={local ? `/data` : `/`}
+      exact={!local}
+      component={DataApp}
+    />
+  );
+}
+
+function getHomeApp() {
+  return <Route key={'home'} path={`/`} exact component={HomeApp} />;
+}
+
+function resolveDomain() {
+  const domain = window.location.host.split('.')[1]
+    ? window.location.host.split('.')[0]
+    : false;
+  const domainList = [];
+
+  if (domain === 'graph') {
+    domainList.push(getGraphApp());
+  } else if (domain === 'hub') {
+    // hub subdomain
+    domainList.push(getHubApp());
+  } else if (domain === 'lab') {
+    // lab subdomain
+    domainList.push(getLabApp());
+  } else if (domain === 'data') {
+    // lab subdomain
+    domainList.push(getDataApp());
+  } else {
+    domainList.push(getHomeApp());
+    domainList.push(getGraphApp(true));
+    domainList.push(getLabApp(true));
+    domainList.push(getHubApp(true));
+    domainList.push(getDataApp(true));
   }
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <AppWrapper>
-        <div id={'mainRootDiv'} className={classes.root}>
-          <HeaderMessaging />
-          <div className={classes.body}>{App.resolveDomain()}</div>
-        </div>
-      </AppWrapper>
-    );
-  }
+  return domainList;
 }
 
 export default withStyles(styles)(withLocalize(App));
