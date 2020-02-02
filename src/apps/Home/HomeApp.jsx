@@ -123,7 +123,7 @@ class HomeApp extends Component {
                 Satisgraphtory on GitHub <FontAwesomeIcon icon={faGithub} />
               </a>
               <a
-                href="https://github.com/rhocode/Giraffe/CONTRIBUTING.md"
+                href="https://github.com/rhocode/Giraffe/blob/master/CONTRIBUTING.md"
                 className="button small"
               >
                 Contribute to the project <FontAwesomeIcon icon={faPen} />
