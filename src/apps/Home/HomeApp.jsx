@@ -8,11 +8,16 @@ import Section from './components/Section';
 import Spotlight from './components/Spotlight';
 import Copyright from './components/Copyright';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faDownload } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faDownload,
+  faPen
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscord,
   faRedditAlien,
-  faTwitter
+  faTwitter,
+  faGithub
 } from '@fortawesome/free-brands-svg-icons';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
@@ -88,14 +93,15 @@ class HomeApp extends Component {
               <h2>Satisgraphtory</h2>
             </div>
 
-            <p>Presenting version 2 of SatisGraphtory. Better than ever.</p>
+            <p>
+              Now an open source library. Generate resource chains with ease.
+            </p>
 
-            <p>Launch the alpha.</p>
+            <p>Launch the version 2 library showcase app.</p>
 
             <p>
               <a href="/graph" className="button large primary">
-                Launch web app
-                <FontAwesomeIcon icon={faArrowRight} />
+                Launch web app <FontAwesomeIcon icon={faArrowRight} />
               </a>
               <a
                 href="https://satisgraphtory.com/#"
@@ -107,6 +113,20 @@ class HomeApp extends Component {
             <p>
               <a href="https://old.satisgraphtory.com" className="button small">
                 Launch old version <FontAwesomeIcon icon={faArrowRight} />
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://github.com/rhocode/Giraffe"
+                className="button small"
+              >
+                Satisgraphtory on GitHub <FontAwesomeIcon icon={faGithub} />
+              </a>
+              <a
+                href="https://github.com/rhocode/Giraffe/CONTRIBUTING.md"
+                className="button small"
+              >
+                Contribute to the project <FontAwesomeIcon icon={faPen} />
               </a>
             </p>
           </div>
@@ -235,7 +255,7 @@ class HomeApp extends Component {
             </a>
             <Copyright>
               <p>
-                &copy; <a href="https://rhocode.com">rhoCode</a> 2019
+                &copy; <a href="https://rhocode.com">rhoCode</a> 2020
                 <br />
                 <br />
                 Not affiliated with Satisfactory, Coffee Stain Studios AB, or
