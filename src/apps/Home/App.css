@@ -2919,12 +2919,16 @@ body.is-loading #banner p {
 .header-logo {
   margin-top: 2em;
   height: 2em;
+  background-color: #fb8c00;
+  padding: 2px;
 }
 
 @media screen and (max-width: 736px) {
   .header-logo {
     margin-top: 1.5em;
     height: 2em;
+    background-color: #fb8c00;
+    padding: 2px;
   }
 }
 
