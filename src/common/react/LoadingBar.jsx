@@ -8,10 +8,9 @@ import React, {
 } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
-import { getTranslate } from 'react-localize-redux';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import anvil from '../images/anvil.gif';
+import { LocaleContext } from '../../v3/components/LocaleProvider';
 
 const styles = () => ({
   canvasContainer: {
@@ -121,13 +120,15 @@ function drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
 }
 
 const LoadingCanvas = props => {
+  const { translate } = React.useContext(LocaleContext);
+
   const canvasId = useMemo(() => stringGen(10), []);
   const [rect, ref, canvasRef, canvasContext] = useBoundingBoxRect(props);
   const ratio = window.devicePixelRatio || 1;
   const { heightOverride, widthOverride } = props;
 
   const [loadingText, setLoadingText] = useState(
-    props.translate('loadingText_message0')
+    translate('loadingText_message0')
   );
   const [offset, setOffset] = useState(0);
 
@@ -210,8 +211,4 @@ LoadingCanvas.propTypes = {
   loadingText: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
-  translate: getTranslate(state.localize)
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(LoadingCanvas));
+export default withStyles(styles)(LoadingCanvas);
