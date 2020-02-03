@@ -30,7 +30,7 @@ const chooseLoadingStyle = importFunc => {
 const HomeImport = () => import('../../apps/Home/HomeApp');
 const HomeApp = chooseLoadingStyle(HomeImport);
 
-const GraphImport = () => import('../../v3/apps/GraphV2/GraphApp');
+const GraphImport = () => import('../../v3/apps/GraphV3/GraphApp');
 const GraphApp = chooseLoadingStyle(GraphImport);
 
 const HubImport = () => import('../../apps/Hub/HubApp');
