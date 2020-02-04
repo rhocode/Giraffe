@@ -32,7 +32,7 @@
     "base64-blob": "^1.4.1",
     "canvas-5-polyfill": "^0.1.5",
     "clean-deep": "^3.2.0",
-    "clsx": "^1.0.4",
+    "clsx": "^1.1.0",
     "d3": "^5.15.0",
     "dagre": "^0.8.5",
     "deep-diff": "^1.0.2",
