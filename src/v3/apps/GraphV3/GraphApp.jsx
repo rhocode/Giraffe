@@ -7,10 +7,12 @@ import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
 import { graphAppStore } from './stores/graphAppStore';
 import { getPlaceableMachineClasses } from '../../graphql/queries';
 import NavBar from './components/NavBar';
-import Canvas from './components/Canvas/Canvas';
+import Canvas from './components/Canvas';
+import ActionBar from './components/ActionBar';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!./workertest';
+import NodeDrawer from './components/NodeDrawer';
 
 const styles = theme => {
   return {
@@ -60,7 +62,7 @@ function GraphApp(props) {
     }).then(classes => {
       console.log('Loaded the machine classes', classes);
       graphAppStore.update(s => {
-        s.placeableMacineClasses = classes;
+        s.placeableMachineClasses = classes;
       });
     });
 
@@ -101,7 +103,10 @@ function GraphApp(props) {
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar />
-          <Canvas />
+          <Canvas>
+            <ActionBar />
+          </Canvas>
+          <NodeDrawer />
         </div>
       ) : (
         <div>Loading...</div>

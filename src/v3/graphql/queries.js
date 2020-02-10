@@ -78,6 +78,47 @@ const GET_ALL_MACHINE_CLASSES = gql`
   }
 `;
 
+const GET_ALL_RECIPES = gql`
+  {
+    getRecipes {
+      id
+      name
+      input {
+        item {
+          name
+        }
+        itemQuantity
+      }
+      output {
+        item {
+          name
+        }
+        itemQuantity
+      }
+      machineClass {
+        id
+        name
+      }
+      alternate
+      time
+      hidden
+    }
+  }
+`;
+
+export const getAllRecipes = options => {
+  const client = gqlClient();
+  return client
+    .query({
+      query: GET_ALL_RECIPES
+    })
+    .then(response => {
+      console.log(response.data.getRecipes);
+    });
+};
+
+getAllRecipes();
+
 export const getCraftingMachineClasses = options => {
   const client = gqlClient();
   const imageBaseUrl = options.useAltImages

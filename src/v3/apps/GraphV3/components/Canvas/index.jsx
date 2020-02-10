@@ -23,15 +23,15 @@ const InnerComponent = React.lazy(() => {
   );
 });
 
-const LoadableComponent = () => {
+const LoadableComponent = props => {
   return (
     <Suspense fallback={<AutoSizedLoadingWrapper />}>
-      <InnerComponent />
+      <InnerComponent {...props} />
     </Suspense>
   );
 };
 
-function Canvas() {
+function Canvas(props) {
   const initialLoadedData = useStoreState(
     graphAppStore,
     s => s.initialLoadedData
@@ -52,7 +52,7 @@ function Canvas() {
     }
   }, [initialLoadedData]);
 
-  return <LoadableComponent />;
+  return <LoadableComponent {...props} />;
 }
 
 export default Canvas;
