@@ -1,13 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import LinkIcon from '@material-ui/icons/Link';
+// import LinkIcon from "@material-ui/icons/Link";
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import AddIcon from '@material-ui/icons/Add';
-import { setMouseMode } from '../../../redux/actions/Graph/graphActions';
+import { useStoreState } from 'pullstate';
+import { graphAppStore } from '../../stores/graphAppStore';
 
 const styles = theme => ({
   default: {
@@ -31,11 +31,17 @@ const styles = theme => ({
   }
 });
 
-function GraphActionsBottomActions(props) {
-  const { classes, mouseMode } = props;
+function ActionBar(props) {
+  const { classes } = props;
+
+  const mouseMode = useStoreState(graphAppStore, s => s.mouseMode);
 
   const handleChange = (event, value) => {
-    props.setMouseMode(value);
+    graphAppStore.update(s => {
+      if (value !== s.mouseMode) {
+        s.mouseMode = value;
+      }
+    });
   };
 
   return (
@@ -55,36 +61,14 @@ function GraphActionsBottomActions(props) {
           value="select"
           icon={<CropFreeIcon />}
         />
-        <BottomNavigationAction
-          disabled
-          label="Link"
-          value="link"
-          icon={<LinkIcon />}
-        />
-        <BottomNavigationAction
-          disabled
-          label="Add"
-          value="add"
-          icon={<AddIcon />}
-        />
+        {/*<BottomNavigationAction*/}
+        {/*  label="Link"*/}
+        {/*  value="link"*/}
+        {/*  icon={<LinkIcon />} />*/}
+        <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
       </BottomNavigation>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    mouseMode: state.graphReducer.mouseMode
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setMouseMode: data => dispatch(setMouseMode(data))
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(GraphActionsBottomActions));
+export default withStyles(styles)(ActionBar);

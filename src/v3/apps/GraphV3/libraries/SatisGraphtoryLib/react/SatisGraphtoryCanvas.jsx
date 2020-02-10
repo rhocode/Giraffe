@@ -23,11 +23,10 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-function SatisGraphtoryCanvas() {
+function SatisGraphtoryCanvas(props) {
   const classes = useStyles();
   const [ref, { height, width }] = useDimensions();
   const [canvasCurrent, setCanvasCurrent] = useState(null);
-
   console.log(canvasCurrent);
 
   const ratio = window.devicePixelRatio || 1;
@@ -39,7 +38,6 @@ function SatisGraphtoryCanvas() {
 
   const scaledHeight = (height || 1) * ratio;
   const scaledWidth = (width || 1) * ratio;
-
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <canvas
@@ -49,6 +47,7 @@ function SatisGraphtoryCanvas() {
         height={scaledHeight}
         width={scaledWidth}
       />
+      {props.children}
     </div>
   );
 }
