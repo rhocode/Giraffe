@@ -117,6 +117,9 @@ const resolvers = {
         return mcMap[Recipe.machineClass];
       });
     },
+    alternate(Recipe) {
+      return Recipe.alternate ?? false;
+    },
     input(Recipe) {
       return Recipe.input || [];
     },

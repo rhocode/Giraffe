@@ -6,5 +6,9 @@ export const graphAppStore = new Store({
     edges: [],
     nodes: []
   },
-  initialLoadedData: null
+  initialLoadedData: null,
+  mouseMode: 'move',
+  selectedMachine: null,
+  openModals: 0,
+  placeableMachineClasses: []
 });
