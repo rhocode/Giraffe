@@ -11,7 +11,7 @@ import Canvas from './components/Canvas';
 import ActionBar from './components/ActionBar';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import worker from 'workerize-loader!./workertest';
+// import worker from 'workerize-loader!./workertest';
 import NodeDrawer from './components/NodeDrawer';
 
 const styles = theme => {
@@ -45,13 +45,11 @@ function GraphApp(props) {
   const { match, classes } = props;
 
   React.useEffect(() => {
-    let instance = worker();
-
-    instance.expensive(1000).then(count => {
-      console.log(`Ran ${count} loops`);
-    });
-
-    console.log('AJMKDSKDSD');
+    // let instance = worker();
+    //
+    // instance.expensive(1000).then(count => {
+    //   console.log(`Ran ${count} loops`);
+    // });
   }, []);
 
   React.useEffect(() => {
@@ -60,7 +58,6 @@ function GraphApp(props) {
     getPlaceableMachineClasses({
       useAltImages: language.code === 'discord'
     }).then(classes => {
-      console.log('Loaded the machine classes', classes);
       graphAppStore.update(s => {
         s.placeableMachineClasses = classes;
       });

@@ -39,7 +39,7 @@ const HubApp = chooseLoadingStyle(HubImport);
 const LabImport = () => import('../../apps/Lab/LabApp');
 const LabApp = chooseLoadingStyle(LabImport);
 
-const DataImport = () => import('../../apps/Data/DataApp');
+const DataImport = () => import('../../v3/apps/DataV3/DataApp');
 const DataApp = chooseLoadingStyle(DataImport);
 
 const Router =

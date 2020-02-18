@@ -1,54 +1,22 @@
-const typeDefs = `
-  type UpgradeTier {
-    name: String!
-    value: Int!
-  }
-  type ResourcePacket {
-    item: Item!
-    itemQuantity: Int!
-  }
-  type Item {
-    name: String!
-    icon: String
-    hidden: Boolean
-  }
-  type Recipe {
-    id: String! 
-    name: String!
-    input: [ResourcePacket]!
-    output: [ResourcePacket]!
-    machineClass: MachineClass
-    alternate: Boolean
-    time: Float!
-    hidden: Boolean
-  }
-  
-  type MachineClass {
-    id: Int! 
-    name: String!
-    icon: String
-    inputs: Int!
-    outputs: Int!
-    hidden: Boolean
-    localOrdering: Int
-    recipes: [Recipe]
-    hasUpgrades: Boolean
-    instances: [MachineInstance]
-    tiers: [UpgradeTier]
-  }
+import Recipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/recipe';
+import UpgradeTier from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/upgradeTier';
+import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/resourcePacket';
+import Item from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/item';
+import MachineClass from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/machineClass';
+import MachineInstance from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/machineInstance';
 
-  type MachineInstance {
-    name: String!
-    icon: String
-    inputs: Int!
-    outputs: Int!
-    hidden: Boolean
-    tier: UpgradeTier!
-    power: Float
-    speed: Float
-    localOrdering: Int
-    machineClass: MachineClass
-  }
+const typeDefs = `
+  ${UpgradeTier.getTypeDef()} 
+  
+  ${ResourcePacket.getTypeDef()} 
+  
+  ${Item.getTypeDef()} 
+  
+  ${Recipe.getTypeDef()} 
+  
+  ${MachineClass.getTypeDef()} 
+
+  ${MachineInstance.getTypeDef()}
 
   type Query {
     getMachineClasses: [MachineClass]
@@ -65,5 +33,5 @@ const typeDefs = `
     getRecipes: [Recipe]
   }
 `;
-
+console.log(typeDefs);
 export default typeDefs;

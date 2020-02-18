@@ -113,7 +113,7 @@ export const getAllRecipes = options => {
       query: GET_ALL_RECIPES
     })
     .then(response => {
-      console.log(response.data.getRecipes);
+      // console.log(response.data.getRecipes);
     });
 };
 

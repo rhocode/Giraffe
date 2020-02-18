@@ -6,7 +6,6 @@ export const LocaleContext = React.createContext({});
 
 function LocaleProvider(props) {
   const { language, translate } = props;
-  console.log(language, translate);
   return (
     <LocaleContext.Provider value={{ language, translate }}>
       {props.children}
