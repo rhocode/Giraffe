@@ -9,6 +9,7 @@ export const machineClassListPromise = lazyFunc(() =>
       map[item.id] = item;
       item.id = MachineClass.valuesById[item.id];
     });
+
     return map;
   })
 );
@@ -22,6 +23,7 @@ export const machineInstanceListPromise = lazyFunc(() =>
       item.id = MachineClass.valuesById[item.id];
       map[item.id + '_' + UpgradeTiers.values[item.tier]] = item;
     });
+    console.error(map);
     return map;
   })
 );

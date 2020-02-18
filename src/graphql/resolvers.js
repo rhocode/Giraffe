@@ -50,6 +50,8 @@ const mIDataMapper = data => {
     item.id = MachineClass.valuesById[item.id];
     map[item.id + '_' + UpgradeTiers.values[item.tier]] = item;
   });
+
+  console.log(map);
   return map;
 };
 

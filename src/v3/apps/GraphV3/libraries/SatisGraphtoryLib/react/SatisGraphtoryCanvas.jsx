@@ -26,8 +26,7 @@ const useStyles = makeStyles(theme =>
 function SatisGraphtoryCanvas(props) {
   const classes = useStyles();
   const [ref, { height, width }] = useDimensions();
-  const [canvasCurrent, setCanvasCurrent] = useState(null);
-  console.log(canvasCurrent);
+  const [, setCanvasCurrent] = useState(null);
 
   const ratio = window.devicePixelRatio || 1;
   const canvasId = useMemo(() => stringGen(10), []);
