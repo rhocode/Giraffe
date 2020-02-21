@@ -152,7 +152,8 @@ const CommandCell = props => (
     {React.Children.toArray(props.children).map(child => {
       if (
         child.props.id === 'delete' &&
-        (!props.tableRow.row.local && props.tableRow.row.parentId === undefined)
+        !props.tableRow.row.local &&
+        props.tableRow.row.parentId === undefined
       ) {
         const newProps = Object.assign({}, child.props, { disabled: true });
         return Object.assign({}, child, { props: newProps });

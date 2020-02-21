@@ -371,7 +371,4 @@ const mapDispatchToProps = dispatch => ({
   setData: data => dispatch(setEditorData(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DiffUploader);
+export default connect(mapStateToProps, mapDispatchToProps)(DiffUploader);

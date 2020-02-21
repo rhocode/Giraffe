@@ -103,7 +103,7 @@ export abstract class GraphNode {
     const lowerY = this.fy + this.yRenderBuffer;
     const upperY = lowerY + this.height;
 
-    return lowerX <= x && x <= upperX && (lowerY <= y && y <= upperY);
+    return lowerX <= x && x <= upperX && lowerY <= y && y <= upperY;
   }
 
   public intersectsRect(x1: number, y1: number, x2: number, y2: number) {
@@ -120,7 +120,8 @@ export abstract class GraphNode {
     return (
       lowerXRect <= lowerX &&
       upperX <= upperXRect &&
-      (lowerYRect <= lowerY && upperY <= upperYRect)
+      lowerYRect <= lowerY &&
+      upperY <= upperYRect
     );
   }
 

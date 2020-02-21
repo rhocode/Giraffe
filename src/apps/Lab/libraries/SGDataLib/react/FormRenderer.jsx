@@ -585,8 +585,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withLocalize(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withStyles(styles)(FormRenderer))
+  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(FormRenderer))
 );

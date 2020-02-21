@@ -1,25 +1,25 @@
-import AppBar from "@material-ui/core/AppBar";
-import { Toolbar, withStyles } from "@material-ui/core";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Hidden from "@material-ui/core/Hidden";
+import AppBar from '@material-ui/core/AppBar';
+import { Toolbar, withStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Hidden from '@material-ui/core/Hidden';
 
-import GraphSettingsButton from "./GraphSettingsButton";
-import GraphHelpButton from "./GraphHelpButton";
-import GraphShareButton from "./GraphShareButton";
-import Badge from "@material-ui/core/Badge";
-import satisgraphtory2 from "../../../images/satisgraphtory2.png";
-import satisgraphtory2_square from "../../../images/satisgraphtory2_square.png";
+import GraphSettingsButton from './GraphSettingsButton';
+import GraphHelpButton from './GraphHelpButton';
+import GraphShareButton from './GraphShareButton';
+import Badge from '@material-ui/core/Badge';
+import satisgraphtory2 from '../../../images/satisgraphtory2.png';
+import satisgraphtory2_square from '../../../images/satisgraphtory2_square.png';
 
 const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     minHeight: theme.overrides.GraphAppBar.height,
-    gridArea: "header",
-    position: "inherit",
-    top: "auto",
-    left: "auto",
-    right: "auto"
+    gridArea: 'header',
+    position: 'inherit',
+    top: 'auto',
+    left: 'auto',
+    right: 'auto'
   },
   logo: {
     width: 300
@@ -48,7 +48,7 @@ class GraphAppBar extends Component {
           <Hidden xsDown implementation="css">
             <Badge
               className={classes.margin}
-              badgeContent={"Pre-Alpha"}
+              badgeContent={'Pre-Alpha'}
               color="secondary"
             >
               <img
