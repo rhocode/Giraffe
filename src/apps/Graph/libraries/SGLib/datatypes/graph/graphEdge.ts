@@ -123,7 +123,8 @@ export class GraphEdge {
     return (
       lowerXRect <= lowerX &&
       upperX <= upperXRect &&
-      (lowerYRect <= lowerY && upperY <= upperYRect)
+      lowerYRect <= lowerY &&
+      upperY <= upperYRect
     );
   }
 }

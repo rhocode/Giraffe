@@ -47,7 +47,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = () => ({});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PageCloseHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(PageCloseHandler);

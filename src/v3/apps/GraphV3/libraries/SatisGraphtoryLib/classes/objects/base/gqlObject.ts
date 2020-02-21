@@ -13,6 +13,8 @@ ${[...attributes.entries()]
 }
 
 abstract class GqlObject extends ProtoBufable {
+  public abstract name: string;
+
   static getTypeDef() {
     const className = this.toString()
       .split('(' || /s+/)[0]

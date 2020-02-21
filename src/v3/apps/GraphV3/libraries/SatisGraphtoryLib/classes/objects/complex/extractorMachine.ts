@@ -7,20 +7,26 @@ import gqlType from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlT
 import ResourceForm, {
   RF_EMPTY
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/enums/resourceForms';
+import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 
+@generateEnum('name', 'SatisGraphtoryNode')
 class ExtractorMachine extends ProducerMachine implements ProtoSerializable {
   constructor(props: any) {
     super();
     setDataFields(this, props);
   }
 
-  @dataField('ClassName')
-  @gqlType('String!')
-  public name: string = '';
-
   @dataField('mAllowedResourceForms')
   @gqlType('[ResourceForm!]!')
   public allowedResources: ResourceForm = RF_EMPTY;
+
+  @dataField('mExtractCycleTime')
+  @gqlType('Float!')
+  private cycleTime: number = 1;
+
+  @dataField('mItemsPerCycle')
+  @gqlType('Int!')
+  private itemsPerCycle: number = 1;
 }
 
 export default ExtractorMachine;

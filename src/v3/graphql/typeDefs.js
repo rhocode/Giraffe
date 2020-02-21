@@ -1,22 +1,5 @@
-import Recipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/recipe';
-import UpgradeTier from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/upgradeTier';
-import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/resourcePacket';
-import Item from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/item';
-import MachineClass from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/machineClass';
-import MachineInstance from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/machineInstance';
-
 const typeDefs = `
-  ${UpgradeTier.getTypeDef()} 
-  
-  ${ResourcePacket.getTypeDef()} 
-  
-  ${Item.getTypeDef()} 
-  
-  ${Recipe.getTypeDef()} 
-  
-  ${MachineClass.getTypeDef()} 
 
-  ${MachineInstance.getTypeDef()}
 
   type Query {
     getMachineClasses: [MachineClass]

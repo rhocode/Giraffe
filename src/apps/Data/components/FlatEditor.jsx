@@ -249,8 +249,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default React.memo(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withStyles(styles)(FlatEditor))
+  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(FlatEditor))
 );

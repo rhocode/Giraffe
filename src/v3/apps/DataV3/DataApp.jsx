@@ -11,7 +11,7 @@ import DiffUploader from 'apps/Data/components/DiffUploader';
 import { setEditorData } from 'redux/actions/Data/dataActions';
 import { connect } from 'react-redux';
 import EnumEditor from 'apps/Data/components/EnumEditor';
-import Recipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/recipe';
+
 import {
   machineInstanceListPromise,
   recipeListPromise
