@@ -4,6 +4,12 @@ import {
   shouldStripDesc,
   stripDescImpl
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripDesc';
+import {
+  shouldStripBuild,
+  stripBuildImpl
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripBuild';
+import GqlObject from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/gqlObject';
+import { shouldPreprocess } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/preprocessor';
 
 const allDataFields: Map<string, Map<string, string>> = new Map();
 
@@ -37,14 +43,22 @@ const parseList = (list: string) => {
 const parseRecursive = (
   str: string,
   fieldType: string,
-  removeDesc: boolean
+  removeDesc: boolean,
+  removeBuild: boolean,
+  shouldPreProcess: Function
 ) => {
   return parseList(str).map((input: string) =>
-    parseSingle(input, fieldType, removeDesc)
+    parseSingle(input, fieldType, removeDesc, removeBuild, shouldPreProcess)
   );
 };
 
-const parseSingle = (str: string, fieldType: string, removeDesc: boolean) => {
+const parseSingle = (
+  str: string,
+  fieldType: string,
+  removeDesc: boolean,
+  removeBuild: boolean,
+  shouldPreProcess: Function
+) => {
   let dataRaw: any = str;
 
   try {
@@ -62,8 +76,13 @@ const parseSingle = (str: string, fieldType: string, removeDesc: boolean) => {
         dataRaw = ResourceForm.from(str);
         break;
       case 'String':
+        dataRaw = shouldPreProcess(dataRaw);
+
         if (removeDesc) {
           dataRaw = stripDescImpl(dataRaw);
+        }
+        if (removeBuild) {
+          dataRaw = stripBuildImpl(dataRaw);
         }
         break;
       case '':
@@ -86,16 +105,40 @@ function marshal(
   const stripDesc =
     shouldStripDesc.get(className) ?? new Map<string, boolean>();
 
+  const stripBuild =
+    shouldStripBuild.get(className) ?? new Map<string, boolean>();
+  const preProcess =
+    shouldPreprocess.get(className) ?? new Map<string, Function>();
+
   [...fields.entries()].forEach(
     ([fieldName, dataFieldName]: [string, string]): void => {
       let dataRaw = useDataFieldName ? data[dataFieldName] : data[fieldName];
 
       const fieldType = (typeFields.get(fieldName) ?? '').replace(/!/g, '');
       const rmDesc = stripDesc.get(fieldName) ?? false;
+      const rmBuild = stripBuild.get(fieldName) ?? false;
+      const shouldPreProcess =
+        preProcess.get(fieldName) ??
+        function(a: string): string {
+          return a;
+        };
+
       if (fieldType.startsWith('[') && fieldType.endsWith(']')) {
-        dataRaw = parseRecursive(dataRaw, fieldType, rmDesc);
+        dataRaw = parseRecursive(
+          dataRaw,
+          fieldType,
+          rmDesc,
+          rmBuild,
+          shouldPreProcess
+        );
       } else {
-        dataRaw = parseSingle(dataRaw, fieldType, rmDesc);
+        dataRaw = parseSingle(
+          dataRaw,
+          fieldType,
+          rmDesc,
+          rmBuild,
+          shouldPreProcess
+        );
       }
 
       callback(fieldName, dataRaw);
@@ -103,9 +146,17 @@ function marshal(
   );
 }
 
+const supplementary = require('development/supplementary.json');
+
 export const setDataFields = (obj: any, data: any) => {
   if (data === undefined) {
     throw new Error('Data fields are undefined!');
+  }
+
+  if (!(obj instanceof GqlObject)) {
+    throw new Error(
+      'setDataFields must be called on class that inherits GqlObject!'
+    );
   }
 
   let next = Object.getPrototypeOf(obj);
@@ -116,10 +167,15 @@ export const setDataFields = (obj: any, data: any) => {
     marshal(
       className,
       data,
-      (fieldName: string, dataRaw: any) => (obj[fieldName] = dataRaw)
+      (fieldName: string, dataRaw: any) => ((obj as any)[fieldName] = dataRaw)
     );
     next = Object.getPrototypeOf(next);
   }
+
+  const possibleSupplementary = supplementary[obj?.name] ?? {};
+  Object.keys(possibleSupplementary).forEach(item => {
+    (obj as any)[item] = possibleSupplementary[item];
+  });
 };
 
 export default dataField;

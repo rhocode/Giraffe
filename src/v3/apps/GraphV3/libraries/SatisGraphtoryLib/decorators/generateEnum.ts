@@ -1,5 +1,4 @@
 import { getClassName } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/getClassName';
-import { Enum } from 'protobufjs';
 
 //TODO: re-consolidate enums from existing sources.
 
@@ -23,15 +22,22 @@ export function toProtoBufFromGeneratedEnum(className: string) {
         }`;
 }
 
-export default function generateEnum(fieldName: string) {
+export default function generateEnum(
+  fieldName: string,
+  typeOverride: string = ''
+) {
   return function<T extends { new (...args: any[]): any }>(constructor: T) {
-    const className = getClassName(constructor);
+    const classNameRaw = getClassName(constructor);
+
+    const className = typeOverride === '' ? classNameRaw : typeOverride;
 
     class EnumWrapper extends constructor {
       private readonly propertyName: string = '';
+      private readonly __internalClass: string;
 
       constructor(...args: any[]) {
         super(...args);
+        this.__internalClass = classNameRaw;
         const property = this[fieldName];
         if (property) {
           if (!enumMap.get(className)) {
