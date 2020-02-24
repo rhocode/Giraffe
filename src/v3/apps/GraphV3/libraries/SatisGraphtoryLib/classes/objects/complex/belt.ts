@@ -4,13 +4,11 @@ import dataField from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/da
 import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataFieldUtils/utils';
 
 import Protoable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/interfaces/protoable';
-import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
-import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
 import stripClassName from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
 
 @generateEnum('name')
-class Resource extends GqlObject implements Protoable {
+class Belt extends GqlObject implements Protoable {
   constructor(props: any) {
     super();
     setDataFields(this, props);
@@ -29,17 +27,9 @@ class Resource extends GqlObject implements Protoable {
   @dataField('mDescription')
   public description: string = '';
 
-  @gqlType('ResourceFormEnum!')
-  @dataField('mForm')
-  public resourceForm: ResourceForm = ProtoBufable.NULL;
-
-  @gqlType('Int!')
-  @dataField('mResourceSinkPoints')
-  public sinkPoints: number = 0;
-
   @gqlType('Float!')
-  @dataField('mEnergyValue')
-  public energyValue: number = 0;
+  @dataField('mSpeed')
+  public speed: number = 0;
 }
 
-export default Resource;
+export default Belt;

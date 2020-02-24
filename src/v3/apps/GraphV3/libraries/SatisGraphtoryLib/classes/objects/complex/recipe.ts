@@ -1,12 +1,14 @@
 import gqlType from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlType';
 import GqlObject from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/gqlObject';
-import dataField, {
-  setDataFields
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataField';
+import dataField from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataField';
+import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataFieldUtils/utils';
+
 import Protoable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/interfaces/protoable';
-import stripDesc from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripDesc';
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
-import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
+import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
+import preprocessor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/preprocessor';
+import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
+import stripClassName from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
 
 @generateEnum('name')
 class Recipe extends GqlObject implements Protoable {
@@ -17,7 +19,7 @@ class Recipe extends GqlObject implements Protoable {
 
   @dataField('ClassName')
   @gqlType('String!')
-  @stripDesc
+  @stripClassName
   public name: string = '';
 
   @gqlType('String!')
@@ -27,6 +29,13 @@ class Recipe extends GqlObject implements Protoable {
   @gqlType('Float!')
   @dataField('mManufactoringDuration')
   public manufacturingDuration: number = 0;
+
+  @gqlType('[ResourcePacket]')
+  @dataField('mIngredients')
+  @preprocessor((data: any) => {
+    return data;
+  })
+  public ingredients: ResourcePacket = ProtoBufable.NULL;
 
   // @gqlType('Float!')
   // @dataField('mManufactoringDuration')

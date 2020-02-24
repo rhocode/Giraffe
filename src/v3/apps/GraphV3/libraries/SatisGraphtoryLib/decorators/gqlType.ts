@@ -12,7 +12,12 @@ export const allGqlTypes: Map<string, Map<string, string>> = new Map();
 
 function gqlType(type: string) {
   return function(target: any, key: any) {
-    const name = target.constructor.name;
+    let name = target.constructor.name;
+
+    if (name === 'EnumWrapper') {
+      name = Object.getPrototypeOf(target).constructor.name;
+    }
+
     if (!allGqlTypes.get(name)) {
       allGqlTypes.set(name, new Map());
     }
