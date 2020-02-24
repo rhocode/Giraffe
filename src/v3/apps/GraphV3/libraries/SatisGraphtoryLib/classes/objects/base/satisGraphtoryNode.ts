@@ -1,12 +1,12 @@
 import GqlObject from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/gqlObject';
 import dataField from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataField';
 import gqlType from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlType';
-import stripBuild from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripBuild';
+import stripClassName from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
 
 abstract class SatisGraphtoryNode extends GqlObject {
   @dataField('ClassName')
   @gqlType('String!')
-  @stripBuild
+  @stripClassName
   public name: string = '';
 
   @dataField('mDisplayName')

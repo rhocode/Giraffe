@@ -4,13 +4,13 @@ import dataField from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/da
 import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataFieldUtils/utils';
 
 import Protoable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/interfaces/protoable';
-import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
-import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
 import stripClassName from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
+import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
+import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
 
 @generateEnum('name')
-class Resource extends GqlObject implements Protoable {
+class Item extends GqlObject implements Protoable {
   constructor(props: any) {
     super();
     setDataFields(this, props);
@@ -40,6 +40,10 @@ class Resource extends GqlObject implements Protoable {
   @gqlType('Float!')
   @dataField('mEnergyValue')
   public energyValue: number = 0;
+
+  @gqlType('String!')
+  @dataField('mDataClass')
+  public dataClass: string = '';
 }
 
-export default Resource;
+export default Item;
