@@ -1,4 +1,4 @@
-import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataField';
+import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/dataFieldUtils/utils';
 
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 
@@ -7,10 +7,8 @@ import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/clas
 @generateEnum('name', 'SatisGraphtoryNode')
 class BeltAttachmentMachine extends SatisGraphtoryNode {
   constructor(props: any) {
-    console.log(props);
     super();
     setDataFields(this, props);
-    console.log(this);
   }
 }
 

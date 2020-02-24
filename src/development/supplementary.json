@@ -88,5 +88,29 @@
     "numFluidOutputs": 1,
     "numSolidInputs": 0,
     "numSolidOutputs": 0
+  },
+  "ConveyorAttachmentMerger": {
+    "numFluidInputs": 0,
+    "numFluidOutputs": 0,
+    "numSolidInputs": 3,
+    "numSolidOutputs": 1
+  },
+  "ConveyorAttachmentSplitter": {
+    "numFluidInputs": 0,
+    "numFluidOutputs": 0,
+    "numSolidInputs": 1,
+    "numSolidOutputs": 3
+  },
+  "ConveyorAttachmentSplitterSmart": {
+    "numFluidInputs": 0,
+    "numFluidOutputs": 0,
+    "numSolidInputs": 1,
+    "numSolidOutputs": 3
+  },
+  "ConveyorAttachmentSplitterProgrammable": {
+    "numFluidInputs": 0,
+    "numFluidOutputs": 0,
+    "numSolidInputs": 1,
+    "numSolidOutputs": 3
   }
 }

@@ -1,45 +1,42 @@
 import Resource from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resource';
 import ExtractorMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/extractorMachine';
-import { RF_EMPTY } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/enums/resourceForms';
-import { toProtoBufFromGeneratedEnum } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
+import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
+import { enumToProtoBuf } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 import ManufacturerMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/manufacturerMachine';
 import StorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/storageMachine';
 import SolidStorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/solidStorageMachine';
 import FluidStorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/fluidStorageMachine';
 import BeltAttachmentMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/beltAttachmentMachine';
 import Recipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/recipe';
-import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
+import { getProto } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
+import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
+import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
+import Item from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/item';
+import Belt from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/belt';
 
-const parseList = (list: string) => {
-  let parsedList = list.replace(/\(/g, '[');
-  parsedList = parsedList.replace(/\)\s/g, '], ');
-  parsedList = parsedList.replace(/\)/g, ']');
-  parsedList = parsedList.replace(/\s+/, ', ');
-  parsedList = parsedList.replace(/[^[\],\s]+/g, '"$&"');
-  parsedList = parsedList.replace(/" /g, '", ');
-
-  return JSON.parse(parsedList);
-};
-
-const parseLastDir = (str: string) => {
-  return str.split('/').slice(-1)[0];
-};
+const protobuf = require('protobufjs/light');
 
 const parseParameter = (str: string) => {
-  return str.split('.').slice(-1)[0];
+  return str
+    .split('.')
+    .slice(-1)[0]
+    .replace(/['"]/g, '');
 };
 
 const getRelevantData = (data: any) => {
   const relevantData: Map<string, Array<string>> = new Map();
-  console.log(data);
   data.forEach((row: any) => {
+    const rowClass = parseParameter(row.NativeClass);
+    const injectedClasses = row.Classes.map((item: any) => {
+      return { ...item, mDataClass: rowClass };
+    });
     if (
       row.NativeClass.startsWith("Class'/Script/FactoryGame.FGItemDescriptor")
     ) {
       if (!relevantData.has('items')) {
         relevantData.set('items', []);
       }
-      relevantData.get('items')!.push(...row.Classes);
+      relevantData.get('items')!.push(...injectedClasses);
     }
 
     if (
@@ -50,7 +47,7 @@ const getRelevantData = (data: any) => {
       if (!relevantData.has('beltAttachments')) {
         relevantData.set('beltAttachments', []);
       }
-      relevantData.get('beltAttachments')!.push(...row.Classes);
+      relevantData.get('beltAttachments')!.push(...injectedClasses);
     }
 
     if (
@@ -61,7 +58,7 @@ const getRelevantData = (data: any) => {
       if (!relevantData.has('beltAttachments')) {
         relevantData.set('beltAttachments', []);
       }
-      relevantData.get('beltAttachments')!.push(...row.Classes);
+      relevantData.get('beltAttachments')!.push(...injectedClasses);
     }
 
     if (
@@ -72,55 +69,57 @@ const getRelevantData = (data: any) => {
       if (!relevantData.has('generators')) {
         relevantData.set('generators', []);
       }
-      relevantData.get('generators')!.push(...row.Classes);
+      relevantData.get('generators')!.push(...injectedClasses);
     }
 
     if (
       row.NativeClass ===
       "Class'/Script/FactoryGame.FGBuildableResourceExtractor'"
     ) {
-      relevantData.set('extractors', row.Classes);
+      relevantData.set('extractors', injectedClasses);
     }
 
     if (
       row.NativeClass === "Class'/Script/FactoryGame.FGBuildableManufacturer'"
     ) {
-      relevantData.set('manufacturers', row.Classes);
+      relevantData.set('manufacturers', injectedClasses);
     }
 
     if (
       row.NativeClass === "Class'/Script/FactoryGame.FGBuildableConveyorBelt'"
     ) {
-      relevantData.set('belts', row.Classes);
+      relevantData.set('belts', injectedClasses);
     }
 
     if (row.NativeClass === "Class'/Script/FactoryGame.FGRecipe'") {
-      relevantData.set('recipes', row.Classes);
+      relevantData.set('recipes', injectedClasses);
     }
 
     // if (row.NativeClass === "Class'/Script/FactoryGame.FGBuildingDescriptor'") {
-    //   relevantData.buildings = row.Classes;
+    //   relevantData.buildings = injectedClasses;
     // }
 
     if (row.NativeClass === "Class'/Script/FactoryGame.FGResourceDescriptor'") {
-      relevantData.set('resources', row.Classes);
+      relevantData.set('resources', injectedClasses);
     }
 
     if (row.NativeClass === "Class'/Script/FactoryGame.FGBuildableStorage'") {
       relevantData.set(
         'solidStorage',
-        row.Classes.filter((item: any) => !item.ClassName.includes('Player'))
+        injectedClasses.filter(
+          (item: any) => !item.ClassName.includes('Player')
+        )
       );
     }
 
     if (row.NativeClass === "Class'/Script/FactoryGame.FGSchematic'") {
-      relevantData.set('milestones', row.Classes);
+      relevantData.set('milestones', injectedClasses);
     }
 
     if (
       row.NativeClass === "Class'/Script/FactoryGame.FGBuildablePipeReservoir'"
     ) {
-      relevantData.set('fluidStorage', row.Classes);
+      relevantData.set('fluidStorage', injectedClasses);
     }
   });
 
@@ -157,22 +156,26 @@ const processManufacturer = (data: any): ManufacturerMachine[] => {
   });
 };
 
-const processStorage = (data: any): StorageMachine[] => {
-  const fluidStorage = data.get('fluidStorage') ?? [];
-  const solidStorage = data.get('solidStorage') ?? [];
+const processStorage = (
+  data: any
+): {
+  fluidStorageMachine: StorageMachine[];
+  solidStorageMachine: StorageMachine[];
+} => {
+  const fluidStorage: any = data.get('fluidStorage') ?? [];
+  const solidStorage: any = data.get('solidStorage') ?? [];
 
-  return solidStorage
-    .map((raw: any) => {
+  return {
+    fluidStorageMachine: fluidStorage.map((raw: any) => {
+      return new FluidStorageMachine(raw);
+    }),
+    solidStorageMachine: solidStorage.map((raw: any) => {
       return new SolidStorageMachine(raw);
     })
-    .concat(
-      fluidStorage.map((raw: any) => {
-        return new FluidStorageMachine(raw);
-      })
-    );
+  };
 };
 
-const processBeltAttachments = (data: any): Resource[] => {
+const processBeltAttachments = (data: any): BeltAttachmentMachine[] => {
   const resources = data.get('beltAttachments') ?? [];
   return resources.map((raw: any) => {
     return new BeltAttachmentMachine(raw);
@@ -188,10 +191,8 @@ const processResources = (data: any): Resource[] => {
 
 const resourceParser = (data: any) => {
   const resources = processResources(data);
-  console.error('!!!!');
-  console.log(Resource.toProtoBuf());
   // turn it into protobuf
-  const protoValues = toProtoBufFromGeneratedEnum('Resource');
+  const protoValues = enumToProtoBuf(Resource);
   console.log(protoValues);
   return resources;
 };
@@ -209,50 +210,146 @@ const nodeParser = (data: any) => {
   // Splitters & mergers
   const beltAttachment = processBeltAttachments(data);
 
-  const protoValues = toProtoBufFromGeneratedEnum('SatisGraphtoryNode');
-  console.log(protoValues);
-  return [...extractors, ...manufacturers, ...storage, ...beltAttachment];
+  return {
+    extractorMachine: extractors,
+    beltAttachmentMachine: beltAttachment,
+    ...storage,
+    manufacturerMachine: manufacturers
+  };
 };
 
 const recipeParser = (data: any) => {
   const recipes = data.get('recipes') ?? [];
-  console.log(recipes);
 
-  // return resources.map((raw: any) => {
-  //   return new Resource(raw);
-  // });
+  return recipes.map((raw: any) => {
+    return new Recipe(raw);
+  });
 };
 
-const getProto = (cls: ProtoBufable) => {
-  let next = Object.getPrototypeOf(cls);
+const itemParser = (data: any) => {
+  const recipes = data.get('items') ?? [];
 
-  while (next.constructor.name !== 'Object') {
-    const className = next
-      .toString()
-      .split('(' || /s+/)[0]
-      .split(' ' || /s+/)[1];
+  return recipes.map((raw: any) => {
+    return new Item(raw);
+  });
+};
 
-    if (className === '') break;
+const beltParser = (data: any) => {
+  const belts = data.get('belts') ?? [];
 
-    next = Object.getPrototypeOf(next);
-  }
+  return belts
+    .map((raw: any) => {
+      return new Belt(raw);
+    })
+    .sort((a: Belt, b: Belt) => {
+      return a.speed - b.speed;
+    });
+};
+
+const generateResourceForms = () => {
+  const resources = ['RF_LIQUID', 'RF_SOLID'];
+  return resources.map((rf: string) => {
+    return new ResourceForm({ ClassName: rf });
+  });
 };
 
 const dataParser = (data: any) => {
   /** Process all protobuf enum segments first **/
-  console.log(RF_EMPTY.toProtoBufSegment());
+  const resourceForms = generateResourceForms();
+  console.log('ResourceForms', resourceForms);
 
   const relevantData = getRelevantData(data);
+
+  console.log(relevantData);
 
   const resources = resourceParser(relevantData);
   console.log('Resources', resources);
   const machines = nodeParser(relevantData);
   console.log('Machines', machines);
 
+  const items = itemParser(relevantData);
+  console.log('Items', items);
+
   const recipes = recipeParser(relevantData);
   console.log('Recipes', recipes);
-  //
-  getProto(Recipe);
+
+  const belts = beltParser(relevantData);
+  console.log('Belts', belts);
+
+  const enums = [
+    ResourceForm,
+    Resource,
+    SatisGraphtoryNode,
+    Recipe,
+    Item,
+    Belt
+  ];
+
+  const dataForms = [
+    Recipe,
+    ResourcePacket,
+    ResourceForm,
+    Resource,
+    ExtractorMachine,
+    BeltAttachmentMachine,
+    FluidStorageMachine,
+    ManufacturerMachine,
+    SolidStorageMachine,
+    Item,
+    Belt
+  ];
+
+  const allEnums = Object.assign({}, ...enums.map(enumToProtoBuf));
+  const allData = Object.assign({}, ...dataForms.map(getProto));
+
+  console.log(allData);
+
+  const saveData: any = {
+    SGProtoData: {
+      fields: {}
+    }
+  };
+
+  dataForms
+    .filter(item => item.prototype.constructor.name === 'EnumWrapper')
+    .forEach((item, index) => {
+      const name = Object.getPrototypeOf(item).prototype.constructor.name;
+      const fieldName = name.replace(/^\w/, (c: string) => c.toLowerCase());
+      saveData['SGProtoData']['fields'][fieldName] = {
+        type: name,
+        rule: 'repeated',
+        id: index + 1
+      };
+    });
+
+  const wrappedEnums = {
+    nested: {
+      satisgraphtory: {
+        nested: {
+          ...saveData,
+          ...allEnums,
+          ...allData
+        }
+      }
+    }
+  };
+
+  const root = protobuf.Root.fromJSON(wrappedEnums);
+  const SGProtoData = root.lookupType('satisgraphtory.SGProtoData');
+
+  const protoObj = {
+    recipe: recipes,
+    resourceForm: resourceForms,
+    resource: resources,
+    ...machines,
+    item: items,
+    belt: belts
+  };
+  // const protoData = SGProtoData.fromObject(protoObj);
+
+  const buffer = SGProtoData.encode(protoObj).finish();
+
+  console.log(buffer);
 };
 
 export default dataParser;
