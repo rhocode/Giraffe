@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .netlify/*
+src/proto/Generated.proto
 
 # testing
 /coverage
