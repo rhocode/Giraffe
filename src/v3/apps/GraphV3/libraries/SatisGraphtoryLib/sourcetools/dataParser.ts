@@ -13,6 +13,12 @@ import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/clas
 import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
 import Item from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/item';
 import Belt from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/belt';
+import { decode, encode } from '@msgpack/msgpack';
+import {
+  bytesToBase64,
+  toUint8Array
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
+import * as LZUTF8 from 'lzutf8';
 
 const protobuf = require('protobufjs/light');
 
@@ -345,11 +351,54 @@ const dataParser = (data: any) => {
     item: items,
     belt: belts
   };
-  // const protoData = SGProtoData.fromObject(protoObj);
+  const protoData = SGProtoData.fromObject(protoObj);
 
-  const buffer = SGProtoData.encode(protoObj).finish();
+  const encoded: Uint8Array = encode(protoData);
+  const base64 = bytesToBase64(encoded);
+  const compressed = LZUTF8.compress(base64);
+  console.log(compressed);
+  const stringCompressed = bytesToBase64(compressed);
+  const finalData = JSON.stringify({ d: stringCompressed });
 
-  console.log(buffer);
+  //
+  // const data1 = testData.d;
+  // const stringUnCompressed = toUint8Array(data1);
+  // console.log(stringUnCompressed);
+  // const decompressed = LZUTF8.decompress(stringUnCompressed);
+  // const base64Decompressed = toUint8Array(decompressed);
+  // const decoded = decode(base64Decompressed);
+  // console.log(decoded);
+
+  const SaveDataBlob = new Blob([finalData], {
+    type: 'application/json'
+  });
+
+  console.log('Final blob', SaveDataBlob);
+
+  console.log(decode, toUint8Array);
+  // //
+  // function saveAs(blob: any, fileName: any) {
+  //   const url = window.URL.createObjectURL(blob);
+  //
+  //   const anchorElem = document.createElement('a');
+  //   // anchorElem.style = "display: none";
+  //   anchorElem.href = url;
+  //   anchorElem.download = fileName;
+  //
+  //   document.body.appendChild(anchorElem);
+  //   anchorElem.click();
+  //   document.body.removeChild(anchorElem);
+  //
+  //   // On Edge, revokeObjectURL should be called only after
+  //   // a.click() has completed, atleast on EdgeHTML 15.15048
+  //   setTimeout(function() {
+  //     window.URL.revokeObjectURL(url);
+  //   }, 1000);
+  // }
+  //
+  // saveAs(SaveDataBlob, 'ParsedDocs2.sgproto')
+
+  // console.log(buffer);
 };
 
 export default dataParser;
