@@ -19,8 +19,7 @@ import {
   toUint8Array
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
 import * as LZUTF8 from 'lzutf8';
-
-const protobuf = require('protobufjs/light');
+import * as protobuf from 'protobufjs/light';
 
 const parseParameter = (str: string) => {
   return str
@@ -340,6 +339,8 @@ const dataParser = (data: any) => {
     }
   };
 
+  console.log(JSON.stringify(wrappedEnums, null, 2));
+
   const root = protobuf.Root.fromJSON(wrappedEnums);
   const SGProtoData = root.lookupType('satisgraphtory.SGProtoData');
 
@@ -396,7 +397,7 @@ const dataParser = (data: any) => {
   //   }, 1000);
   // }
   //
-  // saveAs(SaveDataBlob, 'ParsedDocs2.sgproto')
+  // saveAs(SaveDataBlob, '0.1.0.s2')
 
   // console.log(buffer);
 };

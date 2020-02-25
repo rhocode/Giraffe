@@ -1,5 +1,5 @@
 import * as protobuf from 'protobufjs/light';
-import getLatestSchema from '../../../../../data/utils/getLatestSchema';
+import getLatestSchema from 'v3/data/utils/getLatestSchema';
 
 export const latestProtobufRoot = () =>
   protobuf.Root.fromJSON(getLatestSchema());
