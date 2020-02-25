@@ -99,7 +99,6 @@
     "prebuild": "npm run generate",
     "pretest": "npm run generate",
     "proto": "cross-env-shell pbjs --es6 -t json src/proto/*.json -o src/generated/generated-$npm_package_version-schema.json",
-    "preproto": "cross-env-shell pbjs --es6 -t proto3 src/proto/*.json -o src/proto/Generated.proto",
     "generate-schemas": "cross-env-shell metagen --filter=json src/generated es6WithFileExtension",
     "generate-images": "npm run generate-images-items && npm run generate-images-machines",
     "generate-images-alt": "npm run generate-images-machines-alt",
