@@ -1,11 +1,8 @@
 import React, { Suspense, useEffect } from 'react';
-
-import { imageRepositoryPromise } from '../../libraries/SatisGraphtoryLib/repositories/image';
-import { getPlaceableMachineClasses } from '../../../../graphql/queries';
 import AutoSizedLoadingWrapper from '../../../../../common/react/AutoSizedLoadingWrapper';
 import { graphAppStore } from '../../stores/graphAppStore';
 import { useStoreState } from 'pullstate';
-import { preloadAllEnums } from '../../libraries/SatisGraphtoryLib/repositories/object';
+
 import deserialize from '../../libraries/SatisGraphtoryLib/algorithms/serialization/deserialize';
 
 const FontFaceObserver = require('fontfaceobserver');
@@ -13,11 +10,7 @@ const FontFaceObserver = require('fontfaceobserver');
 const InnerComponent = React.lazy(() => {
   return Promise.all([
     new FontFaceObserver('Roboto Condensed').load(),
-    new FontFaceObserver('Bebas Neue').load(),
-    preloadAllEnums,
-    ...imageRepositoryPromise.machines,
-    ...imageRepositoryPromise.items,
-    getPlaceableMachineClasses()
+    new FontFaceObserver('Bebas Neue').load()
   ]).then(() =>
     import('../../libraries/SatisGraphtoryLib/react/SatisGraphtoryCanvas')
   );

@@ -1,0 +1,887 @@
+{
+  "nested": {
+    "satisgraphtory": {
+      "nested": {
+        "SGProtoData": {
+          "fields": {
+            "recipe": {
+              "type": "Recipe",
+              "rule": "repeated",
+              "id": 1
+            },
+            "resourceForm": {
+              "type": "ResourceForm",
+              "rule": "repeated",
+              "id": 2
+            },
+            "resource": {
+              "type": "Resource",
+              "rule": "repeated",
+              "id": 3
+            },
+            "extractorMachine": {
+              "type": "ExtractorMachine",
+              "rule": "repeated",
+              "id": 4
+            },
+            "beltAttachmentMachine": {
+              "type": "BeltAttachmentMachine",
+              "rule": "repeated",
+              "id": 5
+            },
+            "fluidStorageMachine": {
+              "type": "FluidStorageMachine",
+              "rule": "repeated",
+              "id": 6
+            },
+            "manufacturerMachine": {
+              "type": "ManufacturerMachine",
+              "rule": "repeated",
+              "id": 7
+            },
+            "solidStorageMachine": {
+              "type": "SolidStorageMachine",
+              "rule": "repeated",
+              "id": 8
+            },
+            "item": {
+              "type": "Item",
+              "rule": "repeated",
+              "id": 9
+            },
+            "belt": {
+              "type": "Belt",
+              "rule": "repeated",
+              "id": 10
+            }
+          }
+        },
+        "ResourceFormEnum": {
+          "values": {
+            "InvalidResourceForm": 0,
+            "RF_LIQUID": 1,
+            "RF_SOLID": 2
+          }
+        },
+        "ResourceEnum": {
+          "values": {
+            "InvalidResource": 0,
+            "Water": 1,
+            "OreIron": 2,
+            "OreCopper": 3,
+            "Stone": 4,
+            "Coal": 5,
+            "LiquidOil": 6,
+            "OreBauxite": 7,
+            "OreGold": 8,
+            "OreUranium": 9,
+            "RawQuartz": 10,
+            "Sulfur": 11,
+            "UraniumCell": 12,
+            "UraniumPellet": 13,
+            "CompactedCoal": 14,
+            "PackagedOil": 15,
+            "PackagedWater": 16
+          }
+        },
+        "SatisGraphtoryNodeEnum": {
+          "values": {
+            "InvalidSatisGraphtoryNode": 0,
+            "WaterPump": 1,
+            "MinerMk1": 2,
+            "OilPump": 3,
+            "MinerMk2": 4,
+            "MinerMk3": 5,
+            "FoundryMk1": 6,
+            "SmelterMk1": 7,
+            "ConstructorMk1": 8,
+            "OilRefinery": 9,
+            "AssemblerMk1": 10,
+            "ManufacturerMk1": 11,
+            "PipeStorageTank": 12,
+            "IndustrialTank": 13,
+            "StorageContainerMk1": 14,
+            "StorageContainerMk2": 15,
+            "ConveyorAttachmentMerger": 16,
+            "ConveyorAttachmentSplitter": 17,
+            "ConveyorAttachmentSplitterSmart": 18,
+            "ConveyorAttachmentSplitterProgrammable": 19
+          }
+        },
+        "RecipeEnum": {
+          "values": {
+            "InvalidRecipe": 0,
+            "ConveyorPole": 1,
+            "ConveyorBeltMk1": 2,
+            "PowerLine": 3,
+            "PowerPoleMk1": 4,
+            "TradingPost": 5,
+            "SpaceElevator": 6,
+            "ConstructorMk1": 7,
+            "MinerMk1": 8,
+            "SmelterBasicMk1": 9,
+            "StorageContainerMk1": 10,
+            "WorkBench": 11,
+            "Workshop": 12,
+            "PortableMiner": 13,
+            "Cable": 14,
+            "Wire": 15,
+            "IngotCopper": 16,
+            "IronPlateReinforced": 17,
+            "Concrete": 18,
+            "Screw": 19,
+            "Biomass_Leaves": 20,
+            "Biomass_Wood": 21,
+            "GeneratorBiomass": 22,
+            "Biofuel": 23,
+            "IronPlate": 24,
+            "IronRod": 25,
+            "XenoZapper": 26,
+            "Coal": 27,
+            "CrudeOil": 28,
+            "Limestone": 29,
+            "OreBauxite": 30,
+            "OreCaterium": 31,
+            "OreCopper": 32,
+            "OreIron": 33,
+            "OreUranium": 34,
+            "RawQuartz": 35,
+            "Sulfur": 36,
+            "IngotIron": 37,
+            "Fence_01": 38,
+            "Stair_1b": 39,
+            "Wall_Conveyor_8x4_04": 40,
+            "Wall_Conveyor_8x4_04_Steel": 41,
+            "Wall_Window_8x4_03": 42,
+            "Wall_Window_8x4_03_Steel": 43,
+            "Alternate_AdheredIronPlate": 44,
+            "CircuitBoard": 45,
+            "OilPump": 46,
+            "OilRefinery": 47,
+            "LiquidFuel": 48,
+            "PetroleumCoke": 49,
+            "Plastic": 50,
+            "Rubber": 51,
+            "ResidualFuel": 52,
+            "ResidualPlastic": 53,
+            "ResidualRubber": 54,
+            "Alternate_BoltedFrame": 55,
+            "ModularFrame": 56,
+            "Rotor": 57,
+            "AssemblerMk1": 58,
+            "CopperSheet": 59,
+            "SpaceElevatorPart_1": 60,
+            "Alternate_CoatedCable": 61,
+            "Alternate_CoatedIronPlate": 62,
+            "Alternate_CokeSteelIngot": 63,
+            "Alternate_CopperAlloyIngot": 64,
+            "Alternate_CopperRotor": 65,
+            "Alternate_DilutedPackagedFuel": 66,
+            "Alternate_ElectroAluminumScrap": 67,
+            "ElectromagneticControlRod": 68,
+            "UraniumCell": 69,
+            "ConveyorBeltMk5": 70,
+            "ConveyorLiftMk5": 71,
+            "GeneratorNuclear": 72,
+            "AluminumSheet": 73,
+            "NuclearFuelRod": 74,
+            "FilterHazmat": 75,
+            "HazmatSuit": 76,
+            "AluminaSolution": 77,
+            "AluminumScrap": 78,
+            "IngotAluminum": 79,
+            "Alternate_ElectrodeCircuitBoard": 80,
+            "Alternate_FlexibleFramework": 81,
+            "Alternate_FusedWire": 82,
+            "PowerPoleMk2": 83,
+            "PowerPoleWallDoubleMk2": 84,
+            "PowerPoleWallMk2": 85,
+            "Quickwire": 86,
+            "BladeRunners": 87,
+            "IngotCaterium": 88,
+            "Alternate_HeavyFlexibleFrame": 89,
+            "ManufacturerMk1": 90,
+            "Computer": 91,
+            "ModularFrameHeavy": 92,
+            "SpaceElevatorPart_4": 93,
+            "SpaceElevatorPart_5": 94,
+            "Truck": 95,
+            "Alternate_HeavyOilResidue": 96,
+            "Alternate_HighSpeedWiring": 97,
+            "EncasedIndustrialBeam": 98,
+            "Motor": 99,
+            "Stator": 100,
+            "MinerMk2": 101,
+            "SpaceElevatorPart_3": 102,
+            "AILimiter": 103,
+            "Alternate_PlasticSmartPlating": 104,
+            "Alternate_PolyesterFabric": 105,
+            "Fabric": 106,
+            "Alternate_PolymerResin": 107,
+            "PureAluminumIngot": 108,
+            "Alternate_PureCateriumIngot": 109,
+            "GeneratorCoal": 110,
+            "PipeSupport": 111,
+            "Pipeline": 112,
+            "PipelineJunction_Cross": 113,
+            "PipelinePump": 114,
+            "PipeStorageTank": 115,
+            "WaterPump": 116,
+            "Alternate_PureCopperIngot": 117,
+            "Alternate_PureIronIngot": 118,
+            "Alternate_PureQuartzCrystal": 119,
+            "QuartzCrystal": 120,
+            "Alternate_RecycledRubber": 121,
+            "Alternate_RubberConcrete": 122,
+            "Alternate_SteamedCopperSheet": 123,
+            "Alternate_SteelCoatedPlate": 124,
+            "Alternate_SteelRod": 125,
+            "SmelterMk1": 126,
+            "SteelBeam": 127,
+            "SteelPipe": 128,
+            "IngotSteel": 129,
+            "SpaceElevatorPart_2": 130,
+            "Alternate_TurboHeavyFuel": 131,
+            "PackagedTurboFuel": 132,
+            "UnpackageTurboFuel": 133,
+            "Alternate_Coal_1": 134,
+            "Alternate_Coal_2": 135,
+            "Alternate_EnrichedCoal": 136,
+            "Alternate_WetConcrete": 137,
+            "Alternate_Beacon_1": 138,
+            "Alternate_Cable_1": 139,
+            "Alternate_Cable_2": 140,
+            "Alternate_CircuitBoard_1": 141,
+            "Alternate_CircuitBoard_2": 142,
+            "Alternate_Computer_1": 143,
+            "Alternate_Computer_2": 144,
+            "Alternate_Concrete": 145,
+            "Alternate_CrystalOscillator": 146,
+            "CrystalOscillator": 147,
+            "Alternate_ElectromagneticControlRod_1": 148,
+            "TrainDockingStation": 149,
+            "TrainStation": 150,
+            "RailroadTrack": 151,
+            "SulfuricAcid": 152,
+            "UraniumPellet": 153,
+            "FreightWagon": 154,
+            "Locomotive": 155,
+            "Alternate_Gunpowder_1": 156,
+            "Alternate_HeatSink_1": 157,
+            "HeatSink": 158,
+            "MinerMk3": 159,
+            "Battery": 160,
+            "MotorTurbo": 161,
+            "RadioControlUnit": 162,
+            "Alternate_ModularFrameHeavy": 163,
+            "Alternate_HighSpeedConnector": 164,
+            "HighSpeedConnector": 165,
+            "Alternate_IngotIron": 166,
+            "Alternate_IngotSteel_1": 167,
+            "Alternate_IngotSteel_2": 168,
+            "Alternate_ModularFrame": 169,
+            "Alternate_Motor_1": 170,
+            "Alternate_Nobelisk_1": 171,
+            "Nobelisk": 172,
+            "Alternate_NuclearFuelRod_1": 173,
+            "Alternate_Plastic_1": 174,
+            "Alternate_Quickwire": 175,
+            "Alternate_RadioControlUnit_1": 176,
+            "Alternate_ReinforcedIronPlate_1": 177,
+            "Alternate_ReinforcedIronPlate_2": 178,
+            "Alternate_EncasedIndustrialBeam": 179,
+            "Alternate_Rotor": 180,
+            "Alternate_Screw": 181,
+            "Alternate_Screw_2": 182,
+            "Alternate_Silica": 183,
+            "Silica": 184,
+            "Alternate_Stator": 185,
+            "Alternate_Turbofuel": 186,
+            "Alternate_TurboMotor_1": 187,
+            "Alternate_UraniumCell_1": 188,
+            "Alternate_Wire_1": 189,
+            "Alternate_Wire_2": 190,
+            "Foundation_8x1_01": 191,
+            "Foundation_8x2_01": 192,
+            "Foundation_8x4_01": 193,
+            "Ramp_8x1_01": 194,
+            "Ramp_8x2_01": 195,
+            "Ramp_8x4_01": 196,
+            "LookoutTower": 197,
+            "Wall_8x4_01": 198,
+            "Wall_8x4_02": 199,
+            "ConveyorAttachmentMerger": 200,
+            "ConveyorAttachmentSplitter": 201,
+            "ConveyorLiftMk1": 202,
+            "Mam": 203,
+            "StoragePlayer": 204,
+            "Beacon": 205,
+            "ObjectScanner": 206,
+            "Chainsaw": 207,
+            "JumpPad": 208,
+            "JumpPadTilted": 209,
+            "UJellyLandingPad": 210,
+            "ResourceSink": 211,
+            "ResourceSinkShop": 212,
+            "ConveyorBeltMk2": 213,
+            "ConveyorLiftMk2": 214,
+            "ConveyorPoleStackable": 215,
+            "TruckStation": 216,
+            "Tractor": 217,
+            "XenoBasher": 218,
+            "PipeHyperStart": 219,
+            "PipeHyperSupport": 220,
+            "PipeHyper": 221,
+            "ConveyorBeltMk3": 222,
+            "ConveyorLiftMk3": 223,
+            "PipeSupportStackable": 224,
+            "StorageContainerMk2": 225,
+            "UnpackageBioFuel": 226,
+            "UnpackageFuel": 227,
+            "UnpackageOil": 228,
+            "UnpackageOilResidue": 229,
+            "UnpackageWater": 230,
+            "IndustrialTank": 231,
+            "FluidCanister": 232,
+            "Fuel": 233,
+            "LiquidBiofuel": 234,
+            "PackagedBiofuel": 235,
+            "PackagedCrudeOil": 236,
+            "PackagedOilResidue": 237,
+            "PackagedWater": 238,
+            "ConveyorBeltMk4": 239,
+            "ConveyorLiftMk4": 240,
+            "GeneratorFuel": 241,
+            "JetPack": 242,
+            "TrainDockingStationLiquid": 243,
+            "TrainPlatformEmpty": 244,
+            "FilterGasMask": 245,
+            "Gasmask": 246,
+            "Biomass_AlienCarapace": 247,
+            "RebarGun": 248,
+            "SpikedRebar": 249,
+            "Biomass_AlienOrgans": 250,
+            "MedicinalInhalerAlienOrgans": 251,
+            "ConveyorAttachmentSplitterSmart": 252,
+            "ComputerSuper": 253,
+            "PowerPoleMk3": 254,
+            "ConveyorAttachmentSplitterProgrammable": 255,
+            "GeneratorGeoThermal": 256,
+            "ColorGun": 257,
+            "ColorCartridge": 258,
+            "Biomass_Mycelia": 259,
+            "Parachute": 260,
+            "MedicinalInhaler": 261,
+            "NutritionalInhaler": 262,
+            "PowerCrystalShard_1": 263,
+            "PowerCrystalShard_2": 264,
+            "PowerCrystalShard_3": 265,
+            "Explorer": 266,
+            "RadarTower": 267,
+            "Gunpowder": 268,
+            "NobeliskDetonator": 269,
+            "SpaceRifleMk1": 270,
+            "Cartridge": 271,
+            "Wall_Conveyor_8x4_01_Steel": 272,
+            "Wall_Conveyor_8x4_02_Steel": 273,
+            "Wall_Conveyor_8x4_03_Steel": 274,
+            "Wall_Conveyor_8x4_01": 275,
+            "Wall_Conveyor_8x4_02": 276,
+            "Wall_Conveyor_8x4_03": 277,
+            "ConveyorPoleWall": 278,
+            "QuarterPipe": 279,
+            "QuarterPipe_02": 280,
+            "QuarterPipeCorner_01": 281,
+            "QuarterPipeCorner_02": 282,
+            "CyberWagon": 283,
+            "Ramp_Diagonal_8x1_01": 284,
+            "Ramp_Diagonal_8x1_02": 285,
+            "Ramp_Diagonal_8x2_01": 286,
+            "Ramp_Diagonal_8x2_02": 287,
+            "Ramp_Diagonal_8x4_01": 288,
+            "Ramp_Diagonal_8x4_02": 289,
+            "Wall_Door_8x4_01_Steel": 290,
+            "Wall_Door_8x4_02_Steel": 291,
+            "Wall_Door_8x4_03_Steel": 292,
+            "Wall_Door_8x4_01": 293,
+            "Wall_Door_8x4_02": 294,
+            "Wall_Door_8x4_03": 295,
+            "Wall_Gate_8x4_01": 296,
+            "FactoryCart": 297,
+            "PillarBase": 298,
+            "PillarMiddle": 299,
+            "PillarTop": 300,
+            "Ramp_8x4_Inverted_01": 301,
+            "Ramp_8x8x8": 302,
+            "Foundation_Frame_01": 303,
+            "FoundationGlass_01": 304,
+            "PipeSupportWall": 305,
+            "PipeSupportWallHole": 306,
+            "Stairs_Left_01": 307,
+            "Stairs_Right_01": 308,
+            "Walkway_Cross": 309,
+            "Walkway_Ramp": 310,
+            "Walkway_Straight": 311,
+            "Walkway_T": 312,
+            "Walkway_Turn": 313,
+            "PowerPoleWall": 314,
+            "PowerPoleWallDouble": 315,
+            "PowerPoleWallDoubleMk3": 316,
+            "PowerPoleWallMk3": 317,
+            "Wall_Window_8x4_01": 318,
+            "Wall_Window_8x4_02": 319,
+            "Wall_Window_8x4_04": 320
+          }
+        },
+        "ItemEnum": {
+          "values": {
+            "InvalidItem": 0,
+            "Cement": 1,
+            "IronPlate": 2,
+            "IronRod": 3,
+            "CrystalShard": 4,
+            "Fuel": 5,
+            "HazmatFilter": 6,
+            "SpikedRebar": 7,
+            "CartridgeStandard": 8,
+            "HUBParts": 9,
+            "Wire": 10,
+            "Filter": 11,
+            "Cable": 12,
+            "IronPlateReinforced": 13,
+            "CopperIngot": 14,
+            "IronScrew": 15,
+            "SpaceElevatorPart_1": 16,
+            "SpaceElevatorPart_2": 17,
+            "SpaceElevatorPart_3": 18,
+            "SpaceElevatorPart_4": 19,
+            "SpaceElevatorPart_5": 20,
+            "IronIngot": 21,
+            "AluminumPlate": 22,
+            "Motor": 23,
+            "Rubber": 24,
+            "CircuitBoard": 25,
+            "CopperSheet": 26,
+            "Plastic": 27,
+            "SteelPlateReinforced": 28,
+            "SteelPipe": 29,
+            "LiquidFuel": 30,
+            "PolymerResin": 31,
+            "HeavyOilResidue": 32,
+            "PetroleumCoke": 33,
+            "ModularFrame": 34,
+            "Rotor": 35,
+            "SteelIngot": 36,
+            "PackagedOilResidue": 37,
+            "AluminaSolution": 38,
+            "AluminumScrap": 39,
+            "CircuitBoardHighSpeed": 40,
+            "ElectromagneticControlRod": 41,
+            "Stator": 42,
+            "ComputerSuper": 43,
+            "HighSpeedConnector": 44,
+            "ModularFrameHeavy": 45,
+            "AluminumIngot": 46,
+            "HighSpeedWire": 47,
+            "Silica": 48,
+            "Computer": 49,
+            "SteelPlate": 50,
+            "GoldIngot": 51,
+            "QuartzCrystal": 52,
+            "LiquidTurboFuel": 53,
+            "FluidCanister": 54,
+            "TurboFuel": 55,
+            "CrystalOscillator": 56,
+            "SulfuricAcid": 57,
+            "Gunpowder": 58,
+            "AluminumPlateReinforced": 59,
+            "MotorLightweight": 60,
+            "Battery": 61,
+            "ModularFrameLightweight": 62,
+            "NobeliskExplosive": 63,
+            "Crystal": 64,
+            "ColorCartridge": 65,
+            "Crystal_mk2": 66,
+            "Crystal_mk3": 67,
+            "Biofuel": 68,
+            "GenericBiomass": 69,
+            "Leaves": 70,
+            "Wood": 71,
+            "Fabric": 72,
+            "Mycelia": 73,
+            "LiquidBiofuel": 74,
+            "PackagedBiofuel": 75,
+            "HogParts": 76,
+            "SpitterParts": 77,
+            "FlowerPetals": 78,
+            "NuclearFuelRod": 79
+          }
+        },
+        "BeltEnum": {
+          "values": {
+            "InvalidBelt": 0,
+            "ConveyorBeltMk1": 1,
+            "ConveyorBeltMk5": 2,
+            "ConveyorBeltMk2": 3,
+            "ConveyorBeltMk3": 4,
+            "ConveyorBeltMk4": 5
+          }
+        },
+        "Recipe": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "manufacturingDuration": {
+              "type": "float",
+              "id": 3
+            },
+            "ingredients": {
+              "type": "ResourcePacket",
+              "rule": "repeated",
+              "id": 4
+            },
+            "enumValue": {
+              "type": "RecipeEnum",
+              "id": 5
+            }
+          }
+        },
+        "ResourcePacket": {
+          "fields": {
+            "resource": {
+              "type": "ItemEnum",
+              "id": 1
+            },
+            "amount": {
+              "type": "int64",
+              "id": 2
+            }
+          }
+        },
+        "ResourceForm": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "enumValue": {
+              "type": "ResourceFormEnum",
+              "id": 2
+            }
+          }
+        },
+        "Resource": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "resourceForm": {
+              "type": "ResourceFormEnum",
+              "id": 4
+            },
+            "sinkPoints": {
+              "type": "int64",
+              "id": 5
+            },
+            "energyValue": {
+              "type": "float",
+              "id": 6
+            },
+            "enumValue": {
+              "type": "ResourceEnum",
+              "id": 7
+            }
+          }
+        },
+        "ExtractorMachine": {
+          "fields": {
+            "allowedResources": {
+              "type": "ResourceForm",
+              "rule": "repeated",
+              "id": 1
+            },
+            "cycleTime": {
+              "type": "float",
+              "id": 2
+            },
+            "itemsPerCycle": {
+              "type": "int64",
+              "id": 3
+            },
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 4
+            },
+            "powerConsumption": {
+              "type": "float",
+              "id": 5
+            },
+            "powerConsumptionExponent": {
+              "type": "float",
+              "id": 6
+            },
+            "minimumProducingTime": {
+              "type": "float",
+              "id": 7
+            },
+            "minimumStoppedTime": {
+              "type": "float",
+              "id": 8
+            },
+            "name": {
+              "type": "string",
+              "id": 9
+            },
+            "displayName": {
+              "type": "string",
+              "id": 10
+            },
+            "description": {
+              "type": "string",
+              "id": 11
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 12
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 13
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 14
+            }
+          }
+        },
+        "BeltAttachmentMachine": {
+          "fields": {
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "displayName": {
+              "type": "string",
+              "id": 3
+            },
+            "description": {
+              "type": "string",
+              "id": 4
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 5
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 6
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 7
+            }
+          }
+        },
+        "FluidStorageMachine": {
+          "fields": {
+            "storageCapacity": {
+              "type": "float",
+              "id": 1
+            },
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 2
+            },
+            "name": {
+              "type": "string",
+              "id": 3
+            },
+            "displayName": {
+              "type": "string",
+              "id": 4
+            },
+            "description": {
+              "type": "string",
+              "id": 5
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 6
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 7
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 8
+            }
+          }
+        },
+        "ManufacturerMachine": {
+          "fields": {
+            "manufacturingSpeed": {
+              "type": "float",
+              "id": 1
+            },
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 2
+            },
+            "powerConsumption": {
+              "type": "float",
+              "id": 3
+            },
+            "powerConsumptionExponent": {
+              "type": "float",
+              "id": 4
+            },
+            "minimumProducingTime": {
+              "type": "float",
+              "id": 5
+            },
+            "minimumStoppedTime": {
+              "type": "float",
+              "id": 6
+            },
+            "name": {
+              "type": "string",
+              "id": 7
+            },
+            "displayName": {
+              "type": "string",
+              "id": 8
+            },
+            "description": {
+              "type": "string",
+              "id": 9
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 10
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 11
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 12
+            }
+          }
+        },
+        "SolidStorageMachine": {
+          "fields": {
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "displayName": {
+              "type": "string",
+              "id": 3
+            },
+            "description": {
+              "type": "string",
+              "id": 4
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 5
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 6
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 7
+            }
+          }
+        },
+        "Item": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "resourceForm": {
+              "type": "ResourceFormEnum",
+              "id": 4
+            },
+            "sinkPoints": {
+              "type": "int64",
+              "id": 5
+            },
+            "energyValue": {
+              "type": "float",
+              "id": 6
+            },
+            "dataClass": {
+              "type": "string",
+              "id": 7
+            },
+            "enumValue": {
+              "type": "ItemEnum",
+              "id": 8
+            }
+          }
+        },
+        "Belt": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "speed": {
+              "type": "float",
+              "id": 4
+            },
+            "enumValue": {
+              "type": "BeltEnum",
+              "id": 5
+            }
+          }
+        }
+      }
+    }
+  }
+}

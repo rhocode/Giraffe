@@ -1,7 +1,3 @@
-import * as machines from '../../../../../../apps/Graph/libraries/SGLib/images/machines/__all';
-import * as items from '../../../../../../apps/Graph/libraries/SGLib/images/items/__all';
-import * as altMachines from '../../../../../../apps/Graph/libraries/SGLib/images/alt/machines/__all';
-
 //TODO: Fix the image repo links
 function listedImport(items: any) {
   let images: any = {};
@@ -20,26 +16,8 @@ function listedImport(items: any) {
   return { images, promises, urls };
 }
 
-const machinePromises = listedImport(machines);
+export const imageRepositoryPromise = {};
 
-const itemPromises = listedImport(items);
+export const imageRepository = {};
 
-const machineAltPromises = listedImport(altMachines);
-
-export const imageRepositoryPromise = {
-  machines: machinePromises.promises,
-  items: itemPromises.promises,
-  machinesAlt: machineAltPromises.promises
-};
-
-export const imageRepository = {
-  machines: machinePromises.images,
-  items: itemPromises.images,
-  machinesAlt: machineAltPromises.images
-};
-
-export const urlRepository = {
-  machines: machinePromises.urls,
-  items: itemPromises.urls,
-  machinesAlt: machineAltPromises.urls
-};
+export const urlRepository = {};
