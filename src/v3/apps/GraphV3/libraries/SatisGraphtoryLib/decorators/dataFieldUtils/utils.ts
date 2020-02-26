@@ -8,6 +8,7 @@ import {
   shouldStripClassName,
   stripClassNameImpl
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
+import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
 
 const parseList = (list: string) => {
   let parsedList = list.replace(/\(/g, '[');
@@ -26,9 +27,13 @@ const parseRecursive = (
   rmClassName: boolean,
   shouldPreProcess: Function
 ) => {
-  return parseList(str).map((input: string) =>
-    parseSingle(input, fieldType, rmClassName, shouldPreProcess)
-  );
+  return [
+    ...new Set(
+      parseList(str).map((input: string) =>
+        parseSingle(input, fieldType, rmClassName, shouldPreProcess)
+      )
+    )
+  ];
 };
 
 const parseSingle = (
@@ -40,6 +45,10 @@ const parseSingle = (
   let dataRaw: any = str;
 
   dataRaw = shouldPreProcess(dataRaw);
+
+  // if (typeof dataRaw === 'string' && dataRaw.length > 20) {
+  //   console.error(dataRaw);
+  // }
 
   try {
     switch (fieldType.replace(/\[/g, '').replace(/]/g, '')) {
@@ -58,6 +67,9 @@ const parseSingle = (
       case 'ResourcePacket':
         dataRaw = ResourcePacket.fromImport(dataRaw);
         break;
+      case 'SatisGraphtoryNodeEnum':
+        dataRaw = translateEnumToObject('SatisGraphtoryNode', dataRaw)
+          .enumValue;
       case 'ResourceEnum':
         break;
       case 'ItemEnum':
@@ -104,6 +116,8 @@ function marshal(
         function(a: string): string {
           return a;
         };
+
+      // console.log("PROCESSING", dataRaw);
 
       if (fieldType.startsWith('[') && fieldType.endsWith(']')) {
         dataRaw = parseRecursive(

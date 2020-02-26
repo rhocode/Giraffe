@@ -15,7 +15,9 @@ function stripDesc(target: any, key: any) {
   fetchedMap.set(key, true);
 }
 
-export const stripDescImpl = (data: string) =>
-  (/Desc_([A-Za-z0-9]+)_C/g.exec(data) ?? ['', data])[1];
+export const stripDescImpl = (data: string) => {
+  const cleanData = data.replace(/(EquipmentDescriptor)|(ItemDescriptor)/g, '');
+  return (/Desc_([A-Za-z0-9]+)_C/g.exec(cleanData) ?? ['', cleanData])[1];
+};
 
 export default stripDesc;

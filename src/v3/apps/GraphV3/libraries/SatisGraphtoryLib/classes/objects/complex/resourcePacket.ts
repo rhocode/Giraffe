@@ -27,7 +27,12 @@ class ResourcePacket extends GqlObject implements Protoable {
 
   static fromImport(arr: string[]) {
     const [itemClass, amount] = arr;
-    const parsedItemClass = itemClass.replace(
+
+    const mangled = itemClass
+      .replace(/BP_EquipmentDescriptor/g, 'Desc_')
+      .replace(/BP_ItemDescriptor/g, 'Desc_');
+
+    const parsedItemClass = mangled.replace(
       /.*\.Desc_([a-zA-Z0-9-_]+)_C"'/g,
       '$1'
     );

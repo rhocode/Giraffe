@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
 import dataParser from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/dataParser';
+import memoizedProtoSpecLoader from 'v3/utils/protoUtils';
+import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
+
 const item = require('development/Docs.json');
 
 const useStyles = makeStyles(theme => ({
@@ -24,12 +27,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// const enums = ['UpgradeTiers', 'Item', 'MachineClass', 'Recipe'];
-
 function DataApp(props) {
   const classes = useStyles();
 
-  dataParser(item);
+  React.useEffect(() => {
+    // dataParser(item);
+    //
+    initRuntime();
+  }, []);
 
   return <div className={classes.root}></div>;
 }

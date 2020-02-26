@@ -18,7 +18,9 @@ function stripClassName(target: any, key: any) {
   fetchedMap.set(key, true);
 }
 
-export const stripClassNameImpl = (data: string) =>
-  (/[A-Za-z]+_([A-Za-z0-9_]+)_C/g.exec(data) ?? ['', data])[1];
+export const stripClassNameImpl = (data: string) => {
+  const cleanData = data.replace(/(EquipmentDescriptor)|(ItemDescriptor)/g, '');
+  return (/[A-Za-z]+_([A-Za-z0-9_]+)_C/g.exec(cleanData) ?? ['', cleanData])[1];
+};
 
 export default stripClassName;
