@@ -29,21 +29,22 @@ function Canvas(props) {
     graphAppStore,
     s => s.initialLoadedData
   );
-  useEffect(() => {
-    if (initialLoadedData === null) {
-      const secondary = {
-        d:
-          'UTJkM1NVRlNRVUZIUVVsblFVTm5RVTFCUVV0RVFXZEJSVUZGV1VGRFFVRkxRVUYzUVVKSlYwTkJRVlpCUlVScVVYZ3dRV2RIZUVSSlFrVnZRVVJCUVU5R2VFRkJVc1FnUlZaQlFVSjVVV2d3UVZGSlZrUkpRWFBHSUVoa3h5QkpWa0ZMUWtoU1FqQkJkMGxzUkVsQlRjWWdRemxCUVZFOVBRPT0=',
-        i: 2,
-        v: '0.1.0'
-      };
 
-      const deserialized = deserialize(secondary);
-      graphAppStore.update(s => {
-        s.initialLoadedData = deserialized;
-      });
-    }
-  }, [initialLoadedData]);
+  // useEffect(() => {
+  //   if (initialLoadedData === null) {
+  //     const secondary = {
+  //       d:
+  //         'UTJkM1NVRlNRVUZIUVVsblFVTm5RVTFCUVV0RVFXZEJSVUZGV1VGRFFVRkxRVUYzUVVKSlYwTkJRVlpCUlVScVVYZ3dRV2RIZUVSSlFrVnZRVVJCUVU5R2VFRkJVc1FnUlZaQlFVSjVVV2d3UVZGSlZrUkpRWFBHSUVoa3h5QkpWa0ZMUWtoU1FqQkJkMGxzUkVsQlRjWWdRemxCUVZFOVBRPT0=',
+  //       i: 2,
+  //       v: '0.1.0'
+  //     };
+  //
+  //     const deserialized = deserialize(secondary);
+  //     graphAppStore.update(s => {
+  //       s.initialLoadedData = deserialized;
+  //     });
+  //   }
+  // }, [initialLoadedData]);
 
   return <LoadableComponent {...props} />;
 }

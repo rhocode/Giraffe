@@ -40,6 +40,7 @@
     "deep-diff": "^1.0.2",
     "electron-is-dev": "^1.1.0",
     "eslint-plugin-flowtype": "^3.13.0",
+    "fast-memoize": "^2.5.1",
     "fibers": "^4.0.2",
     "firebase": "^7.8.0",
     "fontfaceobserver": "^2.1.0",
@@ -152,12 +153,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
-      "git add"
+      "prettier --single-quote --write"
     ],
     "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
-      "git add"
+      "prettier --single-quote --write"
     ]
   },
   "build": {

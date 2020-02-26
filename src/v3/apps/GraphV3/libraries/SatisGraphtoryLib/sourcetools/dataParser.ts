@@ -1,7 +1,10 @@
 import Resource from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resource';
 import ExtractorMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/extractorMachine';
 import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
-import { enumToProtoBuf } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
+import {
+  enumToGql,
+  enumToProtoBuf
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 import ManufacturerMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/manufacturerMachine';
 import StorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/storageMachine';
 import SolidStorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/solidStorageMachine';
@@ -13,11 +16,8 @@ import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/clas
 import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
 import Item from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/item';
 import Belt from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/belt';
-import { decode, encode } from '@msgpack/msgpack';
-import {
-  bytesToBase64,
-  toUint8Array
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
+import { encode } from '@msgpack/msgpack';
+import { bytesToBase64 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
 import * as LZUTF8 from 'lzutf8';
 import * as protobuf from 'protobufjs/light';
 
@@ -36,8 +36,16 @@ const getRelevantData = (data: any) => {
       return { ...item, mDataClass: rowClass };
     });
     if (
-      row.NativeClass.startsWith("Class'/Script/FactoryGame.FGItemDescriptor")
+      row.NativeClass.match(/Class'\/Script\/FactoryGame.FG.*Descriptor.*'/g) ??
+      [].length > 0
     ) {
+      if (!relevantData.has('items')) {
+        relevantData.set('items', []);
+      }
+      relevantData.get('items')!.push(...injectedClasses);
+    }
+
+    if (row.NativeClass.startsWith("Class'/Script/FactoryGame.FGEquipment")) {
       if (!relevantData.has('items')) {
         relevantData.set('items', []);
       }
@@ -156,9 +164,28 @@ const processExtractors = (data: any): ExtractorMachine[] => {
 
 const processManufacturer = (data: any): ManufacturerMachine[] => {
   const resources = data.get('manufacturers') ?? [];
-  return resources.map((raw: any) => {
-    return new ManufacturerMachine(raw);
-  });
+
+  return resources
+    .map((raw: any) => {
+      return new ManufacturerMachine(raw);
+    })
+    .concat([
+      new ManufacturerMachine({
+        ClassName: 'Converter',
+        mDescription: 'Internal conversion by a resource generator',
+        mDisplayName: 'Converter'
+      }),
+      new ManufacturerMachine({
+        ClassName: 'BuildGun',
+        mDescription: "It's the build gun.",
+        mDisplayName: 'Build Gun'
+      }),
+      new ManufacturerMachine({
+        ClassName: 'WorkBenchComponent',
+        mDescription: "It's the workbench.",
+        mDisplayName: 'Workbench'
+      })
+    ]);
 };
 
 const processStorage = (
@@ -198,7 +225,7 @@ const resourceParser = (data: any) => {
   const resources = processResources(data);
   // turn it into protobuf
   const protoValues = enumToProtoBuf(Resource);
-  console.log(protoValues);
+  // console.log(protoValues);
   return resources;
 };
 
@@ -214,6 +241,8 @@ const nodeParser = (data: any) => {
 
   // Splitters & mergers
   const beltAttachment = processBeltAttachments(data);
+
+  // console.log(data);
 
   return {
     extractorMachine: extractors,
@@ -261,25 +290,25 @@ const generateResourceForms = () => {
 const dataParser = (data: any) => {
   /** Process all protobuf enum segments first **/
   const resourceForms = generateResourceForms();
-  console.log('ResourceForms', resourceForms);
+  // console.log('ResourceForms', resourceForms);
 
   const relevantData = getRelevantData(data);
 
-  console.log(relevantData);
+  // console.log(relevantData);
 
   const resources = resourceParser(relevantData);
-  console.log('Resources', resources);
+  // console.log('Resources', resources);
   const machines = nodeParser(relevantData);
-  console.log('Machines', machines);
+  // console.log('Machines', machines);
 
   const items = itemParser(relevantData);
-  console.log('Items', items);
+  // console.log('Items', items);
 
   const recipes = recipeParser(relevantData);
-  console.log('Recipes', recipes);
+  // console.log('Recipes', recipes);
 
   const belts = beltParser(relevantData);
-  console.log('Belts', belts);
+  // console.log('Belts', belts);
 
   const enums = [
     ResourceForm,
@@ -305,9 +334,8 @@ const dataParser = (data: any) => {
   ];
 
   const allEnums = Object.assign({}, ...enums.map(enumToProtoBuf));
-  const allData = Object.assign({}, ...dataForms.map(getProto));
 
-  console.log(allData);
+  const allData = Object.assign({}, ...dataForms.map(getProto));
 
   const saveData: any = {
     SGProtoData: {
@@ -327,6 +355,8 @@ const dataParser = (data: any) => {
       };
     });
 
+  console.log('All enums', allEnums);
+
   const wrappedEnums = {
     nested: {
       satisgraphtory: {
@@ -339,7 +369,8 @@ const dataParser = (data: any) => {
     }
   };
 
-  console.log(JSON.stringify(wrappedEnums, null, 2));
+  //TODO: 1
+  // console.log(JSON.stringify(wrappedEnums, null, 2));
 
   const root = protobuf.Root.fromJSON(wrappedEnums);
   const SGProtoData = root.lookupType('satisgraphtory.SGProtoData');
@@ -352,12 +383,49 @@ const dataParser = (data: any) => {
     item: items,
     belt: belts
   };
-  const protoData = SGProtoData.fromObject(protoObj);
+
+  const allEnumsToGql = enums.map(enumToGql).join('\n');
+  const allTypesToGql = dataForms.map(item => item.getTypeDef()).join('\n');
+
+  const allGqlTypes = [allEnumsToGql, allTypesToGql].join('\n');
+
+  const code = `const generatedTypeDefs = \`\n${allGqlTypes}\n\`;\nexport default generatedTypeDefs;`;
+
+  //TODO: 2
+  // console.log(code);
+
+  console.log(protoObj);
+
+  const protoData: any = SGProtoData.fromObject(protoObj);
+
+  console.log(protoData);
+
+  // Problematic checker
+  // console.log("PROBLEMATIC:");
+  // protoData.recipe.map((item: any) => {
+  //   item.product.map((item2: any) => {
+  //     if (!item2.resource) {
+  //       console.error(item);
+  //     }
+  //
+  //   })
+  //
+  //   item.ingredients.map((item2: any) => {
+  //     if (!item2.resource) {
+  //       console.error(item);
+  //     }
+  //
+  //   })
+  //   // item.product.map((item: any) => {
+  //   //   console.log(item.resource)
+  //   //   return item.resource;
+  //   // });
+  // });
 
   const encoded: Uint8Array = encode(protoData);
   const base64 = bytesToBase64(encoded);
   const compressed = LZUTF8.compress(base64);
-  console.log(compressed);
+  // console.log(compressed);
   const stringCompressed = bytesToBase64(compressed);
   const finalData = JSON.stringify({ d: stringCompressed });
 
@@ -373,31 +441,35 @@ const dataParser = (data: any) => {
   const SaveDataBlob = new Blob([finalData], {
     type: 'application/json'
   });
+  //
+  // console.log('Final blob', SaveDataBlob);
+  //
+  // console.log(decode, toUint8Array);
 
-  console.log('Final blob', SaveDataBlob);
+  // const item = gqlClient();
 
-  console.log(decode, toUint8Array);
-  // //
-  // function saveAs(blob: any, fileName: any) {
-  //   const url = window.URL.createObjectURL(blob);
   //
-  //   const anchorElem = document.createElement('a');
-  //   // anchorElem.style = "display: none";
-  //   anchorElem.href = url;
-  //   anchorElem.download = fileName;
-  //
-  //   document.body.appendChild(anchorElem);
-  //   anchorElem.click();
-  //   document.body.removeChild(anchorElem);
-  //
-  //   // On Edge, revokeObjectURL should be called only after
-  //   // a.click() has completed, atleast on EdgeHTML 15.15048
-  //   setTimeout(function() {
-  //     window.URL.revokeObjectURL(url);
-  //   }, 1000);
-  // }
-  //
-  // saveAs(SaveDataBlob, '0.1.0.s2')
+  function saveAs(blob: any, fileName: any) {
+    const url = window.URL.createObjectURL(blob);
+
+    const anchorElem = document.createElement('a');
+    // anchorElem.style = "display: none";
+    anchorElem.href = url;
+    anchorElem.download = fileName;
+
+    document.body.appendChild(anchorElem);
+    anchorElem.click();
+    document.body.removeChild(anchorElem);
+
+    // On Edge, revokeObjectURL should be called only after
+    // a.click() has completed, atleast on EdgeHTML 15.15048
+    setTimeout(function() {
+      window.URL.revokeObjectURL(url);
+    }, 1000);
+  }
+
+  //TODO: 3
+  // saveAs(SaveDataBlob, 'data.s2')
 
   // console.log(buffer);
 };

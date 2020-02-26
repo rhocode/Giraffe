@@ -1,9 +1,8 @@
 import { protobufRoot } from '../utils/protoUtils';
-import {
-  machineClassListPromise,
-  machineInstanceListPromise,
-  recipeListPromise
-} from '../data/promises/dataPromises';
+
+const machineInstanceListPromise = () => {};
+const recipeListPromise = () => {};
+const machineClassListPromise = () => {};
 
 const resolvers = {
   Query: {

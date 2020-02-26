@@ -16,6 +16,7 @@ export default abstract class ProtoBufable {
 const whitelistedEntries = [
   'ResourceForm',
   'SatisGraphtoryNodeEnum',
+  'SatisGraphtoryNode',
   'ResourceFormEnum',
   'ResourceEnum',
   'ResourcePacket',

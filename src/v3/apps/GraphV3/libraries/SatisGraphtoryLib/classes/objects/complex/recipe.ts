@@ -8,7 +8,10 @@ import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators
 import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
 import preprocessor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/preprocessor';
 import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
-import stripClassName from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
+import stripClassName, {
+  stripClassNameImpl
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
+import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
 
 @generateEnum('name')
 class Recipe extends GqlObject implements Protoable {
@@ -20,6 +23,9 @@ class Recipe extends GqlObject implements Protoable {
   @dataField('ClassName')
   @gqlType('String!')
   @stripClassName
+  @preprocessor((data: any) => {
+    return data;
+  })
   public name: string = '';
 
   @gqlType('String!')
@@ -30,24 +36,32 @@ class Recipe extends GqlObject implements Protoable {
   @dataField('mManufactoringDuration')
   public manufacturingDuration: number = 0;
 
+  @gqlType('Float!')
+  @dataField('mManualManufacturingMultiplier')
+  public manufacturingMultiplier: number = 0;
+
   @gqlType('[ResourcePacket]')
   @dataField('mIngredients')
-  @preprocessor((data: any) => {
-    return data;
-  })
   public ingredients: ResourcePacket = ProtoBufable.NULL;
 
-  // @gqlType('Float!')
-  // @dataField('mManufactoringDuration')
-  // public producedIn: SatisGraphtoryNode;
+  @gqlType('[ResourcePacket]')
+  @dataField('mProduct')
+  public product: ResourcePacket = ProtoBufable.NULL;
 
-  // ClassName: "Recipe_OreUranium_C"
-  // mDisplayName: "Uranium"
-  // mIngredients: "((ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/RawResources/OreUranium/Desc_OreUranium.Desc_OreUranium_C"',Amount=1))"
-  // mProduct: "((ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/RawResources/OreUranium/Desc_OreUranium.Desc_OreUranium_C"',Amount=1))"
-  // mManufactoringDuration: "2.000000"
-  // mManualManufacturingMultiplier: "1.000000"
-  // mProducedIn: "(/Game/FactoryGame/Buildable/Factory/Converter/Build_Converter.Build_Converter_C)"
+  @gqlType('[SatisGraphtoryNodeEnum]')
+  @dataField('mProducedIn')
+  @preprocessor((data: any) => {
+    const item = data
+      .split('.')
+      .slice(-1)[0]
+      .replace(/['"]/g, '')
+      .replace('FGBuildGun', 'BuildGun')
+      .replace('WorkshopComponent', 'WorkBenchComponent')
+      .replace('FGBuildableAutomatedWorkBench', 'WorkBenchComponent')
+      .replace('AutomatedWorkBench', 'WorkBenchComponent');
+    return stripClassNameImpl(item);
+  })
+  public producedIn: SatisGraphtoryNode = ProtoBufable.NULL;
 }
 
 export default Recipe;

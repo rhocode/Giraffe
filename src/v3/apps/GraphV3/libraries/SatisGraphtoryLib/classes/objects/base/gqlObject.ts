@@ -1,10 +1,10 @@
 import { allGqlTypes } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlType';
 import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
 
-function generateGqlObject(name: string, attributes: Map<string, string>) {
+function generateGqlObject(name: string, attributes: [[string, string]]) {
   return `
   type ${name} {
-${[...attributes.entries()]
+${attributes
   .map(([key, value]: [string, string]): string => {
     return `    ${key}: ${value}`;
   })
@@ -16,11 +16,39 @@ abstract class GqlObject extends ProtoBufable {
   public abstract name: string;
 
   static getTypeDef() {
-    const className = this.toString()
+    let next = this;
+
+    if (
+      next
+        .toString()
+        .split('(' || /s+/)[0]
+        .split(' ' || /s+/)[1] === 'EnumWrapper'
+    ) {
+      next = Object.getPrototypeOf(next);
+    }
+
+    const topLevelname = next
+      .toString()
       .split('(' || /s+/)[0]
       .split(' ' || /s+/)[1];
-    const fields = allGqlTypes.get(className) ?? new Map<string, string>();
-    return generateGqlObject(className, fields);
+
+    const allFields: any = [];
+
+    while (next.constructor.name !== 'Object') {
+      const className = next
+        .toString()
+        .split('(' || /s+/)[0]
+        .split(' ' || /s+/)[1];
+
+      const attributes =
+        allGqlTypes.get(className) ?? new Map<string, string>();
+
+      allFields.push(...attributes.entries());
+
+      next = Object.getPrototypeOf(next);
+    }
+
+    return generateGqlObject(topLevelname, allFields);
   }
 
   public toEnum(): number {
