@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet-async';
 
 import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
 import { graphAppStore } from './stores/graphAppStore';
-import { getPlaceableMachineClasses } from '../../graphql/queries';
 import NavBar from './components/NavBar';
 import Canvas from './components/Canvas';
 import ActionBar from './components/ActionBar';
@@ -13,6 +12,7 @@ import ActionBar from './components/ActionBar';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 import NodeDrawer from './components/NodeDrawer';
+import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
 
 const styles = theme => {
   return {
@@ -55,13 +55,15 @@ function GraphApp(props) {
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    getPlaceableMachineClasses({
-      useAltImages: language.code === 'discord'
-    }).then(classes => {
-      graphAppStore.update(s => {
-        s.placeableMachineClasses = classes;
-      });
-    });
+    initRuntime();
+
+    // getPlaceableMachineClasses({
+    //   useAltImages: language.code === 'discord'
+    // }).then(classes => {
+    //   graphAppStore.update(s => {
+    //     s.placeableMachineClasses = classes;
+    //   });
+    // });
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)

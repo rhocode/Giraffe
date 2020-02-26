@@ -15,7 +15,9 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 import { ApolloProvider } from 'react-apollo';
-import { getClient } from '../../graphql';
+import gqlClient from 'v3/graphql/gqlClient';
+import resolvers from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/resolvers';
+import typeDefs from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/typeDefs';
 
 const chooseLoadingStyle = importFunc => {
   if (process.env.REACT_APP_ELECTRON === 'true') {
@@ -35,9 +37,6 @@ const GraphApp = chooseLoadingStyle(GraphImport);
 
 const HubImport = () => import('../../apps/Hub/HubApp');
 const HubApp = chooseLoadingStyle(HubImport);
-
-const LabImport = () => import('../../apps/Lab/LabApp');
-const LabApp = chooseLoadingStyle(LabImport);
 
 const DataImport = () => import('../../v3/apps/DataV3/DataApp');
 const DataApp = chooseLoadingStyle(DataImport);
@@ -73,7 +72,9 @@ class AppWrapper extends Component {
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
             <React.Suspense fallback={<div>Loading...</div>}>
-              <ApolloProvider client={getClient()}>{children}</ApolloProvider>
+              <ApolloProvider client={gqlClient(typeDefs, resolvers)}>
+                {children}
+              </ApolloProvider>
             </React.Suspense>
           </MuiThemeProvider>
         </ReactRouter>
@@ -178,17 +179,6 @@ function getHubApp(local = false) {
   );
 }
 
-function getLabApp(local = false) {
-  return (
-    <Route
-      key={'lab'}
-      path={local ? `/lab` : `/`}
-      exact={!local}
-      component={LabApp}
-    />
-  );
-}
-
 function getDataApp(local = false) {
   return (
     <Route
@@ -215,16 +205,12 @@ function resolveDomain() {
   } else if (domain === 'hub') {
     // hub subdomain
     domainList.push(getHubApp());
-  } else if (domain === 'lab') {
-    // lab subdomain
-    domainList.push(getLabApp());
   } else if (domain === 'data') {
     // lab subdomain
     domainList.push(getDataApp());
   } else {
     domainList.push(getHomeApp());
     domainList.push(getGraphApp(true));
-    domainList.push(getLabApp(true));
     domainList.push(getHubApp(true));
     domainList.push(getDataApp(true));
   }
