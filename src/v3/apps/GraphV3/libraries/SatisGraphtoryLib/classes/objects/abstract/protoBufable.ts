@@ -2,7 +2,7 @@ import { allGqlTypes } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorat
 
 export default abstract class ProtoBufable {
   static NULL: any = 'NULL_PROTOBUFABLE';
-
+  static NULL_ARRAY: any = [];
   static toProtoBuf() {
     const className = this.toString()
       .split('(' || /s+/)[0]
@@ -22,7 +22,8 @@ const whitelistedEntries = [
   'ResourcePacket',
   'RecipeEnum',
   'ItemEnum',
-  'BeltEnum'
+  'BeltEnum',
+  'Item'
 ];
 
 const processString = (input: string): object => {
@@ -55,7 +56,9 @@ const processString = (input: string): object => {
         default:
           if (!whitelistedEntries.includes(together))
             throw new Error(`Unknown type: ${together}`);
-          else item = together;
+          else {
+            item = together;
+          }
       }
       prefix.push(item);
       break;

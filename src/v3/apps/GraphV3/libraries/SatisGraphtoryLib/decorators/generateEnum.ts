@@ -7,6 +7,10 @@ import gqlType from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlT
 const enumMax: Map<string, number> = new Map();
 export const globalEnumMap: Map<string, Map<string, number>> = new Map();
 export const globalEnumLookup: Map<string, Map<string, object>> = new Map();
+export const globalEnumToObjectLookup: Map<
+  string,
+  Map<number, object>
+> = new Map();
 
 export function enumToProtoBuf(cls: ProtoBufable) {
   let next = cls;
@@ -153,6 +157,7 @@ export default function generateEnum(
             enumMax.set(className, 0);
             globalEnumMap.set(className, new Map());
             globalEnumLookup.set(className, new Map());
+            globalEnumToObjectLookup.set(className, new Map());
           }
 
           this.propertyName = property;
@@ -160,6 +165,9 @@ export default function generateEnum(
           const fetchedEnumMax = enumMax.get(className)!;
           const fetchedEnumMap = globalEnumMap.get(className)!;
           const fetchedEnumObjectMap = globalEnumLookup.get(className)!;
+          const fetchedEnumToObjectMap = globalEnumToObjectLookup.get(
+            className
+          )!;
 
           if (fetchedEnumMap.has(property)) return;
 
@@ -167,6 +175,7 @@ export default function generateEnum(
           enumMax.set(className, newNumber);
           fetchedEnumMap.set(property, newNumber);
           fetchedEnumObjectMap.set(property, this);
+          fetchedEnumToObjectMap.set(newNumber, this);
           this.enumValue = newNumber;
         }
       }
