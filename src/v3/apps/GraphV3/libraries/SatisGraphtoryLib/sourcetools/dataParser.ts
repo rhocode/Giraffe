@@ -288,9 +288,24 @@ const extractorRecipeInjector = (
 ) => {
   const resourcesMap = new Set(resources.map((res: any) => res.name));
 
+  console.log(resourcesMap);
+  // Find orphaned resources
+  extractorMachine.forEach((machine: any) => {
+    if (machine.allowedResources.length !== 0) {
+      machine.allowedResources.forEach((res: string) => {
+        resourcesMap.delete(res);
+      });
+    }
+  });
+
   recipes.forEach((recipe: any) => {
     if (new Set(recipe.producedIn).has('Converter')) return;
+    if (recipe.name.indexOf('Alternate') !== -1) return;
     recipe.product.forEach((prod: any) => {
+      //TODO: fix alternate calculation
+      if (prod.resource === 'Coal') {
+        console.error(recipe);
+      }
       resourcesMap.delete(prod.resource);
     });
   });

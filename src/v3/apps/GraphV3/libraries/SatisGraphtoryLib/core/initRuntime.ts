@@ -28,8 +28,9 @@ const initRuntime = () => {
 
     const recipeNameMap: Map<string, any> = new Map();
 
+    const allProducts: Set<string> = new Set();
     const allIngredients: Set<string> = new Set();
-    const allProducts: Set<string> = new Set(
+    const extractorProducedResources: Set<string> = new Set(
       data.extractorMachine
         .map((item: any) => {
           return item.allowedResources;
@@ -39,7 +40,6 @@ const initRuntime = () => {
 
     // const allItems = new Set(data.item.map((item: any) => item.name));
 
-    const adjacencyGraph: Map<string, string[]> = new Map();
     const recipeAdjacencyGraph: Map<string, string[]> = new Map();
     const recipeTopologicalSortList: Map<string, string[]> = new Map();
 
@@ -83,12 +83,10 @@ const initRuntime = () => {
       });
     });
 
-    const extractors = data.extractorMachine;
-    extractors.forEach((extractor: any) => {});
-
-    const sources = new Set(
-      [...allIngredients].filter(x => !allProducts.has(x))
-    );
+    const sources = new Set([
+      ...[...allIngredients].filter(x => !allProducts.has(x)),
+      ...extractorProducedResources
+    ]);
 
     console.error(sources);
 
