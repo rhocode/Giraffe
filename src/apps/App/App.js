@@ -15,9 +15,8 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 import { ApolloProvider } from 'react-apollo';
-import gqlClient from 'v3/graphql/gqlClient';
-import resolvers from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/resolvers';
-import typeDefs from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/typeDefs';
+
+import gqlClient from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/gqlClient';
 
 const chooseLoadingStyle = importFunc => {
   if (process.env.REACT_APP_ELECTRON === 'true') {
@@ -72,9 +71,7 @@ class AppWrapper extends Component {
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
             <React.Suspense fallback={<div>Loading...</div>}>
-              <ApolloProvider client={gqlClient(typeDefs, resolvers)}>
-                {children}
-              </ApolloProvider>
+              <ApolloProvider client={gqlClient()}>{children}</ApolloProvider>
             </React.Suspense>
           </MuiThemeProvider>
         </ReactRouter>
