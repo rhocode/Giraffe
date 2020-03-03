@@ -8,7 +8,6 @@ import {
   shouldStripClassName,
   stripClassNameImpl
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
-import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
 
 const parseList = (list: string) => {
   let parsedList = list.replace(/\(/g, '[');
@@ -70,6 +69,7 @@ const parseSingle = (
       case 'SatisGraphtoryNodeEnum':
         dataRaw = translateEnumToObject('SatisGraphtoryNode', dataRaw)
           .enumValue;
+        break;
       case 'ResourceEnum':
         break;
       case 'ItemEnum':

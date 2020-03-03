@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-import dataParser from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/dataParser';
-import memoizedProtoSpecLoader from 'v3/utils/protoUtils';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
+import { GET_RECIPES_BY_MACHINE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/queries';
+import gqlClient from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/gqlClient';
 
 const item = require('development/Docs.json');
 
@@ -35,6 +35,16 @@ function DataApp(props) {
     //
     initRuntime();
   }, []);
+
+  console.log('@@#fff@');
+  const client = gqlClient();
+  client
+    .query({
+      query: GET_RECIPES_BY_MACHINE
+    })
+    .then(response => {
+      console.log(response);
+    });
 
   return <div className={classes.root}></div>;
 }
