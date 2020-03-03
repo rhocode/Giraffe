@@ -20,6 +20,7 @@ import { encode } from '@msgpack/msgpack';
 import { bytesToBase64 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
 import * as LZUTF8 from 'lzutf8';
 import * as protobuf from 'protobufjs/light';
+import satisGraphtoryApplicationSharedTypes from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/satisGraphtoryApplicationSharedTypes';
 
 const parseParameter = (str: string) => {
   return str
@@ -324,13 +325,8 @@ const dataParser = (data: any) => {
     ResourcePacket,
     ResourceForm,
     Resource,
-    ExtractorMachine,
-    BeltAttachmentMachine,
-    FluidStorageMachine,
-    ManufacturerMachine,
-    SolidStorageMachine,
-    Item,
-    Belt
+    ...satisGraphtoryApplicationSharedTypes.edges,
+    ...satisGraphtoryApplicationSharedTypes.nodes
   ];
 
   const allEnums = Object.assign({}, ...enums.map(enumToProtoBuf));
@@ -355,7 +351,7 @@ const dataParser = (data: any) => {
       };
     });
 
-  console.log('All enums', allEnums);
+  // console.log('All enums', allEnums);
 
   const wrappedEnums = {
     nested: {
@@ -371,6 +367,12 @@ const dataParser = (data: any) => {
 
   //TODO: 1
   // console.log(JSON.stringify(wrappedEnums, null, 2));
+
+  const wrappedEnumBlob = new Blob([JSON.stringify(wrappedEnums, null, 2)], {
+    type: 'application/json'
+  });
+
+  saveAs(wrappedEnumBlob, 'SGProto.json');
 
   const root = protobuf.Root.fromJSON(wrappedEnums);
   const SGProtoData = root.lookupType('satisgraphtory.SGProtoData');
@@ -390,6 +392,12 @@ const dataParser = (data: any) => {
   const allGqlTypes = [allEnumsToGql, allTypesToGql].join('\n');
 
   const code = `const generatedTypeDefs = \`\n${allGqlTypes}\n\`;\nexport default generatedTypeDefs;`;
+
+  const TSCode = new Blob([code], {
+    type: 'application/text'
+  });
+
+  saveAs(TSCode, 'generatedTypeDefs.ts');
 
   //TODO: 2
   // console.log(code);
@@ -450,6 +458,7 @@ const dataParser = (data: any) => {
 
   //
   function saveAs(blob: any, fileName: any) {
+    return;
     const url = window.URL.createObjectURL(blob);
 
     const anchorElem = document.createElement('a');
@@ -469,7 +478,7 @@ const dataParser = (data: any) => {
   }
 
   //TODO: 3
-  // saveAs(SaveDataBlob, 'data.s2')
+  saveAs(SaveDataBlob, 'data.s2');
 
   // console.log(buffer);
 };
