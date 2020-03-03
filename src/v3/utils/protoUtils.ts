@@ -1,4 +1,3 @@
-import lazyFunc from './lazyFunc';
 import * as protobuf from 'protobufjs/light';
 import schemas from '../../generated';
 import {
@@ -30,11 +29,11 @@ const protoSpecLoader = (version: string) => {
     .then(data => LZUTF8.decompress(data))
     .then(data => toUint8Array(data))
     .then(data => decode(data))
-    .then((data: any) =>
-      SGProtoData.toObject(SGProtoData.fromObject(data), {
+    .then((data: any) => {
+      return SGProtoData.toObject(SGProtoData.fromObject(data), {
         enums: String
-      })
-    );
+      });
+    });
 };
 
 // @ts-ignore

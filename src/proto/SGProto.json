@@ -19,38 +19,38 @@
               "rule": "repeated",
               "id": 3
             },
+            "item": {
+              "type": "Item",
+              "rule": "repeated",
+              "id": 4
+            },
+            "belt": {
+              "type": "Belt",
+              "rule": "repeated",
+              "id": 5
+            },
             "extractorMachine": {
               "type": "ExtractorMachine",
               "rule": "repeated",
-              "id": 4
+              "id": 6
             },
             "beltAttachmentMachine": {
               "type": "BeltAttachmentMachine",
               "rule": "repeated",
-              "id": 5
+              "id": 7
             },
             "fluidStorageMachine": {
               "type": "FluidStorageMachine",
               "rule": "repeated",
-              "id": 6
+              "id": 8
             },
             "manufacturerMachine": {
               "type": "ManufacturerMachine",
               "rule": "repeated",
-              "id": 7
+              "id": 9
             },
             "solidStorageMachine": {
               "type": "SolidStorageMachine",
-              "rule": "repeated",
-              "id": 8
-            },
-            "item": {
-              "type": "Item",
-              "rule": "repeated",
-              "id": 9
-            },
-            "belt": {
-              "type": "Belt",
               "rule": "repeated",
               "id": 10
             }
@@ -797,64 +797,129 @@
             }
           }
         },
+        "Item": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "resourceForm": {
+              "type": "ResourceFormEnum",
+              "id": 4
+            },
+            "sinkPoints": {
+              "type": "int64",
+              "id": 5
+            },
+            "energyValue": {
+              "type": "float",
+              "id": 6
+            },
+            "dataClass": {
+              "type": "string",
+              "id": 7
+            },
+            "enumValue": {
+              "type": "ItemEnum",
+              "id": 8
+            }
+          }
+        },
+        "Belt": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "speed": {
+              "type": "float",
+              "id": 4
+            },
+            "enumValue": {
+              "type": "BeltEnum",
+              "id": 5
+            }
+          }
+        },
         "ExtractorMachine": {
           "fields": {
-            "allowedResources": {
+            "allowedResourceForms": {
               "type": "ResourceForm",
               "rule": "repeated",
               "id": 1
             },
+            "allowedResources": {
+              "type": "ItemEnum",
+              "rule": "repeated",
+              "id": 2
+            },
             "cycleTime": {
               "type": "float",
-              "id": 2
+              "id": 3
             },
             "itemsPerCycle": {
               "type": "int64",
-              "id": 3
+              "id": 4
             },
             "enumValue": {
               "type": "SatisGraphtoryNodeEnum",
-              "id": 4
+              "id": 5
             },
             "powerConsumption": {
               "type": "float",
-              "id": 5
+              "id": 6
             },
             "powerConsumptionExponent": {
               "type": "float",
-              "id": 6
+              "id": 7
             },
             "minimumProducingTime": {
               "type": "float",
-              "id": 7
+              "id": 8
             },
             "minimumStoppedTime": {
               "type": "float",
-              "id": 8
+              "id": 9
             },
             "name": {
               "type": "string",
-              "id": 9
+              "id": 10
             },
             "displayName": {
               "type": "string",
-              "id": 10
+              "id": 11
             },
             "description": {
               "type": "string",
-              "id": 11
+              "id": 12
             },
             "minPotential": {
               "type": "float",
-              "id": 12
+              "id": 13
             },
             "maxPotential": {
               "type": "float",
-              "id": 13
+              "id": 14
             },
             "maxPotentialIncreasePerCrystal": {
               "type": "float",
-              "id": 14
+              "id": 15
             }
           }
         },
@@ -1007,66 +1072,6 @@
             "maxPotentialIncreasePerCrystal": {
               "type": "float",
               "id": 7
-            }
-          }
-        },
-        "Item": {
-          "fields": {
-            "name": {
-              "type": "string",
-              "id": 1
-            },
-            "displayName": {
-              "type": "string",
-              "id": 2
-            },
-            "description": {
-              "type": "string",
-              "id": 3
-            },
-            "resourceForm": {
-              "type": "ResourceFormEnum",
-              "id": 4
-            },
-            "sinkPoints": {
-              "type": "int64",
-              "id": 5
-            },
-            "energyValue": {
-              "type": "float",
-              "id": 6
-            },
-            "dataClass": {
-              "type": "string",
-              "id": 7
-            },
-            "enumValue": {
-              "type": "ItemEnum",
-              "id": 8
-            }
-          }
-        },
-        "Belt": {
-          "fields": {
-            "name": {
-              "type": "string",
-              "id": 1
-            },
-            "displayName": {
-              "type": "string",
-              "id": 2
-            },
-            "description": {
-              "type": "string",
-              "id": 3
-            },
-            "speed": {
-              "type": "float",
-              "id": 4
-            },
-            "enumValue": {
-              "type": "BeltEnum",
-              "id": 5
             }
           }
         }
