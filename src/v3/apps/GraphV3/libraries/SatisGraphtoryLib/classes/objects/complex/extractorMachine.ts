@@ -6,6 +6,7 @@ import gqlType from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/gqlT
 import ResourceForm from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourceForms';
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
+import Resource from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resource';
 
 @generateEnum('name', 'SatisGraphtoryNode')
 class ExtractorMachine extends ProducerMachine implements ProtoSerializable {
@@ -14,9 +15,20 @@ class ExtractorMachine extends ProducerMachine implements ProtoSerializable {
     setDataFields(this, props);
   }
 
+  public setResourcesIfEmpty(resources: any) {
+    // @ts-ignore
+    if (this.allowedResources.length === 0) {
+      console.error('THIS IS NULL', resources);
+    }
+  }
+
   @dataField('mAllowedResourceForms')
   @gqlType('[ResourceForm!]!')
-  public allowedResources: ResourceForm = ProtoBufable.NULL;
+  public allowedResourceForms: ResourceForm = ProtoBufable.NULL_ARRAY;
+
+  @dataField('mAllowedResources')
+  @gqlType('[ItemEnum]')
+  public allowedResources: Resource = ProtoBufable.NULL_ARRAY;
 
   @dataField('mExtractCycleTime')
   @gqlType('Float!')

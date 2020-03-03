@@ -671,8 +671,28 @@ const generatedTypeDefs = `
     enumValue: ResourceEnum
   }
 
+  type Item {
+    name: String!
+    displayName: String!
+    description: String!
+    resourceForm: ResourceFormEnum!
+    sinkPoints: Int!
+    energyValue: Float!
+    dataClass: String!
+    enumValue: ItemEnum
+  }
+
+  type Belt {
+    name: String!
+    displayName: String!
+    description: String!
+    speed: Float!
+    enumValue: BeltEnum
+  }
+
   type ExtractorMachine {
-    allowedResources: [ResourceForm!]!
+    allowedResourceForms: [ResourceForm!]!
+    allowedResources: [ItemEnum]
     cycleTime: Float!
     itemsPerCycle: Int!
     enumValue: SatisGraphtoryNodeEnum
@@ -732,25 +752,6 @@ const generatedTypeDefs = `
     minPotential: Float!
     maxPotential: Float!
     maxPotentialIncreasePerCrystal: Float!
-  }
-
-  type Item {
-    name: String!
-    displayName: String!
-    description: String!
-    resourceForm: ResourceFormEnum!
-    sinkPoints: Int!
-    energyValue: Float!
-    dataClass: String!
-    enumValue: ItemEnum
-  }
-
-  type Belt {
-    name: String!
-    displayName: String!
-    description: String!
-    speed: Float!
-    enumValue: BeltEnum
   }
 `;
 export default generatedTypeDefs;

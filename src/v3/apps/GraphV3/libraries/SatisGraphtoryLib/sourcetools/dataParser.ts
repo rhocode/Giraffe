@@ -281,6 +281,27 @@ const beltParser = (data: any) => {
     });
 };
 
+const extractorRecipeInjector = (
+  extractorMachine: any,
+  recipes: any,
+  resources: any
+) => {
+  const resourcesMap = new Set(resources.map((res: any) => res.name));
+
+  recipes.forEach((recipe: any) => {
+    if (new Set(recipe.producedIn).has('Converter')) return;
+    recipe.product.forEach((prod: any) => {
+      resourcesMap.delete(prod.resource);
+    });
+  });
+
+  extractorMachine.forEach((machine: any) => {
+    if (machine.allowedResources.length === 0) {
+      machine.allowedResources = [...resourcesMap];
+    }
+  });
+};
+
 const generateResourceForms = () => {
   const resources = ['RF_LIQUID', 'RF_SOLID'];
   return resources.map((rf: string) => {
@@ -298,15 +319,18 @@ const dataParser = (data: any) => {
   // console.log(relevantData);
 
   const resources = resourceParser(relevantData);
-  // console.log('Resources', resources);
-  const machines = nodeParser(relevantData);
-  // console.log('Machines', machines);
+  console.log('Resources', resources);
 
   const items = itemParser(relevantData);
+
+  const machines = nodeParser(relevantData);
+  // console.log('Machines', machines);
   // console.log('Items', items);
 
   const recipes = recipeParser(relevantData);
   // console.log('Recipes', recipes);
+
+  extractorRecipeInjector(machines.extractorMachine, recipes, resources);
 
   const belts = beltParser(relevantData);
   // console.log('Belts', belts);
@@ -325,6 +349,7 @@ const dataParser = (data: any) => {
     ResourcePacket,
     ResourceForm,
     Resource,
+    Item,
     ...satisGraphtoryApplicationSharedTypes.edges,
     ...satisGraphtoryApplicationSharedTypes.nodes
   ];

@@ -10,6 +10,9 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
 
 const parseList = (list: string) => {
+  if (list === '') {
+    return JSON.parse('[]');
+  }
   let parsedList = list.replace(/\(/g, '[');
   parsedList = parsedList.replace(/\)\s/g, '], ');
   parsedList = parsedList.replace(/\)/g, ']');
@@ -67,12 +70,16 @@ const parseSingle = (
         dataRaw = ResourcePacket.fromImport(dataRaw);
         break;
       case 'SatisGraphtoryNodeEnum':
-        dataRaw = translateEnumToObject('SatisGraphtoryNode', dataRaw)
-          .enumValue;
+        dataRaw = translateEnumToObject('SatisGraphtoryNode', dataRaw).name;
         break;
       case 'ResourceEnum':
         break;
+      case 'Item':
+        dataRaw = stripClassNameImpl(dataRaw);
+        dataRaw = translateEnumToObject('Item', dataRaw);
+        break;
       case 'ItemEnum':
+        dataRaw = stripClassNameImpl(dataRaw);
         break;
       case 'ResourceFormEnum':
         break;
