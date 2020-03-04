@@ -32,7 +32,7 @@ function DataApp(props) {
   const classes = useStyles();
 
   React.useEffect(() => {
-    dataParser(item);
+    // dataParser(item);
     //
     initRuntime();
   }, []);
