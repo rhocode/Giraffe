@@ -139,17 +139,42 @@ const initRuntime = () => {
 
     const numRecipesLeft: Map<string, number> = new Map();
 
-    coreResources.forEach((source: string) => {
-      numRecipesLeft.set(source, 0);
-    });
+    // coreResources.forEach((source: string) => {
+    //   numRecipesLeft.set(source, 0);
+    // });
 
     recipeIngredientList.forEach((value: any, key: string) => {
-      numRecipesLeft.set(key, value.length);
+      console.log(key);
+      const remainingDeps = recipeIngredientReverseLookupList
+        .get(key)!
+        .filter((item: string) => {
+          return !coreResources.has(item);
+        });
+
+      recipeIngredientReverseLookupList.set(key, remainingDeps);
+      numRecipesLeft.set(key, remainingDeps.length);
     });
 
-    console.log(numRecipesLeft);
+    while (processingQueue.length) {
+      const popped = processingQueue.shift()!;
 
-    //
+      if (finalQueueList.has(popped)) {
+        continue;
+      } else {
+        finalQueueList.add(popped);
+        recipeOrdering.push(popped);
+      }
+
+      const fetchedRecipe = recipeNameMap.get(popped);
+      if (fetchedRecipe === undefined) {
+        console.log('!!!');
+      } else {
+        console.log('???');
+      }
+
+      recipeNameMap.get(popped)!.product.forEach((prod: any) => {});
+    }
+
     // while(processingQueue.length) {
     //   const popped = processingQueue.shift()!;
     //
