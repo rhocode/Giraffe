@@ -286,9 +286,12 @@ const extractorRecipeInjector = (
   recipes: any,
   resources: any
 ) => {
-  const resourcesMap = new Set(resources.map((res: any) => res.name));
+  const resourcesMap = new Set(
+    resources.map((res: any) => {
+      return res.name;
+    })
+  );
 
-  console.log(resourcesMap);
   // Find orphaned resources
   extractorMachine.forEach((machine: any) => {
     if (machine.allowedResources.length !== 0) {
@@ -298,21 +301,19 @@ const extractorRecipeInjector = (
     }
   });
 
-  recipes.forEach((recipe: any) => {
-    if (new Set(recipe.producedIn).has('Converter')) return;
-    if (recipe.name.indexOf('Alternate') !== -1) return;
-    recipe.product.forEach((prod: any) => {
-      //TODO: fix alternate calculation
-      if (prod.resource === 'Coal') {
-        console.error(recipe);
-      }
-      resourcesMap.delete(prod.resource);
-    });
-  });
+  const converterRecipes = recipes
+    .filter((recipe: any) => {
+      return new Set(recipe.producedIn).has('Converter');
+    })
+    .map((rec: any) => {
+      return rec.product.map((rp: any) => rp.resource);
+    })
+    .flat(1);
 
+  const intersection = [...converterRecipes].filter(x => resourcesMap.has(x));
   extractorMachine.forEach((machine: any) => {
     if (machine.allowedResources.length === 0) {
-      machine.allowedResources = [...resourcesMap];
+      machine.allowedResources = [...intersection];
     }
   });
 };
@@ -334,7 +335,6 @@ const dataParser = (data: any) => {
   // console.log(relevantData);
 
   const resources = resourceParser(relevantData);
-  console.log('Resources', resources);
 
   const items = itemParser(relevantData);
 
