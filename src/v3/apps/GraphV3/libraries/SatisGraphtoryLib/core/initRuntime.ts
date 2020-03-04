@@ -144,12 +144,12 @@ const initRuntime = () => {
     // });
 
     recipeIngredientList.forEach((value: any, key: string) => {
-      console.log(key);
-      const remainingDeps = recipeIngredientReverseLookupList
-        .get(key)!
-        .filter((item: string) => {
-          return !coreResources.has(item);
-        });
+      console.log(key, recipeIngredientReverseLookupList);
+      const remainingDeps = (
+        recipeIngredientReverseLookupList.get(key) ?? []
+      ).filter((item: string) => {
+        return !coreResources.has(item);
+      });
 
       recipeIngredientReverseLookupList.set(key, remainingDeps);
       numRecipesLeft.set(key, remainingDeps.length);
