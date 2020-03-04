@@ -39,9 +39,14 @@ const initRuntime = () => {
     );
 
     const recipeIngredientList: Map<string, any> = new Map();
+    const recipeProductList: Map<string, any> = new Map();
     const recipeIngredientReverseLookupList: Map<string, any> = new Map();
 
-    data.recipe.forEach((recipe: any) => {
+    const recipesUsed = data.recipe.filter((item: any) => {
+      return item.name.indexOf('Alternate') === -1;
+    });
+
+    recipesUsed.forEach((recipe: any) => {
       const sources = (recipe.producedIn ?? []).filter((producedIn: string) => {
         return !blackListedProducerTypes.has(producedIn);
       });
@@ -82,6 +87,12 @@ const initRuntime = () => {
       // Products
       (recipe.product ?? []).forEach((product: any) => {
         allProducts.add(product.resource);
+
+        if (!recipeProductList.has(product.resource)) {
+          recipeProductList.set(product.resource, new Set());
+        }
+
+        recipeProductList.get(product.resource)!.add(recipe.name);
       });
     });
 
@@ -113,8 +124,154 @@ const initRuntime = () => {
       });
     });
 
+    console.error(recipeIngredientList, recipeProductList);
+
     const processedResources = new Set([...coreResources]);
+
     const processingQueue: string[] = [];
+
+    coreResources.forEach((source: string) => {
+      const recipesToProcess = recipeIngredientList.get(source)!;
+      recipesToProcess.forEach((recipe: string) => {
+        const remainingDeps = recipeIngredientReverseLookupList
+          .get(recipe)!
+          .filter((item: string) => {
+            return !processedResources.has(item);
+          });
+
+        recipeIngredientReverseLookupList.set(recipe, remainingDeps);
+        if (remainingDeps.length === 0) {
+          processingQueue.push(recipe);
+        }
+      });
+    });
+
+    console.log('Initially making', processingQueue);
+
+    const recipeOrdering = [];
+    const finalQueueList = new Set();
+    //
+    while (processingQueue.length) {
+      const popped = processingQueue.shift()!;
+
+      if (finalQueueList.has(popped)) {
+        continue;
+      } else {
+        finalQueueList.add(popped);
+        recipeOrdering.push(popped);
+      }
+
+      const populatedRecipe = recipeNameMap.get(popped);
+
+      const populatedRecipeProducts = populatedRecipe.product ?? [];
+      const remainingProducts = populatedRecipeProducts.filter(
+        (ingredient: any) => {
+          return !coreResources.has(ingredient.resource);
+        }
+      );
+
+      if (remainingProducts.length === 0) {
+        console.error(
+          'This only makes core resources. We should ignore it?',
+          populatedRecipe
+        );
+      } else {
+        let usedProducts = populatedRecipeProducts;
+        if (populatedRecipeProducts.length !== remainingProducts.length) {
+          console.error(
+            'Size mismatch. We have additional resources generated.'
+          );
+          usedProducts = remainingProducts;
+        } else {
+          console.log('This makes non core resources. yay', usedProducts);
+        }
+
+        usedProducts.forEach((product: any) => {
+          const resource = product.resource;
+          const fetched = recipeProductList.get(resource);
+          console.log(popped, 'This recipe makes', resource);
+          console.log('This list should remove the deps from', fetched);
+          fetched.delete(popped);
+
+          if (fetched.size === 0) {
+            console.error('We can resolve', resource);
+
+            if (resource === 'SulfuricAcid') {
+              throw new Error('DMKNSMSDGG');
+            }
+            // resource: "OreUranium"
+            // amount: 5
+            // __proto__: Object
+            // 1:
+            // resource: "SulfuricAcid"
+
+            processedResources.add(resource);
+            (recipeIngredientList.get(resource) ?? []).forEach(
+              (recipe: string) => {
+                console.log('Resource', resource, 'feeds', recipe);
+                const remainingDeps = recipeIngredientReverseLookupList
+                  .get(recipe)!
+                  .filter((item: string) => {
+                    return !processedResources.has(item);
+                  });
+
+                console.log('   > ', recipe);
+                recipeIngredientReverseLookupList.set(recipe, remainingDeps);
+
+                if (remainingDeps.length === 0) {
+                  processingQueue.push(recipe);
+                  console.error('SIZE IS ZERO FOR', recipe);
+                }
+              }
+            );
+          }
+        });
+      }
+    }
+
+    const clashingRecipes = new Set();
+
+    recipeProductList.forEach((value: any, key: string) => {
+      value.forEach((item: any) => {
+        clashingRecipes.add(recipeNameMap.get(item));
+      });
+    });
+
+    console.log(clashingRecipes);
+
+    //
+    //
+
+    //
+    //       fetched.delete(populatedRecipe.name);
+    //
+    //       console.log("Fetched is now", fetched);
+    //
+    //       if (fetched.size === 0) {
+    //         console.log("!!!! FETCHED SIZE FOR", resource, "IS NOW ZERO");
+    //         processedResources.add(resource);
+    //
+    //         const recipesToProcess = recipeIngredientList.get(resource) ?? [];
+    //         recipesToProcess.forEach((recipe: string) => {
+    //           const remainingDeps = recipeIngredientReverseLookupList
+    //             .get(recipe)!
+    //             .filter((item: string) => {
+    //               return !processedResources.has(item);
+    //             });
+    //
+    //           console.log("Remaining deps", remainingDeps, recipeIngredientReverseLookupList
+    //             .get(recipe)!);
+    //
+    //           recipeIngredientReverseLookupList.set(recipe, remainingDeps);
+    //           if (remainingDeps.length === 0) {
+    //             console.log("   None left", recipe);
+    //             processingQueue.push(recipe)
+    //           }
+    //         });
+    //       }
+    //     })
+    //   }
+    // }
 
     // coreResources.forEach((source: string) => {
     //   const recipesToProcess = recipeIngredientList.get(source)!;
@@ -133,47 +290,47 @@ const initRuntime = () => {
     //   });
     // });
 
-    const recipeOrdering = [];
-    const finalQueueList = new Set();
-    const queuedRecipe = new Set();
-
-    const numRecipesLeft: Map<string, number> = new Map();
+    // const recipeOrdering = [];
+    // const finalQueueList = new Set();
+    // const queuedRecipe = new Set();
+    //
+    // const numRecipesLeft: Map<string, number> = new Map();
 
     // coreResources.forEach((source: string) => {
     //   numRecipesLeft.set(source, 0);
     // });
 
-    recipeIngredientList.forEach((value: any, key: string) => {
-      console.log(key, recipeIngredientReverseLookupList);
-      const remainingDeps = (
-        recipeIngredientReverseLookupList.get(key) ?? []
-      ).filter((item: string) => {
-        return !coreResources.has(item);
-      });
-
-      recipeIngredientReverseLookupList.set(key, remainingDeps);
-      numRecipesLeft.set(key, remainingDeps.length);
-    });
-
-    while (processingQueue.length) {
-      const popped = processingQueue.shift()!;
-
-      if (finalQueueList.has(popped)) {
-        continue;
-      } else {
-        finalQueueList.add(popped);
-        recipeOrdering.push(popped);
-      }
-
-      const fetchedRecipe = recipeNameMap.get(popped);
-      if (fetchedRecipe === undefined) {
-        console.log('!!!');
-      } else {
-        console.log('???');
-      }
-
-      recipeNameMap.get(popped)!.product.forEach((prod: any) => {});
-    }
+    // recipeIngredientList.forEach((value: any, key: string) => {
+    //   // console.log(key, recipeIngredientReverseLookupList);
+    //   const remainingDeps = (
+    //     recipeIngredientReverseLookupList.get(key) ?? []
+    //   ).filter((item: string) => {
+    //     return !coreResources.has(item);
+    //   });
+    //
+    //   recipeIngredientReverseLookupList.set(key, remainingDeps);
+    //   numRecipesLeft.set(key, remainingDeps.length);
+    // });
+    //
+    // while (processingQueue.length) {
+    //   const popped = processingQueue.shift()!;
+    //
+    //   if (finalQueueList.has(popped)) {
+    //     continue;
+    //   } else {
+    //     finalQueueList.add(popped);
+    //     recipeOrdering.push(popped);
+    //   }
+    //
+    //   const fetchedRecipe = recipeNameMap.get(popped);
+    //   if (fetchedRecipe === undefined) {
+    //     console.log('!!!');
+    //   } else {
+    //     console.log('???');
+    //   }
+    //
+    //   recipeNameMap.get(popped)!.product.forEach((prod: any) => {});
+    // }
 
     // while(processingQueue.length) {
     //   const popped = processingQueue.shift()!;
