@@ -4,16 +4,19 @@ import FluidStorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/cla
 import ManufacturerMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/manufacturerMachine';
 import SolidStorageMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/solidStorageMachine';
 import Belt from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/belt';
+import Pipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/pipe';
+import PipeAttachmentMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/pipeAttachmentMachine';
 
 export const satisGraphtoryApplicationNodeTypes = [
   ExtractorMachine,
   BeltAttachmentMachine,
+  PipeAttachmentMachine,
   FluidStorageMachine,
   ManufacturerMachine,
   SolidStorageMachine
 ];
 
-export const satisGraphtoryApplicationEdgeTypes = [Belt];
+export const satisGraphtoryApplicationEdgeTypes = [Belt, Pipe];
 
 const satisGraphtoryApplicationSharedTypes = {
   nodes: satisGraphtoryApplicationNodeTypes,
