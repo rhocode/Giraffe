@@ -6,12 +6,12 @@ import { setDataFields } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decor
 import Protoable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/interfaces/protoable';
 import generateEnum from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/generateEnum';
 import ProtoBufable from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/abstract/protoBufable';
-import preprocessor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/preprocessor';
 import ResourcePacket from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/resourcePacket';
 import stripClassName, {
   stripClassNameImpl
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
 import SatisGraphtoryNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/base/satisGraphtoryNode';
+import listItemProcessor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/listItemProcessor';
 
 @generateEnum('name')
 class Recipe extends GqlObject implements Protoable {
@@ -23,9 +23,6 @@ class Recipe extends GqlObject implements Protoable {
   @dataField('ClassName')
   @gqlType('String!')
   @stripClassName
-  @preprocessor((data: any) => {
-    return data;
-  })
   public name: string = '';
 
   @gqlType('String!')
@@ -50,7 +47,7 @@ class Recipe extends GqlObject implements Protoable {
 
   @gqlType('[SatisGraphtoryNodeEnum]')
   @dataField('mProducedIn')
-  @preprocessor((data: any) => {
+  @listItemProcessor((data: any) => {
     const item = data
       .split('.')
       .slice(-1)[0]

@@ -21,6 +21,8 @@ import { bytesToBase64 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourc
 import * as LZUTF8 from 'lzutf8';
 import * as protobuf from 'protobufjs/light';
 import satisGraphtoryApplicationSharedTypes from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/satisGraphtoryApplicationSharedTypes';
+import Pipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/pipe';
+import PipeAttachmentMachine from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/classes/objects/complex/pipeAttachmentMachine';
 
 const parseParameter = (str: string) => {
   return str
@@ -130,6 +132,32 @@ const getRelevantData = (data: any) => {
       relevantData.set('milestones', injectedClasses);
     }
 
+    if (row.NativeClass === "Class'/Script/FactoryGame.FGBuildablePipeline'") {
+      relevantData.set('pipes', injectedClasses);
+    }
+
+    if (
+      row.NativeClass.startsWith(
+        "Class'/Script/FactoryGame.FGBuildablePipelineJunction'"
+      )
+    ) {
+      if (!relevantData.has('pipeAttachments')) {
+        relevantData.set('pipeAttachments', []);
+      }
+      relevantData.get('pipeAttachments')!.push(...injectedClasses);
+    }
+
+    if (
+      row.NativeClass.startsWith(
+        "Class'/Script/FactoryGame.FGBuildablePipelinePump'"
+      )
+    ) {
+      if (!relevantData.has('pipePump')) {
+        relevantData.set('pipePump', []);
+      }
+      relevantData.get('pipePump')!.push(...injectedClasses);
+    }
+
     if (
       row.NativeClass === "Class'/Script/FactoryGame.FGBuildablePipeReservoir'"
     ) {
@@ -215,6 +243,13 @@ const processBeltAttachments = (data: any): BeltAttachmentMachine[] => {
   });
 };
 
+const processPipeAttachments = (data: any): PipeAttachmentMachine[] => {
+  const resources = data.get('pipeAttachments') ?? [];
+  return resources.map((raw: any) => {
+    return new PipeAttachmentMachine(raw);
+  });
+};
+
 const processResources = (data: any): Resource[] => {
   const resources = data.get('resources') ?? [];
   return resources.map((raw: any) => {
@@ -243,11 +278,14 @@ const nodeParser = (data: any) => {
   // Splitters & mergers
   const beltAttachment = processBeltAttachments(data);
 
+  const pipeAttachment = processPipeAttachments(data);
+
   // console.log(data);
 
   return {
     extractorMachine: extractors,
     beltAttachmentMachine: beltAttachment,
+    pipeAttachmentMachine: pipeAttachment,
     ...storage,
     manufacturerMachine: manufacturers
   };
@@ -279,6 +317,14 @@ const beltParser = (data: any) => {
     .sort((a: Belt, b: Belt) => {
       return a.speed - b.speed;
     });
+};
+
+const pipeParser = (data: any) => {
+  const belts = data.get('pipes') ?? [];
+
+  return belts.map((raw: any) => {
+    return new Pipe(raw);
+  });
 };
 
 const extractorRecipeInjector = (
@@ -348,6 +394,8 @@ const dataParser = (data: any) => {
   extractorRecipeInjector(machines.extractorMachine, recipes, resources);
 
   const belts = beltParser(relevantData);
+
+  const pipes = pipeParser(relevantData);
   // console.log('Belts', belts);
 
   const enums = [
@@ -356,7 +404,8 @@ const dataParser = (data: any) => {
     SatisGraphtoryNode,
     Recipe,
     Item,
-    Belt
+    Belt,
+    Pipe
   ];
 
   const dataForms = [
@@ -391,8 +440,6 @@ const dataParser = (data: any) => {
       };
     });
 
-  // console.log('All enums', allEnums);
-
   const wrappedEnums = {
     nested: {
       satisgraphtory: {
@@ -417,13 +464,16 @@ const dataParser = (data: any) => {
   const root = protobuf.Root.fromJSON(wrappedEnums);
   const SGProtoData = root.lookupType('satisgraphtory.SGProtoData');
 
+  console.log(root.lookupType('satisgraphtory.Pipe'));
+
   const protoObj = {
     recipe: recipes,
     resourceForm: resourceForms,
     resource: resources,
     ...machines,
     item: items,
-    belt: belts
+    belt: belts,
+    pipe: pipes
   };
 
   const allEnumsToGql = enums.map(enumToGql).join('\n');
