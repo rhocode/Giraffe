@@ -4,6 +4,21 @@ const blackListedProducerTypes = new Set([
   'Converter'
 ]);
 
+function eqSet(as: any, bs: any) {
+  return as.size === bs.size && all(isIn(bs), as);
+}
+
+function all(pred: any, as: any) {
+  for (let a of as) if (!pred(a)) return false;
+  return true;
+}
+
+function isIn(as: any) {
+  return function(a: any) {
+    return as.has(a);
+  };
+}
+
 export default function bruteForceChainGeneration(data: any) {
   const nameToRecipe: Map<string, any> = new Map();
 
@@ -66,7 +81,7 @@ export default function bruteForceChainGeneration(data: any) {
     ...extractorProducedResources
   ]);
 
-  const target = 'GenericBiomass';
+  const target = 'IronRod';
 
   // const recursivePath = (item: string, currentPath: any) => {
   //
@@ -148,7 +163,23 @@ export default function bruteForceChainGeneration(data: any) {
           );
         })
         .flat(1);
-      console.log(JSON.stringify(choices, null, 2), newPath);
+
+      console.log('CHOICE', choices);
+      // const uniqueChoices = new Map();
+      // choices.forEach((choice: any) => {
+      //   const items = choice.cost.map((cost: any) => cost.item).sort().join(',');
+      //   if (!uniqueChoices.has(items)) {
+      //     uniqueChoices.set(items, []);
+      //   }
+      //
+      //   uniqueChoices.get(items).push(choice);
+      // });
+      // const usedList = [];
+      // uniqueChoices.forEach((entry: any) => {
+      //   // TODO: Don't pick a random path
+      //   usedList.push(entry.pop());
+      // });
+      // console.log(JSON.stringify(choices, null, 2), newPath);
     });
   };
 
