@@ -49,7 +49,8 @@ const generatedTypeDefs = `
     ConveyorAttachmentMerger
     ConveyorAttachmentSplitter
     ConveyorAttachmentSplitterSmart
-    ConveyorAttachmentSplitterProgrammable  
+    ConveyorAttachmentSplitterProgrammable
+    PipelineJunction_Cross  
   }
 
   enum RecipeEnum {
@@ -640,6 +641,11 @@ const generatedTypeDefs = `
     ConveyorBeltMk4  
   }
 
+  enum PipeEnum {
+    InvalidPipe
+    Pipeline  
+  }
+
   type Recipe {
     name: String!
     displayName: String!
@@ -690,6 +696,14 @@ const generatedTypeDefs = `
     enumValue: BeltEnum
   }
 
+  type Pipe {
+    name: String!
+    displayName: String!
+    description: String!
+    flowLimit: Float!
+    enumValue: PipeEnum
+  }
+
   type ExtractorMachine {
     allowedResourceForms: [ResourceForm!]!
     allowedResources: [ItemEnum]
@@ -709,6 +723,16 @@ const generatedTypeDefs = `
   }
 
   type BeltAttachmentMachine {
+    enumValue: SatisGraphtoryNodeEnum
+    name: String!
+    displayName: String!
+    description: String!
+    minPotential: Float!
+    maxPotential: Float!
+    maxPotentialIncreasePerCrystal: Float!
+  }
+
+  type PipeAttachmentMachine {
     enumValue: SatisGraphtoryNodeEnum
     name: String!
     displayName: String!

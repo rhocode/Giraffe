@@ -1,3 +1,5 @@
+import * as math from 'mathjs';
+
 const blackListedProducerTypes = new Set([
   'WorkBenchComponent',
   'BuildGun',
@@ -121,68 +123,79 @@ export default function bruteForceChainGeneration(data: any) {
 
   const visitedRecipes = new Set();
 
+  const resolvedRecipe: any = new Map();
+
   const recursivePath = (
     item: string,
-    currentPath: any,
-    visited: any,
-    visited2: any
+    quantity: number,
+    visitedSet: any = new Set()
   ) => {
     if (coreResources.has(item)) {
-      //TODO: fix item;
-      return [{ cost: [{ qty: 1, item }], path: [] }];
+      //TODO: fix item and do basic math to get the quantity
+      return {
+        recipe: 'BASIC',
+        ingredientMap: null,
+        currentCost: [[{ qty: 1, item }]]
+      };
     }
-
-    const visitedItems = new Set([...visited2, item]);
 
     const possibleRecipes = [...(productsToRecipe.get(item) ?? [])].map(
       item => item.name
     );
-    console.log('>>>', visitedItems);
-    possibleRecipes.forEach((recipe: any) => {
-      if (visited.has(recipe)) {
-        return;
-      }
 
-      console.log('This is a recipe:', recipe);
-      const newVisited = new Set([...visited, recipe]);
-      const newPath = [...currentPath, recipe];
-      const recipeIngredients = nameToRecipe
-        .get(recipe)
-        .ingredients.map((item: any) => item.resource);
-      const choices = recipeIngredients
-        .map((item: any) => {
-          console.log('This is an ingredient:', item);
-          if (visitedItems.has(item)) {
-            return null;
-          }
-          return recursivePath(
-            item,
-            newPath,
-            newVisited,
-            new Set([...visitedItems, item])
+    const choices = possibleRecipes
+      .map((recipe: any) => {
+        if (visitedSet.has(recipe)) {
+          return null;
+        }
+        const amendedVisitedSet = new Set([...visitedSet, recipe]);
+        const recipeIngredients = nameToRecipe
+          .get(recipe)
+          .ingredients.map((item: any) => item.resource);
+
+        const actual = nameToRecipe
+          .get(recipe)
+          .product.filter((prod: any) => prod.resource === item);
+
+        if (actual.length !== 1) {
+          throw new Error(
+            'Something wrong with recipe, it has multiple actual resources'
           );
-        })
-        .flat(1);
+        }
 
-      console.log('CHOICE', choices);
-      // const uniqueChoices = new Map();
-      // choices.forEach((choice: any) => {
-      //   const items = choice.cost.map((cost: any) => cost.item).sort().join(',');
-      //   if (!uniqueChoices.has(items)) {
-      //     uniqueChoices.set(items, []);
-      //   }
-      //
-      //   uniqueChoices.get(items).push(choice);
-      // });
-      // const usedList = [];
-      // uniqueChoices.forEach((entry: any) => {
-      //   // TODO: Don't pick a random path
-      //   usedList.push(entry.pop());
-      // });
-      // console.log(JSON.stringify(choices, null, 2), newPath);
-    });
+        const requiredQuantity = actual[0]!.amount;
+        console.log(requiredQuantity);
+
+        const multiplier = math.fraction(quantity, requiredQuantity);
+        console.log(multiplier);
+
+        let result;
+
+        if (resolvedRecipe.get(recipe) !== undefined) {
+          result = resolvedRecipe.get(recipe);
+        } else {
+          const initialResult = new Map();
+
+          recipeIngredients.forEach((ing: any) => {
+            initialResult.set(ing, recursivePath(ing, 2, amendedVisitedSet));
+          });
+
+          result = {
+            recipe: recipe,
+            currentCost: [[{ qty: 1, item }]],
+            ingredientMap: initialResult
+          };
+
+          resolvedRecipe.set(recipe, result);
+        }
+
+        return resolvedRecipe.get(recipe)!;
+      })
+      .filter((item: any) => item !== null);
+
+    return choices[0];
   };
 
-  const path: any = [];
-  recursivePath(target, path, visitedRecipes, new Set());
+  const choiceMap = recursivePath(target, 1);
+  console.log(choiceMap);
 }

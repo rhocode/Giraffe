@@ -8,31 +8,38 @@ import {
   shouldStripClassName,
   stripClassNameImpl
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/stripClassName';
+import { shouldPreprocessListItem } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/decorators/listItemProcessor';
 
-const parseList = (list: string) => {
+const parseList = (list: any) => {
   if (list === '') {
     return JSON.parse('[]');
   }
-  let parsedList = list.replace(/\(/g, '[');
-  parsedList = parsedList.replace(/\)\s/g, '], ');
-  parsedList = parsedList.replace(/\)/g, ']');
-  parsedList = parsedList.replace(/\s+/, ', ');
-  parsedList = parsedList.replace(/" /g, '", ');
-  parsedList = parsedList.replace(/"/g, '\\"');
-  parsedList = parsedList.replace(/([a-zA-Z0-9-_=/'\\".]+)/g, '"$1"');
-
-  return JSON.parse(parsedList);
+  let parsedList;
+  if (typeof list === 'string') {
+    parsedList = list.replace(/\(/g, '[');
+    parsedList = parsedList.replace(/\)\s/g, '], ');
+    parsedList = parsedList.replace(/\)/g, ']');
+    parsedList = parsedList.replace(/\s+/, ', ');
+    parsedList = parsedList.replace(/" /g, '", ');
+    parsedList = parsedList.replace(/"/g, '\\"');
+    parsedList = parsedList.replace(/([a-zA-Z0-9-_=/'\\".]+)/g, '"$1"');
+    return JSON.parse(parsedList);
+  } else {
+    return list;
+  }
 };
 const parseRecursive = (
   str: string,
   fieldType: string,
   rmClassName: boolean,
-  shouldPreProcess: Function
+  shouldPreProcess: Function,
+  shouldPreProcessListItem: Function
 ) => {
+  const processedList = shouldPreProcess(str);
   return [
     ...new Set(
-      parseList(str).map((input: string) =>
-        parseSingle(input, fieldType, rmClassName, shouldPreProcess)
+      parseList(processedList).map((input: string) =>
+        parseSingle(input, fieldType, rmClassName, shouldPreProcessListItem)
       )
     )
   ];
@@ -42,11 +49,11 @@ const parseSingle = (
   str: string,
   fieldType: string,
   rmClassName: boolean,
-  shouldPreProcess: Function
+  shouldPreProcessListItem: Function
 ) => {
   let dataRaw: any = str;
 
-  dataRaw = shouldPreProcess(dataRaw);
+  dataRaw = shouldPreProcessListItem(dataRaw);
 
   // if (typeof dataRaw === 'string' && dataRaw.length > 20) {
   //   console.error(dataRaw);
@@ -109,7 +116,10 @@ function marshal(
   const stripClassName =
     shouldStripClassName.get(className) ?? new Map<string, boolean>();
 
-  const preProcess =
+  const preProcessItem =
+    shouldPreprocessListItem.get(className) ?? new Map<string, Function>();
+
+  const preProcessData =
     shouldPreprocess.get(className) ?? new Map<string, Function>();
 
   [...fields.entries()].forEach(
@@ -119,7 +129,13 @@ function marshal(
       const fieldType = (typeFields.get(fieldName) ?? '').replace(/!/g, '');
       const rmClassName = stripClassName.get(fieldName) ?? false;
       const shouldPreProcess =
-        preProcess.get(fieldName) ??
+        preProcessData.get(fieldName) ??
+        function(a: any): any {
+          return a;
+        };
+
+      const shouldPreProcessListItem =
+        preProcessItem.get(fieldName) ??
         function(a: string): string {
           return a;
         };
@@ -131,14 +147,15 @@ function marshal(
           dataRaw,
           fieldType,
           rmClassName,
-          shouldPreProcess
+          shouldPreProcess,
+          shouldPreProcessListItem
         );
       } else {
         dataRaw = parseSingle(
           dataRaw,
           fieldType,
           rmClassName,
-          shouldPreProcess
+          shouldPreProcessListItem
         );
       }
 

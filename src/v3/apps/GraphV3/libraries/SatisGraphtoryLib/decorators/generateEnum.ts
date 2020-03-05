@@ -150,6 +150,7 @@ export default function generateEnum(
 
       constructor(...args: any[]) {
         super(...args);
+
         this.__internalClass = classNameRaw;
         const property = this[fieldName];
         if (property !== undefined) {

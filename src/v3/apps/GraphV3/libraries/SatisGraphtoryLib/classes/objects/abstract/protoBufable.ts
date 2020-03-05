@@ -23,7 +23,8 @@ const whitelistedEntries = [
   'RecipeEnum',
   'ItemEnum',
   'BeltEnum',
-  'Item'
+  'Item',
+  'PipeEnum'
 ];
 
 const processString = (input: string): object => {
@@ -33,7 +34,6 @@ const processString = (input: string): object => {
   while (parts.length > 0) {
     const element = parts.pop();
     if (element === '!') {
-      continue;
     } else if (element === ']') {
       parts.shift();
       repeated = true;
@@ -55,7 +55,9 @@ const processString = (input: string): object => {
           break;
         default:
           if (!whitelistedEntries.includes(together))
-            throw new Error(`Unknown type: ${together}`);
+            throw new Error(
+              `Type not whitelisted: ${together}, validate if this is intentional.`
+            );
           else {
             item = together;
           }

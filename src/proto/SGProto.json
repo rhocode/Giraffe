@@ -29,30 +29,40 @@
               "rule": "repeated",
               "id": 5
             },
+            "pipe": {
+              "type": "Pipe",
+              "rule": "repeated",
+              "id": 6
+            },
             "extractorMachine": {
               "type": "ExtractorMachine",
               "rule": "repeated",
-              "id": 6
+              "id": 7
             },
             "beltAttachmentMachine": {
               "type": "BeltAttachmentMachine",
               "rule": "repeated",
-              "id": 7
+              "id": 8
+            },
+            "pipeAttachmentMachine": {
+              "type": "PipeAttachmentMachine",
+              "rule": "repeated",
+              "id": 9
             },
             "fluidStorageMachine": {
               "type": "FluidStorageMachine",
               "rule": "repeated",
-              "id": 8
+              "id": 10
             },
             "manufacturerMachine": {
               "type": "ManufacturerMachine",
               "rule": "repeated",
-              "id": 9
+              "id": 11
             },
             "solidStorageMachine": {
               "type": "SolidStorageMachine",
               "rule": "repeated",
-              "id": 10
+              "id": 12
             }
           }
         },
@@ -108,7 +118,8 @@
             "ConveyorAttachmentMerger": 19,
             "ConveyorAttachmentSplitter": 20,
             "ConveyorAttachmentSplitterSmart": 21,
-            "ConveyorAttachmentSplitterProgrammable": 22
+            "ConveyorAttachmentSplitterProgrammable": 22,
+            "PipelineJunction_Cross": 23
           }
         },
         "RecipeEnum": {
@@ -702,6 +713,12 @@
             "ConveyorBeltMk4": 5
           }
         },
+        "PipeEnum": {
+          "values": {
+            "InvalidPipe": 0,
+            "Pipeline": 1
+          }
+        },
         "Recipe": {
           "fields": {
             "name": {
@@ -857,6 +874,30 @@
             }
           }
         },
+        "Pipe": {
+          "fields": {
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "displayName": {
+              "type": "string",
+              "id": 2
+            },
+            "description": {
+              "type": "string",
+              "id": 3
+            },
+            "flowLimit": {
+              "type": "float",
+              "id": 4
+            },
+            "enumValue": {
+              "type": "PipeEnum",
+              "id": 5
+            }
+          }
+        },
         "ExtractorMachine": {
           "fields": {
             "allowedResourceForms": {
@@ -924,6 +965,38 @@
           }
         },
         "BeltAttachmentMachine": {
+          "fields": {
+            "enumValue": {
+              "type": "SatisGraphtoryNodeEnum",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "displayName": {
+              "type": "string",
+              "id": 3
+            },
+            "description": {
+              "type": "string",
+              "id": 4
+            },
+            "minPotential": {
+              "type": "float",
+              "id": 5
+            },
+            "maxPotential": {
+              "type": "float",
+              "id": 6
+            },
+            "maxPotentialIncreasePerCrystal": {
+              "type": "float",
+              "id": 7
+            }
+          }
+        },
+        "PipeAttachmentMachine": {
           "fields": {
             "enumValue": {
               "type": "SatisGraphtoryNodeEnum",
