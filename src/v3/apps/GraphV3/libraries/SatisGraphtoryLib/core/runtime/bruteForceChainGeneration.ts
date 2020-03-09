@@ -6,23 +6,6 @@ const blackListedProducerTypes = new Set([
   'Converter'
 ]);
 
-function eqSet(as: any, bs: any) {
-  return as.size === bs.size && all(isIn(bs), as);
-}
-
-console.log(eqSet);
-
-function all(pred: any, as: any) {
-  for (let a of as) if (!pred(a)) return false;
-  return true;
-}
-
-function isIn(as: any) {
-  return function(a: any) {
-    return as.has(a);
-  };
-}
-
 function calculateDuplicates(matrix: any) {
   const sortedMatrix: any = {};
   matrix.forEach((element: any) => {
@@ -40,10 +23,8 @@ function calculateDuplicates(matrix: any) {
         fetchedMatrices.filter((possibleCostMatrix: any) => {
           const isLess: any[] = [];
           possibleCostMatrix.cost.forEach((value: any, key: string) => {
-            isLess.push(math.smaller(recipeToCheck.get(key), value));
+            isLess.push(math.smallerEq(recipeToCheck.get(key), value));
           });
-
-          console.log(isLess);
 
           return isLess.every((bool: boolean) => bool);
         })
@@ -123,213 +104,45 @@ export default function bruteForceChainGeneration(data: any) {
     ...extractorProducedResources
   ]);
 
-  const target = 'Wire';
-
-  const resolvedRecipe: any = new Map();
+  const target = 'SpaceElevatorPart_5';
 
   const cache: any = {};
   const recipeCache: any = {};
 
-  const recursivePathGenerator = (target: string, rate: any) => {
-    if (cache[target] === undefined) {
-      const resolvePath = (
-        target: string,
-        rate: any,
-        visitedSet: any = new Set()
-      ): any[] => {
-        if (coreResources.has(target)) {
-          const recipe = target;
-          return [
-            {
-              name: recipe,
-              recipes: [recipe],
-              paths: [[]],
-              cost: new Map([[target, rate]])
-            }
-          ];
-        } else {
-          const possibleRecipes = [...(productsToRecipe.get(target) ?? [])].map(
-            item => item.name
-          );
-
-          const choices = possibleRecipes
-            .filter((item: any) => !visitedSet.has(item))
-            .map((recipe: any) => {
-              if (recipeCache[recipe] === undefined) {
-                const amendedVisitedSet = new Set([...visitedSet, recipe]);
-
-                const fetchedRecipe = nameToRecipe.get(recipe);
-                const recipeIngredients = fetchedRecipe.ingredients;
-                const duration = fetchedRecipe.manufacturingDuration;
-
-                const actual = nameToRecipe
-                  .get(recipe)
-                  .product.filter((prod: any) => prod.resource === target);
-
-                if (actual.length !== 1) {
-                  throw new Error(
-                    'Something wrong with recipe, it has multiple actual resources'
-                  );
-                }
-
-                const requiredQuantity = actual[0]!.amount;
-
-                let requestedRate = rate;
-                if (typeof rate === 'number') {
-                  requestedRate = math.fraction(rate, 1);
-                }
-
-                const adjustedRecipeOutputQuantity = math.divide(
-                  requiredQuantity,
-                  duration
-                );
-
-                let multiplier = math.divide(
-                  requestedRate,
-                  adjustedRecipeOutputQuantity
-                );
-
-                const initialResult = new Map();
-
-                recipeIngredients.forEach((ing: any) => {
-                  const recipeRate = math.fraction(ing.amount, duration);
-                  initialResult.set(
-                    ing.resource,
-                    resolvePath(
-                      ing.resource,
-                      math.multiply(multiplier, recipeRate),
-                      amendedVisitedSet
-                    )
-                  );
-                });
-
-                let matrix: any = [];
-
-                // For each resource there is N ways to make it.
-                initialResult.forEach(
-                  (resourceCosts: any, resourceName: string) => {
-                    if (matrix.length === 0) {
-                      resourceCosts.forEach((constituent: any) => {
-                        matrix.push({
-                          name: recipe,
-                          recipes: [constituent.name],
-                          paths: [constituent.recipes],
-                          cost: constituent.cost
-                        });
-                      });
-                    } else {
-                      let newMatrix: any = [];
-                      resourceCosts.forEach((constituent: any) => {
-                        matrix.forEach((matrixElement: any) => {
-                          const newRecipes = [
-                            ...matrixElement.recipes,
-                            constituent.name
-                          ];
-                          const newPaths = [
-                            ...matrixElement.paths,
-                            constituent.recipes
-                          ];
-                          const totalNewCost = new Map();
-                          matrixElement.cost.forEach(
-                            (value: any, key: string) => {
-                              totalNewCost.set(key, value);
-                            }
-                          );
-
-                          constituent.cost.forEach(
-                            (value: any, key: string) => {
-                              const fetchedConstCost = totalNewCost.get(key);
-                              if (fetchedConstCost === undefined) {
-                                totalNewCost.set(key, value);
-                              } else {
-                                const newCost = math.add(
-                                  fetchedConstCost,
-                                  value
-                                );
-                                totalNewCost.set(key, newCost);
-                              }
-                            }
-                          );
-
-                          newMatrix.push({
-                            name: matrixElement.name,
-                            recipes: newRecipes,
-                            paths: newPaths,
-                            cost: totalNewCost
-                          });
-                        });
-                      });
-
-                      matrix = newMatrix;
-                    }
-                  }
-                );
-
-                recipeCache[recipe] = calculateDuplicates(matrix);
-              }
-              return recipeCache[recipe];
-            })
-            .flat(1)
-            .filter((item: any) => item !== null);
-          return calculateDuplicates(choices);
-        }
-      };
-      cache[target] = resolvePath(target, rate);
-    }
-
-    return cache[target];
-  };
-
-  const choiceMap = recursivePathGenerator(target, 1);
-  console.log(
-    choiceMap.map((item: any) => {
-      const ret = [];
-      for (let entry of item.cost) {
-        ret.push([entry[0], entry[1].n / entry[1].d]);
-      }
-      return ret;
-    })
-  );
-
-  const recursivePath = (
-    item: string,
-    ratePerSecond: any,
+  const resolvePath = (
+    target: string,
+    rate: any,
     visitedSet: any = new Set()
-  ) => {
-    if (cache[item] !== undefined) {
-      if (item === 'OreIron') {
-        throw new Error('Q#KNQK@#@Q');
-      }
-      return cache[item];
-    } else {
-      const resolveCacheValue = (
-        item: string,
-        ratePerSecond: any,
-        visitedSet: any = new Set()
-      ) => {
-        if (coreResources.has(item)) {
-          //TODO: fix item and do basic math to get the quantity
-          const recipe = item;
-          return [
-            {
-              name: recipe,
-              recipes: [recipe],
-              paths: [[]],
-              cost: new Map([[item, ratePerSecond]])
-            }
-          ];
+  ): any => {
+    console.log('VALLED WITH', target, rate, visitedSet);
+    if (cache[target]) {
+      return cache[target];
+    }
+    if (coreResources.has(target)) {
+      const recipe = target;
+      const retVal = [
+        {
+          name: recipe,
+          recipes: [recipe],
+          paths: [[]],
+          cost: new Map([[target, rate]])
         }
+      ];
+      cache[target] = retVal;
+      return retVal;
+    } else {
+      const possibleRecipes = [...(productsToRecipe.get(target) ?? [])].map(
+        item => item.name
+      );
 
-        const possibleRecipes = [...(productsToRecipe.get(item) ?? [])].map(
-          item => item.name
-        );
-
-        return possibleRecipes
-          .map((recipe: any) => {
-            if (visitedSet.has(recipe)) {
-              return null;
-            }
-            const amendedVisitedSet = new Set([...visitedSet, recipe]);
+      const choices = possibleRecipes
+        .filter((item: any) => !visitedSet.has(item))
+        .map((recipe: any) => {
+          if (recipeCache[recipe] === undefined) {
+            const amendedVisitedSet = new Set([
+              ...visitedSet,
+              ...possibleRecipes
+            ]);
 
             const fetchedRecipe = nameToRecipe.get(recipe);
             const recipeIngredients = fetchedRecipe.ingredients;
@@ -337,7 +150,16 @@ export default function bruteForceChainGeneration(data: any) {
 
             const actual = nameToRecipe
               .get(recipe)
-              .product.filter((prod: any) => prod.resource === item);
+              .product.filter((prod: any) => prod.resource === target);
+
+            const ingredientSet = new Set(
+              nameToRecipe
+                .get(recipe)
+                .ingredients.map((prod: any) => prod.resource)
+            );
+            const productSet = new Set(
+              nameToRecipe.get(recipe).product.map((prod: any) => prod.resource)
+            );
 
             if (actual.length !== 1) {
               throw new Error(
@@ -347,9 +169,9 @@ export default function bruteForceChainGeneration(data: any) {
 
             const requiredQuantity = actual[0]!.amount;
 
-            let requestedRate = ratePerSecond;
-            if (typeof ratePerSecond === 'number') {
-              requestedRate = math.fraction(ratePerSecond, 1);
+            let requestedRate = rate;
+            if (typeof rate === 'number') {
+              requestedRate = math.fraction(rate, 1);
             }
 
             const adjustedRecipeOutputQuantity = math.divide(
@@ -361,96 +183,112 @@ export default function bruteForceChainGeneration(data: any) {
               requestedRate,
               adjustedRecipeOutputQuantity
             );
-            let result;
 
-            if (resolvedRecipe.get(recipe) !== undefined) {
-              result = resolvedRecipe.get(recipe);
-            } else {
-              const initialResult = new Map();
+            const initialResult = new Map();
 
-              recipeIngredients.forEach((ing: any) => {
-                const recipeRate = math.fraction(ing.amount, duration);
-                initialResult.set(
-                  ing.resource,
-                  recursivePath(
-                    ing.resource,
-                    math.multiply(multiplier, recipeRate),
-                    amendedVisitedSet
-                  )
-                );
-              });
-
-              let matrix: any = [];
-
-              console.log(recipe, nameToRecipe.get(recipe));
-              console.log(initialResult);
-              // For each resource there is N ways to make it.
-              initialResult.forEach(
-                (resourceCosts: any, resourceName: string) => {
-                  if (matrix.length === 0) {
-                    resourceCosts.forEach((constituent: any) => {
-                      matrix.push({
-                        name: recipe,
-                        recipes: [constituent.name],
-                        paths: constituent.paths,
-                        cost: constituent.cost
-                      });
-                    });
-                  } else {
-                    let newMatrix: any = [];
-                    resourceCosts.forEach((constituent: any) => {
-                      matrix.forEach((matrixElement: any) => {
-                        const newRecipes = [
-                          ...constituent.recipes,
-                          ...matrixElement.recipes
-                        ];
-                        const newPaths = [
-                          ...constituent.paths,
-                          ...matrixElement.paths
-                        ];
-                        const totalNewCost = new Map();
-                        matrixElement.cost.forEach(
-                          (value: any, key: string) => {
-                            totalNewCost.set(key, value);
-                          }
-                        );
-
-                        constituent.cost.forEach((value: any, key: string) => {
-                          const fetchedConstCost = totalNewCost.get(key);
-                          if (fetchedConstCost === undefined) {
-                            totalNewCost.set(key, value);
-                          } else {
-                            const newCost = math.add(fetchedConstCost, value);
-                            totalNewCost.set(key, newCost);
-                          }
-                        });
-
-                        newMatrix.push({
-                          name: matrixElement.name,
-                          recipes: newRecipes,
-                          paths: newPaths,
-                          cost: totalNewCost
-                        });
-                      });
-                    });
-
-                    matrix = newMatrix;
-                  }
-                }
+            let anyIsNull = false;
+            recipeIngredients.forEach((ing: any) => {
+              const recipeRate = math.fraction(ing.amount, duration);
+              const pathResolver = resolvePath(
+                ing.resource,
+                math.multiply(multiplier, recipeRate),
+                amendedVisitedSet
               );
+              if (pathResolver === null) {
+                anyIsNull = true;
+              }
+              initialResult.set(ing.resource, pathResolver);
+            });
 
-              result = matrix;
-
-              resolvedRecipe.set(recipe, result);
+            if (anyIsNull) {
+              return null;
             }
 
-            return result;
-          })
-          .filter((item: any) => item !== null)
-          .flat(1);
-      };
-      cache[item] = resolveCacheValue(item, ratePerSecond, visitedSet);
-      console.log(cache[item]);
+            let matrix: any = [];
+
+            // For each resource there is N ways to make it.
+            initialResult.forEach(
+              (resourceCosts: any, resourceName: string) => {
+                if (matrix.length === 0) {
+                  resourceCosts.forEach((constituent: any) => {
+                    matrix.push({
+                      name: recipe,
+                      recipes: [constituent.name],
+                      paths: [constituent.recipes],
+                      cost: constituent.cost
+                    });
+                  });
+                } else {
+                  let newMatrix: any = [];
+                  resourceCosts.forEach((constituent: any) => {
+                    matrix.forEach((matrixElement: any) => {
+                      const newRecipes = [
+                        ...matrixElement.recipes,
+                        constituent.name
+                      ];
+                      const newPaths = [
+                        ...matrixElement.paths,
+                        constituent.recipes
+                      ];
+                      const totalNewCost = new Map();
+                      matrixElement.cost.forEach((value: any, key: string) => {
+                        totalNewCost.set(key, value);
+                      });
+
+                      constituent.cost.forEach((value: any, key: string) => {
+                        const fetchedConstCost = totalNewCost.get(key);
+                        if (fetchedConstCost === undefined) {
+                          totalNewCost.set(key, value);
+                        } else {
+                          const newCost = math.add(fetchedConstCost, value);
+                          totalNewCost.set(key, newCost);
+                        }
+                      });
+
+                      newMatrix.push({
+                        name: matrixElement.name,
+                        recipes: newRecipes,
+                        paths: newPaths,
+                        cost: totalNewCost
+                      });
+                    });
+                  });
+
+                  matrix = newMatrix;
+                }
+              }
+            );
+
+            recipeCache[recipe] = calculateDuplicates(matrix);
+          }
+          return recipeCache[recipe];
+        })
+        .flat(1)
+        .filter((item: any) => item !== null);
+
+      if (choices.length === 0) {
+        return null;
+      }
+
+      let intermediate = calculateDuplicates(choices);
+      if (intermediate.length > 10) {
+        intermediate = [intermediate[0]];
+      }
+      const retVal = intermediate;
+      cache[target] = retVal;
+      return retVal;
     }
   };
+
+  const choiceMap = resolvePath(target, 1);
+  console.log(choiceMap);
+  console.log(
+    choiceMap.map((item: any) => {
+      const ret = [];
+      for (let entry of item.cost) {
+        ret.push([entry[0], entry[1].n / entry[1].d]);
+      }
+      return ret;
+    })
+  );
 }
