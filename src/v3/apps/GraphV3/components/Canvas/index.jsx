@@ -1,9 +1,7 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from '../../../../../common/react/AutoSizedLoadingWrapper';
-import { graphAppStore } from '../../stores/graphAppStore';
-import { useStoreState } from 'pullstate';
-
-import deserialize from '../../libraries/SatisGraphtoryLib/algorithms/serialization/deserialize';
+// import { graphAppStore } from '../../stores/graphAppStore';
+// import { useStoreState } from 'pullstate';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -25,10 +23,10 @@ const LoadableComponent = props => {
 };
 
 function Canvas(props) {
-  const initialLoadedData = useStoreState(
-    graphAppStore,
-    s => s.initialLoadedData
-  );
+  // const initialLoadedData = useStoreState(
+  //   graphAppStore,
+  //   s => s.initialLoadedData
+  // );
 
   // useEffect(() => {
   //   if (initialLoadedData === null) {
