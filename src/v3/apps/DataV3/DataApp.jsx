@@ -13,11 +13,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     height: '100%',
     width: '100%',
-    color: theme.palette.primary.main,
+    // color: theme.palette.primary.main,
     display: 'grid',
     gridTemplateColumns: 'auto 1fr',
     gridTemplateRows: 'auto',
-    gridTemplateAreas: `'sidebar main'`
+    gridTemplateAreas: `'sidebar main'`,
+    color: 'white'
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -30,12 +31,20 @@ const useStyles = makeStyles(theme => ({
 
 function DataApp() {
   const classes = useStyles();
-
+  const [counter, setCounter] = React.useState(1);
   React.useEffect(() => {
     // dataParser(item);
     //
     initRuntime();
   }, []);
+
+  React.useEffect(() => {
+    if (counter < 1000) {
+      setTimeout(() => {
+        setCounter(counter + 1);
+      }, 10);
+    }
+  }, [counter]);
 
   // console.log('@@#fff@');
   // const client = gqlClient();
@@ -47,7 +56,7 @@ function DataApp() {
   //     console.log(response);
   //   });
 
-  return <div className={classes.root} />;
+  return <div className={classes.root}>{counter}</div>;
 }
 
 export default DataApp;
