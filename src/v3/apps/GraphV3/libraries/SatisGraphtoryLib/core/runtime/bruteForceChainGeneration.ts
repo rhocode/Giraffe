@@ -34,8 +34,6 @@ function calculateDuplicates(matrix: any) {
           ...fetchedMatrices.filter((item: any) => !replacedMatrices.has(item)),
           element
         ];
-      } else {
-        sortedMatrix[joinedName] = [...fetchedMatrices, element];
       }
     } else {
       sortedMatrix[joinedName] = [element];
@@ -44,6 +42,10 @@ function calculateDuplicates(matrix: any) {
 
   return Object.values(sortedMatrix).flat(1);
 }
+
+const getBestCandidate = (a: any[]): any => {
+  return [a[0]];
+};
 
 export default function bruteForceChainGeneration(data: any) {
   const nameToRecipe: Map<string, any> = new Map();
@@ -114,7 +116,6 @@ export default function bruteForceChainGeneration(data: any) {
     rate: any,
     visitedSet: any = new Set()
   ): any => {
-    console.log('VALLED WITH', target, rate, visitedSet);
     if (cache[target]) {
       return cache[target];
     }
@@ -124,7 +125,6 @@ export default function bruteForceChainGeneration(data: any) {
         {
           name: recipe,
           recipes: [recipe],
-          paths: [[]],
           cost: new Map([[target, rate]])
         }
       ];
@@ -151,15 +151,6 @@ export default function bruteForceChainGeneration(data: any) {
             const actual = nameToRecipe
               .get(recipe)
               .product.filter((prod: any) => prod.resource === target);
-
-            const ingredientSet = new Set(
-              nameToRecipe
-                .get(recipe)
-                .ingredients.map((prod: any) => prod.resource)
-            );
-            const productSet = new Set(
-              nameToRecipe.get(recipe).product.map((prod: any) => prod.resource)
-            );
 
             if (actual.length !== 1) {
               throw new Error(
@@ -213,8 +204,8 @@ export default function bruteForceChainGeneration(data: any) {
                   resourceCosts.forEach((constituent: any) => {
                     matrix.push({
                       name: recipe,
-                      recipes: [constituent.name],
-                      paths: [constituent.recipes],
+                      recipes: [constituent.name, constituent.recipes],
+                      paths: [],
                       cost: constituent.cost
                     });
                   });
@@ -222,12 +213,11 @@ export default function bruteForceChainGeneration(data: any) {
                   let newMatrix: any = [];
                   resourceCosts.forEach((constituent: any) => {
                     matrix.forEach((matrixElement: any) => {
+                      const len = matrixElement.recipes.length / 2;
                       const newRecipes = [
-                        ...matrixElement.recipes,
-                        constituent.name
-                      ];
-                      const newPaths = [
-                        ...matrixElement.paths,
+                        ...matrixElement.recipes.slice(0, len),
+                        constituent.name,
+                        ...matrixElement.recipes.slice(len),
                         constituent.recipes
                       ];
                       const totalNewCost = new Map();
@@ -248,7 +238,6 @@ export default function bruteForceChainGeneration(data: any) {
                       newMatrix.push({
                         name: matrixElement.name,
                         recipes: newRecipes,
-                        paths: newPaths,
                         cost: totalNewCost
                       });
                     });
@@ -271,8 +260,8 @@ export default function bruteForceChainGeneration(data: any) {
       }
 
       let intermediate = calculateDuplicates(choices);
-      if (intermediate.length > 10) {
-        intermediate = [intermediate[0]];
+      if (intermediate.length > 20) {
+        intermediate = getBestCandidate(intermediate);
       }
       const retVal = intermediate;
       cache[target] = retVal;
@@ -281,7 +270,6 @@ export default function bruteForceChainGeneration(data: any) {
   };
 
   const choiceMap = resolvePath(target, 1);
-  console.log(choiceMap);
   console.log(
     choiceMap.map((item: any) => {
       const ret = [];
