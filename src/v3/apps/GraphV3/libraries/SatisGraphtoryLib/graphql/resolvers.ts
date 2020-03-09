@@ -1,7 +1,7 @@
-import memoizedProtoSpecLoader from 'v3/utils/protoUtils';
-import { getLatestSchemaName } from 'apps/Graph/libraries/SGLib/utils/getLatestSchema';
+// import memoizedProtoSpecLoader from 'v3/utils/protoUtils';
+// import { getLatestSchemaName } from 'apps/Graph/libraries/SGLib/utils/getLatestSchema';
 
-const latestSchema = memoizedProtoSpecLoader(getLatestSchemaName());
+// const latestSchema = memoizedProtoSpecLoader(getLatestSchemaName());
 
 const resolvers = {
   Query: {

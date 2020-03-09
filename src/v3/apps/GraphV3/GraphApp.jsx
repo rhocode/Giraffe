@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Helmet } from 'react-helmet-async';
 
 import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
-import { graphAppStore } from './stores/graphAppStore';
+// import { graphAppStore } from './stores/graphAppStore';
 import NavBar from './components/NavBar';
 import Canvas from './components/Canvas';
 import ActionBar from './components/ActionBar';
