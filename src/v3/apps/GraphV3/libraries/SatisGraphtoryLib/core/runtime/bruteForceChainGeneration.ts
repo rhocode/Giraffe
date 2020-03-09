@@ -40,7 +40,39 @@ function calculateDuplicates(matrix: any) {
     }
   });
 
-  return Object.values(sortedMatrix).flat(1);
+  const newMatrix = Object.values(sortedMatrix).flat(1);
+  const blackListedElements: any = new Set();
+  newMatrix.forEach((element1: any) => {
+    newMatrix.forEach((element2: any) => {
+      if (element1 === element2) return;
+      const allNames1: any = [];
+      element1.cost.forEach((value: any, key: string) => {
+        allNames1.push(key);
+      });
+      const allNames2: any = new Set();
+      element2.cost.forEach((value: any, key: string) => {
+        allNames2.add(key);
+      });
+
+      const isSubSet = allNames1.every((val: any) => allNames2.has(val));
+      if (isSubSet) {
+        const recipeToCheck = element1.cost;
+
+        const isLess: any[] = [];
+        element1.cost.forEach((value: any, key: string) => {
+          isLess.push(math.smallerEq(recipeToCheck.get(key), value));
+        });
+
+        const shouldReplaceWithSubset = isLess.every((bool: boolean) => bool);
+
+        if (shouldReplaceWithSubset) {
+          blackListedElements.add(element2);
+        }
+      }
+    });
+  });
+
+  return newMatrix.filter((item: any) => !blackListedElements.has(item));
 }
 
 const getBestCandidate = (a: any[]): any => {
@@ -261,7 +293,7 @@ export default function bruteForceChainGeneration(data: any) {
 
       let intermediate = calculateDuplicates(choices);
       if (intermediate.length > 20) {
-        intermediate = getBestCandidate(intermediate);
+        // intermediate = getBestCandidate(intermediate);
       }
       const retVal = intermediate;
       cache[target] = retVal;
@@ -270,6 +302,7 @@ export default function bruteForceChainGeneration(data: any) {
   };
 
   const choiceMap = resolvePath(target, 1);
+  console.log(choiceMap);
   console.log(
     choiceMap.map((item: any) => {
       const ret = [];
