@@ -56,11 +56,11 @@ function calculateDuplicates(matrix: any) {
 
       const isSubSet = allNames1.every((val: any) => allNames2.has(val));
       if (isSubSet) {
-        const recipeToCheck = element1.cost;
+        const recipeToCheck = element2.cost;
 
         const isLess: any[] = [];
         element1.cost.forEach((value: any, key: string) => {
-          isLess.push(math.smallerEq(recipeToCheck.get(key), value));
+          isLess.push(math.smallerEq(value, recipeToCheck.get(key)));
         });
 
         const shouldReplaceWithSubset = isLess.every((bool: boolean) => bool);
@@ -76,10 +76,13 @@ function calculateDuplicates(matrix: any) {
 }
 
 const getBestCandidate = (a: any[]): any => {
-  return [a[0]];
+  // if (a.length > 10) {
+  //   return [a[0]];
+  // }
+  return a;
 };
 
-export default function bruteForceChainGeneration(data: any) {
+export function bruteForceChainGeneration(data: any) {
   const nameToRecipe: Map<string, any> = new Map();
 
   const allProducts: Set<string> = new Set();
@@ -148,15 +151,16 @@ export default function bruteForceChainGeneration(data: any) {
     rate: any,
     visitedSet: any = new Set()
   ): any => {
-    if (cache[target]) {
-      return cache[target];
-    }
+    // if (cache[target]) {
+    //   return cache[target];
+    // }
     if (coreResources.has(target)) {
       const recipe = target;
       const retVal = [
         {
           name: recipe,
           recipes: [recipe],
+          rates: [1],
           cost: new Map([[target, rate]])
         }
       ];
@@ -170,7 +174,7 @@ export default function bruteForceChainGeneration(data: any) {
       const choices = possibleRecipes
         .filter((item: any) => !visitedSet.has(item))
         .map((recipe: any) => {
-          if (recipeCache[recipe] === undefined) {
+          if (recipeCache[recipe] === undefined || true) {
             const amendedVisitedSet = new Set([
               ...visitedSet,
               ...possibleRecipes
@@ -202,6 +206,8 @@ export default function bruteForceChainGeneration(data: any) {
               duration
             );
 
+            // console.log("The rate for ", recipe, "is", requiredQuantity, duration, adjustedRecipeOutputQuantity);
+
             let multiplier = math.divide(
               requestedRate,
               adjustedRecipeOutputQuantity
@@ -212,6 +218,7 @@ export default function bruteForceChainGeneration(data: any) {
             let anyIsNull = false;
             recipeIngredients.forEach((ing: any) => {
               const recipeRate = math.fraction(ing.amount, duration);
+
               const pathResolver = resolvePath(
                 ing.resource,
                 math.multiply(multiplier, recipeRate),
@@ -237,7 +244,7 @@ export default function bruteForceChainGeneration(data: any) {
                     matrix.push({
                       name: recipe,
                       recipes: [constituent.name, constituent.recipes],
-                      paths: [],
+                      rates: [multiplier, constituent.rates],
                       cost: constituent.cost
                     });
                   });
@@ -251,6 +258,12 @@ export default function bruteForceChainGeneration(data: any) {
                         constituent.name,
                         ...matrixElement.recipes.slice(len),
                         constituent.recipes
+                      ];
+                      const newRates = [
+                        ...matrixElement.rates.slice(0, len),
+                        multiplier,
+                        ...matrixElement.rates.slice(len),
+                        constituent.rates
                       ];
                       const totalNewCost = new Map();
                       matrixElement.cost.forEach((value: any, key: string) => {
@@ -270,7 +283,8 @@ export default function bruteForceChainGeneration(data: any) {
                       newMatrix.push({
                         name: matrixElement.name,
                         recipes: newRecipes,
-                        cost: totalNewCost
+                        cost: totalNewCost,
+                        rates: newRates
                       });
                     });
                   });
@@ -292,9 +306,8 @@ export default function bruteForceChainGeneration(data: any) {
       }
 
       let intermediate = calculateDuplicates(choices);
-      if (intermediate.length > 20) {
-        // intermediate = getBestCandidate(intermediate);
-      }
+      intermediate = getBestCandidate(intermediate);
+
       const retVal = intermediate;
       cache[target] = retVal;
       return retVal;
@@ -302,14 +315,15 @@ export default function bruteForceChainGeneration(data: any) {
   };
 
   const choiceMap = resolvePath(target, 1);
-  console.log(choiceMap);
-  console.log(
-    choiceMap.map((item: any) => {
-      const ret = [];
-      for (let entry of item.cost) {
-        ret.push([entry[0], entry[1].n / entry[1].d]);
-      }
-      return ret;
-    })
-  );
+  // console.log(choiceMap);
+  // console.log(
+  //   choiceMap.map((item: any) => {
+  //     const ret = [];
+  //     for (let entry of item.cost) {
+  //       ret.push([entry[0], entry[1].n / entry[1].d]);
+  //     }
+  //     return ret;
+  //   })
+  // );
+  return choiceMap;
 }
