@@ -134,10 +134,10 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.9",
-    "@storybook/addon-links": "^5.3.9",
-    "@storybook/addons": "^5.3.9",
-    "@storybook/react": "^5.3.9",
+    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-links": "^5.3.17",
+    "@storybook/addons": "^5.3.17",
+    "@storybook/react": "^5.3.17",
     "@types/d3": "^5.7.2",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.0",
