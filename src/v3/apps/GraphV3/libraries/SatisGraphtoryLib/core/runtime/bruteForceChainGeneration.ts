@@ -76,9 +76,9 @@ function calculateDuplicates(matrix: any) {
 }
 
 const getBestCandidate = (a: any[]): any => {
-  // if (a.length > 10) {
-  //   return [a[0]];
-  // }
+  if (a.length > 50) {
+    return a.slice(0, 10);
+  }
   return a;
 };
 
