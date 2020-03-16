@@ -33,7 +33,7 @@ function DataApp() {
   const classes = useStyles();
   const [counter, setCounter] = React.useState(1);
   React.useEffect(() => {
-    // dataParser(item);
+    dataParser(item);
     //
     initRuntime();
   }, []);

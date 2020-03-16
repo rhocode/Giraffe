@@ -1,0 +1,3 @@
+[submodule "src/v3/libraries/SGLib/thirdParty/ficsit.info"]
+	path = src/v3/libraries/SGLib/thirdParty/ficsit.info
+	url = https://github.com/ficsit/ficsit.info.git
