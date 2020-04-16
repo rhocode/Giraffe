@@ -52,7 +52,7 @@
     "lint-staged": "^10.0.7",
     "lodash": "^4.17.15",
     "lzutf8": "^0.5.5",
-    "mathjs": "^6.5.0",
+    "mathjs": "^6.6.4",
     "multi-metagen": "^2.6.0",
     "node-sass": "^4.13.1",
     "normalize-wheel": "^1.0.1",
