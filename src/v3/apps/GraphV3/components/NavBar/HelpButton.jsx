@@ -115,7 +115,16 @@ function HelpButton(props) {
         >
           Alex
         </Link>{' '}
-        and{' '}
+        (
+        <Link
+          href="https://twitter.com/tehalexf"
+          target="_blank"
+          rel="noopener"
+          color="secondary"
+        >
+          @tehalexf
+        </Link>
+        ) and{' '}
         <Link
           href="https://github.com/thinkaliker"
           target="_blank"
@@ -134,6 +143,10 @@ function HelpButton(props) {
           @thinkaliker
         </Link>
         ).
+      </Typography>
+      <Typography>
+        Additional thanks goes out to our SatisGraphtory Discord community, for
+        providing input, feedback, code, and being general guinea pigs.
       </Typography>
       <Typography variant="body1">
         Not officially affiliated with Satisfactory, Coffee Stain Studios AB, or
