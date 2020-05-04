@@ -54,7 +54,7 @@
     "lodash": "^4.17.15",
     "lzutf8": "^0.5.5",
     "mathjs": "^6.5.0",
-    "multi-metagen": "^2.6.0",
+    "multi-metagen": "^3.0.0",
     "node-sass": "^4.13.1",
     "normalize-wheel": "^1.0.1",
     "prettier": "^1.19.1",
