@@ -11,14 +11,8 @@ jobs:
       with:
         node-version: '12.x'
     - name: Install Deps
-      run: npm ci
+      run: yarn install
     - name: Runs Tests
-      run: npm test
+      run: yarn run test
       env:
         CI: true
-    - name: Runs a Lighthouse-Keeper Analysis
-      run: |
-        npm run build
-        npx codechecks
-      env: 
-        CC_SECRET: ${{ secrets.CC_SECRET }}

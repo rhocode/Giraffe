@@ -15,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm test
+      - run: yarn install
+      - run: yarn run test
         env:
           CI: true
   publish-electron:
@@ -31,8 +31,8 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run build
-      - run: npm run release-standalone -- "-c.snap.publish=github"
+      - run: yarn install
+      - run: yarn run build
+      - run: yarn run release-standalone -- "-c.snap.publish=github"
         env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
