@@ -1,3 +1,4 @@
+/* Delete This */
 const versionCompare = (v1: string, v2: string) => {
   let lexicographical = false,
     zeroExtend = false,

@@ -14,9 +14,6 @@ import discord from '../../translations/discord.json';
 import { HelmetProvider } from 'react-helmet-async';
 
 import HeaderMessaging from '../../common/react/HeaderMessaging';
-import { ApolloProvider } from 'react-apollo';
-
-import gqlClient from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/graphql/gqlClient';
 
 const chooseLoadingStyle = importFunc => {
   if (process.env.REACT_APP_ELECTRON === 'true') {
@@ -36,9 +33,6 @@ const GraphApp = chooseLoadingStyle(GraphImport);
 
 const HubImport = () => import('../../apps/Hub/HubApp');
 const HubApp = chooseLoadingStyle(HubImport);
-
-const DataImport = () => import('../../v3/apps/DataV3/DataApp');
-const DataApp = chooseLoadingStyle(DataImport);
 
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
@@ -71,7 +65,7 @@ class AppWrapper extends Component {
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
             <React.Suspense fallback={<div>Loading...</div>}>
-              <ApolloProvider client={gqlClient()}>{children}</ApolloProvider>
+              {children}
             </React.Suspense>
           </MuiThemeProvider>
         </ReactRouter>
@@ -176,17 +170,6 @@ function getHubApp(local = false) {
   );
 }
 
-function getDataApp(local = false) {
-  return (
-    <Route
-      key={'data'}
-      path={local ? `/data` : `/`}
-      exact={!local}
-      component={DataApp}
-    />
-  );
-}
-
 function getHomeApp() {
   return <Route key={'home'} path={`/`} exact component={HomeApp} />;
 }
@@ -202,14 +185,10 @@ function resolveDomain() {
   } else if (domain === 'hub') {
     // hub subdomain
     domainList.push(getHubApp());
-  } else if (domain === 'data') {
-    // lab subdomain
-    domainList.push(getDataApp());
   } else {
     domainList.push(getHomeApp());
     domainList.push(getGraphApp(true));
     domainList.push(getHubApp(true));
-    domainList.push(getDataApp(true));
   }
 
   return domainList;

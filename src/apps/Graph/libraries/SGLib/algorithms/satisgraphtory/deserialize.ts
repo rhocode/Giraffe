@@ -1,7 +1,10 @@
 import * as protobuf from 'protobufjs/light';
 import { ErrMsg, validB64Chars } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
-import getLatestSchema from '../../utils/getLatestSchema';
+
+const getLatestSchema = () => {
+  return {};
+};
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';

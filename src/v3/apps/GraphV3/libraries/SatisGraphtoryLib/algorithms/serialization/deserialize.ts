@@ -1,7 +1,6 @@
 import * as protobuf from 'protobufjs/light';
 import { ErrMsg, validB64Chars } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
-import getLatestSchema from '../../../../../../data/utils/getLatestSchema';
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -93,7 +92,7 @@ export function _byteLength(validLen: number, placeHoldersLen: number): number {
 }
 
 const deserialize = (jsonData: any) => {
-  const root = protobuf.Root.fromJSON(getLatestSchema());
+  const root = null as any;
 
   const { d, i } = jsonData;
 

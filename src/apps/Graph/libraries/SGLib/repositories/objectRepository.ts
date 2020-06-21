@@ -1,4 +1,4 @@
-import dataRepository, { latestProtobufRoot } from './dataRepository';
+import dataRepository from './dataRepository';
 import { imageRepository } from './imageRepository';
 
 const loadEnumImpl = () => {
@@ -9,7 +9,7 @@ const loadEnumImpl = () => {
       return memoized.get(listItemName);
     } else {
       const loadedPromise = dataRepository(listName, (itemData: any) => {
-        const itemList = latestProtobufRoot().lookupEnum(listItemName);
+        const itemList = null as any;
         const itemMap: Map<number, any> = new Map();
         itemData.forEach((item: any) => {
           itemMap.set(item.id, item);

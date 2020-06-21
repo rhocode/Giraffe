@@ -1,0 +1,828 @@
+{
+  "building-assembler-mk1": {
+    "name": "Assembler",
+    "translation": {
+      "namespace": "",
+      "key": "EB40823F4C4A3CB74DD01EB48C9A69A2"
+    },
+    "description": "Crafts two parts into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "097B36C64F62B2F07D5EB3A10195AEF2"
+    },
+    "powerConsumption": 15,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-oil-refinery": {
+    "name": "Refinery",
+    "translation": {
+      "namespace": "",
+      "key": "EC74BA4B4881D9235260B7B2AB3088CF"
+    },
+    "description": "Refines fluid and/or solid parts into other parts.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nContains both a Conveyor Belt and Pipe input and output, to allow for the automation of various recipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9EAEB6294D8FF3C3BC86BD9F4E04BECE"
+    },
+    "powerConsumption": 30,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-foundry-mk1": {
+    "name": "Foundry",
+    "translation": {
+      "namespace": "",
+      "key": "89353AD14BCCDC9A82F5CDAA107A8940"
+    },
+    "description": "Smelts two resources into alloy ingots.\r\n\r\nCan be automated by feeding ore into it with a conveyor belt connected to the inputs. The produced ingots can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "85DFA9F04DD65865F6A061B3D330D7BB"
+    },
+    "powerConsumption": 16,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-manufacturer-mk1": {
+    "name": "Manufacturer",
+    "translation": {
+      "namespace": "",
+      "key": "F2F84BA44DC64F9CC65388BF8D7EE2EF"
+    },
+    "description": "Crafts three or four parts into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A0D2CD4B4CC567617D0954ABDA23A1D6"
+    },
+    "powerConsumption": 55,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-constructor-mk1": {
+    "name": "Constructor",
+    "translation": {
+      "namespace": "",
+      "key": "505E12434033913D9DE530BFEDFB42E3"
+    },
+    "description": "Crafts one part into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B0584B6840E2DB6703898588AE6DE67E"
+    },
+    "powerConsumption": 4,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-smelter-mk1": {
+    "name": "Smelter",
+    "translation": {
+      "namespace": "",
+      "key": "3CA150EE4C2EBEDE9D0F87891C4A5080"
+    },
+    "description": "Smelts ore into ingots.\r\n\r\nCan be automated by feeding ore into it with a conveyor belt connected to the input. The produced ingots can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D21370CD45DDE70B1D9C728BFAC366B8"
+    },
+    "powerConsumption": 4,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
+  },
+  "building-automated-work-bench": {
+    "name": "Automated Work bench",
+    "translation": {
+      "namespace": "",
+      "key": "9494FBCC4487FA53BA5E6EA848992876"
+    },
+    "description": "text here",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "430CE48E4F7019296369E18B0DE30545"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "PLAYERCRAFTER"
+  },
+  "building-train-docking-station": {
+    "name": "Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "0D1A72E0436B6897015DE88BF4B385D0"
+    },
+    "description": "Freight Cars that stop at the Freight Platform will be loaded or unloaded by the Freight Platform.\r\nLoading and unloading options can be set inside the building.\r\nSnaps to other Platforms, Stations, and Rails.\r\nNeeds to be connected to a powered Railway to function.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "879A50B64430DA44C2942FA0A3284771"
+    },
+    "powerConsumption": 50,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "storageSizeX": 8,
+    "storageSizeY": 6,
+    "timeToCompleteUnload": 27,
+    "timeToCompleteLoad": 27,
+    "buildingType": "TRAINSTATION"
+  },
+  "building-train-docking-station-liquid": {
+    "name": "Fluid Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "B483D1BD4B81B29E63081E91788A24A9"
+    },
+    "description": "Freight Cars that stop at the Freight Platform will be loaded or unloaded by the Freight Platform.\r\nLoading and unloading options can be set inside the building.\r\nSnaps to other Platforms, Stations, and Rails.\r\nNeeds to be connected to a powered Railway to function.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3B3879F948C43373E6E654804881582B"
+    },
+    "powerConsumption": 50,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "storageSizeX": 1,
+    "storageSizeY": 1,
+    "timeToCompleteUnload": 27,
+    "timeToCompleteLoad": 27,
+    "buildingType": "TRAINSTATION"
+  },
+  "building-conveyor-attachment-merger": {
+    "name": "Conveyor Merger",
+    "translation": {
+      "namespace": "",
+      "key": "C63896FE4A9C43C5E49587A848034DA3"
+    },
+    "description": "Merges up to three conveyor belts into one.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5B3E03AC447D3999904D8D88D8D4CEB9"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "ITEMFLOWMANIPULATOR"
+  },
+  "building-conveyor-attachment-splitter": {
+    "name": "Conveyor Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "09EE05E24162F23EBCCC6B8EE2D71ADC"
+    },
+    "description": "Splits conveyor belts in three. \r\nUseful to move parts and resources from oversaturated conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "40F5E1E34E897A813A5689802DAC3250"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "ITEMFLOWMANIPULATOR"
+  },
+  "building-conveyor-attachment-splitter-programmable": {
+    "name": "Programmable Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "00FBE22749CFF4A3D063D19CDC1E96A5"
+    },
+    "description": "Splits conveyor belts in three. \r\nYou can set rules for each output to decide exactly where each part should go.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "45D35F8744D88313D119B88668A30E36"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "ITEMFLOWMANIPULATOR"
+  },
+  "building-conveyor-attachment-splitter-smart": {
+    "name": "Smart Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "DDCEE94042483A5C6F947DA5BC2EFCCA"
+    },
+    "description": "Splits conveyor belts in three. \r\nYou can set a rule for which part should go to the left and which part should go to the right.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4EBA72A247B94BBDBD22B284B6887FE2"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "ITEMFLOWMANIPULATOR"
+  },
+  "building-conveyor-belt-mk1": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "speed": 120,
+    "buildingType": "ITEMPASSTHROUGH"
+  },
+  "building-conveyor-belt-mk2": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "speed": 120,
+    "buildingType": "ITEMPASSTHROUGH"
+  },
+  "building-conveyor-belt-mk3": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "speed": 120,
+    "buildingType": "ITEMPASSTHROUGH"
+  },
+  "building-conveyor-belt-mk4": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "speed": 120,
+    "buildingType": "ITEMPASSTHROUGH"
+  },
+  "building-conveyor-belt-mk5": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "speed": 120,
+    "buildingType": "ITEMPASSTHROUGH"
+  },
+  "building-generator-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "description": "Burns various forms of biomass to generate electricity for the power grid.\r\nHas no input and must therefore be fed biomass manually.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "869B742B470C99E70DCC068CC7F11E91"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "defaultFuelClasses": ["FGItemDescriptorBiomass"],
+    "powerProduction": 30,
+    "powerProductionExponent": 1.29999995231628,
+    "fuelResourceForm": 0,
+    "requiresSupplementalResource": false,
+    "supplementalLoadAmount": 0,
+    "supplementalToPowerRatio": 0,
+    "buildingType": "GENERATOR"
+  },
+  "building-generator-coal": {
+    "name": "Coal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "C38B9BAA4A167E5A9E4FB5AB1E841F92"
+    },
+    "description": "Burns Coal to boil Water, the produced steam rotates turbines to generate electricty for the power grid.\r\nHas a Conveyor Belt and Pipe input, so both the Coal and Water supply can be automated.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2FB5A3B14E36C34D28A3E1B3FD0AE162"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "defaultFuelClasses": [
+      "item-coal",
+      "item-compacted-coal",
+      "item-petroleum-coke"
+    ],
+    "powerProduction": 75,
+    "powerProductionExponent": 1.29999995231628,
+    "fuelResourceForm": 0,
+    "supplementalResourceClass": "Desc_Water",
+    "requiresSupplementalResource": true,
+    "supplementalLoadAmount": 1000,
+    "supplementalToPowerRatio": 10,
+    "buildingType": "GENERATOR"
+  },
+  "building-generator-fuel": {
+    "name": "Fuel Generator",
+    "translation": {
+      "namespace": "",
+      "key": "AA728F1D41C142BC9F2CA2AC66B4ADE6"
+    },
+    "description": "Consumes Fuel to generate electricity for the power grid.\r\nHas a Pipe input so the Fuel supply can be automated.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "652554D7475B7CA70B0508A85DF7D1EC"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "defaultFuelClasses": [
+      "item-liquid-fuel",
+      "item-liquid-turbo-fuel",
+      "item-liquid-biofuel"
+    ],
+    "powerProduction": 150,
+    "powerProductionExponent": 1.29999995231628,
+    "fuelResourceForm": 2,
+    "requiresSupplementalResource": false,
+    "supplementalLoadAmount": 0,
+    "supplementalToPowerRatio": 0,
+    "buildingType": "GENERATOR"
+  },
+  "building-generator-geo-thermal": {
+    "name": "Geothermal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "9709F0E848E7F6F0655F698AE49B11DE"
+    },
+    "description": "Can only be built on geyser nodes.\r\nGenerates electricity for your power grid.\r\nDoes not require any resources to be input.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "268D4D8B4EBC299186C1AE87E8CE962C"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "powerProduction": 200,
+    "powerProductionExponent": 1.29999995231628,
+    "buildingType": "GENERATOR"
+  },
+  "building-generator-integrated-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "description": "Burns Biomass to produce power. Biomass must be loaded manually and is obtained by picking up flora in the world. Produces up to 20MW of power while operating.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2DD400DF4B20B30420BDC09440952EBE"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "defaultFuelClasses": ["FGItemDescriptorBiomass"],
+    "powerProduction": 20,
+    "powerProductionExponent": 1.29999995231628,
+    "fuelResourceForm": 0,
+    "requiresSupplementalResource": false,
+    "supplementalLoadAmount": 0,
+    "supplementalToPowerRatio": 0,
+    "buildingType": "GENERATOR"
+  },
+  "building-generator-nuclear": {
+    "name": "Nuclear Power Plant",
+    "translation": {
+      "namespace": "",
+      "key": "A519D24944F564E90A5B108D65CCDEE6"
+    },
+    "description": "Consumes Nuclear Fuel Rods and Water to produce electricty for the power grid.\r\n\r\nProduces Nuclear Waste, which is extracted from the conveyor belt output.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "948765F042C8CFF5B5E4E291A94F8611"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "defaultFuelClasses": ["item-nuclear-fuel-rod"],
+    "powerProduction": 2500,
+    "powerProductionExponent": 1.3219280242919922,
+    "fuelResourceForm": 0,
+    "supplementalResourceClass": "Desc_Water",
+    "requiresSupplementalResource": true,
+    "supplementalLoadAmount": 10000,
+    "supplementalToPowerRatio": 2,
+    "buildingType": "GENERATOR"
+  },
+  "building-industrial-tank": {
+    "name": "Industrial Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "FB803EDB47531AAC9A0828B13F15197F"
+    },
+    "description": "Can contain up to 2400m³ of fluid.\r\nHas an in and output for pipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A1458E164683A73E0E652FA905907166"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "storageCapacity": 2400,
+    "buildingType": "FLUIDSTORAGE"
+  },
+  "building-miner-mk1": {
+    "name": "Miner Mk1",
+    "translation": {
+      "namespace": "",
+      "key": "A3AFD2EC45F35991F592229EB62527CF"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 60 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "91DECFAB424C19A9AC3C349C51F7BA4B"
+    },
+    "powerConsumption": 5,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "extractStartupTime": 15,
+    "extractCycleTime": 0,
+    "itemsPerCycle": 0,
+    "allowedResourceForms": [1],
+    "onlyAllowCertainResources": false,
+    "allowedResources": [],
+    "extractorTypeName": "Miner",
+    "buildingType": "EXTRACTOR"
+  },
+  "building-miner-mk2": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+    },
+    "powerConsumption": 12,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "extractStartupTime": 15,
+    "extractCycleTime": 0.5,
+    "itemsPerCycle": 0,
+    "allowedResourceForms": [1],
+    "onlyAllowCertainResources": false,
+    "allowedResources": [],
+    "extractorTypeName": "Miner",
+    "buildingType": "EXTRACTOR"
+  },
+  "building-miner-mk3": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+    },
+    "powerConsumption": 12,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "extractStartupTime": 0,
+    "extractCycleTime": 0.5,
+    "itemsPerCycle": 0,
+    "allowedResourceForms": [],
+    "onlyAllowCertainResources": false,
+    "allowedResources": [],
+    "extractorTypeName": null,
+    "buildingType": "EXTRACTOR"
+  },
+  "building-oil-pump": {
+    "name": "Oil Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "C86F1CAE473C8311D399909A494C8CF2"
+    },
+    "description": "Normal extraction rate: 120m³ oil per minute.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nCan be build on an Oil Node to extract Crude Oil. Extraction rates depend on node purity.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F4186916492BB7F4CE5AD89DB595A029"
+    },
+    "powerConsumption": 40,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "extractStartupTime": 0,
+    "extractCycleTime": 0,
+    "itemsPerCycle": 2000,
+    "allowedResourceForms": [2],
+    "onlyAllowCertainResources": true,
+    "allowedResources": ["item-liquid-oil"],
+    "extractorTypeName": null,
+    "buildingType": "EXTRACTOR"
+  },
+  "building-pipeline": {
+    "name": "Pipeline",
+    "translation": {
+      "namespace": "",
+      "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
+    },
+    "description": "Outside indicators show volume, flow rate and direction.\r\nTransports up to 300m³ of fluid per minute.\r\nUsed to transport fluids.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F342E9104323D0072DC923A20E32C89D"
+    },
+    "flowLimit": 5,
+    "radius": 65,
+    "buildingType": "FLUIDPASSTHROUGH"
+  },
+  "building-pipeline-junction-cross": {
+    "name": "Pipeline Junction Cross",
+    "translation": {
+      "namespace": "",
+      "key": "4841474A4998580837B45AB5CA652833"
+    },
+    "description": "Can be attached to a pipeline to split it 4-way.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "08F950CD4421E5719EC9A99350B40B50"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "FLUIDFLOWMANIPULATOR"
+  },
+  "building-pipeline-pump": {
+    "name": "Pipeline Pump",
+    "translation": {
+      "namespace": "",
+      "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
+    },
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\nOutputs fluids at 300m³ per minute.\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E60BEFDA413E62FF8154B3BE66A34A3C"
+    },
+    "powerConsumption": 4,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "flowLimit": 5,
+    "designPressure": 20,
+    "maxPressure": 22,
+    "buildingType": "RESTRICTOR"
+  },
+  "building-pipe-storage-tank": {
+    "name": "Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "97750E3B42E12664B160F6AC35865F27"
+    },
+    "description": "Can contain up to 400m³ of fluid.\r\nHas an in and output for pipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C459768E4DC5B3E8D4D8B2818A3BF6CD"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "storageCapacity": 400,
+    "buildingType": "FLUIDSTORAGE"
+  },
+  "building-resource-sink": {
+    "name": "AWESOME Sink",
+    "translation": {
+      "namespace": "",
+      "key": "7EF9CDA1441086A8E94D6A984AF35EE8"
+    },
+    "description": "Got excess resources? Fear not, for FICSIT does not waste! The newly developed AWESOME Sink turns any useful part straight into research data, as fast as you can supply it! \r\nParticipating pioneers will be compensated with Coupons to be spend at the AWESOME Shop.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EBCE338946258919C03A0BB706968BC4"
+    },
+    "powerConsumption": 30,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "SINK"
+  },
+  "building-storage-container-mk1": {
+    "name": "Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "520B7D0D455BA2BBF734B393ED45EA02"
+    },
+    "description": "Contains 24 slots for storing large amounts of items.\r\nHas an input and output for conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "428288CC4FD3D721B340D79C45BBEA09"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "inventorySizeX": 6,
+    "inventorySizeY": 4,
+    "buildingType": "ITEMSTORAGE"
+  },
+  "building-storage-container-mk2": {
+    "name": "Industrial Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "8AB1A36E4555E4194A80CCB96B6EFC3B"
+    },
+    "description": "Contains 48 slots for storing large amounts of items.\r\nHas two inputs and outputs for conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5528B71E4C6D5B46B8035B8EC35C96F8"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "inventorySizeX": 8,
+    "inventorySizeY": 6,
+    "buildingType": "ITEMSTORAGE"
+  },
+  "building-storage-integrated": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "9A1FB991446CCCB04C279980B845C7F9"
+    },
+    "description": "A box you can put things in.                                          Has 25 inventory slots.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B542BFF7454C7FD6C6E36D9EC37F722D"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "inventorySizeX": 5,
+    "inventorySizeY": 5,
+    "buildingType": "ITEMSTORAGE"
+  },
+  "building-storage-player": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "50521D7049521D27A006208327292C7E"
+    },
+    "description": "Contains 25 slots for storing large amounts of items.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6C1366724035B33444EC718D6582159B"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "inventorySizeX": 5,
+    "inventorySizeY": 5,
+    "buildingType": "ITEMSTORAGE"
+  },
+  "building-truck-station": {
+    "name": "Truck Station",
+    "translation": {
+      "namespace": "",
+      "key": "3B3576E9482BA277C308C88DFCB73D1B"
+    },
+    "description": "Either send or receive resources to vehicles. Has an inventory with 48 slots.\r\nTransfers up to 120 stacks per minute to/from docked vehicle. \r\nAlways refuels vehicles if it has access to a matching fuel type.\r\n",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E17F8FAE44437115176DE38CFA9AB9AB"
+    },
+    "powerConsumption": 20,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "transferSpeed": 0.5,
+    "fuelTransferSpeed": 5,
+    "buildingType": "TRUCKSTATION"
+  },
+  "building-water-pump": {
+    "name": "Water Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "D8ACD2BE4630860B9B040696FFAE4FE1"
+    },
+    "description": "Default extraction rate: 120m³ water per minute.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nExtracts water from the body of water it is build on.\r\nNote that the water needs to be deep enough and that rivers do not commonly suffice.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "12DEA49B42343EB1FAC2B3B27C56FA4F"
+    },
+    "powerConsumption": 20,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "extractStartupTime": 10,
+    "extractCycleTime": 0,
+    "itemsPerCycle": 2000,
+    "allowedResourceForms": [2],
+    "onlyAllowCertainResources": true,
+    "allowedResources": ["item-water"],
+    "extractorTypeName": null,
+    "buildingType": "EXTRACTOR"
+  },
+  "building-space-elevator": {
+    "name": "Space Elevator",
+    "translation": {
+      "namespace": "",
+      "key": "B0AE60A44F6A0BBC2C2B84B14CB7DB6F"
+    },
+    "description": "Requires deliveries of special Project Parts to complete Phases of Project Assembly.\r\nCompleting Phases in the Space Elevator will unlock new Tiers in the HUB Terminal.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C9D44CF643D9DC6F4A803D96A1F54FD0"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "buildingType": "SINK"
+  }
+}

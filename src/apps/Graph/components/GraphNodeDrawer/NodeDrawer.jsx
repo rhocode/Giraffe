@@ -18,7 +18,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import GraphNodeButton from './GraphNodeButton';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { baseTheme } from '../../../../theme';
+import { baseTheme } from 'theme';
 import normalizeWheel from 'normalize-wheel';
 import { getTranslate } from 'react-localize-redux';
 

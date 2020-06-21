@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStoreState } from 'pullstate';
-import { graphAppStore } from '../../stores/graphAppStore';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import { Scrollbars } from 'react-custom-scrollbars';
 import normalizeWheel from 'normalize-wheel';
 import PropTypes from 'prop-types';

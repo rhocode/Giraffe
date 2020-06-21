@@ -1,0 +1,58 @@
+{
+  "building-oil-refinery": {
+    "inputPipes": 1,
+    "outputPipes": 1,
+    "inputBelts": 1,
+    "outputBelts": 1
+  },
+  "building-train-docking-station-liquid": {
+    "inputPipes": 2,
+    "outputPipes": 2
+  },
+  "building-generator-coal": { "inputPipes": 1, "inputBelts": 1 },
+  "building-generator-fuel": { "inputPipes": 1 },
+  "building-generator-nuclear": {
+    "inputPipes": 1,
+    "inputBelts": 1,
+    "outputBelts": 1
+  },
+  "building-industrial-tank": { "anyPipes": 2 },
+  "building-oil-pump": { "outputPipes": 1 },
+  "building-pipeline-junction-cross": { "anyPipes": 4 },
+  "building-pipeline-pump": { "inputPipes": 1, "outputPipes": 1 },
+  "building-pipe-storage-tank": { "anyPipes": 2 },
+  "building-water-pump": { "outputPipes": 1 },
+  "building-assembler-mk1": { "inputBelts": 2, "outputBelts": 1 },
+  "building-foundry-mk1": { "inputBelts": 2, "outputBelts": 1 },
+  "building-manufacturer-mk1": { "inputBelts": 4, "outputBelts": 1 },
+  "building-constructor-mk1": { "inputBelts": 1, "outputBelts": 1 },
+  "building-smelter-mk1": { "inputBelts": 1, "outputBelts": 1 },
+  "building-train-docking-station": { "inputBelts": 2, "outputBelts": 2 },
+  "building-conveyor-attachment-merger": { "inputBelts": 3, "outputBelts": 1 },
+  "building-conveyor-attachment-splitter": {
+    "inputBelts": 1,
+    "outputBelts": 3
+  },
+  "building-conveyor-attachment-splitter-programmable": {
+    "inputBelts": 1,
+    "outputBelts": 3
+  },
+  "building-conveyor-attachment-splitter-smart": {
+    "inputBelts": 1,
+    "outputBelts": 3
+  },
+  "building-conveyor-belt-mk1": { "inputBelts": 1, "outputBelts": 1 },
+  "building-conveyor-belt-mk2": { "inputBelts": 1, "outputBelts": 1 },
+  "building-conveyor-belt-mk3": { "inputBelts": 1, "outputBelts": 1 },
+  "building-conveyor-belt-mk4": { "inputBelts": 1, "outputBelts": 1 },
+  "building-conveyor-belt-mk5": { "inputBelts": 1, "outputBelts": 1 },
+  "building-miner-mk1": { "outputBelts": 1 },
+  "building-miner-mk2": { "outputBelts": 1 },
+  "building-miner-mk3": { "inputBelts": 1 },
+  "building-resource-sink": { "inputBelts": 1 },
+  "building-storage-container-mk1": { "inputBelts": 1, "outputBelts": 1 },
+  "building-storage-container-mk2": { "inputBelts": 2, "outputBelts": 2 },
+  "building-truck-station": { "inputBelts": 2, "outputBelts": 1 },
+  "building-space-elevator": { "inputBelts": 6 },
+  "building-pipeline": { "inputPipes": 1, "outputPipes": 1 }
+}

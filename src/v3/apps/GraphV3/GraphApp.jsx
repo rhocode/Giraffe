@@ -57,14 +57,6 @@ function GraphApp(props) {
 
     initRuntime();
 
-    // getPlaceableMachineClasses({
-    //   useAltImages: language.code === 'discord'
-    // }).then(classes => {
-    //   graphAppStore.update(s => {
-    //     s.placeableMachineClasses = classes;
-    //   });
-    // });
-
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
         .then(resp => resp.json())

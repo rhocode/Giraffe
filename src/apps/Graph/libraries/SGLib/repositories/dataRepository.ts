@@ -1,9 +1,6 @@
 import * as protobuf from 'protobufjs/light';
-import getLatestSchema from '../utils/getLatestSchema';
 
-export const latestProtobufRoot = () =>
-  protobuf.Root.fromJSON(getLatestSchema());
-
+// Broken file
 const dataLoaderImpl = () => {
   const memoizedLoadData: Map<String, any> = new Map();
   return (filename: string, mapper: any) => {
@@ -12,7 +9,8 @@ const dataLoaderImpl = () => {
     if (fetchedData) {
       return fetchedData;
     } else {
-      const ItemList = latestProtobufRoot().lookupType(filename);
+      const ItemList = '' as any;
+      // latestProtobufRoot().lookupType(filename);
       const promise = fetch(
         `${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`
       )

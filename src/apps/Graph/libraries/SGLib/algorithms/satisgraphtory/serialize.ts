@@ -3,7 +3,6 @@ import { GraphNode } from '../../datatypes/graph/graphNode';
 import { b64fromBuffer } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
 import { GraphEdge } from '../../datatypes/graph/graphEdge';
-import { getLatestSchemaName } from '../../utils/getLatestSchema';
 
 const baseChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -241,7 +240,7 @@ const serialize = (schema: any, graph: saveFile) => {
   return {
     d: b64fromBuffer(currentBuffer),
     i: num_iterations,
-    v: getLatestSchemaName()
+    v: ''
   };
 };
 

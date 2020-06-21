@@ -2,8 +2,12 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { baseTheme } from '../../../../../theme';
+import { baseTheme } from 'theme';
 import DrawerDialog from './DrawerDialog';
+import {
+  getBuildableMachineClassIcon,
+  getBuildingIcon
+} from 'v3/data/loaders/buildings';
 
 const styles = theme => ({
   default: {
@@ -64,7 +68,7 @@ function DrawerButton(props) {
           <div className={classes.buttonContents}>
             {/*<ArrowDropUpIcon/>*/}
             <img
-              src={nodeClass.icon}
+              src={getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 64)}
               className={classes.image}
               alt={props.label}
             />

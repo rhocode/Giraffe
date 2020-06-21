@@ -8,7 +8,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import IconDialog from './IconDialog';
 import { useStoreState } from 'pullstate';
-import { graphAppStore } from '../../stores/graphAppStore';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 const styles = theme => ({
   button: {

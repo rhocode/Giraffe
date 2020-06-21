@@ -1,0 +1,6506 @@
+{
+  "item-modular-frame-heavy": {
+    "name": "Heavy Modular Frame",
+    "translation": {
+      "namespace": "",
+      "key": "CED8C10B4EE7C1547298C8965220FF4C"
+    },
+    "description": "A more robust multi-purpose frame.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B7A4F83342E367FE14692789767A2506"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-modular-frame-heavy"
+  },
+  "item-computer": {
+    "name": "Computer",
+    "translation": {
+      "namespace": "",
+      "key": "42820658407A878D093CA99DAC4CEC97"
+    },
+    "description": "A Computer is a complex logic machine that is used to control advanced behaviour in machines.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4F4F406841C416A917FB8486E78F6C98"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-computer"
+  },
+  "item-cement": {
+    "name": "Concrete",
+    "translation": {
+      "namespace": "",
+      "key": "EED5C92544637062F7201E9CDA5B8DA0"
+    },
+    "description": "Used for building.\r\nGood for stable foundations.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BA22177F4AD5BB522B0BEF9BD33FA342"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-cement"
+  },
+  "item-cable": {
+    "name": "Cable",
+    "translation": {
+      "namespace": "",
+      "key": "716869C14B17B82C97DEC080C5756DEE"
+    },
+    "description": "Used for crafting.\r\nPrimarily used to build power lines.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F5526A6648554D1B03BC47A7320B8197"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-cable"
+  },
+  "item-motor": {
+    "name": "Motor",
+    "translation": {
+      "namespace": "",
+      "key": "6813C97846A2DD0E378D789F009A703E"
+    },
+    "description": "The Motor creates a mechanical force that is used to move things from machines to vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4FA404344A46DBE004BAF78D20D79986"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-motor"
+  },
+  "item-train-docking-station": {
+    "name": "Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "0D1A72E0436B6897015DE88BF4B385D0"
+    },
+    "description": "Freight Cars that stop at the Freight Platform will be loaded or unloaded by the Freight Platform.\r\nLoading and unloading options can be set inside the building.\r\nSnaps to other Platforms, Stations, and Rails.\r\nNeeds to be connected to a powered Railway to function.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "879A50B64430DA44C2942FA0A3284771"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-train-docking-station"
+  },
+  "item-train-docking-station-liquid": {
+    "name": "Fluid Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "B483D1BD4B81B29E63081E91788A24A9"
+    },
+    "description": "Freight Cars that stop at the Freight Platform will be loaded or unloaded by the Freight Platform.\r\nLoading and unloading options can be set inside the building.\r\nSnaps to other Platforms, Stations, and Rails.\r\nNeeds to be connected to a powered Railway to function.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3B3879F948C43373E6E654804881582B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-train-docking-station-liquid"
+  },
+  "item-train-platform-empty": {
+    "name": "Empty Platform",
+    "translation": {
+      "namespace": "",
+      "key": "3763BE324A7CE633C1FEACA891CF080E"
+    },
+    "description": "An empty train platform for when you need to create some empty space.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "38FD107C4A183AA47073F78064292460"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-train-platform-empty"
+  },
+  "item-train-station": {
+    "name": "Train Station",
+    "translation": {
+      "namespace": "",
+      "key": "16502BCC4D2CF4A772732E82C5D0744A"
+    },
+    "description": "Locomotives can be set to drive to and stop at the Train Station.\r\nYou can connect power to the train station to power up the trains on the railway as well as transport the power to other stations.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "45F1134A4FACC5A5FFA98D85DD102EFE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-train-station"
+  },
+  "item-steel-plate-reinforced": {
+    "name": "Encased Industrial Beam",
+    "translation": {
+      "namespace": "",
+      "key": "0463F80E45BB9C6EED03E9B96E62CFA7"
+    },
+    "description": "Encased Industrial Beams utilizes the compressive strength of concrete and tensile strength of steel simultaneously.\r\nMostly used as a stable basis for constructing buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9BB7145849FA8B0238CE949446DD9937"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-steel-plate-reinforced"
+  },
+  "item-rotor": {
+    "name": "Rotor",
+    "translation": {
+      "namespace": "",
+      "key": "0515762A4B35ADCC1897EA955C2B6083"
+    },
+    "description": "Used for crafting.\r\nThe moving parts of a motor.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5F40202F43285A9754D5FA9313D1E6AA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-rotor"
+  },
+  "item-steel-pipe": {
+    "name": "Steel Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "BC7763FA48475F6D80DD79A0B1A7D5AA"
+    },
+    "description": "Steel Pipes are used most often when constructing a little more advanced buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F16EE2264FBFEE9A08BC0FAD1102FA1B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-steel-pipe"
+  },
+  "item-pipe-hyper-start": {
+    "name": "Hyper Tube Entrance",
+    "translation": {
+      "namespace": "",
+      "key": "FD7771FA4E57AA3B7A75ABB27A5F2C61"
+    },
+    "description": "Used to enter and power a Hyper Tube.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1488FA97497870EACC9FF896C78804DF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipe-hyper-start"
+  },
+  "item-iron-plate": {
+    "name": "Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "5DF4001E4003046F3E958E9BF9DCFDE6"
+    },
+    "description": "Used for crafting.\r\nOne of the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "92E639C248977647720E36B7C8669017"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-iron-plate"
+  },
+  "item-rubber": {
+    "name": "Rubber",
+    "translation": {
+      "namespace": "",
+      "key": "7166DD034808AD2C161AD3B03F793BA4"
+    },
+    "description": "Rubber is a material that is very flexible and has a lot of friction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "ECAB6BF64F581D9850A4DC9BC0454E77"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-rubber"
+  },
+  "item-iron-plate-reinforced": {
+    "name": "Reinforced Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "B4CB7FEC4A568877824C5E8F7C9FB048"
+    },
+    "description": "Used for crafting.\r\nA sturdier and more durable Iron Plate.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4CD21490443254F72740D3BC03F939B5"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-iron-plate-reinforced"
+  },
+  "item-iron-screw": {
+    "name": "Screw",
+    "translation": {
+      "namespace": "",
+      "key": "F86C5F2A426AE1A985229B8CAC9854E1"
+    },
+    "description": "Used for crafting.\r\nOne of the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C926DDB24C3B8F9E2EBD5094668292A3"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 4,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-iron-screw"
+  },
+  "item-modular-frame": {
+    "name": "Modular Frame",
+    "translation": {
+      "namespace": "",
+      "key": "AD30C73549A860138BAAEDA09E9F1075"
+    },
+    "description": "Used for crafting.\r\nMulti-purpose building block.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "10DD3515427A537D446D09A1AD91EF5F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-modular-frame"
+  },
+  "item-wire": {
+    "name": "Wire",
+    "translation": {
+      "namespace": "",
+      "key": "B26AF15A4B6C6A2B86A5BCB05C1C0150"
+    },
+    "description": "Used for crafting.\r\nOne of the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5417E1CA48C8698434FC869B9B09884B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 4,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wire"
+  },
+  "item-heavy-oil-residue": {
+    "name": "Heavy Oil Residue",
+    "translation": {
+      "namespace": "",
+      "key": "525EBF694736E14409B25C812DC88FA9"
+    },
+    "description": "A by-product of Plastic and Rubber production. Can be further refined into Fuel and Petroleum Coke.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "0F03DD4E498B68E39CFC2FAD99C63E8B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0.4000000059604645,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-heavy-oil-residue"
+  },
+  "item-iron-ingot": {
+    "name": "Iron Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "2041017647939FF8898D7386DEDE62C0"
+    },
+    "description": "Used for crafting.\r\nCrafted into the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3F3E69E64F155FBFB826798BDD8A891B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-iron-ingot"
+  },
+  "item-plastic": {
+    "name": "Plastic",
+    "translation": {
+      "namespace": "",
+      "key": "43AE93A54B35E0B902CD9D96E2C29E41"
+    },
+    "description": "A versatile and easy to manufacture material that can be used for a lot of things.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "74DAFBE84F650772F984889833FCD759"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-plastic"
+  },
+  "item-ore-iron": {
+    "name": "Iron Ore",
+    "translation": {
+      "namespace": "",
+      "key": "ED299CBA4FF8E80B591A96A54EF500B4"
+    },
+    "description": "Used for crafting.\r\nThe most essential basic resource.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4821AD574C162547426109B9DA1409C2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ore-iron"
+  },
+  "item-petroleum-coke": {
+    "name": "Petroleum Coke",
+    "translation": {
+      "namespace": "",
+      "key": "931A9CAD4AB2868B168F0EB5216D8CA1"
+    },
+    "description": "Used for crafting.\r\nA carbon-rich material distilled from Heavy Oil Residue. \r\nUsed as a less efficient coal replacement or for aluminum refinement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "73DA64C14806A81DBADB148D860EE2F1"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 180,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-petroleum-coke"
+  },
+  "item-steel-ingot": {
+    "name": "Steel Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "B949A9A742A017935CA85EADB0582AB5"
+    },
+    "description": "Steel Ingots are made from Iron Ore that's been smelted with Coal. They are made into several parts used in building construction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FBE8B02F431AF078584653B023E302C6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-steel-ingot"
+  },
+  "item-ore-copper": {
+    "name": "Copper Ore",
+    "translation": {
+      "namespace": "",
+      "key": "5385E3FA4319A76BABA2329ACED5F215"
+    },
+    "description": "Used for crafting.\r\nBasic resource mainly used for electricity.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D5772BEC4D3E080A093B87B670B682C2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ore-copper"
+  },
+  "item-copper-ingot": {
+    "name": "Copper Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "699130B545EF577CB534D89256F587D2"
+    },
+    "description": "Used for crafting.\r\nCrafted into the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B239C223423284ED45ECF6B507A70118"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-copper-ingot"
+  },
+  "item-copper-sheet": {
+    "name": "Copper Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "80A45546416416AF5BB55EA854A67E65"
+    },
+    "description": "Used for crafting.\r\nPrimarily used for pipelines due to its high corrosion resistance.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C827FE8B4673B545E3443B8245AB9675"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-copper-sheet"
+  },
+  "item-packaged-water": {
+    "name": "Packaged Water",
+    "translation": {
+      "namespace": "",
+      "key": "77CD14484E453D04011A48926DDCAD0F"
+    },
+    "description": "Water, packaged for alternative transport.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D11F612F4168DD6CBEE5F29DBEE7C789"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-packaged-water"
+  },
+  "item-fuel": {
+    "name": "Packaged Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "75F060B34F361C77B83B528BBC642E9A"
+    },
+    "description": "Fuel.\r\nPackaged Fuel, either converted into electricity or as fuel for vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "AC252B154E9B8D601F9F2C9B6DA34F74"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 600,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-fuel"
+  },
+  "item-alumina-solution": {
+    "name": "Alumina Solution",
+    "translation": {
+      "namespace": "",
+      "key": "CB485FAD4BA45994F129E7A193C95676"
+    },
+    "description": "Dissolved Alumina, extracted from Bauxite. Can be further refined into pure Aluminum.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "0C60304E44A767A6BC383695637150BF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-alumina-solution"
+  },
+  "item-coal": {
+    "name": "Coal",
+    "translation": {
+      "namespace": "",
+      "key": "2D87B04D42150A99CBD6A08DCA906603"
+    },
+    "description": "Mainly used as fuel for vehicles & coal generators and for steel production.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "75D9E93C42EBBADA8F64ED8DA28D3CAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 300,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-coal"
+  },
+  "item-aluminum-scrap": {
+    "name": "Aluminum Scrap",
+    "translation": {
+      "namespace": "",
+      "key": "56B3AE584ED98CAE58A2B8B4CB7CF337"
+    },
+    "description": "Aluminum Scrap is pure aluminum refined from Alumina. Can be smelted down to Aluminum Ingots for industrial usage.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A1AD3F7B4666DA06E6E6B39D50F3ABE2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 4,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-aluminum-scrap"
+  },
+  "item-water": {
+    "name": "Water",
+    "translation": {
+      "namespace": "",
+      "key": "42E272954ECF5B2F7DFF598A978FC098"
+    },
+    "description": "It's water.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3726A6EA4352F89FE72F6FA80ED987A8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-water"
+  },
+  "item-circuit-board": {
+    "name": "Circuit Board",
+    "translation": {
+      "namespace": "",
+      "key": "511A77854C0A6EF78F070CBEBBAF5417"
+    },
+    "description": "Circuit Boards are advanced electronics that are used in a plethora of different ways.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CB39282E4A0D09DA7ACE2FBCD8F8D899"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-circuit-board"
+  },
+  "item-steel-plate": {
+    "name": "Steel Beam",
+    "translation": {
+      "namespace": "",
+      "key": "CE7C20C04BBEAE9BBC8368B83C21FA8A"
+    },
+    "description": "Steel Beams are used most often when constructing a little more advanced buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5BE7CCB64490E7A3CBDDC28B7BE44A81"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-steel-plate"
+  },
+  "item-space-elevator-part-2": {
+    "name": "Versatile Framework",
+    "translation": {
+      "namespace": "",
+      "key": "E13014B6406289846DC528BF508AEE6D"
+    },
+    "description": "Project Part #2. Send up the Space Elevator to complete phases of Project Assembly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DAE82DF7411FFE1134DE0B91DD5CF268"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator-part-2"
+  },
+  "item-gold-ingot": {
+    "name": "Caterium Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "8B425C07441CF895344B6DBC5449741C"
+    },
+    "description": "Caterium Ingots are smelted from Caterium Ore. Caterium Ingots are mostly used for advanced electronics.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "0F9C1FC74F5888A4C664888E733A7F70"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-gold-ingot"
+  },
+  "item-liquid-oil": {
+    "name": "Crude Oil",
+    "translation": {
+      "namespace": "",
+      "key": "7B79816141CFD604CD8F188177995F76"
+    },
+    "description": "Crude Oil is refined into all kinds of Oil-based resources, like Fuel and Plastic.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D12C66654895E2720884918AFA99F2BE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0.3199999928474426,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-liquid-oil"
+  },
+  "item-polymer-resin": {
+    "name": "Polymer Resin",
+    "translation": {
+      "namespace": "",
+      "key": "776D2EEA4983B05859810D95304ACF0D"
+    },
+    "description": "Used for crafting.\r\nA by-product of oil refinement into fuel. Commonly used to manufacture plastics.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8B31AE304BD87335DE5CD98DCDD08AFC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-polymer-resin"
+  },
+  "item-stator": {
+    "name": "Stator",
+    "translation": {
+      "namespace": "",
+      "key": "A92A731B4BB5E14EB1E930981BD86A8E"
+    },
+    "description": "The static parts of a motor",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5D204F804BC38CE4164486898F2B8313"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-stator"
+  },
+  "item-high-speed-connector": {
+    "name": "High-Speed Connector",
+    "translation": {
+      "namespace": "",
+      "key": "75A1FAFF41A1E47365411E883E6BA88B"
+    },
+    "description": "The high-speed connector connects several cables and wires in a very efficient way. Uses a standard pattern so its applications are many and varied.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FE0E8F914C6A8A86EBEB39875CEE3C7E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-high-speed-connector"
+  },
+  "item-space-elevator-part-3": {
+    "name": "Automated Wiring",
+    "translation": {
+      "namespace": "",
+      "key": "B505C2F54B0535976D8ECD91806D021C"
+    },
+    "description": "Project Part #3. Send up the Space Elevator to complete phases of Project Assembly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7E9825DD46DA9ABDE63E74A26C70B2ED"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator-part-3"
+  },
+  "item-space-elevator-part-1": {
+    "name": "Smart Plating",
+    "translation": {
+      "namespace": "",
+      "key": "A375458D4EE37500B65CE892F68F29F3"
+    },
+    "description": "Project Part #1. Send up the Space Elevator to complete phases of Project Assembly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5A9486C34D645755851825803E06B936"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator-part-1"
+  },
+  "item-fabric": {
+    "name": "Fabric",
+    "translation": {
+      "namespace": "",
+      "key": "78A1D4714220C849154543A97772CAEE"
+    },
+    "description": "Used for equipment crafting.\r\nFlexible but durable fabric.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "375ABBF84F232FD203317B8FC1C926F7"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 15,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-fabric"
+  },
+  "item-ore-gold": {
+    "name": "Caterium Ore",
+    "translation": {
+      "namespace": "",
+      "key": "5B9BF77D4855875C2284D8BF2EF2C003"
+    },
+    "description": "Caterium Ore is smelted into Caterium Ingots. Caterium Ingots are mostly used for advanced electronics.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "40FB2AA045F81E80B50965890995BF1D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ore-gold"
+  },
+  "item-raw-quartz": {
+    "name": "Raw Quartz",
+    "translation": {
+      "namespace": "",
+      "key": "4E04D0E840050ABEFFEE399598A98235"
+    },
+    "description": "Raw Quartz is processed into Quartz Crystals which are used for radar and quantum technology.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F774972A4ED64576FAC1E7841F2C73C6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-raw-quartz"
+  },
+  "item-quartz-crystal": {
+    "name": "Quartz Crystal",
+    "translation": {
+      "namespace": "",
+      "key": "E8CD33CC4193B199528F72BEC3F15850"
+    },
+    "description": "Used for radar and quantum technology.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "44939EC4450A547E87384780E0730965"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quartz-crystal"
+  },
+  "item-liquid-fuel": {
+    "name": "Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "CC5A74DA44B3F473C67C81996CD22CA0"
+    },
+    "description": "Fuel is either converted into electricity or as fuel for vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "292D10CD4F0B231FA8CD08AE1BAD1990"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0.6000000238418579,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-liquid-fuel"
+  },
+  "item-stone": {
+    "name": "Limestone",
+    "translation": {
+      "namespace": "",
+      "key": "C9FE5AC84AAC9C62890EC3BBD6421827"
+    },
+    "description": "Used for crafting.\r\nBasic resource mainly used for stable foundations.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3A5BEEB340477D5ECC06ABA27F05A02F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-stone"
+  },
+  "item-iron-rod": {
+    "name": "Iron Rod",
+    "translation": {
+      "namespace": "",
+      "key": "F636CC1047E4C1E1C65B6B92763EBB27"
+    },
+    "description": "Used for crafting.\r\nOne of the most basic parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DA83EF8541AF89BD0B45F9BFCF111944"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-iron-rod"
+  },
+  "item-compacted-coal": {
+    "name": "Compacted Coal",
+    "translation": {
+      "namespace": "",
+      "key": "00AC56E64A5E12D026084A96A3A38C1E"
+    },
+    "description": "A much more efficient alternative for Coal. Used as fuel for vehicles & coal generators.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "295BC0B94A5F7C2DE756C5B37B0B4706"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 630,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-compacted-coal"
+  },
+  "item-liquid-turbo-fuel": {
+    "name": "Turbofuel",
+    "translation": {
+      "namespace": "",
+      "key": "EB0CE40E46333A5BE8975AAC61A3636C"
+    },
+    "description": "A more efficient alternative to Fuel. Used in Fuel Generators.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FFDC0A924B9BAFDC2EEC9B9BA9183E4D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 2,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-liquid-turbo-fuel"
+  },
+  "item-aluminum-ingot": {
+    "name": "Aluminum Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "6FF55ACD4D36160D3A245FA501C4C0C9"
+    },
+    "description": "Aluminum Ingots are made from Aluminum Scrap. It is mostly used to produce specialized aluminum-based parts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1F87FAC04915863A286AE2AEAF03E2AB"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-aluminum-ingot"
+  },
+  "item-crystal-oscillator": {
+    "name": "Crystal Oscillator",
+    "translation": {
+      "namespace": "",
+      "key": "A2860DFE43D063B913C64294919F78FF"
+    },
+    "description": "A crystal oscillator is an electronic oscillator circuit that uses the mechanical resonance of a vibrating crystal to create an electrical signal with a precise frequency.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A88AEC554A3C72C9310930A24D611936"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-crystal-oscillator"
+  },
+  "item-equipment-descriptor-beacon": {
+    "name": "Beacon",
+    "translation": {
+      "namespace": "",
+      "key": "D64A527F44BA0A1595F8829AC513B6B9"
+    },
+    "description": "Slot: Hands\r\nConsumable\r\n\r\nUsed to mark areas of interest. Displayed on your compass with the color and name you set for it.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8CC28DA441D999C30FEB9EB76AAA849D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-beacon"
+  },
+  "item-high-speed-wire": {
+    "name": "Quickwire",
+    "translation": {
+      "namespace": "",
+      "key": "9FCE731045CC10AF1CD07EA14A80029A"
+    },
+    "description": "Caterium's high conductivity and resistance to corrosion makes it ideal for small, advanced electronics.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BBE6E8764508790B419577AC82AF032B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 4,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-high-speed-wire"
+  },
+  "item-silica": {
+    "name": "Silica",
+    "translation": {
+      "namespace": "",
+      "key": "4FD687D14CB15762AC90819C36C0B9A8"
+    },
+    "description": "Derived from quartz, commonly used in structural materials and microelectronics.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D31898D4466DFDE96257309A40C33400"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-silica"
+  },
+  "item-wood": {
+    "name": "Wood",
+    "translation": {
+      "namespace": "",
+      "key": "9379C1414220E91A18B78E802C6D192C"
+    },
+    "description": "Primarily used as fuel.\r\nBiomass Burners and vehicles can use it for power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4311F0E440244DEF88883EA7D34A1457"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 100,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wood"
+  },
+  "item-generic-biomass": {
+    "name": "Biomass",
+    "translation": {
+      "namespace": "",
+      "key": "E55F58494D71AE5C20AEAEBE4B6378D7"
+    },
+    "description": "Primarily used as fuel.\r\nBiomass burners and vehicles can use it for power.\r\nBiomass is much more energy efficient than raw biological matter.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4CC7DC7A4B687A2B47B2928F1F8E9AD2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 180,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generic-biomass"
+  },
+  "item-circuit-board-high-speed": {
+    "name": "A.I. Limiter",
+    "translation": {
+      "namespace": "",
+      "key": "C2BCAA9842DE092F082BF4A1442A4154"
+    },
+    "description": "A.I. Limiter are super advanced electronics that are used to control A.I.s and keep them from evolving in malicious ways.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C94FE50644881DBD5D510D8FE0E0F332"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-circuit-board-high-speed"
+  },
+  "item-electromagnetic-control-rod": {
+    "name": "Electromagnetic Control Rod",
+    "translation": {
+      "namespace": "",
+      "key": "64E8B00B435D087F5A35078942F520E4"
+    },
+    "description": "Control Rods regulate power expenditure via electromagnetism.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "ED35424246AAE76B6898EA8A40FFA651"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-electromagnetic-control-rod"
+  },
+  "item-sulfur": {
+    "name": "Sulfur",
+    "translation": {
+      "namespace": "",
+      "key": "066E1EE249BF324B1DC93B80587BDA2E"
+    },
+    "description": "Sulfur is primarily used for Gunpowder.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2781D56645FD217026534F81F1130688"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-sulfur"
+  },
+  "item-gunpowder": {
+    "name": "Black powder",
+    "translation": {
+      "namespace": "",
+      "key": "750819CE48BD88ED076FD9ABB51D6201"
+    },
+    "description": "An explosive powder that is commonly used in explosives and cartridges.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "008BBDF74EF889F13136C893CCF7CC14"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-gunpowder"
+  },
+  "item-aluminum-plate": {
+    "name": "Alclad Aluminum Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "300F56834813D17C294AC5B5FC5908F6"
+    },
+    "description": "Thin lightweight & highly durable sheet that is mainly used for products that need to be light or have high heat conduction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "73003FBE4815865E1470098EE5E2D31D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-aluminum-plate"
+  },
+  "item-aluminum-plate-reinforced": {
+    "name": "Heat Sink",
+    "translation": {
+      "namespace": "",
+      "key": "FA1193DC40A26DBB4660EBB8C7347684"
+    },
+    "description": "Used to dissipate heat faster.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E3A7525949F9BD98BDB69DAEEDA0E654"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-aluminum-plate-reinforced"
+  },
+  "item-nobelisk-explosive": {
+    "name": "Nobelisk",
+    "translation": {
+      "namespace": "",
+      "key": "80A48EB743C00652ABDE80B9D83B48FB"
+    },
+    "description": "Can be used with the Nobelisk Detonator to blow up cracked boulders, vegetation or other vulnerable targets.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E3B104F3408348E3584B93BB1CD4FF18"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-nobelisk-explosive"
+  },
+  "item-uranium-cell": {
+    "name": "Encased Uranium Cell",
+    "translation": {
+      "namespace": "",
+      "key": "87F72107478C6E7013FF169CD850F0FB"
+    },
+    "description": "Uranium Cells are concrete encased uranium pellets. Primarily used to make Nuclear Fuel Rods\r\nModerately radioactive.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "90FF273B49FCC02E278A4CB947975F49"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 7.5,
+    "form": 1,
+    "icon": "image-uranium-cell"
+  },
+  "item-nuclear-fuel-rod": {
+    "name": "Nuclear Fuel Rod",
+    "translation": {
+      "namespace": "",
+      "key": "E6B0D2E345B649C9DBEC4DAA8A5B7064"
+    },
+    "description": "Nuclear Fuel Rods are used as fuel in nuclear reactors.\r\nVERY RADIOACTIVE",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BFF44C874B53122AD9D2E2840B1384B4"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorNuclearFuel",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 750000,
+    "radioactiveDecay": 60,
+    "form": 1,
+    "icon": "image-nuclear-fuel-rod"
+  },
+  "item-computer-super": {
+    "name": "Supercomputer",
+    "translation": {
+      "namespace": "",
+      "key": "A6A453EB4F469273A9D3BD9AAE4BDA77"
+    },
+    "description": "The supercomputer is the next-gen version of the computer.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "085B560E4A268D57DD382FB613C81CD7"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-computer-super"
+  },
+  "item-modular-frame-lightweight": {
+    "name": "Radio Control Unit",
+    "translation": {
+      "namespace": "",
+      "key": "954758C74A92CA8C008737968A508505"
+    },
+    "description": "Enhances and directs radio signals",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C94A310E4DABDEA37E89C0B9B1C5978C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-modular-frame-lightweight"
+  },
+  "item-motor-lightweight": {
+    "name": "Turbo Motor",
+    "translation": {
+      "namespace": "",
+      "key": "6180060D4609F43DDDD5F7888441563A"
+    },
+    "description": "The Turbo Motor is a more complex, and more powerful, version of the regular Motor.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5CDF490445B714424DDD75B86F7F1978"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-motor-lightweight"
+  },
+  "item-uranium-pellet": {
+    "name": "Uranium Pellet",
+    "translation": {
+      "namespace": "",
+      "key": "4AF47E8C44F61B0C92D2FD86F1912BB7"
+    },
+    "description": "Produced in the Refinery, Uranium Pellets are purified and cast from Uranium Ore. \r\nPrimarily used to make Uranium Cells.\r\nModerately radioactive.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "0446EB1840B4F1050235E0BD7385C4BB"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 7.5,
+    "form": 1,
+    "icon": "image-uranium-pellet"
+  },
+  "item-fence-01": {
+    "name": "Fence",
+    "translation": {
+      "namespace": "",
+      "key": "58A99A2341582D004FC02EAB8E293B99"
+    },
+    "description": "The Fence can be built on the edges of floors to prevent you from falling off.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C2468EF64258158812194FA70C9C9AFA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-fence-01"
+  },
+  "item-foundation-8x1-01": {
+    "name": "Foundation 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "A8B200054E3E963A12A584B114AC8195"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "850B683E4FDF75F0DA93BB99C8754CC4"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundation-8x1-01"
+  },
+  "item-foundation-8x2-01": {
+    "name": "Foundation 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "55C9C2904639977B5F37309BD35F410A"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A9576D6B49F39B593030B398266664CC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundation-8x2-01"
+  },
+  "item-foundation-8x4-01": {
+    "name": "Foundation 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "609B49B54AA5C558DC1E1E89F5884377"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5616B83444D973EECFB6B4A48374A4F0"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundation-8x4-01"
+  },
+  "item-foundation-frame-01": {
+    "name": "Frame Foundation 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "A708412640E293F0A5F8A68B5F4D4AAC"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FFE33B1A4A6D8A25C2DEBF9D540C0AA8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundation-frame-01"
+  },
+  "item-foundation-glass-01": {
+    "name": "Glass Foundation 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "B882E3C5467BAB928F0692999A023651"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9C1F83674287A1715B5A37866339B9AD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundation-glass-01"
+  },
+  "item-pillar-base": {
+    "name": "Pillar Base",
+    "translation": {
+      "namespace": "",
+      "key": "1EEAF10E41A57AC2349C9F87C2DCC4CE"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CB752A364C85D9D9A52482BE95DDAD2F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pillar-base"
+  },
+  "item-pillar-middle": {
+    "name": "Pillar Middle",
+    "translation": {
+      "namespace": "",
+      "key": "A1B6415345C4BD8FEB20309D78DA2B36"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D82062D41E119BC12AF33A5527621EE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pillar-middle"
+  },
+  "item-pillar-top": {
+    "name": "Pillar Top",
+    "translation": {
+      "namespace": "",
+      "key": "AAF5DACA41F081D9CD9983AD47233547"
+    },
+    "description": "Provides a flat floor to build your factory on. \r\nBuildings on top of the foundation are adjusted to a grid, to make it easier to line them up to each other.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "295061CC41DB5FEA826FE18B6BC28A6F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pillar-top"
+  },
+  "item-quarter-pipe": {
+    "name": "Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "082266694F3AB8401CADD1A4CBD065BC"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "908714D74EC6A116461DBF98BF3DE432"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe"
+  },
+  "item-quarter-pipe-02": {
+    "name": "Inverted Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "EBA0A6E44A54A2CB1C5FF0BA942D0BA0"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "61C125404520A404AC42ABA58B52CC5D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe-02"
+  },
+  "item-quarter-pipe-corner-01": {
+    "name": "Inner-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "5A1C8F614965C9E2F1AF648F781FE40B"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5E591A6D4D29837116BD43B3C8483C7E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe-corner-01"
+  },
+  "item-quarter-pipe-corner-02": {
+    "name": "Inverted Inner-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "81B8BB10446B89CA79418D9DCF41B11A"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A1EB60D64E2B4ACBF735859A143F1BCD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe-corner-02"
+  },
+  "item-quarter-pipe-corner-03": {
+    "name": "Outer-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "C6BC7F604394047508D223A59BCDA3F3"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2A4B56D3415E701C037EDA8270872F05"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe-corner-03"
+  },
+  "item-quarter-pipe-corner-04": {
+    "name": "Inverted Outer-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "839B91564B5387DB3D35888A43AE55DE"
+    },
+    "description": "Provides an optional factory look that is smoother and offers possibilities for recreational activities. \r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "AA648AF44B137BCC9E99CB9FC12549F1"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-quarter-pipe-corner-04"
+  },
+  "item-ramp-8x1-01": {
+    "name": "Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "22D1D68843595A5AC26D50A03B2413BE"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1A0DA4844074BEA6252CB69D01316CFD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-8x1-01"
+  },
+  "item-ramp-8x2-01": {
+    "name": "Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "8B21227245CDE72DFEEA1F9DDB420C2E"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7A86EDD24147BFF1A92627816A74726A"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-8x2-01"
+  },
+  "item-ramp-8x4-01": {
+    "name": "Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "9C5CC4DD4CE8D1CDB48A29B28BCEE268"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CC8E33B6437C7CE78B9C36918FED095C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-8x4-01"
+  },
+  "item-ramp-8x4-inverted-01": {
+    "name": "Inverted Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "DB93D383449341AE608244B0C88BCFA2"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "54AAB0CB4900CC038B510180858CA51E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-8x4-inverted-01"
+  },
+  "item-ramp-8x8x8": {
+    "name": "Double Ramp 8m x 8m",
+    "translation": {
+      "namespace": "",
+      "key": "439548E64D589FD436193598534077D8"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EDD237574BC5408C297C96A73E30296C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-8x8x8"
+  },
+  "item-ramp-diagonal-8x1-01": {
+    "name": "Down Corner Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "BD3989FA49528018FDE5EEA2CAEE4490"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 1",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2E7FB2884E3E7529864A51A5126334B8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x1-01"
+  },
+  "item-ramp-diagonal-8x1-02": {
+    "name": "Up Corner Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "E3E0F9034BB2FB0A02A1E789888A7070"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 1",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "556C23BF4679FE7FCCF5BB921C43A045"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x1-02"
+  },
+  "item-ramp-diagonal-8x2-01": {
+    "name": "Down Corner Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "70FFD401489D694E211F13B28DD255DE"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 2",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "325534B44343A338AB07EB904F737077"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x2-01"
+  },
+  "item-ramp-diagonal-8x2-02": {
+    "name": "Up Corner Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "692E4B904FC6CE2F7744179020E43129"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 2",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6CF752CD4CB4DB5478DE67863685E7F2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x2-02"
+  },
+  "item-ramp-diagonal-8x4-01": {
+    "name": "Down Corner Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "A0082D7E489CC2721CE3A493940D9F20"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F5BEAC14452CCE2D62E7B7843AC5C2BF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x4-01"
+  },
+  "item-ramp-diagonal-8x4-02": {
+    "name": "Up Corner Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "CA0000424131621058A9D2886C7A5D3A"
+    },
+    "description": "Ramps make it easier to get up onto Foundations for Pioneers and their Vehicles.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "40FBDAA442E4C218DF06148E2ABEE972"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-diagonal-8x4-02"
+  },
+  "item-ramp-double": {
+    "name": "Double Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "546A69EA4AF88E592E2C069D55C181B0"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2CFEECA0471429806E7643866AB227E5"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-double"
+  },
+  "item-ramp-double-8x1": {
+    "name": "Double Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "9D910A644454CF7DDD1DBFBC753BE88F"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "85B18D31400DE77C3A210EBD78C3D72F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-double-8x1"
+  },
+  "item-ramp-inverted-8x1": {
+    "name": "Inverted Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "8224F552451628BF349187BCA4A8D6CC"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "88CF77874A30A8E3B3E990B2FA2B8322"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x1"
+  },
+  "item-ramp-inverted-8x1-corner-01": {
+    "name": "Up Corner   8m x 1m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "05A220264E25A3E0409A2DAC03EFEBE8"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2BF276A7465701B49CD4E594B46D9820"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x1-corner-01"
+  },
+  "item-ramp-inverted-8x1-corner-02": {
+    "name": "Down Corner 8m x 1m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "DCDE2FE14FF6E191BC8731AEFFE9CF64"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F75E1EF24C7FDE7B3AE38DA67ADC24D6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x1-corner-02"
+  },
+  "item-ramp-inverted-8x2-01": {
+    "name": "Inverted Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "823395284255E75442DDB0A275883436"
+    },
+    "description": "Snaps to foundations to make it easier to get on top of them. Works especially well with vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CA19300C4DD4B6406B6D1699C525F4A6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x2-01"
+  },
+  "item-ramp-inverted-8x2-corner-01": {
+    "name": "Up Corner   8m x 2m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "113B044D41B6634133CC01B84CEFCF20"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CC1B00F244A70C6ECB5CD5BAA297D34C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x2-corner-01"
+  },
+  "item-ramp-inverted-8x2-corner-02": {
+    "name": "Down Corner 8m x 2m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "570A3AF64EE2DEE09EEDCFB4AB1B1815"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5D72030A4DDD2E3F474181B76A376FBF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x2-corner-02"
+  },
+  "item-ramp-inverted-8x4-corner-01": {
+    "name": "Up Corner   8m x 4m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "5D4E621A4149CD4E4C369495785DA6BA"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "85FA6BF64A8B161F91A51291F181D43E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x4-corner-01"
+  },
+  "item-ramp-inverted-8x4-corner-02": {
+    "name": "Down Corner 8m x 4m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "FAD4DBB542C7B035B5A9EEB49FCB93FC"
+    },
+    "description": "Inverted Ramps mostly provide aesthetic options.\r\nStill utilizes the standard foundation building grid for improved building placement.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C55961654126C3B8A92C6C8D5BA09DFA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ramp-inverted-8x4-corner-02"
+  },
+  "item-assembler-mk1": {
+    "name": "Assembler",
+    "translation": {
+      "namespace": "",
+      "key": "EB40823F4C4A3CB74DD01EB48C9A69A2"
+    },
+    "description": "Crafts two parts into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "097B36C64F62B2F07D5EB3A10195AEF2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-assembler-mk1"
+  },
+  "item-constructor-mk1": {
+    "name": "Constructor",
+    "translation": {
+      "namespace": "",
+      "key": "505E12434033913D9DE530BFEDFB42E3"
+    },
+    "description": "Crafts one part into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B0584B6840E2DB6703898588AE6DE67E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-constructor-mk1"
+  },
+  "item-conveyor-attachment-merger": {
+    "name": "Conveyor Merger",
+    "translation": {
+      "namespace": "",
+      "key": "C63896FE4A9C43C5E49587A848034DA3"
+    },
+    "description": "Merges up to three conveyor belts into one.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5B3E03AC447D3999904D8D88D8D4CEB9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-attachment-merger"
+  },
+  "item-conveyor-attachment-splitter": {
+    "name": "Conveyor Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "09EE05E24162F23EBCCC6B8EE2D71ADC"
+    },
+    "description": "Splits conveyor belts in three. \r\nUseful to move parts and resources from oversaturated conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "40F5E1E34E897A813A5689802DAC3250"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-attachment-splitter"
+  },
+  "item-conveyor-attachment-splitter-programmable": {
+    "name": "Programmable Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "00FBE22749CFF4A3D063D19CDC1E96A5"
+    },
+    "description": "Splits conveyor belts in three. \r\nYou can set rules for each output to decide exactly where each part should go.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "45D35F8744D88313D119B88668A30E36"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-attachment-splitter-programmable"
+  },
+  "item-conveyor-attachment-splitter-smart": {
+    "name": "Smart Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "DDCEE94042483A5C6F947DA5BC2EFCCA"
+    },
+    "description": "Splits conveyor belts in three. \r\nYou can set a rule for which part should go to the left and which part should go to the right.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4EBA72A247B94BBDBD22B284B6887FE2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-attachment-splitter-smart"
+  },
+  "item-conveyor-belt-mk1": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-belt-mk1"
+  },
+  "item-conveyor-belt-mk2": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-belt-mk2"
+  },
+  "item-conveyor-belt-mk3": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-belt-mk3"
+  },
+  "item-conveyor-belt-mk4": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-belt-mk4"
+  },
+  "item-conveyor-belt-mk5": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-belt-mk5"
+  },
+  "item-conveyor-lift-mk1": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B55C6E1642062D242A3BB695B625186D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-lift-mk1"
+  },
+  "item-conveyor-lift-mk2": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B55C6E1642062D242A3BB695B625186D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-lift-mk2"
+  },
+  "item-conveyor-lift-mk3": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B55C6E1642062D242A3BB695B625186D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-lift-mk3"
+  },
+  "item-conveyor-lift-mk4": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B55C6E1642062D242A3BB695B625186D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-lift-mk4"
+  },
+  "item-conveyor-lift-mk5": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B55C6E1642062D242A3BB695B625186D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-lift-mk5"
+  },
+  "item-conveyor-pole": {
+    "name": "Conveyor Pole",
+    "translation": {
+      "namespace": "",
+      "key": "E75693834797F592505B699477FFC63F"
+    },
+    "description": "Can be used as a connection for conveyor belts. The height of the pole can be adjusted.\r\nUseful to route conveyor belts in a more controlled manner and over long distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2A327C484684DE06BD78FD9C1C764E8A"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-pole"
+  },
+  "item-conveyor-pole-stackable": {
+    "name": "Stackable Conveyor Pole",
+    "translation": {
+      "namespace": "",
+      "key": "9AA85FB14CE8061CC16D08A0129DE294"
+    },
+    "description": "Conveyor pole with fixed size that is stackable",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "12B7A8464A49BFC28BB03393CE3D5F51"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-pole-stackable"
+  },
+  "item-conveyor-pole-wall": {
+    "name": "Conveyor Wall Mount",
+    "translation": {
+      "namespace": "",
+      "key": "7D6873DF4DE52C6EA093A0B090958FF0"
+    },
+    "description": "Can be attached to walls and is used as a connection for conveyor belts.\r\nUseful to route conveyor belts in a more controlled manner and over long distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6C915B754D24C533A6F82EAF4654701C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-conveyor-pole-wall"
+  },
+  "item-generator-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "description": "Burns various forms of biomass to generate electricity for the power grid.\r\nHas no input and must therefore be fed biomass manually.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "869B742B470C99E70DCC068CC7F11E91"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generator-biomass"
+  },
+  "item-generator-coal": {
+    "name": "Coal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "C38B9BAA4A167E5A9E4FB5AB1E841F92"
+    },
+    "description": "Burns Coal to boil Water, the produced steam rotates turbines to generate electricty for the power grid.\r\nHas a Conveyor Belt and Pipe input, so both the Coal and Water supply can be automated.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2FB5A3B14E36C34D28A3E1B3FD0AE162"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generator-coal"
+  },
+  "item-generator-fuel": {
+    "name": "Fuel Generator",
+    "translation": {
+      "namespace": "",
+      "key": "AA728F1D41C142BC9F2CA2AC66B4ADE6"
+    },
+    "description": "Consumes Fuel to generate electricity for the power grid.\r\nHas a Pipe input so the Fuel supply can be automated.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "652554D7475B7CA70B0508A85DF7D1EC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generator-fuel"
+  },
+  "item-generator-geo-thermal": {
+    "name": "Geothermal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "9709F0E848E7F6F0655F698AE49B11DE"
+    },
+    "description": "Can only be built on geyser nodes.\r\nGenerates electricity for your power grid.\r\nDoes not require any resources to be input.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "268D4D8B4EBC299186C1AE87E8CE962C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generator-geo-thermal"
+  },
+  "item-generator-integrated-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "description": "Burns Biomass to produce power. Biomass must be loaded manually and is obtained by picking up flora in the world. Produces up to 20MW of power while operating.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2DD400DF4B20B30420BDC09440952EBE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": ""
+  },
+  "item-generator-nuclear": {
+    "name": "Nuclear Power Plant",
+    "translation": {
+      "namespace": "",
+      "key": "A519D24944F564E90A5B108D65CCDEE6"
+    },
+    "description": "Consumes Nuclear Fuel Rods and Water to produce electricty for the power grid.\r\n\r\nProduces Nuclear Waste, which is extracted from the conveyor belt output.\r\n\r\nResource consumption will automatically be lowered to meet power demands.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "948765F042C8CFF5B5E4E291A94F8611"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-generator-nuclear"
+  },
+  "item-hub-terminal": {
+    "name": "HUB Terminal",
+    "translation": {
+      "namespace": "",
+      "key": "F6727D9446D0E5E2F9C171B61C1776F9"
+    },
+    "description": null,
+    "descriptionTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": ""
+  },
+  "item-hyper-pole-stackable": {
+    "name": "Stackable Hyper Tube Support",
+    "translation": {
+      "namespace": "",
+      "key": "FF804C79415860EA384109B7F81460E5"
+    },
+    "description": "Support for Hyper Tubes. Can be stacked on other stackable supports.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7BB13CFF471D2098D117CC9B5D0BBFF8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hyper-pole-stackable"
+  },
+  "item-hyper-tube-wall-hole": {
+    "name": "Hyper Tube Wall Hole",
+    "translation": {
+      "namespace": "",
+      "key": "6D71546E4367A0A5813721A9E2BA48D4"
+    },
+    "description": "Can be attached to walls to allow Hyper Tubes to pass through them.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "94AA50A747973843B0E6049084229078"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hyper-tube-wall-hole"
+  },
+  "item-hyper-tube-wall-support": {
+    "name": "Hyper Tube Wall Support",
+    "translation": {
+      "namespace": "",
+      "key": "3D828D9D481A398EA2A2B69D0291984A"
+    },
+    "description": "Can be attached to walls. \r\nSupports for Hyper Tubes to allow for longer distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "43231B814609DE9C6264529086794FBE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hyper-tube-wall-support"
+  },
+  "item-industrial-tank": {
+    "name": "Industrial Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "FB803EDB47531AAC9A0828B13F15197F"
+    },
+    "description": "Can contain up to 2400m³ of fluid.\r\nHas an in and output for pipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A1458E164683A73E0E652FA905907166"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-industrial-tank"
+  },
+  "item-jump-pad": {
+    "name": "Jump Pad",
+    "translation": {
+      "namespace": "",
+      "key": "5C7397674656688A5C530991564A68FA"
+    },
+    "description": "Propels you upwards through the air.\r\nMake sure you land softly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7D8E78D346E855AF871A3989CEA21750"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-jump-pad"
+  },
+  "item-jump-pad-tilted": {
+    "name": "Jump Pad",
+    "translation": {
+      "namespace": "",
+      "key": "5C7397674656688A5C530991564A68FA"
+    },
+    "description": "Propels you upwards through the air.\r\nMake sure you land softly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7D8E78D346E855AF871A3989CEA21750"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-jump-pad-tilted"
+  },
+  "item-lookout-tower": {
+    "name": "Lookout Tower",
+    "translation": {
+      "namespace": "",
+      "key": "7BC4EE4E49ED77007D865BA9B36461A3"
+    },
+    "description": "Provides a good OVERVIEW useful for building.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CE29266B483DB00456649FA7C64E8D3B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-lookout-tower"
+  },
+  "item-mam": {
+    "name": "M.A.M.",
+    "translation": {
+      "namespace": "",
+      "key": "42111D1146F0DCFA899A6292AF4C2AA4"
+    },
+    "description": "The Molecular Analysis Machine is used to analyse new and exotic materials found on alien planets.\r\nR&D will assist Pioneers through the M.A.M. to turn any valuable data into usable research options and new technologies.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "545F4AC14D8E3A6C5A080BABF0D32C44"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-mam"
+  },
+  "item-manufacturer-mk1": {
+    "name": "Manufacturer",
+    "translation": {
+      "namespace": "",
+      "key": "F2F84BA44DC64F9CC65388BF8D7EE2EF"
+    },
+    "description": "Crafts three or four parts into another part.\r\n\r\nCan be automated by feeding parts into it with a conveyor belt connected to the input. The produced parts can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A0D2CD4B4CC567617D0954ABDA23A1D6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-manufacturer-mk1"
+  },
+  "item-item-descriptor-portable-miner": {
+    "name": "Portable Miner",
+    "translation": {
+      "namespace": "",
+      "key": "B0C5FAF440E928D3E216818A3C8C70D3"
+    },
+    "description": "Slot: Hands\r\n\r\nCan be set up on a resource node to automatically extract the resource. Very limited storage space.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BECE828A453B4CF97714448737553C36"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-item-descriptor-portable-miner"
+  },
+  "item-miner-mk1": {
+    "name": "Miner Mk1",
+    "translation": {
+      "namespace": "",
+      "key": "A3AFD2EC45F35991F592229EB62527CF"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 60 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "91DECFAB424C19A9AC3C349C51F7BA4B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-miner-mk1"
+  },
+  "item-miner-mk2": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-miner-mk2"
+  },
+  "item-miner-mk3": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-miner-mk3"
+  },
+  "item-oil-pump": {
+    "name": "Oil Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "C86F1CAE473C8311D399909A494C8CF2"
+    },
+    "description": "Normal extraction rate: 120m³ oil per minute.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nCan be build on an Oil Node to extract Crude Oil. Extraction rates depend on node purity.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F4186916492BB7F4CE5AD89DB595A029"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-oil-pump"
+  },
+  "item-oil-refinery": {
+    "name": "Refinery",
+    "translation": {
+      "namespace": "",
+      "key": "EC74BA4B4881D9235260B7B2AB3088CF"
+    },
+    "description": "Refines fluid and/or solid parts into other parts.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nContains both a Conveyor Belt and Pipe input and output, to allow for the automation of various recipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9EAEB6294D8FF3C3BC86BD9F4E04BECE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-oil-refinery"
+  },
+  "item-pipe-hyper": {
+    "name": "Hyper Tube",
+    "translation": {
+      "namespace": "",
+      "key": "F47AA5734D3C62747D47C3AABDC6D92C"
+    },
+    "description": "Tubes for transporting FICSIT employees.\r\nA Hyper Tube Entrance needs to be attached to power and enter a Hyper Tube system.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EF96EA4D469F98DC529DFA9277E5D476"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipe-hyper"
+  },
+  "item-pipe-hyper-support": {
+    "name": "Hyper Tube Support",
+    "translation": {
+      "namespace": "",
+      "key": "E88D8F68439F7787E4243CAA20966914"
+    },
+    "description": "Supports for Hyper Tubes to allow for longer distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B222DA304F5BAAACA044B2A022B31DB1"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipe-hyper-support"
+  },
+  "item-pipeline": {
+    "name": "Pipeline",
+    "translation": {
+      "namespace": "",
+      "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
+    },
+    "description": "Outside indicators show volume, flow rate and direction.\r\nTransports up to 300m³ of fluid per minute.\r\nUsed to transport fluids.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F342E9104323D0072DC923A20E32C89D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline"
+  },
+  "item-pipeline-junction-cross": {
+    "name": "Pipeline Junction Cross",
+    "translation": {
+      "namespace": "",
+      "key": "4841474A4998580837B45AB5CA652833"
+    },
+    "description": "Can be attached to a pipeline to split it 4-way.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "08F950CD4421E5719EC9A99350B40B50"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-junction-cross"
+  },
+  "item-pipeline-pump": {
+    "name": "Pipeline Pump",
+    "translation": {
+      "namespace": "",
+      "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
+    },
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\nOutputs fluids at 300m³ per minute.\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E60BEFDA413E62FF8154B3BE66A34A3C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-pump"
+  },
+  "item-pipe-storage-tank": {
+    "name": "Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "97750E3B42E12664B160F6AC35865F27"
+    },
+    "description": "Can contain up to 400m³ of fluid.\r\nHas an in and output for pipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C459768E4DC5B3E8D4D8B2818A3BF6CD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipe-storage-tank"
+  },
+  "item-pipeline-support": {
+    "name": "Pipeline Support",
+    "translation": {
+      "namespace": "",
+      "key": "D05C9AC34F610E44976D04B0BF41A463"
+    },
+    "description": "Can be used as a connection for pipelines. The height of the support can be adjusted.\r\nUseful to route pipelines in a more controlled manner and over long distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "816B212E4976D2B0F380BBA9241B76AA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-support"
+  },
+  "item-pipe-support-stackable": {
+    "name": "Stackable Pipeline Support",
+    "translation": {
+      "namespace": "",
+      "key": "7D323E544CECF89E2E5535B771D3E608"
+    },
+    "description": "Support for pipelines. Can be stacked on other stackable supports.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F6DACD9A48CEE4E802A290B4BBAF6E9D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGPoleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipe-support-stackable"
+  },
+  "item-pipeline-support-wall": {
+    "name": "Pipeline Wall Support",
+    "translation": {
+      "namespace": "",
+      "key": "BCCF101049D9AD2ACCB009B6E1102C07"
+    },
+    "description": "Can be attached to walls.\r\nUsed to connect Pipelines over longer distances.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "93A5B4764F922DAD6EBD68ADFB072597"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-support-wall"
+  },
+  "item-pipeline-support-wall-hole": {
+    "name": "Pipeline Wall Hole",
+    "translation": {
+      "namespace": "",
+      "key": "B351FBE34D4D8868CCB4339FF8E68E80"
+    },
+    "description": "Can be attached to walls, allowing Pipelines to pass through them.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2CAA9E4141F76A567D29F58ED2ECAE33"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-support-wall-hole"
+  },
+  "item-power-line": {
+    "name": "Power Line",
+    "translation": {
+      "namespace": "",
+      "key": "BA845DBE4BECEE99988C898F06411E41"
+    },
+    "description": "Used to connect Power Poles, Power Generators and Factory buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CDDF35C24A1D116A8CC4D2BF3F8B5986"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-line"
+  },
+  "item-power-pole-mk1": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "description": "Can handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "835E88C742E5553D22FBE98E33EDA65C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-mk1"
+  },
+  "item-power-pole-mk2": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "description": "Can handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "835E88C742E5553D22FBE98E33EDA65C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-mk2"
+  },
+  "item-power-pole-mk3": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "description": "Can handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "835E88C742E5553D22FBE98E33EDA65C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-mk3"
+  },
+  "item-power-pole-wall": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall"
+  },
+  "item-power-pole-wall-double": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A27D86D648474EA536D633936F7F0DD9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall-double"
+  },
+  "item-power-pole-wall-double-mk2": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A27D86D648474EA536D633936F7F0DD9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall-double-mk2"
+  },
+  "item-power-pole-wall-double-mk3": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A27D86D648474EA536D633936F7F0DD9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall-double-mk3"
+  },
+  "item-power-pole-wall-mk2": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall-mk2"
+  },
+  "item-power-pole-wall-mk3": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-power-pole-wall-mk3"
+  },
+  "item-radar-tower": {
+    "name": "Radar Tower",
+    "translation": {
+      "namespace": "",
+      "key": "A23E89434DAEB0ED399BCF8005371E37"
+    },
+    "description": "Reveals an area around itself on the map. The area grows over time to a max.\r\nPlacing the tower heigher up increases the max area revealed.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4124C71741E44AA6E3F376B1BF46DDE2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-radar-tower"
+  },
+  "item-railroad-track": {
+    "name": "Railway",
+    "translation": {
+      "namespace": "",
+      "key": "A99FD448401EE8273142B19004C59912"
+    },
+    "description": "Used to transport trains in a reliable and fast manner.\r\nHas a wide turn angle so make sure to plan it out properly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C8D98C1649559E700DCDC49B0EF3CE3C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-railroad-track"
+  },
+  "item-railroad-track-integrated": {
+    "name": "Integrated Platform Track",
+    "translation": {
+      "namespace": "",
+      "key": "831361E04B97F1639B9EDA9F622B9332"
+    },
+    "description": null,
+    "descriptionTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-railroad-track-integrated"
+  },
+  "item-resource-sink": {
+    "name": "AWESOME Sink",
+    "translation": {
+      "namespace": "",
+      "key": "7EF9CDA1441086A8E94D6A984AF35EE8"
+    },
+    "description": "Got excess resources? Fear not, for FICSIT does not waste! The newly developed AWESOME Sink turns any useful part straight into research data, as fast as you can supply it! \r\nParticipating pioneers will be compensated with Coupons to be spend at the AWESOME Shop.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EBCE338946258919C03A0BB706968BC4"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-resource-sink"
+  },
+  "item-resource-sink-shop": {
+    "name": "AWESOME Shop",
+    "translation": {
+      "namespace": "",
+      "key": "98E1AF4D447BF9A6276B8CB41AC520DA"
+    },
+    "description": "Redeem your FICSIT Coupons here! \r\nFor those employees going the extra kilometer we have set aside special bonus milestones and rewards! Get your Coupons in the AWESOME Sink program now!\r\n\r\n*No refunds possible.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "17DF3A07473A1711573D6C8558546356"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-resource-sink-shop"
+  },
+  "item-smelter-mk1": {
+    "name": "Smelter",
+    "translation": {
+      "namespace": "",
+      "key": "3CA150EE4C2EBEDE9D0F87891C4A5080"
+    },
+    "description": "Smelts ore into ingots.\r\n\r\nCan be automated by feeding ore into it with a conveyor belt connected to the input. The produced ingots can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D21370CD45DDE70B1D9C728BFAC366B8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-smelter-mk1"
+  },
+  "item-foundry-mk1": {
+    "name": "Foundry",
+    "translation": {
+      "namespace": "",
+      "key": "89353AD14BCCDC9A82F5CDAA107A8940"
+    },
+    "description": "Smelts two resources into alloy ingots.\r\n\r\nCan be automated by feeding ore into it with a conveyor belt connected to the inputs. The produced ingots can be automatically extracted by connecting a conveyor belt to the output.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "85DFA9F04DD65865F6A061B3D330D7BB"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-foundry-mk1"
+  },
+  "item-storage-container-mk1": {
+    "name": "Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "520B7D0D455BA2BBF734B393ED45EA02"
+    },
+    "description": "Contains 24 slots for storing large amounts of items.\r\nHas an input and output for conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "428288CC4FD3D721B340D79C45BBEA09"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-storage-container-mk1"
+  },
+  "item-storage-container-mk2": {
+    "name": "Industrial Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "8AB1A36E4555E4194A80CCB96B6EFC3B"
+    },
+    "description": "Contains 48 slots for storing large amounts of items.\r\nHas two inputs and outputs for conveyor belts.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5528B71E4C6D5B46B8035B8EC35C96F8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-storage-container-mk2"
+  },
+  "item-storage-integrated": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "9A1FB991446CCCB04C279980B845C7F9"
+    },
+    "description": "A box you can put things in.                                          Has 25 inventory slots.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B542BFF7454C7FD6C6E36D9EC37F722D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": ""
+  },
+  "item-storage-player": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "50521D7049521D27A006208327292C7E"
+    },
+    "description": "Contains 25 slots for storing large amounts of items.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6C1366724035B33444EC718D6582159B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-storage-player"
+  },
+  "item-hubparts": {
+    "name": "HUB Parts",
+    "translation": {
+      "namespace": "",
+      "key": "1D76276E44F1F518169048B5B378EBE8"
+    },
+    "description": "The parts required to build the basic structure of the HUB.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B50BF0674966D1FBA93B61BAB7F2E0C7"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": false,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hubparts"
+  },
+  "item-trading-post": {
+    "name": "The HUB",
+    "translation": {
+      "namespace": "",
+      "key": "94FECF5B45FE9DB38A19248BBD383958"
+    },
+    "description": "The heart of your factory. This is where you complete FICSIT milestones to unlock additional blueprints of buildings, vehicles, parts, equipment etc.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5C2BA8414CB9AD297AD01697325DE3E8"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-trading-post"
+  },
+  "item-truck-station": {
+    "name": "Truck Station",
+    "translation": {
+      "namespace": "",
+      "key": "3B3576E9482BA277C308C88DFCB73D1B"
+    },
+    "description": "Either send or receive resources to vehicles. Has an inventory with 48 slots.\r\nTransfers up to 120 stacks per minute to/from docked vehicle. \r\nAlways refuels vehicles if it has access to a matching fuel type.\r\n",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E17F8FAE44437115176DE38CFA9AB9AB"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-truck-station"
+  },
+  "item-landing-pad": {
+    "name": "U-Jelly Landing Pad",
+    "translation": {
+      "namespace": "",
+      "key": "40EA941E48CEFB59722E2F81443B383D"
+    },
+    "description": "Generates a speed dampening jelly.\r\nGuarantees a soft landing.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C34118414305B8CB72BDE989142D7A90"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-landing-pad"
+  },
+  "item-water-pump": {
+    "name": "Water Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "D8ACD2BE4630860B9B040696FFAE4FE1"
+    },
+    "description": "Default extraction rate: 120m³ water per minute.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nExtracts water from the body of water it is build on.\r\nNote that the water needs to be deep enough and that rivers do not commonly suffice.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "12DEA49B42343EB1FAC2B3B27C56FA4F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-water-pump"
+  },
+  "item-work-bench": {
+    "name": "Craft Bench",
+    "translation": {
+      "namespace": "",
+      "key": "909BAFD0411132D0C914DCA1317B245F"
+    },
+    "description": "Allows you to manually craft a large range of different parts. \r\nThese parts can then be used in construction of different factory buildings, vehicles and equipment.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8D86213447772D233FC197BE8EA51736"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-work-bench"
+  },
+  "item-work-bench-integrated": {
+    "name": "Craft Bench",
+    "translation": {
+      "namespace": "",
+      "key": "DC88421D451F63FB95AA80861E61AEFC"
+    },
+    "description": "The Craft Bench allows you to manually produce parts to use in constructing buildings.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F94BADFE4C6835FB3D72DBBF3E590C58"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": ""
+  },
+  "item-workshop": {
+    "name": "Equipment Workshop",
+    "translation": {
+      "namespace": "",
+      "key": "BE3C0E5D44852E9A26F679A7602CA8EC"
+    },
+    "description": "Used to manually craft equipment.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "20A5A0EA49D968BB3878B7B7CA7388D2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-workshop"
+  },
+  "item-stair-1b": {
+    "name": "Stairs",
+    "translation": {
+      "namespace": "",
+      "key": "F0371BBB47CD51A74240218E4574CCF3"
+    },
+    "description": "The Stairs allow you to move to the upper floors of your buildings. Height: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8056559545AE16B7F305D6A92A15A4F2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-stair-1b"
+  },
+  "item-stairs-left-01": {
+    "name": "Stairs Left",
+    "translation": {
+      "namespace": "",
+      "key": "EF33C3A04EB77B078A3B529C4458FB70"
+    },
+    "description": "Snaps to foundations.\r\nMakes it easier to get to other floors of your structures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "67E6DD8848ED54B8F545A1A44733DE33"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-stairs-left-01"
+  },
+  "item-stairs-right-01": {
+    "name": "Stairs Right",
+    "translation": {
+      "namespace": "",
+      "key": "05066D2045E633D9E5D110A097A25716"
+    },
+    "description": "Snaps to foundations.\r\nMakes it easier to get to other floors of your structures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EAF25DA34150028BA88A3B8B01D46683"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-stairs-right-01"
+  },
+  "item-space-elevator": {
+    "name": "Space Elevator",
+    "translation": {
+      "namespace": "",
+      "key": "B0AE60A44F6A0BBC2C2B84B14CB7DB6F"
+    },
+    "description": "Requires deliveries of special Project Parts to complete Phases of Project Assembly.\r\nCompleting Phases in the Space Elevator will unlock new Tiers in the HUB Terminal.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C9D44CF643D9DC6F4A803D96A1F54FD0"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator"
+  },
+  "item-walkway-cross": {
+    "name": "Walkway Crossing",
+    "translation": {
+      "namespace": "",
+      "key": "2742C058416371DE0121ACA99A2A6C11"
+    },
+    "description": "Snaps to foundations and other walkways.\r\nSpecifically made for humans to walk on.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5264DC934BD6BDC3DD4B8E9CC5EB556F"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-walkway-cross"
+  },
+  "item-walkway-ramp": {
+    "name": "Walkway Ramp",
+    "translation": {
+      "namespace": "",
+      "key": "1C309B5945236DCB3459DF98EF83D600"
+    },
+    "description": "Snaps to foundations and other walkways.\r\nSpecifically made for humans to walk on.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "80D655BF437EB8BFA05938962EB4A92C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-walkway-ramp"
+  },
+  "item-walkway-straight": {
+    "name": "Walkway Straight",
+    "translation": {
+      "namespace": "",
+      "key": "EB89B3BF4A8D4FDF524B71823D7AD380"
+    },
+    "description": "Snaps to foundations and other walkways.\r\nSpecifically made for humans to walk on.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E48B31C442930CB1F24B80930A478C1A"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-walkway-straight"
+  },
+  "item-walkway-t": {
+    "name": "Walkway T-Crossing",
+    "translation": {
+      "namespace": "",
+      "key": "8B436E274CB07F5B15E3CB9B11306494"
+    },
+    "description": "Snaps to foundations and other walkways.\r\nSpecifically made for humans to walk on.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C92F1D7D45F1C5F838C3CC81FECB4120"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-walkway-t"
+  },
+  "item-walkway-turn": {
+    "name": "Walkway Turn",
+    "translation": {
+      "namespace": "",
+      "key": "D000C4DE41EF4F7706BCE6BCCF9253F8"
+    },
+    "description": "Snaps to foundations and other walkways.\r\nSpecifically made for humans to walk on.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "0B14350F4BE32A97254329860AB27783"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-walkway-turn"
+  },
+  "item-wall-8x4-01": {
+    "name": "Wall 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "174E83A44FA0C14E1808B1A40832E858"
+    },
+    "description": "Snaps to foundations and other walls.\r\nUseful for building multi-floor structures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F9ACA1274818BFEE9194F39B60A1EB14"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-8x4-01"
+  },
+  "item-wall-8x4-02": {
+    "name": "Wall 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "6253A9A94CBE6B457EDCD788D6C39173"
+    },
+    "description": "Snaps to foundations and other walls.\r\nUseful for building multi-floor structures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "99C463DA4694F38C6E010097BDE72FD2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-8x4-02"
+  },
+  "item-wall-conveyor-8x4-01": {
+    "name": "Wall Conveyor x3",
+    "translation": {
+      "namespace": "",
+      "key": "521136354A5C233306F353A0F7ED6554"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 3 conveyor belt connections.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A6070E424DE91E49ACEA5EB295CBEA67"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-01"
+  },
+  "item-wall-conveyor-8x4-01-steel": {
+    "name": "Wall Conveyor x3",
+    "translation": {
+      "namespace": "",
+      "key": "998C0662464878F4ED9D4DAB4BC205C6"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 3 conveyor belt connections.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B8D760364A6BCE32E8E630B1BF3F92B4"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-01-steel"
+  },
+  "item-wall-conveyor-8x4-02": {
+    "name": "Wall Conveyor x2",
+    "translation": {
+      "namespace": "",
+      "key": "302710FD4C6BE8D25064F6B5098033E7"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 2 conveyor belt connections.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CBE9083146701D12AFAC44898B9917C0"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-02"
+  },
+  "item-wall-conveyor-8x4-02-steel": {
+    "name": "Wall Conveyor x2",
+    "translation": {
+      "namespace": "",
+      "key": "51712C3E4333617C4E7CA5A7A2CE118A"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 2 conveyor belt connections.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1EBA6AF24DE6D31E4FA635871E043478"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-02-steel"
+  },
+  "item-wall-conveyor-8x4-03": {
+    "name": "Wall Conveyor x1",
+    "translation": {
+      "namespace": "",
+      "key": "F0E232684E48CF40F031F79FFF756A64"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 1 conveyor belt connection.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "A81C2B1A458ECAD3D4F31BBE43356644"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-03"
+  },
+  "item-wall-conveyor-8x4-03-steel": {
+    "name": "Wall Conveyor x1",
+    "translation": {
+      "namespace": "",
+      "key": "5D6BB51746869303F527238DA293F8D6"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 1 conveyor belt connection.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9DBCAD6249CC395536C4B1B0E561846B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-03-steel"
+  },
+  "item-wall-conveyor-8x4-04": {
+    "name": "Wall Conveyor Perpendicular",
+    "translation": {
+      "namespace": "",
+      "key": "6FCC572A4FEA4726E40E68AC9A351137"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 1 conveyor belt connection perpendicular to the wall.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2F60F78F43F51BE5F95ADB9905D827F0"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-04"
+  },
+  "item-wall-conveyor-8x4-04-steel": {
+    "name": "Wall Conveyor Perpendicular",
+    "translation": {
+      "namespace": "",
+      "key": "4DA5FB3E4B3AA11E389E3E97283A970F"
+    },
+    "description": "Walls connect to other Walls and Floors. Use these to make buildings with several floors.\r\nHas 1 conveyor belt connection perpendicular to the wall.\r\nHeight: 4",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5A1822CB453BBF7D6E58E3ABB83814DC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-conveyor-8x4-04-steel"
+  },
+  "item-wall-door-8x4-01": {
+    "name": "Center Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "D3DEE681406CA75FB4875FA36BCA4062"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7DEF89A2426892C6CF26FE9FB01A065D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-01"
+  },
+  "item-wall-door-8x4-01-steel": {
+    "name": "Center Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "A82FE44349FB97E79EFED59E51FC4BD9"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DCE26AD5475B5212D21A95BD1A52B0AD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-01-steel"
+  },
+  "item-wall-door-8x4-02": {
+    "name": "Left Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "0BDDC83E497B18FDB3B0BD837B52F770"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "02B8FE50457E016B0DA9D085F2713E7E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-02"
+  },
+  "item-wall-door-8x4-02-steel": {
+    "name": "Left Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "98BEBBEE492534B7046856B888FAA24A"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9F6E818E486911C9D5722C9FF9C31BDA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-02-steel"
+  },
+  "item-wall-door-8x4-03": {
+    "name": "Right Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "F207B5384B4F3799196FC8A5BB7E2E93"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9928169A49CFC850C074EC9358D7AF6E"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-03"
+  },
+  "item-wall-door-8x4-03-steel": {
+    "name": "Right Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "4C98C075438FEE22B832F0B97BE3CA6F"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe door allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6BA5A5CB4C83F24D6DAD4B88F0C71779"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-door-8x4-03-steel"
+  },
+  "item-wall-gate-8x4-01": {
+    "name": "Gate Wall",
+    "translation": {
+      "namespace": "",
+      "key": "5A69B56F46DF2DE7139A209BD7D296FA"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe gate allows Pioneers to pass through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "595FBC68442F2BBB984E8D80CB2AF1AC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-gate-8x4-01"
+  },
+  "item-wall-window-8x4-01": {
+    "name": "Single Window",
+    "translation": {
+      "namespace": "",
+      "key": "9C52F83F42C7DCD3144C67BD4842AA22"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe window allows Pioneers to see through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "484B97984F80926C68FDC49A8CE2996A"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-window-8x4-01"
+  },
+  "item-wall-window-8x4-02": {
+    "name": "Frame Window",
+    "translation": {
+      "namespace": "",
+      "key": "4CE6F66647998B8986E468902A371F07"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe windows allow Pioneers to see through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "79EB6B9A4615FEB08AD17C84212C6C83"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-window-8x4-02"
+  },
+  "item-wall-window-8x4-03": {
+    "name": "Panel Window",
+    "translation": {
+      "namespace": "",
+      "key": "93F7317D428B2E0CFA1F43952A1CD51D"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe windows allow Pioneers to see through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "84656969406B5C196A852899DB4348A2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-window-8x4-03"
+  },
+  "item-wall-window-8x4-03-steel": {
+    "name": "Panel Window",
+    "translation": {
+      "namespace": "",
+      "key": "93F7317D428B2E0CFA1F43952A1CD51D"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe windows allow Pioneers to see through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "84656969406B5C196A852899DB4348A2"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": ""
+  },
+  "item-wall-window-8x4-04": {
+    "name": "Reinforced Window",
+    "translation": {
+      "namespace": "",
+      "key": "30B53FD940EE282E9D567B970728F4A4"
+    },
+    "description": "Snaps to foundations and other walls.\r\nThe windows allow Pioneers to see through the wall.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "3930A95E43046096747130A38DBB42BC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-wall-window-8x4-04"
+  },
+  "item-biofuel": {
+    "name": "Solid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "07AE2C1C4B564CA4BB2CD3A41105CFF4"
+    },
+    "description": "Fuel.\r\nThe most energy efficient form of solid biomass.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1F5914D84AF9BB1E57BB05BF9B7F0F08"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 450,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-biofuel"
+  },
+  "item-hog-parts": {
+    "name": "Alien Carapace",
+    "translation": {
+      "namespace": "",
+      "key": "2CB6B2E54FECED48418BB9A1B5366482"
+    },
+    "description": "Thick and sturdy natural armor plates from alien creatures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "ADBC682E48FB8EA08D9480AFC58639BF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 250,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hog-parts"
+  },
+  "item-spitter-parts": {
+    "name": "Alien Organs",
+    "translation": {
+      "namespace": "",
+      "key": "A1D0788448DEAF2E5DDB5782DD3D4C04"
+    },
+    "description": "Organs from alien creatures.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E4E3EE5246A1B01B58DC27A11322ED74"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 250,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-spitter-parts"
+  },
+  "item-leaves": {
+    "name": "Leaves",
+    "translation": {
+      "namespace": "",
+      "key": "06DF6BAE436BA404359120BA45850BEB"
+    },
+    "description": "Primarily used as fuel.\r\nBiomass Burners and vehicles can use it for power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7012CC4442DA9BE3C8F689B3BA5CB0ED"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 4,
+    "canBeDiscarded": true,
+    "energyValue": 15,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-leaves"
+  },
+  "item-mycelia": {
+    "name": "Mycelia",
+    "translation": {
+      "namespace": "",
+      "key": "4B8BE0B143B60407648694A56F397D82"
+    },
+    "description": "Used for crafting.\r\nBiomass Burners and vehicles can use it for power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "775766DA4D006159926BC49FC957A906"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 20,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-mycelia"
+  },
+  "item-fluid-canister": {
+    "name": "Empty Canister",
+    "translation": {
+      "namespace": "",
+      "key": "C14635E64053EB52D2EC9E88261A16BE"
+    },
+    "description": "Used to package fluids for transportation. Can be recycled.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D4E1AD924877C6A6EF5162BD989DA19B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-fluid-canister"
+  },
+  "item-crystal": {
+    "name": "Green Power Slug",
+    "translation": {
+      "namespace": "",
+      "key": "691790CF48631111BA0AC8A41C185301"
+    },
+    "description": "A strange slug radiating a weak strange power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BE17B0724F48C3AE06FED88DE4916B05"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-crystal"
+  },
+  "item-crystal-shard": {
+    "name": "Power Shard",
+    "translation": {
+      "namespace": "",
+      "key": "305E3F9A4A52BAC3CE4AE1BD19273834"
+    },
+    "description": "Mucus from the power slugs compressed into a solid crystal-like shard. \r\nIt radiates a strange power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D8AB702D414C74DE397E29BADD9DB3AA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-crystal-shard"
+  },
+  "item-crystal-mk2": {
+    "name": "Yellow Power Slug",
+    "translation": {
+      "namespace": "",
+      "key": "15087FDA48183638C4FCBA9A7D789AD7"
+    },
+    "description": "A strange slug radiating a strange power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CADAEA054F0E615FD644B0B90DEC4910"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-crystal-mk2"
+  },
+  "item-crystal-mk3": {
+    "name": "Purple Power Slug",
+    "translation": {
+      "namespace": "",
+      "key": "29D98C404E0EAB1D03B644A36CF548ED"
+    },
+    "description": "A strange slug radiating a powerful strange power.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BAA92F104850B4516568488FF6327F69"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-crystal-mk3"
+  },
+  "item-equipment-descriptor-jumping-stilts": {
+    "name": "Blade Runners",
+    "translation": {
+      "namespace": "",
+      "key": "A859FC5F49ADDCD3EAB6B39155EE5B28"
+    },
+    "description": "Slot: Body\r\n\r\nA exoskeleton for your lower legs that assist your movement, allowing you to sprint faster and jump higher.\r\nAlso dampens the impact of landing.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "8E44CA5842FDE41C6B9D5BBC36E86EAF"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-jumping-stilts"
+  },
+  "item-cartridge-standard": {
+    "name": "Rifle Cartridge",
+    "translation": {
+      "namespace": "",
+      "key": "0D4257614CB7F24CB6AF34A0DB6E13E7"
+    },
+    "description": "Ammo for the Rifle.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EDF7B7AD40B50A9EB2D914AE5B8675E3"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-cartridge-standard"
+  },
+  "item-chainsaw": {
+    "name": "Chainsaw",
+    "translation": {
+      "namespace": "",
+      "key": "639C6BB0437832EBE3F0BAB28FC7D6A9"
+    },
+    "description": "Slot: Hands\r\nFuel: Biofuel\r\n\r\nUsed to clear an area of flora that is too difficult to remove by hand.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "CA524A04465A3187485FA8928B1F9FF7"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-chainsaw"
+  },
+  "item-flower-petals": {
+    "name": "Flower Petals",
+    "translation": {
+      "namespace": "",
+      "key": "E64FDD444E8F31432489A9AD50FDF0B6"
+    },
+    "description": "Used for crafting.\r\nColorful native flower petals.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "39B1E0E74F67DDACE7A9B98574809289"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 100,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-flower-petals"
+  },
+  "item-color-cartridge": {
+    "name": "Color Cartridge",
+    "translation": {
+      "namespace": "",
+      "key": "84DF71F24C00941583C20194D065D165"
+    },
+    "description": "Ammo for the Color Gun.\r\nNecessary to change the color of factory buildings and vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "56DED1564CA310F85AC48081CCEE32A6"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 3,
+    "canBeDiscarded": true,
+    "energyValue": 900,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-color-cartridge"
+  },
+  "item-equipment-descriptor-color-gun": {
+    "name": "Color Gun",
+    "translation": {
+      "namespace": "",
+      "key": "26A215D04D6096885A09A2BCAABDCC21"
+    },
+    "description": "Slot: Hands\r\nAmmo: Color Cartridge\r\n\r\nPaints factory buildings and vehicles. The color can be adjusted prior to painting.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6FB443664F2AA92AF2D3C3AA5D745BE4"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-color-gun"
+  },
+  "item-filter": {
+    "name": "Gas Filter",
+    "translation": {
+      "namespace": "",
+      "key": "34E5B76146806792CCBAC1B7DDF354DB"
+    },
+    "description": "Used in gas masks to filter out pollutants in the air.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F30C79C640A2708895E0F7A7A4368A86"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-filter"
+  },
+  "item-hazmat-filter": {
+    "name": "Iodine Infused Filter",
+    "translation": {
+      "namespace": "",
+      "key": "053156674B0420ECD07B8CBBD5A81A7C"
+    },
+    "description": "Used in hazmat suits to filter out radioactive particles in the air.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "E28147CC42251AF3C38D3298E93366BD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-hazmat-filter"
+  },
+  "item-equipment-descriptor-gasmask": {
+    "name": "Gas mask",
+    "translation": {
+      "namespace": "",
+      "key": "2266AAFA4E435830CF304988EF3B0097"
+    },
+    "description": "Slot: Body\r\n\r\nAllows you to breathe normally in poison gas. Consumes Gas Filters from your inventory when you are in poison gas.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "173A6E2C46E95CD950A8CA98F7CE98DE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-gasmask"
+  },
+  "item-equipment-descriptor-hazmat-suit": {
+    "name": "Hazmat Suit",
+    "translation": {
+      "namespace": "",
+      "key": "80D1FDC140FBBA01D5BB0DA62D42FE1E"
+    },
+    "description": "Slot: Body\r\n\r\nShields you from the adverse effects of radiation. \r\nConsumes Iodine Infused Filters from your inventory when you are in radioactive areas.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2102C03F4A1379DD7F4D6EA98D289BFD"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-hazmat-suit"
+  },
+  "item-equipment-descriptor-jet-pack": {
+    "name": "Jetpack",
+    "translation": {
+      "namespace": "",
+      "key": "8EB0B1AD4CE903AA8BDE8C88EAA0C671"
+    },
+    "description": "Slot: Body\r\n\r\nAllows you to move more freely in the air. Consumes Fuel when used and refills with Fuel from your inventory when you're on the ground.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5BEFEF6E417457392C28EAB2694C60A9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-jet-pack"
+  },
+  "item-shroom": {
+    "name": "Bacon Agaric",
+    "translation": {
+      "namespace": "",
+      "key": "49CBA7BD49BC595CC0790F8E78CE64F7"
+    },
+    "description": "Slot: Hands\r\nConsumable\r\n\r\nCan be eaten to restore two health segments.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B7FA0FC34919FD4D796FBAAB2951B78C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-shroom"
+  },
+  "item-berry": {
+    "name": "Paleberry",
+    "translation": {
+      "namespace": "",
+      "key": "1162DC4E4C780A1E6E3A9E96B750769F"
+    },
+    "description": "Slot: Hands\r\nConsumable\r\n\r\nCan be eaten to restore one health segment.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F4CB225B423A803DBA7CE88CB292CE34"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-berry"
+  },
+  "item-nut": {
+    "name": "Beryl Nut",
+    "translation": {
+      "namespace": "",
+      "key": "A8FE1F3B422A792EA58603B683DD775D"
+    },
+    "description": "Slot: Hands\r\nConsumable\r\n\r\nCan be eaten to restore half a health segment.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "30361C10426AB8B92CBC1FB0B2596D5B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-nut"
+  },
+  "item-medkit": {
+    "name": "Medicinal Inhaler",
+    "translation": {
+      "namespace": "",
+      "key": "FC4C697749695074BDDACEB3427E4EF2"
+    },
+    "description": "Slot: Hands\r\nConsumable\r\n\r\nCan be inhaled to fully restore health.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "7D0EB4B04625553AAE652FABE17F5BA9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-medkit"
+  },
+  "item-equipment-descriptor-object-scanner": {
+    "name": "Object Scanner",
+    "translation": {
+      "namespace": "",
+      "key": "5BBA7C5C4BCACB8002AFC2A831A49C0C"
+    },
+    "description": "Slot: Hands\r\n\r\nScans the area for a set item. Beeps at a rate proportional to proximity and direction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "19C6CB9F4B6B2BE78BACB68E911758EC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-object-scanner"
+  },
+  "item-equipment-descriptor-nobelisk-detonator": {
+    "name": "Nobelisk Detonator",
+    "translation": {
+      "namespace": "",
+      "key": "6AA29C5E4799A9B82F421E918E9D3CFD"
+    },
+    "description": "Slot: Hands\r\nAmmo: Nobelisk\r\n\r\nUsed to blow up cracked boulders, rocks and invasive vegetation.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "55B185F8428C691F91086589168D5938"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-nobelisk-detonator"
+  },
+  "item-parachute": {
+    "name": "Parachute",
+    "translation": {
+      "namespace": "",
+      "key": "32ED93BF48CF581538C93CB2C789EDE6"
+    },
+    "description": "Slot: Body\r\nConsumable\r\n\r\nSlows down your fall when activated in mid-air.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "33C30C7C4C930A689478B79E7C2D0A01"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGConsumableDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-parachute"
+  },
+  "item-rebar-gun-projectile": {
+    "name": "Rebar Gun",
+    "translation": {
+      "namespace": "",
+      "key": "3FB7A7C5479B6B02954A17A81AB8200C"
+    },
+    "description": "Slot: Hands\r\nAmmo: Spiked Rebar\r\n\r\nImprovised ranged weapon for self defense. Has to be reloaded after each use.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "4AADE26349B2292A293652BE7D91BD8A"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-rebar-gun-projectile"
+  },
+  "item-equipment-descriptor-rifle": {
+    "name": "Rifle",
+    "translation": {
+      "namespace": "",
+      "key": "9FDA375E441EBEF47E4FDF8810E136FF"
+    },
+    "description": "Slot: Hands\r\nAmmo: Rifle Cartridges\r\n\r\nRapid fire weapon for self-defense. Has a mag size of 10.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F050C23E4FA8D248CE98DA9DC1248506"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-rifle"
+  },
+  "item-spiked-rebar": {
+    "name": "Spiked Rebar",
+    "translation": {
+      "namespace": "",
+      "key": "A39DC50F416564D0615382A4794F8E69"
+    },
+    "description": "Ammo for the Rebar Gun.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "435976AE40874229EBC2AFBDA3D9B3FA"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-spiked-rebar"
+  },
+  "item-equipment-descriptor-shock-shank": {
+    "name": "Xeno-Zapper",
+    "translation": {
+      "namespace": "",
+      "key": "5C86A6904E473207711F00973B0E9AB1"
+    },
+    "description": "Slot: Hands\r\n\r\nStandard issue electroshock self defense weapon for melee range.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "BF189BD34E37E4602AEA739D997ECE34"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-shock-shank"
+  },
+  "item-equipment-descriptor-stun-spear": {
+    "name": "Xeno-Basher",
+    "translation": {
+      "namespace": "",
+      "key": "3289EB48445C6BA7432C5099A41FF905"
+    },
+    "description": "Slot: Hands\r\n\r\nHeavy electroshock self defense weapon for melee range.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "F45ECDE6468D3881C73C148F864E7DE0"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-equipment-descriptor-stun-spear"
+  },
+  "item-battery": {
+    "name": "Battery",
+    "translation": {
+      "namespace": "",
+      "key": "9ADA62224EDAF3724F94F6BEAFB4480C"
+    },
+    "description": "Batteries store an electrical charge. They are primarily used as a power source.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5BFCE763415E9A6F6131FDAD5FA83C47"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 6000,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-battery"
+  },
+  "item-ore-bauxite": {
+    "name": "Bauxite",
+    "translation": {
+      "namespace": "",
+      "key": "C3DF126F4607A74BC7D5E0A90F367418"
+    },
+    "description": "Bauxite is turned into Aluminum Ingots via an advanced smelting process.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EA1A41634C09C44A5E4A079785A8B085"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ore-bauxite"
+  },
+  "item-liquid-biofuel": {
+    "name": "Liquid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "4796F9D34BAE890236859A9F39979FC7"
+    },
+    "description": "Fuel.\r\nThe most energy efficient form of biomass.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "51D757B44D163B29C94235B12020AB18"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0.75,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-liquid-biofuel"
+  },
+  "item-packaged-biofuel": {
+    "name": "Packaged Liquid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "79AF58C6440F9536D4F095997526097B"
+    },
+    "description": "Fuel.\r\nPackaged Liquid Biofuel, either converted into electricity or as fuel for vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "5999ACB048DE04E5865EE19CFA313958"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptorBiomass",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 750,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-packaged-biofuel"
+  },
+  "item-packaged-oil": {
+    "name": "Packaged Oil",
+    "translation": {
+      "namespace": "",
+      "key": "1BB51CE6457EB995DAA439BB3AAE5F3D"
+    },
+    "description": "Crude Oil, packaged for transportation or to be used as vehicle fuel.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9E41918246BE996602118FBC57317A0D"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 320,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-packaged-oil"
+  },
+  "item-packaged-oil-residue": {
+    "name": "Packaged Heavy Oil Residue",
+    "translation": {
+      "namespace": "",
+      "key": "0A380B0749E0D6BF5E65359BFDD859CD"
+    },
+    "description": "Heavy Oil Residue, packaged for alternative transport.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "03BDFBB840FFAF6E603E0AA82CB354D5"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 400,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-packaged-oil-residue"
+  },
+  "item-turbo-fuel": {
+    "name": "Packaged Turbofuel",
+    "translation": {
+      "namespace": "",
+      "key": "85BC4F06447CDE09D795C6AC9B67B9EF"
+    },
+    "description": "Packaged Turbofuel, a more efficient alternative to Fuel. Used in vehicles.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DE17DE3949AD00F409512286C17E9FAE"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 2000,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-turbo-fuel"
+  },
+  "item-sulfuric-acid": {
+    "name": "Sulfuric Acid",
+    "translation": {
+      "namespace": "",
+      "key": "CA74988A46F5712C299C4ABA4C7D35E3"
+    },
+    "description": "A liquid mostly used to extract elements from ore.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "9DD3C7BD407B7CD94B7A239D36F2099C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 5,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 2,
+    "icon": "image-sulfuric-acid"
+  },
+  "item-ore-uranium": {
+    "name": "Uranium",
+    "translation": {
+      "namespace": "",
+      "key": "96C780194CA1A516CA01379CA13C826C"
+    },
+    "description": "Uranium is radioactive. Mainly used in Nuclear Power Plants.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "6B20A90240BA2991CA99D7988A304D4C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGResourceDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 15,
+    "form": 1,
+    "icon": "image-ore-uranium"
+  },
+  "item-space-elevator-part-4": {
+    "name": "Modular Engine",
+    "translation": {
+      "namespace": "",
+      "key": "4EFFC7DA4DBCA7A2DC627E8C47DFB297"
+    },
+    "description": "Project Part #4. Send up the Space Elevator to complete phases of Project Assembly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DD2E9DCA4BDC7DC9AEA4F1B8E25CAC7C"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator-part-4"
+  },
+  "item-space-elevator-part-5": {
+    "name": "Adaptive Control Unit",
+    "translation": {
+      "namespace": "",
+      "key": "A64AB7EE4AC8A45BEAFD799401ED4FD7"
+    },
+    "description": "Project Part #5. Send up the Space Elevator to complete phases of Project Assembly.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "99E2A44D40AC37F56687DB8B1C7DDDD9"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 1,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-space-elevator-part-5"
+  },
+  "item-cyber-wagon": {
+    "name": "Cyber Wagon",
+    "translation": {
+      "namespace": "",
+      "key": "1862393C48D64CB8D75AD69E61E12D4B"
+    },
+    "description": "Absolutely indestructible.\r\nNeeds no further introduction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "DEB3E6CE4FA5E53BB4C8C7BF380DC806"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-cyber-wagon"
+  },
+  "item-explorer": {
+    "name": "Explorer",
+    "translation": {
+      "namespace": "",
+      "key": "AD64301C48A0793A86E248A63A36452D"
+    },
+    "description": "Fuel: Any fuel type\r\n\r\n25 slot inventory. Has a built in craft bench.\r\nFast and nimble exploration vehicle. Tuned for really rough terrain and can climb almost vertical surfaces.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B0A8D2CF478859AC825F36A95CE71B48"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-explorer"
+  },
+  "item-golf-cart": {
+    "name": "Factory Cart™",
+    "translation": {
+      "namespace": "",
+      "key": "D863047C45F0535E462EDC9A66A72CC9"
+    },
+    "description": "The one and only FICSIT Factory Cart™\r\nNow with special - FICSIT Foundation only - Grip Wheels, for an even smoother and faster factory floor experience!",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "2EC405E64F4B8D3029A85998CBA91C3B"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGEquipmentDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-golf-cart"
+  },
+  "item-tractor": {
+    "name": "Tractor",
+    "translation": {
+      "namespace": "",
+      "key": "3C80F6D2411B0D61F992838E07608B47"
+    },
+    "description": "Fuel: Any fuel type\r\n\r\n25 slot inventory. Has a built in craft bench.\r\nCan be automated to pick up and deliver resources at truck stations.\r\n\r\nNicknamed the Sugarcube by FICSIT pioneers with the justification “it’s pretty sweet, y’know”.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "52610A3043223FCA6562F0A78D3B4778"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-tractor"
+  },
+  "item-truck": {
+    "name": "Truck",
+    "translation": {
+      "namespace": "",
+      "key": "4E99961D424677421EF8F19BF61C314F"
+    },
+    "description": "Fuel: Any fuel type\r\n\r\n48 slot inventory. Has a built in craft bench.\r\nCan be automated to pick up and deliver resources at truck stations.\r\n\r\nNicknamed 'the Unit' by FICSIT pioneers because of its massive frame.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "EF0DEB594BDC94DC4CD59097330BD008"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-truck"
+  },
+  "item-freight-wagon": {
+    "name": "Freight Car",
+    "translation": {
+      "namespace": "",
+      "key": "1DD9189A481937D2C37424A91F954D26"
+    },
+    "description": "The Freight Car can be built on Railways and attached to an Electric Locomotive or other Freight Car to transport resources. \r\nResources are loaded and unloaded at Freight Platforms.\r\nHas a 1600m³ or 32 slot capacity, depending on the resources.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "486951E04FAAA61B8864C887961A94DC"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-freight-wagon"
+  },
+  "item-locomotive": {
+    "name": "Electric Locomotive",
+    "translation": {
+      "namespace": "",
+      "key": "DFFC173544A8BBC2E259E09C3FE022E5"
+    },
+    "description": "The Locomotive is used to move Freight Cars from station to station.\r\nRequires between 25-110 MW of power to drive. \r\nMust be built on railway.\r\n\r\nNicknamed 'Leif' by FICSIT pioneers because of its reliability.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B6E85D4F44F164F84706ABBB0D112199"
+    },
+    "abbreviatedName": null,
+    "abbreviatedNameTranslation": {
+      "namespace": null,
+      "key": null
+    },
+    "itemType": "UFGVehicleDescriptor",
+    "stackSize": 0,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-locomotive"
+  }
+}

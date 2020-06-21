@@ -10,9 +10,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { BrowserView, isMobile, MobileView } from 'react-device-detect';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { LocaleContext } from '../../../../components/LocaleProvider';
-import { graphAppStore } from '../../stores/graphAppStore';
+import { LocaleContext } from 'v3/components/LocaleProvider';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import SelectDropdown from '../../../../components/SelectDropdown';
+import { getRecipesByMachineClass } from 'v3/data/loaders/buildings';
 
 const styles = theme => ({
   default: {
@@ -48,9 +49,6 @@ function DrawerDialog(props) {
     setOpenDialog,
     closeDrawerFunction
   } = props;
-  const [upgradeLevel, setUpgradeLevel] = React.useState(
-    nodeClass.instances[0].tier.name
-  );
 
   const { translate } = React.useContext(LocaleContext);
 
@@ -61,17 +59,9 @@ function DrawerDialog(props) {
 
   const [resource, setResource] = React.useState('');
 
-  const recipes = nodeClass.recipes
-    .map(recipe => {
-      return recipe.id;
-    })
-    .flat(1)
-    .map(item => {
-      return { label: props.translate(item), value: item };
-    })
-    .sort((a, b) => {
-      return a.label.localeCompare(b.label);
-    });
+  const recipes = getRecipesByMachineClass(nodeClass).map(([slug, recipe]) => {
+    return { value: slug, label: recipe.name };
+  });
 
   return (
     <Dialog
@@ -87,46 +77,46 @@ function DrawerDialog(props) {
           Tier:{' '}
         </InputLabel>
         <BrowserView>
-          <Select
-            value={upgradeLevel}
-            className={classes.select}
-            disabled={!nodeClass.hasUpgrades}
-            onChange={e => setUpgradeLevel(e.target.value)}
-            inputProps={{
-              name: 'upgradeLevel',
-              id: 'upgradeLevel'
-            }}
-          >
-            {nodeClass.instances.map(instance => {
-              const tier = instance.tier;
-              return (
-                <MenuItem key={tier.name} value={tier.name}>
-                  {translate(tier.name)}
-                </MenuItem>
-              );
-            })}
-          </Select>
+          {/*<Select*/}
+          {/*  value={upgradeLevel}*/}
+          {/*  className={classes.select}*/}
+          {/*  disabled={!nodeClass.hasUpgrades}*/}
+          {/*  onChange={e => setUpgradeLevel(e.target.value)}*/}
+          {/*  inputProps={{*/}
+          {/*    name: 'upgradeLevel',*/}
+          {/*    id: 'upgradeLevel'*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {nodeClass.instances.map(instance => {*/}
+          {/*    const tier = instance.tier;*/}
+          {/*    return (*/}
+          {/*      <MenuItem key={tier.name} value={tier.name}>*/}
+          {/*        {translate(tier.name)}*/}
+          {/*      </MenuItem>*/}
+          {/*    );*/}
+          {/*  })}*/}
+          {/*</Select>*/}
         </BrowserView>
         <MobileView>
-          <NativeSelect
-            value={upgradeLevel}
-            className={classes.select}
-            disabled={!nodeClass.hasUpgrades}
-            onChange={e => setUpgradeLevel(e.target.value)}
-            inputProps={{
-              name: 'upgradeLevel',
-              id: 'upgradeLevel'
-            }}
-          >
-            {nodeClass.instances.map(instance => {
-              const tier = instance.tier;
-              return (
-                <option key={tier.name} value={tier.name}>
-                  {translate(tier.name)}
-                </option>
-              );
-            })}
-          </NativeSelect>
+          {/*<NativeSelect*/}
+          {/*  value={upgradeLevel}*/}
+          {/*  className={classes.select}*/}
+          {/*  disabled={!nodeClass.hasUpgrades}*/}
+          {/*  onChange={e => setUpgradeLevel(e.target.value)}*/}
+          {/*  inputProps={{*/}
+          {/*    name: 'upgradeLevel',*/}
+          {/*    id: 'upgradeLevel'*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {nodeClass.instances.map(instance => {*/}
+          {/*    const tier = instance.tier;*/}
+          {/*    return (*/}
+          {/*      <option key={tier.name} value={tier.name}>*/}
+          {/*        {translate(tier.name)}*/}
+          {/*      </option>*/}
+          {/*    );*/}
+          {/*  })}*/}
+          {/*</NativeSelect>*/}
         </MobileView>
 
         {/*<DialogContentText>Optional: Select resource</DialogContentText>*/}
@@ -150,7 +140,7 @@ function DrawerDialog(props) {
               setResource('');
             }
           }}
-          value={resource === '' ? '' : props.translate(resource)}
+          value={resource === '' ? '' : translate(resource)}
           label={'Optional: Recipe Name'}
           suggestions={recipes}
         />
@@ -162,9 +152,7 @@ function DrawerDialog(props) {
           onClick={() => {
             graphAppStore.update(s => {
               s.selectedMachine = {
-                recipe: resource,
-                class: nodeClass,
-                tier: upgradeLevel
+                recipe: resource
               };
             });
             setOpenDialog(false);

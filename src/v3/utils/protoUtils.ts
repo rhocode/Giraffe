@@ -1,25 +1,15 @@
+/* Delete This */
 import * as protobuf from 'protobufjs/light';
-import schemas from '../../generated';
-import {
-  getAllVersions,
-  getLatestVersion
-} from '../data/utils/getLatestSchema';
 import { toUint8Array } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/sourcetools/base64';
 import * as LZUTF8 from 'lzutf8';
 import { decode } from '@msgpack/msgpack';
 import * as memoize from 'fast-memoize';
 
-const constrainedSchemas: any = schemas;
+const constrainedSchemas: any = {};
 
-export const protobufRoot = protobuf.Root.fromJSON(
-  constrainedSchemas[getLatestVersion()]
-);
+export const protobufRoot = protobuf.Root.fromJSON(constrainedSchemas);
 
 const protoSpecLoader = (version: string) => {
-  if (!getAllVersions().includes(version)) {
-    throw new Error('Invalid version');
-  }
-
   const SGProtoData = protobufRoot.lookupType('satisgraphtory.SGProtoData');
 
   return fetch(`${process.env.PUBLIC_URL}/proto/${version}/data.s2`)

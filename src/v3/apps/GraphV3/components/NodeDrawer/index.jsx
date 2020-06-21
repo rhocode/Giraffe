@@ -16,7 +16,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { LocaleContext } from '../../../../components/LocaleProvider';
 import { useStoreState } from 'pullstate';
-import { graphAppStore } from '../../stores/graphAppStore';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import TabContainer from './TabContainer';
 import DrawerButton from './DrawerButton';
 
@@ -59,7 +59,7 @@ const styles = theme => ({
 
 function NodeDrawer(props) {
   const { classes } = props;
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
 
   const { translate } = React.useContext(LocaleContext);
   const drawerOpen = useStoreState(graphAppStore, s => s.mouseMode === 'add');
@@ -77,6 +77,7 @@ function NodeDrawer(props) {
 
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
 
+  // ?????????????
   const selectedText = selectedMachine
     ? [
         translate(selectedMachine.class.name),
@@ -112,12 +113,12 @@ function NodeDrawer(props) {
         <ExpansionPanelDetails className={classes.expandPanel}>
           {value === 0 && (
             <TabContainer {...props} classes={classes}>
-              {placeableMachineClasses.map(classObject => {
+              {placeableMachineClasses.map(buildingSlug => {
                 return (
                   <DrawerButton
-                    nodeClass={classObject}
-                    key={classObject.name}
-                    label={translate(classObject.name)}
+                    nodeClass={buildingSlug}
+                    key={buildingSlug}
+                    label={translate(buildingSlug)}
                     closeDrawerFunction={setExpanded}
                   />
                 );

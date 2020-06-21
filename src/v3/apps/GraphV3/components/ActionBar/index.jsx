@@ -7,7 +7,7 @@ import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import AddIcon from '@material-ui/icons/Add';
 import { useStoreState } from 'pullstate';
-import { graphAppStore } from '../../stores/graphAppStore';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 const styles = theme => ({
   default: {

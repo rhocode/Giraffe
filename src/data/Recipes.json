@@ -1,0 +1,9001 @@
+{
+  "recipe-train-docking-station": {
+    "name": "Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "0D1A72E0436B6897015DE88BF4B385D0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 6
+      },
+      {
+        "slug": "item-computer",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 50
+      },
+      {
+        "slug": "item-cable",
+        "amount": 25
+      },
+      {
+        "slug": "item-motor",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-train-docking-station",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-train-docking-station-liquid": {
+    "name": "Fluid Freight Platform",
+    "translation": {
+      "namespace": "",
+      "key": "B483D1BD4B81B29E63081E91788A24A9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 6
+      },
+      {
+        "slug": "item-computer",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 50
+      },
+      {
+        "slug": "item-cable",
+        "amount": 25
+      },
+      {
+        "slug": "item-motor",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-train-docking-station-liquid",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-train-platform-empty": {
+    "name": "Empty Platform",
+    "translation": {
+      "namespace": "",
+      "key": "3763BE324A7CE633C1FEACA891CF080E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 6
+      },
+      {
+        "slug": "item-cement",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-train-platform-empty",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-train-station": {
+    "name": "Train Station",
+    "translation": {
+      "namespace": null,
+      "key": "16502BCC4D2CF4A772732E82C5D0744A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 4
+      },
+      {
+        "slug": "item-computer",
+        "amount": 8
+      },
+      {
+        "slug": "item-cement",
+        "amount": 50
+      },
+      {
+        "slug": "item-cable",
+        "amount": 25
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-train-station",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-hyper-start": {
+    "name": "Hyper Tube Entrance",
+    "translation": {
+      "namespace": "",
+      "key": "FD7771FA4E57AA3B7A75ABB27A5F2C61"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 4
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 4
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipe-hyper-start",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-alternate-adhered-iron-plate": {
+    "name": "Alternate: Adhered Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "0662C5D0454D2CB8B2A701881A4CF107"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-bolted-frame": {
+    "name": "Alternate: Bolted Frame",
+    "translation": {
+      "namespace": "",
+      "key": "4BEBCB214B4FF6DABA5D138DC43BE024"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 56
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-coated-cable": {
+    "name": "Alternate: Coated Cable",
+    "translation": {
+      "namespace": "",
+      "key": "547793194287F52DBA7E2392C74F1CBC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 5
+      },
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 2000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cable",
+        "amount": 9
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-coated-iron-plate": {
+    "name": "Alternate: Coated Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "C3D29EBF4818FEF7E1CC31AF4D17B34E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 10
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 15
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-coke-steel-ingot": {
+    "name": "Alternate: Coke Steel Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "3FA6E6204EF22BB3ACD3C293912B8402"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 15
+      },
+      {
+        "slug": "item-petroleum-coke",
+        "amount": 15
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-foundry-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-copper-alloy-ingot": {
+    "name": "Alternate: Copper Alloy Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "B17B8459437937E3799BECA75E6F8384"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-copper",
+        "amount": 10
+      },
+      {
+        "slug": "item-ore-iron",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-foundry-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-copper-rotor": {
+    "name": "Alternate: Copper Rotor",
+    "translation": {
+      "namespace": "",
+      "key": "EA3ED26D421FD0632F9D52B1330DB341"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 52
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rotor",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-diluted-packaged-fuel": {
+    "name": "Alternate: Diluted Packaged Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "6984AA104FDFEE048E3745872EB52E20"
+    },
+    "ingredients": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 1000
+      },
+      {
+        "slug": "item-packaged-water",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fuel",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-alternate-electro-aluminum-scrap": {
+    "name": "Alternate: Electrode - Aluminum Scrap",
+    "translation": {
+      "namespace": "",
+      "key": "ADF1CFBC4496EE971E401F92B2B8F79B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-alumina-solution",
+        "amount": 3000
+      },
+      {
+        "slug": "item-coal",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-scrap",
+        "amount": 5
+      },
+      {
+        "slug": "item-water",
+        "amount": 1000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-alternate-electrode-circuit-board": {
+    "name": "Alternate: Electrode Circuit Board",
+    "translation": {
+      "namespace": "",
+      "key": "9FEA5240448D4AA63A3ABAA4D2FE2F06"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rubber",
+        "amount": 6
+      },
+      {
+        "slug": "item-petroleum-coke",
+        "amount": 9
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-flexible-framework": {
+    "name": "Alternate: Flexible Framework",
+    "translation": {
+      "namespace": "",
+      "key": "8A1EAE154BDDFA16BC524891352780C8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 1
+      },
+      {
+        "slug": "item-steel-plate",
+        "amount": 6
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-2",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-fused-wire": {
+    "name": "Alternate: Fused Wire",
+    "translation": {
+      "namespace": "",
+      "key": "2E70905C4A517BABD5672A83DB582277"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 4
+      },
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wire",
+        "amount": 30
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-alternate-heavy-flexible-frame": {
+    "name": "Alternate: Heavy Flexible Frame",
+    "translation": {
+      "namespace": "",
+      "key": "E76FC8554F36DF592175908FE696B47F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 5
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 3
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 20
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 104
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-heavy-oil-residue": {
+    "name": "Alternate: Heavy Oil Residue",
+    "translation": {
+      "namespace": "",
+      "key": "D8AD88004853C966477FCFB5CE60D73C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 3000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 4000
+      },
+      {
+        "slug": "item-polymer-resin",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-alternate-high-speed-wiring": {
+    "name": "Alternate: Automated Speed Wiring",
+    "translation": {
+      "namespace": "",
+      "key": "C1F120734939E64681AE32864FE9A08F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stator",
+        "amount": 2
+      },
+      {
+        "slug": "item-wire",
+        "amount": 40
+      },
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-3",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 32
+  },
+  "recipe-alternate-plastic-smart-plating": {
+    "name": "Alternate: Plastic Smart Plating",
+    "translation": {
+      "namespace": "",
+      "key": "505EA2C14859757A81898483EAA75ABE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 1
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 1
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-1",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-polyester-fabric": {
+    "name": "Alternate: Polyester Fabric",
+    "translation": {
+      "namespace": "",
+      "key": "4F8C5937400F8319BB2B8880BA3C619E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-polymer-resin",
+        "amount": 16
+      },
+      {
+        "slug": "item-water",
+        "amount": 10000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fabric",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-polymer-resin": {
+    "name": "Alternate: Polymer Resin",
+    "translation": {
+      "namespace": "",
+      "key": "A57542EA4A191D2F892D92A511685DB8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 6000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-polymer-resin",
+        "amount": 13
+      },
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 2000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-alternate-pure-caterium-ingot": {
+    "name": "Alternate: Pure Caterium Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "B52A98DD492E1DEF630E8BA372B501AA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-gold",
+        "amount": 2
+      },
+      {
+        "slug": "item-water",
+        "amount": 2000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 5
+  },
+  "recipe-alternate-pure-copper-ingot": {
+    "name": "Alternate: Pure Copper Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "280832584A15F486BEAE83BBE1B30959"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-copper",
+        "amount": 6
+      },
+      {
+        "slug": "item-water",
+        "amount": 4000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 15
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-pure-iron-ingot": {
+    "name": "Alternate: Pure Iron Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "5619207F4301CCC5BD0DFA83FCA9034F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 7
+      },
+      {
+        "slug": "item-water",
+        "amount": 4000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 13
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-pure-quartz-crystal": {
+    "name": "Alternate: Pure Quartz Crystal",
+    "translation": {
+      "namespace": "",
+      "key": "0963770245ADC5A9997B5BA6EFFD22C4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 9
+      },
+      {
+        "slug": "item-water",
+        "amount": 5000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quartz-crystal",
+        "amount": 7
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-recycled-rubber": {
+    "name": "Alternate: Recycled Rubber",
+    "translation": {
+      "namespace": "",
+      "key": "BDA4BEF84A82E9ACF61A1BB4A3ADF4FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-plastic",
+        "amount": 6
+      },
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 6000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rubber",
+        "amount": 12
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-rubber-concrete": {
+    "name": "Alternate: Rubber Concrete",
+    "translation": {
+      "namespace": "",
+      "key": "99E4533C4101B62CE0A1F995C603758F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stone",
+        "amount": 10
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cement",
+        "amount": 9
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-steamed-copper-sheet": {
+    "name": "Alternate: Steamed Copper Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "5BF0D56049240670A1C59ABA221A2850"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 3
+      },
+      {
+        "slug": "item-water",
+        "amount": 3000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-steel-coated-plate": {
+    "name": "Alternate: Steel Coated Plate",
+    "translation": {
+      "namespace": "",
+      "key": "3BBCF3EF40EE5CA1929DE482CEB06400"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 3
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 18
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-steel-rod": {
+    "name": "Alternate: Steel Rod",
+    "translation": {
+      "namespace": "",
+      "key": "983F68D5469149079D1444AC28A36E20"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 5
+  },
+  "recipe-alternate-turbo-heavy-fuel": {
+    "name": "Alternate: Turbo Heavy Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "4603298348EFC73D75CF14B359B63FCA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 5000
+      },
+      {
+        "slug": "item-compacted-coal",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-turbo-fuel",
+        "amount": 4000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-wet-concrete": {
+    "name": "Alternate: Wet Concrete",
+    "translation": {
+      "namespace": "",
+      "key": "773DC4634D5F48893A8860B32264B05B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stone",
+        "amount": 6
+      },
+      {
+        "slug": "item-water",
+        "amount": 5000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cement",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 3
+  },
+  "recipe-pure-aluminum-ingot": {
+    "name": "Alternate: Pure Aluminum Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "F9682D2C4F8B10E6C1ED01AE76799F4B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-scrap",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-ingot",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-smelter-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 5
+  },
+  "recipe-alternate-beacon-1": {
+    "name": "Alternate: Crystal Beacon",
+    "translation": {
+      "namespace": "",
+      "key": "3288FA904BFB8F433BADC489A4C70AD1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 4
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 16
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-alternate-cable-1": {
+    "name": "Alternate: Insulated Cable",
+    "translation": {
+      "namespace": "",
+      "key": "AEE19CE94A85542F0C4E20981BF42A4C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 9
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cable",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-cable-2": {
+    "name": "Alternate: Quickwire Cable",
+    "translation": {
+      "namespace": "",
+      "key": "6F1B8C5C43C85CEC55EBA7B46AA3097F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 3
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cable",
+        "amount": 11
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-circuit-board-1": {
+    "name": "Alternate: Silicone Circuit Board",
+    "translation": {
+      "namespace": "",
+      "key": "F90BDC934F997D13EBC47DB398442E5F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 11
+      },
+      {
+        "slug": "item-silica",
+        "amount": 11
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-circuit-board-2": {
+    "name": "Alternate: Caterium Circuit Board",
+    "translation": {
+      "namespace": "",
+      "key": "60CDFD704C32F050FFBD62B3BB13862A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-plastic",
+        "amount": 10
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 30
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 7
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 48
+  },
+  "recipe-alternate-coal-1": {
+    "name": "Alternate: Charcoal",
+    "translation": {
+      "namespace": "",
+      "key": "45493309407464722DEAA99D5D8DBC28"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wood",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-coal",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-alternate-coal-2": {
+    "name": "Alternate: Biocoal",
+    "translation": {
+      "namespace": "",
+      "key": "B01B8FB3463513BCB8CC07867FAC0C0C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-coal",
+        "amount": 6
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-computer-1": {
+    "name": "Alternate: Caterium Computer",
+    "translation": {
+      "namespace": "",
+      "key": "9B31B2484D165F780D975DB07A6063E8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 7
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 28
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-computer",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-computer-2": {
+    "name": "Alternate: Crystal Computer",
+    "translation": {
+      "namespace": "",
+      "key": "A92F59164212FC85EC4CF7ADF8EC7DD6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 8
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-computer",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 64
+  },
+  "recipe-alternate-concrete": {
+    "name": "Alternate: Fine Concrete",
+    "translation": {
+      "namespace": "",
+      "key": "9F4043D740A48FF035DAAD8C3D1D7F2E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-silica",
+        "amount": 3
+      },
+      {
+        "slug": "item-stone",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cement",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-crystal-oscillator": {
+    "name": "Alternate: Insulated Crystal Oscillator",
+    "translation": {
+      "namespace": "",
+      "key": "5912CC7C4FB4A0278A9CC3A42651BBFB"
+    },
+    "ingredients": [
+      {
+        "slug": "item-quartz-crystal",
+        "amount": 10
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 7
+      },
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 32
+  },
+  "recipe-alternate-electromagnetic-control-rod-1": {
+    "name": "Alternate: Electromagnetic Connection Rod",
+    "translation": {
+      "namespace": "",
+      "key": "A187E8D746BDA239F5D3A995F648212A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stator",
+        "amount": 10
+      },
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-electromagnetic-control-rod",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 60
+  },
+  "recipe-alternate-encased-industrial-beam": {
+    "name": "Alternate: Encased Industrial Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "56EE6CE0445085C973478E91AB75DB6D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 7
+      },
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 15
+  },
+  "recipe-alternate-enriched-coal": {
+    "name": "Alternate: Compacted Coal",
+    "translation": {
+      "namespace": "",
+      "key": "8D2459A343E049BB568D828CAC98714A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-coal",
+        "amount": 5
+      },
+      {
+        "slug": "item-sulfur",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-compacted-coal",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-gunpowder-1": {
+    "name": "Alternate: Fine Black Powder",
+    "translation": {
+      "namespace": "",
+      "key": "85AB7EC240C2B562986594929AE27200"
+    },
+    "ingredients": [
+      {
+        "slug": "item-sulfur",
+        "amount": 2
+      },
+      {
+        "slug": "item-compacted-coal",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-gunpowder",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-heat-sink-1": {
+    "name": "Alternate: Heat Exchanger",
+    "translation": {
+      "namespace": "",
+      "key": "98508EEE46C64BAE0025118FD55B6EE7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 20
+      },
+      {
+        "slug": "item-copper-sheet",
+        "amount": 30
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-plate-reinforced",
+        "amount": 7
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 32
+  },
+  "recipe-alternate-high-speed-connector": {
+    "name": "Alternate: Silicone High-Speed Connector",
+    "translation": {
+      "namespace": "",
+      "key": "83A9F00140F09B776E2D2284444DC60C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 60
+      },
+      {
+        "slug": "item-silica",
+        "amount": 25
+      },
+      {
+        "slug": "item-circuit-board",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-alternate-ingot-iron": {
+    "name": "Alternate: Iron Alloy Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "78E031DB40994133BCBEEBBE2A641F4F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 2
+      },
+      {
+        "slug": "item-ore-copper",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-foundry-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-alternate-ingot-steel-1": {
+    "name": "Alternate: Solid Steel Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "D26F7A60474850677854E597891A382F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 2
+      },
+      {
+        "slug": "item-coal",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-foundry-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 3
+  },
+  "recipe-alternate-ingot-steel-2": {
+    "name": "Alternate: Compacted Steel Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "CDB4FF9D43032E0075B3CA90F29E2526"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 6
+      },
+      {
+        "slug": "item-compacted-coal",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-foundry-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-modular-frame": {
+    "name": "Alternate: Steeled Frame",
+    "translation": {
+      "namespace": "",
+      "key": "3B42E2664237EC04AA2853B62D622A70"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 2
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 60
+  },
+  "recipe-alternate-modular-frame-heavy": {
+    "name": "Alternate: Heavy Encased Frame",
+    "translation": {
+      "namespace": "",
+      "key": "8C2A510E41388E42F8719FBF2F42FA37"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 8
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 10
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 36
+      },
+      {
+        "slug": "item-cement",
+        "amount": 22
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 64
+  },
+  "recipe-alternate-motor-1": {
+    "name": "Alternate: Rigour Motor",
+    "translation": {
+      "namespace": "",
+      "key": "8B02D0224151AA58D29B539529C93DC3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rotor",
+        "amount": 3
+      },
+      {
+        "slug": "item-stator",
+        "amount": 3
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-motor",
+        "amount": 6
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 48
+  },
+  "recipe-alternate-nobelisk-1": {
+    "name": "Alternate: Seismic Nobelisk",
+    "translation": {
+      "namespace": "",
+      "key": "34FFB07C4DBC3092806287807F2BC19E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-gunpowder",
+        "amount": 8
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 8
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-nobelisk-explosive",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-alternate-nuclear-fuel-rod-1": {
+    "name": "Alternate: Nuclear Fuel Unit",
+    "translation": {
+      "namespace": "",
+      "key": "DC7D840445395ED8DF7CC791BB1E0A75"
+    },
+    "ingredients": [
+      {
+        "slug": "item-uranium-cell",
+        "amount": 50
+      },
+      {
+        "slug": "item-electromagnetic-control-rod",
+        "amount": 10
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 3
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-nuclear-fuel-rod",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 300
+  },
+  "recipe-alternate-plastic-1": {
+    "name": "Alternate: Recycled Plastic",
+    "translation": {
+      "namespace": "",
+      "key": "D7D7F22D4BA14900308334BD8E9312BB"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rubber",
+        "amount": 6
+      },
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 6000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-plastic",
+        "amount": 12
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-quickwire": {
+    "name": "Alternate: Fused Quckwire",
+    "translation": {
+      "namespace": "",
+      "key": "69BE1B84453DB4C5B9CC139E75C9B256"
+    },
+    "ingredients": [
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      },
+      {
+        "slug": "item-copper-ingot",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 12
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-alternate-radio-control-unit-1": {
+    "name": "Alternate: Radio Control System",
+    "translation": {
+      "namespace": "",
+      "key": "8BAB377E44A0BBAB3F036D97950C8727"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate-reinforced",
+        "amount": 10
+      },
+      {
+        "slug": "item-computer-super",
+        "amount": 1
+      },
+      {
+        "slug": "item-quartz-crystal",
+        "amount": 30
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame-lightweight",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 48
+  },
+  "recipe-alternate-reinforced-iron-plate-1": {
+    "name": "Alternate: Bolted Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "E02DF3A74A3D346E09C71DA4672E64C5"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 18
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-reinforced-iron-plate-2": {
+    "name": "Alternate: Stitched Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "1E0D073E4826A4897C710991EE970126"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 10
+      },
+      {
+        "slug": "item-wire",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 32
+  },
+  "recipe-alternate-rotor": {
+    "name": "Alternate: Steel Rotor",
+    "translation": {
+      "namespace": "",
+      "key": "C5699D274197C4B9EF2FCBBEDE0769C0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 2
+      },
+      {
+        "slug": "item-wire",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rotor",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-screw": {
+    "name": "Alternate: Casted Screw",
+    "translation": {
+      "namespace": "",
+      "key": "957302C146A322C1E479BD8A06F2B6A0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-screw",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-screw-2": {
+    "name": "Alternate: Steel Screw",
+    "translation": {
+      "namespace": "",
+      "key": "071E204D4FF6DF6B18F9439ED0A26DD7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-screw",
+        "amount": 52
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-alternate-silica": {
+    "name": "Alternate: Cheap Silica",
+    "translation": {
+      "namespace": "",
+      "key": "7D5002CC4ED54A2B7A99F18468B3A028"
+    },
+    "ingredients": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 3
+      },
+      {
+        "slug": "item-stone",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-silica",
+        "amount": 7
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-stator": {
+    "name": "Alternate: Quickwire Stator",
+    "translation": {
+      "namespace": "",
+      "key": "0B116DAD485A2329ADCFF39E7918D227"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 4
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 15
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stator",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 15
+  },
+  "recipe-alternate-turbofuel": {
+    "name": "Turbofuel",
+    "translation": {
+      "namespace": "",
+      "key": "E761FCD14330188C6E8999A166A4A1DC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 6000
+      },
+      {
+        "slug": "item-compacted-coal",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-turbo-fuel",
+        "amount": 5000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-alternate-turbo-motor-1": {
+    "name": "Alternate: Turbo Rigour Motor",
+    "translation": {
+      "namespace": "",
+      "key": "A7016AF349DD1DD2B09BAFAB5FA746C8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 7
+      },
+      {
+        "slug": "item-modular-frame-lightweight",
+        "amount": 5
+      },
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 9
+      },
+      {
+        "slug": "item-stator",
+        "amount": 7
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-motor-lightweight",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 64
+  },
+  "recipe-alternate-uranium-cell-1": {
+    "name": "Alternate: Infused Uranium Cell",
+    "translation": {
+      "namespace": "",
+      "key": "445FDDF9454B15DD980DC49E6F1D9D82"
+    },
+    "ingredients": [
+      {
+        "slug": "item-uranium-pellet",
+        "amount": 40
+      },
+      {
+        "slug": "item-sulfur",
+        "amount": 45
+      },
+      {
+        "slug": "item-silica",
+        "amount": 45
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 75
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-uranium-cell",
+        "amount": 35
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-alternate-wire-1": {
+    "name": "Alternate: Iron Wire",
+    "translation": {
+      "namespace": "",
+      "key": "34723FF04485F7A5B719D992BD617B5E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wire",
+        "amount": 9
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-alternate-wire-2": {
+    "name": "Alternate: Caterium Wire",
+    "translation": {
+      "namespace": "",
+      "key": "CB1474E646FB38A79D77358EE1D14CB5"
+    },
+    "ingredients": [
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wire",
+        "amount": 8
+      }
+    ],
+    "producedIn": ["building-constructor-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-ailimiter": {
+    "name": "A.I. Limiter",
+    "translation": {
+      "namespace": "",
+      "key": "C2BCAA9842DE092F082BF4A1442A4154"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 5
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-circuit-board": {
+    "name": "Circuit Board",
+    "translation": {
+      "namespace": "",
+      "key": "511A77854C0A6EF78F070CBEBBAF5417"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 2
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 8
+  },
+  "recipe-electromagnetic-control-rod": {
+    "name": "Electromagnetic Control Rod",
+    "translation": {
+      "namespace": "",
+      "key": "64E8B00B435D087F5A35078942F520E4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stator",
+        "amount": 3
+      },
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-electromagnetic-control-rod",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 30
+  },
+  "recipe-encased-industrial-beam": {
+    "name": "Encased Industrial Beam",
+    "translation": {
+      "namespace": "",
+      "key": "0463F80E45BB9C6EED03E9B96E62CFA7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 4
+      },
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 10
+  },
+  "recipe-heat-sink": {
+    "name": "Heat Sink",
+    "translation": {
+      "namespace": "",
+      "key": "FA1193DC40A26DBB4660EBB8C7347684"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 8
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 14
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-plate-reinforced",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 12
+  },
+  "recipe-iron-plate-reinforced": {
+    "name": "Reinforced Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "B4CB7FEC4A568877824C5E8F7C9FB048"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-modular-frame": {
+    "name": "Modular Frame",
+    "translation": {
+      "namespace": "",
+      "key": "AD30C73549A860138BAAEDA09E9F1075"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.5,
+    "manufacturingDuration": 60
+  },
+  "recipe-motor": {
+    "name": "Motor",
+    "translation": {
+      "namespace": null,
+      "key": "6813C97846A2DD0E378D789F009A703E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      },
+      {
+        "slug": "item-stator",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-motor",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 12
+  },
+  "recipe-rotor": {
+    "name": "Rotor",
+    "translation": {
+      "namespace": "",
+      "key": "0515762A4B35ADCC1897EA955C2B6083"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 25
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rotor",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.800000011920929,
+    "manufacturingDuration": 15
+  },
+  "recipe-stator": {
+    "name": "Stator",
+    "translation": {
+      "namespace": "",
+      "key": "A92A731B4BB5E14EB1E930981BD86A8E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 3
+      },
+      {
+        "slug": "item-wire",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stator",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 12
+  },
+  "recipe-uranium-cell": {
+    "name": "Encased Uranium Cell",
+    "translation": {
+      "namespace": "",
+      "key": "87F72107478C6E7013FF169CD850F0FB"
+    },
+    "ingredients": [
+      {
+        "slug": "item-uranium-pellet",
+        "amount": 40
+      },
+      {
+        "slug": "item-cement",
+        "amount": 9
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-uranium-cell",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.5,
+    "manufacturingDuration": 60
+  },
+  "recipe-fence-01": {
+    "name": "Fence",
+    "translation": {
+      "namespace": "",
+      "key": "58A99A2341582D004FC02EAB8E293B99"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fence-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-foundation-8x1-01": {
+    "name": "Foundation 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "A8B200054E3E963A12A584B114AC8195"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundation-8x1-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-foundation-8x2-01": {
+    "name": "Foundation 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "55C9C2904639977B5F37309BD35F410A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundation-8x2-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-foundation-8x4-01": {
+    "name": "Foundation 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "609B49B54AA5C558DC1E1E89F5884377"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundation-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-foundation-frame-01": {
+    "name": "Frame Foundation 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "A708412640E293F0A5F8A68B5F4D4AAC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundation-frame-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-foundation-glass-01": {
+    "name": "Glass Foundation 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "B882E3C5467BAB928F0692999A023651"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundation-glass-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pillar-base": {
+    "name": "Pillar Base",
+    "translation": {
+      "namespace": "",
+      "key": "1EEAF10E41A57AC2349C9F87C2DCC4CE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pillar-base",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pillar-middle": {
+    "name": "Pillar Middle",
+    "translation": {
+      "namespace": "",
+      "key": "A1B6415345C4BD8FEB20309D78DA2B36"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pillar-middle",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pillar-top": {
+    "name": "Pillar Top",
+    "translation": {
+      "namespace": "",
+      "key": "AAF5DACA41F081D9CD9983AD47233547"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pillar-top",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe": {
+    "name": "Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "082266694F3AB8401CADD1A4CBD065BC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe-02": {
+    "name": "Inverted Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "EBA0A6E44A54A2CB1C5FF0BA942D0BA0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe-corner-01": {
+    "name": "Inner-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "5A1C8F614965C9E2F1AF648F781FE40B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe-corner-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe-corner-02": {
+    "name": "Inverted Inner-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "81B8BB10446B89CA79418D9DCF41B11A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe-corner-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe-corner-03": {
+    "name": "Outer-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "C6BC7F604394047508D223A59BCDA3F3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe-corner-03",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-quarter-pipe-corner-04": {
+    "name": "Inverted Outer-Corner Quarter Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "839B91564B5387DB3D35888A43AE55DE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quarter-pipe-corner-04",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-8x1-01": {
+    "name": "Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "22D1D68843595A5AC26D50A03B2413BE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-8x1-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-8x2-01": {
+    "name": "Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "8B21227245CDE72DFEEA1F9DDB420C2E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-8x2-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-8x4-01": {
+    "name": "Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "9C5CC4DD4CE8D1CDB48A29B28BCEE268"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-8x4-inverted-01": {
+    "name": "Inverted Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "DB93D383449341AE608244B0C88BCFA2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-8x4-inverted-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-8x8x8": {
+    "name": "Double Ramp 8m x 8m",
+    "translation": {
+      "namespace": "",
+      "key": "439548E64D589FD436193598534077D8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-8x8x8",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x1-01": {
+    "name": "Down Corner Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "BD3989FA49528018FDE5EEA2CAEE4490"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x1-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x1-02": {
+    "name": "Up Corner Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "E3E0F9034BB2FB0A02A1E789888A7070"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x1-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x2-01": {
+    "name": "Down Corner Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "70FFD401489D694E211F13B28DD255DE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x2-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x2-02": {
+    "name": "Up Corner Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "692E4B904FC6CE2F7744179020E43129"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x2-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x4-01": {
+    "name": "Down Corner Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "A0082D7E489CC2721CE3A493940D9F20"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-diagonal-8x4-02": {
+    "name": "Up Corner Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "CA0000424131621058A9D2886C7A5D3A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-diagonal-8x4-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-double": {
+    "name": "Double Ramp 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "546A69EA4AF88E592E2C069D55C181B0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-double",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-double-8x1": {
+    "name": "Double Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "9D910A644454CF7DDD1DBFBC753BE88F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-double-8x1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x1": {
+    "name": "Inverted Ramp 8m x 1m",
+    "translation": {
+      "namespace": "",
+      "key": "8224F552451628BF349187BCA4A8D6CC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x1-corner-01": {
+    "name": "Up Corner   8m x 1m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "05A220264E25A3E0409A2DAC03EFEBE8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x1-corner-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x1-corner-02": {
+    "name": "Down Corner 8m x 1m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "DCDE2FE14FF6E191BC8731AEFFE9CF64"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x1-corner-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x2-01": {
+    "name": "Inverted Ramp 8m x 2m",
+    "translation": {
+      "namespace": "",
+      "key": "823395284255E75442DDB0A275883436"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x2-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x2-corner-01": {
+    "name": "Up Corner   8m x 2m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "113B044D41B6634133CC01B84CEFCF20"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x2-corner-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x2-corner-02": {
+    "name": "Down Corner 8m x 2m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "570A3AF64EE2DEE09EEDCFB4AB1B1815"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x2-corner-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x4-corner-01": {
+    "name": "Up Corner   8m x 4m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "5D4E621A4149CD4E4C369495785DA6BA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x4-corner-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ramp-inverted-8x4-corner-02": {
+    "name": "Down Corner 8m x 4m Inverted",
+    "translation": {
+      "namespace": "",
+      "key": "FAD4DBB542C7B035B5A9EEB49FCB93FC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ramp-inverted-8x4-corner-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-assembler-mk1": {
+    "name": "Assembler",
+    "translation": {
+      "namespace": "",
+      "key": "EB40823F4C4A3CB74DD01EB48C9A69A2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 8
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 4
+      },
+      {
+        "slug": "item-cable",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-assembler-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-constructor-mk1": {
+    "name": "Constructor",
+    "translation": {
+      "namespace": "",
+      "key": "505E12434033913D9DE530BFEDFB42E3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 2
+      },
+      {
+        "slug": "item-cable",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-constructor-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-attachment-merger": {
+    "name": "Conveyor Merger",
+    "translation": {
+      "namespace": "",
+      "key": "C63896FE4A9C43C5E49587A848034DA3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-attachment-merger",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-attachment-splitter": {
+    "name": "Conveyor Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "09EE05E24162F23EBCCC6B8EE2D71ADC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cable",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-attachment-splitter",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-attachment-splitter-programmable": {
+    "name": "Programmable Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "00FBE22749CFF4A3D063D19CDC1E96A5"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 1
+      },
+      {
+        "slug": "item-motor",
+        "amount": 1
+      },
+      {
+        "slug": "item-computer-super",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-attachment-splitter-programmable",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-attachment-splitter-smart": {
+    "name": "Smart Splitter",
+    "translation": {
+      "namespace": "",
+      "key": "DDCEE94042483A5C6F947DA5BC2EFCCA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 2
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      },
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-attachment-splitter-smart",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-belt-mk1": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-belt-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-belt-mk2": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-belt-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-belt-mk3": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-belt-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-belt-mk4": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-belt-mk4",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-belt-mk5": {
+    "name": "Conveyor Belt Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "49ED32984B7579C073C305A7E6AEC94F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-belt-mk5",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-lift-mk1": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-lift-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-lift-mk2": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-lift-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-lift-mk3": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-lift-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-lift-mk4": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-lift-mk4",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-lift-mk5": {
+    "name": "Conveyor Lift Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "5C5A467946AE13761CD97AB4188241D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-lift-mk5",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-pole": {
+    "name": "Conveyor Pole",
+    "translation": {
+      "namespace": "",
+      "key": "E75693834797F592505B699477FFC63F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      },
+      {
+        "slug": "item-cement",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-pole",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-pole-stackable": {
+    "name": "Stackable Conveyor Pole",
+    "translation": {
+      "namespace": null,
+      "key": "9AA85FB14CE8061CC16D08A0129DE294"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-pole-stackable",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-conveyor-pole-wall": {
+    "name": "Conveyor Wall Mount",
+    "translation": {
+      "namespace": null,
+      "key": "7D6873DF4DE52C6EA093A0B090958FF0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-conveyor-pole-wall",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 15
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 15
+      },
+      {
+        "slug": "item-wire",
+        "amount": 25
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generator-biomass",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-coal": {
+    "name": "Coal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "C38B9BAA4A167E5A9E4FB5AB1E841F92"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 20
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 10
+      },
+      {
+        "slug": "item-cable",
+        "amount": 30
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generator-coal",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-fuel": {
+    "name": "Fuel Generator",
+    "translation": {
+      "namespace": "",
+      "key": "AA728F1D41C142BC9F2CA2AC66B4ADE6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-computer",
+        "amount": 5
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 10
+      },
+      {
+        "slug": "item-motor",
+        "amount": 15
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 50
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generator-fuel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-geo-thermal": {
+    "name": "Geothermal Generator",
+    "translation": {
+      "namespace": "",
+      "key": "9709F0E848E7F6F0655F698AE49B11DE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-computer-super",
+        "amount": 8
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 16
+      },
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 16
+      },
+      {
+        "slug": "item-copper-sheet",
+        "amount": 40
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 80
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generator-geo-thermal",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-integrated-biomass": {
+    "name": "Biomass Burner",
+    "translation": {
+      "namespace": "",
+      "key": "F99CD0B44EDA7F3729703EA9D53A8429"
+    },
+    "ingredients": [],
+    "products": [
+      {
+        "slug": "item-generator-integrated-biomass",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-generator-nuclear": {
+    "name": "Nuclear Power Plant",
+    "translation": {
+      "namespace": "",
+      "key": "A519D24944F564E90A5B108D65CCDEE6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 150
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 10
+      },
+      {
+        "slug": "item-computer-super",
+        "amount": 5
+      },
+      {
+        "slug": "item-cable",
+        "amount": 50
+      },
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 15
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generator-nuclear",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-hub-terminal": {
+    "name": "HUB Terminal",
+    "translation": {
+      "namespace": null,
+      "key": "F6727D9446D0E5E2F9C171B61C1776F9"
+    },
+    "ingredients": [],
+    "products": [
+      {
+        "slug": "item-hub-terminal",
+        "amount": 1
+      }
+    ],
+    "producedIn": [],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-hyper-pole-stackable": {
+    "name": "Stackable Hyper Tube Support",
+    "translation": {
+      "namespace": "",
+      "key": "FF804C79415860EA384109B7F81460E5"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 4
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-hyper-pole-stackable",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-hyper-tube-wall-hole": {
+    "name": "Hyper Tube Wall Hole",
+    "translation": {
+      "namespace": "",
+      "key": "6D71546E4367A0A5813721A9E2BA48D4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-hyper-tube-wall-hole",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-hyper-tube-wall-support": {
+    "name": "Hyper Tube Wall Support",
+    "translation": {
+      "namespace": "",
+      "key": "3D828D9D481A398EA2A2B69D0291984A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-hyper-tube-wall-support",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-industrial-tank": {
+    "name": "Industrial Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "FB803EDB47531AAC9A0828B13F15197F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-plastic",
+        "amount": 30
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-industrial-tank",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-jump-pad": {
+    "name": "Jump Pad",
+    "translation": {
+      "namespace": null,
+      "key": "5C7397674656688A5C530991564A68FA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 15
+      },
+      {
+        "slug": "item-cable",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-jump-pad",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-jump-pad-tilted": {
+    "name": "Jump Pad",
+    "translation": {
+      "namespace": null,
+      "key": "5C7397674656688A5C530991564A68FA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 15
+      },
+      {
+        "slug": "item-cable",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-jump-pad-tilted",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-lookout-tower": {
+    "name": "Lookout Tower",
+    "translation": {
+      "namespace": "",
+      "key": "7BC4EE4E49ED77007D865BA9B36461A3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-lookout-tower",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-mam": {
+    "name": "M.A.M.",
+    "translation": {
+      "namespace": null,
+      "key": "42111D1146F0DCFA899A6292AF4C2AA4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 5
+      },
+      {
+        "slug": "item-cable",
+        "amount": 15
+      },
+      {
+        "slug": "item-wire",
+        "amount": 45
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-mam",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-manufacturer-mk1": {
+    "name": "Manufacturer",
+    "translation": {
+      "namespace": "",
+      "key": "F2F84BA44DC64F9CC65388BF8D7EE2EF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 5
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 10
+      },
+      {
+        "slug": "item-cable",
+        "amount": 50
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-manufacturer-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-miner-mk1": {
+    "name": "Miner Mk1",
+    "translation": {
+      "namespace": "",
+      "key": "A3AFD2EC45F35991F592229EB62527CF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-item-descriptor-portable-miner",
+        "amount": 1
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 10
+      },
+      {
+        "slug": "item-cement",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-miner-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-miner-mk2": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": null,
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "ingredients": [
+      {
+        "slug": "item-item-descriptor-portable-miner",
+        "amount": 2
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 10
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 20
+      },
+      {
+        "slug": "item-modular-frame",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-miner-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-miner-mk3": {
+    "name": "Miner Mk.2",
+    "translation": {
+      "namespace": null,
+      "key": "9FFDB8E242D774A194E8318F78719EAD"
+    },
+    "ingredients": [
+      {
+        "slug": "item-item-descriptor-portable-miner",
+        "amount": 3
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 4
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 20
+      },
+      {
+        "slug": "item-motor-lightweight",
+        "amount": 5
+      },
+      {
+        "slug": "item-computer",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-miner-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-oil-pump": {
+    "name": "Oil Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "C86F1CAE473C8311D399909A494C8CF2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 15
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 20
+      },
+      {
+        "slug": "item-cable",
+        "amount": 60
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-oil-pump",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-oil-refinery": {
+    "name": "Refinery",
+    "translation": {
+      "namespace": "",
+      "key": "EC74BA4B4881D9235260B7B2AB3088CF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 10
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 10
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 30
+      },
+      {
+        "slug": "item-copper-sheet",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-oil-refinery",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-hyper": {
+    "name": "Hyper Tube",
+    "translation": {
+      "namespace": "",
+      "key": "F47AA5734D3C62747D47C3AABDC6D92C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 1
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipe-hyper",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-hyper-support": {
+    "name": "Hyper Tube Support",
+    "translation": {
+      "namespace": "",
+      "key": "E88D8F68439F7787E4243CAA20966914"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipe-hyper-support",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipeline": {
+    "name": "Pipeline",
+    "translation": {
+      "namespace": null,
+      "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipeline-junction-cross": {
+    "name": "Pipeline Junction Cross",
+    "translation": {
+      "namespace": null,
+      "key": "4841474A4998580837B45AB5CA652833"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline-junction-cross",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipeline-pump": {
+    "name": "Pipeline Pump",
+    "translation": {
+      "namespace": null,
+      "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 2
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline-pump",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-storage-tank": {
+    "name": "Fluid Buffer",
+    "translation": {
+      "namespace": "",
+      "key": "97750E3B42E12664B160F6AC35865F27"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 10
+      },
+      {
+        "slug": "item-modular-frame",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipe-storage-tank",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-support": {
+    "name": "Pipeline Support",
+    "translation": {
+      "namespace": "",
+      "key": "D05C9AC34F610E44976D04B0BF41A463"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline-support",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-support-stackable": {
+    "name": "Stackable Pipeline Support",
+    "translation": {
+      "namespace": "",
+      "key": "7D323E544CECF89E2E5535B771D3E608"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 4
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipe-support-stackable",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-support-wall": {
+    "name": "Pipeline Wall Support",
+    "translation": {
+      "namespace": "",
+      "key": "BCCF101049D9AD2ACCB009B6E1102C07"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline-support-wall",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-pipe-support-wall-hole": {
+    "name": "Pipeline Wall Hole",
+    "translation": {
+      "namespace": "",
+      "key": "B351FBE34D4D8868CCB4339FF8E68E80"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-pipeline-support-wall-hole",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-line": {
+    "name": "Power Line",
+    "translation": {
+      "namespace": "",
+      "key": "BA845DBE4BECEE99988C898F06411E41"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cable",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-line",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-mk1": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      },
+      {
+        "slug": "item-cement",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-mk2": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-cement",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-mk3": {
+    "name": "Power Pole Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "DBBE58F04420F8612C67EFBCF1071637"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 2
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 2
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 4
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall-double": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 8
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall-double",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall-double-mk2": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 16
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall-double-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall-double-mk3": {
+    "name": "Double Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "3CBDE809445D273AADB1188105F8A8FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 6
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall-double-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall-mk2": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 8
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-power-pole-wall-mk3": {
+    "name": "Wall Outlet Mk.1",
+    "translation": {
+      "namespace": "",
+      "key": "6D0633854754D3CAEF932A905BF812DA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 3
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-power-pole-wall-mk3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-radar-tower": {
+    "name": "Radar Tower",
+    "translation": {
+      "namespace": "",
+      "key": "A23E89434DAEB0ED399BCF8005371E37"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 30
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 30
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 20
+      },
+      {
+        "slug": "item-cable",
+        "amount": 100
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-radar-tower",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-railroad-track": {
+    "name": "Railway",
+    "translation": {
+      "namespace": "",
+      "key": "A99FD448401EE8273142B19004C59912"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 1
+      },
+      {
+        "slug": "item-steel-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-railroad-track",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-railroad-track-integrated": {
+    "name": "Integrated Platform Track",
+    "translation": {
+      "namespace": "",
+      "key": "831361E04B97F1639B9EDA9F622B9332"
+    },
+    "ingredients": [],
+    "products": [
+      {
+        "slug": "item-railroad-track-integrated",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-resource-sink": {
+    "name": "AWESOME Sink",
+    "translation": {
+      "namespace": null,
+      "key": "7EF9CDA1441086A8E94D6A984AF35EE8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 15
+      },
+      {
+        "slug": "item-cable",
+        "amount": 30
+      },
+      {
+        "slug": "item-cement",
+        "amount": 45
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-resource-sink",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-resource-sink-shop": {
+    "name": "AWESOME Shop",
+    "translation": {
+      "namespace": null,
+      "key": "98E1AF4D447BF9A6276B8CB41AC520DA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-screw",
+        "amount": 200
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 10
+      },
+      {
+        "slug": "item-cable",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-resource-sink-shop",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-smelter-basic-mk1": {
+    "name": "Smelter",
+    "translation": {
+      "namespace": "",
+      "key": "3CA150EE4C2EBEDE9D0F87891C4A5080"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 5
+      },
+      {
+        "slug": "item-wire",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-smelter-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-smelter-mk1": {
+    "name": "Foundry",
+    "translation": {
+      "namespace": "",
+      "key": "89353AD14BCCDC9A82F5CDAA107A8940"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 10
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 10
+      },
+      {
+        "slug": "item-cement",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-foundry-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-storage-container-mk1": {
+    "name": "Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "520B7D0D455BA2BBF734B393ED45EA02"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 10
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-storage-container-mk1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-storage-container-mk2": {
+    "name": "Industrial Storage Container",
+    "translation": {
+      "namespace": "",
+      "key": "8AB1A36E4555E4194A80CCB96B6EFC3B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 20
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-storage-container-mk2",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-storage-integrated": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "9A1FB991446CCCB04C279980B845C7F9"
+    },
+    "ingredients": [],
+    "products": [
+      {
+        "slug": "item-storage-integrated",
+        "amount": 1
+      }
+    ],
+    "producedIn": [],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-storage-player": {
+    "name": "Personal Storage Box",
+    "translation": {
+      "namespace": "",
+      "key": "50521D7049521D27A006208327292C7E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 6
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-storage-player",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-trading-post": {
+    "name": "The HUB",
+    "translation": {
+      "namespace": "",
+      "key": "94FECF5B45FE9DB38A19248BBD383958"
+    },
+    "ingredients": [
+      {
+        "slug": "item-hubparts",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-trading-post",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-truck-station": {
+    "name": "Truck Station",
+    "translation": {
+      "namespace": null,
+      "key": "3B3576E9482BA277C308C88DFCB73D1B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 15
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 20
+      },
+      {
+        "slug": "item-cable",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-truck-station",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-ujelly-landing-pad": {
+    "name": "U-Jelly Landing Pad",
+    "translation": {
+      "namespace": null,
+      "key": "40EA941E48CEFB59722E2F81443B383D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      },
+      {
+        "slug": "item-cable",
+        "amount": 20
+      },
+      {
+        "slug": "item-generic-biomass",
+        "amount": 200
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-landing-pad",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-water-pump": {
+    "name": "Water Extractor",
+    "translation": {
+      "namespace": "",
+      "key": "D8ACD2BE4630860B9B040696FFAE4FE1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 20
+      },
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 10
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-water-pump",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-work-bench": {
+    "name": "Craft Bench",
+    "translation": {
+      "namespace": null,
+      "key": "909BAFD0411132D0C914DCA1317B245F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-work-bench",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-work-bench-integrated": {
+    "name": "Craft Bench",
+    "translation": {
+      "namespace": null,
+      "key": "DC88421D451F63FB95AA80861E61AEFC"
+    },
+    "ingredients": [],
+    "products": [
+      {
+        "slug": "item-work-bench-integrated",
+        "amount": 1
+      }
+    ],
+    "producedIn": [],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-workshop": {
+    "name": "Equipment Workshop",
+    "translation": {
+      "namespace": null,
+      "key": "BE3C0E5D44852E9A26F679A7602CA8EC"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-workshop",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-stair-1b": {
+    "name": "Stairs",
+    "translation": {
+      "namespace": "",
+      "key": "F0371BBB47CD51A74240218E4574CCF3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 4
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stair-1b",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-stairs-left-01": {
+    "name": "Stairs Left",
+    "translation": {
+      "namespace": "",
+      "key": "EF33C3A04EB77B078A3B529C4458FB70"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stairs-left-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-stairs-right-01": {
+    "name": "Stairs Right",
+    "translation": {
+      "namespace": "",
+      "key": "05066D2045E633D9E5D110A097A25716"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stairs-right-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-space-elevator": {
+    "name": "Space Elevator",
+    "translation": {
+      "namespace": null,
+      "key": "B0AE60A44F6A0BBC2C2B84B14CB7DB6F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-cement",
+        "amount": 500
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 250
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 400
+      },
+      {
+        "slug": "item-wire",
+        "amount": 1500
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-walkway-cross": {
+    "name": "Walkway Crossing",
+    "translation": {
+      "namespace": null,
+      "key": "2742C058416371DE0121ACA99A2A6C11"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-walkway-cross",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-walkway-ramp": {
+    "name": "Walkway Ramp",
+    "translation": {
+      "namespace": null,
+      "key": "1C309B5945236DCB3459DF98EF83D600"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-walkway-ramp",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-walkway-straight": {
+    "name": "Walkway Straight",
+    "translation": {
+      "namespace": null,
+      "key": "EB89B3BF4A8D4FDF524B71823D7AD380"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-walkway-straight",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-walkway-t": {
+    "name": "Walkway T-Crossing",
+    "translation": {
+      "namespace": null,
+      "key": "8B436E274CB07F5B15E3CB9B11306494"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-walkway-t",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-walkway-turn": {
+    "name": null,
+    "translation": {
+      "namespace": null,
+      "key": null
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-plate",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-walkway-turn",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-8x4-01": {
+    "name": "Wall 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "174E83A44FA0C14E1808B1A40832E858"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-8x4-02": {
+    "name": "Wall 8m x 4m",
+    "translation": {
+      "namespace": "",
+      "key": "6253A9A94CBE6B457EDCD788D6C39173"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-8x4-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-01": {
+    "name": "Wall Conveyor x3",
+    "translation": {
+      "namespace": "",
+      "key": "521136354A5C233306F353A0F7ED6554"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-01-steel": {
+    "name": "Wall Conveyor x3",
+    "translation": {
+      "namespace": "",
+      "key": "998C0662464878F4ED9D4DAB4BC205C6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-01-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-02": {
+    "name": "Wall Conveyor x2",
+    "translation": {
+      "namespace": "",
+      "key": "302710FD4C6BE8D25064F6B5098033E7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-02-steel": {
+    "name": "Wall Conveyor x2",
+    "translation": {
+      "namespace": "",
+      "key": "51712C3E4333617C4E7CA5A7A2CE118A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-02-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-03": {
+    "name": "Wall Conveyor x1",
+    "translation": {
+      "namespace": "",
+      "key": "F0E232684E48CF40F031F79FFF756A64"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-03",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-03-steel": {
+    "name": "Wall Conveyor x1",
+    "translation": {
+      "namespace": "",
+      "key": "5D6BB51746869303F527238DA293F8D6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-03-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-04": {
+    "name": "Wall Conveyor Perpendicular",
+    "translation": {
+      "namespace": "",
+      "key": "6FCC572A4FEA4726E40E68AC9A351137"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-04",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-conveyor-8x4-04-steel": {
+    "name": "Wall Conveyor Perpendicular",
+    "translation": {
+      "namespace": "",
+      "key": "4DA5FB3E4B3AA11E389E3E97283A970F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-conveyor-8x4-04-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-01": {
+    "name": "Center Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "D3DEE681406CA75FB4875FA36BCA4062"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-01-steel": {
+    "name": "Center Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "A82FE44349FB97E79EFED59E51FC4BD9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-01-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-02": {
+    "name": "Left Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "0BDDC83E497B18FDB3B0BD837B52F770"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-02-steel": {
+    "name": "Left Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "98BEBBEE492534B7046856B888FAA24A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-02-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-03": {
+    "name": "Right Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "F207B5384B4F3799196FC8A5BB7E2E93"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-03",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-door-8x4-03-steel": {
+    "name": "Right Door Wall",
+    "translation": {
+      "namespace": "",
+      "key": "4C98C075438FEE22B832F0B97BE3CA6F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-door-8x4-03-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-gate-8x4-01": {
+    "name": "Gate Wall",
+    "translation": {
+      "namespace": "",
+      "key": "5A69B56F46DF2DE7139A209BD7D296FA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-gate-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-window-8x4-01": {
+    "name": "Single Window",
+    "translation": {
+      "namespace": "",
+      "key": "9C52F83F42C7DCD3144C67BD4842AA22"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-window-8x4-01",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-window-8x4-02": {
+    "name": "Frame Window",
+    "translation": {
+      "namespace": "",
+      "key": "4CE6F66647998B8986E468902A371F07"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-window-8x4-02",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-window-8x4-03": {
+    "name": "Panel Window",
+    "translation": {
+      "namespace": "",
+      "key": "93F7317D428B2E0CFA1F43952A1CD51D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-window-8x4-03",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-window-8x4-03-steel": {
+    "name": "Wall 1a",
+    "translation": {
+      "namespace": "",
+      "key": "CF038C11488D87986FB374A31C9A5DF0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-window-8x4-03-steel",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-wall-window-8x4-04": {
+    "name": "Reinforced Window",
+    "translation": {
+      "namespace": "",
+      "key": "30B53FD940EE282E9D567B970728F4A4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-cement",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wall-window-8x4-04",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-aluminum-sheet": {
+    "name": "Alclad Aluminum Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "300F56834813D17C294AC5B5FC5908F6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-ingot",
+        "amount": 8
+      },
+      {
+        "slug": "item-copper-ingot",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 8
+  },
+  "recipe-biofuel": {
+    "name": "Solid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "07AE2C1C4B564CA4BB2CD3A41105CFF4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-biofuel",
+        "amount": 4
+      }
+    ],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component",
+      "building-automated-work-bench"
+    ],
+    "manualMultiplier": 5,
+    "manufacturingDuration": 4
+  },
+  "recipe-biomass-alien-carapace": {
+    "name": "Biomass (Alien Carapace)",
+    "translation": {
+      "namespace": "",
+      "key": "7D71745349911E819BB134828FA19A7E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-hog-parts",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 100
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-biomass-alien-organs": {
+    "name": "Biomass (Alien Organs)",
+    "translation": {
+      "namespace": "",
+      "key": "2D27904143B8BF36BF98BF8CBECD40AF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-spitter-parts",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 200
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-biomass-leaves": {
+    "name": "Biomass (Leaves)",
+    "translation": {
+      "namespace": "",
+      "key": "E14289D0445F1ADF5C8B0D9DC6F4FBD2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-leaves",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.4000000059604645,
+    "manufacturingDuration": 5
+  },
+  "recipe-biomass-mycelia": {
+    "name": "Biomass (Mycelia)",
+    "translation": {
+      "namespace": "",
+      "key": "00791E3A4EA70DF52479969B7431D5B3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-mycelia",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 10
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.5,
+    "manufacturingDuration": 4
+  },
+  "recipe-biomass-wood": {
+    "name": "Biomass (Wood)",
+    "translation": {
+      "namespace": "",
+      "key": "708D6EDE49F6EC13D549608A67B09CB0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wood",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-generic-biomass",
+        "amount": 20
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-cable": {
+    "name": "Cable",
+    "translation": {
+      "namespace": "",
+      "key": "716869C14B17B82C97DEC080C5756DEE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-wire",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cable",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-concrete": {
+    "name": "Concrete",
+    "translation": {
+      "namespace": "",
+      "key": "EED5C92544637062F7201E9CDA5B8DA0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stone",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cement",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-copper-sheet": {
+    "name": "Copper Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "80A45546416416AF5BB55EA854A67E65"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-copper-sheet",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-fabric": {
+    "name": "Fabric",
+    "translation": {
+      "namespace": "",
+      "key": "78A1D4714220C849154543A97772CAEE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-mycelia",
+        "amount": 1
+      },
+      {
+        "slug": "item-generic-biomass",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fabric",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-fluid-canister": {
+    "name": "Empty Canister",
+    "translation": {
+      "namespace": "",
+      "key": "C14635E64053EB52D2EC9E88261A16BE"
+    },
+    "ingredients": [
+      {
+        "slug": "item-plastic",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fluid-canister",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-iron-plate": {
+    "name": "Iron Plate",
+    "translation": {
+      "namespace": "",
+      "key": "5DF4001E4003046F3E958E9BF9DCFDE6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-iron-rod": {
+    "name": "Iron Rod",
+    "translation": {
+      "namespace": "",
+      "key": "F636CC1047E4C1E1C65B6B92763EBB27"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 0.5,
+    "manufacturingDuration": 4
+  },
+  "recipe-nuclear-fuel-rod": {
+    "name": "Nuclear Fuel Rod",
+    "translation": {
+      "namespace": "",
+      "key": "E6B0D2E345B649C9DBEC4DAA8A5B7064"
+    },
+    "ingredients": [
+      {
+        "slug": "item-uranium-cell",
+        "amount": 25
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 3
+      },
+      {
+        "slug": "item-electromagnetic-control-rod",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-nuclear-fuel-rod",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 150
+  },
+  "recipe-power-crystal-shard-1": {
+    "name": "Power Shard (1)",
+    "translation": {
+      "namespace": "",
+      "key": "F570839544A1BBB6BC090CAAD0FF9DF9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-crystal",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-crystal-shard",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-power-crystal-shard-2": {
+    "name": "Power Shard (2)",
+    "translation": {
+      "namespace": "",
+      "key": "5DBB8D0D42AD88D57569A9A3D9EFB551"
+    },
+    "ingredients": [
+      {
+        "slug": "item-crystal-mk2",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-crystal-shard",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 12
+  },
+  "recipe-power-crystal-shard-3": {
+    "name": "Power Shard (5)",
+    "translation": {
+      "namespace": "",
+      "key": "5FC18C3847EF07C56B82B6B60CD6CFD1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-crystal-mk3",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-crystal-shard",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-quartz-crystal": {
+    "name": "Quartz Crystal",
+    "translation": {
+      "namespace": "",
+      "key": "E8CD33CC4193B199528F72BEC3F15850"
+    },
+    "ingredients": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-quartz-crystal",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 8
+  },
+  "recipe-quickwire": {
+    "name": "Quickwire",
+    "translation": {
+      "namespace": "",
+      "key": "9FCE731045CC10AF1CD07EA14A80029A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 5
+  },
+  "recipe-screw": {
+    "name": "Screw",
+    "translation": {
+      "namespace": "",
+      "key": "F86C5F2A426AE1A985229B8CAC9854E1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-screw",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-silica": {
+    "name": "Silica",
+    "translation": {
+      "namespace": "",
+      "key": "4FD687D14CB15762AC90819C36C0B9A8"
+    },
+    "ingredients": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-silica",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 8
+  },
+  "recipe-steel-beam": {
+    "name": "Steel Beam",
+    "translation": {
+      "namespace": "",
+      "key": "CE7C20C04BBEAE9BBC8368B83C21FA8A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-plate",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-steel-pipe": {
+    "name": "Steel Pipe",
+    "translation": {
+      "namespace": "",
+      "key": "BC7763FA48475F6D80DD79A0B1A7D5AA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-wire": {
+    "name": "Wire",
+    "translation": {
+      "namespace": "",
+      "key": "B26AF15A4B6C6A2B86A5BCB05C1C0150"
+    },
+    "ingredients": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-wire",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-beacon": {
+    "name": "Beacon",
+    "translation": {
+      "namespace": "",
+      "key": "D64A527F44BA0A1595F8829AC513B6B9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      },
+      {
+        "slug": "item-wire",
+        "amount": 15
+      },
+      {
+        "slug": "item-cable",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component", "building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-blade-runners": {
+    "name": "Blade Runners",
+    "translation": {
+      "namespace": "",
+      "key": "A859FC5F49ADDCD3EAB6B39155EE5B28"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 50
+      },
+      {
+        "slug": "item-modular-frame",
+        "amount": 3
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-jumping-stilts",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 80
+  },
+  "recipe-cartridge": {
+    "name": "Rifle Cartridge",
+    "translation": {
+      "namespace": "",
+      "key": "0D4257614CB7F24CB6AF34A0DB6E13E7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 1
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 10
+      },
+      {
+        "slug": "item-gunpowder",
+        "amount": 10
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cartridge-standard",
+        "amount": 5
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-chainsaw": {
+    "name": "Chainsaw",
+    "translation": {
+      "namespace": "",
+      "key": "639C6BB0437832EBE3F0BAB28FC7D6A9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 25
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 160
+      },
+      {
+        "slug": "item-cable",
+        "amount": 15
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-chainsaw",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 60
+  },
+  "recipe-color-cartridge": {
+    "name": "Color Cartridge",
+    "translation": {
+      "namespace": "",
+      "key": "84DF71F24C00941583C20194D065D165"
+    },
+    "ingredients": [
+      {
+        "slug": "item-flower-petals",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-color-cartridge",
+        "amount": 10
+      }
+    ],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-color-gun": {
+    "name": "Color Gun",
+    "translation": {
+      "namespace": "",
+      "key": "26A215D04D6096885A09A2BCAABDCC21"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 80
+      },
+      {
+        "slug": "item-wire",
+        "amount": 40
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-color-gun",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 80
+  },
+  "recipe-filter-gas-mask": {
+    "name": "Gas Filter",
+    "translation": {
+      "namespace": "",
+      "key": "34E5B76146806792CCBAC1B7DDF354DB"
+    },
+    "ingredients": [
+      {
+        "slug": "item-coal",
+        "amount": 5
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      },
+      {
+        "slug": "item-fabric",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-filter",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 8
+  },
+  "recipe-filter-hazmat": {
+    "name": "Iodine Infused Filter",
+    "translation": {
+      "namespace": "",
+      "key": "053156674B0420ECD07B8CBBD5A81A7C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-filter",
+        "amount": 1
+      },
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 8
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-hazmat-filter",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-gasmask": {
+    "name": "Gas mask",
+    "translation": {
+      "namespace": "",
+      "key": "2266AAFA4E435830CF304988EF3B0097"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rubber",
+        "amount": 100
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 100
+      },
+      {
+        "slug": "item-fabric",
+        "amount": 100
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-gasmask",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 80
+  },
+  "recipe-gunpowder": {
+    "name": "Black powder",
+    "translation": {
+      "namespace": "",
+      "key": "750819CE48BD88ED076FD9ABB51D6201"
+    },
+    "ingredients": [
+      {
+        "slug": "item-coal",
+        "amount": 1
+      },
+      {
+        "slug": "item-sulfur",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-gunpowder",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 0.5,
+    "manufacturingDuration": 8
+  },
+  "recipe-hazmat-suit": {
+    "name": "Hazmat Suit",
+    "translation": {
+      "namespace": "",
+      "key": "80D1FDC140FBBA01D5BB0DA62D42FE1E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-rubber",
+        "amount": 50
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 50
+      },
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 50
+      },
+      {
+        "slug": "item-fabric",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-hazmat-suit",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-jet-pack": {
+    "name": "Jetpack",
+    "translation": {
+      "namespace": "",
+      "key": "8EB0B1AD4CE903AA8BDE8C88EAA0C671"
+    },
+    "ingredients": [
+      {
+        "slug": "item-plastic",
+        "amount": 50
+      },
+      {
+        "slug": "item-circuit-board",
+        "amount": 15
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 50
+      },
+      {
+        "slug": "item-cable",
+        "amount": 25
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-jet-pack",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-medicinal-inhaler": {
+    "name": "Nutritional Inhaler",
+    "translation": {
+      "namespace": "",
+      "key": "06605B79438E7E9F9613B7A58B1EE21F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-shroom",
+        "amount": 1
+      },
+      {
+        "slug": "item-berry",
+        "amount": 2
+      },
+      {
+        "slug": "item-nut",
+        "amount": 3
+      },
+      {
+        "slug": "item-mycelia",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-medkit",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-medicinal-inhaler-alien-organs": {
+    "name": "Medicinal Inhaler: Alien Organs",
+    "translation": {
+      "namespace": "",
+      "key": "69D0F583482AF9E7CA7E2C95B31FE3DA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-spitter-parts",
+        "amount": 3
+      },
+      {
+        "slug": "item-mycelia",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-medkit",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-nobelisk": {
+    "name": "Nobelisk",
+    "translation": {
+      "namespace": "",
+      "key": "9122028C4AD22B106B05958592AD80E6"
+    },
+    "ingredients": [
+      {
+        "slug": "item-gunpowder",
+        "amount": 5
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-nobelisk-explosive",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component", "building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-nobelisk-detonator": {
+    "name": "Nobelisk Detonator",
+    "translation": {
+      "namespace": "",
+      "key": "6F06334C4E2A300AFA0EE39FBC6DF539"
+    },
+    "ingredients": [
+      {
+        "slug": "item-equipment-descriptor-object-scanner",
+        "amount": 5
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 5
+      },
+      {
+        "slug": "item-cable",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-nobelisk-detonator",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 80
+  },
+  "recipe-nutritional-inhaler": {
+    "name": "Medicinal Inhaler",
+    "translation": {
+      "namespace": null,
+      "key": "FC4C697749695074BDDACEB3427E4EF2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-shroom",
+        "amount": 1
+      },
+      {
+        "slug": "item-berry",
+        "amount": 3
+      },
+      {
+        "slug": "item-nut",
+        "amount": 7
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-medkit",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 20
+  },
+  "recipe-object-scanner": {
+    "name": "Object Scanner",
+    "translation": {
+      "namespace": "",
+      "key": "A25068FC4F6EF76883C63A8BD537335D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 4
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 3
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-object-scanner",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-parachute": {
+    "name": "Parachute",
+    "translation": {
+      "namespace": "",
+      "key": "EFE1FE074ABC2E0EC6F8328E0FBAFAFA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-fabric",
+        "amount": 10
+      },
+      {
+        "slug": "item-cable",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-parachute",
+        "amount": 5
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-portable-miner": {
+    "name": "Portable Miner",
+    "translation": {
+      "namespace": "",
+      "key": "B0C5FAF440E928D3E216818A3C8C70D3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate",
+        "amount": 2
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 4
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-item-descriptor-portable-miner",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-rebar-gun": {
+    "name": "Rebar Gun",
+    "translation": {
+      "namespace": "",
+      "key": "3FB7A7C5479B6B02954A17A81AB8200C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 6
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 16
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 100
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rebar-gun-projectile",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 100
+  },
+  "recipe-space-rifle-mk1": {
+    "name": "Rifle",
+    "translation": {
+      "namespace": "",
+      "key": "9FDA375E441EBEF47E4FDF8810E136FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-steel-pipe",
+        "amount": 25
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 3
+      },
+      {
+        "slug": "item-circuit-board",
+        "amount": 20
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 250
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-rifle",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-spiked-rebar": {
+    "name": "Spiked Rebar",
+    "translation": {
+      "namespace": "",
+      "key": "A39DC50F416564D0615382A4794F8E69"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-spiked-rebar",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component",
+      "building-workshop-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-xeno-basher": {
+    "name": "Xeno-Basher",
+    "translation": {
+      "namespace": "",
+      "key": "3289EB48445C6BA7432C5099A41FF905"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 5
+      },
+      {
+        "slug": "item-equipment-descriptor-shock-shank",
+        "amount": 2
+      },
+      {
+        "slug": "item-cable",
+        "amount": 25
+      },
+      {
+        "slug": "item-wire",
+        "amount": 500
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-stun-spear",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 80
+  },
+  "recipe-xeno-zapper": {
+    "name": "Xeno-Zapper",
+    "translation": {
+      "namespace": "",
+      "key": "5C86A6904E473207711F00973B0E9AB1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-rod",
+        "amount": 10
+      },
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 2
+      },
+      {
+        "slug": "item-cable",
+        "amount": 15
+      },
+      {
+        "slug": "item-wire",
+        "amount": 50
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-equipment-descriptor-shock-shank",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 40
+  },
+  "recipe-battery": {
+    "name": "Battery",
+    "translation": {
+      "namespace": "",
+      "key": "9ADA62224EDAF3724F94F6BEAFB4480C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate",
+        "amount": 8
+      },
+      {
+        "slug": "item-wire",
+        "amount": 16
+      },
+      {
+        "slug": "item-sulfur",
+        "amount": 20
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 8
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-battery",
+        "amount": 3
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 32
+  },
+  "recipe-computer": {
+    "name": "Computer",
+    "translation": {
+      "namespace": "",
+      "key": "42820658407A878D093CA99DAC4CEC97"
+    },
+    "ingredients": [
+      {
+        "slug": "item-circuit-board",
+        "amount": 10
+      },
+      {
+        "slug": "item-cable",
+        "amount": 9
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 18
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 52
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-computer",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 24
+  },
+  "recipe-computer-super": {
+    "name": "Supercomputer",
+    "translation": {
+      "namespace": "",
+      "key": "A6A453EB4F469273A9D3BD9AAE4BDA77"
+    },
+    "ingredients": [
+      {
+        "slug": "item-computer",
+        "amount": 2
+      },
+      {
+        "slug": "item-circuit-board-high-speed",
+        "amount": 2
+      },
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 3
+      },
+      {
+        "slug": "item-plastic",
+        "amount": 28
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-computer-super",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 32
+  },
+  "recipe-crystal-oscillator": {
+    "name": "Crystal Oscillator",
+    "translation": {
+      "namespace": "",
+      "key": "A2860DFE43D063B913C64294919F78FF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-quartz-crystal",
+        "amount": 36
+      },
+      {
+        "slug": "item-cable",
+        "amount": 28
+      },
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 2
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 0.30000001192092896,
+    "manufacturingDuration": 120
+  },
+  "recipe-high-speed-connector": {
+    "name": "High-Speed Connector",
+    "translation": {
+      "namespace": "",
+      "key": "75A1FAFF41A1E47365411E883E6BA88B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-high-speed-wire",
+        "amount": 56
+      },
+      {
+        "slug": "item-cable",
+        "amount": 10
+      },
+      {
+        "slug": "item-circuit-board",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-high-speed-connector",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 16
+  },
+  "recipe-modular-frame-heavy": {
+    "name": "Heavy Modular Frame",
+    "translation": {
+      "namespace": "",
+      "key": "CED8C10B4EE7C1547298C8965220FF4C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 5
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 15
+      },
+      {
+        "slug": "item-steel-plate-reinforced",
+        "amount": 5
+      },
+      {
+        "slug": "item-iron-screw",
+        "amount": 100
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 0.6000000238418579,
+    "manufacturingDuration": 30
+  },
+  "recipe-motor-turbo": {
+    "name": "Turbo Motor",
+    "translation": {
+      "namespace": null,
+      "key": "6180060D4609F43DDDD5F7888441563A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate-reinforced",
+        "amount": 4
+      },
+      {
+        "slug": "item-modular-frame-lightweight",
+        "amount": 2
+      },
+      {
+        "slug": "item-motor",
+        "amount": 4
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 24
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-motor-lightweight",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 32
+  },
+  "recipe-radio-control-unit": {
+    "name": "Radio Control Unit",
+    "translation": {
+      "namespace": "",
+      "key": "954758C74A92CA8C008737968A508505"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-plate-reinforced",
+        "amount": 4
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 16
+      },
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 1
+      },
+      {
+        "slug": "item-computer",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-modular-frame-lightweight",
+        "amount": 1
+      }
+    ],
+    "producedIn": [
+      "building-manufacturer-mk1",
+      "building-work-bench-component"
+    ],
+    "manualMultiplier": 1.5,
+    "manufacturingDuration": 24
+  },
+  "recipe-alumina-solution": {
+    "name": "Alumina Solution",
+    "translation": {
+      "namespace": "",
+      "key": "CB485FAD4BA45994F129E7A193C95676"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-bauxite",
+        "amount": 7
+      },
+      {
+        "slug": "item-water",
+        "amount": 10000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-alumina-solution",
+        "amount": 8000
+      },
+      {
+        "slug": "item-silica",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-aluminum-scrap": {
+    "name": "Aluminum Scrap",
+    "translation": {
+      "namespace": "",
+      "key": "56B3AE584ED98CAE58A2B8B4CB7CF337"
+    },
+    "ingredients": [
+      {
+        "slug": "item-alumina-solution",
+        "amount": 4000
+      },
+      {
+        "slug": "item-petroleum-coke",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-scrap",
+        "amount": 6
+      },
+      {
+        "slug": "item-water",
+        "amount": 1000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-fuel": {
+    "name": "Packaged Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "75F060B34F361C77B83B528BBC642E9A"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-fuel",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 3
+  },
+  "recipe-liquid-biofuel": {
+    "name": "Liquid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "4796F9D34BAE890236859A9F39979FC7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-biofuel",
+        "amount": 6
+      },
+      {
+        "slug": "item-water",
+        "amount": 3000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-biofuel",
+        "amount": 4000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-liquid-fuel": {
+    "name": "Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "CC5A74DA44B3F473C67C81996CD22CA0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 6000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 4000
+      },
+      {
+        "slug": "item-polymer-resin",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-packaged-biofuel": {
+    "name": "Packaged Liquid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "79AF58C6440F9536D4F095997526097B"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-biofuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-packaged-biofuel",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 3
+  },
+  "recipe-packaged-crude-oil": {
+    "name": "Packaged Oil",
+    "translation": {
+      "namespace": "",
+      "key": "1BB51CE6457EB995DAA439BB3AAE5F3D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-packaged-oil",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-packaged-oil-residue": {
+    "name": "Packaged Heavy Oil Residue",
+    "translation": {
+      "namespace": "",
+      "key": "0A380B0749E0D6BF5E65359BFDD859CD"
+    },
+    "ingredients": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-packaged-oil-residue",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 4
+  },
+  "recipe-packaged-turbo-fuel": {
+    "name": "Packaged Turbofuel",
+    "translation": {
+      "namespace": "",
+      "key": "85BC4F06447CDE09D795C6AC9B67B9EF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-turbo-fuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-turbo-fuel",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-packaged-water": {
+    "name": "Packaged Water",
+    "translation": {
+      "namespace": "",
+      "key": "77CD14484E453D04011A48926DDCAD0F"
+    },
+    "ingredients": [
+      {
+        "slug": "item-water",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-packaged-water",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-petroleum-coke": {
+    "name": "Petroleum Coke",
+    "translation": {
+      "namespace": "",
+      "key": "931A9CAD4AB2868B168F0EB5216D8CA1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 4000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-petroleum-coke",
+        "amount": 12
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-plastic": {
+    "name": "Plastic",
+    "translation": {
+      "namespace": "",
+      "key": "43AE93A54B35E0B902CD9D96E2C29E41"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 3000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-plastic",
+        "amount": 2
+      },
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 1000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-residual-fuel": {
+    "name": "Residual Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "E248112349744FD51F8ADBA297846679"
+    },
+    "ingredients": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 6000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 4000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-residual-plastic": {
+    "name": "Residual Plastic",
+    "translation": {
+      "namespace": "",
+      "key": "001749B0473C86E14F557CB319B8F27C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-polymer-resin",
+        "amount": 6
+      },
+      {
+        "slug": "item-water",
+        "amount": 2000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-plastic",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-residual-rubber": {
+    "name": "Residual Rubber",
+    "translation": {
+      "namespace": "",
+      "key": "867CC5AA487AF45910B20DBF284B06B1"
+    },
+    "ingredients": [
+      {
+        "slug": "item-polymer-resin",
+        "amount": 4
+      },
+      {
+        "slug": "item-water",
+        "amount": 4000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-rubber": {
+    "name": "Rubber",
+    "translation": {
+      "namespace": "",
+      "key": "7166DD034808AD2C161AD3B03F793BA4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 3000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-rubber",
+        "amount": 2
+      },
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 2000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-sulfuric-acid": {
+    "name": "Sulfuric Acid",
+    "translation": {
+      "namespace": "",
+      "key": "CA74988A46F5712C299C4ABA4C7D35E3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-sulfur",
+        "amount": 5
+      },
+      {
+        "slug": "item-water",
+        "amount": 5000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-sulfuric-acid",
+        "amount": 10000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-unpackage-bio-fuel": {
+    "name": "Unpackage Liquid Biofuel",
+    "translation": {
+      "namespace": "",
+      "key": "1C60059340B3A404302D06A0C9B7CBBF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-packaged-biofuel",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-biofuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-unpackage-fuel": {
+    "name": "Unpackage Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "1288EEED4659F26F156570BBEEA4B875"
+    },
+    "ingredients": [
+      {
+        "slug": "item-fuel",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-fuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-unpackage-oil": {
+    "name": "Unpackage Oil",
+    "translation": {
+      "namespace": "",
+      "key": "5DC37DA94F79851924D6FCB7EF4A6D32"
+    },
+    "ingredients": [
+      {
+        "slug": "item-packaged-oil",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-unpackage-oil-residue": {
+    "name": "Unpackage Heavy Oil Residue",
+    "translation": {
+      "namespace": "",
+      "key": "F643E69D455CF931FE0924B5038679B7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-packaged-oil-residue",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-heavy-oil-residue",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-unpackage-turbo-fuel": {
+    "name": "Unpackage Turbo Fuel",
+    "translation": {
+      "namespace": "",
+      "key": "779571404FDD7BEF8C6A668DDA1611A7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-turbo-fuel",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-turbo-fuel",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-unpackage-water": {
+    "name": "Unpackage Water",
+    "translation": {
+      "namespace": "",
+      "key": "4A3D4CF64CA269F20FD0B68789EB9A53"
+    },
+    "ingredients": [
+      {
+        "slug": "item-packaged-water",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-water",
+        "amount": 2000
+      },
+      {
+        "slug": "item-fluid-canister",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-uranium-pellet": {
+    "name": "Uranium Pellet",
+    "translation": {
+      "namespace": "",
+      "key": "4AF47E8C44F61B0C92D2FD86F1912BB7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-uranium",
+        "amount": 5
+      },
+      {
+        "slug": "item-sulfuric-acid",
+        "amount": 8000
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-uranium-pellet",
+        "amount": 5
+      },
+      {
+        "slug": "item-sulfuric-acid",
+        "amount": 2000
+      }
+    ],
+    "producedIn": ["building-oil-refinery"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 6
+  },
+  "recipe-coal": {
+    "name": "Coal",
+    "translation": {
+      "namespace": null,
+      "key": "2D87B04D42150A99CBD6A08DCA906603"
+    },
+    "ingredients": [
+      {
+        "slug": "item-coal",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-coal",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-crude-oil": {
+    "name": "Crude Oil",
+    "translation": {
+      "namespace": null,
+      "key": "7B79816141CFD604CD8F188177995F76"
+    },
+    "ingredients": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-liquid-oil",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-limestone": {
+    "name": "Limestone",
+    "translation": {
+      "namespace": null,
+      "key": "C9FE5AC84AAC9C62890EC3BBD6421827"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stone",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-stone",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ore-bauxite": {
+    "name": "Bauxite",
+    "translation": {
+      "namespace": null,
+      "key": "C3DF126F4607A74BC7D5E0A90F367418"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-bauxite",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ore-bauxite",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ore-caterium": {
+    "name": "Caterium Ore",
+    "translation": {
+      "namespace": null,
+      "key": "5B9BF77D4855875C2284D8BF2EF2C003"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-gold",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ore-gold",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ore-copper": {
+    "name": "Copper Ore",
+    "translation": {
+      "namespace": null,
+      "key": "5385E3FA4319A76BABA2329ACED5F215"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-copper",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ore-copper",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ore-iron": {
+    "name": "Iron Ore",
+    "translation": {
+      "namespace": null,
+      "key": "ED299CBA4FF8E80B591A96A54EF500B4"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ore-uranium": {
+    "name": "Uranium",
+    "translation": {
+      "namespace": null,
+      "key": "96C780194CA1A516CA01379CA13C826C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-uranium",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-ore-uranium",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-raw-quartz": {
+    "name": "Raw Quartz",
+    "translation": {
+      "namespace": null,
+      "key": "4E04D0E840050ABEFFEE399598A98235"
+    },
+    "ingredients": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-raw-quartz",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-sulfur": {
+    "name": "Sulfur",
+    "translation": {
+      "namespace": null,
+      "key": "066E1EE249BF324B1DC93B80587BDA2E"
+    },
+    "ingredients": [
+      {
+        "slug": "item-sulfur",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-sulfur",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-converter"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 2
+  },
+  "recipe-ingot-aluminum": {
+    "name": "Aluminum Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "6FF55ACD4D36160D3A245FA501C4C0C9"
+    },
+    "ingredients": [
+      {
+        "slug": "item-aluminum-scrap",
+        "amount": 12
+      },
+      {
+        "slug": "item-silica",
+        "amount": 7
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-aluminum-ingot",
+        "amount": 4
+      }
+    ],
+    "producedIn": ["building-foundry-mk1", "building-work-bench-component"],
+    "manualMultiplier": 3,
+    "manufacturingDuration": 3
+  },
+  "recipe-ingot-caterium": {
+    "name": "Caterium Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "8B425C07441CF895344B6DBC5449741C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-gold",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-gold-ingot",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 4
+  },
+  "recipe-ingot-copper": {
+    "name": "Copper Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "699130B545EF577CB534D89256F587D2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-copper",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-copper-ingot",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "manualMultiplier": 3,
+    "manufacturingDuration": 2
+  },
+  "recipe-ingot-iron": {
+    "name": "Iron Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "2041017647939FF8898D7386DEDE62C0"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-iron-ingot",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "manualMultiplier": 3,
+    "manufacturingDuration": 2
+  },
+  "recipe-ingot-steel": {
+    "name": "Steel Ingot",
+    "translation": {
+      "namespace": "",
+      "key": "B949A9A742A017935CA85EADB0582AB5"
+    },
+    "ingredients": [
+      {
+        "slug": "item-ore-iron",
+        "amount": 3
+      },
+      {
+        "slug": "item-coal",
+        "amount": 3
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-steel-ingot",
+        "amount": 3
+      }
+    ],
+    "producedIn": ["building-foundry-mk1", "building-work-bench-component"],
+    "manualMultiplier": 3,
+    "manufacturingDuration": 4
+  },
+  "recipe-space-elevator-part-1": {
+    "name": "Smart Plating",
+    "translation": {
+      "namespace": "",
+      "key": "A375458D4EE37500B65CE892F68F29F3"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 1
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 1
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-1",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 30
+  },
+  "recipe-space-elevator-part-2": {
+    "name": "Versatile Framework",
+    "translation": {
+      "namespace": "",
+      "key": "E13014B6406289846DC528BF508AEE6D"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 1
+      },
+      {
+        "slug": "item-steel-plate",
+        "amount": 12
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-2",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-space-elevator-part-3": {
+    "name": "Automated Wiring",
+    "translation": {
+      "namespace": "",
+      "key": "B505C2F54B0535976D8ECD91806D021C"
+    },
+    "ingredients": [
+      {
+        "slug": "item-stator",
+        "amount": 1
+      },
+      {
+        "slug": "item-cable",
+        "amount": 20
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-3",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-assembler-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 24
+  },
+  "recipe-space-elevator-part-4": {
+    "name": "Modular Engine",
+    "translation": {
+      "namespace": "",
+      "key": "4EFFC7DA4DBCA7A2DC627E8C47DFB297"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 2
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 15
+      },
+      {
+        "slug": "item-space-elevator-part-1",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-4",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 60
+  },
+  "recipe-space-elevator-part-5": {
+    "name": "Adaptive Control Unit",
+    "translation": {
+      "namespace": "",
+      "key": "A64AB7EE4AC8A45BEAFD799401ED4FD7"
+    },
+    "ingredients": [
+      {
+        "slug": "item-space-elevator-part-3",
+        "amount": 15
+      },
+      {
+        "slug": "item-circuit-board",
+        "amount": 10
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 2
+      },
+      {
+        "slug": "item-computer",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-space-elevator-part-5",
+        "amount": 2
+      }
+    ],
+    "producedIn": ["building-manufacturer-mk1"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 120
+  },
+  "recipe-cyber-wagon": {
+    "name": "Cyber Wagon",
+    "translation": {
+      "namespace": "",
+      "key": "4C6338F84707DDEC75827C9C376B02BB"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-cyber-wagon",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-explorer": {
+    "name": "Truck",
+    "translation": {
+      "namespace": "",
+      "key": "BC298AD34D8C45E83BD449A5A0A7B0EA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-crystal-oscillator",
+        "amount": 5
+      },
+      {
+        "slug": "item-motor",
+        "amount": 5
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 15
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-explorer",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-factory-cart": {
+    "name": "Factory Cart™",
+    "translation": {
+      "namespace": "",
+      "key": "87CD844F4D7D1638408E8BBAF40D4EE2"
+    },
+    "ingredients": [
+      {
+        "slug": "item-iron-plate-reinforced",
+        "amount": 4
+      },
+      {
+        "slug": "item-iron-rod",
+        "amount": 4
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 2
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-golf-cart",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-workshop-component"],
+    "manualMultiplier": 2,
+    "manufacturingDuration": 20
+  },
+  "recipe-tractor": {
+    "name": "Biofuel Truck",
+    "translation": {
+      "namespace": "",
+      "key": "59513EE94A2BAC21769BB0A172000187"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame",
+        "amount": 5
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 5
+      },
+      {
+        "slug": "item-rotor",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-tractor",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-truck": {
+    "name": "Truck",
+    "translation": {
+      "namespace": "",
+      "key": "BC298AD34D8C45E83BD449A5A0A7B0EA"
+    },
+    "ingredients": [
+      {
+        "slug": "item-motor",
+        "amount": 8
+      },
+      {
+        "slug": "item-computer",
+        "amount": 10
+      },
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 4
+      },
+      {
+        "slug": "item-rubber",
+        "amount": 50
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-truck",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-freight-wagon": {
+    "name": "Freight Car",
+    "translation": {
+      "namespace": "",
+      "key": "E25AB2C04721EDD0F96C3385AD7A86DF"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 4
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 10
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-freight-wagon",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  },
+  "recipe-locomotive": {
+    "name": "Locomotive",
+    "translation": {
+      "namespace": "",
+      "key": "55D99C884E79B9B8356B17B5A92F3063"
+    },
+    "ingredients": [
+      {
+        "slug": "item-modular-frame-heavy",
+        "amount": 5
+      },
+      {
+        "slug": "item-motor",
+        "amount": 10
+      },
+      {
+        "slug": "item-steel-pipe",
+        "amount": 15
+      },
+      {
+        "slug": "item-computer",
+        "amount": 5
+      },
+      {
+        "slug": "item-equipment-descriptor-beacon",
+        "amount": 5
+      }
+    ],
+    "products": [
+      {
+        "slug": "item-locomotive",
+        "amount": 1
+      }
+    ],
+    "producedIn": ["building-build-gun"],
+    "manualMultiplier": 1,
+    "manufacturingDuration": 1
+  }
+}
