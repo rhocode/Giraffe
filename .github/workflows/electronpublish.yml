@@ -22,7 +22,7 @@ jobs:
   publish-electron:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
     needs: build
     runs-on: ${{ matrix.os }}
     steps:
