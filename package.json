@@ -28,7 +28,7 @@
     "canvas-5-polyfill": "^0.1.5",
     "class-transformer": "^0.2.3",
     "clean-deep": "^3.2.0",
-    "clsx": "^1.0.4",
+    "clsx": "1.1.1",
     "d3": "^5.15.0",
     "dagre": "^0.8.5",
     "deep-diff": "^1.0.2",
