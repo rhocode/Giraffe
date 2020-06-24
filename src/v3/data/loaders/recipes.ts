@@ -1,7 +1,3 @@
-import ConnectionsJson from 'data/Connections.json';
-import BuildingJson from 'data/Buildings.json';
-import ItemJson from 'data/Items.json';
-
 import RecipeJson from 'data/Recipes.json';
 import {
   getBuildingByType,
