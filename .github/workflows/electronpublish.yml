@@ -19,20 +19,20 @@ jobs:
       - run: yarn run test
         env:
           CI: true
-  publish-electron:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
-    needs: build
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: yarn install
-      - run: yarn run build
-      - run: yarn run release-standalone -- "-c.snap.publish=github"
-        env:
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
+#  publish-electron:
+#    strategy:
+#      matrix:
+#        os: [ubuntu-latest, macOS-latest]
+#    needs: build
+#    runs-on: ${{ matrix.os }}
+#    steps:
+#      - uses: actions/checkout@v1
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 12
+#          registry-url: https://registry.npmjs.org/
+#      - run: yarn install
+#      - run: yarn run build
+#      - run: yarn run release-standalone -- "-c.snap.publish=github"
+#        env:
+#          GH_TOKEN: ${{secrets.GH_TOKEN}}
