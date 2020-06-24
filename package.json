@@ -22,7 +22,7 @@
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.5",
     "@waiting/base64": "^4.2.9",
-    "@welldone-software/why-did-you-render": "^4.0.0",
+    "@welldone-software/why-did-you-render": "4.2.5",
     "autosuggest-highlight": "^3.1.1",
     "base64-blob": "^1.4.1",
     "canvas-5-polyfill": "^0.1.5",
