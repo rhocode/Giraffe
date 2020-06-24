@@ -3,41 +3,38 @@ import { withStyles } from '@material-ui/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
 import { BrowserView, isMobile, MobileView } from 'react-device-detect';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import SelectDropdown from '../../../../components/SelectDropdown';
 import { getRecipesByMachineClass } from 'v3/data/loaders/buildings';
 
-const styles = theme => ({
+const styles = (theme) => ({
   default: {
-    zIndex: theme.zIndex.drawer
+    zIndex: theme.zIndex.drawer,
   },
   inlineLabel: {
     display: 'inline-block',
-    marginRight: 10
+    marginRight: 10,
   },
   openDialog: {
-    minWidth: 300
+    minWidth: 300,
   },
   select: {
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 const addOpenedModal = () =>
-  graphAppStore.update(s => {
+  graphAppStore.update((s) => {
     s.openedModal += 1;
   });
 
 const removeOpenedModal = () =>
-  graphAppStore.update(s => {
+  graphAppStore.update((s) => {
     s.openedModal -= 1;
   });
 
@@ -47,7 +44,7 @@ function DrawerDialog(props) {
     nodeClass,
     openDialog,
     setOpenDialog,
-    closeDrawerFunction
+    closeDrawerFunction,
   } = props;
 
   const { translate } = React.useContext(LocaleContext);
@@ -124,18 +121,18 @@ function DrawerDialog(props) {
           selectProps={{
             classes: {
               paper: {
-                zIndex: 9999
+                zIndex: 9999,
               },
               valueContainer: {
-                zIndex: 9999
-              }
-            }
+                zIndex: 9999,
+              },
+            },
           }}
-          onChange={e => {
+          onChange={(e) => {
             setResource(e.target.value);
           }}
           classProp={classes.textField}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.target.value === '' || e.target.value === undefined) {
               setResource('');
             }
@@ -150,9 +147,9 @@ function DrawerDialog(props) {
         <Button
           color="primary"
           onClick={() => {
-            graphAppStore.update(s => {
+            graphAppStore.update((s) => {
               s.selectedMachine = {
-                recipe: resource
+                recipe: resource,
               };
             });
             setOpenDialog(false);

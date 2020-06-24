@@ -89,7 +89,6 @@ function _addRecipes(context: SolverContext) {
     slug,
     ingredients,
     products,
-    producedIn,
   } of context.recipes) {
     const runsPerMin = 60 / manufacturingDuration;
 
@@ -108,9 +107,6 @@ function _addRecipes(context: SolverContext) {
         hasTargetProduct ? Strength.strong : Strength.medium
       );
     }
-
-    // // TODO: Drop this?
-    // context.addTo(ExpressionKind.Machine, producedIn[0], variable);
 
     for (const { amount, slug } of ingredients) {
       const expression = variable.multiply(-amount * runsPerMin);
