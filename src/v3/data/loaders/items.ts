@@ -1,11 +1,5 @@
-import lazyFunc from 'v3/utils/lazyFunc';
-import ConnectionsJson from 'data/Connections.json';
-import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
-import imageRepo from 'data/images/__all';
-import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
-import produce from 'immer';
 
 export const getItemDefinition = (itemSlug: string) => {
   return (ItemJson as any)[itemSlug];
@@ -38,13 +32,13 @@ const getResourcesByFormFn = (resourceForm: number) => {
     .map(([key]) => key);
 };
 
-const getItemsFn = () => {
-  return Object.keys(ItemJson);
-};
-
-const getItemMapFn = () => {
-  return ItemJson;
-};
+// const getItemsFn = () => {
+//   return Object.keys(ItemJson);
+// };
+//
+// const getItemMapFn = () => {
+//   return ItemJson;
+// };
 
 const getItemListFn = () => {
   return Object.entries(ItemJson).map(([slug, value]) => {

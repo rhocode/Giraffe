@@ -13,12 +13,13 @@ import ActionBar from './components/ActionBar';
 // import worker from 'workerize-loader!./workertest';
 import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
+import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      minHeight: theme.overrides.GraphAppBar.height
+      minHeight: theme.overrides.GraphAppBar.height,
     },
     container: {
       background: '#1D1E20',
@@ -29,11 +30,11 @@ const styles = theme => {
         "canvasArea"
         "bottomActions"`,
       gridTemplateRows: 'auto minmax(0, 1fr) auto',
-      gridTemplateColumns: '1fr'
+      gridTemplateColumns: '1fr',
     },
     thing1: {
-      gridArea: 'bottomActions'
-    }
+      gridArea: 'bottomActions',
+    },
   };
 };
 
@@ -59,16 +60,16 @@ function GraphApp(props) {
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
-        .then(resp => resp.json())
-        .then(json => {
+        .then((resp) => resp.json())
+        .then((json) => {
           setHelmet(json);
         })
-        .catch(err => {
+        .catch((err) => {
           setHelmet({
             title: 'SatisGraphtory | Factory Building Graph Simulation',
             description:
               'Feature-rich factory optimization and calculation tool for Satisfactory game',
-            image: 'https://i.imgur.com/DPEmxE0.png'
+            image: 'https://i.imgur.com/DPEmxE0.png',
           });
         });
     } else {
@@ -76,7 +77,7 @@ function GraphApp(props) {
         title: 'SatisGraphtory | Factory Building Graph Simulation',
         description:
           'Feature-rich factory optimization and calculation tool for Satisfactory game',
-        image: 'https://i.imgur.com/DPEmxE0.png'
+        image: 'https://i.imgur.com/DPEmxE0.png',
       });
     }
   }, [language.code, match]);
@@ -94,6 +95,7 @@ function GraphApp(props) {
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar />
+          <ChainWizardPanel />
           <Canvas>
             <ActionBar />
           </Canvas>

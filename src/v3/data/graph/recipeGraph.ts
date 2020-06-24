@@ -44,7 +44,7 @@ const getRecipeGraphFn = () => {
   });
 
   const allNodes = new Set(nodeMap.values());
-  const nodeEnds = new Set(outgoingEdges.keys());
+  // const nodeEnds = new Set(outgoingEdges.keys());
   const nodeStarts = new Set(incomingEdges.keys());
   const sourceNodes = new Set([...allNodes].filter((x) => !nodeStarts.has(x)));
 
@@ -58,7 +58,7 @@ const getRecipeGraphFn = () => {
     sourceNodes.add(node);
   }
 
-  const sinkNodes = new Set([...allNodes].filter((x) => !nodeEnds.has(x)));
+  // const sinkNodes = new Set([...allNodes].filter((x) => !nodeEnds.has(x)));
 
   const processingStack = [] as Node[];
 
