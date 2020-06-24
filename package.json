@@ -128,7 +128,7 @@
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
     "jest-canvas-mock": "^2.2.0",
-    "wait-on": "^4.0.0"
+    "wait-on": "^5.0.1"
   },
   "husky": {
     "hooks": {
