@@ -262,59 +262,59 @@
     "buildingType": "ITEMPASSTHROUGH"
   },
   "building-conveyor-belt-mk2": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.2",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "31D67F204C58D568339204A7FFE10BC9"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 120 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "6CAB260A4CEA9658350E36A523208EDA"
     },
-    "speed": 120,
+    "speed": 240,
     "buildingType": "ITEMPASSTHROUGH"
   },
   "building-conveyor-belt-mk3": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.3",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "B8ED6F76459022E5D583E38022A811D0"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 270 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "DD85142F4C6F85EC9D14CF9DAB5975EA"
     },
-    "speed": 120,
+    "speed": 540,
     "buildingType": "ITEMPASSTHROUGH"
   },
   "building-conveyor-belt-mk4": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.4",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "11AF864F4F954E79568161B28EAAB561"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 480 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "0C49B7944680A4FBA2864081DAB3D919"
     },
-    "speed": 120,
+    "speed": 960,
     "buildingType": "ITEMPASSTHROUGH"
   },
   "building-conveyor-belt-mk5": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.5",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "184990AE4BF0102BD3D45A9C44DFEA12"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 780 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "BDB63D994387A8251468408F2DD47AD0"
     },
-    "speed": 120,
+    "speed": 1560,
     "buildingType": "ITEMPASSTHROUGH"
   },
   "building-generator-biomass": {
@@ -508,8 +508,8 @@
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
     "extractStartupTime": 15,
-    "extractCycleTime": 0,
-    "itemsPerCycle": 0,
+    "extractCycleTime": 1,
+    "itemsPerCycle": 1,
     "allowedResourceForms": [1],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
@@ -534,7 +534,7 @@
     "maxPotentialIncreasePerCrystal": 0.5,
     "extractStartupTime": 15,
     "extractCycleTime": 0.5,
-    "itemsPerCycle": 0,
+    "itemsPerCycle": 1,
     "allowedResourceForms": [1],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
@@ -542,28 +542,28 @@
     "buildingType": "EXTRACTOR"
   },
   "building-miner-mk3": {
-    "name": "Miner Mk.2",
+    "name": "Miner Mk.3",
     "translation": {
       "namespace": "",
-      "key": "9FFDB8E242D774A194E8318F78719EAD"
+      "key": "A2AB562348446A4E3597008E684808AF"
     },
-    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 240 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+      "key": "C13C347446285495914418AEABB15647"
     },
-    "powerConsumption": 12,
+    "powerConsumption": 30,
     "powerConsumptionExponent": 1.60000002384186,
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
-    "extractStartupTime": 0,
-    "extractCycleTime": 0.5,
-    "itemsPerCycle": 0,
-    "allowedResourceForms": [],
+    "extractStartupTime": 15,
+    "extractCycleTime": 0.25,
+    "itemsPerCycle": 1,
+    "allowedResourceForms": [1],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
-    "extractorTypeName": null,
+    "extractorTypeName": "Miner",
     "buildingType": "EXTRACTOR"
   },
   "building-oil-pump": {
@@ -583,7 +583,7 @@
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
     "extractStartupTime": 0,
-    "extractCycleTime": 0,
+    "extractCycleTime": 1,
     "itemsPerCycle": 2000,
     "allowedResourceForms": [2],
     "onlyAllowCertainResources": true,
@@ -799,7 +799,7 @@
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
     "extractStartupTime": 10,
-    "extractCycleTime": 0,
+    "extractCycleTime": 1,
     "itemsPerCycle": 2000,
     "allowedResourceForms": [2],
     "onlyAllowCertainResources": true,

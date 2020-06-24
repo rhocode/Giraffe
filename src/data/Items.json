@@ -2784,15 +2784,15 @@
     "icon": "image-conveyor-belt-mk1"
   },
   "item-conveyor-belt-mk2": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.2",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "31D67F204C58D568339204A7FFE10BC9"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 120 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "6CAB260A4CEA9658350E36A523208EDA"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2808,15 +2808,15 @@
     "icon": "image-conveyor-belt-mk2"
   },
   "item-conveyor-belt-mk3": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.3",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "B8ED6F76459022E5D583E38022A811D0"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 270 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "DD85142F4C6F85EC9D14CF9DAB5975EA"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2832,15 +2832,15 @@
     "icon": "image-conveyor-belt-mk3"
   },
   "item-conveyor-belt-mk4": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.4",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "11AF864F4F954E79568161B28EAAB561"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 480 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "0C49B7944680A4FBA2864081DAB3D919"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2856,15 +2856,15 @@
     "icon": "image-conveyor-belt-mk4"
   },
   "item-conveyor-belt-mk5": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.5",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "184990AE4BF0102BD3D45A9C44DFEA12"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between buildings.",
+    "description": "Transports up to 780 resources per minute. Used to move resources between buildings.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
+      "key": "BDB63D994387A8251468408F2DD47AD0"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2904,15 +2904,15 @@
     "icon": "image-conveyor-lift-mk1"
   },
   "item-conveyor-lift-mk2": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.2",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "62ACB8B04E4B248F50D4AE919119CDDA"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "description": "Transports up to 120 resources per minute. Used to move resources between floors.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "B55C6E1642062D242A3BB695B625186D"
+      "key": "1760555D4383B7C91639748812CB7780"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2928,15 +2928,15 @@
     "icon": "image-conveyor-lift-mk2"
   },
   "item-conveyor-lift-mk3": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.3",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "047200AB48621F1F089EA39EF655FE78"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "description": "Transports up to 270 resources per minute. Used to move resources between floors.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "B55C6E1642062D242A3BB695B625186D"
+      "key": "64110F11433E0C3C662BBB856E92769D"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2952,15 +2952,15 @@
     "icon": "image-conveyor-lift-mk3"
   },
   "item-conveyor-lift-mk4": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.4",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "C64FDDFA420A74BAC82B75ADD34885E1"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "description": "Transports up to 480 resources per minute. Used to move resources between floors.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "B55C6E1642062D242A3BB695B625186D"
+      "key": "056FFC7E4749F3D7F331DFBEC3FEF34B"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -2976,15 +2976,15 @@
     "icon": "image-conveyor-lift-mk4"
   },
   "item-conveyor-lift-mk5": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.5",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "8EB38E3540E7873B501165B750B7291D"
     },
-    "description": "Transports up to 60 resources per minute. Used to move resources between floors.",
+    "description": "Transports up to 780 resources per minute. Used to move resources between floors.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "B55C6E1642062D242A3BB695B625186D"
+      "key": "6EB6D96640762BC6536D6DB753326945"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -3360,15 +3360,15 @@
     "icon": "image-jump-pad"
   },
   "item-jump-pad-tilted": {
-    "name": "Jump Pad",
+    "name": "Tilted Jump Pad",
     "translation": {
       "namespace": "",
-      "key": "5C7397674656688A5C530991564A68FA"
+      "key": "23D78C744C5741F585EC05829300D981"
     },
-    "description": "Propels you upwards through the air.\r\nMake sure you land softly.",
+    "description": "Propels you forwards through the air.\r\nMake sure you land softly.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "7D8E78D346E855AF871A3989CEA21750"
+      "key": "AD30DEF340558BD78BD55BAAC00BF7AD"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -3528,15 +3528,15 @@
     "icon": "image-miner-mk2"
   },
   "item-miner-mk3": {
-    "name": "Miner Mk.2",
+    "name": "Miner Mk.3",
     "translation": {
       "namespace": "",
-      "key": "9FFDB8E242D774A194E8318F78719EAD"
+      "key": "A2AB562348446A4E3597008E684808AF"
     },
-    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 120 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
+    "description": "Extracts solid resources from the resource node it is built on. \r\nThe normal extraction rate is 240 resources per minute. \r\nThe extraction rate is modified depending on resource node purity. Outputs all extracted resources onto connected conveyor belts.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "4C6C2C674EB7BC00A768248C760ABA61"
+      "key": "C13C347446285495914418AEABB15647"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -3888,15 +3888,15 @@
     "icon": "image-power-pole-mk1"
   },
   "item-power-pole-mk2": {
-    "name": "Power Pole Mk.1",
+    "name": "Power Pole Mk.2",
     "translation": {
       "namespace": "",
-      "key": "DBBE58F04420F8612C67EFBCF1071637"
+      "key": "8D154A7C45052D3E056D428A9025AE9C"
     },
-    "description": "Can handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Can handle up to 7 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "835E88C742E5553D22FBE98E33EDA65C"
+      "key": "E00477464DE62C65E637EEA4A93202DB"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -3912,15 +3912,15 @@
     "icon": "image-power-pole-mk2"
   },
   "item-power-pole-mk3": {
-    "name": "Power Pole Mk.1",
+    "name": "Power Pole Mk.3",
     "translation": {
       "namespace": "",
-      "key": "DBBE58F04420F8612C67EFBCF1071637"
+      "key": "935371E04AE9C99CC109B984746D2A34"
     },
-    "description": "Can handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Can handle up to 10 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "835E88C742E5553D22FBE98E33EDA65C"
+      "key": "77CCA30B433672E0A3ED019DAFAD4F9A"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -3984,15 +3984,15 @@
     "icon": "image-power-pole-wall-double"
   },
   "item-power-pole-wall-double-mk2": {
-    "name": "Double Wall Outlet Mk.1",
+    "name": "Double Wall Outlet Mk.2",
     "translation": {
       "namespace": "",
-      "key": "3CBDE809445D273AADB1188105F8A8FF"
+      "key": "56B4610C4C2FA94CA4D597924F6AAF46"
     },
-    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 7 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "A27D86D648474EA536D633936F7F0DD9"
+      "key": "1C1C14334065DF84EB4D4D92B9A4E673"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -4008,15 +4008,15 @@
     "icon": "image-power-pole-wall-double-mk2"
   },
   "item-power-pole-wall-double-mk3": {
-    "name": "Double Wall Outlet Mk.1",
+    "name": "Double Wall Outlet Mk.3",
     "translation": {
       "namespace": "",
-      "key": "3CBDE809445D273AADB1188105F8A8FF"
+      "key": "21EF3F0D48EC9958451E88BF0E887705"
     },
-    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Power Pole that attaches to a wall. Has one connector on each side of the wall.\r\n\r\nCan handle up to 10 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "A27D86D648474EA536D633936F7F0DD9"
+      "key": "CD34AC45441EA8F01B4811A7B7586DD7"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -4032,15 +4032,15 @@
     "icon": "image-power-pole-wall-double-mk3"
   },
   "item-power-pole-wall-mk2": {
-    "name": "Wall Outlet Mk.1",
+    "name": "Wall Outlet Mk.2",
     "translation": {
       "namespace": "",
-      "key": "6D0633854754D3CAEF932A905BF812DA"
+      "key": "DEEEE01349157EA3E08139852D0250DB"
     },
-    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 7 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
+      "key": "96A62EB94767EE5F65E2ADA8418EC506"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {
@@ -4056,15 +4056,15 @@
     "icon": "image-power-pole-wall-mk2"
   },
   "item-power-pole-wall-mk3": {
-    "name": "Wall Outlet Mk.1",
+    "name": "Wall Outlet Mk.3",
     "translation": {
       "namespace": "",
-      "key": "6D0633854754D3CAEF932A905BF812DA"
+      "key": "3292501A459BC3EB2431DA82D10D429E"
     },
-    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 4 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
+    "description": "Power Pole that attaches to a wall.\r\n\r\nCan handle up to 10 Power Line connections.\r\n\r\nConnect Power Poles, Power Generators and factory buildings together with Power Lines to create a power grid. The power grid supplies the connected buildings with power.",
     "descriptionTranslation": {
       "namespace": "",
-      "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
+      "key": "30ACC26D4D3429E48CC558A844DA1CE2"
     },
     "abbreviatedName": null,
     "abbreviatedNameTranslation": {

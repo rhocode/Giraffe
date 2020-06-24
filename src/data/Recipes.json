@@ -3306,10 +3306,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-belt-mk2": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.2",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "31D67F204C58D568339204A7FFE10BC9"
     },
     "ingredients": [
       {
@@ -3328,10 +3328,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-belt-mk3": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.3",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "B8ED6F76459022E5D583E38022A811D0"
     },
     "ingredients": [
       {
@@ -3350,10 +3350,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-belt-mk4": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.4",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "11AF864F4F954E79568161B28EAAB561"
     },
     "ingredients": [
       {
@@ -3372,10 +3372,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-belt-mk5": {
-    "name": "Conveyor Belt Mk.1",
+    "name": "Conveyor Belt Mk.5",
     "translation": {
       "namespace": "",
-      "key": "49ED32984B7579C073C305A7E6AEC94F"
+      "key": "184990AE4BF0102BD3D45A9C44DFEA12"
     },
     "ingredients": [
       {
@@ -3416,10 +3416,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-lift-mk2": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.2",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "62ACB8B04E4B248F50D4AE919119CDDA"
     },
     "ingredients": [
       {
@@ -3438,10 +3438,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-lift-mk3": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.3",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "047200AB48621F1F089EA39EF655FE78"
     },
     "ingredients": [
       {
@@ -3460,10 +3460,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-lift-mk4": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.4",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "C64FDDFA420A74BAC82B75ADD34885E1"
     },
     "ingredients": [
       {
@@ -3482,10 +3482,10 @@
     "manufacturingDuration": 1
   },
   "recipe-conveyor-lift-mk5": {
-    "name": "Conveyor Lift Mk.1",
+    "name": "Conveyor Lift Mk.5",
     "translation": {
       "namespace": "",
-      "key": "5C5A467946AE13761CD97AB4188241D3"
+      "key": "8EB38E3540E7873B501165B750B7291D"
     },
     "ingredients": [
       {
@@ -3940,10 +3940,10 @@
     "manufacturingDuration": 1
   },
   "recipe-jump-pad-tilted": {
-    "name": "Jump Pad",
+    "name": "Tilted Jump Pad",
     "translation": {
       "namespace": null,
-      "key": "5C7397674656688A5C530991564A68FA"
+      "key": "23D78C744C5741F585EC05829300D981"
     },
     "ingredients": [
       {
@@ -4124,10 +4124,10 @@
     "manufacturingDuration": 1
   },
   "recipe-miner-mk3": {
-    "name": "Miner Mk.2",
+    "name": "Miner Mk.3",
     "translation": {
       "namespace": null,
-      "key": "9FFDB8E242D774A194E8318F78719EAD"
+      "key": "A2AB562348446A4E3597008E684808AF"
     },
     "ingredients": [
       {
@@ -4542,10 +4542,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-mk2": {
-    "name": "Power Pole Mk.1",
+    "name": "Power Pole Mk.2",
     "translation": {
       "namespace": "",
-      "key": "DBBE58F04420F8612C67EFBCF1071637"
+      "key": "8D154A7C45052D3E056D428A9025AE9C"
     },
     "ingredients": [
       {
@@ -4572,10 +4572,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-mk3": {
-    "name": "Power Pole Mk.1",
+    "name": "Power Pole Mk.3",
     "translation": {
       "namespace": "",
-      "key": "DBBE58F04420F8612C67EFBCF1071637"
+      "key": "935371E04AE9C99CC109B984746D2A34"
     },
     "ingredients": [
       {
@@ -4654,10 +4654,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-wall-double-mk2": {
-    "name": "Double Wall Outlet Mk.1",
+    "name": "Double Wall Outlet Mk.2",
     "translation": {
       "namespace": "",
-      "key": "3CBDE809445D273AADB1188105F8A8FF"
+      "key": "56B4610C4C2FA94CA4D597924F6AAF46"
     },
     "ingredients": [
       {
@@ -4680,10 +4680,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-wall-double-mk3": {
-    "name": "Double Wall Outlet Mk.1",
+    "name": "Double Wall Outlet Mk.3",
     "translation": {
       "namespace": "",
-      "key": "3CBDE809445D273AADB1188105F8A8FF"
+      "key": "21EF3F0D48EC9958451E88BF0E887705"
     },
     "ingredients": [
       {
@@ -4706,10 +4706,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-wall-mk2": {
-    "name": "Wall Outlet Mk.1",
+    "name": "Wall Outlet Mk.2",
     "translation": {
       "namespace": "",
-      "key": "6D0633854754D3CAEF932A905BF812DA"
+      "key": "DEEEE01349157EA3E08139852D0250DB"
     },
     "ingredients": [
       {
@@ -4732,10 +4732,10 @@
     "manufacturingDuration": 1
   },
   "recipe-power-pole-wall-mk3": {
-    "name": "Wall Outlet Mk.1",
+    "name": "Wall Outlet Mk.3",
     "translation": {
       "namespace": "",
-      "key": "6D0633854754D3CAEF932A905BF812DA"
+      "key": "3292501A459BC3EB2431DA82D10D429E"
     },
     "ingredients": [
       {

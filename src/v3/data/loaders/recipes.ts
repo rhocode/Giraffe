@@ -1,33 +1,27 @@
-import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
-import imageRepo from 'data/images/__all';
+
 import RecipeJson from 'data/Recipes.json';
 import {
   getBuildingByType,
-  getBuildingDefinition
+  getBuildingDefinition,
 } from 'v3/data/loaders/buildings';
-import {
-  getItemByType,
-  getItemDefinition,
-  getResourcesByForm
-} from 'v3/data/loaders/items';
+import { getItemDefinition, getResourcesByForm } from 'v3/data/loaders/items';
 
-// @ts-ignore
 import {
   EResourcePurity,
-  EResourcePurityDisplayName
+  EResourcePurityDisplayName,
 } from '.data-landing/interfaces/enums/EResourcePurity';
-import { getEnumDisplayNames, getEnumNames } from 'v3/data/loaders/enums';
-
-const existingRecipeNames = new Set(Object.keys(RecipeJson));
+import { getEnumDisplayNames } from 'v3/data/loaders/enums';
+import memoize from 'fast-memoize';
+import produce from 'immer';
 
 // TODO: find a way to make this automatic?
 const resolveDurationMultiplierForPurityNames = (name: string) => {
   switch (name) {
     case 'Impure':
-    case 'Inpure':
+    case 'Inpure': // :(
       return 2;
     case 'Normal':
       return 1;
@@ -38,12 +32,16 @@ const resolveDurationMultiplierForPurityNames = (name: string) => {
   }
 };
 
-export const getExtractorRecipes = () => {
+export const getExtractorRecipesFn = () => {
   const extractors = getBuildingByType('EXTRACTOR');
 
   const extractorsByResourceForm = new Map<number, any[]>();
 
-  extractors.forEach(extractorSlug => {
+  const extractorRecipes = [] as any[];
+
+  const extractorResultByMachine = new Map<string, Set<any>>();
+
+  extractors.forEach((extractorSlug) => {
     const extractorDefinition = getBuildingDefinition(extractorSlug);
 
     if (!extractorDefinition.onlyAllowCertainResources) {
@@ -54,10 +52,21 @@ export const getExtractorRecipes = () => {
 
         extractorsByResourceForm.get(rf)!.push(extractorSlug);
       });
+    } else {
+      // First process the known extractors
+      extractorDefinition.allowedResources.forEach(
+        (allowedResource: string) => {
+          if (!extractorResultByMachine.get(allowedResource)) {
+            extractorResultByMachine.set(allowedResource, new Set());
+          }
+
+          extractorResultByMachine
+            .get(allowedResource)!
+            .add(extractorDefinition);
+        }
+      );
     }
   });
-
-  const extractorRecipes = [] as any[];
 
   const resourcePurityNames = getEnumDisplayNames(
     EResourcePurity,
@@ -70,11 +79,55 @@ export const getExtractorRecipes = () => {
       return item.replace(/^RP_/, '');
     });
 
-  console.log(resourcePurityNames);
+  const nonPurityNodes = new Set(['item-water']);
+
+  for (const [resource, extractors] of extractorResultByMachine.entries()) {
+    // This might change. One resource might have multiple extraction methods.
+    for (const extractor of extractors) {
+      const purityNames = nonPurityNodes.has(resource)
+        ? ['']
+        : resourcePurityNames;
+      for (const purity of purityNames) {
+        let proposedRecipeName = nonPurityNodes.has(resource)
+          ? resource.replace(/^item-/g, `recipe-`).toLowerCase()
+          : resource.replace(/^item-/g, `recipe-${purity}-`).toLowerCase();
+
+        const resourceData = getItemDefinition(resource);
+        extractorRecipes.push({
+          slug: proposedRecipeName,
+          recipe: {
+            name: purity ? `${purity} ${resourceData.name}` : resourceData.name,
+            translation: {
+              namespace: purity
+                ? 'SGCUSTOM$$' + resourceData.translation.namespace
+                : resourceData.translation.namespace,
+              key: purity
+                ? `${purity}-${resourceData.translation.key}`
+                : resourceData.translation.key,
+            },
+            ingredients: [],
+            products: [
+              {
+                slug: resource,
+                amount: extractor.itemsPerCycle,
+              },
+            ],
+            producedIn: [extractor],
+            manualMultiplier: 1,
+            manufacturingDuration:
+              extractor.extractCycleTime *
+              (purity ? resolveDurationMultiplierForPurityNames(purity) : 1),
+          },
+        });
+
+        console.log(extractorRecipes[extractorRecipes.length - 1]);
+      }
+    }
+  }
 
   for (const [
     allowedResourceForm,
-    whitelistedMachines
+    whitelistedMachines,
   ] of extractorsByResourceForm.entries()) {
     const resourcesWithAllowedResourceForm = getResourcesByForm(
       allowedResourceForm
@@ -91,27 +144,65 @@ export const getExtractorRecipes = () => {
             name: `${purity} ${resourceData.name}`,
             translation: {
               namespace: 'SGCUSTOM$$' + resourceData.translation.namespace,
-              key: `${purity}-${resourceData.translation.key}`
+              key: `${purity}-${resourceData.translation.key}`,
             },
             ingredients: [],
             products: [
               {
                 slug: resource,
-                amount: 1
-              }
+                amount: 1,
+              },
             ],
-            produceIn: [...whitelistedMachines],
+            producedIn: [...whitelistedMachines],
             manualMultiplier: 1,
-            manufacturingDuration: resolveDurationMultiplierForPurityNames(
-              purity
-            )
-          }
+            manufacturingDuration:
+              resourceData.extractCycleTime *
+              resolveDurationMultiplierForPurityNames(purity),
+          },
         });
       }
     }
-
-    // generate a recipe
   }
-  // const values = keys.map(k => EResourcePurity[k as any]);
-  console.log(extractorRecipes);
+
+  return extractorRecipes;
 };
+
+export const getExtractorRecipes = memoize(getExtractorRecipesFn);
+
+const getAllRecipesFn = () => {
+  return produce(RecipeJson, (draftState) => {
+    getExtractorRecipes().forEach(({ slug, recipe }) => {
+      (draftState as any)[slug] = recipe;
+    });
+  });
+};
+
+const getRecipeListFn = () => {
+  return Object.entries(getAllRecipes()).map(([slug, value]) => {
+    return {
+      ...value,
+      slug,
+    };
+  });
+};
+
+const getMachineCraftableRecipeListFn = () => {
+  return getRecipeList().filter(({ producedIn }) => {
+    const handcraftingProducers = new Set([
+      'building-build-gun',
+      'building-work-bench-component',
+      'building-converter', // this one is here because its recipes are not complete.
+    ]);
+    return (
+      producedIn.filter((item: string) => {
+        return !handcraftingProducers.has(item);
+      }).length > 0
+    );
+  });
+};
+
+export const getMachineCraftableRecipeList = memoize(
+  getMachineCraftableRecipeListFn
+);
+export const getAllRecipes = memoize(getAllRecipesFn);
+export const getRecipeList = memoize(getRecipeListFn);

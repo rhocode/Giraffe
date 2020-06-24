@@ -20,8 +20,11 @@ import {
   Expression,
   Constraint,
   Operator,
-  Strength
+  Strength,
 } from 'kiwi.js';
+import { getItemList, getResources } from 'v3/data/loaders/items';
+import { getExtractorRecipes, getRecipeList } from 'v3/data/loaders/recipes';
+import { getPossibleRecipesFromSinkItem } from 'v3/data/graph/recipeGraph';
 
 export interface SolverOptions {
   optimizeResiduals?: boolean;
@@ -34,12 +37,22 @@ export interface SolverConfiguration extends SolverOptions {
 }
 
 enum SolverConstraintSubjectKind {
-  Resource = 'r'
+  Resource = 'r',
 }
 
 enum SolverConstraintType {
   Limit = 'cap',
-  Minimize = 'min'
+  Minimize = 'min',
+}
+
+enum VariableKind {
+  Resource = 'resource',
+  Recipe = 'recipe',
+}
+
+enum ExpressionKind {
+  Item = 'item',
+  Machine = 'machine',
 }
 
 export interface SolverConstraint {
@@ -64,7 +77,7 @@ export interface ItemRate {
 }
 
 function _addResources(context: SolverContext) {
-  for (const { name: slug } of context.resources) {
+  for (const { slug } of context.resources) {
     const variable = context.variable(VariableKind.Resource, slug);
     context.addTo(ExpressionKind.Item, slug, variable);
   }
@@ -72,41 +85,43 @@ function _addResources(context: SolverContext) {
 
 function _addRecipes(context: SolverContext) {
   for (const {
-    manufacturingDuration: duration,
-    name: slug,
+    manufacturingDuration,
+    slug,
     ingredients,
-    product: products,
-    producedIn
+    products,
+    producedIn,
   } of context.recipes) {
-    const runsPerMin = 60 / duration;
+    const runsPerMin = 60 / manufacturingDuration;
 
     const variable = context.variable(VariableKind.Recipe, slug);
     context.addConstraint(variable, Operator.Ge, 0, Strength.required);
-
     // When we're trying to optimize away residuals, we bias towards recipes
     // that have a target product, by minimizing recipes that don't.
     if (context.config.optimizeResiduals) {
-      const hasTargetProduct = products.some(({ resource: item }: any) =>
-        context.targets.has(item)
+      const hasTargetProduct = products.some(({ slug }: any) =>
+        context.targets.has(slug)
       );
 
+      //TODO: add self-set strengths
       context.solver.addEditVariable(
         variable,
         hasTargetProduct ? Strength.strong : Strength.medium
       );
     }
 
-    // TODO: Drop this?
-    context.addTo(ExpressionKind.Machine, producedIn[0], variable);
+    // // TODO: Drop this?
+    // context.addTo(ExpressionKind.Machine, producedIn[0], variable);
 
-    for (const { amount: count, resource: item } of ingredients) {
-      const expression = variable.multiply(-count * runsPerMin);
-      context.addTo(ExpressionKind.Item, item, expression);
+    for (const { amount, slug } of ingredients) {
+      const expression = variable.multiply(-amount * runsPerMin);
+      context.addTo(ExpressionKind.Item, slug, expression);
+
+      console.log(expression);
     }
 
-    for (const { amount: count, resource: item } of products) {
-      const expression = variable.multiply(count * runsPerMin);
-      context.addTo(ExpressionKind.Item, item, expression);
+    for (const { amount, slug } of products) {
+      const expression = variable.multiply(amount * runsPerMin);
+      context.addTo(ExpressionKind.Item, slug, expression);
     }
   }
 }
@@ -167,7 +182,6 @@ function _optimizeResiduals(context: SolverContext) {
   const { residuals } = _collectOutputResults(context);
   if (!residuals.length) return;
 
-  // TODO: Should we try multiple rounds?
   for (const residual of residuals) {
     const expression = context.expression(ExpressionKind.Item, residual.slug);
     context.addConstraint(expression, Operator.Eq, 0, Strength.required);
@@ -178,7 +192,7 @@ function _optimizeResiduals(context: SolverContext) {
 
 function _collectInputResults(context: SolverContext) {
   const result = [];
-  for (const { name: slug } of context.resources) {
+  for (const { slug } of context.resources) {
     const value = _round(context.variable(VariableKind.Resource, slug).value());
     if (value === 0) continue;
     result.push({ slug, perMinute: value });
@@ -218,40 +232,29 @@ function _collectOutputResults(context: SolverContext) {
   return { outputs, residuals };
 }
 
-enum VariableKind {
-  Resource = 'resource',
-  Recipe = 'recipe'
-}
-
-enum ExpressionKind {
-  Item = 'item',
-  Machine = 'machine'
-}
-
 export class SolverContext {
   constructor(
-    private _recipesBySlug: any,
-    private _entitiesBySlug: any,
-    private core: any,
+    private _recipes: any,
+    private _entities: any,
+    private _baseResources: Set<string>,
     public config: SolverConfiguration
-  ) {
-    console.log(this.resources, this.recipes);
-  }
+  ) {}
 
   public solver = new Solver();
   public targets = new Map(
     this.config.targets.map(({ slug, perMinute: perMin }) => [slug, perMin])
   );
-  public recipes = this._recipesBySlug as any[];
+  public recipes = this._recipes as any[];
 
-  public resources = Object.values(this._entitiesBySlug).filter((entity: any) =>
-    this.core.has(entity.name)
-  ) as any[];
+  public resources = Object.values(this._entities).filter((entity: any) => {
+    return this._baseResources.has(entity.slug);
+  }) as any[];
 
   private _variablesByKindBySlug = new Map<
     VariableKind,
     Map<string, Variable>
   >();
+
   private _expressionsByKindBySlug = new Map<
     ExpressionKind,
     Map<string, Expression>
@@ -317,89 +320,67 @@ function _round(value: number) {
   return Math.round(value * _roundPrecision) / _roundPrecision;
 }
 
-const blackListedProducerTypes = new Set([
-  'WorkBenchComponent',
-  'BuildGun',
-  'Converter'
-]);
-
 export const kiwiSolver = () => {
-  const nameToRecipe: Map<string, any> = new Map();
+  const baseResources = new Set(getResources());
 
-  const allProducts: Set<string> = new Set();
-  const allIngredients: Set<string> = new Set();
-  const extractorProducedResources: Set<string> = new Set();
-  // data.extractorMachine
-  //   .map((item: any) => {
-  //     return item.allowedResources;
-  //   })
-  //   .flat(1)
-  //
-  // const recipesUsed = data.recipe;
-
-  const ingredientsToRecipe = new Map();
-  const productsToRecipe = new Map();
-
-  // recipesUsed.forEach((recipe: any) => {
-  //   const sources = (recipe.producedIn ?? []).filter((producedIn: string) => {
-  //     return !blackListedProducerTypes.has(producedIn);
-  //   });
-  //
-  //   if (sources.length === 0) {
-  //     return;
-  //   }
-  //
-  //   nameToRecipe.set(recipe.name, recipe);
-  //
-  //   // Ingredients
-  //   (recipe.ingredients ?? []).forEach((ingredient: any) => {
-  //     const resource = ingredient.resource;
-  //     allIngredients.add(resource);
-  //
-  //     if (!ingredientsToRecipe.get(resource)) {
-  //       ingredientsToRecipe.set(resource, new Set());
-  //     }
-  //
-  //     ingredientsToRecipe.get(resource)!.add(recipe);
-  //   });
-  //
-  //   // Products
-  //   (recipe.product ?? []).forEach((product: any) => {
-  //     const resource = product.resource;
-  //     allProducts.add(product.resource);
-  //
-  //     if (!productsToRecipe.get(resource)) {
-  //       productsToRecipe.set(resource, new Set());
-  //     }
-  //
-  //     productsToRecipe.get(resource)!.add(recipe);
-  //   });
-  // });
-
-  const coreResources = new Set([
-    ...[...allIngredients].filter(x => !allProducts.has(x)),
-    ...extractorProducedResources
-  ]);
-
-  const targets = [{ slug: 'SpaceElevatorPart_5', perMinute: 90 }];
+  const targets = [{ slug: 'item-space-elevator-part-5', perMinute: 90 }];
   const activeTargets = targets.some(({ perMinute }) => perMinute > 0);
   if (!activeTargets) return;
 
-  // const context = new SolverContext(data.recipe, data.item, coreResources, {targets, constraints: []});
-  // _addResources(context);
-  // _addRecipes(context);
-  // _addExpressions(context);
-  // _addConstraints(context);
+  const whitelistedRecipes = new Set<string>();
+  targets.forEach((target) => {
+    const possibleItems = getPossibleRecipesFromSinkItem(target.slug);
+    for (const item of possibleItems) {
+      whitelistedRecipes.add(item);
+    }
+  });
 
-  // context.solver.updateVariables();
+  getExtractorRecipes()
+    .map(({ slug }) => slug)
+    .forEach((extractorSlug) => {
+      whitelistedRecipes.delete(extractorSlug);
+    });
+
+  // TODO: find a better way
+  const alternates = [...whitelistedRecipes].filter(
+    (item) => item.indexOf('-alternate-') !== -1
+  );
+
+  if (true) {
+    alternates.forEach((altRecipe) => {
+      whitelistedRecipes.delete(altRecipe);
+    });
+  }
+
+  const blacklistedRecipes = ['recipe-residual-fuel'];
+
+  blacklistedRecipes.forEach((deletedRecipe) => {
+    whitelistedRecipes.delete(deletedRecipe);
+  });
+
+  console.time('Solver');
+  const context = new SolverContext(
+    getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),
+    getItemList(),
+    baseResources,
+    { optimizeResiduals: true, targets, constraints: [] }
+  );
+  _addResources(context);
+  _addRecipes(context);
+  _addExpressions(context);
+  _addConstraints(context);
+
+  context.solver.updateVariables();
+
+  // if (config?.optimizeResiduals) {
+  _optimizeResiduals(context);
+  // }
   //
-  // // if (config?.optimizeResiduals) {
-  // //   _optimizeResiduals(context);
-  // // }
-  //
-  // console.log({
-  //   inputs: _collectInputResults(context),
-  //   recipes: _collectRecipeResults(context),
-  //   ..._collectOutputResults(context),
-  // });
+  console.log({
+    inputs: _collectInputResults(context),
+    recipes: _collectRecipeResults(context),
+    ..._collectOutputResults(context),
+  });
+
+  console.timeEnd('Solver');
 };
