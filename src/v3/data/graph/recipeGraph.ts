@@ -1,5 +1,5 @@
 import memoize from 'fast-memoize';
-import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
+import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
 import { getResources } from 'v3/data/loaders/items';
 
 class Node {
@@ -16,7 +16,7 @@ const getRecipeGraphFn = () => {
   const incomingEdges = new Map<Node, Edge[]>();
   const nodeMap = new Map<string, Node>();
 
-  getMachineCraftableRecipeList().forEach((recipe) => {
+  getMachineCraftableRecipeDefinitionList().forEach((recipe) => {
     const { ingredients, products, slug: recipeSlug } = recipe;
     [...ingredients, ...products].forEach(({ slug }) => {
       if (!nodeMap.has(slug)) {

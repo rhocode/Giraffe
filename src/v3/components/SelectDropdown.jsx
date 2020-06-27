@@ -8,26 +8,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import PropTypes from 'prop-types';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   mainSelect: {
     margin: 3,
-    flex: 1
+    flex: 1,
   },
   input: {
     display: 'flex',
     padding: 0,
     margin: 0,
-    height: 'auto'
+    height: 'auto',
   },
   valueContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   chip: {
-    margin: theme.spacing(0.5, 0.25)
+    margin: theme.spacing(0.5, 0.25),
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -35,30 +35,30 @@ const useStyles = makeStyles(theme => ({
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
-    )
+    ),
   },
   noOptionsMessage: {
-    padding: theme.spacing(1, 2)
+    padding: theme.spacing(1, 2),
   },
   singleValue: {
-    fontSize: 16
+    fontSize: 16,
   },
   placeholder: {
     position: 'absolute',
     left: 2,
     bottom: 6,
-    fontSize: 16
+    fontSize: 16,
   },
   paper: {
     position: 'absolute',
     zIndex: 1,
     marginTop: theme.spacing(1),
     left: 0,
-    right: 0
+    right: 0,
   },
   select: {
-    margin: 0
-  }
+    margin: 0,
+  },
 }));
 
 function NoOptionsMessage(props) {
@@ -76,7 +76,7 @@ function NoOptionsMessage(props) {
 NoOptionsMessage.propTypes = {
   children: PropTypes.node,
   innerProps: PropTypes.object,
-  selectProps: PropTypes.object.isRequired
+  selectProps: PropTypes.object.isRequired,
 };
 
 function inputComponent({ inputRef, ...props }) {
@@ -84,7 +84,7 @@ function inputComponent({ inputRef, ...props }) {
 }
 
 inputComponent.propTypes = {
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 function Control(props) {
@@ -92,7 +92,7 @@ function Control(props) {
     children,
     innerProps,
     innerRef,
-    selectProps: { classes, TextFieldProps, helperText, label, value }
+    selectProps: { classes, TextFieldProps, helperText, label, value },
   } = props;
 
   const actualValue = value && value.value ? value.value : '';
@@ -109,8 +109,8 @@ function Control(props) {
           className: classes.input,
           ref: innerRef,
           children,
-          ...innerProps
-        }
+          ...innerProps,
+        },
       }}
       {...TextFieldProps}
       placeholder={null}
@@ -122,7 +122,7 @@ Control.propTypes = {
   children: PropTypes.node,
   innerProps: PropTypes.object,
   innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  selectProps: PropTypes.object.isRequired
+  selectProps: PropTypes.object.isRequired,
 };
 
 function Option(props) {
@@ -132,7 +132,7 @@ function Option(props) {
       selected={props.isFocused}
       component="div"
       style={{
-        fontWeight: props.isSelected ? 500 : 400
+        fontWeight: props.isSelected ? 500 : 400,
       }}
       {...props.innerProps}
     >
@@ -146,7 +146,7 @@ Option.propTypes = {
   innerProps: PropTypes.object,
   innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isFocused: PropTypes.bool,
-  isSelected: PropTypes.bool
+  isSelected: PropTypes.bool,
 };
 
 function Placeholder(props) {
@@ -164,7 +164,7 @@ function Placeholder(props) {
 Placeholder.propTypes = {
   children: PropTypes.node,
   innerProps: PropTypes.object,
-  selectProps: PropTypes.object.isRequired
+  selectProps: PropTypes.object.isRequired,
 };
 
 function SingleValue(props) {
@@ -181,7 +181,7 @@ function SingleValue(props) {
 SingleValue.propTypes = {
   children: PropTypes.node,
   innerProps: PropTypes.object,
-  selectProps: PropTypes.object.isRequired
+  selectProps: PropTypes.object.isRequired,
 };
 
 function ValueContainer(props) {
@@ -194,7 +194,7 @@ function ValueContainer(props) {
 
 ValueContainer.propTypes = {
   children: PropTypes.node,
-  selectProps: PropTypes.object.isRequired
+  selectProps: PropTypes.object.isRequired,
 };
 
 function Menu(props) {
@@ -212,7 +212,7 @@ function Menu(props) {
 Menu.propTypes = {
   children: PropTypes.node,
   innerProps: PropTypes.object,
-  selectProps: PropTypes.object
+  selectProps: PropTypes.object,
 };
 
 const components = {
@@ -222,7 +222,7 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer
+  ValueContainer,
 };
 
 function SelectDropdown(props) {
@@ -230,18 +230,18 @@ function SelectDropdown(props) {
   const theme = useTheme();
 
   const selectStyles = {
-    input: base => ({
+    input: (base) => ({
       ...base,
       color: theme.palette.text.primary,
       '& input': {
-        font: 'inherit'
-      }
+        font: 'inherit',
+      },
     }),
-    menuPortal: base => ({ ...base, zIndex: 9999 })
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   };
 
-  const wrappedFunc = propFunc => {
-    return change => {
+  const wrappedFunc = (propFunc) => {
+    return (change) => {
       const actualChange = change.value;
       if (propFunc) {
         propFunc({ target: { value: actualChange } });

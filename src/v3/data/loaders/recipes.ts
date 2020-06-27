@@ -182,7 +182,7 @@ const getRecipeListFn = () => {
   });
 };
 
-const getMachineCraftableRecipeListFn = () => {
+const getMachineCraftableRecipeDefinitionListFn = () => {
   return getRecipeList().filter(({ producedIn }) => {
     const handcraftingProducers = new Set([
       'building-build-gun',
@@ -197,8 +197,16 @@ const getMachineCraftableRecipeListFn = () => {
   });
 };
 
+const getMachineCraftableRecipeListFn = () => {
+  return getMachineCraftableRecipeDefinitionList().map(({ slug }) => slug);
+};
+
 export const getMachineCraftableRecipeList = memoize(
   getMachineCraftableRecipeListFn
+);
+
+export const getMachineCraftableRecipeDefinitionList = memoize(
+  getMachineCraftableRecipeDefinitionListFn
 );
 export const getAllRecipes = memoize(getAllRecipesFn);
 export const getRecipeList = memoize(getRecipeListFn);

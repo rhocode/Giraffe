@@ -111,8 +111,6 @@ function _addRecipes(context: SolverContext) {
     for (const { amount, slug } of ingredients) {
       const expression = variable.multiply(-amount * runsPerMin);
       context.addTo(ExpressionKind.Item, slug, expression);
-
-      console.log(expression);
     }
 
     for (const { amount, slug } of products) {

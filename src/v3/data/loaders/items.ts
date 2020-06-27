@@ -1,5 +1,8 @@
 import ItemJson from 'data/Items.json';
 import memoize from 'fast-memoize';
+import imageRepo from 'data/images/__all';
+import { getBuildingImageName } from 'v3/data/loaders/buildings';
+import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
 
 export const getItemDefinition = (itemSlug: string) => {
   return (ItemJson as any)[itemSlug];
@@ -23,7 +26,7 @@ const getResourcesFn = () => {
 
 const getResourcesByFormFn = (resourceForm: number) => {
   return Object.entries(ItemJson)
-    .filter(([_, value]) => {
+    .filter(([, value]) => {
       return (
         value.itemType === 'UFGResourceDescriptor' &&
         value.form === resourceForm
@@ -49,6 +52,25 @@ const getItemListFn = () => {
   });
 };
 
+export const getItemIcon = (itemSlug: string, size: number = 64) => {
+  return (imageRepo as any)[
+    `sg${getBuildingImageName(itemSlug)}_${size}`.replace(/-/g, '_')
+  ];
+};
+
+const getMachineCraftableItemsFn = () => {
+  return [
+    ...new Set(
+      getMachineCraftableRecipeDefinitionList()
+        .map((item) => {
+          return [...item.products.map((subItem: any) => subItem.slug)];
+        })
+        .flat()
+    ),
+  ];
+};
+
+export const getMachineCraftableItems = memoize(getMachineCraftableItemsFn);
 export const getItemByType = memoize(getItemByTypeFn);
 export const getResources = memoize(getResourcesFn);
 export const getResourcesByForm = memoize(getResourcesByFormFn);
