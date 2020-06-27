@@ -8,7 +8,6 @@ import {
   ExpansionPanelActions,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  TextField,
   Input,
   InputAdornment,
   FormControl,
@@ -26,16 +25,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
-import Slider from '@material-ui/core/Slider';
 import SelectDropdown from '../../../../../common/react/SelectDropdown';
-// import {
-//   setGraphData,
-//   setRightPanelOpen
-// } from '../../../../../redux/actions/Graph/graphActions';
-// import {
-//   removeEdges,
-//   removeNodes
-// } from  '../../libraries/SatisGraphtoryLib'
 
 const styles = theme => ({
   drawer: {
@@ -43,7 +33,7 @@ const styles = theme => ({
     marginTop: theme.overrides.GraphAppBar.height
   },
   drawerContent: {
-    padding: 20
+    // padding: 20
   },
   tabContent: {
     padding: 20
@@ -96,7 +86,7 @@ function ObjectSettingPanel(props) {
       variant="temporary"
       anchor={'right'}
       open={drawerOpen}
-      // open={true}
+      // open={true} 
       onClose={() => setDrawerOpen(false)}
       classes={{
         paper: classes.drawer
