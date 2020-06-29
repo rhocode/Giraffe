@@ -3,6 +3,9 @@ import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
+// Flat polyfill
+import 'core-js/features/array/flat';
+
 import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
