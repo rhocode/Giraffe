@@ -939,7 +939,7 @@
     "manualMultiplier": 1,
     "manufacturingDuration": 3
   },
-  "recipe-pure-aluminum-ingot": {
+  "recipe-alternate-pure-aluminum-ingot": {
     "name": "Alternate: Pure Aluminum Ingot",
     "translation": {
       "namespace": "",
@@ -7888,7 +7888,7 @@
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
-  "recipe-packaged-turbo-fuel": {
+  "recipe-alternate-packaged-turbo-fuel": {
     "name": "Packaged Turbofuel",
     "translation": {
       "namespace": "",
@@ -8218,7 +8218,7 @@
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
-  "recipe-unpackage-turbo-fuel": {
+  "recipe-alternate-unpackage-turbo-fuel": {
     "name": "Unpackage Turbo Fuel",
     "translation": {
       "namespace": "",
