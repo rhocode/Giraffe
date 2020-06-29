@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getMachinesFromMachineCraftableRecipe } from 'v3/data/loaders/recipes';
 import {
@@ -81,7 +81,7 @@ function Constraints(props) {
                 recipe,
                 option.slug
               )}
-              deleteIcon={<DeleteIcon />}
+              deleteIcon={<CloseIcon />}
             />
           </ListItem>
         );

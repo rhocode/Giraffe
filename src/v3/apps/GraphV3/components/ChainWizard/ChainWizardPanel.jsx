@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import ItemCard from 'v3/apps/GraphV3/components/ChainWizard/ItemCard';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -20,6 +19,9 @@ import Grid from '@material-ui/core/Grid';
 import { wizardSolver } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/solver';
 import OutputSubPanel from 'v3/apps/GraphV3/components/ChainWizard/OutputSubPanel';
 import UsedConstraints from 'v3/apps/GraphV3/components/ChainWizard/Constraint/UsedConstraints';
+import CustomListSubheader from 'v3/apps/GraphV3/components/ChainWizard/CustomListSubheader';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -59,22 +61,33 @@ const gridItemStyles = makeStyles((theme) => ({
   },
 }));
 
-const SortableItem = SortableElement(({ boxId, itemChoices }) => (
-  <ListItem key={boxId}>
-    <ItemCard stateId={boxId} choices={itemChoices} />
-  </ListItem>
-));
+const SortableItem = SortableElement(
+  ({ boxId, itemChoices, disableDelete }) => (
+    <ListItem key={boxId}>
+      <ItemCard
+        stateId={boxId}
+        choices={itemChoices}
+        disableDelete={disableDelete}
+      />
+    </ListItem>
+  )
+);
 
 const SortableList = SortableContainer(
   ({ productsList, itemChoices, classes }) => {
     return (
       <List
-        subheader={<ListSubheader disableSticky>Desired Outputs</ListSubheader>}
+        subheader={
+          <CustomListSubheader disableSticky>
+            Desired Outputs
+          </CustomListSubheader>
+        }
         className={classes.root}
       >
         {productsList.map((id, index) => {
           return (
             <SortableItem
+              disableDelete={productsList.length === 1}
               key={id}
               index={index}
               boxId={id}
@@ -117,6 +130,12 @@ const calculateFunction = (products, constraints) => () => {
   });
 };
 
+const updateAutoCalculate = (event, val) => {
+  graphWizardStore.update((s) => {
+    s.autoCalculate = val;
+  });
+};
+
 function ChainWizardPanel() {
   const classes = useStyles();
 
@@ -131,6 +150,14 @@ function ChainWizardPanel() {
   const constraints = Object.values(
     graphWizardStore.useState((s) => s.constraints)
   );
+
+  const autoCalculate = useStoreState(graphWizardStore, (s) => s.autoCalculate);
+
+  React.useEffect(() => {
+    if (autoCalculate) {
+      calculateFunction(products, constraints)();
+    }
+  }, [products, constraints, autoCalculate]);
 
   const [itemChoices] = React.useState(
     getMachineCraftableItems()
@@ -178,7 +205,6 @@ function ChainWizardPanel() {
                   useDragHandle={true}
                 />
                 <List>
-                  <ListSubheader disableSticky>Constraints</ListSubheader>
                   <UsedConstraints />
                 </List>
               </Scrollbar>
@@ -187,13 +213,34 @@ function ChainWizardPanel() {
           <Grid xs={6} item classes={gridItemStyle}>
             <List className={classes.root}>
               <ListItem>
-                <Button
-                  onClick={calculateFunction(products, constraints)}
-                  variant="contained"
-                  color="primary"
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
                 >
-                  Calculate
-                </Button>
+                  <Grid item>
+                    <Button
+                      onClick={calculateFunction(products, constraints)}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Calculate
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={autoCalculate}
+                          onChange={updateAutoCalculate}
+                          name="checkedG"
+                        />
+                      }
+                      label="Auto-Update"
+                    />
+                  </Grid>
+                </Grid>
               </ListItem>
             </List>
             <div className={classes.tabContent}>
