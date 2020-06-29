@@ -22,6 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import {getMachineCraftableRecipeDefinitionList} from "v3/data/loaders/recipes";
 import {LocaleContext} from "v3/components/LocaleProvider";
 import {getItemIcon} from 'v3/data/loaders/items';
+import Scrollbar from 'react-scrollbars-custom';
 
 
 const styles = theme => ({
@@ -101,6 +102,7 @@ function GlobalSettingsPanel(props) {
         paper: classes.drawer
       }}
     >
+
       <div className={classes.drawerContent}>
         <Tabs
           value={tabValue}
@@ -156,22 +158,24 @@ function GlobalSettingsPanel(props) {
             <Divider className={classes.divider} />
             <div className={classes.list}>
               <div className={classes.innerList}>
-                <List>
-                  {
-                    alternateRecipes.map(({slug:item, products}) => {
-                      return(
-                        <ListItem button key={'key'+item}>
-                          <ListItemIcon>
-                            <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
-                          </ListItemIcon>
-                          <ListItemText id={'toggle-' + item} primary={translate(item)}/>
-                          <ListItemSecondaryAction>
-                            <Checkbox edge="end"/>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      )
-                  })}
-                </List>
+                <Scrollbar>
+                  <List>
+                    {
+                      alternateRecipes.map(({slug:item, products}) => {
+                        return(
+                          <ListItem button key={'key'+item}>
+                            <ListItemIcon>
+                              <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
+                            </ListItemIcon>
+                            <ListItemText id={'toggle-' + item} primary={translate(item)}/>
+                            <ListItemSecondaryAction>
+                              <Checkbox edge="end"/>
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        )
+                    })}
+                  </List>
+                </Scrollbar>
               </div>
             </div>
           </div>
@@ -182,27 +186,30 @@ function GlobalSettingsPanel(props) {
             <Divider className={classes.divider} />
             <div className={classes.list}>
               <div className={classes.innerList}>
-                <List>
-                  {
-                    regularRecipes.map(({slug:item, products}) => {
-                      return(
-                        <ListItem button key={'key'+item}>
-                          <ListItemIcon>
-                            <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
-                          </ListItemIcon>
-                          <ListItemText id={'toggle-' + item} primary={translate(item)}/>
-                          <ListItemSecondaryAction>
-                            <Checkbox edge="end"/>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      )
-                  })}
-                </List>
+                <Scrollbar>
+                  <List>
+                    {
+                      regularRecipes.map(({slug:item, products}) => {
+                        return(
+                          <ListItem button key={'key'+item}>
+                            <ListItemIcon>
+                              <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
+                            </ListItemIcon>
+                            <ListItemText id={'toggle-' + item} primary={translate(item)}/>
+                            <ListItemSecondaryAction>
+                              <Checkbox edge="end"/>
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        )
+                    })}
+                  </List>
+                </Scrollbar>
               </div>
             </div>
           </div>
         )}
       </div>
+
     </Drawer>
   );
 }
