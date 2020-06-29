@@ -422,10 +422,6 @@ export const wizardSolver = (
   constraints: SolverConstraint[] = [],
   disableProp = false
 ) => {
-  if (!disableProp) {
-    console.log('CALLING WITH CONSTRAINTS');
-    console.log(constraints);
-  }
   const baseResources = new Set(getResources());
 
   const activeTargets = targets.some(({ perMinute }) => perMinute > 0);
@@ -461,6 +457,13 @@ export const wizardSolver = (
   blacklistedRecipes.forEach((deletedRecipe) => {
     whitelistedRecipes.delete(deletedRecipe);
   });
+
+  console.log(
+    getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug))
+  );
+  console.log(getItemList());
+  console.log(baseResources);
+  console.log(targets);
 
   const context = new SolverContext(
     getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),

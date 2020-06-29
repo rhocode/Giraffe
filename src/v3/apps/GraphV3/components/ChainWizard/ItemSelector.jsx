@@ -54,6 +54,8 @@ export default function ItemSelector(props) {
     ? optionsDefaultValue[0]
     : null;
 
+  const [inputState, setInputState] = React.useState('');
+
   return (
     <Autocomplete
       style={{ width: 285 }}
@@ -64,10 +66,25 @@ export default function ItemSelector(props) {
       }}
       onChange={changeInputBox}
       filterOptions={(options) => {
+        if (
+          inputState.trim() !== '' &&
+          inputState !== calculatedDefaultValue.label.toLowerCase()
+        ) {
+          return options.filter(
+            (item) =>
+              (!blacklistedValues.has(item.value) ||
+                item.value === calculatedDefaultValue.value) &&
+              item.label.toLowerCase().indexOf(inputState) !== -1
+          );
+        }
+
         return options.filter((item) => !blacklistedValues.has(item.value));
       }}
       autoHighlight
       disableClearable
+      onInputChange={(evt, value) => {
+        setInputState(value.toLowerCase());
+      }}
       value={calculatedDefaultValue}
       getOptionLabel={(option) => option.label}
       renderOption={(option) => (
