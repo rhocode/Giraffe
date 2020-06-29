@@ -25,7 +25,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: 840,
+    width: 700,
+    marginTop: theme.overrides.GraphAppBar.height,
+    height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
+  },
+  drawerNotCalculated: {
+    width: 390,
     marginTop: theme.overrides.GraphAppBar.height,
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
   },
@@ -55,6 +60,7 @@ const gridItemStyles = makeStyles((theme) => ({
     height: '100%',
     flexDirection: 'column',
     display: 'flex',
+    width: '200 important!',
   },
   container: {
     height: '100%',
@@ -126,7 +132,21 @@ const calculateFunction = (products, constraints) => () => {
   );
 
   graphWizardStore.update((s) => {
-    s.result = output;
+    s.result = output || {};
+    s.calculated = true;
+  });
+};
+
+const clearFunction = () => {
+  const initialStateId = stringGen(10);
+  graphWizardStore.update((s) => {
+    s.boxes = [initialStateId];
+    s.products = {
+      [initialStateId]: { slug: null, amount: 1 },
+    };
+    s.result = {};
+    s.constraints = {};
+    s.calculated = false;
   });
 };
 
@@ -180,6 +200,8 @@ function ChainWizardPanel() {
 
   const gridItemStyle = gridItemStyles();
 
+  const calculated = useStoreState(graphWizardStore, (s) => s.calculated);
+
   return (
     <React.Fragment>
       <Drawer
@@ -189,34 +211,18 @@ function ChainWizardPanel() {
         open={true}
         // onClose={() => setDrawerOpen(false)}
         classes={{
-          paper: classes.drawer,
+          paper: calculated ? classes.drawer : classes.drawerNotCalculated,
         }}
       >
         <Grid classes={gridItemStyle} container>
-          <Grid xs={6} item classes={gridItemStyle}>
-            <div className={classes.tabContent}>
-              <Scrollbar className={classes.scrollableTabContent}>
-                <SortableList
-                  onSortEnd={onSortEnd}
-                  helperClass={classes.sortableList}
-                  productsList={productsList}
-                  classes={classes}
-                  itemChoices={itemChoices}
-                  useDragHandle={true}
-                />
-                <List>
-                  <UsedConstraints />
-                </List>
-              </Scrollbar>
-            </div>
-          </Grid>
-          <Grid xs={6} item classes={gridItemStyle}>
+          <Grid xs={calculated ? 7 : 12} item classes={gridItemStyle}>
             <List className={classes.root}>
               <ListItem>
                 <Grid
                   container
+                  spacing={1}
                   direction="row"
-                  justify="space-between"
+                  justify="flex-start"
                   alignItems="center"
                 >
                   <Grid item>
@@ -226,6 +232,15 @@ function ChainWizardPanel() {
                       color="primary"
                     >
                       Calculate
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      onClick={clearFunction}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Clear
                     </Button>
                   </Grid>
                   <Grid item>
@@ -245,10 +260,29 @@ function ChainWizardPanel() {
             </List>
             <div className={classes.tabContent}>
               <Scrollbar className={classes.scrollableTabContent}>
-                <OutputSubPanel />
+                <SortableList
+                  onSortEnd={onSortEnd}
+                  helperClass={classes.sortableList}
+                  productsList={productsList}
+                  classes={classes}
+                  itemChoices={itemChoices}
+                  useDragHandle={true}
+                />
+                <List>
+                  <UsedConstraints />
+                </List>
               </Scrollbar>
             </div>
           </Grid>
+          {calculated ? (
+            <Grid xs={5} item classes={gridItemStyle}>
+              <div className={classes.tabContent}>
+                <Scrollbar className={classes.scrollableTabContent}>
+                  <OutputSubPanel />
+                </Scrollbar>
+              </div>
+            </Grid>
+          ) : null}
         </Grid>
       </Drawer>
     </React.Fragment>
