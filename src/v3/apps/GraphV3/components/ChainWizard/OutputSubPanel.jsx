@@ -1,8 +1,9 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
+import Constraints from 'v3/apps/GraphV3/components/ChainWizard/Constraints';
+import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -10,17 +11,35 @@ const useStyles = makeStyles((theme) => ({
 
 function OutputSubPanel() {
   const classes = useStyles();
+  const {
+    inputs,
+    outputs,
+    removableRecipes,
+    removableResiduals,
+    removableInputs,
+    residuals,
+    recipes,
+  } = graphWizardStore.useState((s) => s.result);
 
   return (
     <List className={classes.root}>
       <ListSubheader disableSticky>Resources Required</ListSubheader>
-      <ListItem>blah</ListItem>
+
+      <Constraints options={inputs || []} removable={removableInputs || []} />
       <ListSubheader disableSticky>Resources Produced</ListSubheader>
-      <ListItem>blah</ListItem>
+      <Constraints options={outputs || []} removable={[]} />
       <ListSubheader disableSticky>Recipes Used</ListSubheader>
-      <ListItem>blah</ListItem>
+      <Constraints
+        options={recipes || []}
+        removable={removableRecipes || []}
+        recipe
+        quantityKey={'multiple'}
+      />
       <ListSubheader disableSticky>Residuals</ListSubheader>
-      <ListItem>blah</ListItem>
+      <Constraints
+        options={residuals || []}
+        removable={removableResiduals || []}
+      />
     </List>
   );
 }

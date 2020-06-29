@@ -10,6 +10,8 @@ import {
   faStepBackward,
   faStepForward,
 } from '@fortawesome/free-solid-svg-icons';
+import { useStoreState } from 'pullstate';
+import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 const CustomOutlinedInput = ({
   color,
@@ -33,11 +35,23 @@ const StyledInput = withStyles(() => ({
 }))(CustomOutlinedInput);
 
 function QualitySelector(props) {
-  const { amount, setAmount } = props;
+  const { stateId } = props;
+
+  const storeData = useStoreState(
+    graphWizardStore,
+    (s) => {
+      return s.products[stateId];
+    },
+    [stateId]
+  );
+
+  const { amount } = storeData;
 
   const setAmountFunction = (additionalAmount) => {
     return function () {
-      setAmount(amount + additionalAmount);
+      graphWizardStore.update((state) => {
+        state.products[stateId].amount = amount + additionalAmount;
+      });
     };
   };
 
@@ -50,7 +64,7 @@ function QualitySelector(props) {
         <Button onClick={setAmountFunction(-1)}>
           <FontAwesomeIcon icon={faBackward} />
         </Button>
-        <StyledInput value={amount} />
+        <StyledInput value={`${amount}`} />
         <Button onClick={setAmountFunction(1)}>
           <FontAwesomeIcon icon={faForward} />
         </Button>

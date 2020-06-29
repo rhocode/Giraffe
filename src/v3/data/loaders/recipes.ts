@@ -115,8 +115,6 @@ export const getExtractorRecipesFn = () => {
               (purity ? resolveDurationMultiplierForPurityNames(purity) : 1),
           },
         });
-
-        console.log(extractorRecipes[extractorRecipes.length - 1]);
       }
     }
   }
@@ -182,19 +180,35 @@ const getRecipeListFn = () => {
   });
 };
 
+const handcraftingProducers = new Set([
+  'building-build-gun',
+  'building-work-bench-component',
+  'building-workshop-component',
+  'building-converter', // this one is here because its recipes are not complete.
+]);
+
 const getMachineCraftableRecipeDefinitionListFn = () => {
   return getRecipeList().filter(({ producedIn }) => {
-    const handcraftingProducers = new Set([
-      'building-build-gun',
-      'building-work-bench-component',
-      'building-converter', // this one is here because its recipes are not complete.
-    ]);
     return (
       producedIn.filter((item: string) => {
         return !handcraftingProducers.has(item);
       }).length > 0
     );
   });
+};
+
+export const getMachinesFromMachineCraftableRecipe = (slug: string) => {
+  return (getAllRecipes() as any)[slug].producedIn.filter(
+    (item: string) => !handcraftingProducers.has(item)
+  );
+};
+
+export const getRecipeIngredients = (slug: string) => {
+  return (getAllRecipes() as any)[slug].ingredients;
+};
+
+export const getRecipeProducts = (slug: string) => {
+  return (getAllRecipes() as any)[slug].products;
 };
 
 const getMachineCraftableRecipeListFn = () => {
@@ -208,5 +222,6 @@ export const getMachineCraftableRecipeList = memoize(
 export const getMachineCraftableRecipeDefinitionList = memoize(
   getMachineCraftableRecipeDefinitionListFn
 );
+
 export const getAllRecipes = memoize(getAllRecipesFn);
 export const getRecipeList = memoize(getRecipeListFn);
