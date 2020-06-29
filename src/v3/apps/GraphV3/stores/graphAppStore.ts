@@ -54,6 +54,7 @@ export const graphWizardStore = new Store({
   },
   result: dummyResult || {},
   constraints: {},
+  autoCalculate: false,
 });
 
 export const graphAppStore = new Store({

@@ -213,17 +213,17 @@ function _addConstraints(context: SolverContext) {
   }
 }
 
-function _optimizeResiduals(context: SolverContext) {
-  const { residuals } = _collectOutputResults(context);
-  if (!residuals.length) return;
-
-  for (const residual of residuals) {
-    const expression = context.expression(ExpressionKind.Item, residual.slug);
-    context.addConstraint(expression, Operator.Eq, 0, Strength.required);
-  }
-
-  context.solver.updateVariables();
-}
+// function _optimizeResiduals(context: SolverContext) {
+//   const { residuals } = _collectOutputResults(context);
+//   if (!residuals.length) return;
+//
+//   for (const residual of residuals) {
+//     const expression = context.expression(ExpressionKind.Item, residual.slug);
+//     context.addConstraint(expression, Operator.Eq, 0, Strength.required);
+//   }
+//
+//   context.solver.updateVariables();
+// }
 
 function _collectInputResults(context: SolverContext) {
   const result = [];
@@ -355,68 +355,6 @@ function _round(value: number) {
   return Math.round(value * _roundPrecision) / _roundPrecision;
 }
 
-export const kiwiSolver = () => {
-  const baseResources = new Set(getResources());
-
-  const targets = [{ slug: 'item-space-elevator-part-5', perMinute: 90 }];
-  const activeTargets = targets.some(({ perMinute }) => perMinute > 0);
-  if (!activeTargets) return;
-
-  const whitelistedRecipes = new Set<string>();
-  targets.forEach((target) => {
-    const possibleItems = getPossibleRecipesFromSinkItem(target.slug);
-    for (const item of possibleItems) {
-      whitelistedRecipes.add(item);
-    }
-  });
-
-  getExtractorRecipes()
-    .map(({ slug }) => slug)
-    .forEach((extractorSlug) => {
-      whitelistedRecipes.delete(extractorSlug);
-    });
-
-  // TODO: find a better way
-  const alternates = [...whitelistedRecipes].filter(
-    (item) => item.indexOf('-alternate-') !== -1
-  );
-
-  if (true) {
-    alternates.forEach((altRecipe) => {
-      whitelistedRecipes.delete(altRecipe);
-    });
-  }
-
-  const blacklistedRecipes = ['recipe-residual-fuel'];
-
-  blacklistedRecipes.forEach((deletedRecipe) => {
-    whitelistedRecipes.delete(deletedRecipe);
-  });
-
-  const context = new SolverContext(
-    getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),
-    getItemList(),
-    baseResources,
-    { optimizeResiduals: true, targets, constraints: [] }
-  );
-  _addResources(context);
-  _addRecipes(context);
-  _addExpressions(context);
-  _addConstraints(context);
-
-  context.solver.updateVariables();
-
-  // if (config?.optimizeResiduals) {
-  _optimizeResiduals(context);
-  // }
-  //
-  console.log({
-    inputs: _collectInputResults(context),
-    recipes: _collectRecipeResults(context),
-    ..._collectOutputResults(context),
-  });
-};
-
 export const wizardSolver = (
   targets: any[],
   constraints: SolverConstraint[] = [],
@@ -452,18 +390,18 @@ export const wizardSolver = (
     });
   }
 
-  const blacklistedRecipes: string[] = [];
+  // const blacklistedRecipes: string[] = [];
+  //
+  // blacklistedRecipes.forEach((deletedRecipe) => {
+  //   whitelistedRecipes.delete(deletedRecipe);
+  // });
 
-  blacklistedRecipes.forEach((deletedRecipe) => {
-    whitelistedRecipes.delete(deletedRecipe);
-  });
-
-  console.log(
-    getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug))
-  );
-  console.log(getItemList());
-  console.log(baseResources);
-  console.log(targets);
+  // console.log(
+  //   getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug))
+  // );
+  // console.log(getItemList());
+  // console.log(baseResources);
+  // console.log(targets);
 
   const context = new SolverContext(
     getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),

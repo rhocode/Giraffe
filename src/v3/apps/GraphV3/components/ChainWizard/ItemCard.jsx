@@ -67,7 +67,7 @@ function ItemCard(props) {
   const classes = useStyles();
   const gridClasses = gridStyles();
 
-  const { stateId, choices } = props;
+  const { stateId, choices, disableDelete } = props;
 
   const storeData = useStoreState(
     graphWizardStore,
@@ -118,6 +118,7 @@ function ItemCard(props) {
               style={{ height: 35 }}
               variant="contained"
               color="secondary"
+              disabled={disableDelete}
             >
               <FontAwesomeIcon icon={faTrash} />
             </Button>
