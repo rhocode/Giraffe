@@ -37,7 +37,9 @@ export interface SolverConfiguration extends SolverOptions {
 }
 
 enum SolverConstraintSubjectKind {
-  Resource = 'r',
+  Resource = 'res',
+  Recipe = 'rec',
+  Item = 'itm',
 }
 
 enum SolverConstraintType {
@@ -75,6 +77,41 @@ export interface ItemRate {
   slug: string;
   perMinute: number;
 }
+
+export const createResourceLimitConstraint = (
+  name: string
+): SolverConstraint => {
+  return {
+    subject: {
+      kind: SolverConstraintSubjectKind.Resource,
+      name,
+    },
+    type: SolverConstraintType.Limit,
+    value: 0,
+  };
+};
+
+export const createItemLimitConstraint = (name: string): SolverConstraint => {
+  return {
+    subject: {
+      kind: SolverConstraintSubjectKind.Item,
+      name,
+    },
+    type: SolverConstraintType.Limit,
+    value: 0,
+  };
+};
+
+export const createRecipeLimitConstraint = (name: string): SolverConstraint => {
+  return {
+    subject: {
+      kind: SolverConstraintSubjectKind.Recipe,
+      name,
+    },
+    type: SolverConstraintType.Limit,
+    value: 0,
+  };
+};
 
 function _addResources(context: SolverContext) {
   for (const { slug } of context.resources) {
@@ -144,6 +181,10 @@ function _addConstraints(context: SolverContext) {
     let strength: number | undefined;
     if (subject.kind === SolverConstraintSubjectKind.Resource) {
       expression = context.variable(VariableKind.Resource, subject.name);
+    } else if (subject.kind === SolverConstraintSubjectKind.Recipe) {
+      expression = context.variable(VariableKind.Recipe, subject.name);
+    } else if (subject.kind === SolverConstraintSubjectKind.Item) {
+      expression = context.expression(ExpressionKind.Item, subject.name);
     }
 
     if (type === SolverConstraintType.Limit) {
@@ -165,9 +206,9 @@ function _addConstraints(context: SolverContext) {
       );
     }
 
-    console.log(
-      `adding constraint: ${expression} ${operator} ${value} ${strength}`
-    );
+    // console.log(
+    //   `adding constraint: ${expression} ${operator} ${value} ${strength}`
+    // );
     context.addConstraint(expression, operator, value, strength);
   }
 }
@@ -352,7 +393,6 @@ export const kiwiSolver = () => {
     whitelistedRecipes.delete(deletedRecipe);
   });
 
-  console.time('Solver');
   const context = new SolverContext(
     getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),
     getItemList(),
@@ -375,6 +415,119 @@ export const kiwiSolver = () => {
     recipes: _collectRecipeResults(context),
     ..._collectOutputResults(context),
   });
+};
 
-  console.timeEnd('Solver');
+export const wizardSolver = (
+  targets: any[],
+  constraints: SolverConstraint[] = [],
+  disableProp = false
+) => {
+  if (!disableProp) {
+    console.log('CALLING WITH CONSTRAINTS');
+    console.log(constraints);
+  }
+  const baseResources = new Set(getResources());
+
+  const activeTargets = targets.some(({ perMinute }) => perMinute > 0);
+  if (!activeTargets) return;
+
+  const whitelistedRecipes = new Set<string>();
+  targets.forEach((target) => {
+    const possibleItems = getPossibleRecipesFromSinkItem(target.slug);
+    for (const item of possibleItems) {
+      whitelistedRecipes.add(item);
+    }
+  });
+
+  getExtractorRecipes()
+    .map(({ slug }) => slug)
+    .forEach((extractorSlug) => {
+      whitelistedRecipes.delete(extractorSlug);
+    });
+
+  // TODO: find a better way
+  const alternates = [...whitelistedRecipes].filter(
+    (item) => item.indexOf('-alternate-') !== -1
+  );
+
+  if (true) {
+    alternates.forEach((altRecipe) => {
+      whitelistedRecipes.delete(altRecipe);
+    });
+  }
+
+  const blacklistedRecipes: string[] = [];
+
+  blacklistedRecipes.forEach((deletedRecipe) => {
+    whitelistedRecipes.delete(deletedRecipe);
+  });
+
+  const context = new SolverContext(
+    getRecipeList().filter((recipe) => whitelistedRecipes.has(recipe.slug)),
+    getItemList(),
+    baseResources,
+    { optimizeResiduals: true, targets, constraints }
+  );
+
+  try {
+    _addResources(context);
+    _addRecipes(context);
+    _addExpressions(context);
+    _addConstraints(context);
+    context.solver.updateVariables();
+  } catch (e) {
+    if (!disableProp) {
+      console.log('Error found: ', activeTargets);
+      return {};
+    }
+
+    throw new Error(e);
+  }
+
+  // if (config?.optimizeResiduals) {
+  // _optimizeResiduals(context);
+  // }
+  //
+  const allOutputs = {
+    inputs: _collectInputResults(context),
+    recipes: _collectRecipeResults(context),
+    ..._collectOutputResults(context),
+  };
+
+  const removableRecipes = [];
+  const removableResiduals = [];
+  const removableInputs = [];
+
+  if (!disableProp) {
+    for (const recipe of allOutputs.recipes) {
+      const newConstraint = createRecipeLimitConstraint(recipe.slug);
+      try {
+        wizardSolver(targets, [...constraints, newConstraint], true);
+        removableRecipes.push(recipe.slug);
+      } catch (e) {}
+    }
+
+    for (const residual of allOutputs.residuals) {
+      const newConstraint = createItemLimitConstraint(residual.slug);
+      try {
+        wizardSolver(targets, [...constraints, newConstraint], true);
+        removableResiduals.push(residual.slug);
+      } catch (e) {}
+    }
+
+    for (const input of allOutputs.inputs) {
+      const newConstraint = createResourceLimitConstraint(input.slug);
+      try {
+        wizardSolver(targets, [...constraints, newConstraint], true);
+        removableInputs.push(input.slug);
+      } catch (e) {}
+    }
+  }
+
+  return {
+    ...allOutputs,
+    removableRecipes,
+    removableResiduals,
+    removableInputs,
+  };
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { LocaleContext } from 'v3/components/LocaleProvider';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +7,13 @@ import QualitySelector from 'v3/apps/GraphV3/components/ChainWizard/QuantitySele
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ItemSelector from 'v3/apps/GraphV3/components/ChainWizard/ItemSelector';
+import { faBars, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
+import { SortableHandle } from 'react-sortable-hoc';
+import { useStoreState } from 'pullstate';
+import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,32 +27,63 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const gridStyles = makeStyles(() => ({
+  root: {},
+}));
+
+const dragHandleStyles = makeStyles(() => ({
   root: {
-    paddingBottom: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 37,
+    width: 37,
+    cursor: 'n-resize',
+    pointerEvents: 'auto',
   },
 }));
 
 const itemIcon = (slug) => {
   if (slug) {
-    return <img alt={slug} height={37} width={37} src={getItemIcon(slug)} />;
+    return (
+      <div style={{ height: 37, width: 37 }}>
+        <img alt={slug} height={37} width={37} src={getItemIcon(slug)} />
+      </div>
+    );
   }
 
-  return <div style={{ height: 37, width: 37 }}></div>;
+  return <div style={{ height: 37, width: 37 }} />;
 };
+
+const DragHandle = SortableHandle(() => {
+  const classes = dragHandleStyles();
+  return (
+    <div className={classes.root}>
+      <FontAwesomeIcon icon={faBars} />
+    </div>
+  );
+});
 
 function ItemCard(props) {
   const classes = useStyles();
   const gridClasses = gridStyles();
 
-  const { translate } = React.useContext(LocaleContext);
+  const { stateId, choices } = props;
 
-  const [amount, setAmount] = React.useState(1);
+  const storeData = useStoreState(
+    graphWizardStore,
+    (s) => {
+      return s.products[stateId];
+    },
+    [stateId]
+  );
 
-  const setAmountWithDeletionTrigger = (amount) => {
-    setAmount(amount);
-  };
+  const removeEntryFn = () =>
+    graphWizardStore.update((state) => {
+      delete state.products[stateId];
+      state.boxes.splice(state.boxes.indexOf(stateId), 1);
+    });
 
-  const { slug, choices } = props;
+  const { slug } = storeData;
 
   return (
     <Paper classes={classes} elevation={3}>
@@ -55,25 +92,36 @@ function ItemCard(props) {
         container
         direction="row"
         justify="space-between"
+        spacing={2}
         alignItems="center"
       >
         <Grid item>
-          <ItemSelector suggestions={choices} />
+          <DragHandle />
         </Grid>
-        <Grid item>{translate('per_minute')}</Grid>
+        <Grid item>
+          <ItemSelector stateId={stateId} suggestions={choices} />
+        </Grid>
       </Grid>
       <Grid container spacing={2}>
         <Grid item>{itemIcon(slug)}</Grid>
         <Grid item>
-          <QualitySelector
-            amount={amount}
-            setAmount={setAmountWithDeletionTrigger}
-          />
+          <QualitySelector stateId={stateId} />
         </Grid>
-        <Grid item>
-          <Button variant="contained" color="primary">
-            Primary
-          </Button>
+        <Grid item style={{ paddingLeft: 0 }}>
+          <ButtonGroup
+            style={{ paddingTop: 1 }}
+            size="small"
+            aria-label="small outlined button group"
+          >
+            <Button
+              onClick={removeEntryFn}
+              style={{ height: 35 }}
+              variant="contained"
+              color="secondary"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          </ButtonGroup>
         </Grid>
       </Grid>
     </Paper>

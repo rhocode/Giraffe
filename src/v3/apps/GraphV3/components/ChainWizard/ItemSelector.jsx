@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import { getItemIcon } from 'v3/data/loaders/items';
+import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { useStoreState } from 'pullstate';
 
 const useStyles = makeStyles({
   option: {
@@ -22,16 +24,51 @@ const useStyles = makeStyles({
 export default function ItemSelector(props) {
   const classes = useStyles();
 
+  const { stateId } = props;
+
+  const productHook = useStoreState(graphWizardStore, (s) => {
+    return s.products;
+  });
+
+  const blacklistedValues = new Set(
+    Object.values(productHook)
+      .map((item) => item.slug)
+      .filter((item) => item)
+  );
+
+  const changeInputBox = (evt, value) =>
+    graphWizardStore.update((state) => {
+      state.products[stateId].slug = value.value;
+    });
+
+  // Kill this once done.
+  const defaultValue = graphWizardStore.useState(
+    (s) => s.products[stateId]?.slug
+  );
+
+  const optionsDefaultValue = props.suggestions.filter(
+    (item) => item.value === defaultValue
+  );
+
+  const calculatedDefaultValue = optionsDefaultValue.length
+    ? optionsDefaultValue[0]
+    : null;
+
   return (
     <Autocomplete
-      style={{ width: 290 }}
+      style={{ width: 285 }}
       options={props.suggestions}
       classes={{
         option: classes.option,
         inputRoot: classes.inputRoot,
       }}
+      onChange={changeInputBox}
+      filterOptions={(options) => {
+        return options.filter((item) => !blacklistedValues.has(item.value));
+      }}
       autoHighlight
       disableClearable
+      value={calculatedDefaultValue}
       getOptionLabel={(option) => option.label}
       renderOption={(option) => (
         <React.Fragment>

@@ -53,9 +53,16 @@ const getItemListFn = () => {
 };
 
 export const getItemIcon = (itemSlug: string, size: number = 64) => {
-  return (imageRepo as any)[
-    `sg${getBuildingImageName(itemSlug)}_${size}`.replace(/-/g, '_')
-  ];
+  const imageSlug = `sg${getBuildingImageName(itemSlug)}_${size}`.replace(
+    /-/g,
+    '_'
+  );
+
+  try {
+    return (imageRepo as any)[imageSlug];
+  } catch (e) {
+    throw new Error('No image found: ' + imageSlug);
+  }
 };
 
 const getMachineCraftableItemsFn = () => {

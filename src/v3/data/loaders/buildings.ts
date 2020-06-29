@@ -4,8 +4,9 @@ import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
 import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
+import memoize from 'fast-memoize';
 
-const getBuildableMachines = lazyFunc(() => {
+const getBuildableMachinesFn = () => {
   const buildables = new Set(Object.keys(ConnectionsJson));
 
   const machineByType = new Map<string, any[]>();
@@ -36,14 +37,14 @@ const getBuildableMachines = lazyFunc(() => {
   // Stub the FLOWMANIPULATOR CLASS for now
   machineByType.set('ITEMFLOWMANIPULATOR', [
     'building-conveyor-attachment-merger',
-    'building-conveyor-attachment-splitter'
+    'building-conveyor-attachment-splitter',
   ]);
 
   const allMachines: string[] = [...machineByType.values()].flat(1);
   const machineClassMap = new Map<string, string[]>();
   const machineClassImageMap = new Map<string, string>();
 
-  allMachines.forEach(machine => {
+  allMachines.forEach((machine) => {
     const markRegex = /^(.*)-mk[0-9]+(-.*)?$/;
     if (markRegex.test(machine)) {
       const regexResult = markRegex.exec(machine);
@@ -70,9 +71,11 @@ const getBuildableMachines = lazyFunc(() => {
   // the buildables we don't want to show.
   return {
     machineClassMap,
-    machineClassImageMap
+    machineClassImageMap,
   };
-});
+};
+
+const getBuildableMachines = memoize(getBuildableMachinesFn);
 
 export const getBuildableMachineClassNames = lazyFunc(() => {
   return [...getBuildableMachines().machineClassMap.keys()];
@@ -113,7 +116,7 @@ export const getRecipesByMachineClass = (machineClass: string) => {
     getBuildableMachinesFromClassName(machineClass) || []
   );
   const entries = Object.entries(RecipeJson).filter(([slug, recipe]) => {
-    return recipe.producedIn.some(element => machineClasses.has(element));
+    return recipe.producedIn.some((element) => machineClasses.has(element));
   });
 
   const obj = {} as any;
