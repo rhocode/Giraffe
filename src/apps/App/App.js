@@ -3,7 +3,7 @@ import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
 
 import { BrowserRouter, HashRouter, Route } from 'react-router-dom';
-import { themeDark } from '../../theme';
+import { themeDark } from 'theme';
 
 import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
@@ -66,10 +66,9 @@ class AppWrapper extends Component {
       <HelmetProvider>
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
-            <LoadingScreen />
-            {/*<React.Suspense fallback={<LoadingScreen/>}>*/}
-            {/*  {children}*/}
-            {/*</React.Suspense>*/}
+            <React.Suspense fallback={<LoadingScreen />}>
+              {children}
+            </React.Suspense>
           </MuiThemeProvider>
         </ReactRouter>
       </HelmetProvider>
