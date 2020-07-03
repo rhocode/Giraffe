@@ -19,6 +19,7 @@ import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
 require('typeface-roboto-condensed');
+require('typeface-roboto-mono')
 
 const store = getStore();
 

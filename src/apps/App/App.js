@@ -15,6 +15,8 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import HeaderMessaging from '../../common/react/HeaderMessaging';
 
+import LoadingScreen from '../../common/react/LoadingScreen';
+
 const chooseLoadingStyle = importFunc => {
   if (process.env.REACT_APP_ELECTRON === 'true') {
     // Preloading enabled!
@@ -64,7 +66,7 @@ class AppWrapper extends Component {
       <HelmetProvider>
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
-            <React.Suspense fallback={<div>Loading...</div>}>
+            <React.Suspense fallback={<LoadingScreen/>}>
               {children}
             </React.Suspense>
           </MuiThemeProvider>
