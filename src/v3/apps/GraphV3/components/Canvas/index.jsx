@@ -1,20 +1,19 @@
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from '../../../../../common/react/AutoSizedLoadingWrapper';
-// import { graphAppStore } from '../../stores/graphAppStore';
-// import { useStoreState } from 'pullstate';
 
 const FontFaceObserver = require('fontfaceobserver');
 
+// TODO: Fix this
 const InnerComponent = React.lazy(() => {
   return Promise.all([
     new FontFaceObserver('Roboto Condensed').load(),
-    new FontFaceObserver('Bebas Neue').load()
+    new FontFaceObserver('Bebas Neue').load(),
   ]).then(() =>
     import('../../libraries/SatisGraphtoryLib/react/SatisGraphtoryCanvas')
   );
 });
 
-const LoadableComponent = props => {
+const LoadableComponent = (props) => {
   return (
     <Suspense fallback={<AutoSizedLoadingWrapper />}>
       <InnerComponent {...props} />

@@ -17,7 +17,7 @@ import HeaderMessaging from '../../common/react/HeaderMessaging';
 
 import LoadingScreen from '../../common/react/LoadingScreen';
 
-const chooseLoadingStyle = importFunc => {
+const chooseLoadingStyle = (importFunc) => {
   if (process.env.REACT_APP_ELECTRON === 'true') {
     // Preloading enabled!
     const appPromise = importFunc();
@@ -66,9 +66,10 @@ class AppWrapper extends Component {
       <HelmetProvider>
         <ReactRouter>
           <MuiThemeProvider theme={themeDark}>
-            <React.Suspense fallback={<LoadingScreen/>}>
-              {children}
-            </React.Suspense>
+            <LoadingScreen />
+            {/*<React.Suspense fallback={<LoadingScreen/>}>*/}
+            {/*  {children}*/}
+            {/*</React.Suspense>*/}
           </MuiThemeProvider>
         </ReactRouter>
       </HelmetProvider>
@@ -85,15 +86,15 @@ const styles = () => ({
        "appBody"
        "siteFooter"`,
     gridTemplateRows: 'auto minmax(0, 1fr) auto',
-    gridTemplateColumns: '1fr'
+    gridTemplateColumns: '1fr',
   },
   body: {
     gridArea: 'appBody',
     display: 'grid',
     gridTemplateAreas: `"body"`,
     gridTemplateRows: '1fr',
-    gridTemplateColumns: '1fr'
-  }
+    gridTemplateColumns: '1fr',
+  },
 });
 
 const languages = ['en', 'discord'];
@@ -122,15 +123,15 @@ function App(props) {
       initialize({
         languages: [
           { name: 'English', code: 'en' },
-          { name: 'Discord', code: 'discord' }
+          { name: 'Discord', code: 'discord' },
         ],
 
         options: {
           onMissingTranslation,
           renderToStaticMarkup,
-          defaultLanguage: languages[0]
+          defaultLanguage: languages[0],
           // defaultLanguage
-        }
+        },
       });
 
       addTranslationForLanguage(en, 'en');

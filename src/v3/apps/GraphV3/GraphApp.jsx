@@ -102,7 +102,10 @@ function GraphApp(props) {
           <NodeDrawer />
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className={classes.container}>
+          <NavBar />
+          <Canvas></Canvas>
+        </div>
       )}
     </React.Fragment>
   );
