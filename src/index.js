@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
@@ -18,8 +17,10 @@ import { LocalizeProvider } from 'react-localize-redux';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
+import { enableMapSet } from 'immer';
 require('typeface-roboto-condensed');
-require('typeface-roboto-mono')
+require('typeface-roboto-mono');
+enableMapSet();
 
 const store = getStore();
 

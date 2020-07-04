@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from '../../../../../common/react/AutoSizedLoadingWrapper';
+// import PixiJSCanvasContainer from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -9,8 +10,9 @@ const InnerComponent = React.lazy(() => {
     new FontFaceObserver('Roboto Condensed').load(),
     new FontFaceObserver('Bebas Neue').load(),
   ]).then(() =>
-    // import('../../libraries/SatisGraphtoryLib/react/SatisGraphtoryCanvas')
-    import('../../libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvas')
+    import(
+      'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+    )
   );
 });
 

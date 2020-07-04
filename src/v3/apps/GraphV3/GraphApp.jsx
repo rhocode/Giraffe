@@ -14,6 +14,7 @@ import ActionBar from './components/ActionBar';
 import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
+import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 
 const styles = (theme) => {
   return {
@@ -98,13 +99,14 @@ function GraphApp(props) {
           <ChainWizardPanel />
           <Canvas>
             <ActionBar />
+            <DebugFab />
           </Canvas>
           <NodeDrawer />
         </div>
       ) : (
         <div className={classes.container}>
           <NavBar />
-          <Canvas></Canvas>
+          <Canvas />
         </div>
       )}
     </React.Fragment>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
-import { Stage } from '@inlet/react-pixi';
-import BunnyComponent from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/BunnyComponent';
+import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -24,18 +23,18 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function PixiJSCanvas(props) {
+function PixiJSCanvasContainer(props) {
   const classes = useStyles();
   const [ref, { height, width }] = useDimensions();
 
   return (
     <div ref={ref} className={classes.canvasContainer}>
-      <Stage width={width} height={height} options={{ transparent: true }}>
-        <BunnyComponent x={width / 2} y={width / 2} />
-      </Stage>
-      {props.children}
+      <div className={classes.canvas}>
+        <PixiJSApplication height={height} width={width} />
+        {props.children}
+      </div>
     </div>
   );
 }
 
-export default PixiJSCanvas;
+export default PixiJSCanvasContainer;
