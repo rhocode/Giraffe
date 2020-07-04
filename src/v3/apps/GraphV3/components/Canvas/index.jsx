@@ -9,7 +9,8 @@ const InnerComponent = React.lazy(() => {
     new FontFaceObserver('Roboto Condensed').load(),
     new FontFaceObserver('Bebas Neue').load(),
   ]).then(() =>
-    import('../../libraries/SatisGraphtoryLib/react/SatisGraphtoryCanvas')
+    // import('../../libraries/SatisGraphtoryLib/react/SatisGraphtoryCanvas')
+    import('../../libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvas')
   );
 });
 
