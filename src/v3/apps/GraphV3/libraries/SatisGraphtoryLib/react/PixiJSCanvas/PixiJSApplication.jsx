@@ -7,32 +7,35 @@ function PixiJSApplication(props) {
 
   const pixiApp = pixiJsStore.useState((s) => s.application);
 
-  const canvasRef = React.useCallback((node) => {
-    if (node !== null) {
-      pixiJsStore.update((s) => {
-        const newApplication = new PIXI.Application({
-          transparent: true,
-          autoDensity: true,
-          height: 200,
-          width: 200,
-          view: node,
-          resolution: devicePixelRatio,
-          antialias: true,
+  const canvasRef = React.useCallback(
+    (node) => {
+      if (node !== null) {
+        pixiJsStore.update((s) => {
+          const newApplication = new PIXI.Application({
+            transparent: true,
+            autoDensity: true,
+            height: height,
+            width: width,
+            view: node,
+            resolution: devicePixelRatio,
+            antialias: true,
+          });
+
+          if (s.application?.stage?.children?.length) {
+            newApplication.stage.addChild(...s.application.stage.children);
+          }
+
+          s.application = newApplication;
+
+          if (s.childQueue.length) {
+            s.application.stage.addChild(...s.childQueue);
+            s.childQueue = [];
+          }
         });
-
-        if (s.application?.stage?.children?.length) {
-          newApplication.stage.addChild(...s.application.stage.children);
-        }
-
-        s.application = newApplication;
-
-        if (s.childQueue.length) {
-          s.application.stage.addChild(...s.childQueue);
-          s.childQueue = [];
-        }
-      });
-    }
-  }, []);
+      }
+    },
+    [height, width]
+  );
 
   React.useEffect(() => {
     if (pixiApp.renderer) {
