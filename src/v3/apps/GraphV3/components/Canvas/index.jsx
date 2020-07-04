@@ -1,25 +1,29 @@
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from '../../../../../common/react/AutoSizedLoadingWrapper';
-// import PixiJSCanvasContainer from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer';
+import PixiJSCanvasContainer from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer';
 
-const FontFaceObserver = require('fontfaceobserver');
+// const FontFaceObserver = require('fontfaceobserver');
 
 // TODO: Fix this
-const InnerComponent = React.lazy(() => {
-  return Promise.all([
-    new FontFaceObserver('Roboto Condensed').load(),
-    new FontFaceObserver('Bebas Neue').load(),
-  ]).then(() =>
-    import(
-      'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
-    )
-  );
-});
+// const InnerComponent = React.lazy(() => {
+
+// return Promise.resolve(import(
+//   'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+//   ))
+// return Promise.all([
+//   // new FontFaceObserver('Roboto Condensed').load(),
+//   // new FontFaceObserver('Bebas Neue').load(),
+// ]).then(() =>
+//   import(
+//     'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+//     )
+// );
+// });
 
 const LoadableComponent = (props) => {
   return (
     <Suspense fallback={<AutoSizedLoadingWrapper />}>
-      <InnerComponent {...props} />
+      <PixiJSCanvasContainer {...props} />
     </Suspense>
   );
 };
@@ -46,6 +50,7 @@ function Canvas(props) {
   //   }
   // }, [initialLoadedData]);
 
+  // return <PixiJSCanvasContainer {...props} />;
   return <LoadableComponent {...props} />;
 }
 

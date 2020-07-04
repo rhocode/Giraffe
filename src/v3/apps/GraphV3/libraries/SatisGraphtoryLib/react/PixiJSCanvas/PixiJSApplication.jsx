@@ -4,26 +4,35 @@ import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/
 
 function PixiJSApplication(props) {
   const { height, width } = props;
-  const canvasRef = React.useRef();
 
   const pixiApp = pixiJsStore.useState((s) => s.application);
 
-  React.useEffect(() => {
-    pixiJsStore.update((s) => {
-      s.application = new PIXI.Application({
-        transparent: true,
-        autoDensity: true,
-        height: 1,
-        width: 1,
-        view: canvasRef.current,
-        resolution: devicePixelRatio,
+  const canvasRef = React.useCallback((node) => {
+    if (node !== null) {
+      pixiJsStore.update((s) => {
+        const newApplication = new PIXI.Application({
+          transparent: true,
+          autoDensity: true,
+          height: 200,
+          width: 200,
+          view: node,
+          resolution: devicePixelRatio,
+          antialias: true,
+        });
+
+        if (s.application?.stage?.children?.length) {
+          newApplication.stage.addChild(...s.application.stage.children);
+        }
+
+        s.application = newApplication;
+
+        if (s.childQueue.length) {
+          s.application.stage.addChild(...s.childQueue);
+          s.childQueue = [];
+        }
       });
-      if (s.childQueue.length) {
-        s.application.stage.addChild(...s.childQueue);
-        s.childQueue = [];
-      }
-    });
-  }, [canvasRef]);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (pixiApp.renderer) {

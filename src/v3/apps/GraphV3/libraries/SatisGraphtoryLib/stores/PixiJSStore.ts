@@ -6,4 +6,5 @@ export const pixiJsStore = new Store({
   children: new Map<string, PIXI.DisplayObject>(),
   childQueue: [] as PIXI.DisplayObject[],
   loader: PIXI.Loader,
+  loaded: false,
 });
