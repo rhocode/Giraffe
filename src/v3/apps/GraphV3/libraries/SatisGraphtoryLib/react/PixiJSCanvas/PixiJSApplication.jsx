@@ -40,6 +40,10 @@ function PixiJSApplication(props) {
     }
   }, [height, pixiApp.renderer, width]);
 
+  if (width === undefined || height === undefined) {
+    return null;
+  }
+
   return <canvas ref={canvasRef} />;
 }
 
