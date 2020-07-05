@@ -7,45 +7,46 @@ function PixiJSApplication(props) {
 
   const pixiApp = pixiJsStore.useState((s) => s.application);
 
-  const canvasRef = React.useCallback(
-    (node) => {
-      if (node !== null) {
-        pixiJsStore.update((s) => {
-          const newApplication = new PIXI.Application({
-            transparent: true,
-            autoDensity: true,
-            height: height,
-            width: width,
-            view: node,
-            resolution: devicePixelRatio,
-            antialias: true,
-          });
+  const canvasRef = React.useRef();
 
-          if (s.application?.stage?.children?.length) {
-            newApplication.stage.addChild(...s.application.stage.children);
-          }
-
-          s.application = newApplication;
-
-          if (s.childQueue.length) {
-            s.application.stage.addChild(...s.childQueue);
-            s.childQueue = [];
-          }
+  React.useEffect(() => {
+    if (canvasRef.current) {
+      pixiJsStore.update((s) => {
+        const newApplication = new PIXI.Application({
+          transparent: true,
+          autoDensity: true,
+          height: 100,
+          width: 100,
+          view: canvasRef.current,
+          resolution: devicePixelRatio,
+          antialias: true,
         });
-      }
-    },
-    [height, width]
-  );
+
+        if (s.application?.stage?.children?.length) {
+          newApplication.stage.addChild(...s.application.stage.children);
+        }
+
+        if (s.application?.destroy) {
+          s.application.destroy();
+        }
+
+        s.application = newApplication;
+
+        if (s.childQueue.length) {
+          s.application.stage.addChild(...s.childQueue);
+          s.childQueue = [];
+        }
+      });
+
+    }
+
+  }, [canvasRef]);
 
   React.useEffect(() => {
     if (pixiApp.renderer) {
       pixiApp.renderer.resize(width, height);
     }
   }, [height, pixiApp.renderer, width]);
-
-  if (width === undefined || height === undefined) {
-    return null;
-  }
 
   return <canvas ref={canvasRef} />;
 }

@@ -17,10 +17,13 @@ import { LocalizeProvider } from 'react-localize-redux';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
+import * as PIXI from 'pixi.js';
+
 import { enableMapSet } from 'immer';
 require('typeface-roboto-condensed');
 require('typeface-roboto-mono');
 enableMapSet();
+PIXI.utils.skipHello();
 
 const store = getStore();
 

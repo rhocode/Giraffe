@@ -23,20 +23,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function PixiJSInnerContainer(props) {
-  const { height, width, classes } = props;
 
-  if (height === undefined || width === undefined) {
-    return null;
-  }
-
-  return (
-    <div className={classes.canvas}>
-      <PixiJSApplication height={height} width={width} />
-      {props.children}
-    </div>
-  );
-}
 
 function PixiJSCanvasContainer(props) {
   const classes = useStyles();
@@ -44,9 +31,10 @@ function PixiJSCanvasContainer(props) {
 
   return (
     <div ref={ref} className={classes.canvasContainer}>
-      <PixiJSInnerContainer height={height} width={width} classes={classes}>
+      <div className={classes.canvas}>
+        <PixiJSApplication height={height} width={width} />
         {props.children}
-      </PixiJSInnerContainer>
+      </div>
     </div>
   );
 }
