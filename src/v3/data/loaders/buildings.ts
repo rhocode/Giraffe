@@ -75,21 +75,28 @@ const getBuildableMachinesFn = () => {
   };
 };
 
-const getBuildableMachines = memoize(getBuildableMachinesFn);
+const getBuildableMachinesByClass = memoize(getBuildableMachinesFn);
 
 export const getBuildableMachineClassNames = lazyFunc(() => {
-  return [...getBuildableMachines().machineClassMap.keys()];
+  return [...getBuildableMachinesByClass().machineClassMap.keys()];
 });
 
 export const getBuildableMachinesFromClassName = (() => {
-  const classListMap = getBuildableMachines().machineClassMap;
+  const classListMap = getBuildableMachinesByClass().machineClassMap;
   return (name: string) => {
     return classListMap.get(name);
   };
 })();
 
+const getAllBuildableMachinesFn = () => {
+  const classListMap = getBuildableMachinesByClass().machineClassMap;
+  return [...classListMap.values()].flat();
+};
+
+export const getAllBuildableMachines = memoize(getAllBuildableMachinesFn);
+
 export const getBuildableMachineClassIcon = (() => {
-  const classImageMap = getBuildableMachines().machineClassImageMap;
+  const classImageMap = getBuildableMachinesByClass().machineClassImageMap;
   return (name: string) => {
     return classImageMap.get(name);
   };

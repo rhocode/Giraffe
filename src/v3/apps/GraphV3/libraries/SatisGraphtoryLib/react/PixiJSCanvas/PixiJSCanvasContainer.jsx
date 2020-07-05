@@ -30,11 +30,7 @@ function PixiJSCanvasGuard(props) {
     return null;
   }
 
-  return (
-    <PixiJSApplication height={height} width={width}>
-      {props.children}
-    </PixiJSApplication>
-  );
+  return <PixiJSApplication height={height} width={width} />;
 }
 
 function PixiJSCanvasContainer(props) {
@@ -44,7 +40,8 @@ function PixiJSCanvasContainer(props) {
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <div className={classes.canvas}>
-        <PixiJSCanvasGuard height={height} width={width} {...props} />
+        <PixiJSCanvasGuard height={height} width={width} />
+        {props.children}
       </div>
     </div>
   );
