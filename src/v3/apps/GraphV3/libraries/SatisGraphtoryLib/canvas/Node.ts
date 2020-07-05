@@ -144,9 +144,9 @@ export const Node = (x:number, y:number, name:string, input:string, output:strin
     const itemicon = new PIXI.BaseTexture(itemimg)
     const itemtex = new PIXI.Texture(itemicon)
     const itemsprite = new PIXI.Sprite(itemtex)
-    
-    itemsprite.position.x = x + 5
-    itemsprite.position.y = y + TOPHEIGHT + 76
+
+    itemsprite.position.x = x + 7
+    itemsprite.position.y = y + TOPHEIGHT + 8
     itemsprite.width = 20
     itemsprite.height = 20
 
