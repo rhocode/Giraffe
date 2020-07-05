@@ -69,13 +69,20 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   const container = new PIXI.Container()
   const gfx = new PIXI.Graphics()
 
-  gfx.lineStyle(4, YELLOW, 1)
-  gfx.beginFill(GREY, 1.0)
-  gfx.drawRoundedRect(x, y, WIDTH, HEIGHT, 10)
-  gfx.endFill()
-  gfx.lineStyle(3, YELLOW, 1)
-  gfx.moveTo(x, y + 110)
-  gfx.lineTo(x + WIDTH, y + 110)
+  // gfx.lineStyle(4, YELLOW, 1)
+  // gfx.beginFill(GREY, 1.0)
+  // gfx.drawRoundedRect(x, y, WIDTH, HEIGHT, 10)
+  // gfx.endFill()
+  // gfx.lineStyle(3, YELLOW, 1)
+  // gfx.moveTo(x, y + 110)
+  // gfx.lineTo(x + WIDTH, y + 110)
+
+  const backboardtex =  PIXI.utils.TextureCache['backboard']
+  const backboard = new PIXI.Sprite(backboardtex)
+
+  backboard.position.x = x
+  backboard.position.y = y
+  container.addChild(backboard)
 
   const baseName = items.getItemDefinition(name).name
   const baseMetrics = PIXI.TextMetrics.measureText(baseName, NAME_STYLE)
@@ -121,35 +128,49 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
     outOffsets[i] = Math.floor(y + (i + 1) * (TOP_HEIGHT) / (nOut + 1))
   }
 
+  const intex =  PIXI.utils.TextureCache['inCircle']
+
   inOffsets.forEach(function (offset) {
-    drawInPoint(gfx, x, offset)
+    // drawInPoint(gfx, x, offset)
+    
+    const inCircle = new PIXI.Sprite(intex)
+    inCircle.position.x = x - 8
+    inCircle.position.y = offset - 8
+    container.addChild(inCircle)
   })
 
+  const outtex =  PIXI.utils.TextureCache['outCircle']
   outOffsets.forEach(function (offset) {
-    drawOutPoint(gfx, x, offset)
+    // drawOutPoint(gfx, x, offset)
+    
+    const outCircle = new PIXI.Sprite(outtex)
+    outCircle.position.x = x + WIDTH - 8
+    outCircle.position.y = offset - 8
+    container.addChild(outCircle)
   })
 
-  const machineimg = buildings.getBuildingIcon(machine, 256)
-  const machineicon = new PIXI.BaseTexture(machineimg)
-  const machinetex = new PIXI.Texture(machineicon)
+  // const machineimg = buildings.getBuildingIcon(machine, 256)
+  // const machineicon = new PIXI.BaseTexture(machineimg)
+  // const machinetex = new PIXI.Texture(machineicon)
+  const machinetex = PIXI.utils.TextureCache[machine]
   const machinesprite = new PIXI.Sprite(machinetex)
-
+  
   machinesprite.position.x = x + 15
   machinesprite.position.y = y + 5
   machinesprite.width = 95
   machinesprite.height = 95
 
-  const itemimg = items.getItemIcon(name, 64)
-  const itemicon = new PIXI.BaseTexture(itemimg)
-  const itemtex = new PIXI.Texture(itemicon)
+  // const itemimg = items.getItemIcon(name, 64)
+  // const itemicon = new PIXI.BaseTexture(itemimg)
+  // const itemtex = new PIXI.Texture(itemicon)
+  const itemtex = PIXI.utils.TextureCache[name]
   const itemsprite = new PIXI.Sprite(itemtex)
-
   itemsprite.position.x = x + 7
   itemsprite.position.y = y + TOP_HEIGHT + 8
   itemsprite.width = 20
   itemsprite.height = 20
 
-  container.addChild(gfx)
+  // container.addChild(gfx)
   container.addChild(namestr)
   container.addChild(levelstr)
   container.addChild(efficiencystr)
@@ -158,5 +179,6 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   container.addChild(machinesprite)
   container.addChild(itemsprite)
   // container.cacheAsBitmap = true
+  // console.log(PIXI.utils.TextureCache)
   return container
 }

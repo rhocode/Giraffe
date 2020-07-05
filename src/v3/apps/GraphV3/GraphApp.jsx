@@ -15,6 +15,7 @@ import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+import { pixiJsStore } from './libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
 const styles = (theme) => {
   return {
@@ -54,10 +55,12 @@ function GraphApp(props) {
     // });
   }, []);
 
+  const pixiApplication = pixiJsStore.useState( s => s.application );
+
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    initRuntime();
+    initRuntime(pixiApplication);
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
@@ -81,7 +84,7 @@ function GraphApp(props) {
         image: 'https://i.imgur.com/DPEmxE0.png',
       });
     }
-  }, [language.code, match]);
+  }, [language.code, match, pixiApplication]);
 
   return (
     <React.Fragment>
