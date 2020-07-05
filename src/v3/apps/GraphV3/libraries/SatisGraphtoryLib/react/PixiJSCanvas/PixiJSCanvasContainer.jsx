@@ -23,7 +23,19 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+function PixiJSCanvasGuard(props) {
+  const { height, width } = props;
 
+  if (height === undefined || width === undefined) {
+    return null;
+  }
+
+  return (
+    <PixiJSApplication height={height} width={width}>
+      {props.children}
+    </PixiJSApplication>
+  );
+}
 
 function PixiJSCanvasContainer(props) {
   const classes = useStyles();
@@ -32,8 +44,7 @@ function PixiJSCanvasContainer(props) {
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <div className={classes.canvas}>
-        <PixiJSApplication height={height} width={width} />
-        {props.children}
+        <PixiJSCanvasGuard height={height} width={width} {...props} />
       </div>
     </div>
   );
