@@ -1,94 +1,93 @@
 import * as PIXI from 'pixi.js';
-import * as buildings from 'v3/data/loaders/buildings';
-import * as items from 'v3/data/loaders/items';
+import { getItemDefinition } from 'v3/data/loaders/items';
 
 const WIDTH = 220
 const HEIGHT = 145
 const TOP_HEIGHT = HEIGHT - 35
+const NAME_OFFSET_X = 35
+const NAME_OFFSET_Y = 20
+const LEVEL_OFFSET_X = 120
+const LEVEL_OFFSET_Y = 40
+const EFFICIENCY_OFFSET_X = 120
+const EFFICIENCY_OFFSET_Y = 70
+const INPUT_OFFSET_X = 10
+const INPUT_OFFSET_Y = 15
+const OUTPUT_OFFSET_X = INPUT_OFFSET_X
+const OUTPUT_OFFSET_Y = 35
+const MACHINE_OFFSET_X = 60
+const MACHINE_OFFSET_Y = 55
+const MACHINE_SIZE = 95
+const ITEM_OFFSET_X = 20
+const ITEM_OFFSET_Y = 20
+const ITEM_SIZE = 20
+const NAME_FONT_SIZE = 22
+const NAME_FONT_OFFSET = 40
+const LEVEL_FONT_SIZE = 28
+const EFFICIENCY_FONT_SIZE = 28
+const INPUT_FONT_SIZE = 20
+const OUTPUT_FONT_SIZE = 20
+
 const GREY = 0x313234
 const GREEN = 0x15CB07
 const YELLOW = 0xD4CE22
 const ORANGE = 0xFFA328
 const DARK_GREY = 0x232422
 const PURPLE = 0x7122D5
+const WHITE = 0xFFFFFF
 
 const NAME_STYLE = new PIXI.TextStyle({
   align: 'left',
-  fill: '#ffffff',
-  fontSize: 22,
+  fill: WHITE,
+  fontSize: NAME_FONT_SIZE,
   fontFamily: '"Bebas Neue", sans-serif',
   breakWords: true,
-  wordWrapWidth: WIDTH - 30,
+  wordWrapWidth: WIDTH - NAME_FONT_OFFSET,
   wordWrap: true
 })
 
 const LEVEL_STYLE = new PIXI.TextStyle({
   align: 'left',
-  fill: '#ffffff',
-  fontSize: 28,
+  fill: WHITE,
+  fontSize: LEVEL_FONT_SIZE,
   fontFamily: '"Roboto Condensed", sans-serif'
 })
 
 const EFFICIENCY_STYLE = new PIXI.TextStyle({
   align: 'left',
-  fill: '#15CB07',
-  fontSize: 28,
+  fill: GREEN,
+  fontSize: EFFICIENCY_FONT_SIZE,
   fontFamily: '"Roboto Condensed", sans-serif'
 })
 
 const INPUT_STYLE = new PIXI.TextStyle({
   align: 'left',
-  fill: '#15CB07',
-  fontSize: 20,
+  fill: GREEN,
+  fontSize: INPUT_FONT_SIZE,
   fontFamily: '"Roboto Condensed", sans-serif'
 })
 
 const OUTPUT_STYLE = new PIXI.TextStyle({
   align: 'left',
-  fill: '#FFA328',
-  fontSize: 20,
+  fill: ORANGE,
+  fontSize: OUTPUT_FONT_SIZE,
   fontFamily: '"Roboto Condensed", Helvetica, sans-serif'
 })
 
-
-const drawInPoint = (g: PIXI.Graphics, x: number, inOffset: number) => {
-  g.beginFill(GREEN, 1)
-  g.lineStyle(4, GREY, 1)
-  g.drawCircle(x, inOffset, 8)
-  g.endFill()
-}
-
-const drawOutPoint = (g: PIXI.Graphics, x: number, outOffset: number) => {
-  g.beginFill(ORANGE, 1)
-  g.lineStyle(4, GREY, 1)
-  g.drawCircle(x + WIDTH, outOffset, 8)
-  g.endFill()
-}
-
 export const Node = (x: number, y: number, name: string, input: string, output: string, level: string, efficiency: number, machine: string, nIn: number, nOut: number) => {
   const container = new PIXI.Container()
-  const gfx = new PIXI.Graphics()
 
-  // gfx.lineStyle(4, YELLOW, 1)
-  // gfx.beginFill(GREY, 1.0)
-  // gfx.drawRoundedRect(x, y, WIDTH, HEIGHT, 10)
-  // gfx.endFill()
-  // gfx.lineStyle(3, YELLOW, 1)
-  // gfx.moveTo(x, y + 110)
-  // gfx.lineTo(x + WIDTH, y + 110)
-
-  const backboardtex =  PIXI.utils.TextureCache['backboard']
-  const backboard = new PIXI.Sprite(backboardtex)
-
+  const backboardTex = PIXI.utils.TextureCache['backboard']
+  const backboard = new PIXI.Sprite(backboardTex)
+  backboard.anchor.set(0, 0)
   backboard.position.x = x
   backboard.position.y = y
   container.addChild(backboard)
 
-  const baseName = items.getItemDefinition(name).name
+  const baseName = getItemDefinition(name).name
   const baseMetrics = PIXI.TextMetrics.measureText(baseName, NAME_STYLE)
   let adjName = ''
 
-  if (baseMetrics.lineWidths[0] < WIDTH - 40) {
+  if (baseMetrics.lineWidths[0] < WIDTH - NAME_FONT_OFFSET) {
     adjName = baseMetrics.lines[0]
     if (baseMetrics.lineWidths.length > 1) {
       adjName += '...'
@@ -98,25 +97,30 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
     adjName = newMet.lines[0] + '...'
   }
 
-  const namestr = new PIXI.Text(adjName, NAME_STYLE)
-  namestr.position.x = x + 33
-  namestr.position.y = y + 119
+  const nameStr = new PIXI.Text(adjName, NAME_STYLE)
+  nameStr.anchor.set(0, 0.5)
+  nameStr.position.x = x + NAME_OFFSET_X
+  nameStr.position.y = y + TOP_HEIGHT + NAME_OFFSET_Y
 
-  const levelstr = new PIXI.Text(level, LEVEL_STYLE)
-  levelstr.position.x = x + 120
-  levelstr.position.y = y + 25
+  const levelStr = new PIXI.Text(level, LEVEL_STYLE)
+  levelStr.anchor.set(0, 0.5)
+  levelStr.position.x = x + LEVEL_OFFSET_X
+  levelStr.position.y = y + LEVEL_OFFSET_Y
 
-  const efficiencystr = new PIXI.Text(efficiency.toString() + '%', EFFICIENCY_STYLE)
-  efficiencystr.position.x = x + 120
-  efficiencystr.position.y = y + 55
+  const efficiencyStr = new PIXI.Text(efficiency.toString() + '%', EFFICIENCY_STYLE)
+  efficiencyStr.anchor.set(0, 0.5)
+  efficiencyStr.position.x = x + EFFICIENCY_OFFSET_X
+  efficiencyStr.position.y = y + EFFICIENCY_OFFSET_Y
 
-  const inputstr = new PIXI.Text(input, INPUT_STYLE)
-  inputstr.position.x = x + 7
-  inputstr.position.y = y + HEIGHT + 5
+  const inputStr = new PIXI.Text(input, INPUT_STYLE)
+  inputStr.anchor.set(0, 0.5)
+  inputStr.position.x = x + INPUT_OFFSET_X
+  inputStr.position.y = y + HEIGHT + INPUT_OFFSET_Y
 
-  const outputstr = new PIXI.Text(output, OUTPUT_STYLE)
-  outputstr.position.x = x + 7
-  outputstr.position.y = y + HEIGHT + 25
+  const outputStr = new PIXI.Text(output, OUTPUT_STYLE)
+  outputStr.anchor.set(0, 0.5)
+  outputStr.position.x = x + OUTPUT_OFFSET_X
+  outputStr.position.y = y + HEIGHT + OUTPUT_OFFSET_Y
 
   const inOffsets = [];
   for (let i = 0; i < nIn; i++) {
@@ -128,57 +132,48 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
     outOffsets[i] = Math.floor(y + (i + 1) * (TOP_HEIGHT) / (nOut + 1))
   }
 
-  const intex =  PIXI.utils.TextureCache['inCircle']
-
+  const inTex = PIXI.utils.TextureCache['inCircle']
   inOffsets.forEach(function (offset) {
-    // drawInPoint(gfx, x, offset)
-    
-    const inCircle = new PIXI.Sprite(intex)
-    inCircle.position.x = x - 8
-    inCircle.position.y = offset - 8
+    const inCircle = new PIXI.Sprite(inTex)
+    inCircle.anchor.set(0.5, 0.5)
+    inCircle.position.x = x
+    inCircle.position.y = offset
     container.addChild(inCircle)
   })
 
-  const outtex =  PIXI.utils.TextureCache['outCircle']
+  const outTex = PIXI.utils.TextureCache['outCircle']
   outOffsets.forEach(function (offset) {
-    // drawOutPoint(gfx, x, offset)
-    
-    const outCircle = new PIXI.Sprite(outtex)
-    outCircle.position.x = x + WIDTH - 8
-    outCircle.position.y = offset - 8
+    const outCircle = new PIXI.Sprite(outTex)
+    outCircle.anchor.set(0.5, 0.5)
+    outCircle.position.x = x + WIDTH
+    outCircle.position.y = offset
     container.addChild(outCircle)
   })
 
-  // const machineimg = buildings.getBuildingIcon(machine, 256)
-  // const machineicon = new PIXI.BaseTexture(machineimg)
-  // const machinetex = new PIXI.Texture(machineicon)
-  const machinetex = PIXI.utils.TextureCache[machine]
-  const machinesprite = new PIXI.Sprite(machinetex)
-  
-  machinesprite.position.x = x + 15
-  machinesprite.position.y = y + 5
-  machinesprite.width = 95
-  machinesprite.height = 95
+  const machineTex = PIXI.utils.TextureCache[machine]
+  const machineSprite = new PIXI.Sprite(machineTex)
+  machineSprite.anchor.set(0.5, 0.5)
+  machineSprite.position.x = x + MACHINE_OFFSET_X
+  machineSprite.position.y = y + MACHINE_OFFSET_Y
+  machineSprite.width = MACHINE_SIZE
+  machineSprite.height = MACHINE_SIZE
 
-  // const itemimg = items.getItemIcon(name, 64)
-  // const itemicon = new PIXI.BaseTexture(itemimg)
-  // const itemtex = new PIXI.Texture(itemicon)
-  const itemtex = PIXI.utils.TextureCache[name]
-  const itemsprite = new PIXI.Sprite(itemtex)
-  itemsprite.position.x = x + 7
-  itemsprite.position.y = y + TOP_HEIGHT + 8
-  itemsprite.width = 20
-  itemsprite.height = 20
+  const itemTex = PIXI.utils.TextureCache[name]
+  const itemSprite = new PIXI.Sprite(itemTex)
+  itemSprite.anchor.set(0.5, 0.5)
+  itemSprite.position.x = x + ITEM_OFFSET_X
+  itemSprite.position.y = y + TOP_HEIGHT + ITEM_OFFSET_Y
+  itemSprite.width = ITEM_SIZE
+  itemSprite.height = ITEM_SIZE
 
-  // container.addChild(gfx)
-  container.addChild(namestr)
-  container.addChild(levelstr)
-  container.addChild(efficiencystr)
-  container.addChild(inputstr)
-  container.addChild(outputstr)
-  container.addChild(machinesprite)
-  container.addChild(itemsprite)
+  container.addChild(nameStr)
+  container.addChild(levelStr)
+  container.addChild(efficiencyStr)
+  container.addChild(inputStr)
+  container.addChild(outputStr)
+  container.addChild(machineSprite)
+  container.addChild(itemSprite)
   // container.cacheAsBitmap = true
-  // console.log(PIXI.utils.TextureCache)
+
   return container
 }
