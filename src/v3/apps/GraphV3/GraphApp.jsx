@@ -55,12 +55,10 @@ function GraphApp(props) {
     // });
   }, []);
 
-  const pixiApplication = pixiJsStore.useState( s => s.application );
+  const pixiApplication = pixiJsStore.useState((s) => s.application);
 
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
-
-    initRuntime(pixiApplication);
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
@@ -85,6 +83,10 @@ function GraphApp(props) {
       });
     }
   }, [language.code, match, pixiApplication]);
+
+  React.useEffect(() => {
+    initRuntime(pixiApplication);
+  }, [pixiApplication]);
 
   return (
     <React.Fragment>

@@ -8,15 +8,17 @@ function PixiJSApplication(props) {
   const pixiApp = pixiJsStore.useState((s) => s.application);
 
   const canvasRef = React.useRef();
+  const originalCanvasRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (canvasRef.current) {
+    if (canvasRef.current && originalCanvasRef.current !== canvasRef.current) {
+      originalCanvasRef.current = canvasRef.current;
       pixiJsStore.update((s) => {
         const newApplication = new PIXI.Application({
           transparent: true,
           autoDensity: true,
-          height: 100,
-          width: 100,
+          height,
+          width,
           view: canvasRef.current,
           resolution: devicePixelRatio,
           antialias: true,
@@ -37,10 +39,8 @@ function PixiJSApplication(props) {
           s.childQueue = [];
         }
       });
-
     }
-
-  }, [canvasRef]);
+  }, [canvasRef, height, width]);
 
   React.useEffect(() => {
     if (pixiApp.renderer) {
