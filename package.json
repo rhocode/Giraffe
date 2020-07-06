@@ -96,9 +96,7 @@
   },
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=true REACT_APP_VERSION=$npm_package_version react-scripts build",
-    "netlify-build": "yarn run build && yarn run upload-sourcemaps",
-    "upload-sourcemaps": "./scripts/sentry.sh",
+    "build": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
