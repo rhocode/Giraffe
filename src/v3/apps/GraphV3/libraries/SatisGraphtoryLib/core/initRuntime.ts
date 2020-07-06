@@ -97,9 +97,7 @@ const initRuntime = (pixiJS: any, numNodes: number) => {
     addChild(testNode);
 
     console.log(
-      "And that's it! We counted from one to " +
-        number2words(numNodes + 1) +
-        '!'
+      "And that's it! We counted from one to " + number2words(numNodes) + '!'
     );
 
     console.timeEnd('loadNodes');
