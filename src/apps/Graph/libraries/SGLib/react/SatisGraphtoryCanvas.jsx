@@ -4,7 +4,7 @@ import {
   setGraphData,
   setGraphSourceNode,
   setMouseMode,
-  setSelectedData
+  setSelectedData,
 } from '../../../../../redux/actions/Graph/graphActions';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
@@ -17,7 +17,7 @@ import {
   dragDuringPlugin,
   dragEndPlugin,
   dragStartPlugin,
-  dragSubjectPlugin
+  dragSubjectPlugin,
 } from './plugins/dragFunctions';
 import zoomPlugin from './plugins/zoomFunction';
 
@@ -25,21 +25,22 @@ import { setEquals } from '../utils/sets';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
 import setEnums from '../repositories/objectRepository';
+import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
     width: 0,
-    height: 0
+    height: 0,
   });
 
   const [canvasContainerCurrent, setCanvasContainerCurrent] = useState(null);
   const [canvasCurrent, setCanvasCurrent] = useState(null);
 
-  const ref = useCallback(node => {
+  const ref = useCallback((node) => {
     setCanvasContainerCurrent(node);
   }, []);
 
-  const canvasRef = useCallback(node => {
+  const canvasRef = useCallback((node) => {
     setCanvasCurrent(node);
   }, []);
 
@@ -72,7 +73,7 @@ function useBoundingBoxRect(props) {
     canvasCurrent,
     canvasContainerCurrent,
     heightOverride,
-    widthOverride
+    widthOverride,
   ]);
 
   const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
@@ -82,25 +83,25 @@ function useBoundingBoxRect(props) {
 
 let transform = d3.zoomIdentity;
 
-const setTransform = t => {
+const setTransform = (t) => {
   transform = t;
 };
 
 let dragStart = null;
 
-const setDragStart = t => {
+const setDragStart = (t) => {
   dragStart = t;
 };
 
 let dragCurrent = null;
 
-const setDragCurrent = t => {
+const setDragCurrent = (t) => {
   dragCurrent = t;
 };
 
 let didDrag = false;
 
-const setDidDrag = t => {
+const setDidDrag = (t) => {
   didDrag = t;
 };
 
@@ -122,12 +123,12 @@ function SatisGraphtoryCanvas(props) {
     selectedData,
     refreshGraphData,
     setDataLibrary,
-    dataLibrary
+    dataLibrary,
   } = props;
 
   // Initial load on component
   useEffect(() => {
-    hydrate(initialLoadedData, translate, transform, data => {
+    hydrate(initialLoadedData, translate, transform, (data) => {
       setGraphData(data);
     });
     setEnums(setDataLibrary);
@@ -139,15 +140,15 @@ function SatisGraphtoryCanvas(props) {
     ref,
     canvasRef,
     canvasContext,
-    canvasCurrent
+    canvasCurrent,
   ] = useBoundingBoxRect(props);
-  const ratio = window.devicePixelRatio || 1;
+  const ratio = sgDevicePixelRatio;
 
   const selectedNodes = selectedData.nodes || {};
   const selectedEdges = selectedData.edges || {};
 
   const setSelectedEdges = React.useCallback(
-    edges => {
+    (edges) => {
       const oldSet = new Set(Object.keys(selectedData.edges || {}));
       const newSet = new Set(Object.keys(edges));
       if (!setEquals(oldSet, newSet)) {
@@ -162,7 +163,7 @@ function SatisGraphtoryCanvas(props) {
   );
 
   const setSelectedNodes = React.useCallback(
-    nodes => {
+    (nodes) => {
       const oldSet = new Set(Object.keys(selectedData.nodes || {}));
       const newSet = new Set(Object.keys(nodes));
       if (!setEquals(oldSet, newSet)) {
@@ -235,7 +236,7 @@ function SatisGraphtoryCanvas(props) {
       const selectedEdgesLength = Object.keys(selectedEdges).length;
       const selectedNodesLength = Object.keys(selectedNodes).length;
 
-      Object.keys(selectedEdges).forEach(edgeId => {
+      Object.keys(selectedEdges).forEach((edgeId) => {
         const edge = selectedEdges[edgeId];
         const startNode = edge.source;
         startNode.drawEdgePath(canvasContext, edge);
@@ -246,7 +247,7 @@ function SatisGraphtoryCanvas(props) {
         canvasContext.globalAlpha = 0.2;
       }
 
-      graphEdges.forEach(edge => {
+      graphEdges.forEach((edge) => {
         // Skip rendering this edge if we have already rendered;
         if (selectedEdges[edge.id]) return;
         const startNode = edge.source;
@@ -264,12 +265,12 @@ function SatisGraphtoryCanvas(props) {
       if (graphFidelity === 'low') {
         canvasContext.scale(localTransform.k, localTransform.k);
 
-        Object.keys(selectedNodes).forEach(nodeId => {
+        Object.keys(selectedNodes).forEach((nodeId) => {
           const node = selectedNodes[nodeId];
           node.lowRender(canvasContext, selectedNode === node);
         });
       } else {
-        Object.keys(selectedNodes).forEach(nodeId => {
+        Object.keys(selectedNodes).forEach((nodeId) => {
           const node = selectedNodes[nodeId];
           node.render(canvasContext, localTransform, selectedNode === node);
         });
@@ -286,12 +287,12 @@ function SatisGraphtoryCanvas(props) {
 
       if (graphFidelity === 'low') {
         canvasContext.scale(localTransform.k, localTransform.k);
-        graphNodes.forEach(function(d) {
+        graphNodes.forEach(function (d) {
           // console.log("LOWRENDERED");
           d.lowRender(canvasContext, selectedNode === d);
         });
       } else {
-        graphNodes.forEach(function(d) {
+        graphNodes.forEach(function (d) {
           // console.log("HIGHRENDERED");
           d.render(canvasContext, localTransform, selectedNode === d);
         });
@@ -328,7 +329,7 @@ function SatisGraphtoryCanvas(props) {
       selectedEdges,
       selectedNodes,
       usedHeight,
-      usedWidth
+      usedWidth,
     ]
   );
 
@@ -343,7 +344,7 @@ function SatisGraphtoryCanvas(props) {
       d3
         .forceLink()
         .strength(1)
-        .id(function(d) {
+        .id(function (d) {
           return d.id;
         })
     )
@@ -436,7 +437,7 @@ function SatisGraphtoryCanvas(props) {
       .call(
         d3
           .zoom()
-          .filter(function() {
+          .filter(function () {
             if (mouseMode === 'add') {
               return d3.event.type !== 'dblclick';
             }
@@ -473,7 +474,7 @@ function SatisGraphtoryCanvas(props) {
     setSelectedNodes,
     simulation,
     simulationUpdate,
-    translate
+    translate,
   ]);
 
   useEffect(() => {
@@ -482,11 +483,11 @@ function SatisGraphtoryCanvas(props) {
     simulation.force('link').links(graphEdges);
 
     if (graphFidelity === 'low') {
-      graphNodes.forEach(node => {
+      graphNodes.forEach((node) => {
         node.preRender(d3.zoomIdentity, dataLibrary);
       });
     } else {
-      graphNodes.forEach(node => {
+      graphNodes.forEach((node) => {
         node.preRender(transform, dataLibrary);
       });
     }
@@ -497,7 +498,7 @@ function SatisGraphtoryCanvas(props) {
     simulation,
     simulationUpdate,
     refreshGraphData,
-    dataLibrary
+    dataLibrary,
   ]);
 
   return (
@@ -523,20 +524,20 @@ const styles = () => ({
     gridTemplateColumns: '1fr',
     minWidth: 0,
     minHeight: 0,
-    position: 'relative'
+    position: 'relative',
   },
   canvas: {
     gridArea: 'canvasElement',
     minWidth: 0,
-    minHeight: 0
+    minHeight: 0,
   },
   loadingContainer: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });
 
 function mapStateToProps(state) {
@@ -550,17 +551,17 @@ function mapStateToProps(state) {
     initialLoadedData: state.graphReducer.initialLoadedData,
     refreshGraphData: state.graphReducer.__toggledState,
     translate: getTranslate(state.localize),
-    dataLibrary: state.graphReducer.dataLibrary
+    dataLibrary: state.graphReducer.dataLibrary,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGraphData: data => dispatch(setGraphData(data)),
-    setGraphSourceNode: data => dispatch(setGraphSourceNode(data)),
-    setMouseMode: data => dispatch(setMouseMode(data)),
-    setSelectedDataFunc: data => dispatch(setSelectedData(data)),
-    setDataLibrary: data => dispatch(setDataLibrary(data))
+    setGraphData: (data) => dispatch(setGraphData(data)),
+    setGraphSourceNode: (data) => dispatch(setGraphSourceNode(data)),
+    setMouseMode: (data) => dispatch(setMouseMode(data)),
+    setSelectedDataFunc: (data) => dispatch(setSelectedData(data)),
+    setDataLibrary: (data) => dispatch(setDataLibrary(data)),
   };
 }
 
