@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import sGDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/utils';
 
 function PixiJSApplication(props) {
   const { height, width } = props;
@@ -20,7 +21,7 @@ function PixiJSApplication(props) {
           height,
           width,
           view: canvasRef.current,
-          resolution: devicePixelRatio,
+          resolution: sGDevicePixelRatio,
           antialias: true,
         });
 

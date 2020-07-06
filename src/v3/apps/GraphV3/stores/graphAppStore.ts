@@ -59,14 +59,14 @@ export const graphWizardStore = new Store({
 });
 
 export const graphAppStore = new Store({
-  graphFidelity: 'high',
+  // graphFidelity: 'high',
   graphData: {
     edges: [] as SatisGraphtoryEdge[],
     nodes: [] as SatisGraphtoryNode[],
   },
-  initialLoadedData: null,
-  mouseMode: 'move',
-  selectedMachine: null,
-  openModals: 0,
+  // initialLoadedData: null,
+  // mouseMode: 'move',
+  // selectedMachine: null,
+  // openModals: 0,
   placeableMachineClasses: [],
 });

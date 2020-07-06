@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Helmet } from 'react-helmet-async';
 
 import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
-// import { graphAppStore } from './stores/graphAppStore';
 import NavBar from './components/NavBar';
 import Canvas from './components/Canvas';
 import ActionBar from './components/ActionBar';
@@ -16,6 +15,8 @@ import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRu
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 import { pixiJsStore } from './libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { getBuildableMachineClassNames } from 'v3/data/loaders/buildings';
 
 const styles = (theme) => {
   return {
@@ -47,15 +48,13 @@ function GraphApp(props) {
 
   const { match, classes } = props;
 
-  React.useEffect(() => {
-    // let instance = worker();
-    //
-    // instance.expensive(1000).then(count => {
-    //   console.log(`Ran ${count} loops`);
-    // });
-  }, []);
-
-  const pixiApplication = pixiJsStore.useState((s) => s.application);
+  // React.useEffect(() => {
+  // let instance = worker();
+  //
+  // instance.expensive(1000).then(count => {
+  //   console.log(`Ran ${count} loops`);
+  // });
+  // }, []);
 
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
@@ -82,11 +81,19 @@ function GraphApp(props) {
         image: 'https://i.imgur.com/DPEmxE0.png',
       });
     }
-  }, [language.code, match, pixiApplication]);
+  }, [language.code, match]);
+
+  const pixiApplication = pixiJsStore.useState((s) => s.application);
 
   React.useEffect(() => {
     initRuntime(pixiApplication);
   }, [pixiApplication]);
+
+  React.useEffect(() => {
+    graphAppStore.update((s) => {
+      s.placeableMachineClasses = getBuildableMachineClassNames();
+    });
+  }, []);
 
   return (
     <React.Fragment>

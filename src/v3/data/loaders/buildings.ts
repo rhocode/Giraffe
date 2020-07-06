@@ -77,9 +77,13 @@ const getBuildableMachinesFn = () => {
 
 const getBuildableMachinesByClass = memoize(getBuildableMachinesFn);
 
-export const getBuildableMachineClassNames = lazyFunc(() => {
+const getBuildableMachineClassNamesFn = () => {
   return [...getBuildableMachinesByClass().machineClassMap.keys()];
-});
+};
+
+export const getBuildableMachineClassNames = memoize(
+  getBuildableMachineClassNamesFn
+);
 
 export const getBuildableMachinesFromClassName = (() => {
   const classListMap = getBuildableMachinesByClass().machineClassMap;

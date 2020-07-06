@@ -2,8 +2,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import useDimensions from '../hooks/useDimensions';
 import stringGen from '../../../../../utils/stringGen';
+import sGDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/utils';
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     canvasContainer: {
       display: 'grid',
@@ -13,13 +14,13 @@ const useStyles = makeStyles(theme =>
       gridTemplateColumns: '1fr',
       minWidth: 0,
       minHeight: 0,
-      position: 'relative'
+      position: 'relative',
     },
     canvas: {
       gridArea: 'canvasElement',
       minWidth: 0,
-      minHeight: 0
-    }
+      minHeight: 0,
+    },
   })
 );
 
@@ -28,10 +29,10 @@ function SatisGraphtoryCanvas(props) {
   const [ref, { height, width }] = useDimensions();
   const [, setCanvasCurrent] = useState(null);
 
-  const ratio = window.devicePixelRatio || 1;
+  const ratio = sGDevicePixelRatio;
   const canvasId = useMemo(() => stringGen(10), []);
 
-  const canvasRef = useCallback(node => {
+  const canvasRef = useCallback((node) => {
     setCanvasCurrent(node);
   }, []);
 
