@@ -27,12 +27,8 @@ const EFFICIENCY_FONT_SIZE = 28
 const INPUT_FONT_SIZE = 20
 const OUTPUT_FONT_SIZE = 20
 
-const GREY = 0x313234
 const GREEN = 0x15CB07
-const YELLOW = 0xD4CE22
 const ORANGE = 0xFFA328
-const DARK_GREY = 0x232422
-const PURPLE = 0x7122D5
 const WHITE = 0xFFFFFF
 
 const NAME_STYLE = new PIXI.TextStyle({
@@ -73,6 +69,7 @@ const OUTPUT_STYLE = new PIXI.TextStyle({
   fontFamily: '"Roboto Condensed", Helvetica, sans-serif'
 })
 
+
 export const Node = (x: number, y: number, name: string, input: string, output: string, level: string, efficiency: number, machine: string, nIn: number, nOut: number) => {
   const container = new PIXI.Container()
 
@@ -81,6 +78,10 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   backboard.anchor.set(0, 0)
   backboard.position.x = x
   backboard.position.y = y
+
+  // backboard.on('pointerdown', () => {console.log('clicked')})
+  // backboard.on('pointerover', () => {console.log('hover')})
+
   container.addChild(backboard)
 
   const baseName = getItemDefinition(name).name
@@ -175,5 +176,40 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   container.addChild(itemSprite)
   // container.cacheAsBitmap = true
 
+  container.interactive = true;
+  container.buttonMode = true;
+  container.hitArea = new PIXI.Rectangle(x, y, WIDTH, HEIGHT)
+  let dragging = false
+  let sourceX = 0
+  let sourceY = 0
+  let clickX = 0
+  let clickY = 0
+  container.on('pointerover', onHover)
+  container.on('pointerdown', function(this: any, event: any) {
+    const newPos = event.data.getLocalPosition(this.parent)
+    clickX = newPos.x
+    clickY = newPos.y
+    sourceX = this.position.x
+    sourceY = this.position.y
+    dragging = true
+  })
+  container.on('pointerup', () => {
+    dragging = false;
+  })
+  container.on('pointerupoutside', () => {
+    dragging = false;
+  })
+  container.on('pointermove', function(this: any, event: any) {
+    if(dragging) {
+      const newPos = event.data.getLocalPosition(this.parent);
+      container.position.x = sourceX + (newPos.x - clickX);
+      container.position.y = sourceY + (newPos.y - clickY);
+    }
+  })
+
   return container
+}
+
+function onHover() {
+  console.log('hover')
 }

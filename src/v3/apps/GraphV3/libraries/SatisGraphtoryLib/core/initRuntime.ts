@@ -5,6 +5,8 @@
 import { addChild } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
 import { Node } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/Node';
 import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/loadSharedTextures';
+import { getMachineCraftableItems } from 'v3/data/loaders/items';
+import { getAllBuildableMachines } from 'v3/data/loaders/buildings';
 
 const initRuntime = (pixiJS: any) => {
   if (!pixiJS.renderer) {
@@ -39,16 +41,21 @@ const initRuntime = (pixiJS: any) => {
     4
   );
 
-  for (let i = 0; i < 100; i++) {
+  const items = getMachineCraftableItems()
+  const machines = getAllBuildableMachines()
+
+  for (let i = 0; i < 1000; i++) {
+    const item = items[Math.floor(Math.random() * items.length)];
+    const machine = machines[Math.floor(Math.random() * machines.length)];
     const tNode = Node(
-      100 + i,
-      100 + i,
-      'item-aluminum-plate',
+      Math.random() * pixiJS.stage.width,
+      Math.random() * pixiJS.stage.height,
+      item,
       '30/30 (100.0%)',
       '30/30 (100.0%)',
       'Mk 1',
       0.0 + i * 2,
-      'building-assembler-mk1',
+      machine,
       2,
       4
     );

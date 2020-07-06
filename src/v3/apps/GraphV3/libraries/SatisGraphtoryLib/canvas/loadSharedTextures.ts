@@ -17,11 +17,7 @@ const GREY = 0x313234;
 const GREEN = 0x15cb07;
 const YELLOW = 0xd4ce22;
 const ORANGE = 0xffa328;
-const DARK_GREY = 0x232422;
-const PURPLE = 0x7122d5;
-
-const ALL_ITEMS : string[] = getMachineCraftableItems()
-const ALL_MACHINES : string[] = getAllBuildableMachines()
+// const PURPLE = 0x7122d5;
 
 export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const gfx = new PIXI.Graphics();
@@ -80,14 +76,14 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   PIXI.Texture.addToCache(outCircle, 'outCircle');
 
   // items and machines
-  ALL_ITEMS.forEach(element => {
+  getMachineCraftableItems().forEach(element => {
     const itemimg = getItemIcon(element, ITEM_SIZE);
     const itemicon = new PIXI.BaseTexture(itemimg);
     const itemtex = new PIXI.Texture(itemicon);
     PIXI.Texture.addToCache(itemtex, element);
   });
 
-  ALL_MACHINES.forEach(element => {
+  getAllBuildableMachines().forEach(element => {
     const machineimg = getBuildingIcon(element, MACHINE_SIZE);
     const machineicon = new PIXI.BaseTexture(machineimg);
     const machinetex = new PIXI.Texture(machineicon);
