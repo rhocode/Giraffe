@@ -44,7 +44,7 @@ const initRuntime = (pixiJS: any) => {
   const items = getMachineCraftableItems()
   const machines = getAllBuildableMachines()
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     const item = items[Math.floor(Math.random() * items.length)];
     const machine = machines[Math.floor(Math.random() * machines.length)];
     const tNode = Node(
@@ -54,10 +54,10 @@ const initRuntime = (pixiJS: any) => {
       '30/30 (100.0%)',
       '30/30 (100.0%)',
       'Mk 1',
-      0.0 + i * 2,
+      Math.floor(Math.random() * 200),
       machine,
-      2,
-      4
+      Math.floor(Math.random() * 5),
+      Math.floor(Math.random() * 5)
     );
     addChild(tNode);
   }

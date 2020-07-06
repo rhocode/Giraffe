@@ -136,7 +136,7 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   const inTex = PIXI.utils.TextureCache['inCircle']
   inOffsets.forEach(function (offset) {
     const inCircle = new PIXI.Sprite(inTex)
-    inCircle.anchor.set(0.5, 0.5)
+    inCircle.anchor.set(0.4, 0.5)
     inCircle.position.x = x
     inCircle.position.y = offset
     container.addChild(inCircle)
@@ -145,7 +145,7 @@ export const Node = (x: number, y: number, name: string, input: string, output: 
   const outTex = PIXI.utils.TextureCache['outCircle']
   outOffsets.forEach(function (offset) {
     const outCircle = new PIXI.Sprite(outTex)
-    outCircle.anchor.set(0.5, 0.5)
+    outCircle.anchor.set(0.4, 0.5)
     outCircle.position.x = x + WIDTH
     outCircle.position.y = offset
     container.addChild(outCircle)
