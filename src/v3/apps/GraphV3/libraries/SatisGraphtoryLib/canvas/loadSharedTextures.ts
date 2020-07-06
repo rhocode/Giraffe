@@ -23,7 +23,34 @@ const YELLOW = 0xd4ce22;
 const ORANGE = 0xffa328;
 // const PURPLE = 0x7122d5;
 
-export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
+const addImageToCacheAndGPU = (
+  pixiApplication: PIXI.Application,
+  image: string,
+  id: string
+) => {
+  // const icon = new PIXI.BaseTexture(image);
+  // const texture = new PIXI.Texture(icon);
+  // Turns out we only need to add it to the resource loader
+  pixiApplication.loader.add(id, image);
+  // This is if we want to add it to the GPU preparer
+  // pixiRenderer.plugins.prepare.add(texture);
+
+  // PIXI.Texture.addToCache(texture, id);
+};
+
+const addTextureToCacheAndGPU = (
+  pixiApplication: PIXI.Application,
+  texture: PIXI.Texture,
+  id: string
+) => {
+  // This is if we use the GPU
+  // pixiRenderer.plugins.prepare.add(texture);
+  PIXI.Texture.addToCache(texture, id);
+};
+
+export const loadSharedTextures = (pixi: PIXI.Application) => {
+  const pixiRenderer = pixi.renderer;
+
   const gfx = new PIXI.Graphics();
 
   const x = 0,
@@ -45,7 +72,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio,
     bounds
   );
-  PIXI.Texture.addToCache(backboard, 'backboard');
+
+  addTextureToCacheAndGPU(pixi, backboard, 'backboard');
 
   // inCircle
   gfx.clear();
@@ -61,7 +89,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio,
     inBounds
   );
-  PIXI.Texture.addToCache(inCircle, 'inCircle');
+  addTextureToCacheAndGPU(pixi, inCircle, 'inCircle');
 
   // outCircle
   gfx.clear();
@@ -77,20 +105,26 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio,
     outBounds
   );
-  PIXI.Texture.addToCache(outCircle, 'outCircle');
+  addTextureToCacheAndGPU(pixi, outCircle, 'outCircle');
 
   // items and machines
   getMachineCraftableItems().forEach((element) => {
-    const itemimg = getItemIcon(element, ITEM_SIZE);
-    const itemicon = new PIXI.BaseTexture(itemimg);
-    const itemtex = new PIXI.Texture(itemicon);
-    PIXI.Texture.addToCache(itemtex, element);
+    const itemImg = getItemIcon(element, ITEM_SIZE);
+    addImageToCacheAndGPU(pixi, itemImg, element);
   });
 
   getAllBuildableMachines().forEach((element) => {
-    const machineimg = getBuildingIcon(element, MACHINE_SIZE);
-    const machineicon = new PIXI.BaseTexture(machineimg);
-    const machinetex = new PIXI.Texture(machineicon);
-    PIXI.Texture.addToCache(machinetex, element);
+    const machineImg = getBuildingIcon(element, MACHINE_SIZE);
+    addImageToCacheAndGPU(pixi, machineImg, element);
+  });
+
+  return new Promise((resolve) => {
+    // This is if we were using the GPU
+    // pixiRenderer.plugins.prepare.upload(() => {
+    //   resolve();
+    // })
+    pixi.loader.load(() => {
+      resolve();
+    });
   });
 };

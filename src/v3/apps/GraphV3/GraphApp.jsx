@@ -89,13 +89,14 @@ function GraphApp(props) {
   const numNodes = parseInt(urlParams.get('numNodes'), 10) || 10;
 
   React.useEffect(() => {
-    initRuntime(pixiApplication, numNodes);
-    if (pixiApplication.stage) {
-      pixiApplication.renderer.render(pixiApplication.stage);
-      pixiJsStore.update((s) => {
-        s.loaded = true;
-      });
-    }
+    initRuntime(pixiApplication, numNodes, () => {
+      if (pixiApplication.stage) {
+        pixiApplication.renderer.render(pixiApplication.stage);
+        pixiJsStore.update((s) => {
+          s.loaded = true;
+        });
+      }
+    });
   }, [numNodes, pixiApplication]);
 
   return (

@@ -79,7 +79,8 @@ export const Node = (
   efficiency: number,
   machine: string,
   nIn: number,
-  nOut: number
+  nOut: number,
+  pixi: PIXI.Application
 ) => {
   const container = new PIXI.Container();
 
@@ -167,7 +168,7 @@ export const Node = (
     container.addChild(outCircle);
   });
 
-  const machineTex = PIXI.utils.TextureCache[machine];
+  const machineTex = pixi.loader.resources[machine].texture;
   const machineSprite = new PIXI.Sprite(machineTex);
   machineSprite.anchor.set(0.5, 0.5);
   machineSprite.position.x = x + MACHINE_OFFSET_X;
@@ -175,7 +176,7 @@ export const Node = (
   machineSprite.width = MACHINE_SIZE;
   machineSprite.height = MACHINE_SIZE;
 
-  const itemTex = PIXI.utils.TextureCache[name];
+  const itemTex = pixi.loader.resources[machine].texture;
   const itemSprite = new PIXI.Sprite(itemTex);
   itemSprite.anchor.set(0.5, 0.5);
   itemSprite.position.x = x + ITEM_OFFSET_X;
@@ -222,7 +223,7 @@ export const Node = (
     }
   });
 
-  // container.cacheAsBitmap = true
+  container.cacheAsBitmap = true;
 
   return container;
 };
