@@ -1,4 +1,3 @@
-import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';

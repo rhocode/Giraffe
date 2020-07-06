@@ -1,17 +1,20 @@
 import * as PIXI from 'pixi.js';
-import { getBuildingIcon, getAllBuildableMachines } from 'v3/data/loaders/buildings';
+import {
+  getBuildingIcon,
+  getAllBuildableMachines,
+} from 'v3/data/loaders/buildings';
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
 
 const WIDTH = 220;
 const HEIGHT = 145;
 const TOP_HEIGHT = HEIGHT - 35;
-const BOX_THICKNESS = 4
-const BOX_RADIUS = 10
-const BOX_LINE_THICKNESS = 3
-const CIRCLE_RADIUS = 8
-const CIRCLE_THICKNESS = 4
-const ITEM_SIZE = 64
-const MACHINE_SIZE = 256
+const BOX_THICKNESS = 4;
+const BOX_RADIUS = 10;
+const BOX_LINE_THICKNESS = 3;
+const CIRCLE_RADIUS = 8;
+const CIRCLE_THICKNESS = 4;
+const ITEM_SIZE = 64;
+const MACHINE_SIZE = 256;
 
 const GREY = 0x313234;
 const GREEN = 0x15cb07;
@@ -20,8 +23,8 @@ const ORANGE = 0xffa328;
 const DARK_GREY = 0x232422;
 const PURPLE = 0x7122d5;
 
-const ALL_ITEMS : string[] = getMachineCraftableItems()
-const ALL_MACHINES : string[] = getAllBuildableMachines()
+const ALL_ITEMS: string[] = getMachineCraftableItems();
+const ALL_MACHINES: string[] = getAllBuildableMachines();
 
 export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const gfx = new PIXI.Graphics();
@@ -80,18 +83,17 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   PIXI.Texture.addToCache(outCircle, 'outCircle');
 
   // items and machines
-  ALL_ITEMS.forEach(element => {
+  ALL_ITEMS.forEach((element) => {
     const itemimg = getItemIcon(element, ITEM_SIZE);
     const itemicon = new PIXI.BaseTexture(itemimg);
     const itemtex = new PIXI.Texture(itemicon);
     PIXI.Texture.addToCache(itemtex, element);
   });
 
-  ALL_MACHINES.forEach(element => {
+  ALL_MACHINES.forEach((element) => {
     const machineimg = getBuildingIcon(element, MACHINE_SIZE);
     const machineicon = new PIXI.BaseTexture(machineimg);
     const machinetex = new PIXI.Texture(machineicon);
     PIXI.Texture.addToCache(machinetex, element);
   });
-
 };
