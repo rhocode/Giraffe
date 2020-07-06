@@ -1,17 +1,21 @@
 import * as PIXI from 'pixi.js';
-import { getBuildingIcon, getAllBuildableMachines } from 'v3/data/loaders/buildings';
+import {
+  getBuildingIcon,
+  getAllBuildableMachines,
+} from 'v3/data/loaders/buildings';
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
+import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
 
 const WIDTH = 220;
 const HEIGHT = 145;
 const TOP_HEIGHT = HEIGHT - 35;
-const BOX_THICKNESS = 4
-const BOX_RADIUS = 10
-const BOX_LINE_THICKNESS = 3
-const CIRCLE_RADIUS = 8
-const CIRCLE_THICKNESS = 4
-const ITEM_SIZE = 64
-const MACHINE_SIZE = 256
+const BOX_THICKNESS = 4;
+const BOX_RADIUS = 10;
+const BOX_LINE_THICKNESS = 3;
+export const CIRCLE_RADIUS = 8;
+const CIRCLE_THICKNESS = 4;
+const ITEM_SIZE = 64;
+const MACHINE_SIZE = 256;
 
 const GREY = 0x313234;
 const GREEN = 0x15cb07;
@@ -38,7 +42,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const backboard = pixiRenderer.generateTexture(
     gfx,
     PIXI.SCALE_MODES.NEAREST,
-    devicePixelRatio,
+    sgDevicePixelRatio,
     bounds
   );
   PIXI.Texture.addToCache(backboard, 'backboard');
@@ -54,7 +58,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const inCircle = pixiRenderer.generateTexture(
     gfx,
     PIXI.SCALE_MODES.NEAREST,
-    devicePixelRatio,
+    sgDevicePixelRatio,
     inBounds
   );
   PIXI.Texture.addToCache(inCircle, 'inCircle');
@@ -70,24 +74,23 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const outCircle = pixiRenderer.generateTexture(
     gfx,
     PIXI.SCALE_MODES.NEAREST,
-    devicePixelRatio,
+    sgDevicePixelRatio,
     outBounds
   );
   PIXI.Texture.addToCache(outCircle, 'outCircle');
 
   // items and machines
-  getMachineCraftableItems().forEach(element => {
+  getMachineCraftableItems().forEach((element) => {
     const itemimg = getItemIcon(element, ITEM_SIZE);
     const itemicon = new PIXI.BaseTexture(itemimg);
     const itemtex = new PIXI.Texture(itemicon);
     PIXI.Texture.addToCache(itemtex, element);
   });
 
-  getAllBuildableMachines().forEach(element => {
+  getAllBuildableMachines().forEach((element) => {
     const machineimg = getBuildingIcon(element, MACHINE_SIZE);
     const machineicon = new PIXI.BaseTexture(machineimg);
     const machinetex = new PIXI.Texture(machineicon);
     PIXI.Texture.addToCache(machinetex, element);
   });
-
 };
