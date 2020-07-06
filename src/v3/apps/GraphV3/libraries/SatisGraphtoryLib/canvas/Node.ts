@@ -176,7 +176,7 @@ export const Node = (
   machineSprite.width = MACHINE_SIZE;
   machineSprite.height = MACHINE_SIZE;
 
-  const itemTex = pixi.loader.resources[machine].texture;
+  const itemTex = pixi.loader.resources[name].texture;
   const itemSprite = new PIXI.Sprite(itemTex);
   itemSprite.anchor.set(0.5, 0.5);
   itemSprite.position.x = x + ITEM_OFFSET_X;
