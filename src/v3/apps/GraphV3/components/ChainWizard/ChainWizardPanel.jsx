@@ -208,7 +208,7 @@ function ChainWizardPanel() {
         variant="temporary"
         anchor={'left'}
         // open={drawerOpen}
-        open={true}
+        open={false}
         // onClose={() => setDrawerOpen(false)}
         classes={{
           paper: calculated ? classes.drawer : classes.drawerNotCalculated,

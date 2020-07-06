@@ -2,6 +2,8 @@ import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
 import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
+import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,12 +27,18 @@ const useStyles = makeStyles((theme) =>
 
 function PixiJSCanvasGuard(props) {
   const { height, width } = props;
+  const loaded = pixiJsStore.useState((s) => s.loaded);
 
   if (height === undefined || width === undefined) {
-    return null;
+    return <AutoSizedLoadingWrapper />;
   }
 
-  return <PixiJSApplication height={height} width={width} />;
+  return (
+    <React.Fragment>
+      {loaded ? null : <AutoSizedLoadingWrapper />}
+      <PixiJSApplication hidden={!loaded} height={height} width={width} />
+    </React.Fragment>
+  );
 }
 
 function PixiJSCanvasContainer(props) {

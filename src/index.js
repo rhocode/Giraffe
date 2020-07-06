@@ -18,6 +18,7 @@ import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
 import * as PIXI from 'pixi.js';
+import * as Sentry from '@sentry/react';
 
 import { enableMapSet } from 'immer';
 require('typeface-roboto-condensed');
@@ -26,6 +27,11 @@ enableMapSet();
 PIXI.utils.skipHello();
 
 const store = getStore();
+
+Sentry.init({
+  dsn:
+    'https://a1b8cacbf80d4d16afce2fb9cd39db2f@o416463.ingest.sentry.io/5311573',
+});
 
 render(
   <Provider store={store}>

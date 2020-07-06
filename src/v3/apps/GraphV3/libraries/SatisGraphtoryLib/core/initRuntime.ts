@@ -8,7 +8,7 @@ import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import { getAllBuildableMachines } from 'v3/data/loaders/buildings';
 
-const initRuntime = (pixiJS: any) => {
+const initRuntime = (pixiJS: any, numNodes: number) => {
   if (!pixiJS.renderer) {
     return;
   }
@@ -41,10 +41,10 @@ const initRuntime = (pixiJS: any) => {
     4
   );
 
-  const items = getMachineCraftableItems()
-  const machines = getAllBuildableMachines()
+  const items = getMachineCraftableItems();
+  const machines = getAllBuildableMachines();
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < numNodes; i++) {
     const item = items[Math.floor(Math.random() * items.length)];
     const machine = machines[Math.floor(Math.random() * machines.length)];
     const tNode = Node(

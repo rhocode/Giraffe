@@ -1,17 +1,28 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    hidden: {
+      display: 'none',
+    },
+  })
+);
 
 function PixiJSApplication(props) {
   const { height, width } = props;
 
-  const pixiApp = pixiJsStore.useState((s) => s.application);
+  const styles = useStyles();
 
+  const pixiApp = pixiJsStore.useState((s) => s.application);
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
   React.useEffect(() => {
     if (canvasRef.current && originalCanvasRef.current !== canvasRef.current) {
+      console.log('different canvas');
       originalCanvasRef.current = canvasRef.current;
       pixiJsStore.update((s) => {
         const newApplication = new PIXI.Application({
@@ -48,7 +59,9 @@ function PixiJSApplication(props) {
     }
   }, [height, pixiApp.renderer, width]);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <canvas className={props.hidden ? styles.hidden : null} ref={canvasRef} />
+  );
 }
 
 export default PixiJSApplication;

@@ -84,9 +84,19 @@ function GraphApp(props) {
     }
   }, [language.code, match, pixiApplication]);
 
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const numNodes = urlParams.get('numNodes') || 10;
+
   React.useEffect(() => {
-    initRuntime(pixiApplication);
-  }, [pixiApplication]);
+    initRuntime(pixiApplication, numNodes);
+    if (pixiApplication.stage) {
+      pixiApplication.renderer.render(pixiApplication.stage);
+      pixiJsStore.update((s) => {
+        s.loaded = true;
+      });
+    }
+  }, [numNodes, pixiApplication]);
 
   return (
     <React.Fragment>
@@ -121,10 +131,10 @@ function GraphApp(props) {
 //TODO: Fix this inner app to be a part of the outside app locale.
 const InnerGraphApp = withStyles(styles)(GraphApp);
 
-function GraphAppWithLocale() {
+function GraphAppWithLocale(props) {
   return (
     <LocaleProvider>
-      <InnerGraphApp />
+      <InnerGraphApp {...props} />
     </LocaleProvider>
   );
 }
