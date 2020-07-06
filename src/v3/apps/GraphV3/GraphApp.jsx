@@ -86,7 +86,7 @@ function GraphApp(props) {
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  const numNodes = urlParams.get('numNodes') || 10;
+  const numNodes = parseInt(urlParams.get('numNodes'), 10) || 10;
 
   React.useEffect(() => {
     initRuntime(pixiApplication, numNodes);

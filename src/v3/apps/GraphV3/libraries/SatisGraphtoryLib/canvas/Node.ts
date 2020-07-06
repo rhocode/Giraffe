@@ -156,7 +156,7 @@ export const Node = (
     inCircle.position.x = x;
     inCircle.position.y = offset;
     container.addChild(inCircle);
-  })
+  });
 
   const outTex = PIXI.utils.TextureCache['outCircle'];
   outOffsets.forEach(function (offset) {
@@ -165,7 +165,7 @@ export const Node = (
     outCircle.position.x = x + WIDTH;
     outCircle.position.y = offset;
     container.addChild(outCircle);
-  })
+  });
 
   const machineTex = PIXI.utils.TextureCache[machine];
   const machineSprite = new PIXI.Sprite(machineTex);
@@ -190,7 +190,6 @@ export const Node = (
   container.addChild(outputStr);
   container.addChild(machineSprite);
   container.addChild(itemSprite);
-  // container.cacheAsBitmap = true
 
   container.interactive = true;
   container.buttonMode = true;
@@ -222,6 +221,8 @@ export const Node = (
       container.position.y = sourceY + (newPos.y - clickY);
     }
   });
+
+  // container.cacheAsBitmap = true
 
   return container;
 };
