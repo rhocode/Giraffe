@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
 import { getItemDefinition } from 'v3/data/loaders/items';
 
 const WIDTH = 220;

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
@@ -26,7 +26,8 @@ function PixiJSApplication(props) {
       console.log('different canvas');
       originalCanvasRef.current = canvasRef.current;
       pixiJsStore.update((s) => {
-        const newApplication = new PIXI.Application({
+        // try {
+        let newApplication = new PIXI.Application({
           transparent: true,
           autoDensity: true,
           height,
@@ -50,6 +51,9 @@ function PixiJSApplication(props) {
           s.application.stage.addChild(...s.childQueue);
           s.childQueue = [];
         }
+        // } catch(e) {
+        //  // Probably ask the user to turn on webGL
+        // }
       });
     }
   }, [canvasRef, height, width]);
