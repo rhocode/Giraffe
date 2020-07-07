@@ -1,5 +1,5 @@
 import { Store } from 'pullstate';
-import * as PIXI from 'pixi.js-legacy';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 
 export const pixiJsStore = new Store({
   application: {} as PIXI.Application,

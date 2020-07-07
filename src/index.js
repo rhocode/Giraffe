@@ -17,7 +17,7 @@ import { LocalizeProvider } from 'react-localize-redux';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
-import * as PIXI from 'pixi.js-legacy';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import * as Sentry from '@sentry/react';
 
 import { enableMapSet } from 'immer';

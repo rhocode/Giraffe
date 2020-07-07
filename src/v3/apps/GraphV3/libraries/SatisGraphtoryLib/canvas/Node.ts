@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js-legacy';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { getItemDefinition } from 'v3/data/loaders/items';
 
 const WIDTH = 220;

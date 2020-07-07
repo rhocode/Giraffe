@@ -1,5 +1,5 @@
 import React from 'react';
-import * as PIXI from 'pixi.js-legacy';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
