@@ -42,18 +42,17 @@ function PixiJSApplication(props) {
         const viewport = new Viewport({
           screenWidth: width,
           screenHeight: height,
-          worldWidth: 20000,
-          worldHeight: 20000,
+          worldWidth: width * 2,
+          worldHeight: height * 2,
           // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
           interaction: newApplication.renderer.plugins.interaction,
         });
 
         newApplication.stage.addChild(viewport);
 
-        viewport
-          // .drag()
-          // .pinch()
-          .wheel();
+        viewport.drag().pinch().wheel({
+          smooth: 10,
+        });
         // .decelerate()
 
         // Figure this out later, if we need to factor in the viewport
@@ -68,7 +67,7 @@ function PixiJSApplication(props) {
         s.viewport = viewport;
 
         viewport.on('mousemove', function (mouseData) {
-          console.log(viewport.toWorld(mouseData.data.global));
+          // console.log(viewport.toWorld(mouseData.data.global));
         });
 
         s.application = newApplication;
