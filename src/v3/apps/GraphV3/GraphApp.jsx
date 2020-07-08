@@ -7,14 +7,20 @@ import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
 // import { graphAppStore } from './stores/graphAppStore';
 import NavBar from './components/NavBar';
 import Canvas from './components/Canvas';
-import ActionBar from './components/ActionBar';
+// import ActionBar from './components/ActionBar';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
-import NodeDrawer from './components/NodeDrawer';
+// import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+// import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
+// import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 
 const styles = (theme) => {
   return {
@@ -33,8 +39,20 @@ const styles = (theme) => {
       gridTemplateRows: 'auto minmax(0, 1fr) auto',
       gridTemplateColumns: '1fr',
     },
-    thing1: {
-      gridArea: 'bottomActions',
+    inProgressImage: {
+      maxWidth: '100%',
+      maxHeight: '100%',
+      display: 'block',
+    },
+    flexItem: {
+      flexGrow: 0,
+    },
+    flexItemGrow: {
+      flexGrow: 1,
+    },
+    flexContainer: {
+      display: 'flex',
+      flexDirection: 'column',
     },
   };
 };
@@ -95,13 +113,49 @@ function GraphApp(props) {
             <meta property="og:url " content={window.location.href} />
             <title>{helmet.title}</title>
           </Helmet>
-          <NavBar />
-          <ChainWizardPanel />
-          <Canvas>
-            <ActionBar />
-            <DebugFab />
-          </Canvas>
-          <NodeDrawer />
+          {/*<NavBar />*/}
+          {/*<ChainWizardPanel />*/}
+          {/*<Canvas>*/}
+          {/*  <ActionBar />*/}
+          {/*  <DebugFab />*/}
+          {/*</Canvas>*/}
+          {/*<NodeDrawer />*/}
+          <Dialog aria-labelledby="customized-dialog-title" open={true}>
+            <DialogTitle id="customized-dialog-title">
+              Welcome to SatisGraphtory!
+            </DialogTitle>
+            <DialogContent dividers>
+              <div className={classes.flexContainer}>
+                <div className={classes.flexItem}>
+                  <Typography gutterBottom>
+                    We're hard at work building SatisGraphtory2! While we don't
+                    have a release date yet, it's in active development! Join
+                    our discord for updates, or reach out to us if you'd like to
+                    help!
+                  </Typography>
+                </div>
+                <div className={classes.flexItemGrow}>
+                  <img
+                    className={classes.inProgressImage}
+                    src={
+                      'https://cdn.discordapp.com/attachments/129647483738390528/730273312009093160/unknown.png'
+                    }
+                    alt={'inProgress'}
+                  />
+                </div>
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  window.open('https://discord.gg/ZRpcgqY', '_blank');
+                }}
+                color="primary"
+              >
+                Join our Discord!
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       ) : (
         <div className={classes.container}>
