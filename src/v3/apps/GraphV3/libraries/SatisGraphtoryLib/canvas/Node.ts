@@ -219,6 +219,12 @@ export const Node = (
       const newPos = event.data.getLocalPosition(this.parent);
       container.position.x = sourceX + (newPos.x - clickX);
       container.position.y = sourceY + (newPos.y - clickY);
+
+      console.log(
+        'THIS CONTAINER POS :',
+        container.position.x,
+        container.position.y
+      );
     }
   });
 

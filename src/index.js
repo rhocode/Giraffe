@@ -35,6 +35,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+console.log('User agent: ', navigator?.userAgent);
+
 render(
   <Provider store={store}>
     <ServiceWorkerProvider>

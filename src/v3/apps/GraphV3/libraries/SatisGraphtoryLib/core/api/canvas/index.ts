@@ -6,8 +6,8 @@ export const addChild = (child: PIXI.DisplayObject) => {
   pixiJsStore.update((s) => {
     s.children.set(id, child);
 
-    if (s.application.stage) {
-      s.application.stage.addChild(...s.childQueue, child);
+    if (s.viewport) {
+      s.viewport.addChild(...s.childQueue, child);
       s.childQueue = [];
     } else {
       s.childQueue.push(child);
@@ -30,7 +30,7 @@ export const removeChild = (id: string) => {
     if (index !== -1) {
       s.childQueue.splice(index, 1);
     } else {
-      s.application.stage.removeChild(childToRemove);
+      s.viewport.removeChild(childToRemove);
     }
   });
 };
