@@ -201,6 +201,7 @@ export const Node = (
   let clickY = 0;
   container.on('pointerover', onHover);
   container.on('pointerdown', function (this: any, event: any) {
+    event.stopPropagation();
     const newPos = event.data.getLocalPosition(this.parent);
     clickX = newPos.x;
     clickY = newPos.y;
@@ -216,15 +217,14 @@ export const Node = (
   });
   container.on('pointermove', function (this: any, event: any) {
     if (dragging) {
+      event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
       container.position.x = sourceX + (newPos.x - clickX);
       container.position.y = sourceY + (newPos.y - clickY);
-
-      console.log(
-        'THIS CONTAINER POS :',
-        container.position.x,
-        container.position.y
-      );
+      // console.log(
+      //   container.position.x,
+      //   container.position.y
+      // );
     }
   });
 

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "public/electron.js",
   "author": "Rhocode",
-  "homepage": "./",
+  "homepage": "/",
   "private": true,
   "description": "SatisGraphtory App",
   "dependencies": {
@@ -99,7 +99,6 @@
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=true REACT_APP_VERSION=$npm_package_version react-scripts build",
-    "postbuild": "react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
@@ -145,7 +144,6 @@
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
     "jest-canvas-mock": "^2.2.0",
-    "react-snap": "^1.23.0",
     "wait-on": "^4.0.0"
   },
   "husky": {
