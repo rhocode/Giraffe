@@ -13,7 +13,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const incomingBelts = Array.from(this.resourceIn.keys());
     const totalBeltInput = incomingBelts
-      .map(belt => {
+      .map((belt) => {
         const rates = belt.getAllResourceRates();
         if (rates.overflowed) {
           excessResources.push(...rates.excessResourceRates);
@@ -26,14 +26,14 @@ export default class SplitterNode extends BalancedPropagatorNode {
     //TODO: fix excess input rates
     const inputRate = ResourceRate.getTotalItemRate(totalBeltInput);
 
-    const outputBelts = Array.from(this.outputs.keys()).map(item => {
+    const outputBelts = Array.from(this.outputs.keys()).map((item) => {
       if (!(item instanceof Belt)) {
         throw new Error('Not a belt!');
       }
       return item as Belt;
     });
 
-    const speeds = outputBelts.map(belt => belt.getSpeedInItemsPerSecond());
+    const speeds = outputBelts.map((belt) => belt.getSpeedInItemsPerSecond());
 
     //TODO: Figure out the OPTIMAL configuration
     const calculation = memoizedFractionalSplitterCalculator(inputRate, speeds);
@@ -42,12 +42,12 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const actual = result.actual;
 
-    const packets = actual.beltPackets;
+    // const packets = actual.beltPackets;
 
     const beltPackets = actual.beltPackets.map((packet: any) => {
       return {
         qty: packet.qty,
-        seconds: packet.seconds.multiply(new Fraction(factor, 1))
+        seconds: packet.seconds.multiply(new Fraction(factor, 1)),
       };
     });
 
@@ -60,7 +60,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
 
     const allResources = ResourceRate.collect(totalBeltInput);
 
-    const inputBelts = Array.from(this.inputs.keys()).map(item => {
+    const inputBelts = Array.from(this.inputs.keys()).map((item) => {
       if (!(item instanceof Belt)) {
         throw new Error('Not a belt!');
       }
@@ -68,7 +68,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
     });
 
     if (missingInput.toNumber() > 0) {
-      allResources.forEach(rate => {
+      allResources.forEach((rate) => {
         const fractionalResource = rate.fractional(missingInput);
 
         // console.error('[Splitter] Missing fractional resource', fractionalResource);
@@ -77,7 +77,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
     }
 
     if (excessResources.length > 0) {
-      inputBelts.forEach(belt => {
+      inputBelts.forEach((belt) => {
         excess.set(belt, excessResources);
       });
     }
@@ -107,7 +107,7 @@ export default class SplitterNode extends BalancedPropagatorNode {
       //TODO: refactor this shit to be legible?
       belt.clearResources();
 
-      allResources.forEach(rate => {
+      allResources.forEach((rate) => {
         const fractionalResource = rate.fractional(localRate);
 
         // console.error('[Splitter] Adding fractional resource', fractionalResource);
@@ -130,6 +130,6 @@ export default class SplitterNode extends BalancedPropagatorNode {
     edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
-    return new Map();
+    // return new Map();
   }
 }

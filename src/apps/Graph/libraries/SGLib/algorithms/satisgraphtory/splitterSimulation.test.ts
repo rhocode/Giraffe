@@ -1,7 +1,4 @@
-import memoizedSplitterCalculator, {
-  memoizedFractionalSplitterCalculator,
-} from './splitterSimulation';
-import Fraction from '../../datatypes/primitives/fraction';
+import memoizedSplitterCalculator from './splitterSimulation';
 import * as math from 'mathjs';
 
 it('calculates the splitter', () => {

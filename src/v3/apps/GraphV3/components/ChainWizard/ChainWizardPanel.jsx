@@ -159,8 +159,6 @@ const updateAutoCalculate = (event, val) => {
 function ChainWizardPanel() {
   const classes = useStyles();
 
-  const demoVar4 = '';
-
   const productsList = useStoreState(graphWizardStore, (s) => s.boxes);
 
   const { translate } = React.useContext(LocaleContext);

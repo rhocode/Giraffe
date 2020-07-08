@@ -152,7 +152,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "eslint src/ --ext .js,.jsx,.ts,.tsx",
+      "eslint src/ --ext .js,.jsx,.ts,.tsx --max-warnings 0",
       "prettier --single-quote --write",
       "git add"
     ],
