@@ -12,20 +12,19 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   Typography,
-  Checkbox
+  Checkbox,
 } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import BuildIcon from '@material-ui/icons/Build';
 import FlareIcon from '@material-ui/icons/Flare';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {getMachineCraftableRecipeDefinitionList} from "v3/data/loaders/recipes";
-import {LocaleContext} from "v3/components/LocaleProvider";
-import {getItemIcon} from 'v3/data/loaders/items';
+import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
+import { LocaleContext } from 'v3/components/LocaleProvider';
+import { getItemIcon } from 'v3/data/loaders/items';
 import Scrollbar from 'react-scrollbars-custom';
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   drawer: {
     width: theme.overrides.GraphDrawer.width * 2.5,
     marginTop: theme.overrides.GraphAppBar.height,
@@ -34,17 +33,17 @@ const styles = theme => ({
   drawerContent: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   tabContent: {
     padding: 20,
     display: 'flex',
     flexDirection: 'column',
-    flexGrow: 1
+    flexGrow: 1,
   },
   divider: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   list: {
     overflow: 'hidden',
@@ -57,15 +56,15 @@ const styles = theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    overflowY: 'auto'
+    overflowY: 'auto',
   },
   icon: {
-    height: 30
+    height: 30,
   },
   button: {
     marginTop: 10,
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 function GlobalSettingsPanel(props) {
@@ -75,34 +74,38 @@ function GlobalSettingsPanel(props) {
     setTabValue(newValue);
   }
 
-  const { classes, setDrawerOpen, drawerOpen } = props;
+  // setDrawerOpen, drawerOpen
+  const { classes } = props;
 
   const { translate } = React.useContext(LocaleContext);
   const [alternateRecipes] = React.useState(
-    getMachineCraftableRecipeDefinitionList().filter(({slug}) => slug.indexOf('-alternate-') !== -1).sort((a, b) => {
-      return translate(a.slug).localeCompare(translate(b.slug))
-    })
-  )
+    getMachineCraftableRecipeDefinitionList()
+      .filter(({ slug }) => slug.indexOf('-alternate-') !== -1)
+      .sort((a, b) => {
+        return translate(a.slug).localeCompare(translate(b.slug));
+      })
+  );
 
   const [regularRecipes] = React.useState(
-    getMachineCraftableRecipeDefinitionList().filter(({slug}) => slug.indexOf('-alternate-') === -1).sort((a, b) => {
-      return translate(a.slug).localeCompare(translate(b.slug))
-    })
-  )
+    getMachineCraftableRecipeDefinitionList()
+      .filter(({ slug }) => slug.indexOf('-alternate-') === -1)
+      .sort((a, b) => {
+        return translate(a.slug).localeCompare(translate(b.slug));
+      })
+  );
 
   return (
     <Drawer
       //variant={isMobile ? "permanent" : "temporary" }
       variant="temporary"
       anchor={'right'}
-    //   open={drawerOpen}
+      //   open={drawerOpen}
       open={true}
       // onClose={() => setDrawerOpen(false)}
       classes={{
-        paper: classes.drawer
+        paper: classes.drawer,
       }}
     >
-
       <div className={classes.drawerContent}>
         <Tabs
           value={tabValue}
@@ -119,7 +122,7 @@ function GlobalSettingsPanel(props) {
         {tabValue === 0 && (
           <div className={classes.tabContent}>
             <Typography variant="h5">Settings</Typography>
-            <Divider className={classes.divider}/>
+            <Divider className={classes.divider} />
             <FormGroup>
               <FormControlLabel
                 control={
@@ -133,7 +136,11 @@ function GlobalSettingsPanel(props) {
                 label="High Fidelity Graph"
               />
             </FormGroup>
-            <Button variant="contained" color="primary" className={classes.button}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
               Analyze
             </Button>
             <Button
@@ -142,9 +149,9 @@ function GlobalSettingsPanel(props) {
               className={classes.button}
               onClick={() => {
                 // if (graphData) {
-                  // transformGraph(graphData, () => {
-                  //   forceRefreshGraph();
-                  // });
+                // transformGraph(graphData, () => {
+                //   forceRefreshGraph();
+                // });
                 // }
               }}
             >
@@ -160,19 +167,25 @@ function GlobalSettingsPanel(props) {
               <div className={classes.innerList}>
                 <Scrollbar>
                   <List>
-                    {
-                      alternateRecipes.map(({slug:item, products}) => {
-                        return(
-                          <ListItem button key={'key'+item}>
-                            <ListItemIcon>
-                              <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
-                            </ListItemIcon>
-                            <ListItemText id={'toggle-' + item} primary={translate(item)}/>
-                            <ListItemSecondaryAction>
-                              <Checkbox edge="end"/>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        )
+                    {alternateRecipes.map(({ slug: item, products }) => {
+                      return (
+                        <ListItem button key={'key' + item}>
+                          <ListItemIcon>
+                            <img
+                              className={classes.icon}
+                              src={getItemIcon(products[0].slug)}
+                              alt={item}
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            id={'toggle-' + item}
+                            primary={translate(item)}
+                          />
+                          <ListItemSecondaryAction>
+                            <Checkbox edge="end" />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
                     })}
                   </List>
                 </Scrollbar>
@@ -188,19 +201,25 @@ function GlobalSettingsPanel(props) {
               <div className={classes.innerList}>
                 <Scrollbar>
                   <List>
-                    {
-                      regularRecipes.map(({slug:item, products}) => {
-                        return(
-                          <ListItem button key={'key'+item}>
-                            <ListItemIcon>
-                              <img className={classes.icon} src={ getItemIcon(products[0].slug) } alt={item}/>
-                            </ListItemIcon>
-                            <ListItemText id={'toggle-' + item} primary={translate(item)}/>
-                            <ListItemSecondaryAction>
-                              <Checkbox edge="end"/>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        )
+                    {regularRecipes.map(({ slug: item, products }) => {
+                      return (
+                        <ListItem button key={'key' + item}>
+                          <ListItemIcon>
+                            <img
+                              className={classes.icon}
+                              src={getItemIcon(products[0].slug)}
+                              alt={item}
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            id={'toggle-' + item}
+                            primary={translate(item)}
+                          />
+                          <ListItemSecondaryAction>
+                            <Checkbox edge="end" />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
                     })}
                   </List>
                 </Scrollbar>
@@ -209,7 +228,6 @@ function GlobalSettingsPanel(props) {
           </div>
         )}
       </div>
-
     </Drawer>
   );
 }

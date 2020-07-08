@@ -15,7 +15,7 @@ export default class MergerNode extends BalancedPropagatorNode {
 
     let errored = false;
 
-    const totalBeltInput = incomingBelts.map(belt => {
+    const totalBeltInput = incomingBelts.map((belt) => {
       const rates = belt.getAllResourceRates();
 
       errored = errored || rates.errored;
@@ -27,25 +27,25 @@ export default class MergerNode extends BalancedPropagatorNode {
       return rates.resourceRate;
     });
 
-    const inputRates = totalBeltInput.map(rates => {
+    const inputRates = totalBeltInput.map((rates) => {
       return ResourceRate.getTotalItemRate(rates);
     });
 
-    const inputBelts = Array.from(this.inputs.keys()).map(item => {
+    const inputBelts = Array.from(this.inputs.keys()).map((item) => {
       if (!(item instanceof Belt)) {
         throw new Error('Not a belt!');
       }
       return item as Belt;
     });
 
-    const outputBelts = Array.from(this.outputs.keys()).map(item => {
+    const outputBelts = Array.from(this.outputs.keys()).map((item) => {
       if (!(item instanceof Belt)) {
         throw new Error('Not a belt!');
       }
       return item as Belt;
     });
 
-    const speeds = outputBelts.map(belt => belt.getSpeedInItemsPerSecond());
+    const speeds = outputBelts.map((belt) => belt.getSpeedInItemsPerSecond());
 
     if (speeds.length > 1) {
       throw new Error('Not a merger, has multiple speeds');
@@ -68,7 +68,7 @@ export default class MergerNode extends BalancedPropagatorNode {
     const beltPackets = packets.map((packet: any) => {
       return {
         qty: packet.qty,
-        seconds: packet.seconds.multiply(new Fraction(factor, 1))
+        seconds: packet.seconds.multiply(new Fraction(factor, 1)),
       };
     });
 
@@ -100,7 +100,7 @@ export default class MergerNode extends BalancedPropagatorNode {
       const missingInput = thisBelt.subtract(localRate);
 
       if (missingInput.toNumber() > 0) {
-        allResources.forEach(rate => {
+        allResources.forEach((rate) => {
           const fractionalResource = rate.fractional(missingInput);
           // console.error('[Merger] Overflow of fractional resource', fractionalResource);
 
@@ -115,7 +115,7 @@ export default class MergerNode extends BalancedPropagatorNode {
 
     const summedInputRates = new Fraction(0, 1);
 
-    inputRates.forEach(rate => {
+    inputRates.forEach((rate) => {
       summedInputRates.mutateAdd(rate);
     });
 
@@ -128,9 +128,9 @@ export default class MergerNode extends BalancedPropagatorNode {
     }
 
     // there's only one belt.
-    outputBelts.forEach(belt => {
+    outputBelts.forEach((belt) => {
       // push output to the belt!
-      allResources.forEach(rate => {
+      allResources.forEach((rate) => {
         const fractionalResource = rate.fractional(presentOutput);
 
         // console.error('[Merger] Adding fractional resource', fractionalResource);
@@ -150,6 +150,6 @@ export default class MergerNode extends BalancedPropagatorNode {
     edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
-    return new Map();
+    // return new Map();
   }
 }

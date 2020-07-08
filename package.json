@@ -18,6 +18,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@msgpack/msgpack": "^1.11.0",
+    "@sentry/react": "^5.19.0",
     "@types/jest": "^26.0.0",
     "@types/mathjs": "^6.0.4",
     "@types/node": "^14.0.13",
@@ -51,9 +52,11 @@
     "lzutf8": "^0.5.5",
     "mathjs": "^7.0.1",
     "multi-metagen": "^3.0.0",
-    "node-sass": "4.14.1",
+    "node-sass": "^4.13.1",
     "normalize-wheel": "^1.0.1",
+    "pixi-viewport": "^4.12.0",
     "pixi.js": "^5.3.0",
+    "pixi.js-legacy": "^5.3.0",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
     "protobufjs": "^6.8.8",
@@ -95,7 +98,8 @@
   },
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
-    "build": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "build": "cross-env GENERATE_SOURCEMAP=true REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "postbuild": "react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
@@ -141,7 +145,8 @@
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
     "jest-canvas-mock": "^2.2.0",
-    "wait-on": "^5.0.1"
+    "react-snap": "^1.23.0",
+    "wait-on": "^4.0.0"
   },
   "husky": {
     "hooks": {
@@ -150,7 +155,9 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write"
+      "eslint src/ --ext .js,.jsx,.ts,.tsx --fix --max-warnings 0",
+      "prettier --single-quote --write",
+      "git add"
     ],
     "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write"

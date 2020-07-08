@@ -9,16 +9,11 @@ import {
   ExpansionPanelActions,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Input,
-  InputAdornment,
-  FormControl,
-  FormHelperText,
   OutlinedInput,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import IconButton from '@material-ui/core/IconButton';
 import CategoryIcon from '@material-ui/icons/Category';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import AddIcon from '@material-ui/icons/Add';
@@ -30,7 +25,7 @@ import FastRewindIcon from '@material-ui/icons/FastRewind';
 import SelectDropdown from '../../../../../common/react/SelectDropdown';
 import Scrollbar from 'react-scrollbars-custom';
 
-const styles = theme => ({
+const styles = (theme) => ({
   drawer: {
     width: theme.overrides.GraphDrawer.width * 2,
     marginTop: theme.overrides.GraphAppBar.height,
@@ -45,31 +40,31 @@ const styles = theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    flexGrow: 1
+    flexGrow: 1,
   },
   tabContent: {
     padding: 20,
-    
+
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    flexGrow: 1
+    flexGrow: 1,
   },
   fab: {
     position: 'fixed',
     bottom: '2em',
     right: '2em',
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   fabMobile: {
     position: 'fixed',
     bottom: '7em',
     right: '2em',
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   overclockTextField: {
-    minWidth: 80
+    minWidth: 80,
     // width: 100
   },
   // overclockRow: {
@@ -77,17 +72,17 @@ const styles = theme => ({
   // },
   divider: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   expandPanel: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   tiers: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   buttonText: {
     // color: 'white',
-  }
+  },
 });
 
 const CustomOutlinedInput = ({
@@ -119,7 +114,8 @@ function ObjectSettingPanel(props) {
     setTabValue(newValue);
   }
 
-  const { classes, setDrawerOpen, drawerOpen } = props;
+  // drawerOpen
+  const { classes, setDrawerOpen } = props;
 
   return (
     <Drawer
@@ -130,7 +126,7 @@ function ObjectSettingPanel(props) {
       open={true}
       onClose={() => setDrawerOpen(false)}
       classes={{
-        paper: classes.drawer
+        paper: classes.drawer,
       }}
     >
       <div className={classes.drawerContent}>
@@ -169,21 +165,25 @@ function ObjectSettingPanel(props) {
               <Typography variant="h6">Set ALL Node Tiers</Typography>
               <div className={classes.tiers}>
                 {/* <Typography variant="body1"> */}
-                  <ButtonGroup disableElevation fullWidth>
-                    <Button color="secondary" className={classes.iconbutton}>
-                      <FastRewindIcon />
-                    </Button>
-                    <Button disableRipple disableFocusRipple disableTouchRipple className={classes.buttonText}>
-                      Mark 1
-                    </Button>
-                    <Button color="primary" className={classes.iconbutton}>
-                      <FastForwardIcon />
-                    </Button>
-                  </ButtonGroup>
+                <ButtonGroup disableElevation fullWidth>
+                  <Button color="secondary" className={classes.iconbutton}>
+                    <FastRewindIcon />
+                  </Button>
+                  <Button
+                    disableRipple
+                    disableFocusRipple
+                    disableTouchRipple
+                    className={classes.buttonText}
+                  >
+                    Mark 1
+                  </Button>
+                  <Button color="primary" className={classes.iconbutton}>
+                    <FastForwardIcon />
+                  </Button>
+                </ButtonGroup>
                 {/* </Typography> */}
               </div>
               <Divider className={classes.divider} />
-              
 
               {/* <Typography variant="h6">Set ALL Overclock</Typography>
                 <TextField
@@ -217,20 +217,19 @@ function ObjectSettingPanel(props) {
                   {/* <div className={classes.tiers}> */}
                   <Typography variant="body1">Machine Level</Typography>
                   <ButtonGroup fullWidth disableElevation>
-                    <Button
-                      color="secondary"
-                      className={classes.iconbutton}
-                    >
+                    <Button color="secondary" className={classes.iconbutton}>
                       <FastRewindIcon />
                     </Button>
-                    <Button
-                      color="secondary"
-                      className={classes.iconbutton}
-                    >
+                    <Button color="secondary" className={classes.iconbutton}>
                       <RemoveIcon />
                     </Button>
-                    <Button disableRipple disableFocusRipple disableTouchRipple className={classes.buttonText}>
-                    Mark 1
+                    <Button
+                      disableRipple
+                      disableFocusRipple
+                      disableTouchRipple
+                      className={classes.buttonText}
+                    >
+                      Mark 1
                     </Button>
                     <Button color="primary" className={classes.iconbutton}>
                       <AddIcon />
@@ -242,7 +241,9 @@ function ObjectSettingPanel(props) {
                   {/* </div> */}
                   <Divider className={classes.divider} />
 
-                  <Typography variant="body1">Miner Efficiency (Overclock %)</Typography>
+                  <Typography variant="body1">
+                    Miner Efficiency (Overclock %)
+                  </Typography>
                   <div className={classes.overclockRow}>
                     <ButtonGroup disableElevation fullWidth>
                       <Button color="secondary" className={classes.iconbutton}>
@@ -269,7 +270,7 @@ function ObjectSettingPanel(props) {
                           </FormHelperText>
                         </FormControl>
                       </Button> */}
-                      <StyledInput className={classes.overclockTextField}/>
+                      <StyledInput className={classes.overclockTextField} />
                       <Button color="primary" className={classes.iconbutton}>
                         <AddIcon />
                       </Button>
@@ -341,7 +342,12 @@ function ObjectSettingPanel(props) {
                 <Button color="secondary" className={classes.iconbutton}>
                   <RemoveIcon />
                 </Button>
-                <Button disableRipple disableFocusRipple disableTouchRipple className={classes.buttonText}>
+                <Button
+                  disableRipple
+                  disableFocusRipple
+                  disableTouchRipple
+                  className={classes.buttonText}
+                >
                   Mark 1
                 </Button>
                 <Button color="primary" className={classes.iconbutton}>

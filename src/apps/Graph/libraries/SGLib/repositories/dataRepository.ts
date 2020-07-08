@@ -1,5 +1,3 @@
-import * as protobuf from 'protobufjs/light';
-
 // Broken file
 const dataLoaderImpl = () => {
   const memoizedLoadData: Map<String, any> = new Map();
@@ -14,13 +12,13 @@ const dataLoaderImpl = () => {
       const promise = fetch(
         `${process.env.PUBLIC_URL}/proto/0.1.0/${filename}.s2`
       )
-        .then(data => data.arrayBuffer())
-        .then(buffer => new Uint8Array(buffer))
-        .then(buffer => {
+        .then((data) => data.arrayBuffer())
+        .then((buffer) => new Uint8Array(buffer))
+        .then((buffer) => {
           return ItemList.decode(buffer);
         })
-        .then(data => ItemList.toObject(data).data)
-        .then(data => mapper(data));
+        .then((data) => ItemList.toObject(data).data)
+        .then((data) => mapper(data));
       memoizedLoadData.set(key, promise);
       return promise;
     }

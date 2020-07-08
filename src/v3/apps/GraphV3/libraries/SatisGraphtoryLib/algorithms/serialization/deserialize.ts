@@ -1,4 +1,4 @@
-import * as protobuf from 'protobufjs/light';
+// import * as protobuf from 'protobufjs/light';
 import { ErrMsg, validB64Chars } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
 
@@ -99,7 +99,7 @@ const deserialize = (jsonData: any) => {
   if (d === '') {
     return {
       nodes: [],
-      edges: []
+      edges: [],
     };
   }
 
@@ -116,7 +116,7 @@ const deserialize = (jsonData: any) => {
 
   const text = SaveFile.decode(currentBuffer);
   return SaveFile.toObject(text, {
-    enums: String
+    enums: String,
   });
 };
 

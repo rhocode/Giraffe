@@ -25,6 +25,6 @@ export default class SimplePropagatorNode extends SatisGraphtoryLoopableNode {
     edge: SimpleEdge
   ): Map<SatisGraphtoryAbstractNode, ResourceRate> {
     throw new Error('Unimplemented!');
-    return new Map();
+    // return new Map();
   }
 }

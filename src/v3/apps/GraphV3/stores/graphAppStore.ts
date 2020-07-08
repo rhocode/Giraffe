@@ -61,8 +61,8 @@ export const graphWizardStore = new Store({
 export const graphAppStore = new Store({
   graphFidelity: 'high',
   graphData: {
-    edges: [] as SatisGraphtoryEdge[],
-    nodes: [] as SatisGraphtoryNode[],
+    edges: new Map<string, SatisGraphtoryEdge>(),
+    nodes: new Map<string, SatisGraphtoryNode>(),
   },
   initialLoadedData: null,
   mouseMode: 'move',

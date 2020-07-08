@@ -13,14 +13,9 @@ import Canvas from './components/Canvas';
 // import worker from 'workerize-loader!./workertest';
 // import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
-// import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-// import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
+import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
+import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+import { pixiJsStore } from './libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
 const styles = (theme) => {
   return {
@@ -72,10 +67,10 @@ function GraphApp(props) {
     // });
   }, []);
 
+  const pixiApplication = pixiJsStore.useState((s) => s.application);
+
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
-
-    initRuntime();
 
     if (graphId) {
       fetch('https://api.myjson.com/bins/' + graphId)
@@ -99,7 +94,31 @@ function GraphApp(props) {
         image: 'https://i.imgur.com/DPEmxE0.png',
       });
     }
-  }, [language.code, match]);
+  }, [language.code, match, pixiApplication]);
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const numNodes = parseInt(urlParams.get('numNodes'), 10) || 10;
+
+  React.useEffect(() => {
+    initRuntime(pixiApplication, numNodes);
+    if (pixiApplication.stage) {
+      pixiApplication.renderer.render(pixiApplication.stage);
+      pixiJsStore.update((s) => {
+        s.loaded = true;
+      });
+    }
+  }, [numNodes, pixiApplication]);
+
+  const loaded = pixiJsStore.useState((s) => {
+    return s.loaded;
+  });
+
+  React.useEffect(() => {
+    if (loaded) {
+      window.prerenderReady = true;
+    }
+  }, [loaded]);
 
   return (
     <React.Fragment>
@@ -113,13 +132,6 @@ function GraphApp(props) {
             <meta property="og:url " content={window.location.href} />
             <title>{helmet.title}</title>
           </Helmet>
-          {/*<NavBar />*/}
-          {/*<ChainWizardPanel />*/}
-          {/*<Canvas>*/}
-          {/*  <ActionBar />*/}
-          {/*  <DebugFab />*/}
-          {/*</Canvas>*/}
-          {/*<NodeDrawer />*/}
           <Dialog aria-labelledby="customized-dialog-title" open={true}>
             <DialogTitle id="customized-dialog-title">
               Welcome to SatisGraphtory!
@@ -176,10 +188,10 @@ function GraphApp(props) {
 //TODO: Fix this inner app to be a part of the outside app locale.
 const InnerGraphApp = withStyles(styles)(GraphApp);
 
-function GraphAppWithLocale() {
+function GraphAppWithLocale(props) {
   return (
     <LocaleProvider>
-      <InnerGraphApp />
+      <InnerGraphApp {...props} />
     </LocaleProvider>
   );
 }
