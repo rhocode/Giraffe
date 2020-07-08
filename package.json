@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "public/electron.js",
   "author": "Rhocode",
-  "homepage": "./",
+  "homepage": "/",
   "private": true,
   "description": "SatisGraphtory App",
   "dependencies": {
