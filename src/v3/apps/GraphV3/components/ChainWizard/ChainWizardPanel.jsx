@@ -159,7 +159,7 @@ const updateAutoCalculate = (event, val) => {
 function ChainWizardPanel() {
   const classes = useStyles();
 
-  const demoVar = '';
+  const demoVar2 = '';
 
   const productsList = useStoreState(graphWizardStore, (s) => s.boxes);
 
