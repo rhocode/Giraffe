@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Page from './components/Page';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
-import Card from './components/Card';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
-import Copyright from './components/Copyright';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Page from "./components/Page";
+import Header from "./components/Header";
+import { Menu, MenuLinks, MenuTrigger } from "./components/Menu";
+import Card from "./components/Card";
+import Section from "./components/Section";
+import Spotlight from "./components/Spotlight";
+import Copyright from "./components/Copyright";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faDownload,
   faPen,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
   faRedditAlien,
   faTwitter,
   faGithub,
-} from '@fortawesome/free-brands-svg-icons';
-import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
-import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
+} from "@fortawesome/free-brands-svg-icons";
+import satisgraphtory2_square_with_background from "../../images/satisgraphtory2_square_with_background.png";
+import satisgraphtory2_square from "../../images/satisgraphtory2_square.png";
 
 class HomeApp extends Component {
   state = {
@@ -34,14 +34,14 @@ class HomeApp extends Component {
     if (!!this.props.location.hash) {
       window.location.href =
         window.location.protocol +
-        '//old.satisgraphtory.com' +
+        "//old.satisgraphtory.com" +
         window.location.pathname +
         window.location.search;
     }
   }
 
   render() {
-    const Css = React.lazy(() => import('./CssWrapper'));
+    const Css = React.lazy(() => import("./CssWrapper"));
     return (
       <Page>
         <Css />
@@ -232,7 +232,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://twitter.com/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{" "}
               @satisgraphtory
             </a>
             <a
@@ -241,7 +241,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://discord.gg/ZRpcgqY"
             >
-              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{" "}
               Discord Server
             </a>
             <a
@@ -250,7 +250,7 @@ class HomeApp extends Component {
               rel="noopener noreferrer"
               href="https://reddit.com/r/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{" "}
               /r/satisgraphtory
             </a>
             <Copyright>

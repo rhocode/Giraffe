@@ -1,24 +1,24 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
-import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
-import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import React from "react";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import useDimensions from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions";
+import PixiJSApplication from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication";
+import AutoSizedLoadingWrapper from "common/react/AutoSizedLoadingWrapper";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     canvasContainer: {
-      display: 'grid',
-      gridArea: 'canvasArea',
+      display: "grid",
+      gridArea: "canvasArea",
       gridTemplateAreas: `"canvasElement"`,
-      gridTemplateRows: 'minmax(0, 1fr)',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "minmax(0, 1fr)",
+      gridTemplateColumns: "1fr",
       minWidth: 0,
       minHeight: 0,
-      position: 'relative',
+      position: "relative",
     },
     canvas: {
-      gridArea: 'canvasElement',
+      gridArea: "canvasElement",
       minWidth: 0,
       minHeight: 0,
     },

@@ -1,6 +1,6 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
 import {
   Button,
   Divider,
@@ -13,16 +13,16 @@ import {
   ListItemSecondaryAction,
   Typography,
   Checkbox,
-} from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import BuildIcon from '@material-ui/icons/Build';
-import FlareIcon from '@material-ui/icons/Flare';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
-import { LocaleContext } from 'v3/components/LocaleProvider';
-import { getItemIcon } from 'v3/data/loaders/items';
-import Scrollbar from 'react-scrollbars-custom';
+} from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import BuildIcon from "@material-ui/icons/Build";
+import FlareIcon from "@material-ui/icons/Flare";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { getMachineCraftableRecipeDefinitionList } from "v3/data/loaders/recipes";
+import { LocaleContext } from "v3/components/LocaleProvider";
+import { getItemIcon } from "v3/data/loaders/items";
+import Scrollbar from "react-scrollbars-custom";
 
 const styles = (theme) => ({
   drawer: {
@@ -31,14 +31,14 @@ const styles = (theme) => ({
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
   },
   drawerContent: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   tabContent: {
     padding: 20,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     flexGrow: 1,
   },
   divider: {
@@ -46,17 +46,17 @@ const styles = (theme) => ({
     marginBottom: 10,
   },
   list: {
-    overflow: 'hidden',
+    overflow: "hidden",
     flexGrow: 1,
-    position: 'relative',
+    position: "relative",
   },
   innerList: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    overflowY: 'auto',
+    overflowY: "auto",
   },
   icon: {
     height: 30,
@@ -80,7 +80,7 @@ function GlobalSettingsPanel(props) {
   const { translate } = React.useContext(LocaleContext);
   const [alternateRecipes] = React.useState(
     getMachineCraftableRecipeDefinitionList()
-      .filter(({ slug }) => slug.indexOf('-alternate-') !== -1)
+      .filter(({ slug }) => slug.indexOf("-alternate-") !== -1)
       .sort((a, b) => {
         return translate(a.slug).localeCompare(translate(b.slug));
       })
@@ -88,7 +88,7 @@ function GlobalSettingsPanel(props) {
 
   const [regularRecipes] = React.useState(
     getMachineCraftableRecipeDefinitionList()
-      .filter(({ slug }) => slug.indexOf('-alternate-') === -1)
+      .filter(({ slug }) => slug.indexOf("-alternate-") === -1)
       .sort((a, b) => {
         return translate(a.slug).localeCompare(translate(b.slug));
       })
@@ -98,7 +98,7 @@ function GlobalSettingsPanel(props) {
     <Drawer
       //variant={isMobile ? "permanent" : "temporary" }
       variant="temporary"
-      anchor={'right'}
+      anchor={"right"}
       //   open={drawerOpen}
       open={true}
       // onClose={() => setDrawerOpen(false)}
@@ -169,7 +169,7 @@ function GlobalSettingsPanel(props) {
                   <List>
                     {alternateRecipes.map(({ slug: item, products }) => {
                       return (
-                        <ListItem button key={'key' + item}>
+                        <ListItem button key={"key" + item}>
                           <ListItemIcon>
                             <img
                               className={classes.icon}
@@ -178,7 +178,7 @@ function GlobalSettingsPanel(props) {
                             />
                           </ListItemIcon>
                           <ListItemText
-                            id={'toggle-' + item}
+                            id={"toggle-" + item}
                             primary={translate(item)}
                           />
                           <ListItemSecondaryAction>
@@ -203,7 +203,7 @@ function GlobalSettingsPanel(props) {
                   <List>
                     {regularRecipes.map(({ slug: item, products }) => {
                       return (
-                        <ListItem button key={'key' + item}>
+                        <ListItem button key={"key" + item}>
                           <ListItemIcon>
                             <img
                               className={classes.icon}
@@ -212,7 +212,7 @@ function GlobalSettingsPanel(props) {
                             />
                           </ListItemIcon>
                           <ListItemText
-                            id={'toggle-' + item}
+                            id={"toggle-" + item}
                             primary={translate(item)}
                           />
                           <ListItemSecondaryAction>

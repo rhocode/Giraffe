@@ -1,21 +1,21 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
-import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
+import LocaleProvider, { LocaleContext } from "../../components/LocaleProvider";
 // import { graphAppStore } from './stores/graphAppStore';
-import NavBar from './components/NavBar';
-import Canvas from './components/Canvas';
+import NavBar from "./components/NavBar";
+import Canvas from "./components/Canvas";
 // import ActionBar from './components/ActionBar';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 // import NodeDrawer from './components/NodeDrawer';
-import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
-import { pixiJsStore } from './libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import initRuntime from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime";
+import ChainWizardPanel from "v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel";
+import DebugFab from "v3/apps/GraphV3/components/DebugFab/DebugFab";
+import { pixiJsStore } from "./libraries/SatisGraphtoryLib/stores/PixiJSStore";
 
 const styles = (theme) => {
   return {
@@ -24,20 +24,20 @@ const styles = (theme) => {
       minHeight: theme.overrides.GraphAppBar.height,
     },
     container: {
-      background: '#1D1E20',
-      overflow: 'hidden',
-      gridArea: 'body',
-      display: 'grid',
+      background: "#1D1E20",
+      overflow: "hidden",
+      gridArea: "body",
+      display: "grid",
       gridTemplateAreas: `"header"
         "canvasArea"
         "bottomActions"`,
-      gridTemplateRows: 'auto minmax(0, 1fr) auto',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "auto minmax(0, 1fr) auto",
+      gridTemplateColumns: "1fr",
     },
     inProgressImage: {
-      maxWidth: '100%',
-      maxHeight: '100%',
-      display: 'block',
+      maxWidth: "100%",
+      maxHeight: "100%",
+      display: "block",
     },
     flexItem: {
       flexGrow: 0,
@@ -46,8 +46,8 @@ const styles = (theme) => {
       flexGrow: 1,
     },
     flexContainer: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
     },
   };
 };
@@ -73,32 +73,32 @@ function GraphApp(props) {
     const graphId = (match && match.params && match.params.graphId) || null;
 
     if (graphId) {
-      fetch('https://api.myjson.com/bins/' + graphId)
+      fetch("https://api.myjson.com/bins/" + graphId)
         .then((resp) => resp.json())
         .then((json) => {
           setHelmet(json);
         })
         .catch((err) => {
           setHelmet({
-            title: 'SatisGraphtory | Factory Building Graph Simulation',
+            title: "SatisGraphtory | Factory Building Graph Simulation",
             description:
-              'Feature-rich factory optimization and calculation tool for Satisfactory game',
-            image: 'https://i.imgur.com/DPEmxE0.png',
+              "Feature-rich factory optimization and calculation tool for Satisfactory game",
+            image: "https://i.imgur.com/DPEmxE0.png",
           });
         });
     } else {
       setHelmet({
-        title: 'SatisGraphtory | Factory Building Graph Simulation',
+        title: "SatisGraphtory | Factory Building Graph Simulation",
         description:
-          'Feature-rich factory optimization and calculation tool for Satisfactory game',
-        image: 'https://i.imgur.com/DPEmxE0.png',
+          "Feature-rich factory optimization and calculation tool for Satisfactory game",
+        image: "https://i.imgur.com/DPEmxE0.png",
       });
     }
   }, [language.code, match, pixiApplication]);
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  const numNodes = parseInt(urlParams.get('numNodes'), 10) || 10;
+  const numNodes = parseInt(urlParams.get("numNodes"), 10) || 10;
 
   React.useEffect(() => {
     initRuntime(pixiApplication, numNodes);
@@ -150,15 +150,15 @@ function GraphApp(props) {
                   <img
                     className={classes.inProgressImage}
                     src={
-                      'https://cdn.discordapp.com/attachments/129647483738390528/730273312009093160/unknown.png'
+                      "https://cdn.discordapp.com/attachments/129647483738390528/730273312009093160/unknown.png"
                     }
                     onClick={() => {
                       window.open(
-                        'https://www.youtube.com/watch?v=nvipzqwVzqM',
-                        '_blank'
+                        "https://www.youtube.com/watch?v=nvipzqwVzqM",
+                        "_blank"
                       );
                     }}
-                    alt={'inProgress'}
+                    alt={"inProgress"}
                   />
                 </div>
               </div>
@@ -166,7 +166,7 @@ function GraphApp(props) {
             <DialogActions>
               <Button
                 onClick={() => {
-                  window.open('https://discord.gg/ZRpcgqY', '_blank');
+                  window.open("https://discord.gg/ZRpcgqY", "_blank");
                 }}
                 color="primary"
               >

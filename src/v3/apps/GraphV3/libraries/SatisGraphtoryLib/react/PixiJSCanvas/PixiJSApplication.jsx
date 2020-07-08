@@ -1,14 +1,14 @@
-import React from 'react';
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
-import { Viewport } from 'pixi-viewport';
+import React from "react";
+import PIXI from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import sgDevicePixelRatio from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils";
+import { Viewport } from "pixi-viewport";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     hidden: {
-      display: 'none',
+      display: "none",
     },
   })
 );
@@ -25,7 +25,7 @@ function PixiJSApplication(props) {
 
   React.useEffect(() => {
     if (canvasRef.current && originalCanvasRef.current !== canvasRef.current) {
-      console.log('different canvas');
+      console.log("different canvas");
       originalCanvasRef.current = canvasRef.current;
       pixiJsStore.update((s) => {
         // try {
@@ -67,7 +67,7 @@ function PixiJSApplication(props) {
 
         s.viewport = viewport;
 
-        viewport.on('mousemove', function (mouseData) {
+        viewport.on("mousemove", function (mouseData) {
           console.log(viewport.toWorld(mouseData.data.global));
         });
 
