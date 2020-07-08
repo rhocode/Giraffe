@@ -152,6 +152,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "eslint -- fix",
       "prettier --single-quote --write"
     ],
     "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
