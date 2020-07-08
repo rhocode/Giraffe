@@ -140,6 +140,12 @@ function GraphApp(props) {
                     src={
                       'https://cdn.discordapp.com/attachments/129647483738390528/730273312009093160/unknown.png'
                     }
+                    onClick={() => {
+                      window.open(
+                        'https://www.youtube.com/watch?v=nvipzqwVzqM',
+                        '_blank'
+                      );
+                    }}
                     alt={'inProgress'}
                   />
                 </div>
