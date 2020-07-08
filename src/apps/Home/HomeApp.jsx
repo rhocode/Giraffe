@@ -11,26 +11,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
   faDownload,
-  faPen
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscord,
   faRedditAlien,
   faTwitter,
-  faGithub
+  faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 
 class HomeApp extends Component {
   state = {
-    showMenu: false
+    showMenu: false,
   };
   toggleMenu = (showMenu = false) => {
     this.setState({ showMenu });
   };
 
   componentDidMount() {
+    window.prerenderReady = true;
     if (!!this.props.location.hash) {
       window.location.href =
         window.location.protocol +
