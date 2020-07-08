@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./graph",
+  "start_url": "./graph?utm_source=pwa",
   "display": "standalone",
   "theme_color": "#FB8C00",
   "background_color": "#FB8C00"
