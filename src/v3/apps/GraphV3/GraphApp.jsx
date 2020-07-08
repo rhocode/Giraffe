@@ -8,14 +8,17 @@ import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
 import NavBar from './components/NavBar';
 import Canvas from './components/Canvas';
 // import ActionBar from './components/ActionBar';
-
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 // import NodeDrawer from './components/NodeDrawer';
 import initRuntime from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/initRuntime';
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 import { pixiJsStore } from './libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = (theme) => {
   return {
