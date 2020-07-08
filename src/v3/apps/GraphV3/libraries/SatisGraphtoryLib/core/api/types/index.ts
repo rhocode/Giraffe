@@ -1,18 +1,21 @@
-export type SatisGraphtoryNode = {
+export interface SatisGraphtoryNode {
   nodeId: string;
   recipe: string;
   overclock: number;
   inputs: any[];
   outputs: any[];
   type: string;
-};
+  position: SatisGraphtoryNodePosition;
+}
 
-export type SatisGraphtoryEdge = {
+export interface SatisGraphtoryEdge {
   edgeId: string;
   type: string;
-};
+  sourceId: string;
+  targetId: string;
+}
 
-export type SatisGraphtoryNodePosition = {
+export interface SatisGraphtoryNodePosition {
   x: number;
   y: number;
-};
+}
