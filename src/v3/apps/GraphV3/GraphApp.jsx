@@ -98,6 +98,16 @@ function GraphApp(props) {
     }
   }, [numNodes, pixiApplication]);
 
+  const loaded = pixiJsStore.useState((s) => {
+    return s.loaded;
+  });
+
+  React.useEffect(() => {
+    if (loaded) {
+      window.prerenderReady = true;
+    }
+  }, [loaded]);
+
   return (
     <React.Fragment>
       {Object.values(helmet).length > 0 ? (

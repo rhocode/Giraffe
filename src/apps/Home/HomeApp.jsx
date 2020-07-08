@@ -31,7 +31,6 @@ class HomeApp extends Component {
   };
 
   componentDidMount() {
-    window.prerenderReady = true;
     if (!!this.props.location.hash) {
       window.location.href =
         window.location.protocol +
