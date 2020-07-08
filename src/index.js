@@ -6,7 +6,7 @@ import 'react-app-polyfill/stable';
 import 'core-js/features/array/flat';
 
 import React from 'react';
-import { render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import './index.css';
 import App from './apps/App/App';
 
@@ -37,16 +37,25 @@ if (process.env.NODE_ENV === 'production') {
 
 console.log('User agent: ', navigator?.userAgent);
 
-render(
-  <Provider store={store}>
-    <ServiceWorkerProvider>
-      <LocalizeProvider store={store}>
-        <App />
-      </LocalizeProvider>
-    </ServiceWorkerProvider>
-  </Provider>,
-  document.getElementById('root')
-);
+const CompleteApp = () => {
+  return (
+    <Provider store={store}>
+      <ServiceWorkerProvider>
+        <LocalizeProvider store={store}>
+          <App />
+        </LocalizeProvider>
+      </ServiceWorkerProvider>
+    </Provider>
+  );
+};
+
+const rootElement = document.getElementById('root');
+
+if (rootElement.hasChildNodes()) {
+  hydrate(<CompleteApp />, rootElement);
+} else {
+  render(<CompleteApp />, rootElement);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
