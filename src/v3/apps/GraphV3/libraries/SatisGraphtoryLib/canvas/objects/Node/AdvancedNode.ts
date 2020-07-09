@@ -40,16 +40,7 @@ export const AdvancedNode = (props: SatisGraphtoryNode) => {
 
   const x = position.x;
   const y = position.y;
-  // x: number,
-  //   y: number,
-  //   name: string,
-  //   input: string,
-  //   output: string,
-  //   level: string,
-  //   efficiency: number,
-  //   machine: string,
-  //   nIn: number,
-  //   nOut: number
+
   const container = new PIXI.Container();
 
   container.addChild(createBackboard(x, y));
@@ -76,7 +67,7 @@ export const AdvancedNode = (props: SatisGraphtoryNode) => {
   container.addChild(levelText);
 
   const efficiencyText = createText(
-    overclock + '%',
+    `${overclock}%`,
     OVERCLOCK_STYLE(),
     x + EFFICIENCY_OFFSET_X,
     y + EFFICIENCY_OFFSET_Y
