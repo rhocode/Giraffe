@@ -12,6 +12,7 @@ import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/ut
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 const NODE_WIDTH = 220;
 const NODE_HEIGHT = 145;
@@ -27,103 +28,109 @@ const MACHINE_OFFSET_X = 60;
 const MACHINE_OFFSET_Y = 55;
 const MACHINE_SIZE = 95;
 
-export const AdvancedNode = (props: SatisGraphtoryNode) => {
-  const {
-    position,
-    recipe,
-    tier,
-    overclock,
-    machineType,
-    inputs,
-    outputs,
-  } = props;
+export default class AdvancedNode implements NodeTemplate {
+  // public readonly recipeNameText;
 
-  const x = position.x;
-  const y = position.y;
+  constructor(props: SatisGraphtoryNode) {
+    const {
+      position,
+      recipe,
+      tier,
+      overclock,
+      machineType,
+      inputs,
+      outputs,
+    } = props;
 
-  const container = new PIXI.Container();
+    const x = position.x;
+    const y = position.y;
 
-  container.addChild(createBackboard(x, y));
+    const container = new PIXI.Container();
 
-  const recipeName = getRecipeName(recipe);
+    container.addChild(createBackboard(x, y));
 
-  const recipeText = createTruncatedText(
-    recipeName,
-    NODE_WIDTH,
-    RECIPE_STYLE(NODE_WIDTH),
-    x + RECIPE_OFFSET_X,
-    y + TOP_HEIGHT + RECIPE_OFFSET_Y
-  );
+    const recipeName = getRecipeName(recipe);
 
-  container.addChild(recipeText);
+    const recipeText = createTruncatedText(
+      recipeName,
+      NODE_WIDTH,
+      RECIPE_STYLE(NODE_WIDTH),
+      x + RECIPE_OFFSET_X,
+      y + TOP_HEIGHT + RECIPE_OFFSET_Y
+    );
 
-  const levelText = createText(
-    getTier(tier),
-    TIER_STYLE(),
-    x + TIER_OFFSET_X,
-    y + TIER_OFFSET_Y
-  );
+    // this.recipeNameText = recipeText;
 
-  container.addChild(levelText);
+    container.addChild(recipeText);
 
-  const efficiencyText = createText(
-    `${overclock}%`,
-    OVERCLOCK_STYLE(),
-    x + EFFICIENCY_OFFSET_X,
-    y + EFFICIENCY_OFFSET_Y
-  );
+    const levelText = createText(
+      getTier(tier),
+      TIER_STYLE(),
+      x + TIER_OFFSET_X,
+      y + TIER_OFFSET_Y
+    );
 
-  container.addChild(efficiencyText);
+    container.addChild(levelText);
 
-  // Hold off on inputs and outputs for now
-  //
-  // const inputStr = new PIXI.Text(input, INPUT_STYLE);
-  // inputStr.anchor.set(0, 0.5);
-  // inputStr.position.x = x + INPUT_OFFSET_X;
-  // inputStr.position.y = y + NODE_HEIGHT + INPUT_OFFSET_Y;
-  //
-  // const outputStr = new PIXI.Text(output, OUTPUT_STYLE);
-  // outputStr.anchor.set(0, 0.5);
-  // outputStr.position.x = x + OUTPUT_OFFSET_X;
-  // outputStr.position.y = y + NODE_HEIGHT + OUTPUT_OFFSET_Y;
+    const efficiencyText = createText(
+      `${overclock}%`,
+      OVERCLOCK_STYLE(),
+      x + EFFICIENCY_OFFSET_X,
+      y + EFFICIENCY_OFFSET_Y
+    );
 
-  const inputDotOffsets = inputs.map((entry, i) => {
-    return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (inputs.length + 1));
-  });
+    container.addChild(efficiencyText);
 
-  const outputDotOffsets = inputs.map((entry, i) => {
-    return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (outputs.length + 1));
-  });
+    // Hold off on inputs and outputs for now
+    //
+    // const inputStr = new PIXI.Text(input, INPUT_STYLE);
+    // inputStr.anchor.set(0, 0.5);
+    // inputStr.position.x = x + INPUT_OFFSET_X;
+    // inputStr.position.y = y + NODE_HEIGHT + INPUT_OFFSET_Y;
+    //
+    // const outputStr = new PIXI.Text(output, OUTPUT_STYLE);
+    // outputStr.anchor.set(0, 0.5);
+    // outputStr.position.x = x + OUTPUT_OFFSET_X;
+    // outputStr.position.y = y + NODE_HEIGHT + OUTPUT_OFFSET_Y;
 
-  // Create input dots
-  const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
-  createDots(inputDotTexture, inputDotOffsets, x).map(container.addChild);
+    const inputDotOffsets = inputs.map((entry, i) => {
+      return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (inputs.length + 1));
+    });
 
-  // Create output dots
-  const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
-  createDots(outputDotTexture, outputDotOffsets, x + NODE_WIDTH).map(
-    container.addChild
-  );
+    const outputDotOffsets = inputs.map((entry, i) => {
+      return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (outputs.length + 1));
+    });
 
-  const machineTexture = PIXI.utils.TextureCache[machineType];
-  const machineImage = createImageIcon(
-    machineTexture,
-    MACHINE_SIZE,
-    MACHINE_SIZE,
-    x + MACHINE_OFFSET_X,
-    y + MACHINE_OFFSET_Y
-  );
+    // Create input dots
+    const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
+    createDots(inputDotTexture, inputDotOffsets, x).map(container.addChild);
 
-  container.addChild(machineImage);
+    // Create output dots
+    const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
+    createDots(outputDotTexture, outputDotOffsets, x + NODE_WIDTH).map(
+      container.addChild
+    );
 
-  // Maybe save the items for somewhere else?
-  // const itemTex = PIXI.utils.TextureCache[name];
-  // const itemSprite = new PIXI.Sprite(itemTex);
-  // itemSprite.anchor.set(0.5, 0.5);
-  // itemSprite.position.x = x + ITEM_OFFSET_X;
-  // itemSprite.position.y = y + TOP_HEIGHT + ITEM_OFFSET_Y;
-  // itemSprite.width = ITEM_SIZE;
-  // itemSprite.height = ITEM_SIZE;
+    const machineTexture = PIXI.utils.TextureCache[machineType];
+    const machineImage = createImageIcon(
+      machineTexture,
+      MACHINE_SIZE,
+      MACHINE_SIZE,
+      x + MACHINE_OFFSET_X,
+      y + MACHINE_OFFSET_Y
+    );
 
-  return container;
-};
+    container.addChild(machineImage);
+
+    // Maybe save the items for somewhere else?
+    // const itemTex = PIXI.utils.TextureCache[name];
+    // const itemSprite = new PIXI.Sprite(itemTex);
+    // itemSprite.anchor.set(0.5, 0.5);
+    // itemSprite.position.x = x + ITEM_OFFSET_X;
+    // itemSprite.position.y = y + TOP_HEIGHT + ITEM_OFFSET_Y;
+    // itemSprite.width = ITEM_SIZE;
+    // itemSprite.height = ITEM_SIZE;
+
+    return container;
+  }
+}
