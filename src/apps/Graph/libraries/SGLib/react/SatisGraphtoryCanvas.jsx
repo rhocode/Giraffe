@@ -25,7 +25,7 @@ import { setEquals } from '../utils/sets';
 import hydrate from '../algorithms/satisgraphtory/hydrate';
 import { maxCanvasRatio } from '../datatypes/graph/graphNode';
 import setEnums from '../repositories/objectRepository';
-import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({

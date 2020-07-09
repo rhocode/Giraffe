@@ -4,7 +4,7 @@ import {
   getAllBuildableMachines,
 } from 'v3/data/loaders/buildings';
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
-import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 
 const WIDTH = 220;
 const HEIGHT = 145;

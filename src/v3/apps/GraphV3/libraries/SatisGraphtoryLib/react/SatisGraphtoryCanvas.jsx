@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import useDimensions from '../hooks/useDimensions';
 import stringGen from '../../../../../utils/stringGen';
-import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

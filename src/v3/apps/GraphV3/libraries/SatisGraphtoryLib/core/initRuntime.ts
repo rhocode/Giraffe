@@ -4,7 +4,7 @@
 
 import { addChild } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
 import { Node } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/Node';
-import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/loadSharedTextures';
+import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/loadSharedTextures';
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import { getAllBuildableMachines } from 'v3/data/loaders/buildings';
 

@@ -211,6 +211,10 @@ export const getRecipeProducts = (slug: string) => {
   return (getAllRecipes() as any)[slug].products;
 };
 
+export const getRecipeName = (slug: string) => {
+  return (getAllRecipes() as any)[slug].name;
+};
+
 const getMachineCraftableRecipeListFn = () => {
   return getMachineCraftableRecipeDefinitionList().map(({ slug }) => slug);
 };
