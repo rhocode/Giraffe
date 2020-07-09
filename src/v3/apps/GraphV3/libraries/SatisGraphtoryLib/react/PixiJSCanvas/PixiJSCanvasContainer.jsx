@@ -22,22 +22,60 @@ const useStyles = makeStyles((theme) =>
       minWidth: 0,
       minHeight: 0,
     },
+    relativePositionDiv: {
+      position: 'relative',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    centeredLoader: {
+      flexGrow: 1,
+    },
   })
 );
 
 function PixiJSCanvasGuard(props) {
-  const { height, width } = props;
-  const loaded = pixiJsStore.useState((s) => s.loaded);
+  const { height, width, ...restProps } = props;
 
-  if (height === undefined || width === undefined) {
-    return <AutoSizedLoadingWrapper />;
+  if (!height || !width) {
+    return null;
+  }
+
+  const loaded = pixiJsStore.useState(
+    (s) => s[props.pixiCanvasStateId].canvasReady
+  );
+
+  return (
+    <PixiJSApplication
+      hidden={!loaded}
+      height={height}
+      width={width}
+      {...restProps}
+    />
+  );
+}
+
+function CenteredLoader(props) {
+  const classes = useStyles();
+
+  const loaded = pixiJsStore.useState(
+    (s) => s[props.pixiCanvasStateId].canvasReady
+  );
+
+  if (loaded) {
+    return null;
   }
 
   return (
-    <React.Fragment>
-      {loaded ? null : <AutoSizedLoadingWrapper />}
-      <PixiJSApplication hidden={!loaded} height={height} width={width} />
-    </React.Fragment>
+    <div className={classes.relativePositionDiv}>
+      <div className={classes.centeredLoader}>
+        <AutoSizedLoadingWrapper />
+      </div>
+    </div>
   );
 }
 
@@ -45,11 +83,14 @@ function PixiJSCanvasContainer(props) {
   const classes = useStyles();
   const [ref, { height, width }] = useDimensions();
 
+  const { children, ...restProps } = props;
+
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <div className={classes.canvas}>
-        <PixiJSCanvasGuard height={height} width={width} />
-        {props.children}
+        <CenteredLoader pixiCanvasStateId={props.pixiCanvasStateId} />
+        <PixiJSCanvasGuard height={height} width={width} {...restProps} />
+        {children}
       </div>
     </div>
   );

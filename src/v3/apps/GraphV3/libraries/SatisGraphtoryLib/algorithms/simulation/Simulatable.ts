@@ -1,3 +1,3 @@
 export default interface Simulatable {
-  simulate: (elapsedTime: number) => void;
+  simulate: (dt: number) => void;
 }

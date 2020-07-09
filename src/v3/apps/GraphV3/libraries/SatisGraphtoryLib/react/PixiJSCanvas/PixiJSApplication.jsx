@@ -14,20 +14,25 @@ const useStyles = makeStyles((theme) =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width } = props;
+  const { height, width, pixiCanvasStateId } = props;
 
   const styles = useStyles();
 
-  const pixiApp = pixiJsStore.useState((s) => s.application);
-  const pixiViewport = pixiJsStore.useState((s) => s.viewport);
+  const pixiViewport = pixiJsStore.useState(
+    (s) => s[pixiCanvasStateId].viewport
+  );
+
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
   React.useEffect(() => {
     if (canvasRef.current && originalCanvasRef.current !== canvasRef.current) {
-      console.log('different canvas');
       originalCanvasRef.current = canvasRef.current;
-      pixiJsStore.update((s) => {
+      pixiJsStore.update((sParent) => {
+        const s = sParent[pixiCanvasStateId];
+
+        console.log('Updating Applications');
+
         // try {
         let newApplication = new PIXI.Application({
           transparent: true,
@@ -55,11 +60,6 @@ function PixiJSApplication(props) {
         });
         // .decelerate()
 
-        // Figure this out later, if we need to factor in the viewport
-        // if (s.application?.stage?.children?.length) {
-        //   newApplication.stage.addChild(...s.application.stage.children.slice);
-        // }
-
         if (s.application?.destroy) {
           s.application.destroy();
         }
@@ -72,24 +72,30 @@ function PixiJSApplication(props) {
 
         s.application = newApplication;
 
-        if (s.childQueue.length) {
+        if (s.childQueue?.length) {
           s.viewport.addChild(...s.childQueue);
           s.childQueue = [];
         }
+
+        s.applicationLoaded = true;
         // } catch(e) {
         //  // Probably ask the user to turn on webGL
         // }
       });
     }
-  }, [canvasRef, height, width]);
+  }, [canvasRef, height, pixiCanvasStateId, width]);
+
+  const pixiRenderer = pixiJsStore.useState(
+    (s) => s[pixiCanvasStateId].application?.renderer
+  );
 
   React.useEffect(() => {
-    if (pixiApp.renderer) {
+    if (pixiRenderer) {
       // Are both necessary?
-      pixiApp.renderer.resize(width, height);
+      pixiRenderer.resize(width, height);
       pixiViewport.resize(width, height);
     }
-  }, [height, pixiApp.renderer, pixiViewport, width]);
+  }, [height, pixiRenderer, pixiViewport, width]);
 
   return (
     <canvas className={props.hidden ? styles.hidden : null} ref={canvasRef} />

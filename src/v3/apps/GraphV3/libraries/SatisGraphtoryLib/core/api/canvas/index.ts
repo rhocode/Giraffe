@@ -1,36 +1,30 @@
 import stringGen from 'v3/utils/stringGen';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
-export const addChild = (child: PIXI.DisplayObject) => {
-  const id = stringGen(10);
-  pixiJsStore.update((s) => {
-    s.children.set(id, child);
-
-    if (s.viewport) {
-      s.viewport.addChild(...s.childQueue, child);
-      s.childQueue = [];
-    } else {
-      s.childQueue.push(child);
-    }
+export const addChildren = (
+  children: PIXI.DisplayObject[],
+  canvasId: string
+) => {
+  pixiJsStore.update((t) => {
+    children.forEach((child) => {
+      const id = stringGen(10);
+      const s = t[canvasId];
+      s.children.set(id, child);
+      s.viewport.addChild(child);
+    });
   });
-
-  return id;
 };
 
-export const removeChild = (id: string) => {
-  pixiJsStore.update((s) => {
+export const removeChild = (id: string, canvasId: string) => {
+  pixiJsStore.update((t) => {
+    const s = t[canvasId];
+
     if (!s.children.get(id)) {
       throw new Error('Unknown child ' + id);
     }
 
     const childToRemove = s.children.get(id)!;
     s.children.delete(id);
-
-    let index = s.childQueue.indexOf(childToRemove);
-    if (index !== -1) {
-      s.childQueue.splice(index, 1);
-    } else {
-      s.viewport.removeChild(childToRemove);
-    }
+    s.viewport.removeChild(childToRemove);
   });
 };

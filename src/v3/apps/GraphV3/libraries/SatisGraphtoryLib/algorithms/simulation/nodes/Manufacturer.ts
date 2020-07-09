@@ -13,7 +13,7 @@ export default class Manufacturer implements Simulatable {
   // private recipe: Recipe;
 
   private tickCycle: number = 0;
-
+  private cycleTime: number = 1;
   // constructor() {
   //
   // }
@@ -22,8 +22,14 @@ export default class Manufacturer implements Simulatable {
 
   private processImports() {}
 
-  simulate(elapsedTime: number): void {
-    this.processImports();
-    this.processExports();
+  simulate(dt: number): void {
+    this.tickCycle += dt;
+
+    while (this.tickCycle > this.cycleTime) {
+      this.tickCycle -= this.cycleTime;
+      // Do one cycle worth of actions
+      this.processImports();
+      this.processExports();
+    }
   }
 }
