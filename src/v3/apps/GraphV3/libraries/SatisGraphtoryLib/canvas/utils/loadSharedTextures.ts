@@ -41,8 +41,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const bounds = gfx.getBounds();
   const backboard = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     bounds
   );
   PIXI.Texture.addToCache(backboard, 'backboard');
@@ -57,8 +57,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const inBounds = gfx.getBounds();
   const inCircle = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     inBounds
   );
   PIXI.Texture.addToCache(inCircle, 'inCircle');
@@ -73,8 +73,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const outBounds = gfx.getBounds();
   const outCircle = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     outBounds
   );
   PIXI.Texture.addToCache(outCircle, 'outCircle');

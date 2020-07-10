@@ -6,9 +6,10 @@ import {
   pixiJsStore,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import initPixiJSCanvas from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initPixiJSCanvas';
-import { addChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
+import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
 import { Viewport } from 'pixi-viewport';
 import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -27,7 +28,7 @@ type LoadableComponentProps = {
   canvasChildren: (
     app: PIXI.Application,
     viewPort: Viewport
-  ) => PIXI.DisplayObject[] | undefined;
+  ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
 
@@ -43,7 +44,7 @@ type CanvasProps = {
   canvasChildren: (
     app: PIXI.Application,
     viewPort: Viewport
-  ) => PIXI.DisplayObject[] | undefined;
+  ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
 
@@ -80,7 +81,7 @@ function Canvas(props: CanvasProps) {
 
     const childrenToPush = canvasChildren(pixiApplication, pixiViewport);
 
-    addChildren(childrenToPush || [], pixiCanvasStateId);
+    addObjectChildren(childrenToPush || [], pixiCanvasStateId);
     pixiApplication.renderer.render(pixiApplication.stage);
 
     // Run the callback

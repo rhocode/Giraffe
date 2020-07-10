@@ -1,5 +1,5 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { NAME_FONT_OFFSET } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
+import { RECIPE_FONT_OFFSET } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
 import memoize from 'fast-memoize';
 
 const LEVEL_FONT_SIZE = 28;
@@ -21,7 +21,7 @@ export const RECIPE_STYLE = memoize(
       fontSize: NAME_FONT_SIZE,
       fontFamily: '"Bebas Neue", sans-serif',
       breakWords: true,
-      wordWrapWidth: width - NAME_FONT_OFFSET,
+      wordWrapWidth: width - RECIPE_FONT_OFFSET,
       wordWrap: true,
     })
 );

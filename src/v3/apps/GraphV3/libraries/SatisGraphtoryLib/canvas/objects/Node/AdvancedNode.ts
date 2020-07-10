@@ -13,13 +13,16 @@ import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objec
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import {
+  RECIPE_OFFSET_X,
+  RECIPE_OFFSET_Y,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
 
 const NODE_WIDTH = 220;
 const NODE_HEIGHT = 145;
 
 const TOP_HEIGHT = NODE_HEIGHT - 35;
-const RECIPE_OFFSET_X = 35;
-const RECIPE_OFFSET_Y = 20;
+
 const TIER_OFFSET_X = 120;
 const TIER_OFFSET_Y = 40;
 const EFFICIENCY_OFFSET_X = 120;
@@ -29,7 +32,7 @@ const MACHINE_OFFSET_Y = 55;
 const MACHINE_SIZE = 95;
 
 export default class AdvancedNode implements NodeTemplate {
-  // public readonly recipeNameText;
+  container: PIXI.DisplayObject;
 
   constructor(props: SatisGraphtoryNode) {
     const {
@@ -46,6 +49,7 @@ export default class AdvancedNode implements NodeTemplate {
     const y = position.y;
 
     const container = new PIXI.Container();
+    this.container = container;
 
     container.addChild(createBackboard(x, y));
 
@@ -97,19 +101,28 @@ export default class AdvancedNode implements NodeTemplate {
       return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (inputs.length + 1));
     });
 
-    const outputDotOffsets = inputs.map((entry, i) => {
+    const outputDotOffsets = outputs.map((entry, i) => {
       return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (outputs.length + 1));
     });
 
     // Create input dots
     const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
-    createDots(inputDotTexture, inputDotOffsets, x).map(container.addChild);
+
+    const inputDots = createDots(inputDotTexture, inputDotOffsets, x);
+    for (const dot of inputDots) {
+      container.addChild(dot);
+    }
 
     // Create output dots
     const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
-    createDots(outputDotTexture, outputDotOffsets, x + NODE_WIDTH).map(
-      container.addChild
+    const outputDots = createDots(
+      outputDotTexture,
+      outputDotOffsets,
+      x + NODE_WIDTH
     );
+    for (const dot of outputDots) {
+      container.addChild(dot);
+    }
 
     const machineTexture = PIXI.utils.TextureCache[machineType];
     const machineImage = createImageIcon(
@@ -130,10 +143,43 @@ export default class AdvancedNode implements NodeTemplate {
     // itemSprite.position.y = y + TOP_HEIGHT + ITEM_OFFSET_Y;
     // itemSprite.width = ITEM_SIZE;
     // itemSprite.height = ITEM_SIZE;
+    this.addInteractionEvents(x, y, NODE_WIDTH, NODE_HEIGHT);
+  }
 
-    return {
-      container,
-      // Any other property we should expose, like outline
-    };
+  addInteractionEvents(x: number, y: number, WIDTH: number, HEIGHT: number) {
+    const container = this.container;
+
+    container.interactive = true;
+    container.buttonMode = true;
+    container.hitArea = new PIXI.Rectangle(x, y, WIDTH, HEIGHT);
+    let dragging = false;
+    let sourceX = 0;
+    let sourceY = 0;
+    let clickX = 0;
+    let clickY = 0;
+    container.on('pointerdown', function (this: any, event: any) {
+      event.stopPropagation();
+      const newPos = event.data.getLocalPosition(this.parent);
+      clickX = newPos.x;
+      clickY = newPos.y;
+      sourceX = this.position.x;
+      sourceY = this.position.y;
+      dragging = true;
+    });
+    container.on('pointerup', () => {
+      dragging = false;
+    });
+    container.on('pointerupoutside', () => {
+      dragging = false;
+    });
+
+    container.on('pointermove', function (this: any, event: any) {
+      if (dragging) {
+        event.stopPropagation();
+        const newPos = event.data.getLocalPosition(this.parent);
+        container.position.x = sourceX + (newPos.x - clickX);
+        container.position.y = sourceY + (newPos.y - clickY);
+      }
+    });
   }
 }

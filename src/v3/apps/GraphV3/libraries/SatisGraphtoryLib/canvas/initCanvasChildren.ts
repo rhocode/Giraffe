@@ -1,7 +1,9 @@
-import { Node } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/Node';
-import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import { getAllBuildableMachines } from 'v3/data/loaders/buildings';
 import { Viewport } from 'pixi-viewport';
+import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import stringGen from 'v3/utils/stringGen';
+import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 
 const initCanvasChildren = (pixiJS: PIXI.Application, viewport: Viewport) => {
   console.log('Initing canvas state');
@@ -11,42 +13,34 @@ const initCanvasChildren = (pixiJS: PIXI.Application, viewport: Viewport) => {
   const numNodes = parseInt(urlParams.get('numNodes') || '', 10) || 10;
 
   console.time('loadNodes');
-  const testNode = Node(
-    100,
-    100,
-    'item-electromagnetic-control-rod',
-    '30/30 (100.0%)',
-    '30/30 (100.0%)',
-    'Mk 1',
-    100.0,
-    'building-assembler-mk1',
-    2,
-    4
-  );
 
-  const items = getMachineCraftableItems();
+  const recipes = getMachineCraftableRecipeList();
   const machines = getAllBuildableMachines();
 
-  const children: PIXI.DisplayObject[] = [];
+  const children: NodeTemplate[] = [];
+
+  console.log('CALLED');
 
   for (let i = 0; i < numNodes; i++) {
-    const item = items[Math.floor(Math.random() * items.length)];
+    const recipe = recipes[Math.floor(Math.random() * recipes.length)];
     const machine = machines[Math.floor(Math.random() * machines.length)];
-    const tNode = Node(
-      Math.random() * viewport.screenWidth,
-      Math.random() * viewport.screenHeight,
-      item,
-      '30/30 (100.0%)',
-      '30/30 (100.0%)',
-      'Mk 1',
-      Math.floor(Math.random() * 200),
-      machine,
-      Math.floor(Math.random() * 5),
-      Math.floor(Math.random() * 5)
-    );
-    children.push(tNode);
+
+    const nodeData = {
+      position: {
+        x: Math.random() * viewport.screenWidth,
+        y: Math.random() * viewport.screenHeight,
+      },
+      nodeId: stringGen(10),
+      recipe: recipe as string,
+      tier: -1,
+      overclock: Math.floor(Math.random() * 200),
+      machineType: machine as string,
+      inputs: Array.from(Array(Math.floor(Math.random() * 5)).keys()),
+      outputs: Array.from(Array(Math.floor(Math.random() * 5)).keys()),
+    };
+
+    children.push(new AdvancedNode(nodeData));
   }
-  children.push(testNode);
 
   console.timeEnd('loadNodes');
   return children;
