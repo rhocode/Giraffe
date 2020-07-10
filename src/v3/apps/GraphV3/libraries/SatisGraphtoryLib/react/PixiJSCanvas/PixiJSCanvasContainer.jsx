@@ -1,37 +1,37 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
-import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
-import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
+import React from "react";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import useDimensions from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions";
+import PixiJSApplication from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication";
+import AutoSizedLoadingWrapper from "common/react/AutoSizedLoadingWrapper";
 
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
 
 const useStyles = makeStyles(() =>
   createStyles({
     canvasContainer: {
-      display: 'grid',
-      gridArea: 'contentArea',
+      display: "grid",
+      gridArea: "contentArea",
       gridTemplateAreas: `"canvasElement"`,
-      gridTemplateRows: 'minmax(0, 1fr)',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "minmax(0, 1fr)",
+      gridTemplateColumns: "1fr",
       minWidth: 0,
       minHeight: 0,
-      position: 'relative',
+      position: "relative",
     },
     canvas: {
-      gridArea: 'canvasElement',
+      gridArea: "canvasElement",
       minWidth: 0,
       minHeight: 0,
     },
     relativePositionDiv: {
-      position: 'relative',
+      position: "relative",
       top: 0,
       left: 0,
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      height: "100%",
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     centeredLoader: {
       flexGrow: 1,

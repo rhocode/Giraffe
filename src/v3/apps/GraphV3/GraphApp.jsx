@@ -1,22 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
-import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
+import LocaleProvider, { LocaleContext } from "../../components/LocaleProvider";
 // import { graphAppStore } from './stores/graphAppStore';
-import NavBar from './components/NavBar';
-import Canvas from 'v3/apps/GraphV3/components/Canvas';
+import NavBar from "./components/NavBar";
+import Canvas from "v3/apps/GraphV3/components/Canvas";
 // import ActionBar from './components/ActionBar';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 // import NodeDrawer from './components/NodeDrawer';
 
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
-import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
-import NodeDrawer from 'apps/Graph/components/GraphNodeDrawer/NodeDrawer';
-import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
+import ChainWizardPanel from "v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel";
+import ActionBar from "v3/apps/GraphV3/components/ActionBar";
+import DebugFab from "v3/apps/GraphV3/components/DebugFab/DebugFab";
+import NodeDrawer from "apps/Graph/components/GraphNodeDrawer/NodeDrawer";
+import initCanvasChildren from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -25,20 +25,20 @@ const useStyles = makeStyles((theme) => {
       minHeight: theme.overrides.GraphAppBar.height,
     },
     container: {
-      background: '#1D1E20',
-      overflow: 'hidden',
-      gridArea: 'body',
-      display: 'grid',
+      background: "#1D1E20",
+      overflow: "hidden",
+      gridArea: "body",
+      display: "grid",
       gridTemplateAreas: `"header"
         "contentArea"
         "bottomActions"`,
-      gridTemplateRows: 'auto minmax(0, 1fr) auto',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "auto minmax(0, 1fr) auto",
+      gridTemplateColumns: "1fr",
     },
     inProgressImage: {
-      maxWidth: '100%',
-      maxHeight: '100%',
-      display: 'block',
+      maxWidth: "100%",
+      maxHeight: "100%",
+      display: "block",
     },
     flexItem: {
       flexGrow: 0,
@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => {
       flexGrow: 1,
     },
     flexContainer: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
     },
   };
 });
@@ -74,25 +74,25 @@ function GraphApp(props) {
     const graphId = (match && match.params && match.params.graphId) || null;
 
     if (graphId) {
-      fetch('https://api.myjson.com/bins/' + graphId)
+      fetch("https://api.myjson.com/bins/" + graphId)
         .then((resp) => resp.json())
         .then((json) => {
           setHelmet(json);
         })
         .catch((err) => {
           setHelmet({
-            title: 'SatisGraphtory | Factory Building Graph Simulation',
+            title: "SatisGraphtory | Factory Building Graph Simulation",
             description:
-              'Feature-rich factory optimization and calculation tool for Satisfactory game',
-            image: 'https://i.imgur.com/DPEmxE0.png',
+              "Feature-rich factory optimization and calculation tool for Satisfactory game",
+            image: "https://i.imgur.com/DPEmxE0.png",
           });
         });
     } else {
       setHelmet({
-        title: 'SatisGraphtory | Factory Building Graph Simulation',
+        title: "SatisGraphtory | Factory Building Graph Simulation",
         description:
-          'Feature-rich factory optimization and calculation tool for Satisfactory game',
-        image: 'https://i.imgur.com/DPEmxE0.png',
+          "Feature-rich factory optimization and calculation tool for Satisfactory game",
+        image: "https://i.imgur.com/DPEmxE0.png",
       });
     }
   }, [language.code, match]);
@@ -113,12 +113,12 @@ function GraphApp(props) {
           <ChainWizardPanel />
           <Canvas
             canvasChildren={(application, viewport) => {
-              console.log('Canvas load function called');
+              console.log("Canvas load function called");
               return initCanvasChildren(application, viewport);
             }}
             onFinishLoad={() => {
               window.prerenderReady = true;
-              console.log('Finished loading');
+              console.log("Finished loading");
             }}
           >
             <ActionBar />

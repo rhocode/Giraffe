@@ -1,34 +1,34 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 // import LinkIcon from "@material-ui/icons/Link";
-import OpenWithIcon from '@material-ui/icons/OpenWith';
-import CropFreeIcon from '@material-ui/icons/CropFree';
-import AddIcon from '@material-ui/icons/Add';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import OpenWithIcon from "@material-ui/icons/OpenWith";
+import CropFreeIcon from "@material-ui/icons/CropFree";
+import AddIcon from "@material-ui/icons/Add";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
 
 const useStyles = makeStyles((theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   root: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     height: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
     zIndex: theme.zIndex.drawer + 1,
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto',
+    pointerEvents: "auto",
   },
 }));
 

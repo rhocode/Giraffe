@@ -1,31 +1,31 @@
-import { getTranslate } from 'react-localize-redux';
+import { getTranslate } from "react-localize-redux";
 import {
   setDataLibrary,
   setGraphData,
   setGraphSourceNode,
   setMouseMode,
   setSelectedData,
-} from '../../../../../redux/actions/Graph/graphActions';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { stringGen } from '../utils/stringUtils';
-import * as d3 from 'd3';
-import GraphActionsBottomActions from '../../../components/GraphActionsBottomActions';
-import clickPlugin from './plugins/clickFunction';
+} from "../../../../../redux/actions/Graph/graphActions";
+import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { stringGen } from "../utils/stringUtils";
+import * as d3 from "d3";
+import GraphActionsBottomActions from "../../../components/GraphActionsBottomActions";
+import clickPlugin from "./plugins/clickFunction";
 import {
   dragDuringPlugin,
   dragEndPlugin,
   dragStartPlugin,
   dragSubjectPlugin,
-} from './plugins/dragFunctions';
-import zoomPlugin from './plugins/zoomFunction';
+} from "./plugins/dragFunctions";
+import zoomPlugin from "./plugins/zoomFunction";
 
-import { setEquals } from '../utils/sets';
-import hydrate from '../algorithms/satisgraphtory/hydrate';
-import { maxCanvasRatio } from '../datatypes/graph/graphNode';
-import setEnums from '../repositories/objectRepository';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
+import { setEquals } from "../utils/sets";
+import hydrate from "../algorithms/satisgraphtory/hydrate";
+import { maxCanvasRatio } from "../datatypes/graph/graphNode";
+import setEnums from "../repositories/objectRepository";
+import { sgDevicePixelRatio } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils";
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
@@ -52,9 +52,9 @@ function useBoundingBoxRect(props) {
         const boundingRect = canvasContainerCurrent.getBoundingClientRect();
         if (canvasCurrent) {
           canvasCurrent.style.width =
-            Math.round(widthOverride || rect.width) + 'px';
+            Math.round(widthOverride || rect.width) + "px";
           canvasCurrent.style.height =
-            Math.round(heightOverride || rect.height) + 'px';
+            Math.round(heightOverride || rect.height) + "px";
         }
         if (
           boundingRect.width !== rect.width ||
@@ -66,8 +66,8 @@ function useBoundingBoxRect(props) {
     }
 
     measureElement();
-    window.addEventListener('resize', measureElement, false);
-    return () => window.removeEventListener('resize', measureElement, false);
+    window.addEventListener("resize", measureElement, false);
+    return () => window.removeEventListener("resize", measureElement, false);
   }, [
     rect,
     canvasCurrent,
@@ -76,7 +76,7 @@ function useBoundingBoxRect(props) {
     widthOverride,
   ]);
 
-  const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
+  const canvasContext = canvasCurrent ? canvasCurrent.getContext("2d") : null;
 
   return [rect, ref, canvasRef, canvasContext, canvasCurrent];
 }
@@ -154,7 +154,7 @@ function SatisGraphtoryCanvas(props) {
       if (!setEquals(oldSet, newSet)) {
         const newData = { ...selectedData };
 
-        newData['edges'] = { ...edges };
+        newData["edges"] = { ...edges };
 
         setSelectedDataFunc(newData);
       }
@@ -169,7 +169,7 @@ function SatisGraphtoryCanvas(props) {
       if (!setEquals(oldSet, newSet)) {
         const newData = { ...selectedData };
 
-        newData['nodes'] = { ...nodes };
+        newData["nodes"] = { ...nodes };
 
         setSelectedDataFunc(newData);
       }
@@ -200,11 +200,11 @@ function SatisGraphtoryCanvas(props) {
         const newData = { ...selectedData };
 
         if (nodesChanged) {
-          newData['nodes'] = { ...nodes };
+          newData["nodes"] = { ...nodes };
         }
 
         if (edgesChanged) {
-          newData['edges'] = { ...edges };
+          newData["edges"] = { ...edges };
         }
 
         setSelectedDataFunc(newData);
@@ -228,7 +228,7 @@ function SatisGraphtoryCanvas(props) {
       canvasContext.translate(localTransform.x, localTransform.y);
 
       canvasContext.save();
-      canvasContext.lineCap = 'round';
+      canvasContext.lineCap = "round";
 
       canvasContext.globalAlpha = 1.0;
       canvasContext.scale(localTransform.k, localTransform.k);
@@ -262,7 +262,7 @@ function SatisGraphtoryCanvas(props) {
 
       const selectedNode = graphSourceNode;
 
-      if (graphFidelity === 'low') {
+      if (graphFidelity === "low") {
         canvasContext.scale(localTransform.k, localTransform.k);
 
         Object.keys(selectedNodes).forEach((nodeId) => {
@@ -285,7 +285,7 @@ function SatisGraphtoryCanvas(props) {
 
       canvasContext.save();
 
-      if (graphFidelity === 'low') {
+      if (graphFidelity === "low") {
         canvasContext.scale(localTransform.k, localTransform.k);
         graphNodes.forEach(function (d) {
           // console.log("LOWRENDERED");
@@ -309,11 +309,11 @@ function SatisGraphtoryCanvas(props) {
         const y2 = dragCurrent.y;
 
         canvasContext.globalAlpha = 0.15;
-        canvasContext.fillStyle = '#FFA328';
+        canvasContext.fillStyle = "#FFA328";
         canvasContext.fillRect(x1, y1, x2 - x1, y2 - y1);
 
         canvasContext.setLineDash([8, 2]);
-        canvasContext.strokeStyle = '#FFA328';
+        canvasContext.strokeStyle = "#FFA328";
         canvasContext.globalAlpha = 1.0;
 
         canvasContext.strokeRect(x1, y1, x2 - x1, y2 - y1);
@@ -335,12 +335,12 @@ function SatisGraphtoryCanvas(props) {
 
   const simulation = d3
     .forceSimulation()
-    .force('center', d3.forceCenter(usedWidth / 2, usedHeight / 2))
-    .force('x', d3.forceX(usedWidth / 2).strength(0.1))
-    .force('y', d3.forceY(usedHeight / 2).strength(0.1))
-    .force('charge', d3.forceManyBody().strength(-50))
+    .force("center", d3.forceCenter(usedWidth / 2, usedHeight / 2))
+    .force("x", d3.forceX(usedWidth / 2).strength(0.1))
+    .force("y", d3.forceY(usedHeight / 2).strength(0.1))
+    .force("charge", d3.forceManyBody().strength(-50))
     .force(
-      'link',
+      "link",
       d3
         .forceLink()
         .strength(1)
@@ -369,7 +369,7 @@ function SatisGraphtoryCanvas(props) {
 
     let dragDistance = 10;
 
-    if (mouseMode === 'add') {
+    if (mouseMode === "add") {
       dragDistance = 200;
     }
 
@@ -388,10 +388,10 @@ function SatisGraphtoryCanvas(props) {
               setNodesAndEdges
             )
           )
-          .on('start', () =>
+          .on("start", () =>
             dragStartPlugin(simulation, transform, mouseMode, setDragStart)
           )
-          .on('drag', () =>
+          .on("drag", () =>
             dragDuringPlugin(
               transform,
               mouseMode,
@@ -400,7 +400,7 @@ function SatisGraphtoryCanvas(props) {
               setDidDrag
             )
           )
-          .on('end', () =>
+          .on("end", () =>
             dragEndPlugin(
               simulation,
               graphData,
@@ -417,7 +417,7 @@ function SatisGraphtoryCanvas(props) {
             )
           )
       )
-      .on('click', () =>
+      .on("click", () =>
         clickPlugin(
           graphSourceNode,
           setGraphSourceNode,
@@ -438,14 +438,14 @@ function SatisGraphtoryCanvas(props) {
         d3
           .zoom()
           .filter(function () {
-            if (mouseMode === 'add') {
-              return d3.event.type !== 'dblclick';
+            if (mouseMode === "add") {
+              return d3.event.type !== "dblclick";
             }
 
-            return mouseMode !== 'link';
+            return mouseMode !== "link";
           })
           .scaleExtent([1 / 10, maxCanvasRatio])
-          .on('zoom', () =>
+          .on("zoom", () =>
             zoomPlugin(
               graphData,
               graphFidelity,
@@ -479,10 +479,10 @@ function SatisGraphtoryCanvas(props) {
 
   useEffect(() => {
     if (!graphEdges || !graphNodes) return;
-    simulation.nodes(graphNodes).on('tick', simulationUpdate);
-    simulation.force('link').links(graphEdges);
+    simulation.nodes(graphNodes).on("tick", simulationUpdate);
+    simulation.force("link").links(graphEdges);
 
-    if (graphFidelity === 'low') {
+    if (graphFidelity === "low") {
       graphNodes.forEach((node) => {
         node.preRender(d3.zoomIdentity, dataLibrary);
       });
@@ -517,22 +517,22 @@ function SatisGraphtoryCanvas(props) {
 
 const styles = () => ({
   canvasContainer: {
-    display: 'grid',
-    gridArea: 'contentArea',
+    display: "grid",
+    gridArea: "contentArea",
     gridTemplateAreas: `"canvasElement"`,
-    gridTemplateRows: 'minmax(0, 1fr)',
-    gridTemplateColumns: '1fr',
+    gridTemplateRows: "minmax(0, 1fr)",
+    gridTemplateColumns: "1fr",
     minWidth: 0,
     minHeight: 0,
-    position: 'relative',
+    position: "relative",
   },
   canvas: {
-    gridArea: 'canvasElement',
+    gridArea: "canvasElement",
     minWidth: 0,
     minHeight: 0,
   },
   loadingContainer: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,

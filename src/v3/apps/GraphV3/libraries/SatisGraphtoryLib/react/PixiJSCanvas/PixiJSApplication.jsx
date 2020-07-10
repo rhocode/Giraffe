@@ -1,21 +1,21 @@
-import React from 'react';
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
-import { Viewport } from 'pixi-viewport';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import React from "react";
+import PIXI from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { sgDevicePixelRatio } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils";
+import { Viewport } from "pixi-viewport";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
 import {
   addChild,
   removeChild,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
-import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
+} from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas";
+import { enableSelectionBox } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox";
 
 const useStyles = makeStyles(() =>
   createStyles({
     hidden: {
-      display: 'none',
+      display: "none",
     },
   })
 );
@@ -121,16 +121,16 @@ function PixiJSApplication(props) {
 
     previousMouseState.current = mouseState;
 
-    pixiViewport.plugins.pause('drag');
-    pixiViewport.plugins.resume('wheel');
-    pixiViewport.plugins.pause('pinch');
+    pixiViewport.plugins.pause("drag");
+    pixiViewport.plugins.resume("wheel");
+    pixiViewport.plugins.pause("pinch");
     viewportChildContainer.interactive = false;
     viewportChildContainer.buttonMode = false;
     viewportChildContainer.hitArea = null;
     viewportChildContainer.removeAllListeners();
 
     if (pixiViewportFunc.current) {
-      pixiViewport.off('zoomed-end', pixiViewportFunc.current);
+      pixiViewport.off("zoomed-end", pixiViewportFunc.current);
       pixiViewportFunc.current = null;
     }
 
@@ -147,15 +147,15 @@ function PixiJSApplication(props) {
         viewportChildContainer.hitArea = pixiViewport.hitArea;
       };
 
-      pixiViewport.on('zoomed-end', pixiViewportFunc.current);
+      pixiViewport.on("zoomed-end", pixiViewportFunc.current);
 
       const selectionBox = new PIXI.Graphics();
       selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
       enableSelectionBox(pixiViewport, viewportChildContainer, selectionBox);
     } else if (mouseState === MouseState.MOVE) {
-      pixiViewport.plugins.resume('drag');
-      pixiViewport.plugins.resume('wheel');
-      pixiViewport.plugins.resume('pinch');
+      pixiViewport.plugins.resume("drag");
+      pixiViewport.plugins.resume("wheel");
+      pixiViewport.plugins.resume("pinch");
     }
   }, [
     mouseState,
