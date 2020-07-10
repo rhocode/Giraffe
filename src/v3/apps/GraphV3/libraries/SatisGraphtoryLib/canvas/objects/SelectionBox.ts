@@ -43,7 +43,6 @@ export const enableSelectionBox = (
   let clickY = 0;
 
   viewportChildContainer.on('pointerdown', function (this: any, event: any) {
-    pixiViewport.plugins.pause('wheel');
     event.stopPropagation();
     const newPos = event.data.getLocalPosition(this.parent);
     clickX = newPos.x;
@@ -52,13 +51,11 @@ export const enableSelectionBox = (
   });
 
   viewportChildContainer.on('pointerup', () => {
-    pixiViewport.plugins.resume('wheel');
     dragging = false;
     selectionBox.clear();
   });
 
   viewportChildContainer.on('pointerupoutside', () => {
-    pixiViewport.plugins.resume('wheel');
     dragging = false;
     selectionBox.clear();
   });

@@ -116,6 +116,7 @@ function PixiJSApplication(props) {
   // }, [pixiViewport, pixiEvents])
 
   const selectionBoxId = React.useRef(null);
+  const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
     if (!pixiViewport) return;
@@ -129,7 +130,11 @@ function PixiJSApplication(props) {
     viewportChildContainer.buttonMode = false;
     viewportChildContainer.hitArea = null;
     viewportChildContainer.removeAllListeners();
-    viewportChildContainer.off('zoomed');
+
+    if (pixiViewportFunc.current) {
+      pixiViewport.off('zoomed-end', pixiViewportFunc.current);
+      pixiViewportFunc.current = null;
+    }
 
     if (selectionBoxId.current) {
       removeChild(selectionBoxId.current, pixiCanvasStateId);
@@ -140,9 +145,11 @@ function PixiJSApplication(props) {
       viewportChildContainer.interactive = true;
       viewportChildContainer.buttonMode = true;
       viewportChildContainer.hitArea = pixiViewport.hitArea;
-      pixiViewport.on('zoomed-end', function () {
+      pixiViewportFunc.current = function () {
         viewportChildContainer.hitArea = pixiViewport.hitArea;
-      });
+      };
+
+      pixiViewport.on('zoomed-end', pixiViewportFunc.current);
 
       const selectionBox = new PIXI.Graphics();
       selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
