@@ -54,6 +54,9 @@ function PixiJSApplication(props) {
           antialias: true,
         });
 
+        const ticker = PIXI.Ticker.shared;
+        ticker.start();
+
         const viewport = new Viewport({
           screenWidth: width,
           screenHeight: height,
@@ -64,10 +67,6 @@ function PixiJSApplication(props) {
         });
 
         newApplication.stage.addChild(viewport);
-        //
-        // viewport.drag().pinch().wheel({
-        //   smooth: 10,
-        // });
 
         if (s?.application?.destroy) {
           s.application.destroy();
@@ -82,10 +81,6 @@ function PixiJSApplication(props) {
         viewport.drag().pinch().wheel({
           smooth: 10,
         });
-
-        // viewport.on('mousemove', function (mouseData) {
-        //
-        // });
 
         s.application = newApplication;
 

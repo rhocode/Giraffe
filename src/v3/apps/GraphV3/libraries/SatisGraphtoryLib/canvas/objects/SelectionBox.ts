@@ -16,6 +16,8 @@ export const drawSelectionBox = (
 
   const offsetInterval = 300;
   const offset = ((Date.now() % offsetInterval) + 1) / offsetInterval;
+  console.log(Date.now());
+
   drawDashedPolygon(
     context,
     [
