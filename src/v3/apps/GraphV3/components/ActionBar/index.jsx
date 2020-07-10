@@ -1,17 +1,18 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 // import LinkIcon from "@material-ui/icons/Link";
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import AddIcon from '@material-ui/icons/Add';
-import { useStoreState } from 'pullstate';
-import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
   default: {
-    zIndex: theme.zIndex.drawer
+    zIndex: theme.zIndex.drawer,
   },
   root: {
     position: 'absolute',
@@ -23,52 +24,61 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     pointerEvents: 'none',
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto'
-  }
-});
+    pointerEvents: 'auto',
+  },
+}));
 
-function ActionBar(props) {
-  const { classes } = props;
+function ActionBar() {
+  const classes = useStyles();
 
-  const mouseMode = useStoreState(graphAppStore, s => s.mouseMode);
+  const { mouseState, pixiCanvasStateId } = React.useContext(
+    PixiJSCanvasContext
+  );
 
-  const handleChange = (event, value) => {
-    graphAppStore.update(s => {
-      if (value !== s.mouseMode) {
-        s.mouseMode = value;
-      }
-    });
-  };
+  const handleModeChange = React.useCallback(
+    (event, value) => {
+      pixiJsStore.update((s) => {
+        if (value !== s[pixiCanvasStateId].mouseMode) {
+          s[pixiCanvasStateId].mouseState = value;
+        }
+      });
+    },
+    [pixiCanvasStateId]
+  );
 
   return (
     <div className={classes.root}>
       <BottomNavigation
-        value={mouseMode}
-        onChange={handleChange}
+        value={mouseState}
+        onChange={handleModeChange}
         className={classes.navigation}
       >
         <BottomNavigationAction
           label="Move"
-          value="move"
+          value={MouseState.MOVE}
           icon={<OpenWithIcon />}
         />
         <BottomNavigationAction
           label="Select"
-          value="select"
+          value={MouseState.SELECT}
           icon={<CropFreeIcon />}
         />
         {/*<BottomNavigationAction*/}
         {/*  label="Link"*/}
         {/*  value="link"*/}
         {/*  icon={<LinkIcon />} />*/}
-        <BottomNavigationAction label="Add" value="add" icon={<AddIcon />} />
+        <BottomNavigationAction
+          label="Add"
+          value={MouseState.ADD}
+          icon={<AddIcon />}
+        />
       </BottomNavigation>
     </div>
   );
 }
 
-export default withStyles(styles)(ActionBar);
+export default ActionBar;

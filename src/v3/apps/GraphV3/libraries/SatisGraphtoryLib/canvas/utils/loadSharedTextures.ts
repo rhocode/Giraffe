@@ -81,16 +81,16 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
 
   // items and machines
   getMachineCraftableItems().forEach((element) => {
-    const itemimg = getItemIcon(element, ITEM_SIZE);
-    const itemicon = new PIXI.BaseTexture(itemimg);
-    const itemtex = new PIXI.Texture(itemicon);
-    PIXI.Texture.addToCache(itemtex, element);
+    const itemImg = getItemIcon(element, ITEM_SIZE);
+    const itemIcon = new PIXI.BaseTexture(itemImg);
+    const itemTex = new PIXI.Texture(itemIcon);
+    PIXI.Texture.addToCache(itemTex, element);
   });
 
   getAllBuildableMachines().forEach((element) => {
-    const machineimg = getBuildingIcon(element, MACHINE_SIZE);
-    const machineicon = new PIXI.BaseTexture(machineimg);
-    const machinetex = new PIXI.Texture(machineicon);
-    PIXI.Texture.addToCache(machinetex, element);
+    const machineImg = getBuildingIcon(element, MACHINE_SIZE);
+    const machineIcon = new PIXI.BaseTexture(machineImg);
+    const machineTex = new PIXI.Texture(machineIcon);
+    PIXI.Texture.addToCache(machineTex, element);
   });
 };

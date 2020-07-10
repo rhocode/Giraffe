@@ -10,9 +10,20 @@ export const addChildren = (
       const id = stringGen(10);
       const s = t[canvasId];
       s.children.set(id, child);
-      s.viewport.addChild(child);
+      s.viewportChildContainer.addChild(child);
     });
   });
+};
+
+export const addChild = (child: PIXI.DisplayObject[], canvasId: string) => {
+  const id = stringGen(10);
+  pixiJsStore.update((t) => {
+    const s = t[canvasId];
+    s.children.set(id, child);
+    s.viewportChildContainer.addChild(child);
+  });
+
+  return id;
 };
 
 export const removeChild = (id: string, canvasId: string) => {
@@ -25,6 +36,6 @@ export const removeChild = (id: string, canvasId: string) => {
 
     const childToRemove = s.children.get(id)!;
     s.children.delete(id);
-    s.viewport.removeChild(childToRemove);
+    s.viewportChildContainer.removeChild(childToRemove);
   });
 };

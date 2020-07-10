@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
       gridArea: 'body',
       display: 'grid',
       gridTemplateAreas: `"header"
-        "canvasArea"
+        "contentArea"
         "bottomActions"`,
       gridTemplateRows: 'auto minmax(0, 1fr) auto',
       gridTemplateColumns: '1fr',
@@ -112,9 +112,9 @@ function GraphApp(props) {
           <NavBar />
           <ChainWizardPanel />
           <Canvas
-            canvasChildren={(application) => {
+            canvasChildren={(application, viewport) => {
               console.log('Canvas load function called');
-              return initCanvasChildren(application);
+              return initCanvasChildren(application, viewport);
             }}
             onFinishLoad={() => {
               window.prerenderReady = true;

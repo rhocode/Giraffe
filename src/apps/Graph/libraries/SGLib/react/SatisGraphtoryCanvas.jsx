@@ -518,7 +518,7 @@ function SatisGraphtoryCanvas(props) {
 const styles = () => ({
   canvasContainer: {
     display: 'grid',
-    gridArea: 'canvasArea',
+    gridArea: 'contentArea',
     gridTemplateAreas: `"canvasElement"`,
     gridTemplateRows: 'minmax(0, 1fr)',
     gridTemplateColumns: '1fr',

@@ -1,8 +1,9 @@
 import { Node } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/Node';
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import { getAllBuildableMachines } from 'v3/data/loaders/buildings';
+import { Viewport } from 'pixi-viewport';
 
-const initCanvasChildren = (pixiJS: PIXI.Application) => {
+const initCanvasChildren = (pixiJS: PIXI.Application, viewport: Viewport) => {
   console.log('Initing canvas state');
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -32,8 +33,8 @@ const initCanvasChildren = (pixiJS: PIXI.Application) => {
     const item = items[Math.floor(Math.random() * items.length)];
     const machine = machines[Math.floor(Math.random() * machines.length)];
     const tNode = Node(
-      Math.random() * pixiJS.stage.width,
-      Math.random() * pixiJS.stage.height,
+      Math.random() * viewport.screenWidth,
+      Math.random() * viewport.screenHeight,
       item,
       '30/30 (100.0%)',
       '30/30 (100.0%)',

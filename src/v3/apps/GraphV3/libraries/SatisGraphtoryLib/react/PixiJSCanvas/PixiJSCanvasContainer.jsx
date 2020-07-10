@@ -3,13 +3,14 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
 import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
 import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
-const useStyles = makeStyles((theme) =>
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+
+const useStyles = makeStyles(() =>
   createStyles({
     canvasContainer: {
       display: 'grid',
-      gridArea: 'canvasArea',
+      gridArea: 'contentArea',
       gridTemplateAreas: `"canvasElement"`,
       gridTemplateRows: 'minmax(0, 1fr)',
       gridTemplateColumns: '1fr',
@@ -41,13 +42,11 @@ const useStyles = makeStyles((theme) =>
 function PixiJSCanvasGuard(props) {
   const { height, width, ...restProps } = props;
 
+  const { canvasReady: loaded } = React.useContext(PixiJSCanvasContext);
+
   if (!height || !width) {
     return null;
   }
-
-  const loaded = pixiJsStore.useState(
-    (s) => s[props.pixiCanvasStateId].canvasReady
-  );
 
   return (
     <PixiJSApplication
@@ -59,12 +58,10 @@ function PixiJSCanvasGuard(props) {
   );
 }
 
-function CenteredLoader(props) {
+function CenteredLoader() {
   const classes = useStyles();
 
-  const loaded = pixiJsStore.useState(
-    (s) => s[props.pixiCanvasStateId].canvasReady
-  );
+  const { canvasReady: loaded } = React.useContext(PixiJSCanvasContext);
 
   if (loaded) {
     return null;
@@ -88,7 +85,7 @@ function PixiJSCanvasContainer(props) {
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <div className={classes.canvas}>
-        <CenteredLoader pixiCanvasStateId={props.pixiCanvasStateId} />
+        <CenteredLoader />
         <PixiJSCanvasGuard height={height} width={width} {...restProps} />
         {children}
       </div>
