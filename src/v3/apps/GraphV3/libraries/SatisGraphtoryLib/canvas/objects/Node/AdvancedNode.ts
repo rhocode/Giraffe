@@ -131,6 +131,9 @@ export default class AdvancedNode implements NodeTemplate {
     // itemSprite.width = ITEM_SIZE;
     // itemSprite.height = ITEM_SIZE;
 
-    return container;
+    return {
+      container,
+      // Any other property we should expose, like outline
+    };
   }
 }

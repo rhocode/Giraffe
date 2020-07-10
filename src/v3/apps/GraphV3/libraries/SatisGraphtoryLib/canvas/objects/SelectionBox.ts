@@ -1,6 +1,5 @@
 import { Viewport } from 'pixi-viewport';
 import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
-import drawDashedPolygon from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/drawDashedPolygon';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 
 export const drawSelectionBox = (
@@ -12,30 +11,31 @@ export const drawSelectionBox = (
   dash: number,
   gap: number
 ) => {
-  context.moveTo(x1, y1);
-  context.lineStyle(3, ORANGE, 1);
-
-  const offsetInterval = 300;
-  const offset = ((Date.now() % offsetInterval) + 1) / offsetInterval;
-  console.log(Date.now());
-  const ticker = PIXI.Ticker.shared;
-  console.log(ticker.started);
-
-  drawDashedPolygon(
-    context,
-    [
-      { x: 0, y: 0 },
-      { x: width, y: 0 },
-      { x: width, y: height },
-      { x: 0, y: height },
-    ],
-    x1,
-    y1,
-    0,
-    10,
-    5,
-    offset
-  );
+  context.lineStyle(4, ORANGE, 1);
+  context.beginFill(ORANGE, 0.15);
+  context.drawRect(x1, y1, width, height);
+  //
+  // context.moveTo(x1, y1);
+  // context.lineStyle(4, ORANGE, 1);
+  //
+  // // const offsetInterval = 300;
+  // // const offset = ((Date.now() % offsetInterval) + 1) / offsetInterval;
+  //
+  // drawDashedPolygon(
+  //   context,
+  //   [
+  //     { x: 0, y: 0 },
+  //     { x: width, y: 0 },
+  //     { x: width, y: height },
+  //     { x: 0, y: height },
+  //   ],
+  //   x1,
+  //   y1,
+  //   0,
+  //   dash,
+  //   gap,
+  //   0
+  // );
 };
 
 export const enableSelectionBox = (

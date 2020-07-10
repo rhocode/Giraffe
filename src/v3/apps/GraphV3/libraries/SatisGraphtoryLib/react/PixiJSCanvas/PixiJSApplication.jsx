@@ -78,24 +78,12 @@ function PixiJSApplication(props) {
         s.viewport = viewport;
 
         viewport.drag().pinch().wheel({
-          smooth: 10,
+          smooth: 5,
         });
 
         s.application = newApplication;
 
         s.applicationLoaded = true;
-
-        let ticker = PIXI.Ticker.shared;
-
-        ticker.autoStart = false;
-        ticker.stop();
-
-        function animate(time) {
-          ticker.update(time);
-          newApplication.renderer.render(newApplication.stage);
-          requestAnimationFrame(animate);
-        }
-        animate(performance.now());
 
         // ticker.add(function (time) {
 
