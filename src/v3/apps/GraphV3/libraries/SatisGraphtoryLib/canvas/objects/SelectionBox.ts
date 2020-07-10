@@ -1,6 +1,7 @@
 import { Viewport } from 'pixi-viewport';
 import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import drawDashedPolygon from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/drawDashedPolygon';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 
 export const drawSelectionBox = (
   context: PIXI.Graphics,
@@ -17,6 +18,8 @@ export const drawSelectionBox = (
   const offsetInterval = 300;
   const offset = ((Date.now() % offsetInterval) + 1) / offsetInterval;
   console.log(Date.now());
+  const ticker = PIXI.Ticker.shared;
+  console.log(ticker.started);
 
   drawDashedPolygon(
     context,

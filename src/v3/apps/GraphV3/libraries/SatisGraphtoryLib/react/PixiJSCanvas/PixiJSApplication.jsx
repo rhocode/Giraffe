@@ -54,8 +54,7 @@ function PixiJSApplication(props) {
           antialias: true,
         });
 
-        const ticker = PIXI.Ticker.shared;
-        ticker.start();
+        // ticker.start();
 
         const viewport = new Viewport({
           screenWidth: width,
