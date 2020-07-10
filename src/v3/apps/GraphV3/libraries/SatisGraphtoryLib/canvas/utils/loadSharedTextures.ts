@@ -4,7 +4,7 @@ import {
   getAllBuildableMachines,
 } from 'v3/data/loaders/buildings';
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
-import sgDevicePixelRatio from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 
 const WIDTH = 220;
 const HEIGHT = 145;
@@ -41,8 +41,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const bounds = gfx.getBounds();
   const backboard = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     bounds
   );
   PIXI.Texture.addToCache(backboard, 'backboard');
@@ -57,8 +57,8 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const inBounds = gfx.getBounds();
   const inCircle = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     inBounds
   );
   PIXI.Texture.addToCache(inCircle, 'inCircle');
@@ -73,24 +73,24 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const outBounds = gfx.getBounds();
   const outCircle = pixiRenderer.generateTexture(
     gfx,
-    PIXI.SCALE_MODES.NEAREST,
-    sgDevicePixelRatio,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
     outBounds
   );
   PIXI.Texture.addToCache(outCircle, 'outCircle');
 
   // items and machines
   getMachineCraftableItems().forEach((element) => {
-    const itemimg = getItemIcon(element, ITEM_SIZE);
-    const itemicon = new PIXI.BaseTexture(itemimg);
-    const itemtex = new PIXI.Texture(itemicon);
-    PIXI.Texture.addToCache(itemtex, element);
+    const itemImg = getItemIcon(element, ITEM_SIZE);
+    const itemIcon = new PIXI.BaseTexture(itemImg);
+    const itemTex = new PIXI.Texture(itemIcon);
+    PIXI.Texture.addToCache(itemTex, element);
   });
 
   getAllBuildableMachines().forEach((element) => {
-    const machineimg = getBuildingIcon(element, MACHINE_SIZE);
-    const machineicon = new PIXI.BaseTexture(machineimg);
-    const machinetex = new PIXI.Texture(machineicon);
-    PIXI.Texture.addToCache(machinetex, element);
+    const machineImg = getBuildingIcon(element, MACHINE_SIZE);
+    const machineIcon = new PIXI.BaseTexture(machineImg);
+    const machineTex = new PIXI.Texture(machineIcon);
+    PIXI.Texture.addToCache(machineTex, element);
   });
 };

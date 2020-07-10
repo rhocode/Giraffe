@@ -1,5 +1,10 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { getItemDefinition } from 'v3/data/loaders/items';
+import {
+  WHITE,
+  ORANGE,
+  GREEN,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 
 const WIDTH = 220;
 const HEIGHT = 145;
@@ -26,10 +31,6 @@ const LEVEL_FONT_SIZE = 28;
 const EFFICIENCY_FONT_SIZE = 28;
 const INPUT_FONT_SIZE = 20;
 const OUTPUT_FONT_SIZE = 20;
-
-const GREEN = 0x15cb07;
-const ORANGE = 0xffa328;
-const WHITE = 0xffffff;
 
 const NAME_STYLE = new PIXI.TextStyle({
   align: 'left',

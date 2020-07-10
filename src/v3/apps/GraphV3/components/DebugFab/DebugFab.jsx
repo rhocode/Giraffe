@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import Fab from '@material-ui/core/Fab';
 import { isMobile } from 'react-device-detect';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
 
 const fabAction = () => {
   // TODO: add graph actions.
+  pixiJsStore.update((s) => {
+    console.log(s);
+    console.log(Object.keys(Object.values(s)));
+
+    // .map((val) => {
+    //     val.mouseMode = MouseState.SELECT;
+    //   });
+  });
 };
 
 function DebugFab() {

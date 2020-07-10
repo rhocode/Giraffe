@@ -1,14 +1,21 @@
-import React from "react";
-import PIXI from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider";
-import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import sgDevicePixelRatio from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils";
-import { Viewport } from "pixi-viewport";
+import React from 'react';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
+import { Viewport } from 'pixi-viewport';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import {
+  addChild,
+  removeChild,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
+import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     hidden: {
-      display: "none",
+      display: 'none',
     },
   })
 );
@@ -16,18 +23,26 @@ const useStyles = makeStyles((theme) =>
 function PixiJSApplication(props) {
   const { height, width } = props;
 
+  const {
+    pixiCanvasStateId,
+    pixiViewport,
+    mouseState,
+    pixiRenderer,
+    viewportChildContainer,
+  } = React.useContext(PixiJSCanvasContext);
+
   const styles = useStyles();
 
-  const pixiApp = pixiJsStore.useState((s) => s.application);
-  const pixiViewport = pixiJsStore.useState((s) => s.viewport);
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (canvasRef.current && originalCanvasRef.current !== canvasRef.current) {
-      console.log("different canvas");
+    if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
-      pixiJsStore.update((s) => {
+
+      pixiJsStore.update((sParent) => {
+        const s = sParent[pixiCanvasStateId];
+
         // try {
         let newApplication = new PIXI.Application({
           transparent: true,
@@ -38,6 +53,8 @@ function PixiJSApplication(props) {
           resolution: sgDevicePixelRatio,
           antialias: true,
         });
+
+        // ticker.start();
 
         const viewport = new Viewport({
           screenWidth: width,
@@ -50,46 +67,111 @@ function PixiJSApplication(props) {
 
         newApplication.stage.addChild(viewport);
 
-        viewport.drag().pinch().wheel({
-          smooth: 10,
-        });
-        // .decelerate()
-
-        // Figure this out later, if we need to factor in the viewport
-        // if (s.application?.stage?.children?.length) {
-        //   newApplication.stage.addChild(...s.application.stage.children.slice);
-        // }
-
-        if (s.application?.destroy) {
+        if (s?.application?.destroy) {
           s.application.destroy();
         }
 
+        const container = new PIXI.Container();
+        s.viewportChildContainer = container;
+        viewport.addChild(container);
+
         s.viewport = viewport;
 
-        viewport.on("mousemove", function (mouseData) {
-          // console.log(viewport.toWorld(mouseData.data.global));
+        viewport.drag().pinch().wheel({
+          smooth: 5,
         });
 
         s.application = newApplication;
 
-        if (s.childQueue.length) {
-          s.viewport.addChild(...s.childQueue);
-          s.childQueue = [];
-        }
+        s.applicationLoaded = true;
+
+        // ticker.add(function (time) {
+
+        // });
         // } catch(e) {
         //  // Probably ask the user to turn on webGL
         // }
       });
     }
-  }, [canvasRef, height, width]);
+  }, [canvasRef, height, pixiCanvasStateId, width]);
+
+  const previousMouseState = React.useRef(null);
+
+  // const selectDragFunction = React.useCallback(function() {
+  //   console.log(mouseState);
+  // }, [mouseState])
+  //
+  // const initialEventsInitialized = React.useRef(false);
+  // const initialEvents = React.useRef(null);
+  // const pixiEvents = pixiViewport?._events
+  //
+  // React.useEffect(() => {
+  //   if (pixiEvents && !initialEventsInitialized.current) {
+  //     initialEventsInitialized.current = true;
+  //     initialEvents.current = pixiEvents;
+  //   }
+  //
+  // }, [pixiViewport, pixiEvents])
+
+  const selectionBoxId = React.useRef(null);
+  const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
-    if (pixiApp.renderer) {
+    if (!pixiViewport) return;
+
+    previousMouseState.current = mouseState;
+
+    pixiViewport.plugins.pause('drag');
+    pixiViewport.plugins.resume('wheel');
+    pixiViewport.plugins.pause('pinch');
+    viewportChildContainer.interactive = false;
+    viewportChildContainer.buttonMode = false;
+    viewportChildContainer.hitArea = null;
+    viewportChildContainer.removeAllListeners();
+
+    if (pixiViewportFunc.current) {
+      pixiViewport.off('zoomed-end', pixiViewportFunc.current);
+      pixiViewportFunc.current = null;
+    }
+
+    if (selectionBoxId.current) {
+      removeChild(selectionBoxId.current, pixiCanvasStateId);
+      selectionBoxId.current = null;
+    }
+
+    if (mouseState === MouseState.SELECT) {
+      viewportChildContainer.interactive = true;
+      viewportChildContainer.buttonMode = true;
+      viewportChildContainer.hitArea = pixiViewport.hitArea;
+      pixiViewportFunc.current = function () {
+        viewportChildContainer.hitArea = pixiViewport.hitArea;
+      };
+
+      pixiViewport.on('zoomed-end', pixiViewportFunc.current);
+
+      const selectionBox = new PIXI.Graphics();
+      selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
+      enableSelectionBox(pixiViewport, viewportChildContainer, selectionBox);
+    } else if (mouseState === MouseState.MOVE) {
+      pixiViewport.plugins.resume('drag');
+      pixiViewport.plugins.resume('wheel');
+      pixiViewport.plugins.resume('pinch');
+    }
+  }, [
+    mouseState,
+    pixiCanvasStateId,
+    pixiViewport,
+    previousMouseState,
+    viewportChildContainer,
+  ]);
+
+  React.useEffect(() => {
+    if (pixiRenderer) {
       // Are both necessary?
-      pixiApp.renderer.resize(width, height);
+      pixiRenderer.resize(width, height);
       pixiViewport.resize(width, height);
     }
-  }, [height, pixiApp.renderer, pixiViewport, width]);
+  }, [height, pixiRenderer, pixiViewport, width]);
 
   return (
     <canvas className={props.hidden ? styles.hidden : null} ref={canvasRef} />

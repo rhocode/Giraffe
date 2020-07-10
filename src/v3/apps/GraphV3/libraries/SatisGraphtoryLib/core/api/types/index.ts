@@ -4,7 +4,8 @@ export interface SatisGraphtoryNode {
   overclock: number;
   inputs: any[];
   outputs: any[];
-  type: string;
+  machineType: string;
+  tier: number;
   position: SatisGraphtoryNodePosition;
 }
 

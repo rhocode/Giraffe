@@ -3,6 +3,7 @@ import memoize from 'fast-memoize';
 import imageRepo from 'data/images/__all';
 import { getBuildingImageName } from 'v3/data/loaders/buildings';
 import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
+import produce from 'immer';
 
 export const getItemDefinition = (itemSlug: string) => {
   return (ItemJson as any)[itemSlug];
@@ -77,6 +78,19 @@ const getMachineCraftableItemsFn = () => {
   ];
 };
 
+const getAllItemsFn = () => {
+  return produce(ItemJson, (draftState) => {
+    Object.entries(ItemJson).forEach(([slug, item]) => {
+      (draftState as any)[slug] = item;
+    });
+  });
+};
+
+export const itemSlugToName = (slug: string) => {
+  return (getAllItemsFn() as Record<string, any>)[slug].name;
+};
+
+export const getAllItems = memoize(getAllItemsFn);
 export const getMachineCraftableItems = memoize(getMachineCraftableItemsFn);
 export const getItemByType = memoize(getItemByTypeFn);
 export const getResources = memoize(getResourcesFn);
