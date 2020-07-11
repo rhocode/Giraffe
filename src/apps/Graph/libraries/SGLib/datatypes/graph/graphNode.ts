@@ -1,10 +1,9 @@
 import {
   defaultNodeThemeSprite,
   defaultNodeThemeSpriteOutline,
-  drawPath
+  drawPath,
 } from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
-import { imageRepository } from '../../repositories/imageRepository';
 import * as d3 from 'd3';
 import Fraction from '../primitives/fraction';
 
@@ -39,7 +38,7 @@ export abstract class GraphNode {
   cacheInitialized: boolean = false;
   inputPropagationData: Map<number, Fraction> = new Map();
   outputPropagationData: Map<number, Fraction> = new Map();
-  translator: Nullable<(s: string) => string> = str => str;
+  translator: Nullable<(s: string) => string> = (str) => str;
 
   // These are filled in during render time to cache the assigned output slots
   inputSlotMapping: any = {};
@@ -93,7 +92,7 @@ export abstract class GraphNode {
     return {
       id: this.id,
       fx: this.fx,
-      fy: this.fy
+      fy: this.fy,
     };
   }
 
@@ -264,7 +263,7 @@ export abstract class GraphNode {
 
   sortConnectedNodeSlots = () => {
     const nodeSorted: any = {};
-    this.inputSlots.forEach(edge => {
+    this.inputSlots.forEach((edge) => {
       if (!edge) return;
       const node = edge.source;
       nodeSorted[node.id] = nodeSorted[node.id] + 1 || 0;
@@ -272,7 +271,7 @@ export abstract class GraphNode {
         node.sortOutputSlots();
       }
     });
-    this.outputSlots.forEach(edge => {
+    this.outputSlots.forEach((edge) => {
       if (!edge) return;
       const node = edge.target;
       if (!nodeSorted[node.id]) {
@@ -374,7 +373,7 @@ export default class MachineNode extends GraphNode {
       machineClass: this.machineObject.class.name,
       recipe: this.machineObject.recipe,
       tier: this.machineObject.tier,
-      overclock: this.overclock
+      overclock: this.overclock,
     };
   }
 
@@ -395,29 +394,13 @@ export default class MachineNode extends GraphNode {
   }
 
   getImage() {
-    const baseName = this.machineObject.class.name;
-    const baseNameWithTier =
-      this.machineObject.class.name + '_' + this.machineObject.tier;
-    const name = baseName || 'miner_mk1';
-
-    const tieredChoice = imageRepository.machines[baseNameWithTier];
-    const baseChoice = imageRepository.machines[name];
-
-    if (tieredChoice) {
-      return tieredChoice;
-    }
-
-    if (baseChoice) {
-      return baseChoice;
-    }
-
-    return imageRepository.machines['miner_mk1'];
+    return null;
   }
 
   getTagLine() {
     const translate =
       this.translator ||
-      function(a: any) {
+      function (a: any) {
         return a;
       };
     if (this.machineObject && this.machineObject.recipe) {
@@ -430,7 +413,7 @@ export default class MachineNode extends GraphNode {
   getVersion() {
     const translate =
       this.translator ||
-      function(a: any) {
+      function (a: any) {
         return a;
       };
     if (this.machineObject && this.machineObject.tier) {

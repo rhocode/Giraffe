@@ -23,7 +23,7 @@ export const leastCommonMultiple = (list: Array<number>): number => {
 
 const reduceRatio = (ratioList: Array<number>): Array<number> => {
   const denominator = gcf(ratioList);
-  return ratioList.map(i => i / denominator);
+  return ratioList.map((i) => i / denominator);
 };
 
 const splitList = (list: Array<number>): Array<Array<number>> => {
@@ -40,31 +40,31 @@ type BeltTuple = {
 const generateSplitterIterator = (beltSpeeds: BeltTuple) => {
   let index = 0;
   const beltOrder: Array<number> = [];
-  const blockedUntil: Array<number> = [];
+  // const blockedUntil: Array<number> = [];
 
   const { left, top, right } = beltSpeeds;
 
   if (top > 0) {
     beltOrder.push(1);
-    blockedUntil.push(0);
+    // blockedUntil.push(0);
   }
 
   if (right > 0) {
     beltOrder.push(2);
-    blockedUntil.push(0);
+    // blockedUntil.push(0);
   }
 
   if (left > 0) {
     beltOrder.push(0);
-    blockedUntil.push(0);
+    // blockedUntil.push(0);
   }
 
   return {
-    next: function(): number {
+    next: function (): number {
       const returnedIndex = index;
       index = (index + 1) % beltOrder.length;
       return beltOrder[returnedIndex];
-    }
+    },
   };
 };
 
@@ -74,17 +74,19 @@ const fractionalSplitterCalculator = (
 ) => {
   const denominators = [
     inputSpeed.denominator,
-    ...outputsSpeed.map(fraction => fraction.denominator)
+    ...outputsSpeed.map((fraction) => fraction.denominator),
   ];
   const lcm = leastCommonMultiple(denominators);
   const factor = new Fraction(lcm, 1);
   const fixedInputs = inputSpeed.multiply(factor).reduce();
-  const fixedOutputs = outputsSpeed.map(item => item.multiply(factor).reduce());
+  const fixedOutputs = outputsSpeed.map((item) =>
+    item.multiply(factor).reduce()
+  );
 
   [
     fixedInputs.denominator,
-    ...fixedOutputs.map(item => item.denominator)
-  ].forEach(item => {
+    ...fixedOutputs.map((item) => item.denominator),
+  ].forEach((item) => {
     if (item !== 1) {
       throw new Error('Not properly reduced!');
     }
@@ -93,9 +95,9 @@ const fractionalSplitterCalculator = (
   return {
     result: splitterCalculator(
       fixedInputs.numerator,
-      fixedOutputs.map(item => item.numerator)
+      fixedOutputs.map((item) => item.numerator)
     ),
-    factor: lcm
+    factor: lcm,
   };
 };
 
@@ -122,16 +124,16 @@ const splitterCalculator = (
 
   const outputsPermuted = permutations(outputsSpeed);
 
-  const outputted = outputsPermuted.map(out =>
+  const outputted = outputsPermuted.map((out) =>
     splitterCalculatorHelper(inputSpeed, out)
   );
 
   const bestOutput = Math.max(
-    ...outputted.map(i => i.adjustedInput.toNumber())
+    ...outputted.map((i) => i.adjustedInput.toNumber())
   );
 
   const choices = outputted
-    .filter(i => i.adjustedInput.toNumber() === bestOutput)
+    .filter((i) => i.adjustedInput.toNumber() === bestOutput)
     .sort((setting1: any, setting2: any) => {
       let counter1 = 0;
       let counter2 = 0;
@@ -150,7 +152,7 @@ const splitterCalculator = (
       return counter1 - counter2;
     });
 
-  const actual = outputted.filter(i =>
+  const actual = outputted.filter((i) =>
     i.originalOutput.every((element: number, index: number) => {
       return element === outputsSpeed[index];
     })
@@ -163,17 +165,17 @@ const splitterCalculatorHelper = (
   inputSpeed: number,
   outputsSpeed: Array<number>
 ) => {
-  const beltOutputReciprocal = outputsSpeed.map(i =>
+  const beltOutputReciprocal = outputsSpeed.map((i) =>
     i === 0 ? Infinity : 60 / i
   );
 
   const timeScale = 60 / inputSpeed;
-  const nonZeroItems = outputsSpeed.filter(i => i);
+  const nonZeroItems = outputsSpeed.filter((i) => i);
   // const scaleMultiplier = leastCommonMultiple([...nonZeroItems, inputSpeed]);
   const beltIterator = generateSplitterIterator({
     left: outputsSpeed[0],
     top: outputsSpeed[1],
-    right: outputsSpeed[2]
+    right: outputsSpeed[2],
   });
   const sequence = [];
   const nextFreeTime = [0, 0, 0];
@@ -195,7 +197,7 @@ const splitterCalculatorHelper = (
   // let startTime = 0;
   let usedNextFreeTime = false;
 
-  let lcm = leastCommonMultiple([...outputsSpeed].filter(item => item > 0));
+  let lcm = leastCommonMultiple([...outputsSpeed].filter((item) => item > 0));
 
   const upperBound = Math.round((lcm + 500) / 1000);
 
@@ -247,8 +249,8 @@ const splitterCalculatorHelper = (
 
     if (!minimumElementsPassed) {
       minimumElementsPassed = Object.values(outputtedItemCount)
-        .map(i => i >= 2)
-        .every(i => i);
+        .map((i) => i >= 2)
+        .every((i) => i);
     }
 
     if (minimumElementsPassed && sequence.length % 2 === 0) {
@@ -271,13 +273,13 @@ const splitterCalculatorHelper = (
 
   // const itemsTransported = left.filter(i => i >= 0).length;
 
-  const leftSplit = left.filter(i => i === 0).length;
-  const middleSplit = left.filter(i => i === 1).length;
-  const rightSplit = left.filter(i => i === 2).length;
+  const leftSplit = left.filter((i) => i === 0).length;
+  const middleSplit = left.filter((i) => i === 1).length;
+  const rightSplit = left.filter((i) => i === 2).length;
   const beltOutputs = [
     (leftSplit * 60) / totalTime,
     (middleSplit * 60) / totalTime,
-    (rightSplit * 60) / totalTime
+    (rightSplit * 60) / totalTime,
   ];
 
   //TODO: should mult by 60?
@@ -285,7 +287,7 @@ const splitterCalculatorHelper = (
   const denominator = 2 * inputSpeed;
   const [reducedNumerator, reducedDenominator] = reduceRatio([
     numerator,
-    denominator
+    denominator,
   ]);
 
   const totalTimeFraction = new Fraction(reducedNumerator, reducedDenominator);
@@ -293,11 +295,11 @@ const splitterCalculatorHelper = (
   const beltPackets = [
     { qty: leftSplit, seconds: totalTimeFraction.reduce() },
     { qty: middleSplit, seconds: totalTimeFraction.reduce() },
-    { qty: rightSplit, seconds: totalTimeFraction.reduce() }
+    { qty: rightSplit, seconds: totalTimeFraction.reduce() },
   ];
 
   const adjustedInput = new Fraction(0, 1);
-  beltPackets.forEach(item => {
+  beltPackets.forEach((item) => {
     const qty = item.qty;
     const seconds = totalTimeFraction;
     const thisFraction = new Fraction(qty, 1);
@@ -314,7 +316,7 @@ const splitterCalculatorHelper = (
     beltPackets,
     // // manifoldInput,
     // // manifoldOutput,
-    originalOutput: outputsSpeed
+    originalOutput: outputsSpeed,
   };
 };
 
@@ -337,7 +339,7 @@ const memoizedFractionalSplitterCalculatorFunction = () => {
     const resultArray = [
       new Fraction(0, 1),
       new Fraction(0, 1),
-      new Fraction(0, 1)
+      new Fraction(0, 1),
     ];
 
     outputsSpeed.forEach((item, index) => {

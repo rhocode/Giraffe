@@ -163,21 +163,22 @@ function ChainWizardPanel() {
 
   const { translate } = React.useContext(LocaleContext);
 
-  const products = Object.values(
-    graphWizardStore.useState((s) => s.products)
-  ).filter((item) => item.slug && item.amount > 0);
+  const productsMap = graphWizardStore.useState((s) => s.products);
 
-  const constraints = Object.values(
-    graphWizardStore.useState((s) => s.constraints)
-  );
+  const constraintsMap = graphWizardStore.useState((s) => s.constraints);
 
   const autoCalculate = useStoreState(graphWizardStore, (s) => s.autoCalculate);
 
   React.useEffect(() => {
     if (autoCalculate) {
-      calculateFunction(products, constraints)();
+      calculateFunction(
+        Object.values(productsMap).filter(
+          (item) => item.slug && item.amount > 0
+        ),
+        Object.values(constraintsMap)
+      )();
     }
-  }, [products, constraints, autoCalculate]);
+  }, [autoCalculate, productsMap, constraintsMap]);
 
   const [itemChoices] = React.useState(
     getMachineCraftableItems()
@@ -227,7 +228,12 @@ function ChainWizardPanel() {
                 >
                   <Grid item>
                     <Button
-                      onClick={calculateFunction(products, constraints)}
+                      onClick={calculateFunction(
+                        Object.values(productsMap).filter(
+                          (item) => item.slug && item.amount > 0
+                        ),
+                        Object.values(constraintsMap)
+                      )}
                       variant="contained"
                       color="primary"
                     >

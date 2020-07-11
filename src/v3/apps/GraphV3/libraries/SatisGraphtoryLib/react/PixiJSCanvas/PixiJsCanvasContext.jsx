@@ -10,15 +10,15 @@ function PixiJsContextProvider(props) {
     const instance = s[pixiCanvasStateId];
     return {
       pixiCanvasStateId: pixiCanvasStateId,
-      application: instance.application,
-      mouseState: instance.mouseState,
-      pixiViewport: instance.viewport,
+      application: instance?.application,
+      mouseState: instance?.mouseState,
+      pixiViewport: instance?.viewport,
       pixiRenderer: instance?.application?.renderer,
       canvasReady: instance?.canvasReady,
-      viewportChildContainer: instance.viewportChildContainer,
+      viewportChildContainer: instance?.viewportChildContainer,
       children: instance?.children,
-      applicationLoaded: instance.applicationLoaded,
-      aliasCanvasObjects: instance.aliasCanvasObjects,
+      applicationLoaded: instance?.applicationLoaded,
+      aliasCanvasObjects: instance?.aliasCanvasObjects,
     };
   });
 

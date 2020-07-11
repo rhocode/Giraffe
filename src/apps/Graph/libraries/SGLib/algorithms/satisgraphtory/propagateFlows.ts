@@ -10,7 +10,7 @@ import Belt from '../../datatypes/satisgraphtory/belt';
 function distribute(nodeOrder: Array<SimpleNode>) {
   const redistribution: Map<SimpleEdge, ResourceRate[]> = new Map();
 
-  nodeOrder.forEach(node => {
+  nodeOrder.forEach((node) => {
     if (node instanceof GroupNode) {
       const groupNode = node as GroupNode;
       groupNode.visited = false;
@@ -19,14 +19,14 @@ function distribute(nodeOrder: Array<SimpleNode>) {
     }
   });
 
-  nodeOrder.forEach(node => {
+  nodeOrder.forEach((node) => {
     if (node instanceof GroupNode) {
       const groupNode = node as GroupNode;
       if (!groupNode.visited) {
         groupNode.visited = true;
 
         if (node.isCyclic()) {
-          node.cyclicNodes().forEach(node => {
+          node.cyclicNodes().forEach((node) => {
             if (!(node instanceof SatisGraphtoryAbstractNode)) {
               throw new Error('Not the right kind of node');
             }
@@ -54,7 +54,7 @@ function distribute(nodeOrder: Array<SimpleNode>) {
           const distributeOutput = castedNode.distributeOutputs();
 
           if (distributeOutput && distributeOutput.hasExcess()) {
-            Array.from(distributeOutput.excess.entries()).forEach(entry => {
+            Array.from(distributeOutput.excess.entries()).forEach((entry) => {
               const edge = entry[0];
               const resources = entry[1];
               if (redistribution.has(edge)) {
@@ -95,24 +95,24 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
       const nodeOrder = [
         ...sourceCluster,
         ...intermediateCluster,
-        ...targetCluster
+        ...targetCluster,
       ];
 
       const allNodeSet = new Set([
-        ...sourceCluster.map(cluster => cluster.subNodes).flat(1),
-        ...intermediateCluster.map(cluster => cluster.subNodes).flat(1),
-        ...targetCluster.map(cluster => cluster.subNodes).flat(1)
+        ...sourceCluster.map((cluster) => cluster.subNodes).flat(1),
+        ...intermediateCluster.map((cluster) => cluster.subNodes).flat(1),
+        ...targetCluster.map((cluster) => cluster.subNodes).flat(1),
       ]);
 
       let shouldRedistribute = false;
       do {
         if (redistribution.size > 0) {
-          redistribute(nodeOrder, redistribution);
+          redistribute(redistribution);
         }
         redistribution = distribute(nodeOrder);
         shouldRedistribute =
           redistribution.size > 0 &&
-          Array.from(redistribution.keys()).some(edge => {
+          Array.from(redistribution.keys()).some((edge) => {
             const node = edge.source;
             return allNodeSet.has(node);
           });
@@ -120,7 +120,7 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
         repropagateFlows =
           repropagateFlows ||
           (redistribution.size > 0 &&
-            Array.from(redistribution.keys()).some(edge => {
+            Array.from(redistribution.keys()).some((edge) => {
               const node = edge.source;
               return !allNodeSet.has(node);
             }));
@@ -168,11 +168,8 @@ const propagateFlows = (clusters: Array<ClusterChain>) => {
 //   }
 // };
 
-const redistribute = (
-  nodeOrder: Array<SimpleNode>,
-  redistribution: Map<SimpleEdge, ResourceRate[]>
-) => {
-  Array.from(redistribution.entries()).forEach(entry => {
+const redistribute = (redistribution: Map<SimpleEdge, ResourceRate[]>) => {
+  Array.from(redistribution.entries()).forEach((entry) => {
     const edge = entry[0];
     if (!(edge instanceof Belt)) {
       throw new Error('This is not a belt!');
