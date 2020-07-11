@@ -2,10 +2,12 @@ import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiP
 import { createBackboard } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Backboard';
 import { SatisGraphtoryNode } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import { getRecipeName } from 'v3/data/loaders/recipes';
+import { getBuildingName } from 'v3/data/loaders/buildings';
 import {
   OVERCLOCK_STYLE,
   RECIPE_STYLE,
   TIER_STYLE,
+  MACHINE_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
@@ -13,23 +15,30 @@ import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objec
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+// import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
 import {
   RECIPE_OFFSET_X,
   RECIPE_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
 
-const NODE_WIDTH = 220;
+const NODE_WIDTH = 145;
 const NODE_HEIGHT = 145;
 
-const TOP_HEIGHT = NODE_HEIGHT - 35;
+const TOP_HEIGHT = NODE_HEIGHT;
 
-const TIER_OFFSET_X = 120;
-const TIER_OFFSET_Y = 40;
-const EFFICIENCY_OFFSET_X = 120;
-const EFFICIENCY_OFFSET_Y = 70;
-const MACHINE_OFFSET_X = 60;
-const MACHINE_OFFSET_Y = 55;
-const MACHINE_SIZE = 95;
+const TIER_OFFSET_X = 10;
+const TIER_OFFSET_Y = 20;
+// const TIER_BADGE_OFFSET_X = 4;
+// const TIER_BADGE_OFFSET_Y = 110;
+const MACHINE_NAME_OFFSET_X = 72;
+const MACHINE_NAME_OFFSET_Y = -30;
+const EFFICIENCY_OFFSET_X = 140;
+const EFFICIENCY_OFFSET_Y = 127;
+const MACHINE_OFFSET_X = 72;
+const MACHINE_OFFSET_Y = 72;
+const MACHINE_SIZE = 100;
+// const BADGE_OFFSET_X = NODE_WIDTH - 60
+// const BADGE_OFFSET_Y = NODE_HEIGHT - 35
 
 export default class AdvancedNode implements NodeTemplate {
   container: PIXI.DisplayObject;
@@ -60,12 +69,37 @@ export default class AdvancedNode implements NodeTemplate {
       NODE_WIDTH,
       RECIPE_STYLE(NODE_WIDTH),
       x + RECIPE_OFFSET_X,
-      y + TOP_HEIGHT + RECIPE_OFFSET_Y
+      y + RECIPE_OFFSET_Y,
+      'center'
     );
+
+    const machineName = getBuildingName(machineType);
+    const machineText = createText(
+      machineName,
+      MACHINE_STYLE(),
+      x + MACHINE_NAME_OFFSET_X,
+      y + MACHINE_NAME_OFFSET_Y,
+      'center'
+    );
+
+    container.addChild(machineText);
 
     // this.recipeNameText = recipeText;
 
     container.addChild(recipeText);
+
+    const machineTexture = PIXI.utils.TextureCache[machineType];
+    const machineImage = createImageIcon(
+      machineTexture,
+      MACHINE_SIZE,
+      MACHINE_SIZE,
+      x + MACHINE_OFFSET_X,
+      y + MACHINE_OFFSET_Y
+    );
+
+    container.addChild(machineImage);
+
+    // container.addChild(createBadge(x + TIER_BADGE_OFFSET_X, y + TIER_BADGE_OFFSET_Y, 'white'))
 
     const levelText = createText(
       getTier(tier),
@@ -76,11 +110,14 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.addChild(levelText);
 
+    // container.addChild(createBadge(x + BADGE_OFFSET_X, y + BADGE_OFFSET_Y));
+
     const efficiencyText = createText(
       `${overclock}%`,
       OVERCLOCK_STYLE(),
       x + EFFICIENCY_OFFSET_X,
-      y + EFFICIENCY_OFFSET_Y
+      y + EFFICIENCY_OFFSET_Y,
+      'right'
     );
 
     container.addChild(efficiencyText);
@@ -123,17 +160,6 @@ export default class AdvancedNode implements NodeTemplate {
     for (const dot of outputDots) {
       container.addChild(dot);
     }
-
-    const machineTexture = PIXI.utils.TextureCache[machineType];
-    const machineImage = createImageIcon(
-      machineTexture,
-      MACHINE_SIZE,
-      MACHINE_SIZE,
-      x + MACHINE_OFFSET_X,
-      y + MACHINE_OFFSET_Y
-    );
-
-    container.addChild(machineImage);
 
     // Maybe save the items for somewhere else?
     // const itemTex = PIXI.utils.TextureCache[name];

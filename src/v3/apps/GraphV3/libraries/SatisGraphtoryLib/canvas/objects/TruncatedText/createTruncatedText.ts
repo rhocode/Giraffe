@@ -7,7 +7,8 @@ const createTruncatedText = (
   maxWidth: number,
   style: PIXI.TextStyle,
   x: number,
-  y: number
+  y: number,
+  align = 'left'
 ) => {
   const baseMetrics = PIXI.TextMetrics.measureText(text, style);
   let displayedString;
@@ -25,7 +26,7 @@ const createTruncatedText = (
     displayedString = `${newMetrics.lines[0]}...`;
   }
 
-  return createText(displayedString, style, x, y);
+  return createText(displayedString, style, x, y, align);
 };
 
 export default createTruncatedText;
