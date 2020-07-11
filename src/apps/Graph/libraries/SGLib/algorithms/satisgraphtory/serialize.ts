@@ -4,14 +4,6 @@ import { b64fromBuffer } from '@waiting/base64';
 import * as LZUTF8 from 'lzutf8';
 import { GraphEdge } from '../../datatypes/graph/graphEdge';
 
-const baseChars =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-const lookup: string[] = [];
-
-for (let i = 0, len = baseChars.length; i < len; ++i) {
-  lookup[i] = baseChars[i];
-}
-
 export type saveFile = {
   edges: GraphEdge[];
   nodes: GraphNode[];
@@ -63,7 +55,7 @@ const serializeNode = (
 
   const mappedEnums: any = {};
 
-  Object.keys(enumMapper).forEach(fieldName => {
+  Object.keys(enumMapper).forEach((fieldName) => {
     const fetchedData = data[fieldName];
 
     if (fetchedData !== null && fetchedData !== undefined) {
@@ -96,7 +88,7 @@ const serializeEdgesFromNodes = (nodes: GraphNode[], enumMapper: any) => {
   const sourceEdgeIndexMap: Map<GraphEdge, number> = new Map();
   const targetEdgeIndexMap: Map<GraphEdge, number> = new Map();
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     node.inputSlots.forEach((possibleEdge, index) => {
       if (possibleEdge instanceof GraphEdge) {
         targetEdgeIndexMap.set(possibleEdge, index);
@@ -112,7 +104,7 @@ const serializeEdgesFromNodes = (nodes: GraphNode[], enumMapper: any) => {
 
   const allEdges: any = [];
 
-  Array.from(sourceEdgeIndexMap.entries()).forEach(entry => {
+  Array.from(sourceEdgeIndexMap.entries()).forEach((entry) => {
     const edge = entry[0];
     if (targetEdgeIndexMap.has(edge)) {
       const retrieval = targetEdgeIndexMap.get(edge);
@@ -127,7 +119,7 @@ const serializeEdgesFromNodes = (nodes: GraphNode[], enumMapper: any) => {
 
       const mappedEnums: any = {};
 
-      Object.keys(enumMapper).forEach(fieldName => {
+      Object.keys(enumMapper).forEach((fieldName) => {
         const fetchedData = edgeSerialized[fieldName];
 
         if (fetchedData !== null && fetchedData !== undefined) {
@@ -141,7 +133,7 @@ const serializeEdgesFromNodes = (nodes: GraphNode[], enumMapper: any) => {
           edgeSerialized,
           {
             sourceIndex: index,
-            targetIndex: retrieval
+            targetIndex: retrieval,
           },
           mappedEnums
         )
@@ -157,7 +149,6 @@ const dataMapper = (root: any, enumName: string) => {
 
   return {
     toEnum: (data: string) => classData.values[data],
-    fromEnum: (enm: number) => classData.valuesById[enm]
   };
 };
 
@@ -176,19 +167,19 @@ const serialize = (schema: any, graph: saveFile) => {
   const nodeEnumMapper = {
     machineClass: MachineClass.toEnum,
     recipe: Recipe.toEnum,
-    tier: UpgradeTiers.toEnum
+    tier: UpgradeTiers.toEnum,
   };
 
   const nodeEnumFlagger = {
-    recipe: 'hasRecipe'
+    recipe: 'hasRecipe',
   };
 
-  const serializedNodes = nodes.map(node =>
+  const serializedNodes = nodes.map((node) =>
     serializeNode(node, Node, nodeEnumMapper, nodeEnumFlagger)
   );
 
   const edgeEnumMapper = {
-    tier: UpgradeTiers.toEnum
+    tier: UpgradeTiers.toEnum,
   };
 
   const serializedEdges = serializeEdgesFromNodes(nodes, edgeEnumMapper);
@@ -198,7 +189,7 @@ const serialize = (schema: any, graph: saveFile) => {
   const SaveFile = root.lookupType('SaveFile');
   const buffer = SaveFile.encode({
     edges: serializedEdges,
-    nodes: serializedNodes
+    nodes: serializedNodes,
   }).finish();
 
   let num_iterations = 0;
@@ -240,7 +231,7 @@ const serialize = (schema: any, graph: saveFile) => {
   return {
     d: b64fromBuffer(currentBuffer),
     i: num_iterations,
-    v: ''
+    v: '',
   };
 };
 
