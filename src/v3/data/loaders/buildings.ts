@@ -61,10 +61,15 @@ const getBuildableMachinesFn = () => {
     }
   });
 
+  const machineClassReverseMap = new Map<string, string>();
+
   for (const entry of machineClassMap.entries()) {
     const [key, value] = entry;
     value.sort();
     machineClassImageMap.set(key, value[0]);
+    value.forEach((className) => {
+      machineClassReverseMap.set(className, key);
+    });
   }
 
   //TODO: make this into a better system to allow for placing machines easier. The above is mostly cruft to remove
@@ -72,6 +77,7 @@ const getBuildableMachinesFn = () => {
   return {
     machineClassMap,
     machineClassImageMap,
+    machineClassReverseMap,
   };
 };
 
@@ -85,6 +91,14 @@ export const getBuildableMachinesFromClassName = (() => {
   const classListMap = getBuildableMachinesByClass().machineClassMap;
   return (name: string) => {
     return classListMap.get(name);
+  };
+})();
+
+export const getClassNameFromBuildableMachines = (() => {
+  const reverseClassListMap = getBuildableMachinesByClass()
+    .machineClassReverseMap;
+  return (name: string) => {
+    return reverseClassListMap.get(name);
   };
 })();
 
