@@ -1,15 +1,16 @@
 import { Viewport } from 'pixi-viewport';
 import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import { NodeContainer } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 export const drawSelectionBox = (
   context: PIXI.Graphics,
   x1: number,
   y1: number,
   width: number,
-  height: number,
-  dash: number,
-  gap: number
+  height: number
+  // dash: number,
+  // gap: number
 ) => {
   context.lineStyle(4, ORANGE, 1);
   context.beginFill(ORANGE, 0.15);
@@ -41,14 +42,54 @@ export const drawSelectionBox = (
 export const enableSelectionBox = (
   pixiViewport: Viewport,
   viewportChildContainer: PIXI.Container,
-  selectionBox: PIXI.Graphics
+  selectionBox: PIXI.Graphics,
+  selectionCallback: (nodeIds: string[]) => any
 ) => {
   let dragging = false;
   let clickX = 0;
   let clickY = 0;
 
+  // function stopSelection() {
+  //   const selected = viewportChildContainer.children.filter(child => {
+  //     return child instanceof NodeContainer;
+  //   }).filter(child => {
+  //     const thisBound = child.getLocalBounds();
+  //     const inBounds = thisBound.contains(minX, minY)
+  //       && thisBound.contains(minX + deltaX, minY)
+  //       && thisBound.contains(minX + deltaX, minY + deltaY)
+  //       && thisBound.contains(minX, minY + deltaY);
+  //
+  //     if (inBounds) {
+  //
+  //     } else {
+  //       child.alpha = 0.2
+  //     }
+  //   })
+  // }
+
+  let selected: NodeContainer[] = [];
+  let possibleNodes: NodeContainer[] = [];
+
+  function clearSelection() {
+    dragging = false;
+    selectionBox.clear();
+    possibleNodes.forEach((node) => {
+      node.alpha = 1;
+    });
+
+    const selectedNodes = selected.map((item) => item.nodeId);
+    selected = [];
+    possibleNodes = [];
+
+    selectionCallback(selectedNodes);
+  }
+
   viewportChildContainer.on('pointerdown', function (this: any, event: any) {
     event.stopPropagation();
+    possibleNodes = (viewportChildContainer.children.filter((child) => {
+      return child instanceof NodeContainer;
+    }) as unknown) as NodeContainer[];
+
     const newPos = event.data.getLocalPosition(this.parent);
     clickX = newPos.x;
     clickY = newPos.y;
@@ -56,13 +97,11 @@ export const enableSelectionBox = (
   });
 
   viewportChildContainer.on('pointerup', () => {
-    dragging = false;
-    selectionBox.clear();
+    clearSelection();
   });
 
   viewportChildContainer.on('pointerupoutside', () => {
-    dragging = false;
-    selectionBox.clear();
+    clearSelection();
   });
 
   viewportChildContainer.on('pointermove', function (this: any, event: any) {
@@ -76,7 +115,31 @@ export const enableSelectionBox = (
       const deltaX = Math.abs(clickX - newPos.x);
       const deltaY = Math.abs(clickY - newPos.y);
 
-      drawSelectionBox(selectionBox, minX, minY, deltaX, deltaY, 16, 8);
+      const { x: left, y: top } = pixiViewport.toScreen(minX, minY);
+      const { x: right, y: bottom } = pixiViewport.toScreen(
+        minX + deltaX,
+        minY + deltaY
+      );
+
+      selected = possibleNodes.filter((child) => {
+        const thisBound = ((child as unknown) as NodeContainer).boundCalculator.getBounds();
+
+        const inBounds =
+          thisBound.left >= left &&
+          thisBound.right <= right &&
+          thisBound.top >= top &&
+          thisBound.bottom <= bottom;
+
+        if (inBounds) {
+          child.alpha = 1;
+        } else {
+          child.alpha = 0.2;
+        }
+
+        return thisBound;
+      });
+
+      drawSelectionBox(selectionBox, minX, minY, deltaX, deltaY);
     }
   });
 };

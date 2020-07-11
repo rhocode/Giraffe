@@ -12,8 +12,12 @@ import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/ut
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
+import {
+  NodeContainer,
+  NodeTemplate,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { createHighlight } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Highlight';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+
 import { getClassNameFromBuildableMachines } from 'v3/data/loaders/buildings';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
 import {
@@ -37,10 +41,11 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 export default class AdvancedNode implements NodeTemplate {
-  container: PIXI.DisplayObject;
+  container: NodeContainer;
 
   constructor(props: SatisGraphtoryNode) {
     const {
+      nodeId,
       position,
       recipeLabel,
       tier,
@@ -54,7 +59,9 @@ export default class AdvancedNode implements NodeTemplate {
     const x = position.x;
     const y = position.y;
 
-    const container = new PIXI.Container();
+    const container = new NodeContainer();
+    container.nodeId = nodeId;
+
     this.container = container;
 
     container.addChild(
@@ -62,7 +69,10 @@ export default class AdvancedNode implements NodeTemplate {
     );
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
-    container.addChild(createBackboard(x, y, machineType));
+
+    container.boundCalculator = createBackboard(x, y, machineType);
+
+    container.addChild(container.boundCalculator);
 
     const recipeText = createTruncatedText(
       recipeLabel,
@@ -177,6 +187,7 @@ export default class AdvancedNode implements NodeTemplate {
     container.interactive = true;
     container.buttonMode = true;
     container.hitArea = new PIXI.Rectangle(x, y, WIDTH, HEIGHT);
+
     let dragging = false;
     let sourceX = 0;
     let sourceY = 0;

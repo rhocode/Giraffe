@@ -151,7 +151,14 @@ function PixiJSApplication(props) {
 
       const selectionBox = new PIXI.Graphics();
       selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
-      enableSelectionBox(pixiViewport, viewportChildContainer, selectionBox);
+      const selectionCallback = (nodeIds) => {};
+
+      enableSelectionBox(
+        pixiViewport,
+        viewportChildContainer,
+        selectionBox,
+        selectionCallback
+      );
     } else if (mouseState === MouseState.MOVE) {
       pixiViewport.plugins.resume('drag');
       pixiViewport.plugins.resume('wheel');
