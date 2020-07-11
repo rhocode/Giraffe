@@ -10,6 +10,7 @@ import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/c
 import { Viewport } from 'pixi-viewport';
 import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { LocaleContext } from 'v3/components/LocaleProvider';
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -17,6 +18,7 @@ const InnerComponent = React.lazy(() => {
   return Promise.all([
     new FontFaceObserver('Roboto Condensed').load(),
     new FontFaceObserver('Bebas Neue').load(),
+    new FontFaceObserver('Roboto Slab').load(),
   ]).then(() =>
     import(
       'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
@@ -27,7 +29,8 @@ const InnerComponent = React.lazy(() => {
 type LoadableComponentProps = {
   canvasChildren: (
     app: PIXI.Application,
-    viewPort: Viewport
+    viewPort: Viewport,
+    translate: Function
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
@@ -43,7 +46,8 @@ const LoadableComponent = (props: LoadableComponentProps) => {
 type CanvasProps = {
   canvasChildren: (
     app: PIXI.Application,
-    viewPort: Viewport
+    viewPort: Viewport,
+    translate: Function
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
@@ -74,12 +78,18 @@ function Canvas(props: CanvasProps) {
     };
   });
 
+  const { translate } = React.useContext(LocaleContext);
+
   React.useEffect(() => {
     if (!applicationLoaded) return;
 
     initPixiJSCanvas(pixiApplication);
 
-    const childrenToPush = canvasChildren(pixiApplication, pixiViewport);
+    const childrenToPush = canvasChildren(
+      pixiApplication,
+      pixiViewport,
+      translate
+    );
 
     addObjectChildren(childrenToPush || [], pixiCanvasStateId);
     pixiApplication.renderer.render(pixiApplication.stage);
@@ -97,6 +107,7 @@ function Canvas(props: CanvasProps) {
     pixiApplication,
     pixiCanvasStateId,
     pixiViewport,
+    translate,
   ]);
 
   return (

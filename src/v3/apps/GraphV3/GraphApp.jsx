@@ -11,7 +11,6 @@ import Canvas from 'v3/apps/GraphV3/components/Canvas';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 // import NodeDrawer from './components/NodeDrawer';
-
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
@@ -68,6 +67,7 @@ function GraphApp(props) {
     // instance.expensive(1000).then(count => {
     //   console.log(`Ran ${count} loops`);
     // });
+    // localizeGenerator(getAllRecipes())
   }, []);
 
   React.useEffect(() => {
@@ -112,9 +112,9 @@ function GraphApp(props) {
           <NavBar />
           <ChainWizardPanel />
           <Canvas
-            canvasChildren={(application, viewport) => {
+            canvasChildren={(application, viewport, translate) => {
               console.log('Canvas load function called');
-              return initCanvasChildren(application, viewport);
+              return initCanvasChildren(application, viewport, translate);
             }}
             onFinishLoad={() => {
               window.prerenderReady = true;

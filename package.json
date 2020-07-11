@@ -93,6 +93,7 @@
     "typeface-roboto": "^0.0.75",
     "typeface-roboto-condensed": "^0.0.75",
     "typeface-roboto-mono": "^0.0.75",
+    "typeface-roboto-slab": "^1.1.4",
     "typescript": "^3.7.5",
     "workerize-loader": "^1.3.0"
   },
@@ -152,12 +153,12 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "eslint src/ --ext .js,.jsx,.ts,.tsx --fix --max-warnings 0",
+    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": [
+      "eslint --fix --max-warnings 0 --ext .js,.jsx,.ts,.tsx ./src ",
       "prettier --single-quote --write",
       "git add"
     ],
-    "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "public/**/*.{js,jsx,ts,tsx,css,scss,md}": [
       "prettier --single-quote --write"
     ]
   },

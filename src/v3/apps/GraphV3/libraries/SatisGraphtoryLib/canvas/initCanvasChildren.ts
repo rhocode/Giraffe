@@ -6,12 +6,13 @@ import { Viewport } from 'pixi-viewport';
 import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import stringGen from 'v3/utils/stringGen';
-import {
-  getMachineCraftableRecipeList,
-  getRecipeName,
-} from 'v3/data/loaders/recipes';
+import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 
-const initCanvasChildren = (pixiJS: PIXI.Application, viewport: Viewport) => {
+const initCanvasChildren = (
+  pixiJS: PIXI.Application,
+  viewport: Viewport,
+  translate: Function
+) => {
   console.log('Initing canvas state');
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -35,7 +36,7 @@ const initCanvasChildren = (pixiJS: PIXI.Application, viewport: Viewport) => {
         y: Math.random() * viewport.screenHeight,
       },
       nodeId: stringGen(10),
-      recipeLabel: getRecipeName(recipe) as string,
+      recipeLabel: translate(recipe) as string,
       recipeName: recipe as string,
       tier: -1,
       overclock: Math.floor(Math.random() * 200),
