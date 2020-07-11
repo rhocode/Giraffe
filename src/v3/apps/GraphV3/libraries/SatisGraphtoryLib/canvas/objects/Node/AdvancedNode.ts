@@ -64,9 +64,14 @@ export default class AdvancedNode implements NodeTemplate {
 
     this.container = container;
 
-    container.addChild(
-      createHighlight(x + HIGHLIGHT_OFFSET_X, y + HIGHLIGHT_OFFSET_Y)
+    const highlight = createHighlight(
+      x + HIGHLIGHT_OFFSET_X,
+      y + HIGHLIGHT_OFFSET_Y
     );
+    highlight.visible = false;
+    container.highLight = highlight;
+
+    container.addChild(highlight);
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
 

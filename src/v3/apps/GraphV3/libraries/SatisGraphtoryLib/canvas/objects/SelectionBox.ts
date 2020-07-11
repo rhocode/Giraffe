@@ -74,7 +74,12 @@ export const enableSelectionBox = (
     dragging = false;
     selectionBox.clear();
     possibleNodes.forEach((node) => {
+      node.highLight.visible = false;
       node.alpha = 1;
+    });
+
+    selected.forEach((node) => {
+      node.highLight.visible = true;
     });
 
     const selectedNodes = selected.map((item) => item.nodeId);
@@ -87,7 +92,12 @@ export const enableSelectionBox = (
   viewportChildContainer.on('pointerdown', function (this: any, event: any) {
     event.stopPropagation();
     possibleNodes = (viewportChildContainer.children.filter((child) => {
-      return child instanceof NodeContainer;
+      let isPossible = child instanceof NodeContainer;
+      if (isPossible) {
+        ((child as unknown) as NodeContainer).highLight.visible = false;
+      }
+
+      return isPossible;
     }) as unknown) as NodeContainer[];
 
     const newPos = event.data.getLocalPosition(this.parent);
@@ -132,11 +142,13 @@ export const enableSelectionBox = (
 
         if (inBounds) {
           child.alpha = 1;
+        } else if (selected.length === 0) {
+          child.alpha = 1;
         } else {
           child.alpha = 0.2;
         }
 
-        return thisBound;
+        return inBounds;
       });
 
       drawSelectionBox(selectionBox, minX, minY, deltaX, deltaY);
