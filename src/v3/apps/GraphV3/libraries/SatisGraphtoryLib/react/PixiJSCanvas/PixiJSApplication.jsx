@@ -36,6 +36,28 @@ function PixiJSApplication(props) {
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
+  const lastTarget = React.useRef();
+
+  React.useEffect(() => {
+    const mouseDownEvent = function (event) {
+      lastTarget.current = event.target;
+      console.log('mousedown');
+    };
+
+    const keyDownEvent = function (event) {
+      if (lastTarget.current === canvasRef.current) {
+        console.log('keydown');
+      }
+    };
+    window.addEventListener('mousedown', mouseDownEvent, false);
+
+    window.addEventListener('keydown', keyDownEvent, false);
+    return () => {
+      window.removeEventListener('mousedown', mouseDownEvent);
+      window.removeEventListener('keydown', keyDownEvent);
+    };
+  }, []);
+
   React.useEffect(() => {
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
