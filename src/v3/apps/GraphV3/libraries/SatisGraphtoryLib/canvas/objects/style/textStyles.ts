@@ -6,6 +6,7 @@ import {
   ORANGE,
   WHITE,
   BLUE,
+  DARK_GREY,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import {
   NAME_FONT_SIZE,
@@ -14,6 +15,7 @@ import {
   EFFICIENCY_FONT_SIZE,
   INPUT_FONT_SIZE,
   OUTPUT_FONT_SIZE,
+  LEVEL_STROKE_SIZE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Texts';
 
 export const RECIPE_STYLE = memoize(
@@ -46,6 +48,8 @@ export const TIER_STYLE = memoize(
       fill: WHITE,
       fontSize: LEVEL_FONT_SIZE,
       fontFamily: '"Roboto Condensed", sans-serif',
+      stroke: DARK_GREY,
+      strokeThickness: LEVEL_STROKE_SIZE,
     })
 );
 
@@ -56,6 +60,8 @@ export const OVERCLOCK_STYLE = memoize(
       fill: BLUE,
       fontSize: EFFICIENCY_FONT_SIZE,
       fontFamily: '"Roboto Condensed", sans-serif',
+      stroke: DARK_GREY,
+      strokeThickness: LEVEL_STROKE_SIZE,
     })
 );
 

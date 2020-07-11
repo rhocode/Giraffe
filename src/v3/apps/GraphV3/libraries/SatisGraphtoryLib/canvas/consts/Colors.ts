@@ -5,3 +5,5 @@ export const GREY = 0x313234;
 export const YELLOW = 0xd4ce22;
 export const BLUE = 0x47a3ff;
 export const PURPLE = 0x7122d5;
+export const DARK_GREY = 0x222222;
+export const BLACK = 0x000000;
