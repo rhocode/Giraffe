@@ -13,3 +13,5 @@ export const BADGE_OFFSET_Y = 110;
 export const RECIPE_OFFSET_X = 72;
 export const RECIPE_OFFSET_Y = 160;
 export const RECIPE_FONT_OFFSET = 0;
+export const HIGHLIGHT_OFFSET_X = -9;
+export const HIGHLIGHT_OFFSET_Y = -9;

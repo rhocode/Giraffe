@@ -12,6 +12,7 @@ import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/ut
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
+import { createHighlight } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Highlight';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { getClassNameFromBuildableMachines } from 'v3/data/loaders/buildings';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
@@ -26,6 +27,8 @@ import {
   RECIPE_OFFSET_Y,
   TIER_OFFSET_X,
   TIER_OFFSET_Y,
+  HIGHLIGHT_OFFSET_X,
+  HIGHLIGHT_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import {
   MACHINE_SIZE,
@@ -53,6 +56,10 @@ export default class AdvancedNode implements NodeTemplate {
 
     const container = new PIXI.Container();
     this.container = container;
+
+    container.addChild(
+      createHighlight(x + HIGHLIGHT_OFFSET_X, y + HIGHLIGHT_OFFSET_Y)
+    );
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
     container.addChild(createBackboard(x, y, machineType));

@@ -28,6 +28,7 @@ import {
   BADGE_THICKNESS,
   BADGE_WIDTH,
   SMALL_BADGE_WIDTH,
+  HIGHTLIGHT_THICKNESS,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
@@ -41,9 +42,6 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   gfx.beginFill(GREY, 1.0);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
   gfx.endFill();
-  // gfx.lineStyle(BOX_LINE_THICKNESS, YELLOW, 1);
-  // gfx.moveTo(x, y + TOP_HEIGHT);
-  // gfx.lineTo(x + NODE_WIDTH, y + TOP_HEIGHT);
 
   const bounds = gfx.getBounds();
   const backboard = pixiRenderer.generateTexture(
@@ -76,9 +74,6 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   gfx.beginFill(GREY, 1.0);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
   gfx.endFill();
-  // gfx.lineStyle(BOX_LINE_THICKNESS, YELLOW, 1);
-  // gfx.moveTo(x, y + TOP_HEIGHT);
-  // gfx.lineTo(x + NODE_WIDTH, y + TOP_HEIGHT);
 
   const boundsStorage = gfx.getBounds();
   const storage = pixiRenderer.generateTexture(
@@ -88,6 +83,20 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     boundsStorage
   );
   PIXI.Texture.addToCache(storage, 'storage');
+
+  // highlight
+  gfx.clear();
+  gfx.lineStyle(HIGHTLIGHT_THICKNESS, ORANGE, 0.7);
+  gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
+
+  const boundsHighlight = gfx.getBounds();
+  const highlight = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    boundsHighlight
+  );
+  PIXI.Texture.addToCache(highlight, 'highlight');
 
   // badge (blue)
   gfx.clear();
