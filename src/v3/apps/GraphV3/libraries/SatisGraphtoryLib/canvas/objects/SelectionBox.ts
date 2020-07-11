@@ -71,16 +71,18 @@ export const enableSelectionBox = (
   let possibleNodes: NodeContainer[] = [];
 
   function clearSelection() {
+    if (!dragging) return;
+
     dragging = false;
     selectionBox.clear();
     possibleNodes.forEach((node) => {
-      node.highLight.visible = false;
+      // node.highLight.visible = false;
       node.alpha = 1;
     });
 
-    selected.forEach((node) => {
-      node.highLight.visible = true;
-    });
+    // selected.forEach((node) => {
+    //   node.highLight.visible = true;
+    // });
 
     const selectedNodes = selected.map((item) => item.nodeId);
     selected = [];
@@ -106,11 +108,11 @@ export const enableSelectionBox = (
     dragging = true;
   });
 
-  viewportChildContainer.on('pointerup', () => {
+  viewportChildContainer.on('pointerup', (event: any) => {
     clearSelection();
   });
 
-  viewportChildContainer.on('pointerupoutside', () => {
+  viewportChildContainer.on('pointerupoutside', (event: any) => {
     clearSelection();
   });
 

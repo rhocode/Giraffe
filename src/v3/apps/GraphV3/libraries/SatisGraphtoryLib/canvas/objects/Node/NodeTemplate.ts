@@ -8,5 +8,6 @@ export class NodeContainer extends PIXI.Container {
 }
 
 export interface NodeTemplate {
+  nodeId: string;
   container: NodeContainer;
 }

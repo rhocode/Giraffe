@@ -11,7 +11,8 @@ import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
   viewport: Viewport,
-  translate: Function
+  translate: (source: string) => string,
+  onSelectNodes: (nodeIds: string[]) => any
 ) => {
   console.log('Initing canvas state');
 
@@ -46,7 +47,10 @@ const initCanvasChildren = (
       outputs: Array.from(Array(Math.floor(Math.random() * 5)).keys()),
     };
 
-    children.push(new AdvancedNode(nodeData));
+    const newNode = new AdvancedNode(nodeData);
+    newNode.addInteractionEvents(onSelectNodes);
+
+    children.push(newNode);
   }
 
   console.timeEnd('loadNodes');

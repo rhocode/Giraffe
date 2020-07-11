@@ -42,6 +42,10 @@ import {
 
 export default class AdvancedNode implements NodeTemplate {
   container: NodeContainer;
+  nodeId: string;
+
+  private readonly x: number;
+  private readonly y: number;
 
   constructor(props: SatisGraphtoryNode) {
     const {
@@ -57,11 +61,13 @@ export default class AdvancedNode implements NodeTemplate {
     } = props;
 
     const x = position.x;
+    this.x = x;
     const y = position.y;
+    this.y = y;
 
     const container = new NodeContainer();
     container.nodeId = nodeId;
-
+    this.nodeId = nodeId;
     this.container = container;
 
     const highlight = createHighlight(
@@ -183,21 +189,34 @@ export default class AdvancedNode implements NodeTemplate {
     // itemSprite.position.y = y + NODE_HEIGHT + ITEM_OFFSET_Y;
     // itemSprite.width = ITEM_SIZE;
     // itemSprite.height = ITEM_SIZE;
-    this.addInteractionEvents(x, y, NODE_WIDTH, NODE_HEIGHT);
   }
 
-  addInteractionEvents(x: number, y: number, WIDTH: number, HEIGHT: number) {
+  addInteractionEvents(onSelectNodes: (nodeIds: string[]) => any) {
+    const x = this.x;
+    const y = this.y;
+
     const container = this.container;
 
     container.interactive = true;
     container.buttonMode = true;
-    container.hitArea = new PIXI.Rectangle(x, y, WIDTH, HEIGHT);
+    container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
 
     let dragging = false;
     let sourceX = 0;
     let sourceY = 0;
     let clickX = 0;
     let clickY = 0;
+    const threshold = 2;
+
+    container.on('click', () => {
+      if (
+        Math.abs(container.position.x - sourceX) < threshold ||
+        Math.abs(container.position.y - sourceY) < threshold
+      ) {
+        onSelectNodes([container.nodeId]);
+      }
+    });
+
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
@@ -207,9 +226,11 @@ export default class AdvancedNode implements NodeTemplate {
       sourceY = this.position.y;
       dragging = true;
     });
-    container.on('pointerup', () => {
+    container.on('pointerup', function (this: any, event: any) {
+      // event.stopPropagation();
       dragging = false;
     });
+
     container.on('pointerupoutside', () => {
       dragging = false;
     });

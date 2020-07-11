@@ -2,6 +2,7 @@ import { Store } from 'pullstate';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { Viewport } from 'pixi-viewport';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
 
 export const generateNewPixiCanvasStore = () => {
   return {
@@ -13,6 +14,7 @@ export const generateNewPixiCanvasStore = () => {
     canvasReady: false,
     applicationLoaded: false,
     mouseState: MouseState.MOVE,
+    selectedNodes: [] as AdvancedNode[],
   };
 };
 

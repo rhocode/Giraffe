@@ -112,9 +112,19 @@ function GraphApp(props) {
           <NavBar />
           <ChainWizardPanel />
           <Canvas
-            canvasChildren={(application, viewport, translate) => {
+            canvasChildren={(
+              application,
+              viewport,
+              translate,
+              onSelectNodes
+            ) => {
               console.log('Canvas load function called');
-              return initCanvasChildren(application, viewport, translate);
+              return initCanvasChildren(
+                application,
+                viewport,
+                translate,
+                onSelectNodes
+              );
             }}
             onFinishLoad={() => {
               window.prerenderReady = true;

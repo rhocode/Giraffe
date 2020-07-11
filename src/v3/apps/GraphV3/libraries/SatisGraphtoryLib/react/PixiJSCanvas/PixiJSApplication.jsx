@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width } = props;
+  const { height, width, onSelectNodes } = props;
 
   const {
     pixiCanvasStateId,
@@ -131,6 +131,7 @@ function PixiJSApplication(props) {
 
     if (pixiViewportFunc.current) {
       pixiViewport.off('zoomed-end', pixiViewportFunc.current);
+      pixiViewport.off('drag-end', pixiViewportFunc.current);
       pixiViewportFunc.current = null;
     }
 
@@ -139,33 +140,57 @@ function PixiJSApplication(props) {
       selectionBoxId.current = null;
     }
 
+    pixiViewportFunc.current = function () {
+      viewportChildContainer.hitArea = pixiViewport.hitArea;
+    };
+
+    pixiViewport.on('zoomed-end', pixiViewportFunc.current);
+    pixiViewport.on('drag-end', pixiViewportFunc.current);
+
     if (mouseState === MouseState.SELECT) {
       viewportChildContainer.interactive = true;
       viewportChildContainer.buttonMode = true;
       viewportChildContainer.hitArea = pixiViewport.hitArea;
-      pixiViewportFunc.current = function () {
-        viewportChildContainer.hitArea = pixiViewport.hitArea;
-      };
-
-      pixiViewport.on('zoomed-end', pixiViewportFunc.current);
 
       const selectionBox = new PIXI.Graphics();
       selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
-      const selectionCallback = (nodeIds) => {};
 
       enableSelectionBox(
         pixiViewport,
         viewportChildContainer,
         selectionBox,
-        selectionCallback
+        onSelectNodes
       );
     } else if (mouseState === MouseState.MOVE) {
       pixiViewport.plugins.resume('drag');
       pixiViewport.plugins.resume('wheel');
       pixiViewport.plugins.resume('pinch');
+      // viewportChildContainer.interactive = true;
+      // viewportChildContainer.buttonMode = true;
+      //
+      // viewportChildContainer.hitArea = pixiViewport.hitArea;
+      //
+      // let sourceX = 0;
+      // let sourceY = 0;
+      // const threshold = 2;
+      //
+      // viewportChildContainer.on('pointerdown', function () {
+      //   const point = pixiViewport.toWorld(this.position.x, this.position.y);
+      //   sourceX = point.x
+      //   sourceY = point.y
+      //
+      // });
+      // viewportChildContainer.on('click', function () {
+      //   const point = pixiViewport.toWorld(this.position.x, this.position.y);
+      //   if (Math.abs(point.x - sourceX) < threshold ||
+      //     Math.abs(point.y - sourceY) < threshold) {
+      //     onSelectNodes([]);
+      //   }
+      // });
     }
   }, [
     mouseState,
+    onSelectNodes,
     pixiCanvasStateId,
     pixiViewport,
     previousMouseState,
