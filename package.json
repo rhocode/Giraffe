@@ -154,7 +154,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,scss,md}": [
-      "eslint --fix --max-warnings 0 --ext .js,.jsx,.ts,.tsx ./src ",
+      "eslint --fix --max-warnings 0",
       "prettier --single-quote --write",
       "git add"
     ],
