@@ -15,6 +15,7 @@ export const generateNewPixiCanvasStore = () => {
     applicationLoaded: false,
     mouseState: MouseState.MOVE,
     selectedNodes: [] as AdvancedNode[],
+    aliasCanvasObjects: new Set() as Set<any>,
   };
 };
 

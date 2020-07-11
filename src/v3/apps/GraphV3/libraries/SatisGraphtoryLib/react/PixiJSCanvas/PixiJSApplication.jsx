@@ -32,6 +32,7 @@ function PixiJSApplication(props) {
     pixiRenderer,
     viewportChildContainer,
     canvasReady,
+    aliasCanvasObjects,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -39,27 +40,74 @@ function PixiJSApplication(props) {
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
-  // const lastTarget = React.useRef();
+  const lasTargetIsCanvas = React.useRef(false);
+  const lastMode = React.useRef();
+  const keypressHandled = React.useRef(false);
 
-  // React.useEffect(() => {
-  //   const mouseDownEvent = function (event) {
-  //     lastTarget.current = event.target;
-  //     console.log('mousedown');
-  //   };
-  //
-  //   const keyDownEvent = function (event) {
-  //     if (lastTarget.current === canvasRef.current) {
-  //       console.log('keydown');
-  //     }
-  //   };
-  //   window.addEventListener('mousedown', mouseDownEvent, false);
-  //
-  //   window.addEventListener('keydown', keyDownEvent, false);
-  //   return () => {
-  //     window.removeEventListener('mousedown', mouseDownEvent);
-  //     window.removeEventListener('keydown', keyDownEvent);
-  //   };
-  // }, []);
+  React.useEffect(() => {
+    const mouseDownEvent = function (event) {
+      let iteration = event.target;
+      lasTargetIsCanvas.current = false;
+      while (iteration) {
+        if (
+          aliasCanvasObjects.has(iteration) ||
+          iteration === canvasRef.current
+        ) {
+          lasTargetIsCanvas.current = true;
+          break;
+        }
+        iteration = iteration.parentNode;
+      }
+    };
+
+    const keyDownEvent = function (event) {
+      // Shift
+      if (
+        keypressHandled.current !== true &&
+        event.keyCode === 16 &&
+        lasTargetIsCanvas.current
+      ) {
+        keypressHandled.current = true;
+        if (mouseState === MouseState.SELECT) {
+          lastMode.current = mouseState;
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.mouseState = MouseState.MOVE;
+          });
+        } else if (mouseState === MouseState.MOVE) {
+          lastMode.current = mouseState;
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.mouseState = MouseState.SELECT;
+          });
+        }
+      }
+    };
+
+    const keyUpEvent = function (event) {
+      if (keypressHandled.current && lasTargetIsCanvas.current) {
+        keypressHandled.current = false;
+
+        if (lastMode.current !== null) {
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.mouseState = lastMode.current;
+          });
+          lastMode.current = null;
+        }
+      }
+    };
+
+    window.addEventListener('mousedown', mouseDownEvent, false);
+    window.addEventListener('keydown', keyDownEvent, false);
+    window.addEventListener('keyup', keyUpEvent, false);
+
+    return () => {
+      window.removeEventListener('mousedown', mouseDownEvent);
+      window.removeEventListener('keydown', keyDownEvent);
+      window.removeEventListener('keyup', keyUpEvent);
+    };
+  }, [aliasCanvasObjects, mouseState, pixiCanvasStateId]);
 
   const onSelectNodes = React.useCallback(
     (nodeIds) => {

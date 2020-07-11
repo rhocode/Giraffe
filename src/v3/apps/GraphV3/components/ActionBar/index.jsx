@@ -34,10 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 function ActionBar() {
   const classes = useStyles();
+  const domRef = React.useRef();
 
   const { mouseState, pixiCanvasStateId } = React.useContext(
     PixiJSCanvasContext
   );
+
+  React.useEffect(() => {
+    if (!domRef.current) return;
+
+    pixiJsStore.update((t) => {
+      const s = t[pixiCanvasStateId];
+      s.aliasCanvasObjects.add(domRef.current);
+    });
+  }, [domRef, pixiCanvasStateId]);
 
   const handleModeChange = React.useCallback(
     (event, value) => {
@@ -56,6 +66,7 @@ function ActionBar() {
         value={mouseState}
         onChange={handleModeChange}
         className={classes.navigation}
+        ref={domRef}
       >
         <BottomNavigationAction
           label="Move"

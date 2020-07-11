@@ -213,23 +213,13 @@ export default class AdvancedNode implements NodeTemplate {
     container.buttonMode = true;
     container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
 
-    let sourceX = 0;
-    let sourceY = 0;
-    const threshold = 2;
-
-    container.on('click', () => {
-      if (
-        Math.abs(container.position.x - sourceX) < threshold ||
-        Math.abs(container.position.y - sourceY) < threshold
-      ) {
-        onSelectNodes([container.nodeId]);
-      }
-    });
-
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
-      sourceX = this.position.x;
-      sourceY = this.position.y;
+    });
+
+    container.on('click', function (this: any, event: any) {
+      event.stopPropagation();
+      onSelectNodes([container.nodeId]);
     });
   }
 
