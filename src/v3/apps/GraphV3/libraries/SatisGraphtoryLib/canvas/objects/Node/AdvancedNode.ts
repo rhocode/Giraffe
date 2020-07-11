@@ -191,7 +191,49 @@ export default class AdvancedNode implements NodeTemplate {
     // itemSprite.height = ITEM_SIZE;
   }
 
-  addInteractionEvents(onSelectNodes: (nodeIds: string[]) => any) {
+  removeInteractionEvents() {
+    const container = this.container;
+
+    container.interactive = false;
+    container.buttonMode = false;
+    container.off('click');
+    container.off('pointerdown');
+    container.off('pointerup');
+    container.off('pointerupoutside');
+    container.off('pointermove');
+  }
+
+  addSelectEvents(onSelectNodes: (nodeIds: string[]) => any) {
+    const x = this.x;
+    const y = this.y;
+
+    const container = this.container;
+
+    container.interactive = true;
+    container.buttonMode = true;
+    container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
+
+    let sourceX = 0;
+    let sourceY = 0;
+    const threshold = 2;
+
+    container.on('click', () => {
+      if (
+        Math.abs(container.position.x - sourceX) < threshold ||
+        Math.abs(container.position.y - sourceY) < threshold
+      ) {
+        onSelectNodes([container.nodeId]);
+      }
+    });
+
+    container.on('pointerdown', function (this: any, event: any) {
+      event.stopPropagation();
+      sourceX = this.position.x;
+      sourceY = this.position.y;
+    });
+  }
+
+  addDragEvents() {
     const x = this.x;
     const y = this.y;
 
@@ -206,16 +248,6 @@ export default class AdvancedNode implements NodeTemplate {
     let sourceY = 0;
     let clickX = 0;
     let clickY = 0;
-    const threshold = 2;
-
-    container.on('click', () => {
-      if (
-        Math.abs(container.position.x - sourceX) < threshold ||
-        Math.abs(container.position.y - sourceY) < threshold
-      ) {
-        onSelectNodes([container.nodeId]);
-      }
-    });
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
@@ -226,6 +258,7 @@ export default class AdvancedNode implements NodeTemplate {
       sourceY = this.position.y;
       dragging = true;
     });
+
     container.on('pointerup', function (this: any, event: any) {
       // event.stopPropagation();
       dragging = false;

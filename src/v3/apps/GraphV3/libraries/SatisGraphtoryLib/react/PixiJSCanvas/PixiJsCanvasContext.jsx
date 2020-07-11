@@ -16,6 +16,8 @@ function PixiJsContextProvider(props) {
       pixiRenderer: instance?.application?.renderer,
       canvasReady: instance?.canvasReady,
       viewportChildContainer: instance.viewportChildContainer,
+      children: instance?.children,
+      applicationLoaded: instance.applicationLoaded,
     };
   });
 

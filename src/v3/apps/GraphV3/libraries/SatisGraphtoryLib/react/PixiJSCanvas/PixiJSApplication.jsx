@@ -11,6 +11,8 @@ import {
   removeChild,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
+import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -21,7 +23,7 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width, onSelectNodes } = props;
+  const { height, width } = props;
 
   const {
     pixiCanvasStateId,
@@ -29,6 +31,7 @@ function PixiJSApplication(props) {
     mouseState,
     pixiRenderer,
     viewportChildContainer,
+    canvasReady,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -36,27 +39,55 @@ function PixiJSApplication(props) {
   const canvasRef = React.useRef();
   const originalCanvasRef = React.useRef(null);
 
-  const lastTarget = React.useRef();
+  // const lastTarget = React.useRef();
 
-  React.useEffect(() => {
-    const mouseDownEvent = function (event) {
-      lastTarget.current = event.target;
-      console.log('mousedown');
-    };
+  // React.useEffect(() => {
+  //   const mouseDownEvent = function (event) {
+  //     lastTarget.current = event.target;
+  //     console.log('mousedown');
+  //   };
+  //
+  //   const keyDownEvent = function (event) {
+  //     if (lastTarget.current === canvasRef.current) {
+  //       console.log('keydown');
+  //     }
+  //   };
+  //   window.addEventListener('mousedown', mouseDownEvent, false);
+  //
+  //   window.addEventListener('keydown', keyDownEvent, false);
+  //   return () => {
+  //     window.removeEventListener('mousedown', mouseDownEvent);
+  //     window.removeEventListener('keydown', keyDownEvent);
+  //   };
+  // }, []);
 
-    const keyDownEvent = function (event) {
-      if (lastTarget.current === canvasRef.current) {
-        console.log('keydown');
-      }
-    };
-    window.addEventListener('mousedown', mouseDownEvent, false);
+  const onSelectNodes = React.useCallback(
+    (nodeIds) => {
+      pixiJsStore.update((sParent) => {
+        const s = sParent[pixiCanvasStateId];
 
-    window.addEventListener('keydown', keyDownEvent, false);
-    return () => {
-      window.removeEventListener('mousedown', mouseDownEvent);
-      window.removeEventListener('keydown', keyDownEvent);
-    };
-  }, []);
+        for (const child of s.children.values()) {
+          if (child instanceof AdvancedNode) {
+            child.container.highLight.visible = false;
+          }
+        }
+
+        const selected = nodeIds.map((nodeId) => {
+          const retrievedNode = s.children.get(nodeId);
+          if (retrievedNode instanceof AdvancedNode) {
+            retrievedNode.container.highLight.visible = true;
+          }
+          return retrievedNode;
+        });
+
+        if (!arraysEqual(selected, s.selectedNodes)) {
+          s.selectedNodes = selected;
+          console.log('Selected nodes:', s.selectedNodes);
+        }
+      });
+    },
+    [pixiCanvasStateId]
+  );
 
   React.useEffect(() => {
     if (originalCanvasRef.current !== canvasRef.current) {
@@ -65,7 +96,6 @@ function PixiJSApplication(props) {
       pixiJsStore.update((sParent) => {
         const s = sParent[pixiCanvasStateId];
 
-        // try {
         let newApplication = new PIXI.Application({
           transparent: true,
           autoDensity: true,
@@ -76,14 +106,11 @@ function PixiJSApplication(props) {
           antialias: true,
         });
 
-        // ticker.start();
-
         const viewport = new Viewport({
           screenWidth: width,
           screenHeight: height,
           worldWidth: 20000,
           worldHeight: 20000,
-          // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
           interaction: newApplication.renderer.plugins.interaction,
         });
 
@@ -106,40 +133,17 @@ function PixiJSApplication(props) {
         s.application = newApplication;
 
         s.applicationLoaded = true;
-
-        // ticker.add(function (time) {
-
-        // });
-        // } catch(e) {
-        //  // Probably ask the user to turn on webGL
-        // }
       });
     }
   }, [canvasRef, height, pixiCanvasStateId, width]);
 
   const previousMouseState = React.useRef(null);
 
-  // const selectDragFunction = React.useCallback(function() {
-  //   console.log(mouseState);
-  // }, [mouseState])
-  //
-  // const initialEventsInitialized = React.useRef(false);
-  // const initialEvents = React.useRef(null);
-  // const pixiEvents = pixiViewport?._events
-  //
-  // React.useEffect(() => {
-  //   if (pixiEvents && !initialEventsInitialized.current) {
-  //     initialEventsInitialized.current = true;
-  //     initialEvents.current = pixiEvents;
-  //   }
-  //
-  // }, [pixiViewport, pixiEvents])
-
   const selectionBoxId = React.useRef(null);
   const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
-    if (!pixiViewport) return;
+    if (!pixiViewport || !canvasReady) return;
 
     previousMouseState.current = mouseState;
 
@@ -169,6 +173,15 @@ function PixiJSApplication(props) {
     pixiViewport.on('zoomed-end', pixiViewportFunc.current);
     pixiViewport.on('drag-end', pixiViewportFunc.current);
 
+    const deferredRemoveChildEvents = (t) => {
+      const s = t[pixiCanvasStateId];
+      for (const child of s.children.values()) {
+        if (child instanceof AdvancedNode) {
+          child.removeInteractionEvents();
+        }
+      }
+    };
+
     if (mouseState === MouseState.SELECT) {
       viewportChildContainer.interactive = true;
       viewportChildContainer.buttonMode = true;
@@ -183,39 +196,40 @@ function PixiJSApplication(props) {
         selectionBox,
         onSelectNodes
       );
+      pixiJsStore.update([
+        deferredRemoveChildEvents,
+        (t) => {
+          const s = t[pixiCanvasStateId];
+          for (const child of s.children.values()) {
+            if (child instanceof AdvancedNode) {
+              child.addSelectEvents(onSelectNodes);
+            }
+          }
+        },
+      ]);
     } else if (mouseState === MouseState.MOVE) {
       pixiViewport.plugins.resume('drag');
       pixiViewport.plugins.resume('wheel');
       pixiViewport.plugins.resume('pinch');
-      // viewportChildContainer.interactive = true;
-      // viewportChildContainer.buttonMode = true;
-      //
-      // viewportChildContainer.hitArea = pixiViewport.hitArea;
-      //
-      // let sourceX = 0;
-      // let sourceY = 0;
-      // const threshold = 2;
-      //
-      // viewportChildContainer.on('pointerdown', function () {
-      //   const point = pixiViewport.toWorld(this.position.x, this.position.y);
-      //   sourceX = point.x
-      //   sourceY = point.y
-      //
-      // });
-      // viewportChildContainer.on('click', function () {
-      //   const point = pixiViewport.toWorld(this.position.x, this.position.y);
-      //   if (Math.abs(point.x - sourceX) < threshold ||
-      //     Math.abs(point.y - sourceY) < threshold) {
-      //     onSelectNodes([]);
-      //   }
-      // });
+
+      pixiJsStore.update([
+        deferredRemoveChildEvents,
+        (t) => {
+          const s = t[pixiCanvasStateId];
+          for (const child of s.children.values()) {
+            if (child instanceof AdvancedNode) {
+              child.addDragEvents();
+            }
+          }
+        },
+      ]);
     }
   }, [
+    canvasReady,
     mouseState,
     onSelectNodes,
     pixiCanvasStateId,
     pixiViewport,
-    previousMouseState,
     viewportChildContainer,
   ]);
 
