@@ -5,7 +5,7 @@ import {
   GREEN,
   ORANGE,
   WHITE,
-  BLUE,
+  // YELLOW,
   DARK_GREY,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import {
@@ -47,7 +47,7 @@ export const TIER_STYLE = memoize(
       align: 'center',
       fill: WHITE,
       fontSize: LEVEL_FONT_SIZE,
-      fontFamily: '"Roboto Condensed", sans-serif',
+      fontFamily: '"Roboto Slab", sans-serif',
       stroke: DARK_GREY,
       strokeThickness: LEVEL_STROKE_SIZE,
     })
@@ -57,7 +57,7 @@ export const OVERCLOCK_STYLE = memoize(
   () =>
     new PIXI.TextStyle({
       align: 'right',
-      fill: BLUE,
+      fill: WHITE,
       fontSize: EFFICIENCY_FONT_SIZE,
       fontFamily: '"Roboto Condensed", sans-serif',
       stroke: DARK_GREY,

@@ -12,6 +12,7 @@ import {
   ORANGE,
   BLUE,
   WHITE,
+  PURPLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import {
   NODE_HEIGHT,
@@ -35,7 +36,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   const x = 0,
     y = 0;
 
-  // backboard
+  // backboard (machine)
   gfx.lineStyle(BOX_THICKNESS, YELLOW, 1);
   gfx.beginFill(GREY, 1.0);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
@@ -51,7 +52,42 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     bounds
   );
-  PIXI.Texture.addToCache(backboard, 'backboard');
+  PIXI.Texture.addToCache(backboard, 'machine');
+
+  // backboard (infrastructure)
+  gfx.clear();
+  gfx.lineStyle(BOX_THICKNESS, PURPLE, 1);
+  gfx.beginFill(GREY, 1.0);
+  gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
+  gfx.endFill();
+
+  const boundsInfra = gfx.getBounds();
+  const infra = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    boundsInfra
+  );
+  PIXI.Texture.addToCache(infra, 'infra');
+
+  // backboard (storage)
+  gfx.clear();
+  gfx.lineStyle(BOX_THICKNESS, BLUE, 1);
+  gfx.beginFill(GREY, 1.0);
+  gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
+  gfx.endFill();
+  // gfx.lineStyle(BOX_LINE_THICKNESS, YELLOW, 1);
+  // gfx.moveTo(x, y + TOP_HEIGHT);
+  // gfx.lineTo(x + NODE_WIDTH, y + TOP_HEIGHT);
+
+  const boundsStorage = gfx.getBounds();
+  const storage = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    boundsStorage
+  );
+  PIXI.Texture.addToCache(storage, 'storage');
 
   // badge (blue)
   gfx.clear();

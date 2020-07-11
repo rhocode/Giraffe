@@ -38,7 +38,7 @@ const initCanvasChildren = (
       nodeId: stringGen(10),
       recipeLabel: translate(recipe) as string,
       recipeName: recipe as string,
-      tier: -1,
+      tier: Math.floor(Math.random() * 7),
       overclock: Math.floor(Math.random() * 200),
       machineName: machine as string,
       machineLabel: getBuildingName(machine) as string,

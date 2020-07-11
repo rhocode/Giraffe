@@ -13,6 +13,7 @@ import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objec
 import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { getClassNameFromBuildableMachines } from 'v3/data/loaders/buildings';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
 import {
   EFFICIENCY_OFFSET_X,
@@ -53,7 +54,8 @@ export default class AdvancedNode implements NodeTemplate {
     const container = new PIXI.Container();
     this.container = container;
 
-    container.addChild(createBackboard(x, y));
+    const machineType = getClassNameFromBuildableMachines(machineName)!;
+    container.addChild(createBackboard(x, y, machineType));
 
     const recipeText = createTruncatedText(
       recipeLabel,

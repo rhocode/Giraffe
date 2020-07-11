@@ -1,8 +1,10 @@
+const TIERS = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+
 export const getTier = (tier: number) => {
   // TODO: Localize
   if (tier <= 0) {
-    return 'Mk 1';
+    return '';
   } else {
-    return 'Mk ' + tier;
+    return TIERS[tier];
   }
 };

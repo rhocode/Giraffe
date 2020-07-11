@@ -7,3 +7,21 @@ export const BLUE = 0x47a3ff;
 export const PURPLE = 0x7122d5;
 export const DARK_GREY = 0x222222;
 export const BLACK = 0x000000;
+export const MACHINE_CLASS_MAP: Record<string, string> = {
+  'building-assembler': 'machine',
+  'building-constructor': 'machine',
+  'building-foundry': 'machine',
+  'building-manufacturer': 'machine',
+  'building-oil-refinery': 'machine',
+  'building-smelter': 'machine',
+  'building-conveyor-attachment-merger': 'infra',
+  'building-conveyor-attachment-splitter': 'infra',
+  'building-industrial-tank': 'storage',
+  'building-pipe-storage-tank': 'storage',
+  'building-miner': 'machine',
+  'building-oil-pump': 'machine',
+  'building-water-pump': 'machine',
+  'building-pipeline-junction-cross': 'infra',
+  'building-pipeline-pump': 'machine',
+  'building-storage-container': 'storage',
+};
