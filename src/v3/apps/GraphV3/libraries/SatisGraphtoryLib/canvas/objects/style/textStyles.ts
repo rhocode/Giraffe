@@ -1,19 +1,20 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { RECIPE_FONT_OFFSET } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
+import { RECIPE_FONT_OFFSET } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import memoize from 'fast-memoize';
-
-const MACHINE_FONT_SIZE = 24;
-const LEVEL_FONT_SIZE = 24;
-const EFFICIENCY_FONT_SIZE = 24;
-const INPUT_FONT_SIZE = 20;
-const OUTPUT_FONT_SIZE = 20;
-
-const GREEN = 0x15cb07;
-const ORANGE = 0xffa328;
-const WHITE = 0xffffff;
-const BLUE = 0x47a3ff;
-
-const NAME_FONT_SIZE = 18;
+import {
+  GREEN,
+  ORANGE,
+  WHITE,
+  BLUE,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
+import {
+  NAME_FONT_SIZE,
+  MACHINE_FONT_SIZE,
+  LEVEL_FONT_SIZE,
+  EFFICIENCY_FONT_SIZE,
+  INPUT_FONT_SIZE,
+  OUTPUT_FONT_SIZE,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Texts';
 
 export const RECIPE_STYLE = memoize(
   (width: number) =>

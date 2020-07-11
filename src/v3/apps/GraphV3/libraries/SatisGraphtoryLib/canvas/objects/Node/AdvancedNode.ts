@@ -17,28 +17,26 @@ import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/can
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
 import {
+  TIER_OFFSET_X,
+  TIER_OFFSET_Y,
+  // TIER_BADGE_OFFSET_X,
+  // TIER_BADGE_OFFSET_Y,
+  MACHINE_NAME_OFFSET_X,
+  MACHINE_NAME_OFFSET_Y,
+  EFFICIENCY_OFFSET_X,
+  EFFICIENCY_OFFSET_Y,
+  MACHINE_OFFSET_X,
+  MACHINE_OFFSET_Y,
+  // BADGE_OFFSET_X,
+  // BADGE_OFFSET_Y,
   RECIPE_OFFSET_X,
   RECIPE_OFFSET_Y,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/consts';
-
-const NODE_WIDTH = 145;
-const NODE_HEIGHT = 145;
-
-const TOP_HEIGHT = NODE_HEIGHT;
-
-const TIER_OFFSET_X = 10;
-const TIER_OFFSET_Y = 20;
-// const TIER_BADGE_OFFSET_X = 4;
-// const TIER_BADGE_OFFSET_Y = 110;
-const MACHINE_NAME_OFFSET_X = 72;
-const MACHINE_NAME_OFFSET_Y = -30;
-const EFFICIENCY_OFFSET_X = 140;
-const EFFICIENCY_OFFSET_Y = 127;
-const MACHINE_OFFSET_X = 72;
-const MACHINE_OFFSET_Y = 72;
-const MACHINE_SIZE = 100;
-// const BADGE_OFFSET_X = NODE_WIDTH - 60
-// const BADGE_OFFSET_Y = NODE_HEIGHT - 35
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
+import {
+  NODE_WIDTH,
+  NODE_HEIGHT,
+  MACHINE_SIZE,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 export default class AdvancedNode implements NodeTemplate {
   container: PIXI.DisplayObject;
@@ -135,11 +133,11 @@ export default class AdvancedNode implements NodeTemplate {
     // outputStr.position.y = y + NODE_HEIGHT + OUTPUT_OFFSET_Y;
 
     const inputDotOffsets = inputs.map((entry, i) => {
-      return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (inputs.length + 1));
+      return Math.floor(y + ((i + 1) * NODE_HEIGHT) / (inputs.length + 1));
     });
 
     const outputDotOffsets = outputs.map((entry, i) => {
-      return Math.floor(y + ((i + 1) * TOP_HEIGHT) / (outputs.length + 1));
+      return Math.floor(y + ((i + 1) * NODE_HEIGHT) / (outputs.length + 1));
     });
 
     // Create input dots
@@ -166,7 +164,7 @@ export default class AdvancedNode implements NodeTemplate {
     // const itemSprite = new PIXI.Sprite(itemTex);
     // itemSprite.anchor.set(0.5, 0.5);
     // itemSprite.position.x = x + ITEM_OFFSET_X;
-    // itemSprite.position.y = y + TOP_HEIGHT + ITEM_OFFSET_Y;
+    // itemSprite.position.y = y + NODE_HEIGHT + ITEM_OFFSET_Y;
     // itemSprite.width = ITEM_SIZE;
     // itemSprite.height = ITEM_SIZE;
     this.addInteractionEvents(x, y, NODE_WIDTH, NODE_HEIGHT);
