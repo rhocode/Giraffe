@@ -1,10 +1,12 @@
 export interface SatisGraphtoryNode {
   nodeId: string;
-  recipe: string;
+  recipeName: string;
+  recipeLabel: string;
   overclock: number;
   inputs: any[];
   outputs: any[];
-  machineType: string;
+  machineName: string;
+  machineLabel: string;
   tier: number;
   position: SatisGraphtoryNodePosition;
 }

@@ -1,13 +1,11 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { createBackboard } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Backboard';
 import { SatisGraphtoryNode } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
-import { getRecipeName } from 'v3/data/loaders/recipes';
-import { getBuildingName } from 'v3/data/loaders/buildings';
 import {
+  MACHINE_STYLE,
   OVERCLOCK_STYLE,
   RECIPE_STYLE,
   TIER_STYLE,
-  MACHINE_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
@@ -17,25 +15,21 @@ import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/can
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
 import {
-  TIER_OFFSET_X,
-  TIER_OFFSET_Y,
-  // TIER_BADGE_OFFSET_X,
-  // TIER_BADGE_OFFSET_Y,
-  MACHINE_NAME_OFFSET_X,
-  MACHINE_NAME_OFFSET_Y,
   EFFICIENCY_OFFSET_X,
   EFFICIENCY_OFFSET_Y,
+  MACHINE_NAME_OFFSET_X,
+  MACHINE_NAME_OFFSET_Y,
   MACHINE_OFFSET_X,
   MACHINE_OFFSET_Y,
-  // BADGE_OFFSET_X,
-  // BADGE_OFFSET_Y,
   RECIPE_OFFSET_X,
   RECIPE_OFFSET_Y,
+  TIER_OFFSET_X,
+  TIER_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import {
-  NODE_WIDTH,
-  NODE_HEIGHT,
   MACHINE_SIZE,
+  NODE_HEIGHT,
+  NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 export default class AdvancedNode implements NodeTemplate {
@@ -44,10 +38,11 @@ export default class AdvancedNode implements NodeTemplate {
   constructor(props: SatisGraphtoryNode) {
     const {
       position,
-      recipe,
+      recipeLabel,
       tier,
       overclock,
-      machineType,
+      machineName,
+      machineLabel,
       inputs,
       outputs,
     } = props;
@@ -60,10 +55,8 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.addChild(createBackboard(x, y));
 
-    const recipeName = getRecipeName(recipe);
-
     const recipeText = createTruncatedText(
-      recipeName,
+      recipeLabel,
       NODE_WIDTH,
       RECIPE_STYLE(NODE_WIDTH),
       x + RECIPE_OFFSET_X,
@@ -71,9 +64,8 @@ export default class AdvancedNode implements NodeTemplate {
       'center'
     );
 
-    const machineName = getBuildingName(machineType);
     const machineText = createText(
-      machineName,
+      machineLabel,
       MACHINE_STYLE(),
       x + MACHINE_NAME_OFFSET_X,
       y + MACHINE_NAME_OFFSET_Y,
@@ -86,7 +78,7 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.addChild(recipeText);
 
-    const machineTexture = PIXI.utils.TextureCache[machineType];
+    const machineTexture = PIXI.utils.TextureCache[machineName];
     const machineImage = createImageIcon(
       machineTexture,
       MACHINE_SIZE,
