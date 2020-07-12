@@ -16,6 +16,7 @@ import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 import NodeDrawer from 'apps/Graph/components/GraphNodeDrawer/NodeDrawer';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
+import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -123,6 +124,7 @@ function GraphApp(props) {
           >
             <ActionBar />
             <DebugFab />
+            <SimulationFab />
           </Canvas>
           <NodeDrawer />
         </div>
