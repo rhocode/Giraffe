@@ -1,7 +1,7 @@
 import { Store } from 'pullstate';
 import {
-  SatisGraphtoryEdge,
-  SatisGraphtoryNode,
+  SatisGraphtoryEdgeProps,
+  SatisGraphtoryNodeProps,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import stringGen from 'v3/utils/stringGen';
 
@@ -61,8 +61,8 @@ export const graphWizardStore = new Store({
 export const graphAppStore = new Store({
   graphFidelity: 'high',
   graphData: {
-    edges: new Map<string, SatisGraphtoryEdge>(),
-    nodes: new Map<string, SatisGraphtoryNode>(),
+    edges: new Map<string, SatisGraphtoryEdgeProps>(),
+    nodes: new Map<string, SatisGraphtoryNodeProps>(),
   },
   initialLoadedData: null,
   mouseMode: 'move',

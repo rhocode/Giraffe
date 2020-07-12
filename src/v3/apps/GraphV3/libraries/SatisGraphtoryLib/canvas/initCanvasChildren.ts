@@ -8,7 +8,9 @@ import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas
 import stringGen from 'v3/utils/stringGen';
 import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
-import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import EdgeTemplate, {
+  EdgeType,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
@@ -17,9 +19,9 @@ const initCanvasChildren = (
 ) => {
   console.log('Initing canvas state');
 
-  // const urlParams = new URLSearchParams(window.location.search);
-  //
-  // const numNodes = parseInt(urlParams.get('numNodes') || '', 10) || 10;
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const numNodes = parseInt(urlParams.get('numNodes') || '', 10) || 10;
 
   console.time('loadNodes');
 
@@ -33,14 +35,14 @@ const initCanvasChildren = (
 
   const initialConnectionsMap = new Map<any, any>();
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < numNodes; i++) {
     const recipe = recipes[Math.floor(Math.random() * recipes.length)];
     const machine = machines[Math.floor(Math.random() * machines.length)];
 
     const nodeData = {
       position: {
-        x: 400 * i, //Math.random() * viewport.screenWidth,
-        y: 400 * i, //Math.random() * viewport.screenHeight,
+        x: 200 * i, //Math.random() * viewport.screenWidth,
+        y: 100 * i, //Math.random() * viewport.screenHeight,
       },
       nodeId: stringGen(10),
       recipeLabel: translate(recipe) as string,
@@ -57,16 +59,7 @@ const initCanvasChildren = (
 
     const newNode = new AdvancedNode(nodeData);
 
-    initialConnectionsMap.set(nodeData.nodeId, {
-      input: {
-        x: newNode.container.inputX,
-        ys: newNode.container.inputMapping,
-      },
-      output: {
-        x: newNode.container.outputX,
-        ys: newNode.container.outputMapping,
-      },
-    });
+    initialConnectionsMap.set(nodeData.nodeId, newNode);
 
     children.push(newNode);
   }
@@ -75,27 +68,32 @@ const initCanvasChildren = (
     const from = connections[i];
     const to = connections[i + 1];
 
-    const fromMap = initialConnectionsMap.get(from)!;
-
-    const toMap = initialConnectionsMap.get(to)!;
+    const sourceNode = initialConnectionsMap.get(from)!;
+    const targetNode = initialConnectionsMap.get(to)!;
 
     const edgeProps = {
       edgeId: stringGen(10),
       type: 'cool', // should be fluid type?
-      sourceId: from,
-      targetId: to,
-      source: {
-        x: fromMap.output.x,
-        y: fromMap.output.ys[0],
-      },
-      target: {
-        x: toMap.input.x,
-        y: toMap.input.ys[0],
-      },
+      sourceNode,
+      targetNode,
+      // sourceId: from,
+      // targetId: to,
+      // source: {
+      //   x: fromMap.output.x,
+      //   y: fromMap.output.ys[0],
+      // },
+      // target: {
+      //   x: toMap.input.x,
+      //   y: toMap.input.ys[0],
+      // },
     };
 
     const edge = new SimpleEdge(edgeProps);
     children.push(edge);
+
+    sourceNode.addEdge(edge, EdgeType.OUTPUT);
+    targetNode.addEdge(edge, EdgeType.INPUT);
+    edge.update();
   }
 
   console.timeEnd('loadNodes');

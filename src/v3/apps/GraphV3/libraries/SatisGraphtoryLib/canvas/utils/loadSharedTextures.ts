@@ -1,34 +1,35 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
-  getBuildingIcon,
   getAllBuildableMachines,
+  getBuildingIcon,
 } from 'v3/data/loaders/buildings';
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 import {
-  GREY,
-  GREEN,
-  YELLOW,
-  ORANGE,
   BLUE,
-  WHITE,
+  CANVAS_BACKGROUND_COLOR,
+  GREEN,
+  GREY,
+  ORANGE,
   PURPLE,
+  WHITE,
+  YELLOW,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import {
-  NODE_HEIGHT,
-  NODE_WIDTH,
-  BOX_THICKNESS,
-  BOX_RADIUS,
-  CIRCLE_RADIUS,
-  CIRCLE_THICKNESS,
-  ITEM_SIZE,
-  MACHINE_ICON_SIZE,
   BADGE_HEIGHT,
   BADGE_RADIUS,
   BADGE_THICKNESS,
   BADGE_WIDTH,
-  SMALL_BADGE_WIDTH,
+  BOX_RADIUS,
+  BOX_THICKNESS,
+  CIRCLE_RADIUS,
+  CIRCLE_THICKNESS,
   HIGHTLIGHT_THICKNESS,
+  ITEM_SIZE,
+  MACHINE_ICON_SIZE,
+  NODE_HEIGHT,
+  NODE_WIDTH,
+  SMALL_BADGE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 function createBackboard(
@@ -139,7 +140,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   // inCircle
   gfx.clear();
   gfx.beginFill(GREEN, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, GREY, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
   gfx.drawCircle(x, y, CIRCLE_RADIUS);
   gfx.endFill();
 
@@ -155,7 +156,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
   // outCircle
   gfx.clear();
   gfx.beginFill(ORANGE, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, GREY, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
   gfx.drawCircle(x, y, CIRCLE_RADIUS);
   gfx.endFill();
 
