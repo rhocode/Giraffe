@@ -143,6 +143,7 @@ function PixiJSApplication(props) {
 
       pixiJsStore.update((sParent) => {
         const s = sParent[pixiCanvasStateId];
+        if (!s) return;
 
         let newApplication = new PIXI.Application({
           transparent: true,
@@ -164,7 +165,7 @@ function PixiJSApplication(props) {
 
         newApplication.stage.addChild(viewport);
 
-        if (s?.application?.destroy) {
+        if (s.application?.destroy) {
           s.application.destroy();
         }
 

@@ -8,7 +8,7 @@ export interface SatisGraphtoryNode {
   machineName: string;
   machineLabel: string;
   tier: number;
-  position: SatisGraphtoryNodePosition;
+  position: SatisGraphtoryCoordinate;
 }
 
 export interface SatisGraphtoryEdge {
@@ -16,9 +16,11 @@ export interface SatisGraphtoryEdge {
   type: string;
   sourceId: string;
   targetId: string;
+  source: SatisGraphtoryCoordinate;
+  target: SatisGraphtoryCoordinate;
 }
 
-export interface SatisGraphtoryNodePosition {
+export interface SatisGraphtoryCoordinate {
   x: number;
   y: number;
 }

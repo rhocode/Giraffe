@@ -31,13 +31,12 @@ import {
   HIGHTLIGHT_THICKNESS,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
-export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
-  const gfx = new PIXI.Graphics();
-
-  const x = 0,
-    y = 0;
-
-  // backboard (machine)
+function createBackboard(
+  gfx: PIXI.Graphics,
+  x: number,
+  y: number,
+  pixiRenderer: PIXI.Renderer
+) {
   gfx.lineStyle(BOX_THICKNESS, YELLOW, 1);
   gfx.beginFill(GREY, 1.0);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
@@ -50,6 +49,17 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     bounds
   );
+
+  return { bounds, backboard };
+}
+
+export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
+  const gfx = new PIXI.Graphics();
+
+  const x = 0,
+    y = 0;
+
+  const { bounds, backboard } = createBackboard(gfx, x, y, pixiRenderer);
   PIXI.Texture.addToCache(backboard, 'machine');
 
   // backboard (infrastructure)

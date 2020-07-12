@@ -10,7 +10,7 @@ import {
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
-import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
+// import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
 import {
   NodeContainer,
@@ -162,24 +162,33 @@ export default class AdvancedNode implements NodeTemplate {
       return Math.floor(y + ((i + 1) * NODE_HEIGHT) / (outputs.length + 1));
     });
 
-    // Create input dots
-    const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
+    // // Create input dots
+    // const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
+    //
+    // const inputDots = createDots(inputDotTexture, inputDotOffsets, x);
+    // for (const dot of inputDots) {
+    //   container.addChild(dot);
+    // }
 
-    const inputDots = createDots(inputDotTexture, inputDotOffsets, x);
-    for (const dot of inputDots) {
-      container.addChild(dot);
-    }
+    this.container.inputMapping = inputDotOffsets;
+    this.container.inputX = x;
 
-    // Create output dots
-    const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
-    const outputDots = createDots(
-      outputDotTexture,
-      outputDotOffsets,
-      x + NODE_WIDTH
-    );
-    for (const dot of outputDots) {
-      container.addChild(dot);
-    }
+    this.container.outputMapping = outputDotOffsets;
+    this.container.outputX = x + NODE_WIDTH;
+
+    console.log(this.container.inputMapping, x);
+
+    //
+    // // Create output dots
+    // const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
+    // const outputDots = createDots(
+    //   outputDotTexture,
+    //   outputDotOffsets,
+    //   x + NODE_WIDTH
+    // );
+    // for (const dot of outputDots) {
+    //   container.addChild(dot);
+    // }
 
     // Maybe save the items for somewhere else?
     // const itemTex = PIXI.utils.TextureCache[name];

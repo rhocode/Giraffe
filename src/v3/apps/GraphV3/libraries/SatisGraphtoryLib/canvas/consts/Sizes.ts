@@ -15,3 +15,4 @@ export const BADGE_WIDTH = 55;
 export const BADGE_HEIGHT = 30;
 export const SMALL_BADGE_WIDTH = 30;
 export const HIGHTLIGHT_THICKNESS = 22;
+export const LINE_THICKNESS = 5;
