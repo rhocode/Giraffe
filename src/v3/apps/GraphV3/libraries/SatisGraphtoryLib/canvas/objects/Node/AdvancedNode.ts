@@ -1,6 +1,6 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { createBackboard } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Backboard';
-import { SatisGraphtoryNode } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
+import { SatisGraphtoryNodeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import {
   MACHINE_STYLE,
   OVERCLOCK_STYLE,
@@ -23,6 +23,8 @@ import { getClassNameFromBuildableMachines } from 'v3/data/loaders/buildings';
 import {
   EFFICIENCY_OFFSET_X,
   EFFICIENCY_OFFSET_Y,
+  HIGHLIGHT_OFFSET_X,
+  HIGHLIGHT_OFFSET_Y,
   MACHINE_NAME_OFFSET_X,
   MACHINE_NAME_OFFSET_Y,
   MACHINE_OFFSET_X,
@@ -31,23 +33,28 @@ import {
   RECIPE_OFFSET_Y,
   TIER_OFFSET_X,
   TIER_OFFSET_Y,
-  HIGHLIGHT_OFFSET_X,
-  HIGHLIGHT_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import {
   MACHINE_SIZE,
   NODE_HEIGHT,
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
+import EdgeTemplate, {
+  EdgeType,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 export default class AdvancedNode implements NodeTemplate {
   container: NodeContainer;
   nodeId: string;
+  inEdges: (EdgeTemplate | null)[];
+  outEdges: (EdgeTemplate | null)[];
+  edgeMap = new Map<string, number>();
+  edges: EdgeTemplate[];
 
   private readonly x: number;
   private readonly y: number;
 
-  constructor(props: SatisGraphtoryNode) {
+  constructor(props: SatisGraphtoryNodeProps) {
     const {
       nodeId,
       position,
@@ -176,7 +183,17 @@ export default class AdvancedNode implements NodeTemplate {
     this.container.outputMapping = outputDotOffsets;
     this.container.outputX = x + NODE_WIDTH;
 
-    console.log(this.container.inputMapping, x);
+    this.inEdges = [];
+    this.outEdges = [];
+    this.edges = [];
+
+    for (let i = 0; i < inputs.length; i++) {
+      this.inEdges.push(null);
+    }
+
+    for (let i = 0; i < outputs.length; i++) {
+      this.outEdges.push(null);
+    }
 
     //
     // // Create output dots
@@ -198,6 +215,27 @@ export default class AdvancedNode implements NodeTemplate {
     // itemSprite.position.y = y + NODE_HEIGHT + ITEM_OFFSET_Y;
     // itemSprite.width = ITEM_SIZE;
     // itemSprite.height = ITEM_SIZE;
+  }
+
+  updateEdges = () => {
+    this.edges.map((edge) => edge.update());
+  };
+
+  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
+    this.edges.push(edge);
+    if (edgeType === EdgeType.INPUT) {
+      const firstNull = this.inEdges.indexOf(null);
+
+      this.inEdges[firstNull] = edge;
+      this.edgeMap.set(edge.edgeId, firstNull);
+    } else if (edgeType === EdgeType.OUTPUT) {
+      const firstNull = this.outEdges.indexOf(null);
+
+      this.outEdges[firstNull] = edge;
+      this.edgeMap.set(edge.edgeId, firstNull);
+    } else {
+      console.log('Unimplemented!');
+    }
   }
 
   removeInteractionEvents() {
@@ -232,6 +270,37 @@ export default class AdvancedNode implements NodeTemplate {
     });
   }
 
+  tempOm: any = null;
+  tempIm: any = null;
+  tempOx: number = 0;
+  tempIx: number = 0;
+
+  snapshotEdgePositions = () => {
+    this.tempOm = [...this.container.outputMapping];
+    this.tempIm = [...this.container.inputMapping];
+    this.tempOx = this.container.outputX;
+    this.tempIx = this.container.inputX;
+  };
+
+  updateContainerPositions = (dx: number, dy: number) => {
+    this.container.outputMapping = this.container.outputMapping.map(
+      (item, index) => {
+        if (item === null) return null;
+        return this.tempOm[index] + dy;
+      }
+    );
+
+    this.container.inputMapping = this.container.inputMapping.map(
+      (item, index) => {
+        if (item === null) return null;
+        return this.tempIm[index] + dy;
+      }
+    );
+
+    this.container.outputX = this.tempOx + dx;
+    this.container.inputX = this.tempIx + dx;
+  };
+
   addDragEvents() {
     const x = this.x;
     const y = this.y;
@@ -248,6 +317,8 @@ export default class AdvancedNode implements NodeTemplate {
     let clickX = 0;
     let clickY = 0;
 
+    const snapshotEdgePositions = this.snapshotEdgePositions;
+
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
@@ -256,6 +327,7 @@ export default class AdvancedNode implements NodeTemplate {
       sourceX = this.position.x;
       sourceY = this.position.y;
       dragging = true;
+      snapshotEdgePositions();
     });
 
     container.on('pointerup', function (this: any, event: any) {
@@ -267,12 +339,20 @@ export default class AdvancedNode implements NodeTemplate {
       dragging = false;
     });
 
+    const updateEdges = this.updateEdges;
+    const updateContainerPositions = this.updateContainerPositions;
+
     container.on('pointermove', function (this: any, event: any) {
       if (dragging) {
         event.stopPropagation();
         const newPos = event.data.getLocalPosition(this.parent);
-        container.position.x = sourceX + (newPos.x - clickX);
-        container.position.y = sourceY + (newPos.y - clickY);
+        const deltaX = newPos.x - clickX;
+        const deltaY = newPos.y - clickY;
+
+        container.position.x = sourceX + deltaX;
+        container.position.y = sourceY + deltaY;
+        updateContainerPositions(deltaX, deltaY);
+        updateEdges();
       }
     });
   }
