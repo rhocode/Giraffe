@@ -1,19 +1,21 @@
 import EdgeTemplate, {
   EdgeContainer,
+  EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { LINE_THICKNESS } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
-import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import Bezier from 'bezier-js';
 
 export default class SimpleEdge implements EdgeTemplate {
   container: EdgeContainer;
-  graphic: PIXI.Graphics;
+  graphicsObject: PIXI.Graphics;
   edgeId: string;
-  targetNode: AdvancedNode;
-  sourceNode: AdvancedNode;
+  targetNode: NodeTemplate;
+  sourceNode: NodeTemplate;
   sourceDot: PIXI.Sprite;
   targetDot: PIXI.Sprite;
 
@@ -22,37 +24,16 @@ export default class SimpleEdge implements EdgeTemplate {
 
     const container = new EdgeContainer();
     this.container = container;
-
-    const curve = new PIXI.Graphics();
-    this.graphic = curve;
-    container.addChild(curve);
-
     this.edgeId = props.edgeId;
-
     this.sourceNode = sourceNode;
     this.targetNode = targetNode;
+    this.graphicsObject = new PIXI.Graphics();
+    container.addChild(this.graphicsObject);
 
-    //
-    // const source = {x: 1, y: 1};
-    // const target = {x: 1, y: 1};
-    //
-    // const { x: sX, y: sY } = source;
-    // const { x: tX, y: tY } = target;
-    // curve.lineStyle(LINE_THICKNESS, ORANGE, 1);
-    // curve.moveTo(sX, sY);
-    //
-    // const dX = Math.abs(tX - sX) * (3/4);
-    //
-    //
-    //
-    // curve.bezierCurveTo(sX + dX, sY, tX - dX, tY, tX, tY);
-    // // curve.bezierCurveTo(dX, sY, sX, dY, tX, tY);
-    // container.addChild(curve);
-    //
-    const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
+    const inputDotTexture = PIXI.utils.TextureCache['outCircle'];
     const inputDot = Dot(inputDotTexture, 0, 0);
 
-    const outDotTexture = PIXI.utils.TextureCache['outCircle'];
+    const outDotTexture = PIXI.utils.TextureCache['inCircle'];
     const outputDot = Dot(outDotTexture, 0, 0);
 
     this.sourceDot = inputDot;
@@ -60,31 +41,36 @@ export default class SimpleEdge implements EdgeTemplate {
 
     container.addChild(inputDot);
     container.addChild(outputDot);
+
+    sourceNode.addEdge(this, EdgeType.OUTPUT);
+    targetNode.addEdge(this, EdgeType.INPUT);
+
+    this.update();
   }
 
-  update() {
-    const sourceIndex = this.sourceNode.edgeMap.get(this.edgeId)!;
-    const targetIndex = this.targetNode.edgeMap.get(this.edgeId)!;
-
-    // Ugh, this is inside the container :(
-    const sourceY = this.sourceNode.container.outputMapping[sourceIndex];
-    const targetY = this.targetNode.container.inputMapping[targetIndex];
-    const sourceX = this.sourceNode.container.outputX;
-    const targetX = this.targetNode.container.inputX;
+  update = () => {
+    const { x: sourceX, y: sourceY } = this.sourceNode.getOutputCoordinate(
+      this.edgeId,
+      EdgeType.OUTPUT
+    );
+    const { x: targetX, y: targetY } = this.targetNode.getOutputCoordinate(
+      this.edgeId,
+      EdgeType.INPUT
+    );
 
     this.sourceDot.position.x = sourceX;
     this.sourceDot.position.y = sourceY;
     this.targetDot.position.x = targetX;
     this.targetDot.position.y = targetY;
 
-    this.graphic.clear();
-    this.graphic.lineStyle(LINE_THICKNESS, ORANGE, 1);
-    this.graphic.moveTo(sourceX, sourceY);
+    this.graphicsObject.clear();
+    this.graphicsObject.lineStyle(LINE_THICKNESS, ORANGE, 1);
+    this.graphicsObject.moveTo(sourceX, sourceY);
 
     const dX = Math.abs(targetX - sourceX) * (3 / 4);
-    const dY = Math.abs(targetY - sourceY) * 0;
+    const dY = 0; //Math.abs(targetY - sourceY) * 0;
 
-    this.graphic.bezierCurveTo(
+    this.graphicsObject.bezierCurveTo(
       sourceX + dX,
       sourceY + dY,
       targetX - dX,
@@ -92,6 +78,51 @@ export default class SimpleEdge implements EdgeTemplate {
       targetX,
       targetY
     );
-    // const target = {x: 1, y: 1};
-  }
+
+    return {
+      sourceX,
+      sourceY,
+      dX,
+      dY,
+      targetX,
+      targetY,
+    };
+  };
+
+  updateHitBox = () => {
+    const { sourceX, sourceY, dX, dY, targetX, targetY } = this.update();
+
+    const curve = new Bezier(
+      sourceX,
+      sourceY,
+      sourceX + dX,
+      sourceY + dY,
+      targetX - dX,
+      targetY - dY,
+      targetX,
+      targetY
+    );
+    const numPoints = 100;
+
+    const topPointsArray = [];
+
+    const bottomPointsArray = [];
+
+    for (let i = 0; i <= 1; i += 1 / numPoints) {
+      topPointsArray.push(curve.offset(i, -10));
+      bottomPointsArray.push(curve.offset(i, 10));
+    }
+
+    topPointsArray.push({ x: targetX, y: targetY });
+
+    const allPoints = [
+      ...topPointsArray,
+      ...bottomPointsArray.reverse(),
+    ] as any[];
+
+    // gfx.drawPolygon(allPoints)
+    this.container.hitArea = new PIXI.Polygon(allPoints);
+    this.container.interactive = true;
+    this.container.buttonMode = true;
+  };
 }

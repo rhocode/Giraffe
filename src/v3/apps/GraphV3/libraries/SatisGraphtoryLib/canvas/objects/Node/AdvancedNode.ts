@@ -10,13 +10,10 @@ import {
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
-// import { createDots } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
+
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
-import {
-  NodeContainer,
-  NodeTemplate,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-import { createHighlight } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Highlight';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { createNodeHighlight } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeHighlight';
 
 import { getClassNameFromBuildableMachines } from 'v3/data/loaders/buildings';
 // import { createBadge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Badge';
@@ -39,25 +36,24 @@ import {
   NODE_HEIGHT,
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
-import EdgeTemplate, {
-  EdgeType,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import {
+  addDotsToNode,
+  calculateNodeOffset,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
+import EventEmitter from 'eventemitter3';
+import { Events } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Events';
+import initializeMap from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/initializeMap';
 
-export default class AdvancedNode implements NodeTemplate {
-  container: NodeContainer;
-  nodeId: string;
-  inEdges: (EdgeTemplate | null)[];
-  outEdges: (EdgeTemplate | null)[];
-  edgeMap = new Map<string, number>();
-  edges: EdgeTemplate[];
-
-  private readonly x: number;
-  private readonly y: number;
+export default class AdvancedNode extends NodeTemplate {
+  inputMapping: any[] = [];
+  outputMapping: any[] = [];
+  inputX: number = 0;
+  outputX: number = 0;
 
   constructor(props: SatisGraphtoryNodeProps) {
+    super(props);
+
     const {
-      nodeId,
-      position,
       recipeLabel,
       tier,
       overclock,
@@ -67,29 +63,21 @@ export default class AdvancedNode implements NodeTemplate {
       outputs,
     } = props;
 
-    const x = position.x;
-    this.x = x;
-    const y = position.y;
-    this.y = y;
+    const container = this.container;
+    const x = this.x;
+    const y = this.y;
 
-    const container = new NodeContainer();
-    container.nodeId = nodeId;
-    this.nodeId = nodeId;
-    this.container = container;
-
-    const highlight = createHighlight(
+    // NEED THIS
+    container.highLight = createNodeHighlight(
       x + HIGHLIGHT_OFFSET_X,
       y + HIGHLIGHT_OFFSET_Y
     );
-    highlight.visible = false;
-    container.highLight = highlight;
 
-    container.addChild(highlight);
+    container.addChild(container.highLight);
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
 
     container.boundCalculator = createBackboard(x, y, machineType);
-
     container.addChild(container.boundCalculator);
 
     const recipeText = createTruncatedText(
@@ -110,9 +98,6 @@ export default class AdvancedNode implements NodeTemplate {
     );
 
     container.addChild(machineText);
-
-    // this.recipeNameText = recipeText;
-
     container.addChild(recipeText);
 
     const machineTexture = PIXI.utils.TextureCache[machineName];
@@ -126,8 +111,6 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.addChild(machineImage);
 
-    // container.addChild(createBadge(x + TIER_BADGE_OFFSET_X, y + TIER_BADGE_OFFSET_Y, 'white'))
-
     const levelText = createText(
       getTier(tier),
       TIER_STYLE(),
@@ -136,8 +119,6 @@ export default class AdvancedNode implements NodeTemplate {
     );
 
     container.addChild(levelText);
-
-    // container.addChild(createBadge(x + BADGE_OFFSET_X, y + BADGE_OFFSET_Y));
 
     const efficiencyText = createText(
       `${overclock}%`,
@@ -149,94 +130,23 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.addChild(efficiencyText);
 
-    // Hold off on inputs and outputs for now
-    //
-    // const inputStr = new PIXI.Text(input, INPUT_STYLE);
-    // inputStr.anchor.set(0, 0.5);
-    // inputStr.position.x = x + INPUT_OFFSET_X;
-    // inputStr.position.y = y + NODE_HEIGHT + INPUT_OFFSET_Y;
-    //
-    // const outputStr = new PIXI.Text(output, OUTPUT_STYLE);
-    // outputStr.anchor.set(0, 0.5);
-    // outputStr.position.x = x + OUTPUT_OFFSET_X;
-    // outputStr.position.y = y + NODE_HEIGHT + OUTPUT_OFFSET_Y;
+    const inputDotOffsets = calculateNodeOffset(inputs, y, NODE_HEIGHT);
+    const outputDotOffsets = calculateNodeOffset(outputs, y, NODE_HEIGHT);
 
-    const inputDotOffsets = inputs.map((entry, i) => {
-      return Math.floor(y + ((i + 1) * NODE_HEIGHT) / (inputs.length + 1));
-    });
+    // Create Input Dots
+    addDotsToNode(inputDotOffsets, x, container, 'inCircle');
 
-    const outputDotOffsets = outputs.map((entry, i) => {
-      return Math.floor(y + ((i + 1) * NODE_HEIGHT) / (outputs.length + 1));
-    });
+    // Create Output Dots
+    addDotsToNode(outputDotOffsets, x + NODE_WIDTH, container, 'outCircle');
 
-    // // Create input dots
-    // const inputDotTexture = PIXI.utils.TextureCache['inCircle'];
-    //
-    // const inputDots = createDots(inputDotTexture, inputDotOffsets, x);
-    // for (const dot of inputDots) {
-    //   container.addChild(dot);
-    // }
+    this.inputMapping = inputDotOffsets;
+    this.inputX = x;
 
-    this.container.inputMapping = inputDotOffsets;
-    this.container.inputX = x;
-
-    this.container.outputMapping = outputDotOffsets;
-    this.container.outputX = x + NODE_WIDTH;
-
-    this.inEdges = [];
-    this.outEdges = [];
-    this.edges = [];
-
-    for (let i = 0; i < inputs.length; i++) {
-      this.inEdges.push(null);
-    }
-
-    for (let i = 0; i < outputs.length; i++) {
-      this.outEdges.push(null);
-    }
-
-    //
-    // // Create output dots
-    // const outputDotTexture = PIXI.utils.TextureCache['outCircle'];
-    // const outputDots = createDots(
-    //   outputDotTexture,
-    //   outputDotOffsets,
-    //   x + NODE_WIDTH
-    // );
-    // for (const dot of outputDots) {
-    //   container.addChild(dot);
-    // }
-
-    // Maybe save the items for somewhere else?
-    // const itemTex = PIXI.utils.TextureCache[name];
-    // const itemSprite = new PIXI.Sprite(itemTex);
-    // itemSprite.anchor.set(0.5, 0.5);
-    // itemSprite.position.x = x + ITEM_OFFSET_X;
-    // itemSprite.position.y = y + NODE_HEIGHT + ITEM_OFFSET_Y;
-    // itemSprite.width = ITEM_SIZE;
-    // itemSprite.height = ITEM_SIZE;
+    this.outputMapping = outputDotOffsets;
+    this.outputX = x + NODE_WIDTH;
   }
 
-  updateEdges = () => {
-    this.edges.map((edge) => edge.update());
-  };
-
-  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
-    this.edges.push(edge);
-    if (edgeType === EdgeType.INPUT) {
-      const firstNull = this.inEdges.indexOf(null);
-
-      this.inEdges[firstNull] = edge;
-      this.edgeMap.set(edge.edgeId, firstNull);
-    } else if (edgeType === EdgeType.OUTPUT) {
-      const firstNull = this.outEdges.indexOf(null);
-
-      this.outEdges[firstNull] = edge;
-      this.edgeMap.set(edge.edgeId, firstNull);
-    } else {
-      console.log('Unimplemented!');
-    }
-  }
+  eventFunctions = new Map<string, any[]>();
 
   removeInteractionEvents() {
     const container = this.container;
@@ -248,17 +158,21 @@ export default class AdvancedNode implements NodeTemplate {
     container.off('pointerup');
     container.off('pointerupoutside');
     container.off('pointermove');
+
+    if (this.eventEmitter) {
+      for (const [name, events] of this.eventFunctions.entries()) {
+        for (const event of events) {
+          this.eventEmitter.removeListener(name, event, this);
+        }
+      }
+
+      this.eventFunctions = new Map();
+      this.eventEmitter = (null as unknown) as EventEmitter;
+    }
   }
 
   addSelectEvents(onSelectNodes: (nodeIds: string[]) => any) {
-    const x = this.x;
-    const y = this.y;
-
-    const container = this.container;
-
-    container.interactive = true;
-    container.buttonMode = true;
-    container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
+    const container = this.createNodeContainer();
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
@@ -270,38 +184,149 @@ export default class AdvancedNode implements NodeTemplate {
     });
   }
 
-  tempOm: any = null;
-  tempIm: any = null;
-  tempOx: number = 0;
-  tempIx: number = 0;
+  // TODO: Determine if we should pass through an event emitter in the constructor
+  // We might want to lazyily only attach this event emitter if we add events.
+  eventEmitter: EventEmitter = (null as unknown) as EventEmitter;
 
-  snapshotEdgePositions = () => {
-    this.tempOm = [...this.container.outputMapping];
-    this.tempIm = [...this.container.inputMapping];
-    this.tempOx = this.container.outputX;
-    this.tempIx = this.container.inputX;
-  };
+  addEvent(eventEmitter: EventEmitter, event: string, functionToAdd: any) {
+    this.eventEmitter = eventEmitter;
 
-  updateContainerPositions = (dx: number, dy: number) => {
-    this.container.outputMapping = this.container.outputMapping.map(
-      (item, index) => {
-        if (item === null) return null;
-        return this.tempOm[index] + dy;
+    initializeMap<string, any[]>(this.eventFunctions, event, []);
+    this.eventFunctions.get(event)!.push(functionToAdd);
+
+    eventEmitter.addListener(event, functionToAdd, this);
+  }
+
+  addDragEvents(eventEmitter: EventEmitter) {
+    const container = this.createNodeContainer();
+
+    let dragging = false;
+    let dragLeader = false;
+    let sourceX = 0;
+    let sourceY = 0;
+    let clickX = 0;
+    let clickY = 0;
+    let contextSourceX = 0;
+    let contextSourceY = 0;
+
+    const context = this;
+
+    const snapshotEdgePositions = this.snapshotEdgePositions;
+
+    // Drag Functions Start
+
+    // Drag Pointer Down Start
+    function dragPointerDownFunction(
+      this: any,
+      triggerSource: any,
+      newPos: PIXI.ObservablePoint,
+      moveAllHighlightedArg: boolean
+    ) {
+      if (
+        triggerSource === this ||
+        (moveAllHighlightedArg && this.container.highLight.visible)
+      ) {
+        clickX = newPos.x;
+        clickY = newPos.y;
+        sourceX = container.position.x;
+        sourceY = container.position.y;
+        contextSourceX = context.offsetHookX;
+        contextSourceY = context.offsetHookY;
+        dragging = true;
+        snapshotEdgePositions();
       }
+    }
+
+    this.addEvent(
+      eventEmitter,
+      Events.NodePointerDown,
+      dragPointerDownFunction
     );
 
-    this.container.inputMapping = this.container.inputMapping.map(
-      (item, index) => {
-        if (item === null) return null;
-        return this.tempIm[index] + dy;
+    let moveAllHighlighted = false;
+
+    container.on('pointerdown', function (this: any, event: any) {
+      event.stopPropagation();
+      const newPos = event.data.getLocalPosition(this.parent);
+      moveAllHighlighted = this.highLight.visible;
+      eventEmitter.emit(
+        Events.NodePointerDown,
+        context,
+        newPos,
+        moveAllHighlighted
+      );
+      dragLeader = true;
+    });
+
+    // Drag Pointer Up Start
+    function dragPointerUpFunction(
+      this: any,
+      triggerSource: any,
+      moveAllHighlightedArg: boolean
+    ) {
+      if (triggerSource === this || moveAllHighlightedArg) {
+        dragging = false;
+        dragLeader = false;
       }
+    }
+
+    this.addEvent(eventEmitter, Events.NodePointerUp, dragPointerUpFunction);
+
+    container.on('pointerup', function (this: any) {
+      eventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
+    });
+
+    container.on('pointerupoutside', function (this: any) {
+      eventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
+    });
+
+    // Drag Pointer Move Start
+    const updateEdges = this.updateEdges;
+    const updateEdgePositions = this.updateEdgePositions;
+
+    function dragPointerMoveFunction(
+      this: any,
+      triggerSource: any,
+      deltaX: number,
+      deltaY: number,
+      moveAllHighlightedArg: boolean
+    ) {
+      if (dragging && (triggerSource === this || moveAllHighlightedArg)) {
+        container.position.x = sourceX + deltaX;
+        container.position.y = sourceY + deltaY;
+        context.offsetHookX = contextSourceX + deltaX;
+        context.offsetHookY = contextSourceY + deltaY;
+        updateEdgePositions(deltaX, deltaY);
+        updateEdges();
+      }
+    }
+
+    this.addEvent(
+      eventEmitter,
+      Events.NodePointerMove,
+      dragPointerMoveFunction
     );
 
-    this.container.outputX = this.tempOx + dx;
-    this.container.inputX = this.tempIx + dx;
-  };
+    container.on('pointermove', function (this: any, event: any) {
+      if (dragLeader && dragging) {
+        event.stopPropagation();
+        const newPos = event.data.getLocalPosition(this.parent);
+        const deltaX = newPos.x - clickX;
+        const deltaY = newPos.y - clickY;
+        eventEmitter.emit(
+          Events.NodePointerMove,
+          context,
+          deltaX,
+          deltaY,
+          moveAllHighlighted
+        );
+      }
+    });
 
-  addDragEvents() {
+    return [];
+  }
+
+  private createNodeContainer() {
     const x = this.x;
     const y = this.y;
 
@@ -309,51 +334,10 @@ export default class AdvancedNode implements NodeTemplate {
 
     container.interactive = true;
     container.buttonMode = true;
+    if (container.hitArea?.destroy) {
+      container.hitArea.destroy();
+    }
     container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
-
-    let dragging = false;
-    let sourceX = 0;
-    let sourceY = 0;
-    let clickX = 0;
-    let clickY = 0;
-
-    const snapshotEdgePositions = this.snapshotEdgePositions;
-
-    container.on('pointerdown', function (this: any, event: any) {
-      event.stopPropagation();
-      const newPos = event.data.getLocalPosition(this.parent);
-      clickX = newPos.x;
-      clickY = newPos.y;
-      sourceX = this.position.x;
-      sourceY = this.position.y;
-      dragging = true;
-      snapshotEdgePositions();
-    });
-
-    container.on('pointerup', function (this: any, event: any) {
-      // event.stopPropagation();
-      dragging = false;
-    });
-
-    container.on('pointerupoutside', () => {
-      dragging = false;
-    });
-
-    const updateEdges = this.updateEdges;
-    const updateContainerPositions = this.updateContainerPositions;
-
-    container.on('pointermove', function (this: any, event: any) {
-      if (dragging) {
-        event.stopPropagation();
-        const newPos = event.data.getLocalPosition(this.parent);
-        const deltaX = newPos.x - clickX;
-        const deltaY = newPos.y - clickY;
-
-        container.position.x = sourceX + deltaX;
-        container.position.y = sourceY + deltaY;
-        updateContainerPositions(deltaX, deltaY);
-        updateEdges();
-      }
-    });
+    return container;
   }
 }

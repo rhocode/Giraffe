@@ -10,6 +10,7 @@ function PixiJsContextProvider(props) {
     const instance = s[pixiCanvasStateId];
     return {
       pixiCanvasStateId: pixiCanvasStateId,
+      rawInstance: instance,
       application: instance?.application,
       mouseState: instance?.mouseState,
       pixiViewport: instance?.viewport,
@@ -17,8 +18,10 @@ function PixiJsContextProvider(props) {
       canvasReady: instance?.canvasReady,
       viewportChildContainer: instance?.viewportChildContainer,
       children: instance?.children,
+      childrenMap: instance?.childrenMap,
       applicationLoaded: instance?.applicationLoaded,
       aliasCanvasObjects: instance?.aliasCanvasObjects,
+      eventEmitter: instance?.eventEmitter,
     };
   });
 

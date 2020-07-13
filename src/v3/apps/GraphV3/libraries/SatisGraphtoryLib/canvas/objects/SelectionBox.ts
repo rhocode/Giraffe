@@ -108,11 +108,11 @@ export const enableSelectionBox = (
     dragging = true;
   });
 
-  viewportChildContainer.on('pointerup', (event: any) => {
+  viewportChildContainer.on('pointerup', () => {
     clearSelection();
   });
 
-  viewportChildContainer.on('pointerupoutside', (event: any) => {
+  viewportChildContainer.on('pointerupoutside', () => {
     clearSelection();
   });
 

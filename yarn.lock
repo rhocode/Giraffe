@@ -2725,6 +2725,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/bezier-js@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@types/bezier-js/-/bezier-js-0.0.8.tgz#e9dcdafa72ed4fe0decc72e35f8422fd402c269d"
+  integrity sha512-X+sQeRVDMwlQYZEqQcVOVqCKrZa7nKVuYirlJCJQRBpucQSzPGxjv7VAncCGe0cr1v1hFuLAzK11XzjOPqQ0kA==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -4547,6 +4552,11 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+bezier-js@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/bezier-js/-/bezier-js-2.6.1.tgz#ed9c6ebfcb3214794ff213cf90ee8aac644ecf7f"
+  integrity sha512-jelZM33eNzcZ9snJ/5HqJLw3IzXvA8RFcBjkdOB8SDYyOvW8Y2tTosojAiBTnD1MhbHoWUYNbxUXxBl61TxbRg==
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -7352,7 +7362,7 @@ eventemitter3@^3.1.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0:
+eventemitter3@^4.0.0, eventemitter3@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.4.tgz#b5463ace635a083d018bdc7c917b4c5f10a85384"
   integrity sha512-rlaVLnVxtxvoyLsQQFBx53YmXHDxRIzzTLbdfxqi4yocpSjAxXwkU0cScM5JgSKMqEhrZpnvQ2D9gjylR0AimQ==

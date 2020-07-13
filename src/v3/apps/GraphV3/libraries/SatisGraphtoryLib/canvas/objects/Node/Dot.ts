@@ -1,4 +1,5 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import { NodeContainer } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 export const createDots = (
   texture: PIXI.Texture,
@@ -15,3 +16,24 @@ export const Dot = (texture: PIXI.Texture, x: number, y: number) => {
   dot.position.y = y;
   return dot;
 };
+
+export function addDotsToNode(
+  dotOffsets: number[],
+  x: number,
+  container: NodeContainer,
+  texture: string
+) {
+  // Create output dots
+  const dotTexture = PIXI.utils.TextureCache[texture];
+  const dots = createDots(dotTexture, dotOffsets, x);
+
+  for (const dot of dots) {
+    container.addChild(dot);
+  }
+}
+
+export function calculateNodeOffset(slots: any[], y: number, height: number) {
+  return slots.map((entry, i) => {
+    return Math.floor(y + ((i + 1) * height) / (slots.length + 1));
+  });
+}

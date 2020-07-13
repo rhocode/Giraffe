@@ -8,6 +8,9 @@ import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import {
   addChild,
+  getChildFromStateById,
+  getChildrenFromState,
+  getTypedChildrenFromState,
   removeChild,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
@@ -33,6 +36,7 @@ function PixiJSApplication(props) {
     viewportChildContainer,
     canvasReady,
     aliasCanvasObjects,
+    eventEmitter,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -84,7 +88,7 @@ function PixiJSApplication(props) {
       }
     };
 
-    const keyUpEvent = function (event) {
+    const keyUpEvent = function () {
       if (keypressHandled.current && lasTargetIsCanvas.current) {
         keypressHandled.current = false;
 
@@ -114,14 +118,14 @@ function PixiJSApplication(props) {
       pixiJsStore.update((sParent) => {
         const s = sParent[pixiCanvasStateId];
 
-        for (const child of s.children.values()) {
+        for (const child of getChildrenFromState(s)) {
           if (child instanceof AdvancedNode) {
             child.container.highLight.visible = false;
           }
         }
 
         const selected = nodeIds.map((nodeId) => {
-          const retrievedNode = s.children.get(nodeId);
+          const retrievedNode = getChildFromStateById(s, nodeId);
           if (retrievedNode instanceof AdvancedNode) {
             retrievedNode.container.highLight.visible = true;
           }
@@ -224,10 +228,8 @@ function PixiJSApplication(props) {
 
     const deferredRemoveChildEvents = (t) => {
       const s = t[pixiCanvasStateId];
-      for (const child of s.children.values()) {
-        if (child instanceof AdvancedNode) {
-          child.removeInteractionEvents();
-        }
+      for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
+        child.removeInteractionEvents();
       }
     };
 
@@ -245,14 +247,13 @@ function PixiJSApplication(props) {
         selectionBox,
         onSelectNodes
       );
+
       pixiJsStore.update([
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
-          for (const child of s.children.values()) {
-            if (child instanceof AdvancedNode) {
-              child.addSelectEvents(onSelectNodes);
-            }
+          for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
+            child.addSelectEvents(onSelectNodes);
           }
         },
       ]);
@@ -265,16 +266,15 @@ function PixiJSApplication(props) {
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
-          for (const child of s.children.values()) {
-            if (child instanceof AdvancedNode) {
-              child.addDragEvents();
-            }
+          for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
+            child.addDragEvents(eventEmitter);
           }
         },
       ]);
     }
   }, [
     canvasReady,
+    eventEmitter,
     mouseState,
     onSelectNodes,
     pixiCanvasStateId,

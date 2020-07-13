@@ -1,4 +1,4 @@
-import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 export interface SatisGraphtoryNodeProps {
   nodeId: string;
@@ -16,13 +16,8 @@ export interface SatisGraphtoryNodeProps {
 export interface SatisGraphtoryEdgeProps {
   edgeId: string;
   type: string;
-  // sourceId: string;
-  // targetId: string;
-  // source: SatisGraphtoryCoordinate;
-  // target: SatisGraphtoryCoordinate;
-  // This is a big NoNo, since we're mixing data and graphics :(
-  sourceNode: AdvancedNode;
-  targetNode: AdvancedNode;
+  sourceNode: NodeTemplate;
+  targetNode: NodeTemplate;
 }
 
 export interface SatisGraphtoryCoordinate {

@@ -10,42 +10,19 @@ export const addObjectChildren = (
     children.forEach((child) => {
       const id = child.nodeId || stringGen(10);
       const s = t[canvasId];
-      s.children.set(id, child);
+      s.childrenMap.set(id, child);
+      s.children.push(child);
       s.viewportChildContainer.addChild(child.container);
     });
   });
 };
 
-// export const addChildren = (
-//   children: PIXI.DisplayObject[],
-//   canvasId: string
-// ) => {
-//   pixiJsStore.update((t) => {
-//     children.forEach((child) => {
-//       const id = stringGen(10);
-//       const s = t[canvasId];
-//       s.children.set(id, child);
-//       s.viewportChildContainer.addChild(child);
-//     });
-//   });
-// };
-
-// export const addObjectChild = (child: NodeTemplate, canvasId: string) => {
-//   const id = stringGen(10);
-//   pixiJsStore.update((t) => {
-//     const s = t[canvasId];
-//     s.children.set(id, child);
-//     s.viewportChildContainer.addChild(child.container);
-//   });
-//
-//   return id;
-// };
-
 export const addChild = (child: PIXI.DisplayObject, canvasId: string) => {
   const id = stringGen(10);
   pixiJsStore.update((t) => {
     const s = t[canvasId];
-    s.children.set(id, child);
+    s.childrenMap.set(id, child);
+    s.children.push(child);
     s.viewportChildContainer.addChild(child);
   });
 
@@ -56,12 +33,25 @@ export const removeChild = (id: string, canvasId: string) => {
   pixiJsStore.update((t) => {
     const s = t[canvasId];
 
-    if (!s.children.get(id)) {
+    if (!s.childrenMap.get(id)) {
       throw new Error('Unknown child ' + id);
     }
 
-    const childToRemove = s.children.get(id)!;
-    s.children.delete(id);
+    const childToRemove = s.childrenMap.get(id)!;
+    s.childrenMap.delete(id);
+    s.children.splice(s.children.indexOf(childToRemove), 1);
     s.viewportChildContainer.removeChild(childToRemove);
   });
+};
+
+export const getChildrenFromState = (state: any): any[] => {
+  return state.children;
+};
+
+export function getTypedChildrenFromState(state: any, type: any): any[] {
+  return state.children.filter((item: any) => item instanceof type);
+}
+
+export const getChildFromStateById = (state: any, id: string): any => {
+  return state.childrenMap.get(id);
 };
