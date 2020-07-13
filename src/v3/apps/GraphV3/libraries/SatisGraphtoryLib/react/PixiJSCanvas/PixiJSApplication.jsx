@@ -26,34 +26,34 @@ function PixiJSApplication(props) {
       console.log('different canvas');
       originalCanvasRef.current = canvasRef.current;
       pixiJsStore.update((s) => {
-        // try {
-        let newApplication = new PIXI.Application({
-          transparent: true,
-          autoDensity: true,
-          height,
-          width,
-          view: canvasRef.current,
-          resolution: sgDevicePixelRatio,
-          antialias: true,
-        });
+        try {
+          let newApplication = new PIXI.Application({
+            transparent: true,
+            autoDensity: true,
+            height,
+            width,
+            view: canvasRef.current,
+            resolution: sgDevicePixelRatio,
+            antialias: true,
+          });
 
-        if (s.application?.stage?.children?.length) {
-          newApplication.stage.addChild(...s.application.stage.children);
+          if (s.application?.stage?.children?.length) {
+            newApplication.stage.addChild(...s.application.stage.children);
+          }
+
+          if (s.application?.destroy) {
+            s.application.destroy();
+          }
+
+          s.application = newApplication;
+
+          if (s.childQueue.length) {
+            s.application.stage.addChild(...s.childQueue);
+            s.childQueue = [];
+          }
+        } catch (e) {
+          // Probably ask the user to turn on webGL
         }
-
-        if (s.application?.destroy) {
-          s.application.destroy();
-        }
-
-        s.application = newApplication;
-
-        if (s.childQueue.length) {
-          s.application.stage.addChild(...s.childQueue);
-          s.childQueue = [];
-        }
-        // } catch(e) {
-        //  // Probably ask the user to turn on webGL
-        // }
       });
     }
   }, [canvasRef, height, width]);
