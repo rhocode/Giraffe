@@ -48,8 +48,10 @@ function PixiJSCanvasContainer(props) {
   return (
     <div ref={ref} className={classes.canvasContainer}>
       <div className={classes.canvas}>
-        <PixiJSCanvasGuard height={height} width={width} />
-        {props.children}
+        <React.Fragment>
+          <PixiJSCanvasGuard height={height} width={width} />
+          {props.children}
+        </React.Fragment>
       </div>
     </div>
   );
