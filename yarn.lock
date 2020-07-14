@@ -1111,6 +1111,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.9.6":
+  version "7.10.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.4.tgz#a6724f1a6b8d2f6ea5236dbfe58c7d7ea9c5eb99"
+  integrity sha512-UpTN5yUJr9b4EX2CnGNWIvER7Ab83ibv0pcvvHc4UOdrBI5jb8bj+32cCwPX6xu0mt2daFNjYhoi+X7beH0RSw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.1", "@babel/template@^7.4.0", "@babel/template@^7.8.6":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.10.1.tgz#e167154a94cb5f14b28dc58f5356d2162f539811"
@@ -13536,6 +13543,13 @@ react-dropdown-select@^4.4.2:
   dependencies:
     "@emotion/core" "^10.0.27"
     "@emotion/styled" "^10.0.27"
+
+react-error-boundary@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-2.2.3.tgz#34c8238012d3b4148cec47a1b3cec669d5206578"
+  integrity sha512-Jiaiu6CJ4ho3sMCVI7gg+O/JB5vlFFZGwlnpFBTCOSyheYRTzz+FhBMo7tfnCTB/ZR0LaMzAPGbZGrEzAOd0eg==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
 
 react-error-overlay@^6.0.3, react-error-overlay@^6.0.7:
   version "6.0.7"

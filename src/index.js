@@ -6,8 +6,6 @@ import 'core-js/features/array/flat';
 import './index.css';
 import './fonts/BebasNeue-Regular.ttf';
 import 'reflect-metadata';
-
-import * as Sentry from '@sentry/react';
 import { enableMapSet } from 'immer';
 import React from 'react';
 import { render } from 'react-dom';
@@ -18,6 +16,7 @@ import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiP
 import App from './apps/App/App';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
 import getStore from './redux/store';
+import SGErrorBoundary from 'common/react/ErrorBoundary';
 
 require('typeface-roboto-condensed');
 require('typeface-roboto-mono');
@@ -28,22 +27,17 @@ PIXI.utils.skipHello();
 
 const store = getStore();
 
-if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn:
-      'https://a1b8cacbf80d4d16afce2fb9cd39db2f@o416463.ingest.sentry.io/5311573',
-  });
-}
-
 const CompleteApp = () => {
   return (
-    <Provider store={store}>
-      <ServiceWorkerProvider>
-        <LocalizeProvider store={store}>
-          <App />
-        </LocalizeProvider>
-      </ServiceWorkerProvider>
-    </Provider>
+    <SGErrorBoundary>
+      <Provider store={store}>
+        <ServiceWorkerProvider>
+          <LocalizeProvider store={store}>
+            <App />
+          </LocalizeProvider>
+        </ServiceWorkerProvider>
+      </Provider>
+    </SGErrorBoundary>
   );
 };
 
