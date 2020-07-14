@@ -16,19 +16,19 @@ For issues with the actual application and library, please write an issue here o
 
 Satisgraphtory is broken into several different components.
 
-- Data: A data entry application used to load recipes into the backend.
-- Graph: The main showcase application. Contains the Satisgraphtory resource chain library.
-- Home: The homepage for the site.
-- Hub: Planned future feature.
-- Lab: Planned future feature.
+-   Data: A data entry application used to load recipes into the backend.
+-   Graph: The main showcase application. Contains the Satisgraphtory resource chain library.
+-   Home: The homepage for the site.
+-   Hub: Planned future feature.
+-   Lab: Planned future feature.
 
 ### Code Contribution
 
 Goals for contribution:
 
-- Maintain recipies with game releases
-- Bug fixes which prevent functionality
-- Ensure the community stays engaged to work towards the best resource calculator
+-   Maintain recipies with game releases
+-   Bug fixes which prevent functionality
+-   Ensure the community stays engaged to work towards the best resource calculator
 
 ## Style Guidelines
 

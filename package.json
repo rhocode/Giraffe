@@ -89,6 +89,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "remark-cli": "^8.0.0",
+    "remark-preset-lint-recommended": "^4.0.1",
     "roboto-fontface": "^0.10.0",
     "sass": "^1.26.9",
     "scheduler": "^0.19.1",
@@ -121,7 +123,8 @@
     "release-standalone": "electron-builder --publish always",
     "pretty": "prettier --single-quote --write src/**/*",
     "checkout-data-landing": "./scripts/checkout.sh data-landing",
-    "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension"
+    "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension",
+    "lint-md": "remark . -o"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -151,15 +154,24 @@
     "jest-canvas-mock": "^2.2.0",
     "wait-on": "^4.0.0"
   },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": [
+    "src/**/*.{js,jsx,ts,tsx,css,scss}": [
       "eslint --fix --max-warnings 0",
       "prettier --single-quote --write",
+      "git add"
+    ],
+    "src/**/*.{md}": [
+      "remark -o",
       "git add"
     ],
     "public/**/*.{js,jsx,ts,tsx,css,scss,md}": [
