@@ -24,12 +24,11 @@ const useStyles = (theme) => {
   };
 };
 
-if (
-  process.env.NODE_ENV === 'production' &&
-  navigator.userAgent?.indexOf(
-    'Prerender (+https://github.com/prerender/prerender)'
-  ) === -1
-) {
+// &&
+// navigator.userAgent?.indexOf(
+//   'Prerender (+https://github.com/prerender/prerender)'
+// ) === -1
+if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn:
       'https://a1b8cacbf80d4d16afce2fb9cd39db2f@o416463.ingest.sentry.io/5311573',
