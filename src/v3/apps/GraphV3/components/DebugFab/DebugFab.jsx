@@ -46,4 +46,4 @@ function DebugFab() {
   );
 }
 
-export default DebugFab;
+export default React.memo(DebugFab);

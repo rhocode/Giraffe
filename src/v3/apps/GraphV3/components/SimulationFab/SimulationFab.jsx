@@ -68,10 +68,11 @@ function SimulationFab() {
           tooltipOpen
           tooltipPlacement="right"
           onClick={handleClose}
+          title={'Simulation Options'}
         />
       ))}
     </SpeedDial>
   );
 }
 
-export default SimulationFab;
+export default React.memo(SimulationFab);

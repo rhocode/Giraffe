@@ -4,7 +4,7 @@ import { useServiceWorker } from './ServiceWorkerProvider';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     backgroundColor: theme.palette.primary.dark,
     height: theme.overrides.common.HeaderMessaging.height,
@@ -14,16 +14,16 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 2,
     display: 'table',
     overflow: 'hidden',
-    width: '100%'
+    width: '100%',
   },
   invisible: {
     gridArea: 'update',
-    display: 'none'
+    display: 'none',
   },
   messaging: {
     display: 'table-cell',
-    verticalAlign: 'middle'
-  }
+    verticalAlign: 'middle',
+  },
 });
 
 function HeaderMessaging(props) {
@@ -31,7 +31,9 @@ function HeaderMessaging(props) {
 
   const update = () => {
     console.error('Updating assets...');
-    updateAssets();
+    if (updateAssets) {
+      updateAssets();
+    }
   };
 
   return (
@@ -48,8 +50,8 @@ function HeaderMessaging(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  translate: getTranslate(state.localize)
+const mapStateToProps = (state) => ({
+  translate: getTranslate(state.localize),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(HeaderMessaging));

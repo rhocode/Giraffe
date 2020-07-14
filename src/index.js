@@ -1,3 +1,5 @@
+import 'development/wdyr';
+
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
@@ -12,6 +14,7 @@ import { render } from 'react-dom';
 import { LocalizeProvider } from 'react-localize-redux';
 import { Provider } from 'react-redux';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import LocaleProvider from 'v3/components/LocaleProvider';
 
 import App from './apps/App/App';
 import ServiceWorkerProvider from './common/react/ServiceWorkerProvider';
@@ -31,11 +34,13 @@ const CompleteApp = () => {
   return (
     <SGErrorBoundary>
       <Provider store={store}>
-        <ServiceWorkerProvider>
-          <LocalizeProvider store={store}>
-            <App />
-          </LocalizeProvider>
-        </ServiceWorkerProvider>
+        <LocalizeProvider store={store}>
+          <LocaleProvider>
+            <ServiceWorkerProvider>
+              <App />
+            </ServiceWorkerProvider>
+          </LocaleProvider>
+        </LocalizeProvider>
       </Provider>
     </SGErrorBoundary>
   );

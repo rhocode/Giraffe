@@ -6,8 +6,8 @@ import { getTranslate } from 'react-localize-redux';
 import {
   setDataLibrary,
   setGraphData,
-  setInitialLoadedData
-} from '../../../redux/actions/Graph/graphActions';
+  setInitialLoadedData,
+} from 'redux/actions/Graph/graphActions';
 import { connect } from 'react-redux';
 import { getPlaceableMachineClasses } from '../graphql/queries';
 import { preloadAllEnums } from '../libraries/SGLib/repositories/objectRepository';
@@ -21,7 +21,7 @@ const InnerComponent = React.lazy(() => {
     preloadAllEnums,
     ...imageRepositoryPromise.machines,
     ...imageRepositoryPromise.items,
-    getPlaceableMachineClasses()
+    getPlaceableMachineClasses(),
   ]).then(() => import('../libraries/SGLib/react/SatisGraphtoryCanvas'));
 });
 
@@ -41,7 +41,7 @@ function GraphCanvasLoadable(props) {
         d:
           'UTJkM1NVRlNRVUZIUVVsblFVTm5RVTFCUVV0RVFXZEJSVUZGV1VGRFFVRkxRVUYzUVVKSlYwTkJRVlpCUlVScVVYZ3dRV2RIZUVSSlFrVnZRVVJCUVU5R2VFRkJVc1FnUlZaQlFVSjVVV2d3UVZGSlZrUkpRWFBHSUVoa3h5QkpWa0ZMUWtoU1FqQkJkMGxzUkVsQlRjWWdRemxCUVZFOVBRPT0=',
         i: 2,
-        v: '0.1.0'
+        v: '0.1.0',
       };
 
       const deserialized = deserialize(secondary);
@@ -55,15 +55,15 @@ function GraphCanvasLoadable(props) {
 function mapStateToProps(state) {
   return {
     translate: getTranslate(state.localize),
-    initialLoadedData: state.graphReducer.initialLoadedData
+    initialLoadedData: state.graphReducer.initialLoadedData,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGraphData: data => dispatch(setGraphData(data)),
-    setInitialLoadedData: data => dispatch(setInitialLoadedData(data)),
-    setDataLibrary: data => dispatch(setDataLibrary(data))
+    setGraphData: (data) => dispatch(setGraphData(data)),
+    setInitialLoadedData: (data) => dispatch(setInitialLoadedData(data)),
+    setDataLibrary: (data) => dispatch(setDataLibrary(data)),
   };
 }
 

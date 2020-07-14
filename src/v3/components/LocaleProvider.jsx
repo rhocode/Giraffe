@@ -8,9 +8,24 @@ export const LocaleContext = React.createContext({
 });
 
 function LocaleProvider(props) {
-  const { language, translate } = props;
+  const { localize } = props;
+
+  const [languageValue, setLanguageValue] = React.useState(
+    getActiveLanguage(localize)
+  );
+
+  React.useEffect(() => {
+    setLanguageValue(getActiveLanguage(localize));
+  }, [localize]);
+
+  const translateFunction = React.useCallback(() => {
+    return getTranslate(localize);
+  }, [localize]);
+
   return (
-    <LocaleContext.Provider value={{ language, translate }}>
+    <LocaleContext.Provider
+      value={{ language: languageValue, translate: translateFunction() }}
+    >
       {props.children}
     </LocaleContext.Provider>
   );
@@ -18,8 +33,7 @@ function LocaleProvider(props) {
 
 const mapStateToProps = (state) => {
   return {
-    language: getActiveLanguage(state.localize),
-    translate: getTranslate(state.localize),
+    localize: state.localize,
   };
 };
 

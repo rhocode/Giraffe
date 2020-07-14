@@ -1,22 +1,19 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
 import { Helmet } from 'react-helmet-async';
-
-import LocaleProvider, { LocaleContext } from '../../components/LocaleProvider';
-// import { graphAppStore } from './stores/graphAppStore';
-import NavBar from './components/NavBar';
+import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
 import Canvas from 'v3/apps/GraphV3/components/Canvas';
-// import ActionBar from './components/ActionBar';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
-// import NodeDrawer from './components/NodeDrawer';
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
-import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
-import NodeDrawer from 'apps/Graph/components/GraphNodeDrawer/NodeDrawer';
-import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
+import NodeDrawer from 'v3/apps/GraphV3/components/NodeDrawer';
 import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
+import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
+import { LocaleContext } from 'v3/components/LocaleProvider';
+
+import NavBar from './components/NavBar';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -71,6 +68,19 @@ function GraphApp(props) {
     // localizeGenerator(getAllRecipes())
   }, []);
 
+  const canvasChildren = React.useCallback(
+    (application, viewport, translate) => {
+      console.log('Canvas load function called');
+      return initCanvasChildren(application, viewport, translate);
+    },
+    []
+  );
+
+  const onFinishLoad = React.useCallback(() => {
+    window.prerenderReady = true;
+    console.log('Finished loading');
+  }, []);
+
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
 
@@ -80,7 +90,7 @@ function GraphApp(props) {
         .then((json) => {
           setHelmet(json);
         })
-        .catch((err) => {
+        .catch(() => {
           setHelmet({
             title: 'SatisGraphtory | Factory Building Graph Simulation',
             description:
@@ -112,16 +122,7 @@ function GraphApp(props) {
           </Helmet>
           <NavBar />
           <ChainWizardPanel />
-          <Canvas
-            canvasChildren={(application, viewport, translate) => {
-              console.log('Canvas load function called');
-              return initCanvasChildren(application, viewport, translate);
-            }}
-            onFinishLoad={() => {
-              window.prerenderReady = true;
-              console.log('Finished loading');
-            }}
-          >
+          <Canvas canvasChildren={canvasChildren} onFinishLoad={onFinishLoad}>
             <ActionBar />
             <DebugFab />
             <SimulationFab />
@@ -137,12 +138,4 @@ function GraphApp(props) {
   );
 }
 
-function GraphAppWithLocale(props) {
-  return (
-    <LocaleProvider>
-      <GraphApp {...props} />
-    </LocaleProvider>
-  );
-}
-
-export default GraphAppWithLocale;
+export default GraphApp;

@@ -1,9 +1,8 @@
 import React from 'react';
+import { removeUrlParam } from 'utils/urlUtils';
 import * as serviceWorker from '../../serviceWorkerCustom';
-import { connect } from 'react-redux';
-import { setUpdateAvailable } from '../../redux/actions/common/commonActions';
 
-const ServiceWorkerContext = React.createContext();
+const ServiceWorkerContext = React.createContext(null);
 
 function ServiceWorkerProvider(props) {
   const [waitingServiceWorker, setWaitingServiceWorker] = React.useState(null);
@@ -17,15 +16,17 @@ function ServiceWorkerProvider(props) {
       // Call when the user confirm update of application and reload page
       updateAssets: () => {
         if (waitingServiceWorker) {
-          waitingServiceWorker.addEventListener('statechange', event => {
+          waitingServiceWorker.addEventListener('statechange', (event) => {
             if (event.target.state === 'activated') {
               window.location.reload();
             }
           });
 
           waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
+        } else {
+          window.location.reload();
         }
-      }
+      },
     }),
     [assetsUpdateReady, assetsCached, waitingServiceWorker]
   );
@@ -34,16 +35,25 @@ function ServiceWorkerProvider(props) {
   // CRA's service worker wrapper
   React.useEffect(() => {
     serviceWorker.register({
-      onUpdate: registration => {
+      onUpdate: (registration) => {
         setWaitingServiceWorker(registration.waiting);
         setAssetsUpdateReady(true);
-        props.setUpdateAvailable(true);
       },
       onSuccess: () => {
         setAssetsCached(true);
-      }
+      },
     });
   });
+
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refreshKeyword = 'forceUpdate';
+    if (urlParams.get(refreshKeyword) === '') {
+      const newUrl = removeUrlParam(refreshKeyword, window.location.href);
+      window.history.replaceState({}, document.title, newUrl);
+      setAssetsUpdateReady(true);
+    }
+  }, [setAssetsUpdateReady]);
 
   return <ServiceWorkerContext.Provider value={value} {...props} />;
 }
@@ -60,13 +70,14 @@ export function useServiceWorker() {
   return context;
 }
 
-const mapStateToProps = () => ({});
+// const mapStateToProps = () => ({});
+//
+// const mapDispatchToProps = dispatch => ({
+//   setUpdateAvailable: data => dispatch(setUpdateAvailable(data))
+// });
 
-const mapDispatchToProps = dispatch => ({
-  setUpdateAvailable: data => dispatch(setUpdateAvailable(data))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ServiceWorkerProvider);
+export default ServiceWorkerProvider;
+// connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )();
