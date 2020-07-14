@@ -2,18 +2,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
 import { Helmet } from 'react-helmet-async';
-import ActionBar from 'v3/apps/GraphV3/components/ActionBar';
-import Canvas from 'v3/apps/GraphV3/components/Canvas';
+import ActionBar from 'v3/apps/GraphV3/components/ActionBar/ActionBar';
+import Canvas from 'v3/apps/GraphV3/components/Canvas/Canvas';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
-import NodeDrawer from 'v3/apps/GraphV3/components/NodeDrawer';
 import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 
-import NavBar from './components/NavBar';
+import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -121,13 +120,12 @@ function GraphApp(props) {
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar />
-          <ChainWizardPanel />
           <Canvas canvasChildren={canvasChildren} onFinishLoad={onFinishLoad}>
+            <ChainWizardPanel />
             <ActionBar />
             <DebugFab />
             <SimulationFab />
           </Canvas>
-          <NodeDrawer />
         </div>
       ) : (
         <div className={classes.container}>

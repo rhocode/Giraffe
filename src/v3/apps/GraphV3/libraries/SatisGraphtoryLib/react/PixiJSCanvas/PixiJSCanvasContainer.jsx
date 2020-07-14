@@ -1,8 +1,8 @@
-import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
+import React from 'react';
 import useDimensions from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/hooks/useDimensions';
 import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
-import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
 
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 
@@ -35,6 +35,18 @@ const useStyles = makeStyles(() =>
     },
     centeredLoader: {
       flexGrow: 1,
+    },
+    childOverlay: {
+      pointerEvents: 'none',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%',
+      display: 'grid',
+      gridTemplateAreas: `"bottomActions"`,
+      gridTemplateRows: 'auto',
+      gridTemplateColumns: '1fr',
     },
   })
 );
@@ -83,13 +95,16 @@ function PixiJSCanvasContainer(props) {
   const { children, ...restProps } = props;
 
   return (
-    <div ref={ref} className={classes.canvasContainer}>
-      <div className={classes.canvas}>
-        <CenteredLoader />
-        <PixiJSCanvasGuard height={height} width={width} {...restProps} />
-        {children}
+    <React.Fragment>
+      <div ref={ref} className={classes.canvasContainer}>
+        <div className={classes.canvas}>
+          <CenteredLoader />
+          <PixiJSCanvasGuard height={height} width={width} {...restProps} />
+        </div>
+        <div className={classes.childOverlay}>{children}</div>
       </div>
-    </div>
+      {/*<NodeDrawer />*/}
+    </React.Fragment>
   );
 }
 

@@ -14,15 +14,15 @@ import DomainIcon from '@material-ui/icons/Domain';
 import CategoryIcon from '@material-ui/icons/Category';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { LocaleContext } from '../../../../components/LocaleProvider';
+import { LocaleContext } from 'v3/components/LocaleProvider';
 import { useStoreState } from 'pullstate';
 import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import TabContainer from './TabContainer';
 import DrawerButton from './DrawerButton';
 
-const styles = theme => ({
+const styles = (theme) => ({
   default: {
-    zIndex: theme.zIndex.drawer
+    zIndex: theme.zIndex.drawer,
   },
   root: {
     position: 'fixed',
@@ -33,28 +33,28 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto'
+    pointerEvents: 'auto',
   },
   tabContainer: {
     padding: 0,
     display: 'flex',
-    overflowX: 'auto'
+    overflowX: 'auto',
   },
   expandPanel: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   drawer: {
     gridArea: 'bottomActions',
-    position: 'relative'
+    position: 'relative',
   },
   noDisplay: {
-    display: 'none'
-  }
+    display: 'none',
+  },
 });
 
 function NodeDrawer(props) {
@@ -62,11 +62,14 @@ function NodeDrawer(props) {
   const [value, setValue] = React.useState(0);
 
   const { translate } = React.useContext(LocaleContext);
-  const drawerOpen = useStoreState(graphAppStore, s => s.mouseMode === 'add');
-  const selectedMachine = useStoreState(graphAppStore, s => s.selectedMachine);
+  const drawerOpen = true; //useStoreState(graphAppStore, s => s.mouseMode === 'add');
+  const selectedMachine = useStoreState(
+    graphAppStore,
+    (s) => s.selectedMachine
+  );
   const placeableMachineClasses = useStoreState(
     graphAppStore,
-    s => s.placeableMachineClasses
+    (s) => s.placeableMachineClasses
   );
 
   const [expanded, setExpanded] = React.useState(true);
@@ -82,7 +85,7 @@ function NodeDrawer(props) {
     ? [
         translate(selectedMachine.class.name),
         translate(selectedMachine.tier),
-        translate(selectedMachine.recipe)
+        translate(selectedMachine.recipe),
       ].join(' ')
     : translate('selected_none');
 
@@ -113,7 +116,7 @@ function NodeDrawer(props) {
         <ExpansionPanelDetails className={classes.expandPanel}>
           {value === 0 && (
             <TabContainer {...props} classes={classes}>
-              {placeableMachineClasses.map(buildingSlug => {
+              {placeableMachineClasses.map((buildingSlug) => {
                 return (
                   <DrawerButton
                     nodeClass={buildingSlug}

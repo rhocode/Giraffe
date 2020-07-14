@@ -10,7 +10,7 @@ import ShareButton from './ShareButton';
 import SettingsButton from './SettingsButton';
 import HelpButton from './HelpButton';
 
-const styles = theme => ({
+const styles = (theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     minHeight: theme.overrides.GraphAppBar.height,
@@ -18,26 +18,26 @@ const styles = theme => ({
     position: 'inherit',
     top: 'auto',
     left: 'auto',
-    right: 'auto'
+    right: 'auto',
   },
   logo: {
-    width: 300
+    width: 300,
   },
   logoSmall: {
-    width: 30
+    width: 30,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   toolbar: {
-    minHeight: theme.overrides.GraphAppBar.height
+    minHeight: theme.overrides.GraphAppBar.height,
   },
   margin: {
-    padding: theme.spacing(0, 3)
-  }
+    padding: theme.spacing(0, 3),
+  },
 });
 
-function Index(props) {
+function NarBar(props) {
   const { classes } = props;
 
   return (
@@ -72,4 +72,4 @@ function Index(props) {
   );
 }
 
-export default withStyles(styles)(Index);
+export default withStyles(styles)(NarBar);

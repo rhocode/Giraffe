@@ -19,7 +19,16 @@ export const generateNewPixiCanvasStore = () => {
     selectedNodes: [] as AdvancedNode[],
     aliasCanvasObjects: new Set() as Set<any>,
     eventEmitter: new EventEmitter(),
+    triggerUpdate: 1,
   };
+};
+
+export const triggerUpdate = (canvasId: string) => {
+  pixiJsStore.update((t) => {
+    const s = t[canvasId];
+    // Toggles it between a 2 and a 1. We need a positive value
+    s.triggerUpdate = 3 - s.triggerUpdate;
+  });
 };
 
 interface LooseObject {

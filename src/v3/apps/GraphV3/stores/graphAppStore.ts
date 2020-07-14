@@ -69,4 +69,6 @@ export const graphAppStore = new Store({
   selectedMachine: null,
   openModals: 0,
   placeableMachineClasses: [],
+
+  graphContainerReady: false,
 });
