@@ -124,7 +124,8 @@
     "pretty": "prettier --single-quote --write src/**/*",
     "checkout-data-landing": "./scripts/checkout.sh data-landing",
     "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension",
-    "lint-md": "remark . -o"
+    "lint-md": "remark . -o",
+    "analyze": "node analyzer/analyze.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -152,13 +153,15 @@
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
     "jest-canvas-mock": "^2.2.0",
-    "wait-on": "^4.0.0"
+    "wait-on": "^4.0.0",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "remarkConfig": {
     "plugins": [
       "remark-preset-lint-recommended"
     ]
   },
+  "source": "./src/index.js",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
