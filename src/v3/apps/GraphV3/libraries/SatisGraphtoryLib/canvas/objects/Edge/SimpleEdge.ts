@@ -4,8 +4,14 @@ import EdgeTemplate, {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { LINE_THICKNESS } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
-import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
+import {
+  LINE_HIGHLIGHT_THICKNESS,
+  LINE_THICKNESS,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
+import {
+  DARK_ORANGE,
+  ORANGE,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import Bezier from 'bezier-js';
@@ -19,6 +25,8 @@ export default class SimpleEdge implements EdgeTemplate {
   sourceDot: PIXI.Sprite;
   targetDot: PIXI.Sprite;
 
+  private selected: boolean = false;
+
   constructor(props: SatisGraphtoryEdgeProps) {
     const { sourceNode, targetNode } = props;
 
@@ -27,6 +35,10 @@ export default class SimpleEdge implements EdgeTemplate {
     this.edgeId = props.edgeId;
     this.sourceNode = sourceNode;
     this.targetNode = targetNode;
+
+    container.setHighLight(new PIXI.Graphics());
+    container.addChild(container.getHighLight());
+
     this.graphicsObject = new PIXI.Graphics();
     container.addChild(this.graphicsObject);
 
@@ -45,10 +57,10 @@ export default class SimpleEdge implements EdgeTemplate {
     sourceNode.addEdge(this, EdgeType.OUTPUT);
     targetNode.addEdge(this, EdgeType.INPUT);
 
-    this.update();
+    this.updateWithoutHitBox();
   }
 
-  update = () => {
+  updateWithoutHitBox = () => {
     const { x: sourceX, y: sourceY } = this.sourceNode.getOutputCoordinate(
       this.edgeId,
       EdgeType.OUTPUT
@@ -64,6 +76,7 @@ export default class SimpleEdge implements EdgeTemplate {
     this.targetDot.position.y = targetY;
 
     this.graphicsObject.clear();
+    this.container.getHighLight().clear();
     this.graphicsObject.lineStyle(LINE_THICKNESS, ORANGE, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
@@ -79,6 +92,20 @@ export default class SimpleEdge implements EdgeTemplate {
       targetY
     );
 
+    if (this.selected) {
+      const highLight = this.container.getHighLight();
+      highLight.moveTo(sourceX, sourceY);
+      highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
+      highLight.bezierCurveTo(
+        sourceX + dX,
+        sourceY + dY,
+        targetX - dX,
+        targetY - dY,
+        targetX,
+        targetY
+      );
+    }
+
     return {
       sourceX,
       sourceY,
@@ -89,8 +116,31 @@ export default class SimpleEdge implements EdgeTemplate {
     };
   };
 
-  updateHitBox = () => {
-    const { sourceX, sourceY, dX, dY, targetX, targetY } = this.update();
+  isSelected = () => {
+    return this.selected;
+  };
+
+  setSelectedState = (selected: boolean) => {
+    if (selected !== this.selected) {
+      this.selected = selected;
+      this.updateWithoutHitBox();
+    }
+  };
+
+  // Simple alias for updateWithHitbox
+  update = () => {
+    this.updateWithHitBox();
+  };
+
+  updateWithHitBox = () => {
+    const {
+      sourceX,
+      sourceY,
+      dX,
+      dY,
+      targetX,
+      targetY,
+    } = this.updateWithoutHitBox();
 
     const curve = new Bezier(
       sourceX,

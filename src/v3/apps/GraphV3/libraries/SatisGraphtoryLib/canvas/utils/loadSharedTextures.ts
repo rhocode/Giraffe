@@ -24,7 +24,7 @@ import {
   BOX_THICKNESS,
   CIRCLE_RADIUS,
   CIRCLE_THICKNESS,
-  HIGHTLIGHT_THICKNESS,
+  NODE_HIGHLIGHT_THICKNESS,
   ITEM_SIZE,
   MACHINE_ICON_SIZE,
   NODE_HEIGHT,
@@ -97,7 +97,7 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
 
   // highlight
   gfx.clear();
-  gfx.lineStyle(HIGHTLIGHT_THICKNESS, ORANGE, 0.7);
+  gfx.lineStyle(NODE_HIGHLIGHT_THICKNESS, ORANGE, 0.7);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
 
   const boundsHighlight = gfx.getBounds();

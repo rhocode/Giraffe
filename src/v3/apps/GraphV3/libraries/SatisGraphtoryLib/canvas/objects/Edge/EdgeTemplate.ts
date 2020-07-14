@@ -7,16 +7,26 @@ export enum EdgeType {
   ANY,
 }
 
-export class EdgeContainer extends PIXI.Container {}
+export class EdgeContainer extends PIXI.Container {
+  private highLight: any = null;
 
-export default interface EdgeTemplate {
-  edgeId: string;
-  // container: EdgeContainer;
-  graphicsObject: PIXI.Graphics;
-  targetNode: NodeTemplate;
-  sourceNode: NodeTemplate;
-  sourceDot: PIXI.Sprite;
-  targetDot: PIXI.Sprite;
+  setHighLight(highLight: any) {
+    this.highLight = highLight;
+  }
 
-  update(): void;
+  getHighLight() {
+    return this.highLight;
+  }
+}
+
+export default abstract class EdgeTemplate {
+  abstract edgeId: string;
+  abstract container: EdgeContainer;
+  abstract graphicsObject: PIXI.Graphics;
+  abstract targetNode: NodeTemplate;
+  abstract sourceNode: NodeTemplate;
+  abstract sourceDot: PIXI.Sprite;
+  abstract targetDot: PIXI.Sprite;
+
+  abstract update(): void;
 }

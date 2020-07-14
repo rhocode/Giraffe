@@ -6,8 +6,8 @@ export const YELLOW = 0xd4ce22;
 export const BLUE = 0x47a3ff;
 export const PURPLE = 0x7122d5;
 export const DARK_GREY = 0x222222;
-export const BLACK = 0x000000;
 export const CANVAS_BACKGROUND_COLOR = 0x1d1e20;
+export const DARK_ORANGE = 0x9b5900;
 
 export const MACHINE_CLASS_MAP: Record<string, string> = {
   'building-assembler': 'machine',
