@@ -66,7 +66,7 @@ function registerValidSW(swUrl, config) {
     .then((registration) => {
       console.log('Initing SW');
       if (registration) {
-        console.log('SW Reg found');
+        console.log('SW Reg found:', registration);
         registration.onupdatefound = () => {
           console.log('SW Update Found');
           const installingWorker = registration.installing;
