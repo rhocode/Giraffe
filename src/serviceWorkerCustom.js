@@ -72,6 +72,11 @@ function registerValidSW(swUrl, config) {
           if (config && config.onUpdate) {
             config.onUpdate(registration);
           }
+        } else {
+          // Update this page every minute.
+          setInterval(() => {
+            registration.update();
+          }, 1000 * 60);
         }
 
         registration.onupdatefound = () => {
@@ -107,15 +112,13 @@ function registerValidSW(swUrl, config) {
                 // "Content is cached for offline use." message.
                 console.log('Content is cached for offline use.');
 
-                setInterval(() => {
-                  registration.update();
-                }, 1000 * 60);
-
                 // Execute callback
                 if (config && config.onSuccess) {
                   config.onSuccess(registration);
                 }
               }
+            } else {
+              console.log('New state:', installingWorker.state);
             }
           };
         };

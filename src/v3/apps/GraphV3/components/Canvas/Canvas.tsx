@@ -20,11 +20,19 @@ const InnerComponent = React.lazy(() => {
     new FontFaceObserver('Roboto Condensed').load(),
     new FontFaceObserver('Bebas Neue').load(),
     new FontFaceObserver('Roboto Slab').load(),
-  ]).then(() =>
-    import(
-      'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
-    )
-  );
+  ])
+    .catch(() => {
+      // Prerenderer isn't happy about us blocking on load
+
+      return import(
+        'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+      );
+    })
+    .then(() =>
+      import(
+        'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+      )
+    );
 });
 
 type LoadableComponentProps = {
