@@ -1,6 +1,6 @@
 # Giraffe
 
-This is an unreleased project by rhoCode! Check back later.
+This is an unreleased project by rhoCode! Check back later~
 
 ## Contributing
 
