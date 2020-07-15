@@ -32,7 +32,7 @@ function ServiceWorkerProvider(props) {
   );
 
   // Once on component mounted subscribe to Update and Succes events in
-  // CRA's service worker wrapper
+  // CRA's service worker wrapper.
   React.useEffect(() => {
     if (
       navigator?.userAgent?.indexOf(
