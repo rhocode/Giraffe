@@ -11391,10 +11391,10 @@ ms@2.1.2, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-multi-metagen@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/multi-metagen/-/multi-metagen-4.0.1.tgz#c146895b810e1db04c9f8003bfcdb803e12194ec"
-  integrity sha512-pj7ZwC5ekLYhrLfBhqnbuRQ1r6jsxooeRczBHsVsaqHS7FbMimxfGtAMsNbglXGxEjkBPkoXmRCDcu3VR+eyUA==
+multi-metagen@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/multi-metagen/-/multi-metagen-4.0.2.tgz#fab4b1ba16743e9665e184e8527e13f3355f2754"
+  integrity sha512-MswreysAmxuIPplcCcg4u9znjF2ryNs3fmatP877usFZ4oqqIj2GI72iRiYWLdXgzf2+9wKd3pnpPrnxm3hT9Q==
   dependencies:
     bluebird "^3.5.0"
     chokidar "^2.0.0"
