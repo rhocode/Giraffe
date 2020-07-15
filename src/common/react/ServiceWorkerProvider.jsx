@@ -34,15 +34,21 @@ function ServiceWorkerProvider(props) {
   // Once on component mounted subscribe to Update and Succes events in
   // CRA's service worker wrapper
   React.useEffect(() => {
-    serviceWorker.register({
-      onUpdate: (registration) => {
-        setWaitingServiceWorker(registration.waiting);
-        setAssetsUpdateReady(true);
-      },
-      onSuccess: () => {
-        setAssetsCached(true);
-      },
-    });
+    if (
+      navigator?.userAgent?.indexOf(
+        '(+https://github.com/prerender/prerender)'
+      ) === -1
+    ) {
+      serviceWorker.register({
+        onUpdate: (registration) => {
+          setWaitingServiceWorker(registration.waiting);
+          setAssetsUpdateReady(true);
+        },
+        onSuccess: () => {
+          setAssetsCached(true);
+        },
+      });
+    }
   });
 
   React.useEffect(() => {
