@@ -52,6 +52,14 @@ export function getTypedChildrenFromState(state: any, type: any): any[] {
   return state.children.filter((item: any) => item instanceof type);
 }
 
+export function getMultiTypedChildrenFromState(state: any, type: any[]): any[] {
+  return state.children.filter((item: any) => {
+    return type.some((subType: any) => {
+      return item instanceof subType;
+    });
+  });
+}
+
 export const getChildFromStateById = (state: any, id: string): any => {
   return state.childrenMap.get(id);
 };

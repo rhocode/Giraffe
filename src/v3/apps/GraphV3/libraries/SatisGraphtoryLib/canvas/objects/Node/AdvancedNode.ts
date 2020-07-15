@@ -267,6 +267,7 @@ export default class AdvancedNode extends NodeTemplate {
       if (triggerSource === this || moveAllHighlightedArg) {
         dragging = false;
         dragLeader = false;
+        updateEdges();
       }
     }
 
@@ -338,6 +339,7 @@ export default class AdvancedNode extends NodeTemplate {
       container.hitArea.destroy();
     }
     container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
+
     return container;
   }
 }

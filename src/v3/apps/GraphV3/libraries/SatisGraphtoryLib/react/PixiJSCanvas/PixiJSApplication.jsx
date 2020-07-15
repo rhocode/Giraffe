@@ -1,21 +1,23 @@
-import React from 'react';
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 import { Viewport } from 'pixi-viewport';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
+import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
+import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
   addChild,
   getChildFromStateById,
   getChildrenFromState,
-  getTypedChildrenFromState,
+  getMultiTypedChildrenFromState,
   removeChild,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
-import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
-import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -228,7 +230,10 @@ function PixiJSApplication(props) {
 
     const deferredRemoveChildEvents = (t) => {
       const s = t[pixiCanvasStateId];
-      for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
+      for (const child of getMultiTypedChildrenFromState(s, [
+        NodeTemplate,
+        EdgeTemplate,
+      ])) {
         child.removeInteractionEvents();
       }
     };
@@ -252,22 +257,35 @@ function PixiJSApplication(props) {
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
-          for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
-            child.addSelectEvents(onSelectNodes);
+          for (const child of getMultiTypedChildrenFromState(s, [
+            NodeTemplate,
+            EdgeTemplate,
+          ])) {
+            if (child instanceof NodeTemplate) {
+              child.addSelectEvents(onSelectNodes);
+            } else if (child instanceof EdgeTemplate) {
+            }
           }
         },
       ]);
     } else if (mouseState === MouseState.MOVE) {
-      pixiViewport.plugins.resume('drag');
-      pixiViewport.plugins.resume('wheel');
-      pixiViewport.plugins.resume('pinch');
+      // pixiViewport.plugins.resume('drag');
+      // pixiViewport.plugins.resume('wheel');
+      // pixiViewport.plugins.resume('pinch');
 
       pixiJsStore.update([
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
-          for (const child of getTypedChildrenFromState(s, AdvancedNode)) {
-            child.addDragEvents(eventEmitter);
+          for (const child of getMultiTypedChildrenFromState(s, [
+            NodeTemplate,
+            EdgeTemplate,
+          ])) {
+            if (child instanceof NodeTemplate) {
+              child.addDragEvents(eventEmitter);
+            } else if (child instanceof EdgeTemplate) {
+              // Noop?
+            }
           }
         },
       ]);

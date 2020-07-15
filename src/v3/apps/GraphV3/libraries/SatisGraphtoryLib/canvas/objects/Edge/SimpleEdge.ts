@@ -26,6 +26,7 @@ export default class SimpleEdge implements EdgeTemplate {
   targetDot: PIXI.Sprite;
 
   private selected: boolean = false;
+  private hitBoxEnabled = false;
 
   constructor(props: SatisGraphtoryEdgeProps) {
     const { sourceNode, targetNode } = props;
@@ -58,6 +59,20 @@ export default class SimpleEdge implements EdgeTemplate {
     targetNode.addEdge(this, EdgeType.INPUT);
 
     this.updateWithoutHitBox();
+  }
+
+  removeInteractionEvents(): void {
+    this.disableHitBox();
+  }
+
+  enableHitBox(): void {
+    this.hitBoxEnabled = true;
+    this.update();
+  }
+
+  disableHitBox(): void {
+    this.hitBoxEnabled = false;
+    this.update();
   }
 
   updateWithoutHitBox = () => {
@@ -142,6 +157,13 @@ export default class SimpleEdge implements EdgeTemplate {
       targetY,
     } = this.updateWithoutHitBox();
 
+    if (!this.hitBoxEnabled) {
+      this.container.hitArea = null;
+      this.container.interactive = false;
+      this.container.buttonMode = false;
+      return;
+    }
+
     const curve = new Bezier(
       sourceX,
       sourceY,
@@ -171,6 +193,7 @@ export default class SimpleEdge implements EdgeTemplate {
     ] as any[];
 
     // gfx.drawPolygon(allPoints)
+
     this.container.hitArea = new PIXI.Polygon(allPoints);
     this.container.interactive = true;
     this.container.buttonMode = true;

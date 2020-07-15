@@ -28,5 +28,8 @@ export default abstract class EdgeTemplate {
   abstract sourceDot: PIXI.Sprite;
   abstract targetDot: PIXI.Sprite;
 
+  abstract removeInteractionEvents(): void;
+  abstract enableHitBox(): void;
+  abstract disableHitBox(): void;
   abstract update(): void;
 }
