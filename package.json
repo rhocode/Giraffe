@@ -99,10 +99,12 @@
     "seamless-immutable": "^7.1.4",
     "throttle-debounce": "^2.1.0",
     "typeface-bebas-neue": "^1.1.3",
+    "typeface-raleway": "^0.0.75",
     "typeface-roboto": "^0.0.75",
     "typeface-roboto-condensed": "^0.0.75",
     "typeface-roboto-mono": "^0.0.75",
     "typeface-roboto-slab": "^1.1.4",
+    "typeface-source-sans-pro": "^1.1.5",
     "typescript": "^3.7.5",
     "workerize-loader": "^1.3.0"
   },
@@ -128,7 +130,8 @@
     "checkout-data-landing": "./scripts/checkout.sh data-landing",
     "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension",
     "lint-md": "remark . -o",
-    "analyze": "node analyzer/analyze.js"
+    "analyze": "node analyzer/analyze.js",
+    "serve": "serve -s build"
   },
   "browserslist": {
     "production": [
@@ -168,8 +171,12 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,css,scss}": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix --max-warnings 0",
+      "prettier --single-quote --write",
+      "git add"
+    ],
+    "src/**/*.{css,scss}": [
       "prettier --single-quote --write",
       "git add"
     ],

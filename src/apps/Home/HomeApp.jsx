@@ -23,22 +23,20 @@ import Page from './components/Page';
 import Section from './components/Section';
 import Spotlight from './components/Spotlight';
 
-const Css = React.lazy(() =>
-  import('./CssWrapper').then((module) => {
-    setTimeout(() => {
-      window.prerenderReady = true;
-    }, 100);
-    return module;
-  })
-);
+import './App.css';
+require('typeface-raleway');
+require('typeface-source-sans-pro');
 
 function HomeApp() {
   const [showMenu, setShowMenu] = React.useState(false);
 
+  React.useEffect(() => {
+    window.prerenderReady = true;
+  }, []);
+
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Page>
-        <Css />
         <Header>
           <h1>
             <img

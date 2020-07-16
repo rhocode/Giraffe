@@ -16506,6 +16506,11 @@ typeface-bebas-neue@^1.1.3:
   resolved "https://registry.yarnpkg.com/typeface-bebas-neue/-/typeface-bebas-neue-1.1.3.tgz#2a3b9802fdcfff8f6729f1e5a864ff54ba34b188"
   integrity sha512-Wf6I9G89Vd3fMJlqH3iD++q4adr8mUgzbzWCaYVwxr8Td08Pdl5Y2vyap61Waswp/4vd+jKj8uHsfhCQqA///A==
 
+typeface-raleway@^0.0.75:
+  version "0.0.75"
+  resolved "https://registry.yarnpkg.com/typeface-raleway/-/typeface-raleway-0.0.75.tgz#cc79688aa3175452744ecd19540b54dad153e8f3"
+  integrity sha512-mUvT/klCTGA2HporaIMNY3ap45YxBErxFv/1pv82LhbFdNc3m+6ddfoexP6xxwMZ5yZ2VmDhMqk1yikDEoxU/Q==
+
 typeface-roboto-condensed@^0.0.75:
   version "0.0.75"
   resolved "https://registry.yarnpkg.com/typeface-roboto-condensed/-/typeface-roboto-condensed-0.0.75.tgz#d2cc7b8e4ee0f4dec1c035312ef8991827682925"
@@ -16525,6 +16530,11 @@ typeface-roboto@^0.0.75:
   version "0.0.75"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"
   integrity sha512-VrR/IiH00Z1tFP4vDGfwZ1esNqTiDMchBEXYY9kilT6wRGgFoCAlgkEUMHb1E3mB0FsfZhv756IF0+R+SFPfdg==
+
+typeface-source-sans-pro@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/typeface-source-sans-pro/-/typeface-source-sans-pro-1.1.5.tgz#5b6a009f79888e9d4053d617772805fe79a941cc"
+  integrity sha512-a+KZN2X7gzZ91RUKB/9zAiEtRuD+aX7dwNTo121vpZz2MVODWSJfw81XZQmIwZ4jD/5658EMvPJHttS6qT0gZA==
 
 typescript@^3.7.5:
   version "3.9.5"
