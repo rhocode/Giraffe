@@ -1,48 +1,42 @@
-import React, { Component } from 'react';
-
-import Page from './components/Page';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
-import Card from './components/Card';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
-import Copyright from './components/Copyright';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faDiscord,
+  faGithub,
+  faRedditAlien,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowRight,
   faDownload,
   faPen,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faDiscord,
-  faRedditAlien,
-  faTwitter,
-  faGithub,
-} from '@fortawesome/free-brands-svg-icons';
-import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingScreen from 'common/react/LoadingScreen';
+import React, { Suspense } from 'react';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
+import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
+import Card from './components/Card';
+import Copyright from './components/Copyright';
+import Header from './components/Header';
+import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
 
-class HomeApp extends Component {
-  state = {
-    showMenu: false,
-  };
-  toggleMenu = (showMenu = false) => {
-    this.setState({ showMenu });
-  };
+import Page from './components/Page';
+import Section from './components/Section';
+import Spotlight from './components/Spotlight';
 
-  componentDidMount() {
-    if (!!this.props.location.hash) {
-      window.location.href =
-        window.location.protocol +
-        '//old.satisgraphtory.com' +
-        window.location.pathname +
-        window.location.search;
-    }
-  }
+const Css = React.lazy(() =>
+  import('./CssWrapper').then((module) => {
+    setTimeout(() => {
+      window.prerenderReady = true;
+    }, 100);
+    return module;
+  })
+);
 
-  render() {
-    const Css = React.lazy(() => import('./CssWrapper'));
-    return (
+function HomeApp() {
+  const [showMenu, setShowMenu] = React.useState(false);
+
+  return (
+    <Suspense fallback={<LoadingScreen />}>
       <Page>
         <Css />
         <Header>
@@ -53,12 +47,9 @@ class HomeApp extends Component {
               src={satisgraphtory2_square}
             />
           </h1>
-          <MenuTrigger onClick={() => this.toggleMenu(true)} />
+          <MenuTrigger onClick={() => setShowMenu(true)} />
         </Header>
-        <Menu
-          showMenu={this.state.showMenu}
-          closePortal={() => this.toggleMenu(false)}
-        >
+        <Menu showMenu={showMenu} closePortal={() => setShowMenu(false)}>
           <h2>Menu</h2>
           <MenuLinks>
             <a href="#top" key="top">
@@ -282,8 +273,8 @@ class HomeApp extends Component {
           />
         </a>
       </Page>
-    );
-  }
+    </Suspense>
+  );
 }
 
 export default HomeApp;
