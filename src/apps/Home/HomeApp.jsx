@@ -12,6 +12,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingScreen from 'common/react/LoadingScreen';
 import React, { Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
 import Card from './components/Card';
@@ -37,6 +38,31 @@ function HomeApp() {
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Page>
+        <Helmet>
+          <meta
+            property="og:title"
+            content={
+              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+            }
+          />
+          <meta property="og:site_name" content={window.location.hostname} />
+          <meta
+            property="og:image"
+            content={'https://i.imgur.com/DPEmxE0.png'}
+          />
+          <meta
+            property="og:description"
+            content={
+              'Feature-rich Satisfactory calculator and factory optimization simulation tool '
+            }
+          />
+          <meta property="og:url " content={window.location.href} />
+          <title>
+            {
+              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+            }
+          </title>
+        </Helmet>
         <Header>
           <h1>
             <img
