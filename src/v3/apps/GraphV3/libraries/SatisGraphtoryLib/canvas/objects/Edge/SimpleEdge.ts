@@ -76,11 +76,11 @@ export default class SimpleEdge implements EdgeTemplate {
   }
 
   updateWithoutHitBox = () => {
-    const { x: sourceX, y: sourceY } = this.sourceNode.getOutputCoordinate(
+    const { x: sourceX, y: sourceY } = this.sourceNode.getConnectionCoordinate(
       this.edgeId,
       EdgeType.OUTPUT
     );
-    const { x: targetX, y: targetY } = this.targetNode.getOutputCoordinate(
+    const { x: targetX, y: targetY } = this.targetNode.getConnectionCoordinate(
       this.edgeId,
       EdgeType.INPUT
     );

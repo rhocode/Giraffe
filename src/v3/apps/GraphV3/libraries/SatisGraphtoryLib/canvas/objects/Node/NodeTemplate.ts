@@ -31,34 +31,14 @@ export abstract class NodeTemplate {
   edges: EdgeTemplate[];
 
   eventEmitter: EventEmitter | null = null;
-  x: number;
-  y: number;
-
-  // The offset to use for calculations of displacement
-  offsetHookX: number;
-  offsetHookY: number;
 
   protected constructor(props: SatisGraphtoryNodeProps) {
-    const {
-      nodeId,
-      position,
-      // recipeLabel,
-      // tier,
-      // overclock,
-      // machineName,
-      // machineLabel,
-      inputs,
-      outputs,
-    } = props;
-
-    this.x = position.x;
-    this.y = position.y;
-
-    this.offsetHookX = position.x;
-    this.offsetHookY = position.y;
+    const { nodeId, position, inputs, outputs } = props;
 
     const container = new NodeContainer();
     container.nodeId = nodeId;
+    container.setTransform(position.x, position.y);
+
     this.nodeId = nodeId;
     this.container = container;
 
@@ -85,21 +65,6 @@ export abstract class NodeTemplate {
     this.tempIx = this.inputX;
   };
 
-  updateEdgePositions = (dx: number, dy: number) => {
-    this.outputMapping = this.outputMapping.map((item, index) => {
-      if (item === null) return null;
-      return this.tempOm[index] + dy;
-    });
-
-    this.inputMapping = this.inputMapping.map((item, index) => {
-      if (item === null) return null;
-      return this.tempIm[index] + dy;
-    });
-
-    this.outputX = this.tempOx + dx;
-    this.inputX = this.tempIx + dx;
-  };
-
   addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
     this.edges.push(edge);
     if (edgeType === EdgeType.INPUT) {
@@ -118,7 +83,9 @@ export abstract class NodeTemplate {
   }
 
   sortInputEdges() {
-    this.inEdges.sort(sortFunction(this.offsetHookX, this.offsetHookY, -1));
+    this.inEdges.sort(
+      sortFunction(this.container.position.x, this.container.position.y, -1)
+    );
 
     this.inEdges.forEach((item, index) => {
       if (!item) return;
@@ -127,7 +94,9 @@ export abstract class NodeTemplate {
   }
 
   sortOutputEdges() {
-    this.outEdges.sort(sortFunction(this.offsetHookX, this.offsetHookY));
+    this.outEdges.sort(
+      sortFunction(this.container.position.x, this.container.position.y)
+    );
 
     this.outEdges.forEach((item, index) => {
       if (!item) return;
@@ -151,7 +120,7 @@ export abstract class NodeTemplate {
     });
   };
 
-  getOutputCoordinate(
+  getConnectionCoordinate(
     edgeId: string,
     edgeType: EdgeType
   ): SatisGraphtoryCoordinate {
@@ -159,13 +128,13 @@ export abstract class NodeTemplate {
 
     if (edgeType === EdgeType.OUTPUT) {
       return {
-        x: this.outputX,
-        y: this.outputMapping[index],
+        x: this.container.position.x + this.outputX,
+        y: this.container.position.y + this.outputMapping[index],
       };
     } else if (edgeType === EdgeType.INPUT) {
       return {
-        x: this.inputX,
-        y: this.inputMapping[index],
+        x: this.container.position.x + this.inputX,
+        y: this.container.position.y + this.inputMapping[index],
       };
     } else {
       throw new Error('Unimplemented');

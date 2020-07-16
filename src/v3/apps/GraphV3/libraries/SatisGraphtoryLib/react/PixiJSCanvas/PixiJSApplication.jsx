@@ -269,9 +269,9 @@ function PixiJSApplication(props) {
         },
       ]);
     } else if (mouseState === MouseState.MOVE) {
-      // pixiViewport.plugins.resume('drag');
-      // pixiViewport.plugins.resume('wheel');
-      // pixiViewport.plugins.resume('pinch');
+      pixiViewport.plugins.resume('drag');
+      pixiViewport.plugins.resume('wheel');
+      pixiViewport.plugins.resume('pinch');
 
       pixiJsStore.update([
         deferredRemoveChildEvents,

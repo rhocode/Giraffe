@@ -64,36 +64,34 @@ export default class AdvancedNode extends NodeTemplate {
     } = props;
 
     const container = this.container;
-    const x = this.x;
-    const y = this.y;
 
     // NEED THIS
     container.highLight = createNodeHighlight(
-      x + HIGHLIGHT_OFFSET_X,
-      y + HIGHLIGHT_OFFSET_Y
+      HIGHLIGHT_OFFSET_X,
+      HIGHLIGHT_OFFSET_Y
     );
 
     container.addChild(container.highLight);
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
 
-    container.boundCalculator = createBackboard(x, y, machineType);
+    container.boundCalculator = createBackboard(0, 0, machineType);
     container.addChild(container.boundCalculator);
 
     const recipeText = createTruncatedText(
       recipeLabel,
       NODE_WIDTH,
       RECIPE_STYLE(NODE_WIDTH),
-      x + RECIPE_OFFSET_X,
-      y + RECIPE_OFFSET_Y,
+      RECIPE_OFFSET_X,
+      RECIPE_OFFSET_Y,
       'center'
     );
 
     const machineText = createText(
       machineLabel,
       MACHINE_STYLE(),
-      x + MACHINE_NAME_OFFSET_X,
-      y + MACHINE_NAME_OFFSET_Y,
+      MACHINE_NAME_OFFSET_X,
+      MACHINE_NAME_OFFSET_Y,
       'center'
     );
 
@@ -105,8 +103,8 @@ export default class AdvancedNode extends NodeTemplate {
       machineTexture,
       MACHINE_SIZE,
       MACHINE_SIZE,
-      x + MACHINE_OFFSET_X,
-      y + MACHINE_OFFSET_Y
+      MACHINE_OFFSET_X,
+      MACHINE_OFFSET_Y
     );
 
     container.addChild(machineImage);
@@ -114,8 +112,8 @@ export default class AdvancedNode extends NodeTemplate {
     const levelText = createText(
       getTier(tier),
       TIER_STYLE(),
-      x + TIER_OFFSET_X,
-      y + TIER_OFFSET_Y
+      TIER_OFFSET_X,
+      TIER_OFFSET_Y
     );
 
     container.addChild(levelText);
@@ -123,27 +121,27 @@ export default class AdvancedNode extends NodeTemplate {
     const efficiencyText = createText(
       `${overclock}%`,
       OVERCLOCK_STYLE(),
-      x + EFFICIENCY_OFFSET_X,
-      y + EFFICIENCY_OFFSET_Y,
+      EFFICIENCY_OFFSET_X,
+      EFFICIENCY_OFFSET_Y,
       'right'
     );
 
     container.addChild(efficiencyText);
 
-    const inputDotOffsets = calculateNodeOffset(inputs, y, NODE_HEIGHT);
-    const outputDotOffsets = calculateNodeOffset(outputs, y, NODE_HEIGHT);
+    const inputDotOffsets = calculateNodeOffset(inputs, 0, NODE_HEIGHT);
+    const outputDotOffsets = calculateNodeOffset(outputs, 0, NODE_HEIGHT);
 
     // Create Input Dots
-    addDotsToNode(inputDotOffsets, x, container, 'inCircle');
+    addDotsToNode(inputDotOffsets, 0, container, 'inCircle');
 
     // Create Output Dots
-    addDotsToNode(outputDotOffsets, x + NODE_WIDTH, container, 'outCircle');
+    addDotsToNode(outputDotOffsets, NODE_WIDTH, container, 'outCircle');
 
     this.inputMapping = inputDotOffsets;
-    this.inputX = x;
+    this.inputX = 0;
 
     this.outputMapping = outputDotOffsets;
-    this.outputX = x + NODE_WIDTH;
+    this.outputX = NODE_WIDTH;
   }
 
   eventFunctions = new Map<string, any[]>();
@@ -206,11 +204,8 @@ export default class AdvancedNode extends NodeTemplate {
     let sourceY = 0;
     let clickX = 0;
     let clickY = 0;
-    let contextSourceX = 0;
-    let contextSourceY = 0;
 
     const context = this;
-
     const snapshotEdgePositions = this.snapshotEdgePositions;
 
     // Drag Functions Start
@@ -230,8 +225,6 @@ export default class AdvancedNode extends NodeTemplate {
         clickY = newPos.y;
         sourceX = container.position.x;
         sourceY = container.position.y;
-        contextSourceX = context.offsetHookX;
-        contextSourceY = context.offsetHookY;
         dragging = true;
         snapshotEdgePositions();
       }
@@ -283,7 +276,6 @@ export default class AdvancedNode extends NodeTemplate {
 
     // Drag Pointer Move Start
     const updateEdges = this.updateEdges;
-    const updateEdgePositions = this.updateEdgePositions;
 
     function dragPointerMoveFunction(
       this: any,
@@ -295,9 +287,6 @@ export default class AdvancedNode extends NodeTemplate {
       if (dragging && (triggerSource === this || moveAllHighlightedArg)) {
         container.position.x = sourceX + deltaX;
         container.position.y = sourceY + deltaY;
-        context.offsetHookX = contextSourceX + deltaX;
-        context.offsetHookY = contextSourceY + deltaY;
-        updateEdgePositions(deltaX, deltaY);
         updateEdges();
       }
     }
@@ -328,9 +317,6 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   private createNodeContainer() {
-    const x = this.x;
-    const y = this.y;
-
     const container = this.container;
 
     container.interactive = true;
@@ -338,7 +324,7 @@ export default class AdvancedNode extends NodeTemplate {
     if (container.hitArea?.destroy) {
       container.hitArea.destroy();
     }
-    container.hitArea = new PIXI.Rectangle(x, y, NODE_WIDTH, NODE_HEIGHT);
+    container.hitArea = new PIXI.Rectangle(0, 0, NODE_WIDTH, NODE_HEIGHT);
 
     return container;
   }

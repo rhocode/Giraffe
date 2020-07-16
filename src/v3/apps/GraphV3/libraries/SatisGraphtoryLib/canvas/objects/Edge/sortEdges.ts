@@ -15,7 +15,7 @@ export const sortFunction = (x: number, y: number, multiplier: number = 1) => (
   const a = ea.targetNode;
   const b = eb.targetNode;
 
-  return (a.offsetHookY - b.offsetHookY) * multiplier;
+  return (a.container.position.x - b.container.position.y) * multiplier;
 
   // const yA = a.offsetHookY - y;
   // const xA = Math.abs(a.offsetHookX - x);
