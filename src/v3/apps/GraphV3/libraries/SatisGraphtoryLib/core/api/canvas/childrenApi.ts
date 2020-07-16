@@ -8,7 +8,7 @@ export const addObjectChildren = (
 ) => {
   pixiJsStore.update((t) => {
     children.forEach((child) => {
-      const id = child.nodeId || stringGen(10);
+      const id = child.id || stringGen(10);
       const s = t[canvasId];
       s.childrenMap.set(id, child);
       s.children.push(child);

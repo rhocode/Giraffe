@@ -3,7 +3,7 @@ import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
+import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
@@ -11,10 +11,9 @@ import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiP
 import {
   addChild,
   getChildFromStateById,
-  getChildrenFromState,
   getMultiTypedChildrenFromState,
   removeChild,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas';
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
@@ -115,28 +114,31 @@ function PixiJSApplication(props) {
     };
   }, [aliasCanvasObjects, mouseState, pixiCanvasStateId]);
 
-  const onSelectNodes = React.useCallback(
-    (nodeIds) => {
+  const onSelectObjects = React.useCallback(
+    (objectIds) => {
       pixiJsStore.update((sParent) => {
         const s = sParent[pixiCanvasStateId];
 
-        for (const child of getChildrenFromState(s)) {
-          if (child instanceof AdvancedNode) {
-            child.container.highLight.visible = false;
-          }
+        for (const child of getMultiTypedChildrenFromState(s, [
+          EdgeTemplate,
+          NodeTemplate,
+        ])) {
+          child.container.setHighLightOn(false);
         }
 
-        const selected = nodeIds.map((nodeId) => {
-          const retrievedNode = getChildFromStateById(s, nodeId);
-          if (retrievedNode instanceof AdvancedNode) {
-            retrievedNode.container.highLight.visible = true;
+        const selected = objectIds.map((id) => {
+          const retrievedNode = getChildFromStateById(s, id);
+
+          if (retrievedNode instanceof GraphObject) {
+            retrievedNode.container.setHighLightOn(true);
           }
+
           return retrievedNode;
         });
 
-        if (!arraysEqual(selected, s.selectedNodes)) {
-          s.selectedNodes = selected;
-          console.log('Selected nodes:', s.selectedNodes);
+        if (!arraysEqual(selected, s.selectedObjects)) {
+          s.selectedObjects = selected;
+          console.log('Selected objects:', s.selectedObjects);
         }
       });
     },
@@ -250,7 +252,7 @@ function PixiJSApplication(props) {
         pixiViewport,
         viewportChildContainer,
         selectionBox,
-        onSelectNodes
+        onSelectObjects
       );
 
       pixiJsStore.update([
@@ -261,10 +263,13 @@ function PixiJSApplication(props) {
             NodeTemplate,
             EdgeTemplate,
           ])) {
-            if (child instanceof NodeTemplate) {
-              child.addSelectEvents(onSelectNodes);
-            } else if (child instanceof EdgeTemplate) {
-            }
+            child.addSelectEvents(onSelectObjects);
+            // if (child instanceof NodeTemplate) {
+            //   child.addSelectEvents(onSelectObjects);
+            // } else if (child instanceof EdgeTemplate) {
+            //   // child.addSelectEvents(
+            //   child.addSelectEvents(onSelectObjects);
+            // }
           }
         },
       ]);
@@ -282,7 +287,8 @@ function PixiJSApplication(props) {
             EdgeTemplate,
           ])) {
             if (child instanceof NodeTemplate) {
-              child.addDragEvents(eventEmitter);
+              child.attachEventEmitter(eventEmitter);
+              child.addDragEvents();
             } else if (child instanceof EdgeTemplate) {
               // Noop?
             }
@@ -294,7 +300,7 @@ function PixiJSApplication(props) {
     canvasReady,
     eventEmitter,
     mouseState,
-    onSelectNodes,
+    onSelectObjects,
     pixiCanvasStateId,
     pixiViewport,
     viewportChildContainer,

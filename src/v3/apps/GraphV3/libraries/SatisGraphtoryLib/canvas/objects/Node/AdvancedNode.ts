@@ -65,13 +65,11 @@ export default class AdvancedNode extends NodeTemplate {
 
     const container = this.container;
 
-    // NEED THIS
-    container.highLight = createNodeHighlight(
-      HIGHLIGHT_OFFSET_X,
-      HIGHLIGHT_OFFSET_Y
+    container.setHighLightObject(
+      createNodeHighlight(HIGHLIGHT_OFFSET_X, HIGHLIGHT_OFFSET_Y)
     );
-
-    container.addChild(container.highLight);
+    this.container.addChild(this.container.getHighLight());
+    this.container.setHighLightOn(false);
 
     const machineType = getClassNameFromBuildableMachines(machineName)!;
 
@@ -169,7 +167,7 @@ export default class AdvancedNode extends NodeTemplate {
     }
   }
 
-  addSelectEvents(onSelectNodes: (nodeIds: string[]) => any) {
+  addSelectEvents(onSelectObjects: (ids: string[]) => any) {
     const container = this.createNodeContainer();
 
     container.on('pointerdown', function (this: any, event: any) {
@@ -178,7 +176,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     container.on('click', function (this: any, event: any) {
       event.stopPropagation();
-      onSelectNodes([container.nodeId]);
+      onSelectObjects([container.id]);
     });
   }
 
@@ -186,16 +184,14 @@ export default class AdvancedNode extends NodeTemplate {
   // We might want to lazyily only attach this event emitter if we add events.
   eventEmitter: EventEmitter = (null as unknown) as EventEmitter;
 
-  addEvent(eventEmitter: EventEmitter, event: string, functionToAdd: any) {
-    this.eventEmitter = eventEmitter;
-
+  addEvent(event: string, functionToAdd: any) {
     initializeMap<string, any[]>(this.eventFunctions, event, []);
     this.eventFunctions.get(event)!.push(functionToAdd);
 
-    eventEmitter.addListener(event, functionToAdd, this);
+    this.eventEmitter.addListener(event, functionToAdd, this);
   }
 
-  addDragEvents(eventEmitter: EventEmitter) {
+  addDragEvents() {
     const container = this.createNodeContainer();
 
     let dragging = false;
@@ -206,7 +202,6 @@ export default class AdvancedNode extends NodeTemplate {
     let clickY = 0;
 
     const context = this;
-    const snapshotEdgePositions = this.snapshotEdgePositions;
 
     // Drag Functions Start
 
@@ -226,15 +221,10 @@ export default class AdvancedNode extends NodeTemplate {
         sourceX = container.position.x;
         sourceY = container.position.y;
         dragging = true;
-        snapshotEdgePositions();
       }
     }
 
-    this.addEvent(
-      eventEmitter,
-      Events.NodePointerDown,
-      dragPointerDownFunction
-    );
+    this.addEvent(Events.NodePointerDown, dragPointerDownFunction);
 
     let moveAllHighlighted = false;
 
@@ -242,7 +232,7 @@ export default class AdvancedNode extends NodeTemplate {
       event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
       moveAllHighlighted = this.highLight.visible;
-      eventEmitter.emit(
+      context.eventEmitter.emit(
         Events.NodePointerDown,
         context,
         newPos,
@@ -264,14 +254,22 @@ export default class AdvancedNode extends NodeTemplate {
       }
     }
 
-    this.addEvent(eventEmitter, Events.NodePointerUp, dragPointerUpFunction);
+    this.addEvent(Events.NodePointerUp, dragPointerUpFunction);
 
     container.on('pointerup', function (this: any) {
-      eventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
+      context.eventEmitter.emit(
+        Events.NodePointerUp,
+        context,
+        moveAllHighlighted
+      );
     });
 
     container.on('pointerupoutside', function (this: any) {
-      eventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
+      context.eventEmitter.emit(
+        Events.NodePointerUp,
+        context,
+        moveAllHighlighted
+      );
     });
 
     // Drag Pointer Move Start
@@ -291,11 +289,7 @@ export default class AdvancedNode extends NodeTemplate {
       }
     }
 
-    this.addEvent(
-      eventEmitter,
-      Events.NodePointerMove,
-      dragPointerMoveFunction
-    );
+    this.addEvent(Events.NodePointerMove, dragPointerMoveFunction);
 
     container.on('pointermove', function (this: any, event: any) {
       if (dragLeader && dragging) {
@@ -303,7 +297,7 @@ export default class AdvancedNode extends NodeTemplate {
         const newPos = event.data.getLocalPosition(this.parent);
         const deltaX = newPos.x - clickX;
         const deltaY = newPos.y - clickY;
-        eventEmitter.emit(
+        context.eventEmitter.emit(
           Events.NodePointerMove,
           context,
           deltaX,

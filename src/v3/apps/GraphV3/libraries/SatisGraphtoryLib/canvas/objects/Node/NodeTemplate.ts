@@ -1,5 +1,3 @@
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import stringGen from 'v3/utils/stringGen';
 import EdgeTemplate, {
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
@@ -7,22 +5,27 @@ import {
   SatisGraphtoryCoordinate,
   SatisGraphtoryNodeProps,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
-import EventEmitter from 'eventemitter3';
 import { sortFunction } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/sortEdges';
+import {
+  GraphObject,
+  GraphObjectContainer,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 
-export class NodeContainer extends PIXI.Container {
+export class NodeContainer extends GraphObjectContainer {
   public boundCalculator: any = null;
-  public nodeId: string = stringGen(10);
-  public highLight: any = null;
+
+  getBounds = (): any => {
+    return this.boundCalculator?.getBounds();
+  };
 }
 
-export abstract class NodeTemplate {
-  nodeId: string;
-  container: NodeContainer;
+export abstract class NodeTemplate extends GraphObject {
+  id: string;
   abstract inputMapping: any[];
   abstract outputMapping: any[];
   abstract inputX: number;
   abstract outputX: number;
+  container: NodeContainer;
 
   edgeMap: Map<string, number>;
 
@@ -30,17 +33,17 @@ export abstract class NodeTemplate {
   outEdges: (EdgeTemplate | null)[];
   edges: EdgeTemplate[];
 
-  eventEmitter: EventEmitter | null = null;
-
   protected constructor(props: SatisGraphtoryNodeProps) {
-    const { nodeId, position, inputs, outputs } = props;
+    super();
 
-    const container = new NodeContainer();
-    container.nodeId = nodeId;
-    container.setTransform(position.x, position.y);
+    const { id, position, inputs, outputs } = props;
 
-    this.nodeId = nodeId;
-    this.container = container;
+    this.container = new NodeContainer();
+
+    this.container.setTransform(position.x, position.y);
+
+    this.id = id;
+    this.container.id = id;
 
     // TODO: what is in inputs?! maybe we need to fill this with inputs and outputs
     this.inEdges = new Array(inputs.length).fill(null);
@@ -49,34 +52,18 @@ export abstract class NodeTemplate {
     this.edgeMap = new Map<string, number>();
   }
 
-  attachEventEmitter(eventEmitter: EventEmitter) {
-    this.eventEmitter = eventEmitter;
-  }
-
-  tempOm: any = null;
-  tempIm: any = null;
-  tempOx: number = 0;
-  tempIx: number = 0;
-
-  snapshotEdgePositions = () => {
-    this.tempOm = [...this.outputMapping];
-    this.tempIm = [...this.inputMapping];
-    this.tempOx = this.outputX;
-    this.tempIx = this.inputX;
-  };
-
   addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
     this.edges.push(edge);
     if (edgeType === EdgeType.INPUT) {
       const firstNull = this.inEdges.indexOf(null);
 
       this.inEdges[firstNull] = edge;
-      this.edgeMap.set(edge.edgeId, firstNull);
+      this.edgeMap.set(edge.id, firstNull);
     } else if (edgeType === EdgeType.OUTPUT) {
       const firstNull = this.outEdges.indexOf(null);
 
       this.outEdges[firstNull] = edge;
-      this.edgeMap.set(edge.edgeId, firstNull);
+      this.edgeMap.set(edge.id, firstNull);
     } else {
       console.log('Unimplemented!');
     }
@@ -89,7 +76,7 @@ export abstract class NodeTemplate {
 
     this.inEdges.forEach((item, index) => {
       if (!item) return;
-      this.edgeMap.set(item.edgeId, index);
+      this.edgeMap.set(item.id, index);
     });
   }
 
@@ -100,7 +87,7 @@ export abstract class NodeTemplate {
 
     this.outEdges.forEach((item, index) => {
       if (!item) return;
-      this.edgeMap.set(item.edgeId, index);
+      this.edgeMap.set(item.id, index);
     });
   }
 
@@ -140,6 +127,4 @@ export abstract class NodeTemplate {
       throw new Error('Unimplemented');
     }
   }
-
-  abstract addDragEvents(eventEmitter: EventEmitter): any[];
 }

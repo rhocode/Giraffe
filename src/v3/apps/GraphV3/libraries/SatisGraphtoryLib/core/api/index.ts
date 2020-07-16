@@ -7,12 +7,12 @@ import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
 export const addNode = (newNode: SatisGraphtoryNodeProps) => {
   graphAppStore.update((s) => {
-    s.graphData.nodes.set(newNode.nodeId, newNode);
+    s.graphData.nodes.set(newNode.id, newNode);
   });
 };
 
 export const addEdge = (newEdge: SatisGraphtoryEdgeProps) => {
   graphAppStore.update((s) => {
-    s.graphData.edges.set(newEdge.edgeId, newEdge);
+    s.graphData.edges.set(newEdge.id, newEdge);
   });
 };

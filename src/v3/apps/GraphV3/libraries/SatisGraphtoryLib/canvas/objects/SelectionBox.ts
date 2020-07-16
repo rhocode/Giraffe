@@ -1,7 +1,7 @@
 import { Viewport } from 'pixi-viewport';
 import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { NodeContainer } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { GraphObjectContainer } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 
 export const drawSelectionBox = (
   context: PIXI.Graphics,
@@ -43,7 +43,7 @@ export const enableSelectionBox = (
   pixiViewport: Viewport,
   viewportChildContainer: PIXI.Container,
   selectionBox: PIXI.Graphics,
-  selectionCallback: (nodeIds: string[]) => any
+  selectionCallback: (ids: string[]) => any
 ) => {
   let dragging = false;
   let clickX = 0;
@@ -67,8 +67,8 @@ export const enableSelectionBox = (
   //   })
   // }
 
-  let selected: NodeContainer[] = [];
-  let possibleNodes: NodeContainer[] = [];
+  let selected: GraphObjectContainer[] = [];
+  let possibleNodes: GraphObjectContainer[] = [];
 
   function clearSelection() {
     if (!dragging) return;
@@ -76,7 +76,6 @@ export const enableSelectionBox = (
     dragging = false;
     selectionBox.clear();
     possibleNodes.forEach((node) => {
-      // node.highLight.visible = false;
       node.alpha = 1;
     });
 
@@ -84,7 +83,7 @@ export const enableSelectionBox = (
     //   node.highLight.visible = true;
     // });
 
-    const selectedNodes = selected.map((item) => item.nodeId);
+    const selectedNodes = selected.map((item) => item.id);
     selected = [];
     possibleNodes = [];
 
@@ -94,13 +93,13 @@ export const enableSelectionBox = (
   viewportChildContainer.on('pointerdown', function (this: any, event: any) {
     event.stopPropagation();
     possibleNodes = (viewportChildContainer.children.filter((child) => {
-      let isPossible = child instanceof NodeContainer;
-      if (isPossible) {
-        ((child as unknown) as NodeContainer).highLight.visible = false;
+      if (child instanceof GraphObjectContainer) {
+        child.setHighLightOn(false);
+        return true;
       }
 
-      return isPossible;
-    }) as unknown) as NodeContainer[];
+      return false;
+    }) as unknown) as GraphObjectContainer[];
 
     const newPos = event.data.getLocalPosition(this.parent);
     clickX = newPos.x;
@@ -134,7 +133,9 @@ export const enableSelectionBox = (
       );
 
       selected = possibleNodes.filter((child) => {
-        const thisBound = ((child as unknown) as NodeContainer).boundCalculator.getBounds();
+        const thisBound = child.getBounds();
+
+        if (!thisBound) return false;
 
         const inBounds =
           thisBound.left >= left &&

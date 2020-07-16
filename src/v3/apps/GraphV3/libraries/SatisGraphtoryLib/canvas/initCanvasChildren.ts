@@ -42,7 +42,7 @@ const initCanvasChildren = (
         x: 200 * i + 20, //Math.random() * viewport.screenWidth,
         y: 100 * i + 20, //Math.random() * viewport.screenHeight,
       },
-      nodeId: 'A' + i,
+      id: 'A' + i,
       recipeLabel: translate(recipe) as string,
       recipeName: recipe as string,
       tier: Math.floor(Math.random() * 7),
@@ -53,11 +53,11 @@ const initCanvasChildren = (
       outputs: Array.from(Array(Math.floor(Math.random() * 3) + 2).keys()),
     };
 
-    connections.push(nodeData.nodeId);
+    connections.push(nodeData.id);
 
     const newNode = new AdvancedNode(nodeData);
 
-    initialConnectionsMap.set(nodeData.nodeId, newNode);
+    initialConnectionsMap.set(nodeData.id, newNode);
 
     children.push(newNode);
   }
@@ -70,7 +70,7 @@ const initCanvasChildren = (
     const targetNode = initialConnectionsMap.get(to)!;
 
     const edgeProps = {
-      edgeId: stringGen(10),
+      id: stringGen(10),
       type: 'cool', // should be fluid type?
       sourceNode,
       targetNode,
@@ -94,7 +94,7 @@ const initCanvasChildren = (
         x: 220 * (i + 1), //Math.random() * viewport.screenWidth,
         y: 120 * (i + 1), //Math.random() * viewport.screenHeight,
       },
-      nodeId: stringGen(10),
+      id: stringGen(10),
       recipeLabel: translate(recipe) as string,
       recipeName: recipe as string,
       tier: Math.floor(Math.random() * 7),
@@ -105,11 +105,11 @@ const initCanvasChildren = (
       outputs: Array.from(Array(Math.floor(Math.random() * 4) + 1).keys()),
     };
 
-    connections.push(nodeData.nodeId);
+    connections.push(nodeData.id);
 
     const newNode = new AdvancedNode(nodeData);
 
-    initialConnectionsMap.set(nodeData.nodeId, newNode);
+    initialConnectionsMap.set(nodeData.id, newNode);
 
     children.push(newNode);
   }
@@ -122,7 +122,7 @@ const initCanvasChildren = (
     const targetNode = initialConnectionsMap.get(to)!;
 
     const edgeProps = {
-      edgeId: stringGen(10),
+      id: stringGen(10),
       type: 'cool', // should be fluid type?
       sourceNode,
       targetNode,

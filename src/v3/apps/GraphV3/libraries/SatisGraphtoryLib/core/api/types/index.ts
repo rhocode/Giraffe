@@ -1,7 +1,7 @@
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 
 export interface SatisGraphtoryNodeProps {
-  nodeId: string;
+  id: string;
   recipeName: string;
   recipeLabel: string;
   overclock: number;
@@ -14,7 +14,7 @@ export interface SatisGraphtoryNodeProps {
 }
 
 export interface SatisGraphtoryEdgeProps {
-  edgeId: string;
+  id: string;
   type: string;
   sourceNode: NodeTemplate;
   targetNode: NodeTemplate;

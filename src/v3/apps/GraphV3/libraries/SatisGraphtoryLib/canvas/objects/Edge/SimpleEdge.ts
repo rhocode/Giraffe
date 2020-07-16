@@ -1,5 +1,4 @@
 import EdgeTemplate, {
-  EdgeContainer,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
@@ -13,15 +12,10 @@ import {
   ORANGE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import Bezier from 'bezier-js';
 
-export default class SimpleEdge implements EdgeTemplate {
-  container: EdgeContainer;
+export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;
-  edgeId: string;
-  targetNode: NodeTemplate;
-  sourceNode: NodeTemplate;
   sourceDot: PIXI.Sprite;
   targetDot: PIXI.Sprite;
 
@@ -29,19 +23,14 @@ export default class SimpleEdge implements EdgeTemplate {
   private hitBoxEnabled = false;
 
   constructor(props: SatisGraphtoryEdgeProps) {
-    const { sourceNode, targetNode } = props;
+    super(props);
 
-    const container = new EdgeContainer();
-    this.container = container;
-    this.edgeId = props.edgeId;
-    this.sourceNode = sourceNode;
-    this.targetNode = targetNode;
-
-    container.setHighLight(new PIXI.Graphics());
-    container.addChild(container.getHighLight());
+    this.container.setHighLightObject(new PIXI.Graphics());
+    this.container.addChild(this.container.getHighLight());
+    this.container.setHighLightOn(false);
 
     this.graphicsObject = new PIXI.Graphics();
-    container.addChild(this.graphicsObject);
+    this.container.addChild(this.graphicsObject);
 
     const inputDotTexture = PIXI.utils.TextureCache['outCircle'];
     const inputDot = Dot(inputDotTexture, 0, 0);
@@ -52,14 +41,16 @@ export default class SimpleEdge implements EdgeTemplate {
     this.sourceDot = inputDot;
     this.targetDot = outputDot;
 
-    container.addChild(inputDot);
-    container.addChild(outputDot);
+    this.container.addChild(inputDot);
+    this.container.addChild(outputDot);
 
-    sourceNode.addEdge(this, EdgeType.OUTPUT);
-    targetNode.addEdge(this, EdgeType.INPUT);
+    this.sourceNode.addEdge(this, EdgeType.OUTPUT);
+    this.targetNode.addEdge(this, EdgeType.INPUT);
 
     this.updateWithoutHitBox();
   }
+
+  addSelectEvents(onSelectObjects: (ids: string[]) => any): void {}
 
   removeInteractionEvents(): void {
     this.disableHitBox();
@@ -77,11 +68,11 @@ export default class SimpleEdge implements EdgeTemplate {
 
   updateWithoutHitBox = () => {
     const { x: sourceX, y: sourceY } = this.sourceNode.getConnectionCoordinate(
-      this.edgeId,
+      this.id,
       EdgeType.OUTPUT
     );
     const { x: targetX, y: targetY } = this.targetNode.getConnectionCoordinate(
-      this.edgeId,
+      this.id,
       EdgeType.INPUT
     );
 
@@ -107,19 +98,17 @@ export default class SimpleEdge implements EdgeTemplate {
       targetY
     );
 
-    if (this.selected) {
-      const highLight = this.container.getHighLight();
-      highLight.moveTo(sourceX, sourceY);
-      highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
-      highLight.bezierCurveTo(
-        sourceX + dX,
-        sourceY + dY,
-        targetX - dX,
-        targetY - dY,
-        targetX,
-        targetY
-      );
-    }
+    const highLight = this.container.getHighLight();
+    highLight.moveTo(sourceX, sourceY);
+    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
+    highLight.bezierCurveTo(
+      sourceX + dX,
+      sourceY + dY,
+      targetX - dX,
+      targetY - dY,
+      targetX,
+      targetY
+    );
 
     return {
       sourceX,
@@ -198,4 +187,8 @@ export default class SimpleEdge implements EdgeTemplate {
     this.container.interactive = true;
     this.container.buttonMode = true;
   };
+
+  addDragEvents(): any[] {
+    return [];
+  }
 }
