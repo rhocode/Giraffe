@@ -89,7 +89,13 @@ export default class SimpleEdge extends EdgeTemplate {
     const dX = Math.abs(targetX - sourceX) * (3 / 4);
     const dY = 0; //Math.abs(targetY - sourceY) * 0;
 
-    this.graphicsObject.bezierCurveTo(
+    const highLight = this.container.getHighLight();
+    highLight.moveTo(sourceX, sourceY);
+    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
+
+    const curve = new Bezier(
+      sourceX,
+      sourceY,
       sourceX + dX,
       sourceY + dY,
       targetX - dX,
@@ -98,17 +104,12 @@ export default class SimpleEdge extends EdgeTemplate {
       targetY
     );
 
-    const highLight = this.container.getHighLight();
-    highLight.moveTo(sourceX, sourceY);
-    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
-    highLight.bezierCurveTo(
-      sourceX + dX,
-      sourceY + dY,
-      targetX - dX,
-      targetY - dY,
-      targetX,
-      targetY
-    );
+    const points = curve.getLUT(100);
+    const polygon = new PIXI.Polygon(points)
+    polygon.closeStroke = false;
+
+    highLight.drawShape(polygon);
+    this.graphicsObject.drawShape(polygon);
 
     return {
       sourceX,

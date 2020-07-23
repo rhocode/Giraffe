@@ -33,7 +33,7 @@ const HomeApp = chooseLoadingStyle(HomeImport);
 const GraphImport = () => import('../../v3/apps/GraphV3/GraphApp');
 const GraphApp = chooseLoadingStyle(GraphImport);
 
-const HubImport = () => import('../../apps/Hub/HubApp');
+const HubImport = () => import('apps/Hub/HubApp');
 const HubApp = chooseLoadingStyle(HubImport);
 
 const Router =

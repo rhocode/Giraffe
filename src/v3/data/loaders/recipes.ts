@@ -1,6 +1,6 @@
 import RecipeJson from 'data/Recipes.json';
 import {
-  getBuildingByType,
+  getBuildingsByType,
   getBuildingDefinition,
 } from 'v3/data/loaders/buildings';
 import { getItemDefinition, getResourcesByForm } from 'v3/data/loaders/items';
@@ -29,7 +29,7 @@ const resolveDurationMultiplierForPurityNames = (name: string) => {
 };
 
 export const getExtractorRecipesFn = () => {
-  const extractors = getBuildingByType('EXTRACTOR');
+  const extractors = getBuildingsByType('EXTRACTOR');
 
   const extractorsByResourceForm = new Map<number, any[]>();
 
@@ -58,7 +58,7 @@ export const getExtractorRecipesFn = () => {
 
           extractorResultByMachine
             .get(allowedResource)!
-            .add(extractorDefinition);
+            .add(extractorSlug);
         }
       );
     }
@@ -80,6 +80,7 @@ export const getExtractorRecipesFn = () => {
   for (const [resource, extractors] of extractorResultByMachine.entries()) {
     // This might change. One resource might have multiple extraction methods.
     for (const extractor of extractors) {
+
       const purityNames = nonPurityNodes.has(resource)
         ? ['']
         : resourcePurityNames;
@@ -105,14 +106,12 @@ export const getExtractorRecipesFn = () => {
             products: [
               {
                 slug: resource,
-                amount: extractor.itemsPerCycle,
+                amount: 1
               },
             ],
             producedIn: [extractor],
             manualMultiplier: 1,
-            manufacturingDuration:
-              extractor.extractCycleTime *
-              (purity ? resolveDurationMultiplierForPurityNames(purity) : 1),
+            manufacturingDuration: (purity ? resolveDurationMultiplierForPurityNames(purity) : 1),
           },
         });
       }
@@ -149,9 +148,7 @@ export const getExtractorRecipesFn = () => {
             ],
             producedIn: [...whitelistedMachines],
             manualMultiplier: 1,
-            manufacturingDuration:
-              resourceData.extractCycleTime *
-              resolveDurationMultiplierForPurityNames(purity),
+            manufacturingDuration: resolveDurationMultiplierForPurityNames(purity),
           },
         });
       }
@@ -197,6 +194,32 @@ const getMachineCraftableRecipeDefinitionListFn = () => {
   });
 };
 
+const getRecipesByMachineFn = (machineSlug: string) => {
+  return getRecipeList().filter(({ producedIn }) => {
+    return (
+      producedIn.filter((item: string) => {
+        return item === machineSlug;
+      }).length > 0
+    );
+  });
+};
+
+export const getRecipesByMachine = memoize(getRecipesByMachineFn);
+
+const getRecipesByMachineTypeFn = (machineType: string) => {
+  const machineSlugs = new Set(getBuildingsByType(machineType));
+
+  return getRecipeList().filter(({ producedIn }) => {
+    return (
+      producedIn.filter((item: string) => {
+        return machineSlugs.has(item);
+      }).length > 0
+    );
+  });
+};
+
+export const getRecipesByMachineType = memoize(getRecipesByMachineTypeFn);
+
 export const getMachinesFromMachineCraftableRecipe = (slug: string) => {
   return (getAllRecipes() as any)[slug].producedIn.filter(
     (item: string) => !handcraftingProducers.has(item)
@@ -213,6 +236,10 @@ export const getRecipeProducts = (slug: string) => {
 
 export const getRecipeName = (slug: string) => {
   return (getAllRecipes() as any)[slug].name;
+};
+
+export const getRecipeDefinition = (slug: string) => {
+  return (getAllRecipes() as any)[slug];
 };
 
 const getMachineCraftableRecipeListFn = () => {

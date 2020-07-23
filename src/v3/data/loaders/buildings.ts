@@ -148,7 +148,7 @@ export const getRecipesByMachineClass = (machineClass: string) => {
   return entries;
 };
 
-export const getBuildingByType = (type: string) => {
+export const getBuildingsByType = (type: string) => {
   return Object.entries(BuildingJson)
     .filter(([key, value]) => {
       return value.buildingType === type;

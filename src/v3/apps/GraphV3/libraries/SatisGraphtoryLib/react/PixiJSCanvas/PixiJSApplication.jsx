@@ -23,6 +23,12 @@ const useStyles = makeStyles(() =>
     hidden: {
       display: 'none',
     },
+    canvasStyles: {
+      WebkitUserSelect: 'none',
+      KhtmlUserSelect: 'none',
+      MozUserSelect: 'none',
+      userSelect: 'none'
+    }
   })
 );
 
@@ -315,7 +321,7 @@ function PixiJSApplication(props) {
   }, [height, pixiRenderer, pixiViewport, width]);
 
   return (
-    <canvas className={props.hidden ? styles.hidden : null} ref={canvasRef} />
+    <canvas className={props.hidden ? styles.hidden : styles.canvasStyles} ref={canvasRef} />
   );
 }
 

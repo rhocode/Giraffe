@@ -81,7 +81,7 @@ export abstract class NodeTemplate extends GraphObject {
   }
 
   sortOutputEdges() {
-    this.outEdges.sort(
+    this.outEdges?.sort(
       sortFunction(this.container.position.x, this.container.position.y)
     );
 
