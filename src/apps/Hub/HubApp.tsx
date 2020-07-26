@@ -28,17 +28,16 @@ function HubApp() {
     //
     // manufacturer.addInput(belt);
 
-    for (let dt = 0; dt < toMs(2) ; dt+= 50) {
+    for (let dt = 0; dt < toMs(2) + 200 ; dt+= 50) {
       resourceExtractor.simulate(50, dt)
       // belt.simulate(50, dt)
       // manufacturer.simulate(50, dt);
     }
 
-    console.log("HELLO")
     //
-    for (let dt = toMs(2); dt < toMs(8) ; dt+= 50) {
+    for (let dt = toMs(2) + 200; dt < toMs(8) ; dt+= 50) {
       resourceExtractor.simulate(50, dt)
-      belt.simulate(50, dt)
+      belt.simulate(50, dt);
       manufacturer.simulate(50, dt);
     }
   })

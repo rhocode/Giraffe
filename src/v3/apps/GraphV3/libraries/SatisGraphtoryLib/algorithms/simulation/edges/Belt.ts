@@ -12,13 +12,19 @@ export default class Belt implements SimulatableConnection {
 
   inputObject: any;
 
-
-
-
-
   addInput(input: any) {
     this.inputObject = input;
   }
+
+  outputObject: any;
+
+  addOutput(output: any) {
+    this.outputObject = output;
+    if (output.inputReservoir) {
+      // ??????
+    }
+  }
+
 
   getOutputItemTime() {
     const item = this.outputSlot[0];
@@ -125,15 +131,42 @@ export default class Belt implements SimulatableConnection {
         let queueToPush;
         const taskFinishedTime = absoluteTime + dtMs - (this.tickCycle - this.cycleTime);
 
-        if (this.hasOutput()) {
-          queueToPush = this.queuedOutputSlot;
-          this.currentState = this.state.BLOCKED
-          this.blockedTimeStart = taskFinishedTime;
-          console.log("[   BELT   ] Reached blocked", taskFinishedTime);
+        if (this.outputObject.inputReservoir) {
+          if (this.outputPacket?.length > 1 || this.outputPacket[0].amount > 1) {
+            throw new Error("Why is outputPacket > 1");
+          }
+          const itemToAddSlug = this.outputPacket[0].slug;
+          if (this.outputObject.canAddItem(itemToAddSlug, taskFinishedTime)) {
+            queueToPush = this.outputObject.inputSlot;
+            this.currentState = this.state.START
+            console.log("[   BELT   ] Reached processing with blocked", taskFinishedTime);
+          } else {
+            const unblockCallback = (blockTimeEnd: number) => {
+              this.currentState = this.state.START;
+
+              const thisTime = taskFinishedTime;
+
+              throw new Error("Some callback??")
+            };
+
+            this.outputObject.addUnblockCallback(unblockCallback, taskFinishedTime, itemToAddSlug);
+
+            queueToPush = this.queuedOutputSlot;
+            this.currentState = this.state.BLOCKED
+            this.blockedTimeStart = taskFinishedTime;
+            console.log("[   BELT   ] Reached blocked", taskFinishedTime);
+          }
         } else {
-          queueToPush = this.outputSlot;
-          this.currentState = this.state.START
-          console.log("[   BELT   ] Reached processing with blocked", taskFinishedTime);
+          if (this.hasOutput()) {
+            queueToPush = this.queuedOutputSlot;
+            this.currentState = this.state.BLOCKED
+            this.blockedTimeStart = taskFinishedTime;
+            console.log("[   BELT   ] Reached blocked", taskFinishedTime);
+          } else {
+            queueToPush = this.outputSlot;
+            this.currentState = this.state.START
+            console.log("[   BELT   ] Reached processing with blocked", taskFinishedTime);
+          }
         }
 
         this.lastProcessedTime = taskFinishedTime;

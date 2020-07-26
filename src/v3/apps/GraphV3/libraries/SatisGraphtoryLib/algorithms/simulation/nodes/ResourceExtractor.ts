@@ -77,7 +77,7 @@ export default class ResourceExtractor implements SimulatableConnection {
     }
 
     return {
-      name: item.slug,
+      slug: item.slug,
       timeStamp: item.timeStamp
     };
   }
