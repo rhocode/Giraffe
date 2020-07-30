@@ -30,7 +30,7 @@
     "babel-polyfill": "^6.26.0",
     "base64-blob": "^1.4.1",
     "canvas-5-polyfill": "^0.1.5",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "clean-deep": "^3.2.0",
     "clsx": "^1.0.4",
     "core-js": "^3.6.5",
