@@ -4,7 +4,9 @@ import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
 import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
+import Connections from 'data/Connections.json';
 import memoize from 'fast-memoize';
+import { EResourceForm } from '.data-landing/interfaces/enums';
 
 const getBuildableMachinesFn = () => {
   const buildables = new Set(Object.keys(ConnectionsJson));
@@ -158,4 +160,32 @@ export const getBuildingsByType = (type: string) => {
 
 export const getBuildingDefinition = (buildingSlug: string) => {
   return (BuildingJson as any)[buildingSlug];
+};
+
+export const getNumOutputsForBuilding = (
+  buildingSlug: string,
+  resourceForm: EResourceForm
+) => {
+  switch (resourceForm) {
+    case EResourceForm.RF_SOLID:
+      return (Connections as any)[buildingSlug].outputBelts || 0;
+    case EResourceForm.RF_LIQUID:
+      return (Connections as any)[buildingSlug].outputPipes || 0;
+    default:
+      throw new Error('Invalid resourceForm for building ' + resourceForm);
+  }
+};
+
+export const getNumInputsForBuilding = (
+  buildingSlug: string,
+  resourceForm: EResourceForm
+) => {
+  switch (resourceForm) {
+    case EResourceForm.RF_SOLID:
+      return (Connections as any)[buildingSlug].inputBelts || 0;
+    case EResourceForm.RF_LIQUID:
+      return (Connections as any)[buildingSlug].inputPipes || 0;
+    default:
+      throw new Error('Invalid resourceForm for building ' + resourceForm);
+  }
 };

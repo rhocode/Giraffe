@@ -1,7 +1,7 @@
 import React from 'react';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 
-export const PixiJSCanvasContext = React.createContext();
+export const PixiJSCanvasContext = React.createContext(null);
 
 function PixiJsContextProvider(props) {
   const { pixiCanvasStateId } = props;
@@ -22,6 +22,7 @@ function PixiJsContextProvider(props) {
       applicationLoaded: instance?.applicationLoaded,
       aliasCanvasObjects: instance?.aliasCanvasObjects,
       eventEmitter: instance?.eventEmitter,
+      triggerUpdate: instance?.triggerUpdate,
     };
   });
 

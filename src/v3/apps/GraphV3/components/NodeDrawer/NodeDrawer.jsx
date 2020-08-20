@@ -51,6 +51,7 @@ const styles = (theme) => ({
   drawer: {
     gridArea: 'bottomActions',
     position: 'relative',
+    overflow: 'hidden',
   },
   noDisplay: {
     display: 'none',
@@ -143,7 +144,7 @@ function NodeDrawer(props) {
             indicatorColor="primary"
             textColor="primary"
           >
-            <Tab label="By Machine" icon={<DomainIcon />} disabled />
+            <Tab label="By Machine" icon={<DomainIcon />} />
             <Tab label="By Resource" icon={<CategoryIcon />} />
           </Tabs>
         </ExpansionPanelDetails>

@@ -8,11 +8,11 @@ import Canvas from 'v3/apps/GraphV3/components/Canvas/Canvas';
 // import worker from 'workerize-loader!./workertest';
 import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+
+import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
 import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
-
-import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
 
 const useStyles = makeStyles((theme) => {
   return {
