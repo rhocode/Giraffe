@@ -1,50 +1,68 @@
-import React, { Component } from 'react';
-
-import Page from './components/Page';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
-import Card from './components/Card';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
-import Copyright from './components/Copyright';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faDiscord,
+  faGithub,
+  faRedditAlien,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowRight,
   faDownload,
   faPen,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faDiscord,
-  faRedditAlien,
-  faTwitter,
-  faGithub,
-} from '@fortawesome/free-brands-svg-icons';
-import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingScreen from 'common/react/LoadingScreen';
+import React, { Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
+import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
+import Card from './components/Card';
+import Copyright from './components/Copyright';
+import Header from './components/Header';
+import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
 
-class HomeApp extends Component {
-  state = {
-    showMenu: false,
-  };
-  toggleMenu = (showMenu = false) => {
-    this.setState({ showMenu });
-  };
+import Page from './components/Page';
+import Section from './components/Section';
+import Spotlight from './components/Spotlight';
 
-  componentDidMount() {
-    if (!!this.props.location.hash) {
-      window.location.href =
-        window.location.protocol +
-        '//old.satisgraphtory.com' +
-        window.location.pathname +
-        window.location.search;
-    }
-  }
+import './App.css';
+require('typeface-raleway');
+require('typeface-source-sans-pro');
 
-  render() {
-    const Css = React.lazy(() => import('./CssWrapper'));
-    return (
+function HomeApp() {
+  const [showMenu, setShowMenu] = React.useState(false);
+
+  React.useEffect(() => {
+    window.prerenderReady = true;
+  }, []);
+
+  return (
+    <Suspense fallback={<LoadingScreen />}>
       <Page>
-        <Css />
+        <Helmet>
+          <meta
+            property="og:title"
+            content={
+              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+            }
+          />
+          <meta property="og:site_name" content={window.location.hostname} />
+          <meta
+            property="og:image"
+            content={'https://i.imgur.com/DPEmxE0.png'}
+          />
+          <meta
+            property="og:description"
+            content={
+              'Feature-rich Satisfactory calculator and factory optimization simulation tool '
+            }
+          />
+          <meta property="og:url " content={window.location.href} />
+          <title>
+            {
+              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+            }
+          </title>
+        </Helmet>
         <Header>
           <h1>
             <img
@@ -53,12 +71,9 @@ class HomeApp extends Component {
               src={satisgraphtory2_square}
             />
           </h1>
-          <MenuTrigger onClick={() => this.toggleMenu(true)} />
+          <MenuTrigger onClick={() => setShowMenu(true)} />
         </Header>
-        <Menu
-          showMenu={this.state.showMenu}
-          closePortal={() => this.toggleMenu(false)}
-        >
+        <Menu showMenu={showMenu} closePortal={() => setShowMenu(false)}>
           <h2>Menu</h2>
           <MenuLinks>
             <a href="#top" key="top">
@@ -137,39 +152,69 @@ class HomeApp extends Component {
           <Section id="one" style1 right>
             <Spotlight
               right
-              img="https://cdn.discordapp.com/attachments/129647483738390528/617464176146907137/unknown.png"
+              img="https://i.imgur.com/P8cpb2O.png"
               imgAlt="fast"
               title="Fast."
-              desc="Now with a completely new HTML5 Canvas based graphics
-              engine, SatisGraphtory is faster than ever.
-              Large, sluggish graphs are a thing of the past."
+              desc={
+                <span>
+                  Now with a completely new HTML5 Canvas based graphics engine
+                  powered by{' '}
+                  <a
+                    href="https://www.pixijs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    PixiJS
+                  </a>
+                  , SatisGraphtory is faster than ever.
+                  <br />
+                  Large, sluggish graphs are a thing of the past.
+                </span>
+              }
             />
           </Section>
           <Section id="two" style2 left>
             <Spotlight
               left
-              img="https://cdn.discordapp.com/attachments/129647483738390528/617464278848634880/unknown.png"
+              img="https://i.imgur.com/byhlZe2.png"
               imgAlt="updates"
               title="Easy Updates."
-              desc="With a completely new data storage backend, it's now
-              easier than ever for us (and admins) to update recipes
-              whenever the game updates. When new data is applied, a
-              banner indicates that you should refresh to update your
-              locally stored data, and that's it!"
+              desc={
+                <span>
+                  With a completely new data storage backend powered by{' '}
+                  <a
+                    href="https://github.com/ficsit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    FicsIt/data-engineering
+                  </a>
+                  , whenever the game updates, we'll be able to update the app's
+                  data quickly. When new data is applied, a banner indicates
+                  that you should refresh to update your locally stored data,
+                  and that's it!
+                </span>
+              }
             />
           </Section>
           <Section id="three" style3 right>
             <Spotlight
               right
-              img="https://unsplash.it/450/450/?random"
+              img="https://i.imgur.com/47uQRlC.png"
               imgAlt="simulations"
               title="More accurate simulations."
-              desc="With more research and development, we can fully simulate
-              an entire factory system and alert you to bottlenecks and
-              belt backup issues."
+              desc={
+                <span>
+                  With more research and development, we can fully simulate an
+                  entire factory system and alert you to bottlenecks and belt
+                  backup issues*.
+                  <br />
+                  *Fluids not yet supported.
+                </span>
+              }
             />
           </Section>
-          <Section id="four" style2 left>
+          {/* <Section id="four" style2 left>
             <Spotlight
               left
               img="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
@@ -182,9 +227,9 @@ class HomeApp extends Component {
               revamped machine tools, creating a factory is easier than
               ever.'
             />
-          </Section>
+          </Section> */}
 
-          <Section id="five" style1 right>
+          <Section id="four" style2 left>
             <div className="inner">
               <h2 className="major" id="old">
                 Satisgraphtory version 1 features
@@ -201,7 +246,7 @@ class HomeApp extends Component {
                   desc="Now with an improved menu!"
                 />
                 <Card
-                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617629393405083648/unknown.png"
+                  imgSrc="https://i.imgur.com/pwOuBXB.png"
                   imgAlt="Connect nodes"
                   title="Connect nodes"
                   desc="Improved graphics!"
@@ -216,7 +261,7 @@ class HomeApp extends Component {
                   imgSrc="https://unsplash.it/575/330/?random"
                   imgAlt="Analyze/Optimize"
                   title="Analyze/Optimize"
-                  desc="Mostly done!"
+                  desc="Not done yet!"
                 />
               </section>
             </div>
@@ -282,8 +327,8 @@ class HomeApp extends Component {
           />
         </a>
       </Page>
-    );
-  }
+    </Suspense>
+  );
 }
 
 export default HomeApp;
