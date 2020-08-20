@@ -152,39 +152,69 @@ function HomeApp() {
           <Section id="one" style1 right>
             <Spotlight
               right
-              img="https://cdn.discordapp.com/attachments/129647483738390528/617464176146907137/unknown.png"
+              img="https://i.imgur.com/P8cpb2O.png"
               imgAlt="fast"
               title="Fast."
-              desc="Now with a completely new HTML5 Canvas based graphics
-              engine, SatisGraphtory is faster than ever.
-              Large, sluggish graphs are a thing of the past."
+              desc={
+                <span>
+                  Now with a completely new HTML5 Canvas based graphics engine
+                  powered by{' '}
+                  <a
+                    href="https://www.pixijs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    PixiJS
+                  </a>
+                  , SatisGraphtory is faster than ever.
+                  <br />
+                  Large, sluggish graphs are a thing of the past.
+                </span>
+              }
             />
           </Section>
           <Section id="two" style2 left>
             <Spotlight
               left
-              img="https://cdn.discordapp.com/attachments/129647483738390528/617464278848634880/unknown.png"
+              img="https://i.imgur.com/byhlZe2.png"
               imgAlt="updates"
               title="Easy Updates."
-              desc="With a completely new data storage backend, it's now
-              easier than ever for us (and admins) to update recipes
-              whenever the game updates. When new data is applied, a
-              banner indicates that you should refresh to update your
-              locally stored data, and that's it!"
+              desc={
+                <span>
+                  With a completely new data storage backend powered by{' '}
+                  <a
+                    href="https://github.com/ficsit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    FicsIt/data-engineering
+                  </a>
+                  , whenever the game updates, we'll be able to update the app's
+                  data quickly. When new data is applied, a banner indicates
+                  that you should refresh to update your locally stored data,
+                  and that's it!
+                </span>
+              }
             />
           </Section>
           <Section id="three" style3 right>
             <Spotlight
               right
-              img="https://unsplash.it/450/450/?random"
+              img="https://i.imgur.com/47uQRlC.png"
               imgAlt="simulations"
               title="More accurate simulations."
-              desc="With more research and development, we can fully simulate
-              an entire factory system and alert you to bottlenecks and
-              belt backup issues."
+              desc={
+                <span>
+                  With more research and development, we can fully simulate an
+                  entire factory system and alert you to bottlenecks and belt
+                  backup issues*.
+                  <br />
+                  *Fluids not yet supported.
+                </span>
+              }
             />
           </Section>
-          <Section id="four" style2 left>
+          {/* <Section id="four" style2 left>
             <Spotlight
               left
               img="https://cdn.discordapp.com/attachments/586056522883137547/600102701430472724/Screenshot_20190714-160010.png"
@@ -197,9 +227,9 @@ function HomeApp() {
               revamped machine tools, creating a factory is easier than
               ever.'
             />
-          </Section>
+          </Section> */}
 
-          <Section id="five" style1 right>
+          <Section id="four" style2 left>
             <div className="inner">
               <h2 className="major" id="old">
                 Satisgraphtory version 1 features
@@ -216,7 +246,7 @@ function HomeApp() {
                   desc="Now with an improved menu!"
                 />
                 <Card
-                  imgSrc="https://cdn.discordapp.com/attachments/129647483738390528/617629393405083648/unknown.png"
+                  imgSrc="https://i.imgur.com/pwOuBXB.png"
                   imgAlt="Connect nodes"
                   title="Connect nodes"
                   desc="Improved graphics!"
@@ -231,7 +261,7 @@ function HomeApp() {
                   imgSrc="https://unsplash.it/575/330/?random"
                   imgAlt="Analyze/Optimize"
                   title="Analyze/Optimize"
-                  desc="Mostly done!"
+                  desc="Not done yet!"
                 />
               </section>
             </div>
