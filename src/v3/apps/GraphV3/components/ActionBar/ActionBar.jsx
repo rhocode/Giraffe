@@ -1,35 +1,35 @@
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import CropFreeIcon from '@material-ui/icons/CropFree';
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+import CropFreeIcon from "@material-ui/icons/CropFree";
 // import LinkIcon from "@material-ui/icons/Link";
-import OpenWithIcon from '@material-ui/icons/OpenWith';
-import { motion, useAnimation } from 'framer-motion';
-import React from 'react';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import OpenWithIcon from "@material-ui/icons/OpenWith";
+import { motion, useAnimation } from "framer-motion";
+import React from "react";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
 
 const useStyles = makeStyles((theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   root: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     height: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
     zIndex: theme.zIndex.drawer + 1,
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto',
+    pointerEvents: "auto",
   },
 }));
 
@@ -67,7 +67,7 @@ function ActionBar() {
 
   React.useEffect(() => {
     if (loaded) {
-      controls.start('visible');
+      controls.start("visible");
     }
   }, [controls, loaded]);
 

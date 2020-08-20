@@ -1,34 +1,34 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Viewport } from 'pixi-viewport';
-import React from 'react';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { Viewport } from "pixi-viewport";
+import React from "react";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
+import EdgeTemplate from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate";
+import { GraphObject } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject";
+import { NodeTemplate } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate";
+import { enableSelectionBox } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox";
+import { sgDevicePixelRatio } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils";
+import PIXI from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider";
 import {
   addChild,
   getChildFromStateById,
   getMultiTypedChildrenFromState,
   removeChild,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
-import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+} from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi";
+import { arraysEqual } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
 
 const useStyles = makeStyles(() =>
   createStyles({
     hidden: {
-      display: 'none',
+      display: "none",
     },
     canvasStyles: {
-      WebkitUserSelect: 'none',
-      KhtmlUserSelect: 'none',
-      MozUserSelect: 'none',
-      userSelect: 'none'
-    }
+      WebkitUserSelect: "none",
+      KhtmlUserSelect: "none",
+      MozUserSelect: "none",
+      userSelect: "none",
+    },
   })
 );
 
@@ -109,14 +109,14 @@ function PixiJSApplication(props) {
       }
     };
 
-    window.addEventListener('mousedown', mouseDownEvent, false);
-    window.addEventListener('keydown', keyDownEvent, false);
-    window.addEventListener('keyup', keyUpEvent, false);
+    window.addEventListener("mousedown", mouseDownEvent, false);
+    window.addEventListener("keydown", keyDownEvent, false);
+    window.addEventListener("keyup", keyUpEvent, false);
 
     return () => {
-      window.removeEventListener('mousedown', mouseDownEvent);
-      window.removeEventListener('keydown', keyDownEvent);
-      window.removeEventListener('keyup', keyUpEvent);
+      window.removeEventListener("mousedown", mouseDownEvent);
+      window.removeEventListener("keydown", keyDownEvent);
+      window.removeEventListener("keyup", keyUpEvent);
     };
   }, [aliasCanvasObjects, mouseState, pixiCanvasStateId]);
 
@@ -144,7 +144,7 @@ function PixiJSApplication(props) {
 
         if (!arraysEqual(selected, s.selectedObjects)) {
           s.selectedObjects = selected;
-          console.log('Selected objects:', s.selectedObjects);
+          console.log("Selected objects:", s.selectedObjects);
         }
       });
     },
@@ -210,17 +210,17 @@ function PixiJSApplication(props) {
 
     previousMouseState.current = mouseState;
 
-    pixiViewport.plugins.pause('drag');
-    pixiViewport.plugins.resume('wheel');
-    pixiViewport.plugins.pause('pinch');
+    pixiViewport.plugins.pause("drag");
+    pixiViewport.plugins.resume("wheel");
+    pixiViewport.plugins.pause("pinch");
     viewportChildContainer.interactive = false;
     viewportChildContainer.buttonMode = false;
     viewportChildContainer.hitArea = null;
     viewportChildContainer.removeAllListeners();
 
     if (pixiViewportFunc.current) {
-      pixiViewport.off('zoomed-end', pixiViewportFunc.current);
-      pixiViewport.off('drag-end', pixiViewportFunc.current);
+      pixiViewport.off("zoomed-end", pixiViewportFunc.current);
+      pixiViewport.off("drag-end", pixiViewportFunc.current);
       pixiViewportFunc.current = null;
     }
 
@@ -233,8 +233,8 @@ function PixiJSApplication(props) {
       viewportChildContainer.hitArea = pixiViewport.hitArea;
     };
 
-    pixiViewport.on('zoomed-end', pixiViewportFunc.current);
-    pixiViewport.on('drag-end', pixiViewportFunc.current);
+    pixiViewport.on("zoomed-end", pixiViewportFunc.current);
+    pixiViewport.on("drag-end", pixiViewportFunc.current);
 
     const deferredRemoveChildEvents = (t) => {
       const s = t[pixiCanvasStateId];
@@ -280,9 +280,9 @@ function PixiJSApplication(props) {
         },
       ]);
     } else if (mouseState === MouseState.MOVE) {
-      pixiViewport.plugins.resume('drag');
-      pixiViewport.plugins.resume('wheel');
-      pixiViewport.plugins.resume('pinch');
+      pixiViewport.plugins.resume("drag");
+      pixiViewport.plugins.resume("wheel");
+      pixiViewport.plugins.resume("pinch");
 
       pixiJsStore.update([
         deferredRemoveChildEvents,
@@ -321,7 +321,10 @@ function PixiJSApplication(props) {
   }, [height, pixiRenderer, pixiViewport, width]);
 
   return (
-    <canvas className={props.hidden ? styles.hidden : styles.canvasStyles} ref={canvasRef} />
+    <canvas
+      className={props.hidden ? styles.hidden : styles.canvasStyles}
+      ref={canvasRef}
+    />
   );
 }
 

@@ -3,30 +3,30 @@ import {
   faGithub,
   faRedditAlien,
   faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
+} from "@fortawesome/free-brands-svg-icons";
 import {
   faArrowRight,
   faDownload,
   faPen,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import LoadingScreen from 'common/react/LoadingScreen';
-import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
-import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
-import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
-import Card from './components/Card';
-import Copyright from './components/Copyright';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoadingScreen from "common/react/LoadingScreen";
+import React, { Suspense } from "react";
+import { Helmet } from "react-helmet-async";
+import satisgraphtory2_square from "../../images/satisgraphtory2_square.png";
+import satisgraphtory2_square_with_background from "../../images/satisgraphtory2_square_with_background.png";
+import Card from "./components/Card";
+import Copyright from "./components/Copyright";
+import Header from "./components/Header";
+import { Menu, MenuLinks, MenuTrigger } from "./components/Menu";
 
-import Page from './components/Page';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
+import Page from "./components/Page";
+import Section from "./components/Section";
+import Spotlight from "./components/Spotlight";
 
-import './App.css';
-require('typeface-raleway');
-require('typeface-source-sans-pro');
+import "./App.css";
+require("typeface-raleway");
+require("typeface-source-sans-pro");
 
 function HomeApp() {
   const [showMenu, setShowMenu] = React.useState(false);
@@ -42,24 +42,24 @@ function HomeApp() {
           <meta
             property="og:title"
             content={
-              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+              "SatisGraphtory | Satisfactory Calculator & Building Graph Simulation"
             }
           />
           <meta property="og:site_name" content={window.location.hostname} />
           <meta
             property="og:image"
-            content={'https://i.imgur.com/DPEmxE0.png'}
+            content={"https://i.imgur.com/DPEmxE0.png"}
           />
           <meta
             property="og:description"
             content={
-              'Feature-rich Satisfactory calculator and factory optimization simulation tool '
+              "Feature-rich Satisfactory calculator and factory optimization simulation tool "
             }
           />
           <meta property="og:url " content={window.location.href} />
           <title>
             {
-              'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'
+              "SatisGraphtory | Satisfactory Calculator & Building Graph Simulation"
             }
           </title>
         </Helmet>
@@ -247,7 +247,7 @@ function HomeApp() {
               rel="noopener noreferrer"
               href="https://twitter.com/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faTwitter} className="contact-icon" />{" "}
               @satisgraphtory
             </a>
             <a
@@ -256,7 +256,7 @@ function HomeApp() {
               rel="noopener noreferrer"
               href="https://discord.gg/ZRpcgqY"
             >
-              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faDiscord} className="contact-icon" />{" "}
               Discord Server
             </a>
             <a
@@ -265,7 +265,7 @@ function HomeApp() {
               rel="noopener noreferrer"
               href="https://reddit.com/r/satisgraphtory"
             >
-              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{' '}
+              <FontAwesomeIcon icon={faRedditAlien} className="contact-icon" />{" "}
               /r/satisgraphtory
             </a>
             <Copyright>

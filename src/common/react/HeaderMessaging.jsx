@@ -1,28 +1,28 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { useServiceWorker } from './ServiceWorkerProvider';
-import { connect } from 'react-redux';
-import { getTranslate } from 'react-localize-redux';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { useServiceWorker } from "./ServiceWorkerProvider";
+import { connect } from "react-redux";
+import { getTranslate } from "react-localize-redux";
 
 const styles = (theme) => ({
   container: {
     backgroundColor: theme.palette.primary.dark,
     height: theme.overrides.common.HeaderMessaging.height,
-    gridArea: 'update',
-    textAlign: 'center',
-    cursor: 'pointer',
+    gridArea: "update",
+    textAlign: "center",
+    cursor: "pointer",
     zIndex: theme.zIndex.drawer + 2,
-    display: 'table',
-    overflow: 'hidden',
-    width: '100%',
+    display: "table",
+    overflow: "hidden",
+    width: "100%",
   },
   invisible: {
-    gridArea: 'update',
-    display: 'none',
+    gridArea: "update",
+    display: "none",
   },
   messaging: {
-    display: 'table-cell',
-    verticalAlign: 'middle',
+    display: "table-cell",
+    verticalAlign: "middle",
   },
 });
 
@@ -30,7 +30,7 @@ function HeaderMessaging(props) {
   const { assetsUpdateReady, updateAssets } = useServiceWorker();
 
   const update = () => {
-    console.error('Updating assets...');
+    console.error("Updating assets...");
     if (updateAssets) {
       updateAssets();
     }
@@ -44,7 +44,7 @@ function HeaderMessaging(props) {
       }
     >
       <div className={props.classes.messaging}>
-        {props.translate('headerMessaging_newData')}
+        {props.translate("headerMessaging_newData")}
       </div>
     </div>
   );

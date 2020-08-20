@@ -1,20 +1,20 @@
-import './App.css';
+import "./App.css";
 
-import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
-import React, {Component} from 'react';
-import {renderToStaticMarkup} from 'react-dom/server';
-import {HelmetProvider} from 'react-helmet-async';
-import {withLocalize} from 'react-localize-redux';
-import {BrowserRouter, HashRouter, Route} from 'react-router-dom';
-import {themeDark} from 'theme';
+import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { HelmetProvider } from "react-helmet-async";
+import { withLocalize } from "react-localize-redux";
+import { BrowserRouter, HashRouter, Route } from "react-router-dom";
+import { themeDark } from "theme";
 
-import HeaderMessaging from '../../common/react/HeaderMessaging';
-import LoadingScreen from '../../common/react/LoadingScreen';
-import discord from '../../translations/discord.json';
-import en from '../../translations/en.json';
+import HeaderMessaging from "../../common/react/HeaderMessaging";
+import LoadingScreen from "../../common/react/LoadingScreen";
+import discord from "../../translations/discord.json";
+import en from "../../translations/en.json";
 
 const chooseLoadingStyle = (importFunc) => {
-  if (process.env.REACT_APP_ELECTRON === 'true') {
+  if (process.env.REACT_APP_ELECTRON === "true") {
     // Preloading enabled!
     const appPromise = importFunc();
     return React.lazy(() => appPromise);
@@ -23,77 +23,85 @@ const chooseLoadingStyle = (importFunc) => {
   }
 };
 
-const HomeImport = () => import('../../apps/Home/HomeApp');
+const HomeImport = () => import("../../apps/Home/HomeApp");
 const HomeApp = chooseLoadingStyle(HomeImport);
 
-const GraphImport = () => import('../../v3/apps/GraphV3/GraphApp');
+const GraphImport = () => import("../../v3/apps/GraphV3/GraphApp");
 const GraphApp = chooseLoadingStyle(GraphImport);
 
-const HubImport = () => import('apps/Hub/HubApp');
+const HubImport = () => import("apps/Hub/HubApp");
 const HubApp = chooseLoadingStyle(HubImport);
 
 const Router =
-    process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
+  process.env.REACT_APP_ELECTRON === "true" ? HashRouter : BrowserRouter;
 
 class DebugRouter extends Router {
   constructor(props) {
     super(props);
-    console.log('initial history is: ', JSON.stringify(this.history, null, 2));
+    console.log("initial history is: ", JSON.stringify(this.history, null, 2));
     this.history.listen((location, action) => {
-      console.log(`The current URL is ${location.pathname}${location.search}${
-          location.hash}`);
-      console.log(`The last navigation action was ${action}`,
-                  JSON.stringify(this.history, null, 2));
+      console.log(
+        `The current URL is ${location.pathname}${location.search}${location.hash}`
+      );
+      console.log(
+        `The last navigation action was ${action}`,
+        JSON.stringify(this.history, null, 2)
+      );
     });
   }
 }
 
 const ReactRouter =
-    process.env.NODE_ENV === 'production' ? Router : DebugRouter;
+  process.env.NODE_ENV === "production" ? Router : DebugRouter;
 
 class AppWrapper extends Component {
   render() {
-    const {children} = this.props;
+    const { children } = this.props;
 
-    return (<HelmetProvider><ReactRouter><MuiThemeProvider theme = {themeDark}>
-            <React.Suspense fallback = {<LoadingScreen />}>{
-                children}</React.Suspense>
+    return (
+      <HelmetProvider>
+        <ReactRouter>
+          <MuiThemeProvider theme={themeDark}>
+            <React.Suspense fallback={<LoadingScreen />}>
+              {children}
+            </React.Suspense>
           </MuiThemeProvider>
-            </ReactRouter>
-      </HelmetProvider>);
+        </ReactRouter>
+      </HelmetProvider>
+    );
   }
 }
 
 const styles = () => ({
-  root : {
-    height : '100%',
-    width : '100%',
-    display : 'grid',
-    gridTemplateAreas : `"update"
+  root: {
+    height: "100%",
+    width: "100%",
+    display: "grid",
+    gridTemplateAreas: `"update"
        "appBody"
        "siteFooter"`,
-    gridTemplateRows : 'auto minmax(0, 1fr) auto',
-    gridTemplateColumns : '1fr',
+    gridTemplateRows: "auto minmax(0, 1fr) auto",
+    gridTemplateColumns: "1fr",
   },
-  body : {
-    gridArea : 'appBody',
-    display : 'grid',
-    gridTemplateAreas : `"body"`,
-    gridTemplateRows : '1fr',
-    gridTemplateColumns : '1fr',
+  body: {
+    gridArea: "appBody",
+    display: "grid",
+    gridTemplateAreas: `"body"`,
+    gridTemplateRows: "1fr",
+    gridTemplateColumns: "1fr",
   },
 });
 
-const languages = [ 'en', 'discord' ];
+const languages = ["en", "discord"];
 
 function App(props) {
   // const defaultLanguage =
   //   window.localStorage.getItem('languageCode') || languages[0];
   // window.localStorage.setItem("languageCode", curLangCode);
 
-  const onMissingTranslation = ({translationId, languageCode}) => {
+  const onMissingTranslation = ({ translationId, languageCode }) => {
     const text = `No Translation for ${translationId} - ${languageCode}`;
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       return translationId;
     } else {
       console.error(text);
@@ -101,36 +109,36 @@ function App(props) {
     }
   };
 
-  const {initialize, addTranslationForLanguage} = props;
+  const { initialize, addTranslationForLanguage } = props;
 
   const initializedHack = React.useRef(false);
   React.useEffect(() => {
     if (!initializedHack.current) {
       initializedHack.current = true;
       initialize({
-        languages : [
-          {name : 'English', code : 'en'},
-          {name : 'Discord', code : 'discord'},
+        languages: [
+          { name: "English", code: "en" },
+          { name: "Discord", code: "discord" },
         ],
 
-        options : {
+        options: {
           onMissingTranslation,
           renderToStaticMarkup,
-          defaultLanguage : languages[0],
+          defaultLanguage: languages[0],
           // defaultLanguage
         },
       });
 
-      addTranslationForLanguage(en, 'en');
-      addTranslationForLanguage(discord, 'discord');
+      addTranslationForLanguage(en, "en");
+      addTranslationForLanguage(discord, "discord");
     }
-  }, [ addTranslationForLanguage, initialize ]);
+  }, [addTranslationForLanguage, initialize]);
 
-  const {classes} = props;
+  const { classes } = props;
 
   return (
     <AppWrapper>
-      <div id={'mainRootDiv'} className={classes.root}>
+      <div id={"mainRootDiv"} className={classes.root}>
         <HeaderMessaging />
         <div className={classes.body}>{resolveDomain()}</div>
       </div>
@@ -141,7 +149,7 @@ function App(props) {
 function getGraphApp(local = false) {
   return (
     <Route
-      key={'graph'}
+      key={"graph"}
       path={local ? `/graph/:graphId?` : `/:graphId?`}
       exact={!local}
       component={GraphApp}
@@ -152,7 +160,7 @@ function getGraphApp(local = false) {
 function getHubApp(local = false) {
   return (
     <Route
-      key={'hub'}
+      key={"hub"}
       path={local ? `/hub` : `/`}
       exact={!local}
       component={HubApp}
@@ -161,18 +169,18 @@ function getHubApp(local = false) {
 }
 
 function getHomeApp() {
-  return <Route key={'home'} path={`/`} exact component={HomeApp} />;
+  return <Route key={"home"} path={`/`} exact component={HomeApp} />;
 }
 
 function resolveDomain() {
-  const domain = window.location.host.split('.')[1]
-    ? window.location.host.split('.')[0]
+  const domain = window.location.host.split(".")[1]
+    ? window.location.host.split(".")[0]
     : false;
   const domainList = [];
 
-  if (domain === 'graph') {
+  if (domain === "graph") {
     domainList.push(getGraphApp());
-  } else if (domain === 'hub') {
+  } else if (domain === "hub") {
     // hub subdomain
     domainList.push(getHubApp());
   } else {

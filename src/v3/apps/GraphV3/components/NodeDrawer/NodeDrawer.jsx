@@ -1,60 +1,60 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-import DomainIcon from '@material-ui/icons/Domain';
-import CategoryIcon from '@material-ui/icons/Category';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { LocaleContext } from 'v3/components/LocaleProvider';
-import { useStoreState } from 'pullstate';
-import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
-import TabContainer from './TabContainer';
-import DrawerButton from './DrawerButton';
+import DomainIcon from "@material-ui/icons/Domain";
+import CategoryIcon from "@material-ui/icons/Category";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { LocaleContext } from "v3/components/LocaleProvider";
+import { useStoreState } from "pullstate";
+import { graphAppStore } from "v3/apps/GraphV3/stores/graphAppStore";
+import TabContainer from "./TabContainer";
+import DrawerButton from "./DrawerButton";
 
 const styles = (theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   root: {
-    position: 'fixed',
+    position: "fixed",
     bottom: 0,
     left: 0,
     right: 0,
     height: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
   },
   navigation: {
     borderRadius: 5,
-    pointerEvents: 'auto',
+    pointerEvents: "auto",
   },
   tabContainer: {
     padding: 0,
-    display: 'flex',
-    overflowX: 'auto',
+    display: "flex",
+    overflowX: "auto",
   },
   expandPanel: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
   },
   drawer: {
-    gridArea: 'bottomActions',
-    position: 'relative',
-    overflow: 'hidden',
+    gridArea: "bottomActions",
+    position: "relative",
+    overflow: "hidden",
   },
   noDisplay: {
-    display: 'none',
+    display: "none",
   },
 });
 
@@ -87,8 +87,8 @@ function NodeDrawer(props) {
         translate(selectedMachine.class.name),
         translate(selectedMachine.tier),
         translate(selectedMachine.recipe),
-      ].join(' ')
-    : translate('selected_none');
+      ].join(" ")
+    : translate("selected_none");
 
   return (
     <Drawer
@@ -109,7 +109,7 @@ function NodeDrawer(props) {
           expandIcon={drawerOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         >
           <Typography>
-            {`${translate('currently_selected')} `}
+            {`${translate("currently_selected")} `}
             <span className={classes.current}>{selectedText}</span>
           </Typography>
         </ExpansionPanelSummary>
