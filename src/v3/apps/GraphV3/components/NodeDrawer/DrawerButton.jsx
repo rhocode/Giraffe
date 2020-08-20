@@ -68,7 +68,7 @@ function DrawerButton(props) {
           <div className={classes.buttonContents}>
             {/*<ArrowDropUpIcon/>*/}
             <img
-              src={getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 64)}
+              src={getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 256)}
               className={classes.image}
               alt={props.label}
             />

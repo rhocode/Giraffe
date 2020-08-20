@@ -1,10 +1,4 @@
-import Manufacturer from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/Manufacturer";
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import ResourceExtractor
-  from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/ResourceExtractor";
-import {getExtractorRecipes, getRecipesByMachineType} from "v3/data/loaders/recipes";
-import Belt from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/edges/Belt";
-import DebugSink from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/DebugSink";
+import {getExtractorRecipes} from "v3/data/loaders/recipes";
 
 const recipes = getExtractorRecipes();
 

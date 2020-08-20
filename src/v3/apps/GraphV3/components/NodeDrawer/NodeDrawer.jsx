@@ -1,24 +1,24 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import {withStyles} from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import CategoryIcon from '@material-ui/icons/Category';
 
 import DomainIcon from '@material-ui/icons/Domain';
-import CategoryIcon from '@material-ui/icons/Category';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import { LocaleContext } from 'v3/components/LocaleProvider';
-import { useStoreState } from 'pullstate';
-import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
-import TabContainer from './TabContainer';
+import React from 'react';
+import {PixiJSCanvasContext} from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import {LocaleContext} from 'v3/components/LocaleProvider';
+import {getBuildableMachineClassNames} from "v3/data/loaders/buildings";
 import DrawerButton from './DrawerButton';
+import TabContainer from './TabContainer';
 
 const styles = (theme) => ({
   default: {
@@ -64,14 +64,11 @@ function NodeDrawer(props) {
 
   const { translate } = React.useContext(LocaleContext);
   const drawerOpen = true; //useStoreState(graphAppStore, s => s.mouseMode === 'add');
-  const selectedMachine = useStoreState(
-    graphAppStore,
-    (s) => s.selectedMachine
-  );
-  const placeableMachineClasses = useStoreState(
-    graphAppStore,
-    (s) => s.placeableMachineClasses
-  );
+
+
+  const { selectedMachine } = React.useContext(PixiJSCanvasContext);
+
+  const placeableMachineClasses = getBuildableMachineClassNames();
 
   const [expanded, setExpanded] = React.useState(true);
 
@@ -82,13 +79,14 @@ function NodeDrawer(props) {
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
 
   // ?????????????
-  const selectedText = selectedMachine
-    ? [
-        translate(selectedMachine.class.name),
-        translate(selectedMachine.tier),
-        translate(selectedMachine.recipe),
-      ].join(' ')
-    : translate('selected_none');
+  const selectedText = translate('selected_none');
+    // selectedMachine
+    // ? [
+    //     translate(selectedMachine.class.name),
+    //     translate(selectedMachine.tier),
+    //     translate(selectedMachine.recipe),
+    //   ].join(' ')
+    // : translate('selected_none');
 
   return (
     <Drawer

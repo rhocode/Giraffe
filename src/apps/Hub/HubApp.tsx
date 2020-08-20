@@ -65,7 +65,7 @@ function HubApp() {
     // splitter.attachSimulationManager(simulationManager);
     liquidResourceExtractor.attachSimulationManager(simulationManager);
     pipe1.attachSimulationManager(simulationManager);
-    simulationManager.addLink(pipe1, liquidResourceExtractor);
+    simulationManager.addLink(liquidResourceExtractor, pipe1);
 
     // simulationManager.addLink(resourceExtractor, belt);
     // simulationManager.addLink(belt, manufacturer);

@@ -63,7 +63,7 @@ export default class FluidResourceExtractor extends SimulatableConnection {
             const addedAmount = this.outputPacket[0].amount;
             const newAmount = amount + addedAmount;
 
-            console.log('Current amount', newAmount);
+            // console.log('Current amount', newAmount);
             this.outputSlot[0] = [
               {
                 slug,
@@ -76,18 +76,17 @@ export default class FluidResourceExtractor extends SimulatableConnection {
             }
           }
 
-          //
-          // this.outputs.forEach(output => {
-          //   this.simulationManager?.addTimerEvent({
-          //     // TODO: should this not have a +1?
-          //     time: time,
-          //     event: {
-          //       target: output.id,
-          //       eventName: 'PULL',
-          //       eventData: this.id
-          //     }
-          //   })
-          // })
+          this.outputs.forEach(output => {
+            this.simulationManager?.addTimerEvent({
+              // TODO: should this not have a +1?
+              time: time,
+              event: {
+                target: output.id,
+                eventName: 'FLUSH',
+                eventData: this.id
+              }
+            })
+          })
           this.simulationManager?.addTimerEvent({
             time: time + this.cycleTime,
             event: {
@@ -98,10 +97,8 @@ export default class FluidResourceExtractor extends SimulatableConnection {
           });
         };
         if (!this.blocked) {
-          console.log('HANDLING EVENT UNBLOCKED');
           depositFunction(time);
         } else {
-          console.log('SET A BLOCKED CALLBACK');
           this.unblockCallback = (time: number) => {
             depositFunction(time);
           };

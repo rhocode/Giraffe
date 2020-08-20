@@ -20,6 +20,7 @@ export const generateNewPixiCanvasStore = () => {
     aliasCanvasObjects: new Set() as Set<any>,
     eventEmitter: new EventEmitter(),
     triggerUpdate: 1,
+    selectedMachine: null as unknown as string,
   };
 };
 
