@@ -56,9 +56,7 @@ export const getExtractorRecipesFn = () => {
             extractorResultByMachine.set(allowedResource, new Set());
           }
 
-          extractorResultByMachine
-            .get(allowedResource)!
-            .add(extractorSlug);
+          extractorResultByMachine.get(allowedResource)!.add(extractorSlug);
         }
       );
     }
@@ -80,7 +78,6 @@ export const getExtractorRecipesFn = () => {
   for (const [resource, extractors] of extractorResultByMachine.entries()) {
     // This might change. One resource might have multiple extraction methods.
     for (const extractor of extractors) {
-
       const purityNames = nonPurityNodes.has(resource)
         ? ['']
         : resourcePurityNames;
@@ -106,12 +103,14 @@ export const getExtractorRecipesFn = () => {
             products: [
               {
                 slug: resource,
-                amount: 1
+                amount: 1,
               },
             ],
             producedIn: [extractor],
             manualMultiplier: 1,
-            manufacturingDuration: (purity ? resolveDurationMultiplierForPurityNames(purity) : 1),
+            manufacturingDuration: purity
+              ? resolveDurationMultiplierForPurityNames(purity)
+              : 1,
           },
         });
       }
@@ -148,7 +147,9 @@ export const getExtractorRecipesFn = () => {
             ],
             producedIn: [...whitelistedMachines],
             manualMultiplier: 1,
-            manufacturingDuration: resolveDurationMultiplierForPurityNames(purity),
+            manufacturingDuration: resolveDurationMultiplierForPurityNames(
+              purity
+            ),
           },
         });
       }

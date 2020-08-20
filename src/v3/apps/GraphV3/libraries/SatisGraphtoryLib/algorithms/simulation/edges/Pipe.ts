@@ -1,9 +1,11 @@
 import SimulatableConnection from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/SimulatableConnection';
 
-export default class Belt extends SimulatableConnection {
-  constructor(beltSpeed: number) {
+export default class Pipe extends SimulatableConnection {
+  static readonly maxFlowPerMs = 300 / 6; // 50 liters/ms
+  static readonly maxPipeContent = 10.6 * 1000;
+
+  constructor() {
     super();
-    this.cycleTime = (60 * 1000) / beltSpeed;
     this.outputSlot.push([]);
   }
 
@@ -11,14 +13,51 @@ export default class Belt extends SimulatableConnection {
   unblockCallback = (null as unknown) as any;
 
   handleEvent(evt: any, time: number, eventData: any) {
-    console.log('Handling belt event ');
+    console.log('Handling pipe event ');
     switch (evt) {
       case 'PULL':
+        const pullFunction = (time: number) => {
+          const itemsRetrieved = this.inputs
+            .map((input) => {
+              const outputSlot = input.getOutputSlot(this.id);
+
+              if (outputSlot.length) {
+                return outputSlot.shift();
+              }
+
+              return null;
+            })
+            .filter((item) => item);
+
+          if (itemsRetrieved.length === 0) {
+            throw new Error('Push was called but no item to get ' + this.id);
+          }
+
+          this.simulationManager?.addTimerEvent({
+            time: time + this.cycleTime,
+            event: {
+              target: this.id,
+              eventName: 'PUSH',
+              eventData: itemsRetrieved,
+            },
+          });
+          this.inputs.forEach((input) => {
+            this.simulationManager?.addTimerEvent({
+              time: time,
+              event: {
+                target: input.id,
+                eventName: 'UNBLOCK',
+                eventData: this.id,
+              },
+            });
+          });
+          this.blocked = true;
+        };
         if (!this.blocked) {
-          this.pushFunction(time);
+          pullFunction(time);
         } else {
           this.unblockCallback = (time: number) => {
-            this.pushFunction(time);
+            pullFunction(time);
           };
         }
         break;
@@ -53,43 +92,5 @@ export default class Belt extends SimulatableConnection {
       default:
         throw new Error('Unhandled event ' + evt);
     }
-  }
-
-  private pushFunction(time: number) {
-    const itemsRetrieved = this.inputs
-      .map((input) => {
-        const outputSlot = input.getOutputSlot(this.id);
-
-        if (outputSlot.length) {
-          return outputSlot.shift();
-        }
-
-        return null;
-      })
-      .filter((item) => item);
-
-    if (itemsRetrieved.length === 0) {
-      throw new Error('Push was called but no item to get ' + this.id);
-    }
-
-    this.simulationManager?.addTimerEvent({
-      time: time + this.cycleTime,
-      event: {
-        target: this.id,
-        eventName: 'PUSH',
-        eventData: itemsRetrieved,
-      },
-    });
-    this.inputs.forEach((input) => {
-      this.simulationManager?.addTimerEvent({
-        time: time,
-        event: {
-          target: input.id,
-          eventName: 'UNBLOCK',
-          eventData: this.id,
-        },
-      });
-    });
-    this.blocked = true;
   }
 }

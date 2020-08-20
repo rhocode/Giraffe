@@ -1,50 +1,17 @@
-import { getBuildingDefinition } from 'v3/data/loaders/buildings';
-import { getRecipeDefinition } from 'v3/data/loaders/recipes';
 import SimulatableConnection from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/SimulatableConnection';
-import { getItemDefinition } from 'v3/data/loaders/items';
-import { EResourceForm } from '.data-landing/interfaces/enums';
 
-export default class ResourceExtractor extends SimulatableConnection {
-  constructor(recipeSlug: any, buildingSlug: any, clockSpeed = 100) {
+export default class DebugExtractor extends SimulatableConnection {
+  constructor(itemSlug: string, amount: number, time: number) {
     super();
-    const recipe = getRecipeDefinition(recipeSlug);
 
-    const building = getBuildingDefinition(buildingSlug);
-
-    const cycleTime =
-      building.extractCycleTime * 1000 * recipe.manufacturingDuration;
-    const itemsPerCycle = building.itemsPerCycle;
-
-    const outputGrouped = recipe.products.map((item: any) => {
-      return {
-        slug: item.slug,
-        amount: item.amount * itemsPerCycle,
-      };
-    });
-
-    if (outputGrouped.length > 1) {
-      throw new Error('Unhandled multiple outputs');
+    for (let i = 0; i < amount; i++) {
+      this.outputPacket.push({
+        slug: itemSlug,
+        amount: 1,
+      });
     }
 
-    for (const item of outputGrouped) {
-      const { slug, amount } = item;
-      const resourceForm = getItemDefinition(slug).form;
-      if (resourceForm === EResourceForm.RF_SOLID) {
-        for (let i = 0; i < amount; i++) {
-          this.outputPacket.push({
-            slug,
-            amount: 1,
-          });
-        }
-      } else if (resourceForm === EResourceForm.RF_LIQUID) {
-        this.outputPacket.push({
-          slug,
-          amount: amount,
-        });
-      }
-    }
-
-    this.cycleTime = cycleTime / (clockSpeed / 100);
+    this.cycleTime = time;
     this.outputSlot.push([]);
   }
 
