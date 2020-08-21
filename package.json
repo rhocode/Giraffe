@@ -78,7 +78,7 @@
     "react-scrollbars-custom": "^4.0.25",
     "react-select": "^3.0.8",
     "react-sortable-hoc": "^1.11.0",
-    "react-syntax-highlighter": "^12.2.1",
+    "react-syntax-highlighter": "^13.5.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
