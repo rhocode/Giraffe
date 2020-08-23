@@ -68,7 +68,9 @@ function NodeDrawer(props) {
 
   const { selectedMachine } = React.useContext(PixiJSCanvasContext);
 
-  const placeableMachineClasses = getBuildableMachineClassNames();
+  const placeableMachineClasses = getBuildableMachineClassNames().sort((a, b) => {
+    return translate(a).localeCompare(translate(b));
+  })
 
   const [expanded, setExpanded] = React.useState(true);
 

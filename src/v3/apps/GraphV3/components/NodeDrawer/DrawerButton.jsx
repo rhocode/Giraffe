@@ -1,15 +1,12 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { baseTheme } from 'theme';
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import {baseTheme} from 'theme';
+import {getBuildableMachineClassIcon, getBuildingIcon} from 'v3/data/loaders/buildings';
 import DrawerDialog from './DrawerDialog';
-import {
-  getBuildableMachineClassIcon,
-  getBuildingIcon
-} from 'v3/data/loaders/buildings';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   default: {
     zIndex: theme.zIndex.drawer
   },
@@ -49,10 +46,11 @@ const styles = theme => ({
       baseTheme.overrides.GraphAddMachineButton.margin * 2,
     display: 'inline-block'
   }
-});
+}));
 
 function DrawerButton(props) {
-  const { classes, nodeClass, closeDrawerFunction } = props;
+  const classes = useStyles();
+  const { nodeClass, closeDrawerFunction } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   return (
@@ -90,4 +88,4 @@ function DrawerButton(props) {
   );
 }
 
-export default withStyles(styles)(DrawerButton);
+export default DrawerButton

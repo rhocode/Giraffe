@@ -8,6 +8,22 @@ import Connections from 'data/Connections.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
 
+const slugToCustomMachineGroup = (slug: string) => {
+  switch(slug) {
+    case 'building-conveyor-attachment-merger':
+    case 'building-conveyor-attachment-splitter':
+    case 'building-pipeline-junction-cross':
+      return 'machine-group-logistics'
+    case 'building-pipe-storage-tank':
+    case 'building-industrial-tank':
+      return 'machine-group-liquid-storage'
+    case 'building-storage-container':
+      return 'machine-group-item-storage'
+  }
+
+  return slug;
+}
+
 const getBuildableMachinesFn = () => {
   const buildables = new Set(Object.keys(ConnectionsJson));
 
@@ -51,15 +67,19 @@ const getBuildableMachinesFn = () => {
     if (markRegex.test(machine)) {
       const regexResult = markRegex.exec(machine);
       const slug = `${regexResult![1] + (regexResult![2] || '')}`;
-      if (!machineClassMap.get(slug)) {
-        machineClassMap.set(slug, []);
+
+      const resolvedSlug = slugToCustomMachineGroup(slug);
+
+      if (!machineClassMap.get(resolvedSlug)) {
+        machineClassMap.set(resolvedSlug, []);
       }
-      machineClassMap.get(slug)!.push(machine);
+      machineClassMap.get(resolvedSlug)!.push(machine);
     } else {
-      if (!machineClassMap.get(machine)) {
-        machineClassMap.set(machine, []);
+      const resolvedSlug = slugToCustomMachineGroup(machine);
+      if (!machineClassMap.get(resolvedSlug)) {
+        machineClassMap.set(resolvedSlug, []);
       }
-      machineClassMap.get(machine)!.push(machine);
+      machineClassMap.get(resolvedSlug)!.push(machine);
     }
   });
 
@@ -124,6 +144,7 @@ export const getBuildingName = (slug: string) => {
 
 export const getBuildingImageName = (slug: string) => {
   const itemSlug = slug.replace(/^building/g, 'item');
+
   return (ItemJson as any)[itemSlug].icon;
 };
 
@@ -146,7 +167,7 @@ export const getRecipesByMachineClass = (machineClass: string) => {
   Object.keys(RecipeJson).forEach((key: string) => {
     obj[key] = (RecipeJson as any)[key].name;
   });
-  console.log(JSON.stringify(obj, null, 2));
+  // console.log(JSON.stringify(obj, null, 2));
   return entries;
 };
 

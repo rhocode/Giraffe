@@ -315,8 +315,10 @@ function PixiJSApplication(props) {
   React.useEffect(() => {
     if (pixiRenderer) {
       // Are both necessary?
-      pixiRenderer.resize(width, height);
-      pixiViewport.resize(width, height);
+      if (width && height && pixiRenderer.screen) {
+        pixiRenderer.resize(width, height);
+        pixiViewport.resize(width, height);
+      }
     }
   }, [height, pixiRenderer, pixiViewport, width]);
 

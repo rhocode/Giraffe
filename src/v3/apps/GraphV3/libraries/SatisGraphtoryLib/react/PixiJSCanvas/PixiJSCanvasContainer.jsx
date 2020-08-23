@@ -15,14 +15,14 @@ const useStyles = makeStyles(() =>
       gridTemplateAreas: `"canvasElement"`,
       gridTemplateRows: 'minmax(0, 1fr)',
       gridTemplateColumns: '1fr',
-      minWidth: 0,
-      minHeight: 0,
+      minWidth: 1,
+      minHeight: 1,
       position: 'relative',
     },
     canvas: {
       gridArea: 'canvasElement',
-      minWidth: 0,
-      minHeight: 0,
+      minWidth: 1,
+      minHeight: 1,
     },
     relativePositionDiv: {
       position: 'relative',
