@@ -20,7 +20,9 @@ export const generateNewPixiCanvasStore = () => {
     aliasCanvasObjects: new Set() as Set<any>,
     eventEmitter: new EventEmitter(),
     triggerUpdate: 1,
-    selectedMachine: null as unknown as string,
+    selectedMachine: (null as unknown) as string,
+    selectedRecipe: (null as unknown) as string,
+    openModals: 0,
   };
 };
 

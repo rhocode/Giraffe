@@ -1,14 +1,17 @@
 import Button from '@material-ui/core/Button';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import {baseTheme} from 'theme';
-import {getBuildableMachineClassIcon, getBuildingIcon} from 'v3/data/loaders/buildings';
+import { baseTheme } from 'theme';
+import {
+  getBuildableMachineClassIcon,
+  getBuildingIcon,
+} from 'v3/data/loaders/buildings';
 import DrawerDialog from './DrawerDialog';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   default: {
-    zIndex: theme.zIndex.drawer
+    zIndex: theme.zIndex.drawer,
   },
   root: {
     position: 'fixed',
@@ -19,10 +22,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   image: {
-    height: 50
+    height: 50,
   },
   buttonSquare: {
     minWidth: baseTheme.overrides.GraphAddMachineButton.width,
@@ -30,12 +33,12 @@ const useStyles = makeStyles(theme => ({
     maxWidth: baseTheme.overrides.GraphAddMachineButton.width,
     maxHeight: baseTheme.overrides.GraphAddMachineButton.height,
     margin: baseTheme.overrides.GraphAddMachineButton.margin,
-    textTransform: 'none'
+    textTransform: 'none',
   },
   buttonContents: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   buttonContainer: {
     width:
@@ -44,14 +47,21 @@ const useStyles = makeStyles(theme => ({
     height:
       baseTheme.overrides.GraphAddMachineButton.height +
       baseTheme.overrides.GraphAddMachineButton.margin * 2,
-    display: 'inline-block'
-  }
+    display: 'inline-block',
+  },
 }));
 
 function DrawerButton(props) {
   const classes = useStyles();
   const { nodeClass, closeDrawerFunction } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
+
+  let image;
+
+  if (props.type === 'building') {
+    image = getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 256);
+  } else {
+  }
 
   return (
     <React.Fragment>
@@ -61,31 +71,39 @@ function DrawerButton(props) {
           color={props.selected ? 'primary' : undefined}
           variant={props.selected ? 'contained' : undefined}
           className={classes.buttonSquare}
-          onClick={() => setOpenDialog(true)}
+          onClick={() => {
+            setOpenDialog(true);
+          }}
         >
           <div className={classes.buttonContents}>
             {/*<ArrowDropUpIcon/>*/}
-            <img
-              src={getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 256)}
-              className={classes.image}
-              alt={props.label}
-            />
+            <img src={image} className={classes.image} alt={props.label} />
             <Typography>{props.label}</Typography>
           </div>
         </Button>
-        {// workaround to get the open dialog to prevent scrolling
-        openDialog ? (
+        <LazyEvaluationWrapper evaluate={openDialog}>
           <DrawerDialog
+            type={props.type}
             label={props.label}
             nodeClass={nodeClass}
             openDialog={openDialog}
             setOpenDialog={setOpenDialog}
             closeDrawerFunction={closeDrawerFunction}
           />
-        ) : null}
+        </LazyEvaluationWrapper>
       </div>
     </React.Fragment>
   );
 }
 
-export default DrawerButton
+function LazyEvaluationWrapper(props) {
+  const { evaluate } = props;
+
+  if (evaluate) {
+    return props.children;
+  }
+
+  return null;
+}
+
+export default DrawerButton;

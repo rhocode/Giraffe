@@ -96,13 +96,13 @@ function Control(props) {
   } = props;
 
   const actualValue = value && value.value ? value.value : '';
-
   return (
     <TextField
       fullWidth
       label={label}
       helperText={helperText}
       value={actualValue}
+      // InputLabelProps={{ shrink: !!actualValue || !!actualValue }}
       InputProps={{
         inputComponent,
         inputProps: {
@@ -252,16 +252,18 @@ function SelectDropdown(props) {
   return (
     <div className={classes.mainSelect}>
       <Select
+        {...props}
+        isDisabled={props.disabled || false}
         classes={classes}
         className={props.classProp}
         menuPortalTarget={document.body}
         styles={selectStyles}
-        inputId="react-select-single"
+        inputId={props.id}
         helperText={props.helperText}
         options={props.suggestions}
         label={props.label}
         components={components}
-        value={{ label: props.value, value: props.value }}
+        value={props.value}
         onChange={wrappedFunc(props.onChange)}
         onKeyUp={wrappedFunc(props.onKeyUp)}
         onKeyDown={wrappedFunc(props.onKeyDown)}

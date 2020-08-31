@@ -9,20 +9,20 @@ import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
 
 const slugToCustomMachineGroup = (slug: string) => {
-  switch(slug) {
+  switch (slug) {
     case 'building-conveyor-attachment-merger':
     case 'building-conveyor-attachment-splitter':
     case 'building-pipeline-junction-cross':
-      return 'machine-group-logistics'
+      return 'machine-group-logistics';
     case 'building-pipe-storage-tank':
     case 'building-industrial-tank':
-      return 'machine-group-liquid-storage'
+      return 'machine-group-liquid-storage';
     case 'building-storage-container':
-      return 'machine-group-item-storage'
+      return 'machine-group-item-storage';
   }
 
   return slug;
-}
+};
 
 const getBuildableMachinesFn = () => {
   const buildables = new Set(Object.keys(ConnectionsJson));
@@ -109,12 +109,13 @@ export const getBuildableMachineClassNames = lazyFunc(() => {
   return [...getBuildableMachinesByClass().machineClassMap.keys()];
 });
 
-export const getBuildableMachinesFromClassName = (() => {
-  const classListMap = getBuildableMachinesByClass().machineClassMap;
-  return (name: string) => {
-    return classListMap.get(name);
-  };
-})();
+const getBuildableMachinesFromClassNameFn = (name: string) => {
+  return getBuildableMachinesByClass().machineClassMap.get(name);
+};
+
+export const getBuildableMachinesFromClassName = memoize(
+  getBuildableMachinesFromClassNameFn
+);
 
 export const getClassNameFromBuildableMachines = (() => {
   const reverseClassListMap = getBuildableMachinesByClass()

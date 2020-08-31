@@ -23,7 +23,9 @@ function PixiJsContextProvider(props) {
       aliasCanvasObjects: instance?.aliasCanvasObjects,
       eventEmitter: instance?.eventEmitter,
       triggerUpdate: instance?.triggerUpdate,
-      selectedMachine: instance?.selectedMachine
+      selectedMachine: instance?.selectedMachine,
+      selectedRecipe: instance?.selectedRecipe,
+      openModals: instance?.openModals,
     };
   });
 
