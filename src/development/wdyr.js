@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'development') {
   if (whyDidIRender === '') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
     whyDidYouRender(React, {
-      trackAllPureComponents: true,
+      trackAllPureComponents : true,
     });
   }
 }
