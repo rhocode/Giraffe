@@ -1,28 +1,28 @@
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import React from 'react';
-import { baseTheme } from 'theme';
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import { baseTheme } from "theme";
 import {
   getBuildableMachineClassIcon,
   getBuildingIcon,
-} from 'v3/data/loaders/buildings';
-import DrawerDialog from './DrawerDialog';
+} from "v3/data/loaders/buildings";
+import DrawerDialog from "./DrawerDialog";
 
 const useStyles = makeStyles((theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   root: {
-    position: 'fixed',
+    position: "fixed",
     bottom: 0,
     left: 0,
     right: 0,
     height: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    pointerEvents: "none",
   },
   image: {
     height: 50,
@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: baseTheme.overrides.GraphAddMachineButton.width,
     maxHeight: baseTheme.overrides.GraphAddMachineButton.height,
     margin: baseTheme.overrides.GraphAddMachineButton.margin,
-    textTransform: 'none',
+    textTransform: "none",
   },
   buttonContents: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
   },
   buttonContainer: {
     width:
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     height:
       baseTheme.overrides.GraphAddMachineButton.height +
       baseTheme.overrides.GraphAddMachineButton.margin * 2,
-    display: 'inline-block',
+    display: "inline-block",
   },
 }));
 
@@ -58,7 +58,7 @@ function DrawerButton(props) {
 
   let image;
 
-  if (props.type === 'building') {
+  if (props.type === "building") {
     image = getBuildingIcon(getBuildableMachineClassIcon(nodeClass), 256);
   } else {
   }
@@ -68,8 +68,8 @@ function DrawerButton(props) {
       <div className={classes.buttonContainer}>
         <Button
           size="large"
-          color={props.selected ? 'primary' : undefined}
-          variant={props.selected ? 'contained' : undefined}
+          color={props.selected ? "primary" : undefined}
+          variant={props.selected ? "contained" : undefined}
           className={classes.buttonSquare}
           onClick={() => {
             setOpenDialog(true);

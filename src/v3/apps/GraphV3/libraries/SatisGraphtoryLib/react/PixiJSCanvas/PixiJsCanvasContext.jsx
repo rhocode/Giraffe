@@ -1,5 +1,5 @@
-import React from 'react';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import React from "react";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
 
 export const PixiJSCanvasContext = React.createContext(null);
 

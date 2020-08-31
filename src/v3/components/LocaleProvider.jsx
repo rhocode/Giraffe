@@ -1,6 +1,6 @@
-import React from 'react';
-import { getActiveLanguage, getTranslate } from 'react-localize-redux';
-import { connect } from 'react-redux';
+import React from "react";
+import { getActiveLanguage, getTranslate } from "react-localize-redux";
+import { connect } from "react-redux";
 
 export const LocaleContext = React.createContext({
   language: null,

@@ -1,28 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
-import Fab from '@material-ui/core/Fab';
-import { isMobile } from 'react-device-detect';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { motion, useAnimation } from 'framer-motion';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
+import Fab from "@material-ui/core/Fab";
+import { isMobile } from "react-device-detect";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import { motion, useAnimation } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
   fabMotion: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
   },
   fab: {
-    position: 'absolute',
-    bottom: '2em',
-    right: '2em',
+    position: "absolute",
+    bottom: "2em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
   fabMobile: {
-    position: 'absolute',
-    bottom: '7em',
-    right: '2em',
+    position: "absolute",
+    bottom: "7em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
 }));
@@ -48,7 +48,7 @@ function DebugFab() {
 
   React.useEffect(() => {
     if (loaded) {
-      controls.start('visible');
+      controls.start("visible");
     }
   }, [controls, loaded]);
 

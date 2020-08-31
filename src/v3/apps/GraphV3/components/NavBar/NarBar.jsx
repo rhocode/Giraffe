@@ -1,24 +1,24 @@
-import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, withStyles } from '@material-ui/core';
-import React from 'react';
-import Hidden from '@material-ui/core/Hidden';
-import Badge from '@material-ui/core/Badge';
-import satisgraphtory2 from '../../../../../images/satisgraphtory2.png';
-import satisgraphtory2_square from '../../../../../images/satisgraphtory2_square.png';
+import AppBar from "@material-ui/core/AppBar";
+import { Toolbar, withStyles } from "@material-ui/core";
+import React from "react";
+import Hidden from "@material-ui/core/Hidden";
+import Badge from "@material-ui/core/Badge";
+import satisgraphtory2 from "../../../../../images/satisgraphtory2.png";
+import satisgraphtory2_square from "../../../../../images/satisgraphtory2_square.png";
 
-import ShareButton from './ShareButton';
-import SettingsButton from './SettingsButton';
-import HelpButton from './HelpButton';
+import ShareButton from "./ShareButton";
+import SettingsButton from "./SettingsButton";
+import HelpButton from "./HelpButton";
 
 const styles = (theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     minHeight: theme.overrides.GraphAppBar.height,
-    gridArea: 'header',
-    position: 'inherit',
-    top: 'auto',
-    left: 'auto',
-    right: 'auto',
+    gridArea: "header",
+    position: "inherit",
+    top: "auto",
+    left: "auto",
+    right: "auto",
   },
   logo: {
     width: 300,
@@ -46,7 +46,7 @@ function NarBar(props) {
         <Hidden xsDown implementation="css">
           <Badge
             className={classes.margin}
-            badgeContent={'Pre-Alpha'}
+            badgeContent={"Pre-Alpha"}
             color="secondary"
           >
             <img

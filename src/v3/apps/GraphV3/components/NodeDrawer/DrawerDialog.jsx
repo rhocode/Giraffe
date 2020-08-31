@@ -1,25 +1,25 @@
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import React, { useLayoutEffect } from 'react';
-import { BrowserView, isMobile } from 'react-device-detect';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { LocaleContext } from 'v3/components/LocaleProvider';
-import { getBuildableMachinesFromClassName } from 'v3/data/loaders/buildings';
-import { getRecipesByMachine } from 'v3/data/loaders/recipes';
-import SelectDropdown from '../../../../components/SelectDropdown';
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import React, { useLayoutEffect } from "react";
+import { BrowserView, isMobile } from "react-device-detect";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import { LocaleContext } from "v3/components/LocaleProvider";
+import { getBuildableMachinesFromClassName } from "v3/data/loaders/buildings";
+import { getRecipesByMachine } from "v3/data/loaders/recipes";
+import SelectDropdown from "../../../../components/SelectDropdown";
 
 const useStyles = makeStyles((theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   inlineLabel: {
-    display: 'inline-block',
+    display: "inline-block",
     marginRight: 10,
   },
   openDialog: {
@@ -78,7 +78,7 @@ function DropDownWrapper(props) {
         setValue(e.target.value);
       }}
       onKeyDown={(e) => {
-        if (e.target.value === '' || e.target.value === undefined) {
+        if (e.target.value === "" || e.target.value === undefined) {
           setValue(null);
         }
       }}
@@ -98,7 +98,7 @@ function MachineTypeSelector(props) {
 
   const value = choices.filter((option) => option.value === building);
 
-  const displayValue = building ? translate(building) : '';
+  const displayValue = building ? translate(building) : "";
 
   if (choices.length === 1 && displayValue) {
     return (
@@ -115,12 +115,12 @@ function MachineTypeSelector(props) {
   } else {
     return (
       <DropDownWrapper
-        id={'machine-type-selector'}
+        id={"machine-type-selector"}
         disabled={choices.length === 1}
         choices={choices}
-        value={value.length ? value[0] : ''}
+        value={value.length ? value[0] : ""}
         setValue={setBuilding}
-        label={'Building'}
+        label={"Building"}
       />
     );
   }
@@ -133,7 +133,7 @@ function RecipeSelector(props) {
 
   const value = choices.filter((option) => option.value === recipe);
 
-  const displayValue = recipe ? translate(recipe) : '';
+  const displayValue = recipe ? translate(recipe) : "";
 
   if (disabled || !choices.length) {
     return null;
@@ -155,11 +155,11 @@ function RecipeSelector(props) {
   } else {
     return (
       <DropDownWrapper
-        id={'recipe-selector'}
+        id={"recipe-selector"}
         choices={choices}
-        value={value.length ? value[0] : ''}
+        value={value.length ? value[0] : ""}
         setValue={setRecipe}
-        label={'Recipe'}
+        label={"Recipe"}
       />
     );
   }
@@ -199,7 +199,7 @@ function DrawerDialog(props) {
   let recipeChoices = [];
   let resolvedSelectedRecipe = null;
 
-  if (props.type === 'building') {
+  if (props.type === "building") {
     const machineTypes = getBuildableMachinesFromClassName(nodeClass);
     const resolvedMachineOptions = resolveSelectedChoice(
       machineTypes,
@@ -212,7 +212,7 @@ function DrawerDialog(props) {
 
   const [building, setBuilding] = React.useState(resolvedSelectedMachine);
 
-  if (props.type === 'building') {
+  if (props.type === "building") {
     if (building) {
       const recipes = getRecipesByMachine(building);
 
@@ -230,7 +230,7 @@ function DrawerDialog(props) {
 
   let setButtonEnabled = false;
 
-  if (props.type === 'building') {
+  if (props.type === "building") {
     if (building && (recipe || recipeChoices.length === 0)) {
       setButtonEnabled = true;
     }

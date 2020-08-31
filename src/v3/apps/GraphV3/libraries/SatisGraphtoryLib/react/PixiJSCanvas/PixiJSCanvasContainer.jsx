@@ -1,53 +1,53 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import React from 'react';
-import ReactResizeDetector from 'react-resize-detector';
-import NodeDrawer from 'v3/apps/GraphV3/components/NodeDrawer/NodeDrawer';
-import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import AutoSizedLoadingWrapper from "common/react/AutoSizedLoadingWrapper";
+import React from "react";
+import ReactResizeDetector from "react-resize-detector";
+import NodeDrawer from "v3/apps/GraphV3/components/NodeDrawer/NodeDrawer";
+import PixiJSApplication from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication";
 
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
 
 const useStyles = makeStyles(() =>
   createStyles({
     canvasContainer: {
-      display: 'grid',
-      gridArea: 'contentArea',
+      display: "grid",
+      gridArea: "contentArea",
       gridTemplateAreas: `"canvasElement"`,
-      gridTemplateRows: 'minmax(0, 1fr)',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "minmax(0, 1fr)",
+      gridTemplateColumns: "1fr",
       minWidth: 1,
       minHeight: 1,
-      position: 'relative',
+      position: "relative",
     },
     canvas: {
-      gridArea: 'canvasElement',
+      gridArea: "canvasElement",
       minWidth: 1,
       minHeight: 1,
     },
     relativePositionDiv: {
-      position: 'relative',
+      position: "relative",
       top: 0,
       left: 0,
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      height: "100%",
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     centeredLoader: {
       flexGrow: 1,
     },
     childOverlay: {
-      pointerEvents: 'none',
-      position: 'absolute',
+      pointerEvents: "none",
+      position: "absolute",
       top: 0,
       left: 0,
-      height: '100%',
-      width: '100%',
-      display: 'grid',
+      height: "100%",
+      width: "100%",
+      display: "grid",
       gridTemplateAreas: `"bottomActions"`,
-      gridTemplateRows: 'auto',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "auto",
+      gridTemplateColumns: "1fr",
     },
   })
 );

@@ -1,12 +1,12 @@
-import React from 'react';
-import Select from 'react-select';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import PropTypes from 'prop-types';
+import React from "react";
+import Select from "react-select";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import { emphasize } from "@material-ui/core/styles/colorManipulator";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   mainSelect: {
@@ -14,24 +14,24 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   input: {
-    display: 'flex',
+    display: "flex",
     padding: 0,
     margin: 0,
-    height: 'auto',
+    height: "auto",
   },
   valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
     flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    overflow: "hidden",
   },
   chip: {
     margin: theme.spacing(0.5, 0.25),
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
@@ -44,13 +44,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
   },
   placeholder: {
-    position: 'absolute',
+    position: "absolute",
     left: 2,
     bottom: 6,
     fontSize: 16,
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     marginTop: theme.spacing(1),
     left: 0,
@@ -95,7 +95,7 @@ function Control(props) {
     selectProps: { classes, TextFieldProps, helperText, label, value },
   } = props;
 
-  const actualValue = value && value.value ? value.value : '';
+  const actualValue = value && value.value ? value.value : "";
   return (
     <TextField
       fullWidth
@@ -233,8 +233,8 @@ function SelectDropdown(props) {
     input: (base) => ({
       ...base,
       color: theme.palette.text.primary,
-      '& input': {
-        font: 'inherit',
+      "& input": {
+        font: "inherit",
       },
     }),
     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
@@ -268,7 +268,7 @@ function SelectDropdown(props) {
         onKeyUp={wrappedFunc(props.onKeyUp)}
         onKeyDown={wrappedFunc(props.onKeyDown)}
         onKeyPress={wrappedFunc(props.onKeyPress)}
-        placeholder={''}
+        placeholder={""}
       />
     </div>
   );

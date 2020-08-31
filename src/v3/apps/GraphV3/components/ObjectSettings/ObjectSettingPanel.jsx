@@ -1,6 +1,6 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
 import {
   Button,
   ButtonGroup,
@@ -11,19 +11,19 @@ import {
   ExpansionPanelSummary,
   OutlinedInput,
   Typography,
-} from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import CategoryIcon from '@material-ui/icons/Category';
-import DeviceHubIcon from '@material-ui/icons/DeviceHub';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FastForwardIcon from '@material-ui/icons/FastForward';
-import FastRewindIcon from '@material-ui/icons/FastRewind';
-import SelectDropdown from '../../../../../common/react/SelectDropdown';
-import Scrollbar from 'react-scrollbars-custom';
+} from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import CategoryIcon from "@material-ui/icons/Category";
+import DeviceHubIcon from "@material-ui/icons/DeviceHub";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
+import RemoveIcon from "@material-ui/icons/Remove";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FastForwardIcon from "@material-ui/icons/FastForward";
+import FastRewindIcon from "@material-ui/icons/FastRewind";
+import SelectDropdown from "../../../../../common/react/SelectDropdown";
+import Scrollbar from "react-scrollbars-custom";
 
 const styles = (theme) => ({
   drawer: {
@@ -32,10 +32,10 @@ const styles = (theme) => ({
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
   },
   drawerContent: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'absolute',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -45,22 +45,22 @@ const styles = (theme) => ({
   tabContent: {
     padding: 20,
 
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
     flexGrow: 1,
   },
   fab: {
-    position: 'fixed',
-    bottom: '2em',
-    right: '2em',
+    position: "fixed",
+    bottom: "2em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
   fabMobile: {
-    position: 'fixed',
-    bottom: '7em',
-    right: '2em',
+    position: "fixed",
+    bottom: "7em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
   overclockTextField: {
@@ -75,10 +75,10 @@ const styles = (theme) => ({
     marginBottom: 10,
   },
   expandPanel: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   tiers: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   buttonText: {
     // color: 'white',
@@ -96,11 +96,11 @@ const CustomOutlinedInput = ({
 const StyledInput = withStyles(() => ({
   input: {
     borderRadius: 0,
-    textAlign: 'center',
+    textAlign: "center",
     paddingLeft: 0,
     paddingRight: 0,
     width: 80,
-    height: '0em',
+    height: "0em",
   },
   root: {
     padding: 0,
@@ -121,7 +121,7 @@ function ObjectSettingPanel(props) {
     <Drawer
       //variant={isMobile ? "permanent" : "temporary" }
       variant="temporary"
-      anchor={'right'}
+      anchor={"right"}
       // open={drawerOpen}
       open={true}
       onClose={() => setDrawerOpen(false)}

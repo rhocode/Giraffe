@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 
-import GraphAppBar from './components/GraphAppBar';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import GraphCanvasLoadable from './components/GraphCanvasLoadable';
-import GraphNodeDrawer from './components/GraphNodeDrawer';
-import { setMachineClasses } from '../../redux/actions/Graph/graphActions';
-import { getPlaceableMachineClasses } from './graphql/queries';
-import { getActiveLanguage, getTranslate } from 'react-localize-redux';
-import GraphRightPanel from './components/GraphRightPanel';
-import GraphRightFab from './components/GraphRightFab';
+import GraphAppBar from "./components/GraphAppBar";
+import { connect } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import GraphCanvasLoadable from "./components/GraphCanvasLoadable";
+import GraphNodeDrawer from "./components/GraphNodeDrawer";
+import { setMachineClasses } from "../../redux/actions/Graph/graphActions";
+import { getPlaceableMachineClasses } from "./graphql/queries";
+import { getActiveLanguage, getTranslate } from "react-localize-redux";
+import GraphRightPanel from "./components/GraphRightPanel";
+import GraphRightFab from "./components/GraphRightFab";
 
 const styles = (theme) => {
   console.log(theme);
@@ -20,18 +20,18 @@ const styles = (theme) => {
       minHeight: theme.overrides.GraphAppBar.height,
     },
     container: {
-      background: '#1D1E20',
-      overflow: 'hidden',
-      gridArea: 'body',
-      display: 'grid',
+      background: "#1D1E20",
+      overflow: "hidden",
+      gridArea: "body",
+      display: "grid",
       gridTemplateAreas: `"header"
         "contentArea"
         "bottomActions"`,
-      gridTemplateRows: 'auto minmax(0, 1fr) auto',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "auto minmax(0, 1fr) auto",
+      gridTemplateColumns: "1fr",
     },
     thing1: {
-      gridArea: 'bottomActions',
+      gridArea: "bottomActions",
     },
   };
 };
@@ -46,7 +46,7 @@ class GraphApp extends Component {
 
     const graphId = (match && match.params && match.params.graphId) || null;
 
-    getPlaceableMachineClasses(language.code === 'discord').then((classes) => {
+    getPlaceableMachineClasses(language.code === "discord").then((classes) => {
       console.error(classes);
       this.props.setMachineClasses(classes);
     });
@@ -56,7 +56,7 @@ class GraphApp extends Component {
     // );
 
     if (graphId) {
-      fetch('https://api.myjson.com/bins/' + graphId)
+      fetch("https://api.myjson.com/bins/" + graphId)
         .then((resp) => resp.json())
         .then((json) => {
           this.setState({ ready: true, helmet: json });
@@ -65,10 +65,10 @@ class GraphApp extends Component {
           this.setState({
             ready: true,
             helmet: {
-              title: 'SatisGraphtory | Factory Building Graph Simulation',
+              title: "SatisGraphtory | Factory Building Graph Simulation",
               description:
-                'Feature-rich factory optimization and calculation tool for Satisfactory game',
-              image: 'https://i.imgur.com/DPEmxE0.png',
+                "Feature-rich factory optimization and calculation tool for Satisfactory game",
+              image: "https://i.imgur.com/DPEmxE0.png",
             },
           });
         });
@@ -76,10 +76,10 @@ class GraphApp extends Component {
       this.setState({
         ready: true,
         helmet: {
-          title: 'SatisGraphtory | Factory Building Graph Simulation',
+          title: "SatisGraphtory | Factory Building Graph Simulation",
           description:
-            'Feature-rich factory optimization and calculation tool for Satisfactory game',
-          image: 'https://i.imgur.com/DPEmxE0.png',
+            "Feature-rich factory optimization and calculation tool for Satisfactory game",
+          image: "https://i.imgur.com/DPEmxE0.png",
         },
       });
     }
