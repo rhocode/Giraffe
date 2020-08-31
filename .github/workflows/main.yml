@@ -12,6 +12,8 @@ jobs:
         node-version: '12.x'
     - name: Install Deps
       run: yarn install
+    - name: Installs subdirectories
+      run: yarn run checkout-data-landing
     - name: Runs Tests
       run: yarn run test
       env:
