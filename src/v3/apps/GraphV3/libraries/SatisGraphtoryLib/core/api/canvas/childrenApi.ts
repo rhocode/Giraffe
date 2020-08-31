@@ -44,10 +44,6 @@ export const removeChild = (id: string, canvasId: string) => {
   });
 };
 
-export const getChildrenFromState = (state: any): any[] => {
-  return state.children;
-};
-
 export function getTypedChildrenFromState(state: any, type: any): any[] {
   return state.children.filter((item: any) => item instanceof type);
 }

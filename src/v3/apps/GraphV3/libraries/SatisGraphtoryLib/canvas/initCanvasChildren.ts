@@ -71,7 +71,7 @@ const initCanvasChildren = (
       ),
     };
 
-    console.log(nodeData);
+    // console.log(nodeData);
 
     connections.push(nodeData.id);
 

@@ -14,6 +14,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 
 import DomainIcon from '@material-ui/icons/Domain';
 import React from 'react';
+import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getBuildableMachineClassNames } from 'v3/data/loaders/buildings';
@@ -58,18 +59,39 @@ const styles = (theme) => ({
   },
 });
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <React.Fragment>{children}</React.Fragment>}
+    </div>
+  );
+}
+
 function NodeDrawer(props) {
   const { classes } = props;
   const [value, setValue] = React.useState(0);
 
+  const { selectedMachine, selectedRecipe, mouseState } = React.useContext(
+    PixiJSCanvasContext
+  );
+
   const { translate } = React.useContext(LocaleContext);
-  const drawerOpen = true; //useStoreState(graphAppStore, s => s.mouseMode === 'add');
 
-  const { selectedMachine } = React.useContext(PixiJSCanvasContext);
+  const drawerOpen = mouseState === MouseState.ADD;
 
-  console.log(selectedMachine);
-
-  const placeableMachineClasses = getBuildableMachineClassNames();
+  const placeableMachineClasses = getBuildableMachineClassNames().sort(
+    (a, b) => {
+      return translate(a).localeCompare(translate(b));
+    }
+  );
 
   const [expanded, setExpanded] = React.useState(true);
 
@@ -79,15 +101,15 @@ function NodeDrawer(props) {
 
   const usedClass = drawerOpen ? classes.drawer : classes.noDisplay;
 
-  // ?????????????
-  const selectedText = translate('selected_none');
-  // selectedMachine
-  // ? [
-  //     translate(selectedMachine.class.name),
-  //     translate(selectedMachine.tier),
-  //     translate(selectedMachine.recipe),
-  //   ].join(' ')
-  // : translate('selected_none');
+  let selectedMachineText = selectedMachine ? translate(selectedMachine) : '';
+  let selectedRecipeText = selectedRecipe
+    ? translate(selectedRecipe)
+    : 'No Recipe';
+
+  const selectedText =
+    selectedMachine || selectedRecipe
+      ? `${selectedMachineText} - ${selectedRecipeText}`
+      : translate('selected_none');
 
   return (
     <Drawer
@@ -114,7 +136,7 @@ function NodeDrawer(props) {
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails className={classes.expandPanel}>
-          {value === 0 && (
+          <TabPanel value={value} index={0}>
             <TabContainer {...props} classes={classes}>
               {placeableMachineClasses.map((buildingSlug) => {
                 return (
@@ -123,17 +145,18 @@ function NodeDrawer(props) {
                     key={buildingSlug}
                     label={translate(buildingSlug)}
                     closeDrawerFunction={setExpanded}
+                    type={'building'}
                   />
                 );
               })}
             </TabContainer>
-          )}
-          {value === 1 && (
+          </TabPanel>
+          <TabPanel value={value} index={1}>
             <TabContainer classes={classes}>
               <TextField id="resource-search" label="Find Resource" fullWidth />
               <Button>Add...</Button>
             </TabContainer>
-          )}
+          </TabPanel>
           <Tabs
             variant="fullWidth"
             scrollButtons="auto"

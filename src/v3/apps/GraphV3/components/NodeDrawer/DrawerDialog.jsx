@@ -1,18 +1,20 @@
-import React, { useLayoutEffect } from 'react';
-import { withStyles } from '@material-ui/core';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
-import InputLabel from '@material-ui/core/InputLabel';
-import { BrowserView, isMobile, MobileView } from 'react-device-detect';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import React, { useLayoutEffect } from 'react';
+import { BrowserView, isMobile } from 'react-device-detect';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
-import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { getBuildableMachinesFromClassName } from 'v3/data/loaders/buildings';
+import { getRecipesByMachine } from 'v3/data/loaders/recipes';
 import SelectDropdown from '../../../../components/SelectDropdown';
-import { getRecipesByMachineClass } from 'v3/data/loaders/buildings';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
@@ -26,39 +28,213 @@ const styles = (theme) => ({
   select: {
     marginBottom: 10,
   },
-});
+}));
 
-const addOpenedModal = () =>
-  graphAppStore.update((s) => {
-    s.openedModal += 1;
-  });
+function OpenModalTrigger() {
+  const { pixiCanvasStateId } = React.useContext(PixiJSCanvasContext);
 
-const removeOpenedModal = () =>
-  graphAppStore.update((s) => {
-    s.openedModal -= 1;
-  });
+  useLayoutEffect(() => {
+    pixiJsStore.update((s) => {
+      const instance = s[pixiCanvasStateId];
+      instance.openModals += 1;
+    });
+    return () => {
+      pixiJsStore.update((s) => {
+        const instance = s[pixiCanvasStateId];
+        instance.openModals -= 1;
+      });
+    };
+  }, [pixiCanvasStateId]);
 
-function DrawerDialog(props) {
+  return null;
+}
+
+function DropDownWrapper(props) {
   const {
-    classes,
-    nodeClass,
-    openDialog,
-    setOpenDialog,
-    closeDrawerFunction,
+    setValue,
+    value,
+    choices,
+    label,
+    valueLabel,
+    id,
+    noOptionsMessage,
   } = props;
+
+  return (
+    <SelectDropdown
+      {...props}
+      id={id}
+      selectProps={{
+        classes: {
+          paper: {
+            zIndex: 9999,
+          },
+          valueContainer: {
+            zIndex: 9999,
+          },
+        },
+      }}
+      onChange={(e) => {
+        setValue(e.target.value);
+      }}
+      onKeyDown={(e) => {
+        if (e.target.value === '' || e.target.value === undefined) {
+          setValue(null);
+        }
+      }}
+      noOptionsMessage={noOptionsMessage}
+      value={value}
+      valueLabel={valueLabel}
+      label={label}
+      suggestions={choices}
+    />
+  );
+}
+
+function MachineTypeSelector(props) {
+  const { building, setBuilding, choices } = props;
 
   const { translate } = React.useContext(LocaleContext);
 
-  useLayoutEffect(() => {
-    addOpenedModal();
-    return () => removeOpenedModal();
-  }, []);
+  const value = choices.filter((option) => option.value === building);
 
-  const [resource, setResource] = React.useState('');
+  const displayValue = building ? translate(building) : '';
 
-  const recipes = getRecipesByMachineClass(nodeClass).map(([slug, recipe]) => {
-    return { value: slug, label: recipe.name };
+  if (choices.length === 1 && displayValue) {
+    return (
+      <TextField
+        id="BuildingLabel"
+        label="Building"
+        fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
+        value={displayValue}
+      />
+    );
+  } else {
+    return (
+      <DropDownWrapper
+        id={'machine-type-selector'}
+        disabled={choices.length === 1}
+        choices={choices}
+        value={value.length ? value[0] : ''}
+        setValue={setBuilding}
+        label={'Building'}
+      />
+    );
+  }
+}
+
+function RecipeSelector(props) {
+  const { recipe, setRecipe, choices, disabled } = props;
+
+  const { translate } = React.useContext(LocaleContext);
+
+  const value = choices.filter((option) => option.value === recipe);
+
+  const displayValue = recipe ? translate(recipe) : '';
+
+  if (disabled || !choices.length) {
+    return null;
+  }
+
+  if (choices.length === 1 && displayValue) {
+    return (
+      <TextField
+        disabled={disabled}
+        id="RecipeLabel"
+        label="Recipe"
+        fullWidth
+        InputProps={{
+          readOnly: true,
+        }}
+        value={displayValue}
+      />
+    );
+  } else {
+    return (
+      <DropDownWrapper
+        id={'recipe-selector'}
+        choices={choices}
+        value={value.length ? value[0] : ''}
+        setValue={setRecipe}
+        label={'Recipe'}
+      />
+    );
+  }
+}
+
+function resolveSelectedChoice(machineTypes, translate, selectedMachine) {
+  const choices = machineTypes.map((slug) => {
+    return { value: slug, label: translate(slug) };
   });
+
+  const filteredChoices =
+    choices.length === 1
+      ? choices
+      : choices.filter((item) => item.value === selectedMachine);
+  const resolvedSelectedChoice = filteredChoices.length
+    ? filteredChoices[0].value
+    : null;
+  return { choices, resolvedSelectedChoice };
+}
+
+function DrawerDialog(props) {
+  const { nodeClass, openDialog, setOpenDialog, closeDrawerFunction } = props;
+
+  const classes = useStyles();
+
+  const { translate } = React.useContext(LocaleContext);
+
+  const {
+    selectedMachine,
+    selectedRecipe,
+    pixiCanvasStateId,
+  } = React.useContext(PixiJSCanvasContext);
+
+  let resolvedSelectedMachine = null;
+  let machineChoices;
+
+  let recipeChoices = [];
+  let resolvedSelectedRecipe = null;
+
+  if (props.type === 'building') {
+    const machineTypes = getBuildableMachinesFromClassName(nodeClass);
+    const resolvedMachineOptions = resolveSelectedChoice(
+      machineTypes,
+      translate,
+      selectedMachine
+    );
+    machineChoices = resolvedMachineOptions.choices;
+    resolvedSelectedMachine = resolvedMachineOptions.resolvedSelectedChoice;
+  }
+
+  const [building, setBuilding] = React.useState(resolvedSelectedMachine);
+
+  if (props.type === 'building') {
+    if (building) {
+      const recipes = getRecipesByMachine(building);
+
+      const resolvedRecipeOptions = resolveSelectedChoice(
+        recipes,
+        translate,
+        selectedRecipe
+      );
+      recipeChoices = resolvedRecipeOptions.choices;
+      resolvedSelectedRecipe = resolvedRecipeOptions.resolvedSelectedChoice;
+    }
+  }
+
+  const [recipe, setRecipe] = React.useState(resolvedSelectedRecipe);
+
+  let setButtonEnabled = false;
+
+  if (props.type === 'building') {
+    if (building && (recipe || recipeChoices.length === 0)) {
+      setButtonEnabled = true;
+    }
+  }
 
   return (
     <Dialog
@@ -70,87 +246,32 @@ function DrawerDialog(props) {
     >
       <DialogTitle>{props.label} Settings</DialogTitle>
       <DialogContent className={classes.openDialog}>
-        <InputLabel className={classes.inlineLabel} htmlFor="upgradeLevel">
-          Tier:{' '}
-        </InputLabel>
+        <OpenModalTrigger />
         <BrowserView>
-          {/*<Select*/}
-          {/*  value={upgradeLevel}*/}
-          {/*  className={classes.select}*/}
-          {/*  disabled={!nodeClass.hasUpgrades}*/}
-          {/*  onChange={e => setUpgradeLevel(e.target.value)}*/}
-          {/*  inputProps={{*/}
-          {/*    name: 'upgradeLevel',*/}
-          {/*    id: 'upgradeLevel'*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  {nodeClass.instances.map(instance => {*/}
-          {/*    const tier = instance.tier;*/}
-          {/*    return (*/}
-          {/*      <MenuItem key={tier.name} value={tier.name}>*/}
-          {/*        {translate(tier.name)}*/}
-          {/*      </MenuItem>*/}
-          {/*    );*/}
-          {/*  })}*/}
-          {/*</Select>*/}
+          <MachineTypeSelector
+            building={building}
+            setBuilding={setBuilding}
+            choices={machineChoices}
+          />
+          <RecipeSelector
+            disabled={!building}
+            recipe={recipe}
+            setRecipe={setRecipe}
+            choices={recipeChoices}
+          />
         </BrowserView>
-        <MobileView>
-          {/*<NativeSelect*/}
-          {/*  value={upgradeLevel}*/}
-          {/*  className={classes.select}*/}
-          {/*  disabled={!nodeClass.hasUpgrades}*/}
-          {/*  onChange={e => setUpgradeLevel(e.target.value)}*/}
-          {/*  inputProps={{*/}
-          {/*    name: 'upgradeLevel',*/}
-          {/*    id: 'upgradeLevel'*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  {nodeClass.instances.map(instance => {*/}
-          {/*    const tier = instance.tier;*/}
-          {/*    return (*/}
-          {/*      <option key={tier.name} value={tier.name}>*/}
-          {/*        {translate(tier.name)}*/}
-          {/*      </option>*/}
-          {/*    );*/}
-          {/*  })}*/}
-          {/*</NativeSelect>*/}
-        </MobileView>
-
-        {/*<DialogContentText>Optional: Select resource</DialogContentText>*/}
-        <SelectDropdown
-          selectProps={{
-            classes: {
-              paper: {
-                zIndex: 9999,
-              },
-              valueContainer: {
-                zIndex: 9999,
-              },
-            },
-          }}
-          onChange={(e) => {
-            setResource(e.target.value);
-          }}
-          classProp={classes.textField}
-          onKeyDown={(e) => {
-            if (e.target.value === '' || e.target.value === undefined) {
-              setResource('');
-            }
-          }}
-          value={resource === '' ? '' : translate(resource)}
-          label={'Optional: Recipe Name'}
-          suggestions={recipes}
-        />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
         <Button
+          disabled={!setButtonEnabled}
           color="primary"
           onClick={() => {
-            graphAppStore.update((s) => {
-              s.selectedMachine = {
-                recipe: resource,
-              };
+            pixiJsStore.update((s) => {
+              const instance = s[pixiCanvasStateId];
+
+              instance.selectedMachine = building;
+              instance.selectedRecipe = recipe;
             });
             setOpenDialog(false);
             closeDrawerFunction(false);
@@ -163,4 +284,4 @@ function DrawerDialog(props) {
   );
 }
 
-export default withStyles(styles)(DrawerDialog);
+export default DrawerDialog;

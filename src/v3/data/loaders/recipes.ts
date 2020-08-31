@@ -196,30 +196,32 @@ const getMachineCraftableRecipeDefinitionListFn = () => {
 };
 
 const getRecipesByMachineFn = (machineSlug: string) => {
-  return getRecipeList().filter(({ producedIn }) => {
-    return (
-      producedIn.filter((item: string) => {
-        return item === machineSlug;
-      }).length > 0
-    );
-  });
+  return getRecipeList()
+    .filter(({ producedIn }) => {
+      return (
+        producedIn.filter((item: string) => {
+          return item === machineSlug;
+        }).length > 0
+      );
+    })
+    .map((item) => item.slug);
 };
 
 export const getRecipesByMachine = memoize(getRecipesByMachineFn);
 
-const getRecipesByMachineTypeFn = (machineType: string) => {
-  const machineSlugs = new Set(getBuildingsByType(machineType));
-
-  return getRecipeList().filter(({ producedIn }) => {
-    return (
-      producedIn.filter((item: string) => {
-        return machineSlugs.has(item);
-      }).length > 0
-    );
-  });
-};
-
-export const getRecipesByMachineType = memoize(getRecipesByMachineTypeFn);
+// const getRecipesByMachineTypeFn = (machineType: string) => {
+//   const machineSlugs = new Set(getBuildingsByType(machineType));
+//
+//   return getRecipeList().filter(({ producedIn }) => {
+//     return (
+//       producedIn.filter((item: string) => {
+//         return machineSlugs.has(item);
+//       }).length > 0
+//     );
+//   }).map(item => item.slug);
+// };
+//
+// export const getRecipesByMachineType = memoize(getRecipesByMachineTypeFn);
 
 export const getMachinesFromMachineCraftableRecipe = (slug: string) => {
   return (getAllRecipes() as any)[slug].producedIn.filter(

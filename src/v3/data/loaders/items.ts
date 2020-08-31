@@ -53,6 +53,19 @@ const getItemListFn = () => {
   });
 };
 
+const imageMap = new Map<string, any>();
+
+const preloadAllIcons = () => {
+  Object.entries(imageRepo).forEach(([name, src]) => {
+    const img = document.createElement('img');
+    img.src = src; // Assigning the img src immediately requests the image.
+    imageMap.set(name, img);
+  });
+};
+
+// Preload all icons here
+preloadAllIcons();
+
 export const getItemIcon = (itemSlug: string, size: number = 64) => {
   const imageSlug = `sg${getBuildingImageName(itemSlug)}_${size}`.replace(
     /-/g,

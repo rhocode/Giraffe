@@ -10,13 +10,16 @@ import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
   addChild,
+  addObjectChildren,
   getChildFromStateById,
   getMultiTypedChildrenFromState,
   removeChild,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
+import populateNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNodeData';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { LocaleContext } from 'v3/components/LocaleProvider';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -27,8 +30,8 @@ const useStyles = makeStyles(() =>
       WebkitUserSelect: 'none',
       KhtmlUserSelect: 'none',
       MozUserSelect: 'none',
-      userSelect: 'none'
-    }
+      userSelect: 'none',
+    },
   })
 );
 
@@ -44,6 +47,9 @@ function PixiJSApplication(props) {
     canvasReady,
     aliasCanvasObjects,
     eventEmitter,
+    openModals,
+    selectedRecipe,
+    selectedMachine,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -54,6 +60,8 @@ function PixiJSApplication(props) {
   const lasTargetIsCanvas = React.useRef(false);
   const lastMode = React.useRef();
   const keypressHandled = React.useRef(false);
+
+  const { translate } = React.useContext(LocaleContext);
 
   React.useEffect(() => {
     const mouseDownEvent = function (event) {
@@ -211,7 +219,10 @@ function PixiJSApplication(props) {
     previousMouseState.current = mouseState;
 
     pixiViewport.plugins.pause('drag');
-    pixiViewport.plugins.resume('wheel');
+    pixiViewport.plugins.pause('wheel');
+    if (openModals === 0) {
+      pixiViewport.plugins.resume('wheel');
+    }
     pixiViewport.plugins.pause('pinch');
     viewportChildContainer.interactive = false;
     viewportChildContainer.buttonMode = false;
@@ -281,7 +292,9 @@ function PixiJSApplication(props) {
       ]);
     } else if (mouseState === MouseState.MOVE) {
       pixiViewport.plugins.resume('drag');
-      pixiViewport.plugins.resume('wheel');
+      if (openModals === 0) {
+        pixiViewport.plugins.resume('wheel');
+      }
       pixiViewport.plugins.resume('pinch');
 
       pixiJsStore.update([
@@ -301,6 +314,32 @@ function PixiJSApplication(props) {
           }
         },
       ]);
+    } else if (mouseState === MouseState.ADD) {
+      viewportChildContainer.interactive = true;
+      viewportChildContainer.buttonMode = true;
+      viewportChildContainer.hitArea = pixiViewport.hitArea;
+
+      viewportChildContainer.on('pointerdown', function (event) {
+        event.stopPropagation();
+
+        const newPos = event.data.getLocalPosition(this.parent);
+
+        console.log(selectedRecipe, selectedMachine);
+        if (!selectedMachine) return;
+
+        const nodeData = populateNodeData(
+          selectedMachine,
+          selectedRecipe,
+          100,
+          newPos.x,
+          newPos.y,
+          translate
+        );
+        console.log(nodeData);
+        addObjectChildren([nodeData], pixiCanvasStateId);
+      });
+
+      pixiJsStore.update(deferredRemoveChildEvents);
     }
   }, [
     canvasReady,
@@ -310,18 +349,30 @@ function PixiJSApplication(props) {
     pixiCanvasStateId,
     pixiViewport,
     viewportChildContainer,
+    openModals,
+    selectedRecipe,
+    selectedMachine,
+    translate,
   ]);
 
   React.useEffect(() => {
     if (pixiRenderer) {
       // Are both necessary?
-      pixiRenderer.resize(width, height);
-      pixiViewport.resize(width, height);
+      if (width && height && pixiRenderer.screen) {
+        pixiRenderer.resize(width, height);
+        pixiViewport.resize(width, height);
+        if (viewportChildContainer) {
+          viewportChildContainer.hitArea = pixiViewport.hitArea;
+        }
+      }
     }
-  }, [height, pixiRenderer, pixiViewport, width]);
+  }, [height, pixiRenderer, pixiViewport, viewportChildContainer, width]);
 
   return (
-    <canvas className={props.hidden ? styles.hidden : styles.canvasStyles} ref={canvasRef} />
+    <canvas
+      className={props.hidden ? styles.hidden : styles.canvasStyles}
+      ref={canvasRef}
+    />
   );
 }
 
