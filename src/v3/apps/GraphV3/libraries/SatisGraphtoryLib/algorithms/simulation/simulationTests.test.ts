@@ -1,14 +1,4 @@
-import {getExtractorRecipes} from "v3/data/loaders/recipes";
-
-const recipes = getExtractorRecipes();
-
-const toMs = (seconds: number) => {
-  return seconds * 1000;
-}
-
-// it('Creates a manufacturer', () => {
-//   const manufacturer = new Manufacturer();
-// });
+it("Doesn't do anything", () => {});
 
 // it('Creates a ResourceExtractor', () => {
 //   const possibleRecipes = getRecipesByMachineType('EXTRACTOR');

@@ -2,7 +2,7 @@ import SimulatableConnection, {
   OutputPacket,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/SimulatableConnection';
 
-export default class Manufacturer extends SimulatableConnection {
+export default class Splitter extends SimulatableConnection {
   inputIndex = 0;
 
   maxQueuedStackSize = 10;
