@@ -1,8 +1,8 @@
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { withStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -119,23 +119,23 @@ function NodeDrawer(props) {
       classes={{ paper: usedClass }}
       variant="persistent"
     >
-      <ExpansionPanel
+      <Accordion
         expanded={expanded}
         onChange={(event, expanded) => {
           setExpanded(expanded);
         }}
         TransitionProps={{ unmountOnExit: true }}
       >
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={drawerOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         >
           <Typography>
             {`${translate('currently_selected')} `}
             <span className={classes.current}>{selectedText}</span>
           </Typography>
-        </ExpansionPanelSummary>
+        </AccordionSummary>
 
-        <ExpansionPanelDetails className={classes.expandPanel}>
+        <AccordionDetails className={classes.expandPanel}>
           <TabPanel value={value} index={0}>
             <TabContainer {...props} classes={classes}>
               {placeableMachineClasses.map((buildingSlug) => {
@@ -169,8 +169,8 @@ function NodeDrawer(props) {
             <Tab label="By Machine" icon={<DomainIcon />} />
             <Tab label="By Resource" icon={<CategoryIcon />} />
           </Tabs>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </Drawer>
   );
 }

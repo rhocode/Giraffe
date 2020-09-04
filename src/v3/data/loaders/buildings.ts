@@ -1,12 +1,15 @@
 import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
+import Connections from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
 import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
-import Connections from 'data/Connections.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
+import stringGen from 'v3/utils/stringGen';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 const slugToCustomMachineGroup = (slug: string) => {
   switch (slug) {
@@ -61,6 +64,8 @@ const getBuildableMachinesFn = () => {
   const allMachines: string[] = [...machineByType.values()].flat(1);
   const machineClassMap = new Map<string, string[]>();
   const machineClassImageMap = new Map<string, string>();
+  const upgradePathMap = new Map<string, string[]>();
+  const reverseUpgradePathMap = new Map<string, string>();
 
   allMachines.forEach((machine) => {
     const markRegex = /^(.*)-mk[0-9]+(-.*)?$/;
@@ -73,7 +78,14 @@ const getBuildableMachinesFn = () => {
       if (!machineClassMap.get(resolvedSlug)) {
         machineClassMap.set(resolvedSlug, []);
       }
+
+      if (!upgradePathMap.get(slug)) {
+        upgradePathMap.set(slug, []);
+      }
       machineClassMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(slug)!.push(machine);
+      upgradePathMap.get(slug)!.sort();
+      reverseUpgradePathMap.set(machine, slug);
     } else {
       const resolvedSlug = slugToCustomMachineGroup(machine);
       if (!machineClassMap.get(resolvedSlug)) {
@@ -100,6 +112,8 @@ const getBuildableMachinesFn = () => {
     machineClassMap,
     machineClassImageMap,
     machineClassReverseMap,
+    upgradePathMap,
+    reverseUpgradePathMap,
   };
 };
 
@@ -184,30 +198,61 @@ export const getBuildingDefinition = (buildingSlug: string) => {
   return (BuildingJson as any)[buildingSlug];
 };
 
-export const getNumOutputsForBuilding = (
-  buildingSlug: string,
-  resourceForm: EResourceForm
-) => {
-  switch (resourceForm) {
-    case EResourceForm.RF_SOLID:
-      return (Connections as any)[buildingSlug].outputBelts || 0;
-    case EResourceForm.RF_LIQUID:
-      return (Connections as any)[buildingSlug].outputPipes || 0;
-    default:
-      throw new Error('Invalid resourceForm for building ' + resourceForm);
+export const getTier = (buildingSlug: string) => {
+  const base = getBuildableMachinesByClass();
+  const map = base.reverseUpgradePathMap;
+  if (map.get(buildingSlug)) {
+    const mainClass = map.get(buildingSlug)!;
+    return base.machineClassMap.get(mainClass)!.indexOf(buildingSlug) + 1;
+  } else {
+    return 0;
   }
 };
 
-export const getNumInputsForBuilding = (
-  buildingSlug: string,
-  resourceForm: EResourceForm
-) => {
-  switch (resourceForm) {
-    case EResourceForm.RF_SOLID:
-      return (Connections as any)[buildingSlug].inputBelts || 0;
-    case EResourceForm.RF_LIQUID:
-      return (Connections as any)[buildingSlug].inputPipes || 0;
-    default:
-      throw new Error('Invalid resourceForm for building ' + resourceForm);
+export const getOutputsForBuilding = (buildingSlug: string) => {
+  const building = (Connections as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+  for (let i = 0; i < building.outputBelts || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_SOLID,
+        id: stringGen(10),
+      })
+    );
   }
+
+  for (let i = 0; i < building.outputPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: stringGen(10),
+      })
+    );
+  }
+
+  return outputObject;
+};
+
+export const getInputsForBuilding = (buildingSlug: string) => {
+  const building = (Connections as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+  for (let i = 0; i < building.inputBelts || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_SOLID,
+        id: stringGen(10),
+      })
+    );
+  }
+
+  for (let i = 0; i < building.inputPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: stringGen(10),
+      })
+    );
+  }
+
+  return outputObject;
 };

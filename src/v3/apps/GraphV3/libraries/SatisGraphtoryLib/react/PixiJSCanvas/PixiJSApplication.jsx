@@ -335,7 +335,7 @@ function PixiJSApplication(props) {
           newPos.y,
           translate
         );
-        console.log(nodeData);
+
         addObjectChildren([nodeData], pixiCanvasStateId);
       });
 
@@ -361,8 +361,14 @@ function PixiJSApplication(props) {
       if (width && height && pixiRenderer.screen) {
         pixiRenderer.resize(width, height);
         pixiViewport.resize(width, height);
+        console.log('RESIZED');
         if (viewportChildContainer) {
-          viewportChildContainer.hitArea = pixiViewport.hitArea;
+          viewportChildContainer.hitArea = new PIXI.Rectangle(
+            0,
+            0,
+            width,
+            height
+          );
         }
       }
     }

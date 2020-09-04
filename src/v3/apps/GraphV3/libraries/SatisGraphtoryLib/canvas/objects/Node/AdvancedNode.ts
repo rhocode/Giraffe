@@ -8,7 +8,7 @@ import {
   TIER_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
-import { getTier } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
+import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
 
 import { createImageIcon } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/ImageIcon';
@@ -37,31 +37,26 @@ import {
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import {
-  addDotsToNode,
-  calculateNodeOffset,
+  calculateConnectionNodeOffset,
+  Dot,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import EventEmitter from 'eventemitter3';
 import { Events } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Events';
 import initializeMap from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/initializeMap';
+import EdgeTemplate, {
+  EdgeAttachmentSide,
+  EdgeType,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 export default class AdvancedNode extends NodeTemplate {
-  inputMapping: any[] = [];
-  outputMapping: any[] = [];
-  inputX: number = 0;
-  outputX: number = 0;
+  connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
+  connectionsDirectionMap: Map<EdgeTemplate, EdgeType> = new Map();
+  connectionsContainer: PIXI.Container = new PIXI.Container();
 
   constructor(props: SatisGraphtoryNodeProps) {
     super(props);
 
-    const {
-      recipeLabel,
-      tier,
-      overclock,
-      machineName,
-      machineLabel,
-      inputs,
-      outputs,
-    } = props;
+    const { recipeLabel, tier, overclock, machineName, machineLabel } = props;
 
     const container = this.container;
 
@@ -108,7 +103,7 @@ export default class AdvancedNode extends NodeTemplate {
     container.addChild(machineImage);
 
     const levelText = createText(
-      getTier(tier),
+      getTierText(tier),
       TIER_STYLE(),
       TIER_OFFSET_X,
       TIER_OFFSET_Y
@@ -126,23 +121,99 @@ export default class AdvancedNode extends NodeTemplate {
 
     container.addChild(efficiencyText);
 
-    const inputDotOffsets = calculateNodeOffset(inputs, 0, NODE_HEIGHT);
-    const outputDotOffsets = calculateNodeOffset(outputs, 0, NODE_HEIGHT);
+    this.recalculateConnections();
 
-    // Create Input Dots
-    addDotsToNode(inputDotOffsets, 0, container, 'inCircle');
-
-    // Create Output Dots
-    addDotsToNode(outputDotOffsets, NODE_WIDTH, container, 'outCircle');
-
-    this.inputMapping = inputDotOffsets;
-    this.inputX = 0;
-
-    this.outputMapping = outputDotOffsets;
-    this.outputX = NODE_WIDTH;
+    container.addChild(this.connectionsContainer);
   }
 
   eventFunctions = new Map<string, any[]>();
+
+  recalculateConnections() {
+    this.connectionsMap.clear();
+    this.connectionsOffsetMap.clear();
+    this.connectionsContainer.removeChildren();
+
+    for (const inputEdge of this.inputConnections) {
+      const side = inputEdge.targetNodeAttachmentSide;
+      let connectionsArray: EdgeTemplate[] = [];
+      if (this.connectionsMap.get(side)) {
+        connectionsArray = this.connectionsMap.get(side)!;
+      }
+      connectionsArray.push(inputEdge);
+      this.connectionsMap.set(side, connectionsArray);
+      this.connectionsDirectionMap.set(inputEdge, EdgeType.INPUT);
+    }
+
+    for (const outputEdge of this.outputConnections) {
+      const side = outputEdge.sourceNodeAttachmentSide;
+      let connectionsArray: EdgeTemplate[] = [];
+      if (this.connectionsMap.get(side)) {
+        connectionsArray = this.connectionsMap.get(side)!;
+      }
+      connectionsArray.push(outputEdge);
+      this.connectionsMap.set(side, connectionsArray);
+      this.connectionsDirectionMap.set(outputEdge, EdgeType.OUTPUT);
+    }
+
+    for (const [side, edges] of this.connectionsMap.entries()) {
+      switch (side) {
+        case EdgeAttachmentSide.TOP:
+        case EdgeAttachmentSide.BOTTOM:
+          let y = side === EdgeAttachmentSide.TOP ? 0 : NODE_HEIGHT;
+          const yFunc1 = () => y;
+          const xFunc1 = (offset: number[], i: number) => offset[i];
+          this.recalculateEdgesForSide(side, edges, NODE_WIDTH, xFunc1, yFunc1);
+          break;
+        case EdgeAttachmentSide.LEFT:
+        case EdgeAttachmentSide.RIGHT:
+          let x = side === EdgeAttachmentSide.LEFT ? 0 : NODE_WIDTH;
+          const xFunc2 = () => x;
+          const yFunc2 = (offset: number[], i: number) => offset[i];
+          this.recalculateEdgesForSide(
+            side,
+            edges,
+            NODE_HEIGHT,
+            xFunc2,
+            yFunc2
+          );
+          break;
+        default:
+          throw new Error('Unknown side ' + side);
+      }
+    }
+  }
+
+  private recalculateEdgesForSide(
+    side: EdgeAttachmentSide,
+    edges: EdgeTemplate[],
+    length: number,
+    xFunc: Function,
+    yFunc: Function
+  ) {
+    const offsets = calculateConnectionNodeOffset(edges, length);
+    this.connectionsOffsetMap.set(side, offsets);
+
+    for (let i = 0; i < edges.length; i++) {
+      const edge = edges[i];
+      this.connectionsIndexMap.set(edge, i);
+      this.connectionsSideMap.set(edge, side);
+
+      const direction = this.connectionsDirectionMap.get(edge)!;
+
+      let dotTexture;
+      if (direction === EdgeType.INPUT) {
+        dotTexture = PIXI.utils.TextureCache['inCircle'];
+      } else if (direction === EdgeType.OUTPUT) {
+        dotTexture = PIXI.utils.TextureCache['outCircle'];
+      } else if (direction === EdgeType.ANY) {
+        //TODO: FIX
+        dotTexture = PIXI.utils.TextureCache['inCircle'];
+      }
+
+      const dot = Dot(dotTexture, xFunc(offsets, i), yFunc(offsets, i));
+      this.connectionsContainer.addChild(dot);
+    }
+  }
 
   removeInteractionEvents() {
     const container = this.container;
@@ -168,7 +239,7 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   addSelectEvents(onSelectObjects: (ids: string[]) => any) {
-    const container = this.createNodeContainer();
+    const container = this.addContainerHitArea();
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
@@ -192,7 +263,7 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   addDragEvents() {
-    const container = this.createNodeContainer();
+    const container = this.addContainerHitArea();
 
     let dragging = false;
     let dragLeader = false;
@@ -310,7 +381,7 @@ export default class AdvancedNode extends NodeTemplate {
     return [];
   }
 
-  private createNodeContainer() {
+  private addContainerHitArea() {
     const container = this.container;
 
     container.interactive = true;

@@ -1,4 +1,5 @@
 import EdgeTemplate, {
+  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
@@ -44,13 +45,28 @@ export default class SimpleEdge extends EdgeTemplate {
     this.container.addChild(inputDot);
     this.container.addChild(outputDot);
 
+    if (!this.sourceNode || !this.targetNode) {
+      throw new Error('Cannot instantiate non-connected simple-edge');
+    }
+
     this.sourceNode.addEdge(this, EdgeType.OUTPUT);
+
     this.targetNode.addEdge(this, EdgeType.INPUT);
 
     this.updateWithoutHitBox();
   }
 
-  addSelectEvents(onSelectObjects: (ids: string[]) => any): void {}
+  addSelectEvents(onSelectObjects: (ids: string[]) => any): void {
+    this.enableHitBox();
+    this.container.on('pointerdown', function (this: any, event: any) {
+      event.stopPropagation();
+    });
+
+    this.container.on('click', function (this: any, event: any) {
+      event.stopPropagation();
+      onSelectObjects([this.id]);
+    });
+  }
 
   removeInteractionEvents(): void {
     this.disableHitBox();
@@ -67,13 +83,16 @@ export default class SimpleEdge extends EdgeTemplate {
   }
 
   updateWithoutHitBox = () => {
+    if (!this.sourceNode || !this.targetNode) {
+      throw new Error('Invalid update');
+    }
+
     const { x: sourceX, y: sourceY } = this.sourceNode.getConnectionCoordinate(
-      this.id,
-      EdgeType.OUTPUT
+      this
     );
+
     const { x: targetX, y: targetY } = this.targetNode.getConnectionCoordinate(
-      this.id,
-      EdgeType.INPUT
+      this
     );
 
     this.sourceDot.position.x = sourceX;
@@ -86,8 +105,48 @@ export default class SimpleEdge extends EdgeTemplate {
     this.graphicsObject.lineStyle(LINE_THICKNESS, ORANGE, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
-    const dX = Math.abs(targetX - sourceX) * (3 / 4);
-    const dY = 0; //Math.abs(targetY - sourceY) * 0;
+    const multiplierX = sourceX > targetX ? -1 : 1;
+    const multiplierY = sourceY > targetY ? -1 : 1;
+
+    let ptX1 = sourceX;
+    let ptX2 = targetX;
+    let ptY1 = sourceY;
+    let ptY2 = targetY;
+
+    switch (this.sourceNodeAttachmentSide) {
+      case EdgeAttachmentSide.RIGHT:
+      case EdgeAttachmentSide.LEFT:
+        switch (this.targetNodeAttachmentSide) {
+          case EdgeAttachmentSide.RIGHT:
+          case EdgeAttachmentSide.LEFT:
+            const changeX = Math.abs(targetX - sourceX) * (3 / 4) * multiplierX;
+            ptX1 += changeX;
+            ptX2 -= changeX;
+            break;
+          case EdgeAttachmentSide.TOP:
+          case EdgeAttachmentSide.BOTTOM:
+            ptX1 += Math.abs(targetX - sourceX) * (1 / 2) * multiplierX;
+            ptY2 -= Math.abs(targetY - sourceY) * (1 / 2) * multiplierY;
+            break;
+        }
+        break;
+      case EdgeAttachmentSide.TOP:
+      case EdgeAttachmentSide.BOTTOM:
+        switch (this.targetNodeAttachmentSide) {
+          case EdgeAttachmentSide.TOP:
+          case EdgeAttachmentSide.BOTTOM:
+            const changeY = Math.abs(targetY - sourceY) * (3 / 4) * multiplierY;
+            ptY1 += changeY;
+            ptY2 -= changeY;
+            break;
+          case EdgeAttachmentSide.RIGHT:
+          case EdgeAttachmentSide.LEFT:
+            ptY1 += Math.abs(targetY - sourceY) * (1 / 2) * multiplierY;
+            ptX2 -= Math.abs(targetX - sourceX) * (1 / 2) * multiplierX;
+            break;
+        }
+        break;
+    }
 
     const highLight = this.container.getHighLight();
     highLight.moveTo(sourceX, sourceY);
@@ -96,28 +155,25 @@ export default class SimpleEdge extends EdgeTemplate {
     const curve = new Bezier(
       sourceX,
       sourceY,
-      sourceX + dX,
-      sourceY + dY,
-      targetX - dX,
-      targetY - dY,
+      ptX1,
+      ptY1,
+      ptX2,
+      ptY2,
       targetX,
       targetY
     );
 
     const points = curve.getLUT(100);
-    const polygon = new PIXI.Polygon(points)
+    const polygon = new PIXI.Polygon(points);
     polygon.closeStroke = false;
 
     highLight.drawShape(polygon);
     this.graphicsObject.drawShape(polygon);
 
     return {
-      sourceX,
-      sourceY,
-      dX,
-      dY,
       targetX,
       targetY,
+      curve,
     };
   };
 
@@ -138,14 +194,7 @@ export default class SimpleEdge extends EdgeTemplate {
   };
 
   updateWithHitBox = () => {
-    const {
-      sourceX,
-      sourceY,
-      dX,
-      dY,
-      targetX,
-      targetY,
-    } = this.updateWithoutHitBox();
+    const { targetX, targetY, curve } = this.updateWithoutHitBox();
 
     if (!this.hitBoxEnabled) {
       this.container.hitArea = null;
@@ -154,16 +203,6 @@ export default class SimpleEdge extends EdgeTemplate {
       return;
     }
 
-    const curve = new Bezier(
-      sourceX,
-      sourceY,
-      sourceX + dX,
-      sourceY + dY,
-      targetX - dX,
-      targetY - dY,
-      targetX,
-      targetY
-    );
     const numPoints = 100;
 
     const topPointsArray = [];

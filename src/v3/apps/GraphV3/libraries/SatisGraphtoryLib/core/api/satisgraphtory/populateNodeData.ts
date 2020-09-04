@@ -1,5 +1,10 @@
 import stringGen from 'v3/utils/stringGen';
-import { getBuildingName } from 'v3/data/loaders/buildings';
+import {
+  getBuildingName,
+  getInputsForBuilding,
+  getOutputsForBuilding,
+  getTier,
+} from 'v3/data/loaders/buildings';
 import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
 import {
   NODE_HEIGHT,
@@ -22,12 +27,12 @@ const populateNodeData = (
     id: stringGen(10),
     recipeLabel: recipe ? translateFunction(recipe) : '',
     recipeName: recipe ? recipe : '',
-    tier: 1, //todo: figure out how to properly get the tier here
+    tier: getTier(buildingSlug),
     overclock,
     machineName: buildingSlug,
     machineLabel: getBuildingName(buildingSlug) as string,
-    inputs: [null], // TODO: figure out how to mark inputs and outputs as
-    outputs: [null],
+    inputConnections: getInputsForBuilding(buildingSlug),
+    outputConnections: getOutputsForBuilding(buildingSlug),
   });
 };
 

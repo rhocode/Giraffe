@@ -18,12 +18,14 @@ const useStyles = makeStyles((theme) => ({
     bottom: '2em',
     right: '2em',
     zIndex: theme.zIndex.drawer + 1,
+    pointerEvents: 'auto',
   },
   fabMobile: {
     position: 'absolute',
     bottom: '7em',
     right: '2em',
     zIndex: theme.zIndex.drawer + 1,
+    pointerEvents: 'auto',
   },
 }));
 

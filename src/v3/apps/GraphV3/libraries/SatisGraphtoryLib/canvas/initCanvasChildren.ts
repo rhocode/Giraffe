@@ -1,8 +1,8 @@
 import {
   getAllBuildableMachines,
   getBuildingName,
-  getNumInputsForBuilding,
-  getNumOutputsForBuilding,
+  getInputsForBuilding,
+  getOutputsForBuilding,
 } from 'v3/data/loaders/buildings';
 import { Viewport } from 'pixi-viewport';
 import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
@@ -11,7 +11,6 @@ import stringGen from 'v3/utils/stringGen';
 import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { EResourceForm } from '.data-landing/interfaces/enums';
 
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
@@ -41,8 +40,8 @@ const initCanvasChildren = (
     let machine = machines[Math.floor(Math.random() * machines.length)];
 
     if (
-      !getNumInputsForBuilding(machine as string, EResourceForm.RF_SOLID) ||
-      !getNumOutputsForBuilding(machine as string, EResourceForm.RF_SOLID)
+      !getInputsForBuilding(machine as string).length ||
+      !getOutputsForBuilding(machine as string).length
     ) {
       machine = machines[0];
     }
@@ -59,16 +58,8 @@ const initCanvasChildren = (
       overclock: Math.floor(Math.random() * 200),
       machineName: machine as string,
       machineLabel: getBuildingName(machine) as string,
-      inputs: Array.from(
-        Array(
-          getNumInputsForBuilding(machine as string, EResourceForm.RF_SOLID)
-        ).keys()
-      ),
-      outputs: Array.from(
-        Array(
-          getNumOutputsForBuilding(machine as string, EResourceForm.RF_SOLID)
-        ).keys()
-      ),
+      inputConnections: getInputsForBuilding(machine as string),
+      outputConnections: getOutputsForBuilding(machine as string),
     };
 
     // console.log(nodeData);
@@ -97,7 +88,7 @@ const initCanvasChildren = (
     };
 
     const edge = new SimpleEdge(edgeProps);
-    children.push(edge);
+    children.unshift(edge);
   }
 
   const additionalNodes =
@@ -121,8 +112,8 @@ const initCanvasChildren = (
       overclock: Math.floor(Math.random() * 200),
       machineName: machine as string,
       machineLabel: getBuildingName(machine) as string,
-      inputs: Array.from(Array(Math.floor(Math.random() * 4) + 1).keys()),
-      outputs: Array.from(Array(Math.floor(Math.random() * 4) + 1).keys()),
+      inputConnections: getInputsForBuilding(machine as string),
+      outputConnections: getOutputsForBuilding(machine as string),
     };
 
     connections.push(nodeData.id);
@@ -149,7 +140,7 @@ const initCanvasChildren = (
     };
 
     const edge = new SimpleEdge(edgeProps);
-    children.push(edge);
+    children.unshift(edge);
   }
 
   console.timeEnd('loadNodes');

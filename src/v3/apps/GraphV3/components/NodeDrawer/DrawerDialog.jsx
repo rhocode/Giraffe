@@ -5,8 +5,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { BrowserView, isMobile } from 'react-device-detect';
+import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -29,25 +30,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
 }));
-
-function OpenModalTrigger() {
-  const { pixiCanvasStateId } = React.useContext(PixiJSCanvasContext);
-
-  useLayoutEffect(() => {
-    pixiJsStore.update((s) => {
-      const instance = s[pixiCanvasStateId];
-      instance.openModals += 1;
-    });
-    return () => {
-      pixiJsStore.update((s) => {
-        const instance = s[pixiCanvasStateId];
-        instance.openModals -= 1;
-      });
-    };
-  }, [pixiCanvasStateId]);
-
-  return null;
-}
 
 function DropDownWrapper(props) {
   const {
@@ -246,7 +228,7 @@ function DrawerDialog(props) {
     >
       <DialogTitle>{props.label} Settings</DialogTitle>
       <DialogContent className={classes.openDialog}>
-        <OpenModalTrigger />
+        <ModalOpenTrigger />
         <BrowserView>
           <MachineTypeSelector
             building={building}

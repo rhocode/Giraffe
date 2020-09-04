@@ -23,15 +23,15 @@ const InnerComponent = React.lazy(() => {
   ])
     .catch(() => {
       // Prerenderer isn't happy about us blocking on load
-
       return import(
         'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
       );
     })
-    .then(() =>
-      import(
-        'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
-      )
+    .then(
+      () =>
+        import(
+          'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSCanvasContainer'
+        )
     );
 });
 
@@ -44,7 +44,7 @@ type LoadableComponentProps = {
   onFinishLoad: () => void | undefined;
 };
 
-const LoadableComponent = (props: LoadableComponentProps) => {
+const LoadablePixiComponent = (props: LoadableComponentProps) => {
   return (
     <Suspense fallback={<AutoSizedLoadingWrapper />}>
       <InnerComponent {...props} />
@@ -121,7 +121,7 @@ function Canvas(props: CanvasProps) {
 
   return (
     <PixiJsContextProvider pixiCanvasStateId={pixiCanvasStateId}>
-      <LoadableComponent {...props} />
+      <LoadablePixiComponent {...props} />
     </PixiJsContextProvider>
   );
 }
