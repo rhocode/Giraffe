@@ -39,4 +39,5 @@ export abstract class GraphObject {
   abstract removeInteractionEvents(): void;
   abstract addSelectEvents(onSelectObjects: (ids: string[]) => any): void;
   abstract addDragEvents(): any[];
+  abstract delete(): GraphObject[];
 }

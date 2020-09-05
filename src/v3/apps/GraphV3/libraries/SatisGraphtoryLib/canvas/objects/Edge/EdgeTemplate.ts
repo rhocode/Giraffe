@@ -69,4 +69,14 @@ export default abstract class EdgeTemplate extends GraphObject {
       this.targetNodeAttachmentSide = targetNodeAttachmentSide;
     }
   }
+
+  delete(): GraphObject[] {
+    if (this.container) {
+      this.sourceNode?.deleteEdge(this);
+      this.targetNode?.deleteEdge(this);
+      this.container.destroy();
+    }
+    this.container = (null as unknown) as any;
+    return [this];
+  }
 }

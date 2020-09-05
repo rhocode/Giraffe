@@ -3,6 +3,7 @@ import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import NodeDrawer from 'v3/apps/GraphV3/components/NodeDrawer/NodeDrawer';
+import ObjectSettingPanel from 'v3/apps/GraphV3/components/ObjectSettings/ObjectSettingPanel';
 import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
 
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
@@ -44,10 +45,6 @@ const useStyles = makeStyles(() =>
       left: 0,
       height: '100%',
       width: '100%',
-      display: 'grid',
-      gridTemplateAreas: `"bottomActions"`,
-      gridTemplateRows: 'auto',
-      gridTemplateColumns: '1fr',
     },
   })
 );
@@ -94,20 +91,21 @@ function PixiJSCanvasContainer(props) {
   const { children, ...restProps } = props;
 
   return (
-    <ReactResizeDetector handleWidth handleHeight>
-      {({ width, height }) => (
-        <React.Fragment>
-          <div className={classes.canvasContainer}>
+    <React.Fragment>
+      <div className={classes.canvasContainer}>
+        <ReactResizeDetector handleWidth handleHeight>
+          {({ width, height }) => (
             <div className={classes.canvas}>
               <CenteredLoader />
               <PixiJSCanvasGuard height={height} width={width} {...restProps} />
+              <div className={classes.childOverlay}>{children}</div>
             </div>
-            <div className={classes.childOverlay}>{children}</div>
-          </div>
-          <NodeDrawer />
-        </React.Fragment>
-      )}
-    </ReactResizeDetector>
+          )}
+        </ReactResizeDetector>
+        <ObjectSettingPanel />
+      </div>
+      <NodeDrawer />
+    </React.Fragment>
   );
 }
 

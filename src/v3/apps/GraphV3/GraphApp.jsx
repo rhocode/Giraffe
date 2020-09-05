@@ -10,7 +10,6 @@ import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizard
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
-import ObjectSettingPanel from 'v3/apps/GraphV3/components/ObjectSettings/ObjectSettingPanel';
 import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -126,7 +125,6 @@ function GraphApp(props) {
             <ActionBar />
             <DebugFab />
             <SimulationFab />
-            <ObjectSettingPanel />
           </Canvas>
         </div>
       ) : (

@@ -15,6 +15,7 @@ import {
   NODE_HEIGHT,
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 export class NodeContainer extends GraphObjectContainer {
   public boundCalculator: any = null;
@@ -54,6 +55,41 @@ export abstract class NodeTemplate extends GraphObject {
     if (outputConnections) {
       this.outputConnections = outputConnections;
     }
+  }
+
+  deleteEdge(edge: EdgeTemplate) {
+    for (let i = 0; i < this.inputConnections.length; i++) {
+      if (this.inputConnections[i] === edge) {
+        this.inputConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+        });
+        break;
+      }
+    }
+    for (let i = 0; i < this.outputConnections.length; i++) {
+      if (this.outputConnections[i] === edge) {
+        this.outputConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+        });
+        break;
+      }
+    }
+  }
+
+  delete(): GraphObject[] {
+    const originalEdges = [...this.inputConnections, ...this.outputConnections];
+    for (const edge of this.inputConnections) {
+      edge.delete();
+    }
+
+    for (const edge of this.outputConnections) {
+      edge.delete();
+    }
+
+    this.container.destroy();
+    return originalEdges;
   }
 
   private static findFirstEmpty(arr: EdgeTemplate[]) {

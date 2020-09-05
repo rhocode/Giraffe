@@ -203,7 +203,7 @@ export const getTier = (buildingSlug: string) => {
   const map = base.reverseUpgradePathMap;
   if (map.get(buildingSlug)) {
     const mainClass = map.get(buildingSlug)!;
-    return base.machineClassMap.get(mainClass)!.indexOf(buildingSlug) + 1;
+    return base.upgradePathMap.get(mainClass)!.indexOf(buildingSlug) + 1;
   } else {
     return 0;
   }

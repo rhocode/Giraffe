@@ -215,6 +215,12 @@ export default class AdvancedNode extends NodeTemplate {
     }
   }
 
+  delete() {
+    const ret = super.delete();
+    this.recalculateConnections();
+    return ret;
+  }
+
   removeInteractionEvents() {
     const container = this.container;
 

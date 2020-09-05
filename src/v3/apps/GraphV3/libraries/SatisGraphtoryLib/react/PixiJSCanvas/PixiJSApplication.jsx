@@ -210,7 +210,7 @@ function PixiJSApplication(props) {
 
   const previousMouseState = React.useRef(null);
 
-  const selectionBoxId = React.useRef(null);
+  const selectionBoxId = React.useRef('');
   const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
@@ -237,7 +237,7 @@ function PixiJSApplication(props) {
 
     if (selectionBoxId.current) {
       removeChild(selectionBoxId.current, pixiCanvasStateId);
-      selectionBoxId.current = null;
+      selectionBoxId.current = '';
     }
 
     pixiViewportFunc.current = function () {
@@ -249,6 +249,9 @@ function PixiJSApplication(props) {
 
     const deferredRemoveChildEvents = (t) => {
       const s = t[pixiCanvasStateId];
+      // for (const item of s.children) {
+      //   console.log("CHILD", item);
+      // }
       for (const child of getMultiTypedChildrenFromState(s, [
         NodeTemplate,
         EdgeTemplate,
@@ -324,7 +327,6 @@ function PixiJSApplication(props) {
 
         const newPos = event.data.getLocalPosition(this.parent);
 
-        console.log(selectedRecipe, selectedMachine);
         if (!selectedMachine) return;
 
         const nodeData = populateNodeData(

@@ -23,15 +23,18 @@ import FastRewindIcon from '@material-ui/icons/FastRewind';
 import RemoveIcon from '@material-ui/icons/Remove';
 import React from 'react';
 import Scrollbar from 'react-scrollbars-custom';
+import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import SelectDropdown from '../../../../../common/react/SelectDropdown';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: theme.overrides.GraphDrawer.width * 2,
+    width: theme.overrides.GraphDrawer.width,
     marginTop: theme.overrides.GraphAppBar.height,
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
-    gridArea: 'nodeSettingArea',
-    display: 'grid',
   },
   drawerContent: {
     height: '100%',
@@ -67,11 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   overclockTextField: {
     minWidth: 80,
-    // width: 100
   },
-  // overclockRow: {
-  //   flexDirection: 'row'
-  // },
   divider: {
     marginTop: 10,
     marginBottom: 10,
@@ -86,7 +85,8 @@ const useStyles = makeStyles((theme) => ({
     // color: 'white',
   },
   root: {
-    // pointerEvents: 'auto'
+    gridArea: 'anotherElement',
+    display: 'grid',
   },
 }));
 
@@ -120,17 +120,49 @@ function ObjectSettingPanel(props) {
     setTabValue(newValue);
   }
 
-  // drawerOpen
-  const { setDrawerOpen } = props;
+  const { mouseState, selectedObjects, pixiCanvasStateId } = React.useContext(
+    PixiJSCanvasContext
+  );
+
+  const edges = selectedObjects.filter((item) => {
+    if (item instanceof EdgeTemplate) {
+      return true;
+    } else if (item instanceof NodeTemplate) {
+      return false;
+    }
+
+    throw new Error('Not instance of something handled');
+  });
+
+  const nodes = selectedObjects.filter((item) => {
+    if (item instanceof EdgeTemplate) {
+      return false;
+    } else if (item instanceof NodeTemplate) {
+      return true;
+    }
+
+    throw new Error('Not instance of something handled');
+  });
+
+  const numNodes = nodes.length;
+  const numEdges = edges.length;
+
+  React.useEffect(() => {
+    if (numEdges && !numNodes) {
+      setTabValue(1);
+    }
+
+    if (numNodes && !numEdges) {
+      setTabValue(0);
+    }
+  }, [numEdges, numNodes]);
 
   return (
     <Drawer
-      // variant={isMobile ? "permanent" : "temporary" }
-      variant="permanent"
+      variant="persistent"
       anchor={'right'}
-      // open={drawerOpen}
-      open={false}
-      onClose={() => setDrawerOpen(false)}
+      open={mouseState === MouseState.SELECT && selectedObjects.length > 0}
+      onClose={() => {}}
       classes={{
         paper: classes.drawer,
         root: classes.root,
@@ -145,8 +177,16 @@ function ObjectSettingPanel(props) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Nodes" icon={<CategoryIcon />} />
-          <Tab label="Edges" icon={<DeviceHubIcon />} />
+          <Tab
+            label="Nodes"
+            disabled={numNodes === 0}
+            icon={<CategoryIcon />}
+          />
+          <Tab
+            label="Edges"
+            disabled={numEdges === 0}
+            icon={<DeviceHubIcon />}
+          />
         </Tabs>
         {tabValue === 0 && (
           <Scrollbar>
@@ -154,15 +194,27 @@ function ObjectSettingPanel(props) {
               <Typography variant="h5">All Node Settings</Typography>
               <Divider className={classes.divider} />
               <Button
+                onClick={() => {
+                  pixiJsStore.update((t) => {
+                    const s = t[pixiCanvasStateId];
+
+                    let edgesToDelete = new Set([]);
+
+                    for (const node of nodes) {
+                      edgesToDelete.add(node);
+                      const altDeletes = node.delete();
+                      for (const item of altDeletes) {
+                        edgesToDelete.add(item);
+                      }
+                    }
+
+                    s.children = s.children.filter(
+                      (item) => !edgesToDelete.has(item)
+                    );
+                  });
+                }}
                 color="secondary"
                 variant="contained"
-                // onClick={() => {
-                //   const newSelection = removeNodes(
-                //     Object.values(props.selectedData.nodes || {}),
-                //     props.graphData
-                //   );
-                //   props.setGraphData(newSelection);
-                // }}
                 startIcon={<DeleteIcon />}
               >
                 Delete ALL selected nodes
