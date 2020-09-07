@@ -66,7 +66,7 @@ const preloadAllIcons = () => {
 // Preload all icons here
 preloadAllIcons();
 
-export const getItemIcon = (itemSlug: string, size: number = 64) => {
+export const getItemIcon = (itemSlug: string, size: number = 256) => {
   const imageSlug = `sg${getBuildingImageName(itemSlug)}_${size}`.replace(
     /-/g,
     '_'

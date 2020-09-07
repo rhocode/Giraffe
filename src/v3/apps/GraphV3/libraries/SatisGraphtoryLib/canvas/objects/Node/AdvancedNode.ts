@@ -133,6 +133,25 @@ export default class AdvancedNode extends NodeTemplate {
     this.connectionsOffsetMap.clear();
     this.connectionsContainer.removeChildren();
 
+    for (const anyEdge of this.anyConnections) {
+      let side;
+      if (anyEdge.sourceNode === this) {
+        side = anyEdge.sourceNodeAttachmentSide;
+      } else if (anyEdge.targetNode === this) {
+        side = anyEdge.targetNodeAttachmentSide;
+      } else {
+        // It's an empty node, do something!!!
+        side = anyEdge.sourceNodeAttachmentSide;
+      }
+      let connectionsArray: EdgeTemplate[] = [];
+      if (this.connectionsMap.get(side)) {
+        connectionsArray = this.connectionsMap.get(side)!;
+      }
+      connectionsArray.push(anyEdge);
+      this.connectionsMap.set(side, connectionsArray);
+      this.connectionsDirectionMap.set(anyEdge, EdgeType.ANY);
+    }
+
     for (const inputEdge of this.inputConnections) {
       const side = inputEdge.targetNodeAttachmentSide;
       let connectionsArray: EdgeTemplate[] = [];

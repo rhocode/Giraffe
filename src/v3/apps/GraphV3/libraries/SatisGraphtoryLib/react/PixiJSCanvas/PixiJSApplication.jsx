@@ -211,6 +211,47 @@ function PixiJSApplication(props) {
   const previousMouseState = React.useRef(null);
 
   const selectionBoxId = React.useRef('');
+
+  // Reenable when it's time to revisit using a grid
+  // const gridId = React.useRef('');
+  // React.useEffect(() => {
+  //   if (!pixiRenderer) return;
+  //   if (gridId.current) {
+  //     removeChild(gridId.current, pixiCanvasStateId);
+  //     gridId.current = '';
+  //   }
+  //
+  //   const gfx = new PIXI.Graphics();
+  //   // backboard (infrastructure)
+  //   gfx.clear();
+  //   gfx.lineStyle(BOX_THICKNESS, PURPLE, 1);
+  //   // gfx.beginFill(GREY, 1.0);
+  //   gfx.drawRect(0, 0, 100, 100);
+  //   gfx.endFill();
+  //
+  //   const grid = pixiRenderer.generateTexture(
+  //     gfx,
+  //     PIXI.SCALE_MODES.LINEAR,
+  //     sgDevicePixelRatio * 4,
+  //     new PIXI.Rectangle(0, 0, 100, 100)
+  //   );
+  //   PIXI.Texture.addToCache(grid, 'grid');
+  //
+  //   console.log(pixiViewport.screenHeight, pixiViewport.screenWidth);
+  //
+  //   const container = new PIXI.Container();
+  //   const texture = PIXI.utils.TextureCache['grid'];
+  //
+  //   // const {x, y} = pixiViewport.toWorld(pixiViewport.screenWidth, pixiViewport.screenHeight);
+  //   const {x, y} = pixiViewport.toWorld(0, 0);
+  //   const sprite = new PIXI.TilingSprite(texture, pixiViewport.screenWidth, pixiViewport.screenHeight);
+  //   sprite.anchor.set(0, 0);
+  //   sprite.position.x = x;
+  //   sprite.position.y = y;
+  //   container.addChild(sprite);
+  //   gridId.current = addChild(container, pixiCanvasStateId);
+  // }, [pixiCanvasStateId, pixiRenderer, pixiViewport])
+
   const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
@@ -363,7 +404,6 @@ function PixiJSApplication(props) {
       if (width && height && pixiRenderer.screen) {
         pixiRenderer.resize(width, height);
         pixiViewport.resize(width, height);
-        console.log('RESIZED');
         if (viewportChildContainer) {
           viewportChildContainer.hitArea = new PIXI.Rectangle(
             0,

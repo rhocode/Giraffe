@@ -8,7 +8,9 @@ import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
 import stringGen from 'v3/utils/stringGen';
-import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import EdgeTemplate, {
+  EdgeAttachmentSide,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 const slugToCustomMachineGroup = (slug: string) => {
@@ -250,6 +252,61 @@ export const getInputsForBuilding = (buildingSlug: string) => {
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
         id: stringGen(10),
+      })
+    );
+  }
+
+  return outputObject;
+};
+
+export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
+  const building = (Connections as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+
+  let sides: EdgeAttachmentSide[] = [];
+
+  switch (building.anyPipes) {
+    case 4:
+      sides.push(
+        EdgeAttachmentSide.TOP,
+        EdgeAttachmentSide.RIGHT,
+        EdgeAttachmentSide.BOTTOM,
+        EdgeAttachmentSide.LEFT
+      );
+      break;
+    case 3:
+      sides.push(
+        EdgeAttachmentSide.RIGHT,
+        EdgeAttachmentSide.BOTTOM,
+        EdgeAttachmentSide.LEFT
+      );
+      break;
+    case 2:
+      sides.push(EdgeAttachmentSide.RIGHT, EdgeAttachmentSide.LEFT);
+      break;
+    case 1:
+      sides.push(EdgeAttachmentSide.LEFT);
+      break;
+    default:
+      for (let i = 0; i < building.anyPipes || 0; i++) {
+        outputObject.push(
+          new EmptyEdge({
+            resourceForm: EResourceForm.RF_LIQUID,
+            id: stringGen(10),
+            biDirectional: true,
+          })
+        );
+      }
+      return outputObject;
+  }
+
+  for (let i = 0; i < building.anyPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: stringGen(10),
+        biDirectional: true,
+        sourceNodeAttachmentSide: sides[i],
       })
     );
   }

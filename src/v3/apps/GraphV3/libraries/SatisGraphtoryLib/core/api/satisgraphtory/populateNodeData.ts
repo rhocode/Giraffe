@@ -1,5 +1,6 @@
 import stringGen from 'v3/utils/stringGen';
 import {
+  getAnyConnectionsForBuilding,
   getBuildingName,
   getInputsForBuilding,
   getOutputsForBuilding,
@@ -33,6 +34,7 @@ const populateNodeData = (
     machineLabel: getBuildingName(buildingSlug) as string,
     inputConnections: getInputsForBuilding(buildingSlug),
     outputConnections: getOutputsForBuilding(buildingSlug),
+    anyConnections: getAnyConnectionsForBuilding(buildingSlug),
   });
 };
 

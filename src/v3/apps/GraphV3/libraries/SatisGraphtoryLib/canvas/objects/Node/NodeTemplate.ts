@@ -31,6 +31,7 @@ export abstract class NodeTemplate extends GraphObject {
 
   inputConnections: EdgeTemplate[] = [];
   outputConnections: EdgeTemplate[] = [];
+  anyConnections: EdgeTemplate[] = [];
 
   connectionsOffsetMap: Map<EdgeAttachmentSide, number[]> = new Map();
   connectionsIndexMap: Map<EdgeTemplate, number> = new Map();
@@ -39,7 +40,13 @@ export abstract class NodeTemplate extends GraphObject {
   protected constructor(props: SatisGraphtoryNodeProps) {
     super();
 
-    const { id, position, inputConnections, outputConnections } = props;
+    const {
+      id,
+      position,
+      inputConnections,
+      outputConnections,
+      anyConnections,
+    } = props;
 
     this.container = new NodeContainer();
 
@@ -54,6 +61,10 @@ export abstract class NodeTemplate extends GraphObject {
 
     if (outputConnections) {
       this.outputConnections = outputConnections;
+    }
+
+    if (anyConnections) {
+      this.anyConnections = anyConnections;
     }
   }
 
@@ -76,15 +87,33 @@ export abstract class NodeTemplate extends GraphObject {
         break;
       }
     }
+    for (let i = 0; i < this.anyConnections.length; i++) {
+      if (this.anyConnections[i] === edge) {
+        this.anyConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+          biDirectional: true,
+        });
+        break;
+      }
+    }
   }
 
   delete(): GraphObject[] {
-    const originalEdges = [...this.inputConnections, ...this.outputConnections];
+    const originalEdges = [
+      ...this.inputConnections,
+      ...this.outputConnections,
+      ...this.anyConnections,
+    ];
     for (const edge of this.inputConnections) {
       edge.delete();
     }
 
     for (const edge of this.outputConnections) {
+      edge.delete();
+    }
+
+    for (const edge of this.anyConnections) {
       edge.delete();
     }
 
@@ -103,9 +132,11 @@ export abstract class NodeTemplate extends GraphObject {
   }
 
   addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
-    if (edgeType === EdgeType.INPUT) {
+    if (edge.biDirectional) {
+      const firstNull = NodeTemplate.findFirstEmpty(this.anyConnections);
+      this.anyConnections[firstNull] = edge;
+    } else if (edgeType === EdgeType.INPUT) {
       const firstNull = NodeTemplate.findFirstEmpty(this.inputConnections);
-
       this.inputConnections[firstNull] = edge;
     } else if (edgeType === EdgeType.OUTPUT) {
       const firstNull = NodeTemplate.findFirstEmpty(this.outputConnections);
@@ -144,15 +175,22 @@ export abstract class NodeTemplate extends GraphObject {
   updateEdges = () => {
     this.inputConnections.forEach((edge) => {
       if (!edge || !edge?.sourceNode) return;
-      edge.sourceNode.sortOutputEdges();
+      // edge.sourceNode.sortOutputEdges();
       edge.sourceNode.outputConnections.map((item) => item?.update());
       edge.update();
     });
 
     this.outputConnections.forEach((edge) => {
       if (!edge || !edge?.targetNode) return;
-      edge.targetNode.sortInputEdges();
+      // edge.targetNode.sortInputEdges();
       edge.targetNode.inputConnections.map((item) => item?.update());
+      edge.update();
+    });
+
+    this.anyConnections.forEach((edge) => {
+      if (!edge || !edge?.targetNode) return;
+      // edge.targetNode.sortInputEdges();
+      edge.targetNode.anyConnections.map((item) => item?.update());
       edge.update();
     });
   };
