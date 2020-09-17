@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import ItemCard from 'v3/apps/GraphV3/components/ChainWizard/ItemCard';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -208,12 +209,13 @@ function ChainWizardPanel() {
       <Drawer
         variant="temporary"
         anchor={'left'}
-        // open={drawerOpen}
+        open={true}
         // onClose={() => setDrawerOpen(false)}
         classes={{
           paper: calculated ? classes.drawer : classes.drawerNotCalculated,
         }}
       >
+        <ModalOpenTrigger />
         <Grid classes={gridItemStyle} container>
           <Grid xs={calculated ? 7 : 12} item classes={gridItemStyle}>
             <List className={classes.root}>

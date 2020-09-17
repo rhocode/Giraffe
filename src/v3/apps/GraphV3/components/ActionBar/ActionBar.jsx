@@ -3,7 +3,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-// import LinkIcon from "@material-ui/icons/Link";
+import LinkIcon from '@material-ui/icons/Link';
 import OpenWithIcon from '@material-ui/icons/OpenWith';
 import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
@@ -97,14 +97,15 @@ function ActionBar() {
             value={MouseState.SELECT}
             icon={<CropFreeIcon />}
           />
-          {/*<BottomNavigationAction*/}
-          {/*  label="Link"*/}
-          {/*  value="link"*/}
-          {/*  icon={<LinkIcon />} />*/}
           <BottomNavigationAction
             label="Add"
             value={MouseState.ADD}
             icon={<AddIcon />}
+          />
+          <BottomNavigationAction
+            label="Link"
+            value={MouseState.LINK}
+            icon={<LinkIcon />}
           />
         </BottomNavigation>
       </motion.div>

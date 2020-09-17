@@ -211,6 +211,8 @@ function ObjectSettingPanel(props) {
                     s.children = s.children.filter(
                       (item) => !edgesToDelete.has(item)
                     );
+
+                    console.log(s.children);
                   });
                 }}
                 color="secondary"
@@ -379,13 +381,21 @@ function ObjectSettingPanel(props) {
               <Button
                 color="secondary"
                 variant="contained"
-                // onClick={() => {
-                //   const newSelection = removeEdges(
-                //     Object.values(props.selectedData.edges || {}),
-                //     props.graphData
-                //   );
-                //   props.setGraphData(newSelection);
-                // }}
+                onClick={() => {
+                  pixiJsStore.update((t) => {
+                    const s = t[pixiCanvasStateId];
+
+                    let edgesToDelete = new Set(edges);
+
+                    for (const edge of edges) {
+                      edge.delete();
+                    }
+
+                    s.children = s.children.filter(
+                      (item) => !edgesToDelete.has(item)
+                    );
+                  });
+                }}
                 startIcon={<DeleteIcon />}
                 // fullwidth
               >

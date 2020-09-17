@@ -47,6 +47,7 @@ import EdgeTemplate, {
   EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
@@ -285,6 +286,47 @@ export default class AdvancedNode extends NodeTemplate {
     this.eventFunctions.get(event)!.push(functionToAdd);
 
     this.eventEmitter.addListener(event, functionToAdd, this);
+  }
+
+  addLinkEvents(startFunc: Function, endFunc: Function, cancelFunc: Function) {
+    // Drag Pointer Down Start
+
+    let linkStarted: GraphObject | null = null;
+
+    function linkPointerDownSourceNode(this: any, triggerSource: any) {
+      if (linkStarted) {
+        if (linkStarted === this && this === triggerSource) {
+          cancelFunc();
+          linkStarted = null;
+          console.log('CANCELED');
+        } else {
+          if (triggerSource === this) {
+            endFunc(this.id);
+          }
+          // else {
+          //   console.log("NOT THE TRIGGERED SOURCE");
+          // }
+          linkStarted = null;
+        }
+      } else {
+        linkStarted = triggerSource;
+
+        if (triggerSource === this) {
+          startFunc(this.id);
+        }
+      }
+    }
+
+    this.addEvent(Events.NodePointerDown, linkPointerDownSourceNode);
+
+    const container = this.addContainerHitArea();
+
+    const context = this;
+
+    container.on('pointerdown', function (this: any, event: any) {
+      event.stopPropagation();
+      context.eventEmitter.emit(Events.NodePointerDown, context);
+    });
   }
 
   addDragEvents() {

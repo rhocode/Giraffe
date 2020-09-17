@@ -1,17 +1,24 @@
 import stringGen from 'v3/utils/stringGen';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 export const addObjectChildren = (
-  children: NodeTemplate[],
-  canvasId: string
+  children: NodeTemplate[] | EdgeTemplate[],
+  canvasId: string,
+  unshift: boolean = false
 ) => {
   pixiJsStore.update((t) => {
-    children.forEach((child) => {
+    children.forEach((child: NodeTemplate | EdgeTemplate) => {
       const id = child.id || stringGen(10);
       const s = t[canvasId];
       s.childrenMap.set(id, child);
-      s.children.push(child);
+      if (unshift) {
+        s.children.unshift(child);
+      } else {
+        s.children.push(child);
+      }
+
       s.viewportChildContainer.addChild(child.container);
     });
   });

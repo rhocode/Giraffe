@@ -68,6 +68,12 @@ export abstract class NodeTemplate extends GraphObject {
     }
   }
 
+  abstract addLinkEvents(
+    onStartLinkEvent: Function,
+    onEndLinkEvent: Function,
+    cancelFunc: Function
+  ): void;
+
   deleteEdge(edge: EdgeTemplate) {
     for (let i = 0; i < this.inputConnections.length; i++) {
       if (this.inputConnections[i] === edge) {

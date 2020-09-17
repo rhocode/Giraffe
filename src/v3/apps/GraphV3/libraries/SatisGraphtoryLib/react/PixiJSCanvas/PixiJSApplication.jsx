@@ -3,7 +3,12 @@ import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
+import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
+import {
+  GraphObject,
+  GraphObjectContainer,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
@@ -20,6 +25,8 @@ import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/ap
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
+import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
+import stringGen from 'v3/utils/stringGen';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -50,6 +57,7 @@ function PixiJSApplication(props) {
     openModals,
     selectedRecipe,
     selectedMachine,
+    selectedEdge,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -60,6 +68,8 @@ function PixiJSApplication(props) {
   const lasTargetIsCanvas = React.useRef(false);
   const lastMode = React.useRef();
   const keypressHandled = React.useRef(false);
+
+  const lastMouseStateRef = React.useRef(MouseState.INVALID);
 
   const { translate } = React.useContext(LocaleContext);
 
@@ -254,6 +264,96 @@ function PixiJSApplication(props) {
 
   const pixiViewportFunc = React.useRef(null);
 
+  // Linking callbacks
+  const onStartLink = React.useCallback(
+    (startLinkId) => {
+      pixiJsStore.update((sParent) => {
+        const s = sParent[pixiCanvasStateId];
+
+        for (const child of getMultiTypedChildrenFromState(s, [
+          EdgeTemplate,
+          NodeTemplate,
+        ])) {
+          child.container.setHighLightOn(false);
+        }
+
+        const retrievedNode = getChildFromStateById(s, startLinkId);
+
+        if (retrievedNode instanceof NodeTemplate) {
+          retrievedNode.container.setHighLightOn(true);
+        }
+
+        // for (const child of getMultiTypedChildrenFromState(s, [
+        //   NodeTemplate,
+        // ])) {
+        //   // turn off linkage events?
+        // }
+
+        s.sourceNodeId = startLinkId;
+      });
+    },
+    [pixiCanvasStateId]
+  );
+
+  // Linking callbacks
+  const onCancelLink = React.useCallback(() => {
+    pixiJsStore.update((sParent) => {
+      const s = sParent[pixiCanvasStateId];
+
+      for (const child of getMultiTypedChildrenFromState(s, [
+        EdgeTemplate,
+        NodeTemplate,
+      ])) {
+        child.container.setHighLightOn(false);
+      }
+    });
+  }, [pixiCanvasStateId]);
+
+  // Linking callbacks
+  const onEndLink = React.useCallback(
+    (endLinkId) => {
+      pixiJsStore.update((sParent) => {
+        const s = sParent[pixiCanvasStateId];
+
+        let sourceNode, targetNode;
+
+        for (const child of getMultiTypedChildrenFromState(s, [
+          EdgeTemplate,
+          NodeTemplate,
+        ])) {
+          child.container.setHighLightOn(false);
+          if (child.id === s.sourceNodeId) {
+            sourceNode = child;
+          }
+
+          if (child.id === endLinkId) {
+            targetNode = child;
+          }
+        }
+
+        if (!targetNode || !sourceNode) {
+          throw new Error('source or target not found');
+        }
+
+        const possibleResourceForms = getSupportedResourceForm(selectedEdge);
+
+        //TODO: Fix this resource form resolution, maybe from the interface?
+
+        const edgeProps = {
+          id: stringGen(10),
+          resourceForm: possibleResourceForms[0],
+          sourceNode,
+          targetNode,
+        };
+
+        const edge = new SimpleEdge(edgeProps);
+
+        addObjectChildren([edge], pixiCanvasStateId, true);
+      });
+    },
+    [pixiCanvasStateId, selectedEdge]
+  );
+
   React.useEffect(() => {
     if (!pixiViewport || !canvasReady) return;
 
@@ -277,6 +377,7 @@ function PixiJSApplication(props) {
     }
 
     if (selectionBoxId.current) {
+      console.log('REMOVIN');
       removeChild(selectionBoxId.current, pixiCanvasStateId);
       selectionBoxId.current = '';
     }
@@ -298,6 +399,17 @@ function PixiJSApplication(props) {
         EdgeTemplate,
       ])) {
         child.removeInteractionEvents();
+
+        if (lastMouseStateRef.current !== mouseState) {
+          if (lastMouseStateRef.current === MouseState.LINK) {
+            viewportChildContainer.children.forEach((child) => {
+              if (child instanceof GraphObjectContainer) {
+                child.alpha = 1;
+              }
+            });
+          }
+          lastMouseStateRef.current = mouseState;
+        }
       }
     };
 
@@ -383,6 +495,77 @@ function PixiJSApplication(props) {
       });
 
       pixiJsStore.update(deferredRemoveChildEvents);
+    } else if (mouseState === MouseState.LINK) {
+      pixiViewport.plugins.resume('drag');
+      if (openModals === 0) {
+        pixiViewport.plugins.resume('wheel');
+      }
+      pixiViewport.plugins.resume('pinch');
+
+      viewportChildContainer.interactive = true;
+      viewportChildContainer.buttonMode = true;
+      viewportChildContainer.hitArea = pixiViewport.hitArea;
+
+      // Don't select any objects
+      onSelectObjects([]);
+
+      const supportedResourceForms = new Set(
+        getSupportedResourceForm(selectedEdge)
+      );
+
+      pixiJsStore.update([
+        deferredRemoveChildEvents,
+        (t) => {
+          const s = t[pixiCanvasStateId];
+          for (const child of getMultiTypedChildrenFromState(s, [
+            NodeTemplate,
+          ])) {
+            if (child instanceof NodeTemplate) {
+              let selected = false;
+
+              for (const edge of [
+                ...child.outputConnections,
+                ...child.anyConnections,
+              ]) {
+                if (edge instanceof EmptyEdge) {
+                  if (supportedResourceForms.has(edge.resourceForm)) {
+                    selected = true;
+                    break;
+                  }
+                }
+              }
+
+              child.container.alpha = 1;
+
+              if (selected) {
+                child.attachEventEmitter(eventEmitter);
+                child.addLinkEvents(onStartLink, onEndLink, onCancelLink);
+              } else {
+                child.container.alpha = 0.2;
+              }
+            }
+          }
+        },
+      ]);
+
+      // viewportChildContainer.on('pointerdown', function (event) {
+      //   event.stopPropagation();
+      //
+      //   const newPos = event.data.getLocalPosition(this.parent);
+      //
+      //   if (!selectedMachine) return;
+      //
+      //   const nodeData = populateNodeData(
+      //     selectedMachine,
+      //     selectedRecipe,
+      //     100,
+      //     newPos.x,
+      //     newPos.y,
+      //     translate
+      //   );
+      //
+      //   addObjectChildren([nodeData], pixiCanvasStateId);
+      // });
     }
   }, [
     canvasReady,
@@ -396,6 +579,10 @@ function PixiJSApplication(props) {
     selectedRecipe,
     selectedMachine,
     translate,
+    onStartLink,
+    selectedEdge,
+    onCancelLink,
+    onEndLink,
   ]);
 
   React.useEffect(() => {

@@ -1,6 +1,5 @@
 import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
-import Connections from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
 import imageRepo from 'data/images/__all';
@@ -121,6 +120,101 @@ const getBuildableMachinesFn = () => {
 
 const getBuildableMachinesByClass = memoize(getBuildableMachinesFn);
 
+const getBuildableConnectionsFn = () => {
+  const buildables = new Set(Object.keys(ConnectionsJson));
+
+  const machineByType = new Map<string, any[]>();
+
+  Object.entries(BuildingJson)
+    .filter(([key]) => {
+      return buildables.has(key);
+    })
+    .forEach(([slug, value]) => {
+      if (!machineByType.get(value.buildingType)) {
+        machineByType.set(value.buildingType, []);
+      }
+
+      machineByType.get(value.buildingType)!.push(slug);
+    });
+
+  for (const value of machineByType.values()) {
+    value.sort();
+  }
+
+  for (const key of machineByType.keys()) {
+    if (key !== 'ITEMPASSTHROUGH' && key !== 'FLUIDPASSTHROUGH') {
+      machineByType.delete(key);
+    }
+  }
+
+  const allMachines: string[] = [...machineByType.values()].flat(1);
+  const connectionClassMap = new Map<string, string[]>();
+  const connectionClassImageMap = new Map<string, string>();
+  const upgradePathMap = new Map<string, string[]>();
+  const reverseUpgradePathMap = new Map<string, string>();
+
+  allMachines.forEach((machine) => {
+    const markRegex = /^(.*)-mk[0-9]+(-.*)?$/;
+    if (markRegex.test(machine)) {
+      const regexResult = markRegex.exec(machine);
+      const slug = `${regexResult![1] + (regexResult![2] || '')}`;
+
+      const resolvedSlug = slugToCustomMachineGroup(slug);
+
+      if (!connectionClassMap.get(resolvedSlug)) {
+        connectionClassMap.set(resolvedSlug, []);
+      }
+
+      if (!upgradePathMap.get(slug)) {
+        upgradePathMap.set(slug, []);
+      }
+      connectionClassMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(slug)!.push(machine);
+      upgradePathMap.get(slug)!.sort();
+      reverseUpgradePathMap.set(machine, slug);
+    } else {
+      const resolvedSlug = slugToCustomMachineGroup(machine);
+      if (!connectionClassMap.get(resolvedSlug)) {
+        connectionClassMap.set(resolvedSlug, []);
+      }
+      connectionClassMap.get(resolvedSlug)!.push(machine);
+    }
+  });
+
+  const connectionClassReverseMap = new Map<string, string>();
+
+  for (const entry of connectionClassMap.entries()) {
+    const [key, value] = entry;
+    value.sort();
+    connectionClassImageMap.set(key, value[0]);
+    value.forEach((className) => {
+      connectionClassReverseMap.set(className, key);
+    });
+  }
+
+  return {
+    connectionClassMap,
+    connectionClassImageMap,
+    connectionClassReverseMap,
+    upgradePathMap,
+    reverseUpgradePathMap,
+  };
+};
+
+export const getBuildableConnections = memoize(getBuildableConnectionsFn);
+
+const getBuildableConnectionClassesFn = () => {
+  return [...getBuildableConnections().connectionClassMap.keys()];
+};
+
+export const getBuildableConnectionClasses = memoize(
+  getBuildableConnectionClassesFn
+);
+
+export const getUpgradesForConnectionClass = (connectionClass: string) => {
+  return getBuildableConnections().upgradePathMap.get(connectionClass);
+};
+
 export const getBuildableMachineClassNames = lazyFunc(() => {
   return [...getBuildableMachinesByClass().machineClassMap.keys()];
 });
@@ -212,7 +306,7 @@ export const getTier = (buildingSlug: string) => {
 };
 
 export const getOutputsForBuilding = (buildingSlug: string) => {
-  const building = (Connections as any)[buildingSlug];
+  const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
   for (let i = 0; i < building.outputBelts || 0; i++) {
     outputObject.push(
@@ -236,7 +330,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
 };
 
 export const getInputsForBuilding = (buildingSlug: string) => {
-  const building = (Connections as any)[buildingSlug];
+  const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
   for (let i = 0; i < building.inputBelts || 0; i++) {
     outputObject.push(
@@ -260,7 +354,7 @@ export const getInputsForBuilding = (buildingSlug: string) => {
 };
 
 export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
-  const building = (Connections as any)[buildingSlug];
+  const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
 
   let sides: EdgeAttachmentSide[] = [];
@@ -312,4 +406,18 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
   }
 
   return outputObject;
+};
+
+export const getSupportedResourceForm = (buildingSlug: string) => {
+  if (!buildingSlug) return [];
+
+  const building = (BuildingJson as any)[buildingSlug];
+
+  if (!building.supportedResourceForms) {
+    throw new Error(
+      'Building ' + buildingSlug + ' does not support resourceForms'
+    );
+  }
+
+  return building.supportedResourceForms;
 };

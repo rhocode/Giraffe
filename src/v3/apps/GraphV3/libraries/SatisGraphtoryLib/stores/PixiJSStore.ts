@@ -22,7 +22,9 @@ export const generateNewPixiCanvasStore = () => {
     triggerUpdate: 1,
     selectedMachine: (null as unknown) as string,
     selectedRecipe: (null as unknown) as string,
+    selectedEdge: (null as unknown) as string,
     openModals: 0,
+    sourceNodeId: '',
   };
 };
 

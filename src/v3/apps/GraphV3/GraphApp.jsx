@@ -6,11 +6,10 @@ import ActionBar from 'v3/apps/GraphV3/components/ActionBar/ActionBar';
 import Canvas from 'v3/apps/GraphV3/components/Canvas/Canvas';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+import EdgeSelectorPanel from 'v3/apps/GraphV3/components/EdgeSelectorPanel/EdgeSelectorPanel';
 
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
-import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 
@@ -121,10 +120,11 @@ function GraphApp(props) {
           </Helmet>
           <NavBar />
           <Canvas canvasChildren={canvasChildren} onFinishLoad={onFinishLoad}>
-            <ChainWizardPanel />
+            {/*<ChainWizardPanel />*/}
             <ActionBar />
             <DebugFab />
-            <SimulationFab />
+            <EdgeSelectorPanel />
+            {/*<SimulationFab />*/}
           </Canvas>
         </div>
       ) : (
