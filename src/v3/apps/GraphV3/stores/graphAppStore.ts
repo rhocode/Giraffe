@@ -3,9 +3,9 @@ import {
   SatisGraphtoryEdgeProps,
   SatisGraphtoryNodeProps,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 
-const initialStateId = stringGen(10);
+const initialStateId = uuidGen();
 //
 // const dummyResult = {
 //   inputs: [

@@ -48,6 +48,7 @@ import EdgeTemplate, {
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import { EResourceForm } from '.data-landing/interfaces/enums';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
@@ -221,13 +222,26 @@ export default class AdvancedNode extends NodeTemplate {
       const direction = this.connectionsDirectionMap.get(edge)!;
 
       let dotTexture;
-      if (direction === EdgeType.INPUT) {
-        dotTexture = PIXI.utils.TextureCache['inCircle'];
-      } else if (direction === EdgeType.OUTPUT) {
-        dotTexture = PIXI.utils.TextureCache['outCircle'];
-      } else if (direction === EdgeType.ANY) {
-        //TODO: FIX
-        dotTexture = PIXI.utils.TextureCache['inCircle'];
+
+      switch (edge.resourceForm) {
+        case EResourceForm.RF_LIQUID:
+          if (direction === EdgeType.INPUT) {
+            dotTexture = PIXI.utils.TextureCache['inRectangle'];
+          } else if (direction === EdgeType.OUTPUT) {
+            dotTexture = PIXI.utils.TextureCache['outRectangle'];
+          } else if (direction === EdgeType.ANY) {
+            dotTexture = PIXI.utils.TextureCache['anyRectangle'];
+          }
+          break;
+        case EResourceForm.RF_SOLID:
+        default:
+          if (direction === EdgeType.INPUT) {
+            dotTexture = PIXI.utils.TextureCache['inCircle'];
+          } else if (direction === EdgeType.OUTPUT) {
+            dotTexture = PIXI.utils.TextureCache['outCircle'];
+          } else if (direction === EdgeType.ANY) {
+            dotTexture = PIXI.utils.TextureCache['anyRectangle'];
+          }
       }
 
       const dot = Dot(dotTexture, xFunc(offsets, i), yFunc(offsets, i));
@@ -242,6 +256,8 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   removeInteractionEvents() {
+    if (!this.eventEmitter) return;
+
     const container = this.container;
 
     container.interactive = false;
@@ -293,26 +309,29 @@ export default class AdvancedNode extends NodeTemplate {
 
     let linkStarted: GraphObject | null = null;
 
-    function linkPointerDownSourceNode(this: any, triggerSource: any) {
+    function linkPointerDownSourceNode(
+      this: any,
+      triggerSource: any,
+      ignoreEventIfLinkNotStarted: boolean
+    ) {
       if (linkStarted) {
         if (linkStarted === this && this === triggerSource) {
           cancelFunc();
           linkStarted = null;
-          console.log('CANCELED');
         } else {
           if (triggerSource === this) {
             endFunc(this.id);
           }
-          // else {
-          //   console.log("NOT THE TRIGGERED SOURCE");
-          // }
+
           linkStarted = null;
         }
       } else {
-        linkStarted = triggerSource;
+        if (!ignoreEventIfLinkNotStarted) {
+          linkStarted = triggerSource;
 
-        if (triggerSource === this) {
-          startFunc(this.id);
+          if (triggerSource === this && startFunc) {
+            startFunc(this.id);
+          }
         }
       }
     }
@@ -325,7 +344,11 @@ export default class AdvancedNode extends NodeTemplate {
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
-      context.eventEmitter.emit(Events.NodePointerDown, context);
+      context.eventEmitter.emit(
+        Events.NodePointerDown,
+        context,
+        startFunc === null
+      );
     });
   }
 

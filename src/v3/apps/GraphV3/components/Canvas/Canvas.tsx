@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import {
   generateNewPixiCanvasStore,
   pixiJsStore,
@@ -63,7 +63,7 @@ type CanvasProps = {
 
 function Canvas(props: CanvasProps) {
   const [pixiCanvasStateId] = React.useState(() => {
-    const stateId = stringGen(10);
+    const stateId = uuidGen();
 
     pixiJsStore.update((s) => {
       s[stateId] = generateNewPixiCanvasStore();

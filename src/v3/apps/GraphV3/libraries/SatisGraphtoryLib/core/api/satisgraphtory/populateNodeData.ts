@@ -1,4 +1,4 @@
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import {
   getAnyConnectionsForBuilding,
   getBuildingName,
@@ -25,7 +25,7 @@ const populateNodeData = (
       x: x - Math.floor(NODE_WIDTH / 2),
       y: y - Math.floor(NODE_HEIGHT / 2),
     },
-    id: stringGen(10),
+    id: uuidGen(),
     recipeLabel: recipe ? translateFunction(recipe) : '',
     recipeName: recipe ? recipe : '',
     tier: getTier(buildingSlug),

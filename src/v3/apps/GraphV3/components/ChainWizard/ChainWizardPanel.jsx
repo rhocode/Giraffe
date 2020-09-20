@@ -11,7 +11,7 @@ import { useStoreState } from 'pullstate';
 import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import arrayMove from 'array-move';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
@@ -119,7 +119,7 @@ const SortableList = SortableContainer(
 
 const addEntryFn = () =>
   graphWizardStore.update((state) => {
-    const newId = stringGen(10);
+    const newId = uuidGen();
     state.products[newId] = { slug: null, amount: 1 };
     state.boxes.push(newId);
   });
@@ -139,7 +139,7 @@ const calculateFunction = (products, constraints) => () => {
 };
 
 const clearFunction = () => {
-  const initialStateId = stringGen(10);
+  const initialStateId = uuidGen();
   graphWizardStore.update((s) => {
     s.boxes = [initialStateId];
     s.products = {

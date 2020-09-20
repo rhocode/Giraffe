@@ -69,7 +69,7 @@ export abstract class NodeTemplate extends GraphObject {
   }
 
   abstract addLinkEvents(
-    onStartLinkEvent: Function,
+    onStartLinkEvent: Function | null,
     onEndLinkEvent: Function,
     cancelFunc: Function
   ): void;

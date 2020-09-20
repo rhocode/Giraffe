@@ -1,10 +1,10 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import EventEmitter from 'eventemitter3';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 
 export abstract class GraphObjectContainer extends PIXI.Container {
   highLight: any = null;
-  id: string = stringGen(10);
+  id: string = uuidGen();
 
   abstract getBounds(): any;
 

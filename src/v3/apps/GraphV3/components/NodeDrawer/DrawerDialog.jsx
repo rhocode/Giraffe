@@ -218,9 +218,29 @@ function DrawerDialog(props) {
     }
   }
 
+  const setSelectedDataButton = () => {
+    pixiJsStore.update((s) => {
+      const instance = s[pixiCanvasStateId];
+
+      instance.selectedMachine = building;
+      instance.selectedRecipe = recipe;
+    });
+    setOpenDialog(false);
+    closeDrawerFunction(false);
+  };
+
+  const [openDialogFlash] = React.useState(() => {
+    if (building && recipeChoices.length === 0) {
+      setTimeout(setSelectedDataButton, 0);
+      return false;
+    } else {
+      return openDialog;
+    }
+  });
+
   return (
     <Dialog
-      open={openDialog}
+      open={openDialogFlash}
       fullScreen={isMobile}
       onClose={() => {
         setOpenDialog(false);
@@ -248,16 +268,7 @@ function DrawerDialog(props) {
         <Button
           disabled={!setButtonEnabled}
           color="primary"
-          onClick={() => {
-            pixiJsStore.update((s) => {
-              const instance = s[pixiCanvasStateId];
-
-              instance.selectedMachine = building;
-              instance.selectedRecipe = recipe;
-            });
-            setOpenDialog(false);
-            closeDrawerFunction(false);
-          }}
+          onClick={setSelectedDataButton}
         >
           Set
         </Button>

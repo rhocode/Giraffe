@@ -7,7 +7,7 @@ import {
 import { Viewport } from 'pixi-viewport';
 import AdvancedNode from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/AdvancedNode';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-// import stringGen from 'v3/utils/stringGen';
+// import uuidGen from 'v3/utils/stringGen';
 import { getMachineCraftableRecipeList } from 'v3/data/loaders/recipes';
 // import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';

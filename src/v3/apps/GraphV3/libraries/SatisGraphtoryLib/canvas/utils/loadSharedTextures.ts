@@ -12,6 +12,7 @@ import {
   GREY,
   ORANGE,
   PURPLE,
+  RED,
   WHITE,
   YELLOW,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
@@ -136,6 +137,54 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     bounds
   );
   PIXI.Texture.addToCache(badge_white, 'badge_white');
+
+  // inRectangle
+  gfx.clear();
+  gfx.beginFill(GREEN, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
+  gfx.endFill();
+
+  const inRectBounds = gfx.getBounds();
+  const inRectangle = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    inRectBounds
+  );
+  PIXI.Texture.addToCache(inRectangle, 'inRectangle');
+
+  // outRectangle
+  gfx.clear();
+  gfx.beginFill(ORANGE, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
+  gfx.endFill();
+
+  const outRectBounds = gfx.getBounds();
+  const outRectangle = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    outRectBounds
+  );
+  PIXI.Texture.addToCache(outRectangle, 'outRectangle');
+
+  // anyRectangle
+  gfx.clear();
+  gfx.beginFill(RED, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
+  gfx.endFill();
+
+  const anyRectBounds = gfx.getBounds();
+  const anyRectangle = pixiRenderer.generateTexture(
+    gfx,
+    PIXI.SCALE_MODES.LINEAR,
+    sgDevicePixelRatio * 4,
+    anyRectBounds
+  );
+  PIXI.Texture.addToCache(anyRectangle, 'anyRectangle');
 
   // inCircle
   gfx.clear();

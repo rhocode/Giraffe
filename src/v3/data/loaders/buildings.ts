@@ -6,7 +6,7 @@ import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import EdgeTemplate, {
   EdgeAttachmentSide,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
@@ -312,7 +312,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
     outputObject.push(
       new EmptyEdge({
         resourceForm: EResourceForm.RF_SOLID,
-        id: stringGen(10),
+        id: uuidGen(),
       })
     );
   }
@@ -321,7 +321,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
     outputObject.push(
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
-        id: stringGen(10),
+        id: uuidGen(),
       })
     );
   }
@@ -336,7 +336,7 @@ export const getInputsForBuilding = (buildingSlug: string) => {
     outputObject.push(
       new EmptyEdge({
         resourceForm: EResourceForm.RF_SOLID,
-        id: stringGen(10),
+        id: uuidGen(),
       })
     );
   }
@@ -345,7 +345,7 @@ export const getInputsForBuilding = (buildingSlug: string) => {
     outputObject.push(
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
-        id: stringGen(10),
+        id: uuidGen(),
       })
     );
   }
@@ -386,7 +386,7 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
         outputObject.push(
           new EmptyEdge({
             resourceForm: EResourceForm.RF_LIQUID,
-            id: stringGen(10),
+            id: uuidGen(),
             biDirectional: true,
           })
         );
@@ -398,7 +398,7 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
     outputObject.push(
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
-        id: stringGen(10),
+        id: uuidGen(),
         biDirectional: true,
         sourceNodeAttachmentSide: sides[i],
       })
@@ -408,7 +408,9 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
   return outputObject;
 };
 
-export const getSupportedResourceForm = (buildingSlug: string) => {
+export const getSupportedResourceForm = (
+  buildingSlug: string
+): EResourceForm[] => {
   if (!buildingSlug) return [];
 
   const building = (BuildingJson as any)[buildingSlug];
