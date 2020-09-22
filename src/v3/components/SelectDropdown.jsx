@@ -96,14 +96,21 @@ function Control(props) {
   } = props;
 
   const actualValue = value && value.value ? value.value : '';
+  const [textValue, setTextValue] = React.useState('');
+  React.useEffect(() => {
+    setTextValue(actualValue);
+  }, [actualValue]);
   return (
     <TextField
       fullWidth
       label={label}
       helperText={helperText}
       value={actualValue}
-      // InputLabelProps={{ shrink: !!actualValue || !!actualValue }}
+      InputLabelProps={{ shrink: !!actualValue || !!textValue }}
       InputProps={{
+        onChange: (e) => {
+          setTextValue(e.target.value);
+        },
         inputComponent,
         inputProps: {
           className: classes.input,

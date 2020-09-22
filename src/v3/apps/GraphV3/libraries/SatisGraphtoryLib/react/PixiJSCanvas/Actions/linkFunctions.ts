@@ -99,7 +99,6 @@ export const onStartLink = (pixiCanvasStateId: string, selectedEdge: any) => (
     );
 
     if (hasOutputAvailable) {
-      console.log('HAS');
       // Business as as normal
       for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
         if (child.id === startLinkId) continue;
@@ -117,7 +116,6 @@ export const onStartLink = (pixiCanvasStateId: string, selectedEdge: any) => (
         }
       }
     } else {
-      console.log('NO HAS');
       // Disable interaction for all other nodes, just so you can't actually click anything.
       for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
         if (child.id === startLinkId) continue;
@@ -219,7 +217,6 @@ export const setUpLinkInitialState = (
           )
         );
       } else {
-        console.log('FDKSDFKSFSF', child.id);
         child.attachEventEmitter(eventEmitter);
         child.addLinkEvents(
           null,
