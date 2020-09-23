@@ -27,6 +27,9 @@ function ServiceWorkerProvider(props) {
           window.location.reload();
         }
       },
+      unloadServiceWorker: (callback) => {
+        serviceWorker.unregister(callback);
+      },
     }),
     [assetsUpdateReady, assetsCached, waitingServiceWorker]
   );

@@ -33,17 +33,17 @@ const store = getStore();
 
 const CompleteApp = () => {
   return (
-    <SGErrorBoundary>
-      <Provider store={store}>
-        <LocalizeProvider store={store}>
-          <LocaleProvider>
-            <ServiceWorkerProvider>
+    <ServiceWorkerProvider>
+      <SGErrorBoundary>
+        <Provider store={store}>
+          <LocalizeProvider store={store}>
+            <LocaleProvider>
               <App />
-            </ServiceWorkerProvider>
-          </LocaleProvider>
-        </LocalizeProvider>
-      </Provider>
-    </SGErrorBoundary>
+            </LocaleProvider>
+          </LocalizeProvider>
+        </Provider>
+      </SGErrorBoundary>
+    </ServiceWorkerProvider>
   );
 };
 

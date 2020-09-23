@@ -20,6 +20,26 @@ const isLocalhost = Boolean(
     )
 );
 
+export function unregister(callback) {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      })
+      .then(() => {
+        if (callback) {
+          callback();
+        }
+      });
+  } else {
+    console.log('No serviceWorker installed');
+    callback();
+  }
+}
+
 export function register(config) {
   // if (window.location.protocol === 'file:') {
   //   // `file:` should be ignored for some none-browser environment, such as `Electron`.
