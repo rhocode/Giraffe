@@ -143,7 +143,7 @@ export default class AdvancedNode extends NodeTemplate {
         side = anyEdge.targetNodeAttachmentSide;
       } else {
         // It's an empty node, do something!!!
-        side = anyEdge.sourceNodeAttachmentSide;
+        side = anyEdge.targetNodeAttachmentSide;
       }
       let connectionsArray: EdgeTemplate[] = [];
       if (this.connectionsMap.get(side)) {

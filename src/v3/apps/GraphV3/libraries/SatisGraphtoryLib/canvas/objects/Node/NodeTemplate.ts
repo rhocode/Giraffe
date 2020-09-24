@@ -137,16 +137,30 @@ export abstract class NodeTemplate extends GraphObject {
     throw new Error('No empty index found');
   }
 
-  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
-    if (edge.biDirectional) {
+  addEdge(
+    edge: EdgeTemplate,
+    edgeType: EdgeType,
+    biDirectional: boolean = false
+  ) {
+    if (edge.biDirectional || biDirectional) {
       const firstNull = NodeTemplate.findFirstEmpty(this.anyConnections);
-      this.anyConnections[firstNull] = edge;
+      const foundEdge = this.anyConnections[firstNull];
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+    } else if (this.anyConnections.length) {
+      // This is the special case where we have anyConnections but the pipe is NOT bidirectinal.
+      // TODO: Fix this somehow
+      const firstNull = NodeTemplate.findFirstEmpty(this.anyConnections);
+
+      const foundEdge = this.anyConnections[firstNull];
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else if (edgeType === EdgeType.INPUT) {
       const firstNull = NodeTemplate.findFirstEmpty(this.inputConnections);
-      this.inputConnections[firstNull] = edge;
+      const foundEdge = this.inputConnections[firstNull];
+      this.inputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else if (edgeType === EdgeType.OUTPUT) {
       const firstNull = NodeTemplate.findFirstEmpty(this.outputConnections);
-      this.outputConnections[firstNull] = edge;
+      const foundEdge = this.outputConnections[firstNull];
+      this.outputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else {
       console.log('Unimplemented!');
     }

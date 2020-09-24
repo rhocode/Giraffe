@@ -10,8 +10,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-import {getAllImageFiles} from "v3/data/loaders/sgImageRepo";
-
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -21,10 +19,6 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
-
-const filesToCache = getAllImageFiles();
-
-const staticCacheName = 'satisgraphtory-image-cache';
 
 export function unregister(callback) {
   if ('serviceWorker' in navigator) {
@@ -87,74 +81,17 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
-  console.log("Trying to use serviceWorker directly");
-
-  navigator.serviceWorker.addEventListener('install', event => {
-    console.log('Attempting to install service worker and cache static assets');
-    event.waitUntil(
-      caches.open(staticCacheName)
-        .then(cache => {
-          return cache.addAll(filesToCache);
-        })
-    );
+  navigator.serviceWorker.addEventListener('install', (event) => {
+    console.log('AAAAAAAAAA');
   });
-
-
-
-  navigator.serviceWorker.addEventListener('fetch', event => {
-    console.log('Fetch event for ', event.request.url);
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          if (response) {
-            console.log('Found ', event.request.url, ' in cache');
-            return response;
-          }
-          console.log('Network request for ', event.request.url);
-          return fetch(event.request).then(response => {
-            // TODO 5 - Respond with custom 404 page
-            return caches.open(staticCacheName).then(cache => {
-              cache.put(event.request.url, response.clone());
-              return response;
-            });
-          });
-
-        }).catch(error => {
-
-        // TODO 6 - Respond with custom offline page
-
-      })
-    );
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    console.log('AAAAAAAAAA');
   });
-
-
-  navigator.serviceWorker.addEventListener('activate', event => {
-    console.log('Activating new service worker...');
-
-    const cacheAllowlist = [staticCacheName];
-
-    event.waitUntil(
-      caches.keys().then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            if (cacheAllowlist.indexOf(cacheName) === -1) {
-              return caches.delete(cacheName);
-            }
-
-            return Promise.resolve();
-          })
-        );
-      })
-    );
-  });
-
-
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
       console.log('Initing SW');
       if (registration) {
-
         console.log('SW Reg found:', registration);
         if (registration.waiting) {
           console.log('We are waiting on an install', registration);
@@ -177,7 +114,7 @@ function registerValidSW(swUrl, config) {
           }
 
           console.log('InstallingWorker is not null');
-          installingWorker.onstatechange = () => {
+          installingWorker.onstatechange = function () {
             console.log('InstallingWorker changed');
             if (installingWorker.state === 'installed') {
               console.log('InstallingWorker state is installed');

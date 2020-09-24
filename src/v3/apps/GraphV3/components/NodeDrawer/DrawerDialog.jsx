@@ -230,7 +230,7 @@ function DrawerDialog(props) {
   };
 
   const [openDialogFlash] = React.useState(() => {
-    if (building && recipeChoices.length === 0) {
+    if (building && recipeChoices.length === 0 && machineChoices.length === 1) {
       setTimeout(setSelectedDataButton, 0);
       return false;
     } else {
