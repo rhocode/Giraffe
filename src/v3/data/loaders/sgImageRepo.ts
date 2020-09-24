@@ -12,7 +12,6 @@ export function importImageManifest() {
   for (const file of manifest) {
     SGImageRepo.set(file, cdn + file);
 
-    console.log(cdn + file);
     promises.push(fetch(cdn + file));
     // promises.push(
     //   Promise.resolve(() => {
