@@ -95,7 +95,9 @@ function registerValidSW(swUrl, config) {
         } else {
           // Update this page every minute.
           setInterval(() => {
-            registration.update();
+            registration.update().catch(() => {
+              console.log('Failed fetching');
+            });
           }, 1000 * 60);
         }
 
