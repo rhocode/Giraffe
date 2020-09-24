@@ -50,9 +50,9 @@ export default class SimpleEdge extends EdgeTemplate {
     }
 
     if (props.biDirectional) {
-      this.sourceNode.addEdge(this, EdgeType.ANY);
+      this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
 
-      this.targetNode.addEdge(this, EdgeType.ANY);
+      this.targetNode.addEdge(this, EdgeType.INPUT, true);
     } else {
       this.sourceNode.addEdge(this, EdgeType.OUTPUT);
 
