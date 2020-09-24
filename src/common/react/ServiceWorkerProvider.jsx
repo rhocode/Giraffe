@@ -1,6 +1,6 @@
-import React from 'react';
-import { removeUrlParam } from 'utils/urlUtils';
-import * as serviceWorker from 'serviceWorkerRegistration';
+import React from "react";
+import { removeUrlParam } from "utils/urlUtils";
+import * as serviceWorker from "serviceWorkerRegistration";
 
 const ServiceWorkerContext = React.createContext(null);
 
@@ -16,13 +16,13 @@ function ServiceWorkerProvider(props) {
       // Call when the user confirm update of application and reload page
       updateAssets: () => {
         if (waitingServiceWorker) {
-          waitingServiceWorker.addEventListener('statechange', (event) => {
-            if (event.target.state === 'activated') {
+          waitingServiceWorker.addEventListener("statechange", (event) => {
+            if (event.target.state === "activated") {
               window.location.reload();
             }
           });
 
-          waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
+          waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
         } else {
           window.location.reload();
         }
@@ -39,7 +39,7 @@ function ServiceWorkerProvider(props) {
   React.useEffect(() => {
     if (
       navigator?.userAgent?.indexOf(
-        '(+https://github.com/prerender/prerender)'
+        "(+https://github.com/prerender/prerender)"
       ) === -1
     ) {
       serviceWorker.register({
@@ -56,8 +56,8 @@ function ServiceWorkerProvider(props) {
 
   React.useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const refreshKeyword = 'forceUpdate';
-    if (urlParams.get(refreshKeyword) === '') {
+    const refreshKeyword = "forceUpdate";
+    if (urlParams.get(refreshKeyword) === "") {
       const newUrl = removeUrlParam(refreshKeyword, window.location.href);
       window.history.replaceState({}, document.title, newUrl);
       setAssetsUpdateReady(true);
@@ -72,7 +72,7 @@ export function useServiceWorker() {
 
   if (!context) {
     throw new Error(
-      'useServiceWorker must be used within a ServiceWorkerProvider'
+      "useServiceWorker must be used within a ServiceWorkerProvider"
     );
   }
 
