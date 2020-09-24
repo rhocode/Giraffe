@@ -30,7 +30,7 @@ function HeaderMessaging(props) {
   const { assetsUpdateReady, updateAssets } = useServiceWorker();
 
   const update = () => {
-    console.error('Updating assets...');
+    console.error('Updating assets...', assetsUpdateReady, updateAssets);
     if (updateAssets) {
       updateAssets();
     }
