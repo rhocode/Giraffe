@@ -1,6 +1,6 @@
 import React from 'react';
 import { removeUrlParam } from 'utils/urlUtils';
-import * as serviceWorker from '../../serviceWorkerCustom';
+import * as serviceWorker from 'serviceWorkerRegistration';
 
 const ServiceWorkerContext = React.createContext(null);
 

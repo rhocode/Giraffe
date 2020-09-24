@@ -82,7 +82,7 @@
     "react-resize-detector": "^5.0.7",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^4.0.0-next.98",
     "react-scroll-horizontal": "^1.6.4",
     "react-scrollbars-custom": "^4.0.25",
     "react-select": "^3.0.8",
@@ -115,9 +115,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
-    "build-sw": "node ./src/serviceWorker-build.js",
     "prebuild": "yarn run checkout-data-landing && yarn run generate",
-    "postbuild": "yarn run build-sw",
     "pretest": "npm run generate",
     "generate": "npm run generate-images-v3",
     "storybook": "start-storybook -p 9009 -s public",
@@ -176,7 +174,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix --max-warnings 0 --ignore-pattern src/serviceWorker-custom.js",
+      "eslint --fix --max-warnings 0",
       "prettier --single-quote --write",
       "git add"
     ],
