@@ -77,6 +77,8 @@ self.addEventListener('activate', event => {
           if (cacheAllowlist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
           }
+
+          return Promise.resolve();
         })
       );
     })
