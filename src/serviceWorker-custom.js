@@ -39,7 +39,7 @@ if ("function" === typeof importScripts) {
 
     // eslint-disable-next-line no-restricted-globals
     self.addEventListener('fetch', event => {
-      if (!(event.request.url.indexOf('http') === 0) || !(event.request.url.endsWith('png'))) return; // skip the request. if request is not made with http protocol
+      if (!(event.request.url.indexOf('http') === 0)) return; // skip the request. if request is not made with http protocol
       console.debug('Fetch event for ', event.request.url);
       event.respondWith(
         caches.match(event.request)
@@ -53,7 +53,9 @@ if ("function" === typeof importScripts) {
               // TODO 5 - Respond with custom 404 page
               return caches.open(staticCacheName).then(cache => {
                 try {
-                  cache.put(event.request.url, response.clone());
+                  if (event.request.url.endsWith('png')) {
+                    cache.put(event.request.url, response.clone());
+                  }
                   return response;
                 } catch(e) {
                   return response;
