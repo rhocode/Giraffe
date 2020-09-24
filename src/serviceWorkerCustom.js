@@ -62,7 +62,7 @@ export function register(config) {
       return;
     }
 
-    window.addEventListener('install', event => {
+    window.self.addEventListener('install', event => {
       console.log('Attempting to install service worker and cache static assets');
       event.waitUntil(
         caches.open(staticCacheName)
@@ -73,7 +73,7 @@ export function register(config) {
     });
 
 
-    window.addEventListener('fetch', event => {
+    window.self.addEventListener('fetch', event => {
       console.log('Fetch event for ', event.request.url);
       event.respondWith(
         caches.match(event.request)
@@ -100,7 +100,7 @@ export function register(config) {
     });
 
 
-    window.addEventListener('activate', event => {
+    window.self.addEventListener('activate', event => {
       console.log('Activating new service worker...');
 
       const cacheAllowlist = [staticCacheName];

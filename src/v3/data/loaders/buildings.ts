@@ -2,7 +2,6 @@ import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
-import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
@@ -11,6 +10,7 @@ import EdgeTemplate, {
   EdgeAttachmentSide,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
+import SGImageRepo from "v3/data/loaders/sgImageRepo";
 
 const slugToCustomMachineGroup = (slug: string) => {
   switch (slug) {
@@ -261,9 +261,15 @@ export const getBuildingImageName = (slug: string) => {
 
 export const getBuildingIcon = (slug: string, size: number) => {
   const itemSlug = slug.replace(/^building/g, 'item');
-  return (imageRepo as any)[
-    `sg${getBuildingImageName(itemSlug)}_${size}`.replace(/-/g, '_')
-  ];
+
+  const itemImageSlug = `${getBuildingImageName(itemSlug)}.${256}.png`;
+
+  const image = SGImageRepo.get(itemImageSlug);
+
+  if (!image) {
+    throw new Error('No image found: ' + itemImageSlug);
+  }
+  return image
 };
 
 export const getRecipesByMachineClass = (machineClass: string) => {
@@ -400,6 +406,7 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
         resourceForm: EResourceForm.RF_LIQUID,
         id: uuidGen(),
         biDirectional: true,
+        targetNodeAttachmentSide: sides[i],
         sourceNodeAttachmentSide: sides[i],
       })
     );
