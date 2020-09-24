@@ -115,7 +115,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
-    "prebuild": "npm run checkout-data-landing && npm run generate",
+    "build-sw": "node ./src/serviceWorker-build.js",
+    "prebuild": "yarn run checkout-data-landing && yarn run generate",
+    "postbuild": "yarn run build-sw",
     "pretest": "npm run generate",
     "generate": "npm run generate-images-v3",
     "storybook": "start-storybook -p 9009 -s public",
@@ -174,7 +176,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix --max-warnings 0",
+      "eslint --fix --max-warnings 0 --ignore-pattern src/serviceWorker-custom.js",
       "prettier --single-quote --write",
       "git add"
     ],
