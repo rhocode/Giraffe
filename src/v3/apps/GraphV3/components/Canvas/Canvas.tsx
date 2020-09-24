@@ -12,6 +12,7 @@ import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/r
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import {importImageManifest} from "v3/data/loaders/sgImageRepo";
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -20,6 +21,7 @@ const InnerComponent = React.lazy(() => {
     new FontFaceObserver('Roboto Condensed', { weight: 400 }).load(),
     new FontFaceObserver('Bebas Neue', { weight: 400 }).load(),
     new FontFaceObserver('Roboto Slab', { weight: 400 }).load(),
+    importImageManifest()
   ])
     .catch(() => {
       // Prerenderer isn't happy about us blocking on load
