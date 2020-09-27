@@ -81,6 +81,7 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           theme: this.theme,
+          targetNode: this,
         });
         break;
       }
@@ -91,6 +92,7 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           theme: this.theme,
+          sourceNode: this,
         });
         break;
       }
@@ -102,6 +104,7 @@ export abstract class NodeTemplate extends GraphObject {
           id: edge.id,
           biDirectional: true,
           theme: this.theme,
+          sourceNode: this,
         });
         break;
       }
@@ -130,12 +133,38 @@ export abstract class NodeTemplate extends GraphObject {
     return originalEdges;
   }
 
-  private static findFirstEmpty(arr: EdgeTemplate[]) {
+  // public findFirstEmpty(arr: EdgeTemplate[]) {
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (arr[i].sourceNode == null || arr[i].targetNode == null) {
+  //       return i;
+  //     }
+  //   }
+  //
+  //   throw new Error('No empty index found');
+  // }
+
+  public findClosestEmpty(arr: EdgeTemplate[], otherNode: NodeTemplate) {
+    const otherCoordinateX = otherNode.container.position.x + NODE_WIDTH / 2;
+    const otherCoordinateY = otherNode.container.position.y + NODE_HEIGHT / 2;
+
+    let min = Infinity;
+    let side = -1;
+
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i].sourceNode == null && arr[i].targetNode == null) {
-        return i;
+      if (arr[i].sourceNode == null || arr[i].targetNode == null) {
+        const { x, y } = this.getConnectionCoordinate(arr[i]);
+        const a = x - otherCoordinateX;
+        const b = y - otherCoordinateY;
+
+        const dist = Math.sqrt(a * a + b * b);
+        if (dist < min) {
+          min = dist;
+          side = i;
+        }
       }
     }
+
+    if (side >= 0) return side;
 
     throw new Error('No empty index found');
   }
@@ -145,23 +174,31 @@ export abstract class NodeTemplate extends GraphObject {
     edgeType: EdgeType,
     biDirectional: boolean = false
   ) {
+    const otherNode =
+      edge.sourceNode === this ? edge.targetNode : edge.sourceNode;
+
+    if (!otherNode) throw new Error('Other node is null');
+
     if (edge.biDirectional || biDirectional) {
-      const firstNull = NodeTemplate.findFirstEmpty(this.anyConnections);
+      const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
       const foundEdge = this.anyConnections[firstNull];
       this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else if (this.anyConnections.length) {
       // This is the special case where we have anyConnections but the pipe is NOT bidirectinal.
       // TODO: Fix this somehow
-      const firstNull = NodeTemplate.findFirstEmpty(this.anyConnections);
+      const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
 
       const foundEdge = this.anyConnections[firstNull];
       this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else if (edgeType === EdgeType.INPUT) {
-      const firstNull = NodeTemplate.findFirstEmpty(this.inputConnections);
+      const firstNull = this.findClosestEmpty(this.inputConnections, otherNode);
       const foundEdge = this.inputConnections[firstNull];
       this.inputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else if (edgeType === EdgeType.OUTPUT) {
-      const firstNull = NodeTemplate.findFirstEmpty(this.outputConnections);
+      const firstNull = this.findClosestEmpty(
+        this.outputConnections,
+        otherNode
+      );
       const foundEdge = this.outputConnections[firstNull];
       this.outputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
     } else {

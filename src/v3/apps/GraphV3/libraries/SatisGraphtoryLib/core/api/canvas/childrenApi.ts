@@ -15,11 +15,11 @@ export const addObjectChildren = (
       s.childrenMap.set(id, child);
       if (unshift) {
         s.children.unshift(child);
+        s.viewportChildContainer.addChildAt(child.container, 0);
       } else {
         s.children.push(child);
+        s.viewportChildContainer.addChild(child.container);
       }
-
-      s.viewportChildContainer.addChild(child.container);
     });
   });
 };

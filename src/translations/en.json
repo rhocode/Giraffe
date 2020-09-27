@@ -14,6 +14,7 @@
   "loadingText_message10": "Reticulating Splines",
   "loadingText_message11": "Coffee, Cheetos, Chicken",
   "headerMessaging_newData": "New data is available! Click here to update",
+  "headerMessaging_newData_currentlyUpdating": "New data is currently being loaded, hang tight!",
   "per_minute": "Per Minute",
   "n_per_min": "/ min",
   "building-assembler": "Assembler",

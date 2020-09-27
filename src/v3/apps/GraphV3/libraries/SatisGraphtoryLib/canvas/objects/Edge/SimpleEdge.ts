@@ -46,10 +46,12 @@ export default class SimpleEdge extends EdgeTemplate {
     }
 
     if (props.biDirectional) {
+      console.log('BIDIRECT');
       this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
 
       this.targetNode.addEdge(this, EdgeType.INPUT, true);
     } else {
+      console.log('AAAAAAA');
       this.sourceNode.addEdge(this, EdgeType.OUTPUT);
 
       this.targetNode.addEdge(this, EdgeType.INPUT);

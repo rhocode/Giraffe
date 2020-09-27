@@ -90,8 +90,6 @@ function Canvas(props: CanvasProps) {
     return uuidGen();
   });
 
-  console.log(pixiCanvasStateId);
-
   React.useEffect(() => {
     pixiJsStore.update((s) => {
       if (!s[pixiCanvasStateId]) {
