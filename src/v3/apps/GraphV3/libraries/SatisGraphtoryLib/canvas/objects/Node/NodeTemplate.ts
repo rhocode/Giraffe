@@ -38,7 +38,7 @@ export abstract class NodeTemplate extends GraphObject {
   connectionsSideMap: Map<EdgeTemplate, EdgeAttachmentSide> = new Map();
 
   protected constructor(props: SatisGraphtoryNodeProps) {
-    super();
+    super(props);
 
     const {
       id,
@@ -80,6 +80,7 @@ export abstract class NodeTemplate extends GraphObject {
         this.inputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
+          theme: this.theme,
         });
         break;
       }
@@ -89,6 +90,7 @@ export abstract class NodeTemplate extends GraphObject {
         this.outputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
+          theme: this.theme,
         });
         break;
       }
@@ -99,6 +101,7 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           biDirectional: true,
+          theme: this.theme,
         });
         break;
       }

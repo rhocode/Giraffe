@@ -4,13 +4,13 @@
 
 import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/loadSharedTextures';
 
-const initPixiJSCanvas = (pixiJS: PIXI.Application) => {
+const initPixiJSCanvas = (pixiJS: PIXI.Application, theme: any) => {
   if (!pixiJS?.renderer) {
     return;
   }
 
   console.time('loadSharedTextures');
-  loadSharedTextures(pixiJS.renderer);
+  loadSharedTextures(pixiJS.renderer, theme);
   console.timeEnd('loadSharedTextures');
 };
 

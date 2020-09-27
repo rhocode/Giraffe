@@ -168,6 +168,7 @@ export const onEndLink = (
         resourceForm: possibleResourceForms[0],
         sourceNode,
         targetNode,
+        theme: sourceNode.theme, // TODO: a hack to pass through the theme
       };
 
       const edge = new SimpleEdge(edgeProps);

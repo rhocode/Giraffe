@@ -1,5 +1,4 @@
 import { Viewport } from 'pixi-viewport';
-import { ORANGE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { GraphObjectContainer } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 
@@ -8,12 +7,13 @@ export const drawSelectionBox = (
   x1: number,
   y1: number,
   width: number,
-  height: number
+  height: number,
+  theme: any
   // dash: number,
   // gap: number
 ) => {
-  context.lineStyle(4, ORANGE, 1);
-  context.beginFill(ORANGE, 0.15);
+  context.lineStyle(4, theme.selectionBox.stroke, 1);
+  context.beginFill(theme.selectionBox.fill, theme.selectionBox.fillOpacity);
   context.drawRect(x1, y1, width, height);
   //
   // context.moveTo(x1, y1);
@@ -43,7 +43,8 @@ export const enableSelectionBox = (
   pixiViewport: Viewport,
   viewportChildContainer: PIXI.Container,
   selectionBox: PIXI.Graphics,
-  selectionCallback: (ids: string[]) => any
+  selectionCallback: (ids: string[]) => any,
+  theme: any
 ) => {
   let dragging = false;
   let clickX = 0;
@@ -154,7 +155,7 @@ export const enableSelectionBox = (
         return inBounds;
       });
 
-      drawSelectionBox(selectionBox, minX, minY, deltaX, deltaY);
+      drawSelectionBox(selectionBox, minX, minY, deltaX, deltaY, theme);
     }
   });
 };

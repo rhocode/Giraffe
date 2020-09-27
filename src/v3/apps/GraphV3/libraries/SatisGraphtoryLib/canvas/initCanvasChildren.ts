@@ -15,7 +15,8 @@ import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/obj
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
   viewport: Viewport,
-  translate: (source: string) => string
+  translate: (source: string) => string,
+  theme: Record<string, any>
 ) => {
   console.log('Creating canvas state');
 
@@ -40,8 +41,8 @@ const initCanvasChildren = (
     let machine = machines[Math.floor(Math.random() * machines.length)];
 
     if (
-      !getInputsForBuilding(machine as string).length ||
-      !getOutputsForBuilding(machine as string).length
+      !getInputsForBuilding(machine as string, theme).length ||
+      !getOutputsForBuilding(machine as string, theme).length
     ) {
       machine = machines[0];
     }
@@ -58,8 +59,9 @@ const initCanvasChildren = (
       overclock: Math.floor(Math.random() * 200),
       machineName: machine as string,
       machineLabel: getBuildingName(machine) as string,
-      inputConnections: getInputsForBuilding(machine as string),
-      outputConnections: getOutputsForBuilding(machine as string),
+      inputConnections: getInputsForBuilding(machine as string, theme),
+      outputConnections: getOutputsForBuilding(machine as string, theme),
+      theme,
     };
 
     // console.log(nodeData);

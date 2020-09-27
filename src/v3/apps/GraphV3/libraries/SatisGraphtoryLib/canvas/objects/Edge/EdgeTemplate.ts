@@ -43,7 +43,7 @@ export default abstract class EdgeTemplate extends GraphObject {
   abstract update(): void;
 
   constructor(props: SatisGraphtoryEdgeProps) {
-    super();
+    super(props);
     const {
       sourceNode,
       targetNode,

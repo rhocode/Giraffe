@@ -6,21 +6,10 @@ import {
 import { getItemIcon, getMachineCraftableItems } from 'v3/data/loaders/items';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
 import {
-  BLUE,
-  CANVAS_BACKGROUND_COLOR,
-  GREEN,
-  GREY,
-  ORANGE,
-  PURPLE,
-  RED,
-  WHITE,
-  YELLOW,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
-import {
-  BADGE_HEIGHT,
-  BADGE_RADIUS,
-  BADGE_THICKNESS,
-  BADGE_WIDTH,
+  // BADGE_HEIGHT,
+  // BADGE_RADIUS,
+  // BADGE_THICKNESS,
+  // BADGE_WIDTH,
   BOX_RADIUS,
   BOX_THICKNESS,
   CIRCLE_RADIUS,
@@ -30,17 +19,19 @@ import {
   MACHINE_ICON_SIZE,
   NODE_HEIGHT,
   NODE_WIDTH,
-  SMALL_BADGE_WIDTH,
+  // SMALL_BADGE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
 function createBackboard(
   gfx: PIXI.Graphics,
   x: number,
   y: number,
-  pixiRenderer: PIXI.Renderer
+  pixiRenderer: PIXI.Renderer,
+  outlineColor: any,
+  fillColor: any
 ) {
-  gfx.lineStyle(BOX_THICKNESS, YELLOW, 1);
-  gfx.beginFill(GREY, 1.0);
+  gfx.lineStyle(BOX_THICKNESS, outlineColor, 1);
+  gfx.beginFill(fillColor, 1.0);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
   gfx.endFill();
 
@@ -55,50 +46,62 @@ function createBackboard(
   return { bounds, backboard };
 }
 
-export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
+const checkOrReplaceTexture = (texture: any, name: string) => {
+  const existing = PIXI.utils.TextureCache[name];
+
+  if (existing) {
+    existing.baseTexture = texture.baseTexture;
+    existing.update();
+  } else {
+    PIXI.Texture.addToCache(texture, name);
+  }
+};
+
+export const loadSharedTextures = (pixiRenderer: PIXI.Renderer, theme: any) => {
   const gfx = new PIXI.Graphics();
 
   const x = 0,
     y = 0;
 
-  const { bounds, backboard } = createBackboard(gfx, x, y, pixiRenderer);
-  PIXI.Texture.addToCache(backboard, 'machine');
+  // backboard (machine)
+  const { backboard: machineBackboard } = createBackboard(
+    gfx,
+    x,
+    y,
+    pixiRenderer,
+    theme.nodes.machines.border,
+    theme.nodes.machines.backboard
+  );
+
+  checkOrReplaceTexture(machineBackboard, 'machine');
 
   // backboard (infrastructure)
-  gfx.clear();
-  gfx.lineStyle(BOX_THICKNESS, PURPLE, 1);
-  gfx.beginFill(GREY, 1.0);
-  gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
-  gfx.endFill();
-
-  const boundsInfra = gfx.getBounds();
-  const infra = pixiRenderer.generateTexture(
+  const { backboard: infrastructureBackboard } = createBackboard(
     gfx,
-    PIXI.SCALE_MODES.LINEAR,
-    sgDevicePixelRatio * 4,
-    boundsInfra
+    x,
+    y,
+    pixiRenderer,
+    theme.nodes.infrastructure.border,
+    theme.nodes.infrastructure.backboard
   );
-  PIXI.Texture.addToCache(infra, 'infra');
+
+  checkOrReplaceTexture(infrastructureBackboard, 'infra');
 
   // backboard (storage)
-  gfx.clear();
-  gfx.lineStyle(BOX_THICKNESS, BLUE, 1);
-  gfx.beginFill(GREY, 1.0);
-  gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
-  gfx.endFill();
-
-  const boundsStorage = gfx.getBounds();
-  const storage = pixiRenderer.generateTexture(
+  const { backboard: storageBackboard } = createBackboard(
     gfx,
-    PIXI.SCALE_MODES.LINEAR,
-    sgDevicePixelRatio * 4,
-    boundsStorage
+    x,
+    y,
+    pixiRenderer,
+    theme.nodes.storage.border,
+    theme.nodes.storage.backboard
   );
-  PIXI.Texture.addToCache(storage, 'storage');
+
+  checkOrReplaceTexture(storageBackboard, 'storage');
 
   // highlight
   gfx.clear();
-  gfx.lineStyle(NODE_HIGHLIGHT_THICKNESS, ORANGE, 0.7);
+  gfx.lineStyle(NODE_HIGHLIGHT_THICKNESS, theme.nodes.highlight, 0.7);
   gfx.drawRoundedRect(x, y, NODE_WIDTH, NODE_HEIGHT, BOX_RADIUS);
 
   const boundsHighlight = gfx.getBounds();
@@ -108,40 +111,12 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     boundsHighlight
   );
-  PIXI.Texture.addToCache(highlight, 'highlight');
-
-  // badge (blue)
-  gfx.clear();
-  gfx.lineStyle(BADGE_THICKNESS, BLUE, 1);
-  gfx.beginFill(GREY, 1.0);
-  gfx.drawRoundedRect(x, y, BADGE_WIDTH, BADGE_HEIGHT, BADGE_RADIUS);
-  gfx.endFill();
-  const badge = pixiRenderer.generateTexture(
-    gfx,
-    PIXI.SCALE_MODES.LINEAR,
-    sgDevicePixelRatio * 4,
-    bounds
-  );
-  PIXI.Texture.addToCache(badge, 'badge');
-
-  // badge (white)
-  gfx.clear();
-  gfx.lineStyle(BADGE_THICKNESS, WHITE, 1);
-  gfx.beginFill(GREY, 1.0);
-  gfx.drawRoundedRect(x, y, SMALL_BADGE_WIDTH, BADGE_HEIGHT, BADGE_RADIUS);
-  gfx.endFill();
-  const badge_white = pixiRenderer.generateTexture(
-    gfx,
-    PIXI.SCALE_MODES.LINEAR,
-    sgDevicePixelRatio * 4,
-    bounds
-  );
-  PIXI.Texture.addToCache(badge_white, 'badge_white');
+  checkOrReplaceTexture(highlight, 'highlight');
 
   // inRectangle
   gfx.clear();
-  gfx.beginFill(GREEN, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.beginFill(theme.connectors.in, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, theme.canvas.background, 1);
   gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
   gfx.endFill();
 
@@ -152,12 +127,12 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     inRectBounds
   );
-  PIXI.Texture.addToCache(inRectangle, 'inRectangle');
+  checkOrReplaceTexture(inRectangle, 'inRectangle');
 
   // outRectangle
   gfx.clear();
-  gfx.beginFill(ORANGE, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.beginFill(theme.connectors.out, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, theme.canvas.background, 1);
   gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
   gfx.endFill();
 
@@ -168,12 +143,12 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     outRectBounds
   );
-  PIXI.Texture.addToCache(outRectangle, 'outRectangle');
+  checkOrReplaceTexture(outRectangle, 'outRectangle');
 
   // anyRectangle
   gfx.clear();
-  gfx.beginFill(RED, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.beginFill(theme.connectors.any, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, theme.canvas.background, 1);
   gfx.drawRoundedRect(x, y, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 3);
   gfx.endFill();
 
@@ -184,12 +159,12 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     anyRectBounds
   );
-  PIXI.Texture.addToCache(anyRectangle, 'anyRectangle');
+  checkOrReplaceTexture(anyRectangle, 'anyRectangle');
 
   // inCircle
   gfx.clear();
-  gfx.beginFill(GREEN, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.beginFill(theme.connectors.in, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, theme.canvas.background, 1);
   gfx.drawCircle(x, y, CIRCLE_RADIUS);
   gfx.endFill();
 
@@ -200,12 +175,12 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     inBounds
   );
-  PIXI.Texture.addToCache(inCircle, 'inCircle');
+  checkOrReplaceTexture(inCircle, 'inCircle');
 
   // outCircle
   gfx.clear();
-  gfx.beginFill(ORANGE, 1);
-  gfx.lineStyle(CIRCLE_THICKNESS, CANVAS_BACKGROUND_COLOR, 1);
+  gfx.beginFill(theme.connectors.out, 1);
+  gfx.lineStyle(CIRCLE_THICKNESS, theme.canvas.background, 1);
   gfx.drawCircle(x, y, CIRCLE_RADIUS);
   gfx.endFill();
 
@@ -216,20 +191,48 @@ export const loadSharedTextures = (pixiRenderer: PIXI.Renderer) => {
     sgDevicePixelRatio * 4,
     outBounds
   );
-  PIXI.Texture.addToCache(outCircle, 'outCircle');
+  checkOrReplaceTexture(outCircle, 'outCircle');
 
   // items and machines
   getMachineCraftableItems().forEach((element) => {
     const itemImg = getItemIcon(element, ITEM_SIZE);
     const itemIcon = new PIXI.BaseTexture(itemImg);
     const itemTex = new PIXI.Texture(itemIcon);
-    PIXI.Texture.addToCache(itemTex, element);
+    checkOrReplaceTexture(itemTex, element);
   });
 
   getAllBuildableMachines().forEach((element) => {
     const machineImg = getBuildingIcon(element, MACHINE_ICON_SIZE);
     const machineIcon = new PIXI.BaseTexture(machineImg);
     const machineTex = new PIXI.Texture(machineIcon);
-    PIXI.Texture.addToCache(machineTex, element);
+    checkOrReplaceTexture(machineTex, element);
   });
+
+  // badge (blue)
+  // gfx.clear();
+  // gfx.lineStyle(BADGE_THICKNESS, BLUE, 1);
+  // gfx.beginFill(GREY, 1.0);
+  // gfx.drawRoundedRect(x, y, BADGE_WIDTH, BADGE_HEIGHT, BADGE_RADIUS);
+  // gfx.endFill();
+  // const badge = pixiRenderer.generateTexture(
+  //   gfx,
+  //   PIXI.SCALE_MODES.LINEAR,
+  //   sgDevicePixelRatio * 4,
+  //   bounds
+  // );
+  // checkOrReplaceTexture(badge, 'badge');
+  //
+  // // badge (white)
+  // gfx.clear();
+  // gfx.lineStyle(BADGE_THICKNESS, WHITE, 1);
+  // gfx.beginFill(GREY, 1.0);
+  // gfx.drawRoundedRect(x, y, SMALL_BADGE_WIDTH, BADGE_HEIGHT, BADGE_RADIUS);
+  // gfx.endFill();
+  // const badge_white = pixiRenderer.generateTexture(
+  //   gfx,
+  //   PIXI.SCALE_MODES.LINEAR,
+  //   sgDevicePixelRatio * 4,
+  //   bounds
+  // );
+  // checkOrReplaceTexture(badge_white, 'badge_white');
 };

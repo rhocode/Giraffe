@@ -8,10 +8,6 @@ import {
   LINE_HIGHLIGHT_THICKNESS,
   LINE_THICKNESS,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
-import {
-  DARK_ORANGE,
-  ORANGE,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import Bezier from 'bezier-js';
 
@@ -108,7 +104,8 @@ export default class SimpleEdge extends EdgeTemplate {
 
     this.graphicsObject.clear();
     this.container.getHighLight().clear();
-    this.graphicsObject.lineStyle(LINE_THICKNESS, ORANGE, 1);
+    // TODO: Fix the edge color
+    this.graphicsObject.lineStyle(LINE_THICKNESS, this.theme.edges.default, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
     const multiplierX = sourceX > targetX ? -1 : 1;
@@ -156,7 +153,11 @@ export default class SimpleEdge extends EdgeTemplate {
 
     const highLight = this.container.getHighLight();
     highLight.moveTo(sourceX, sourceY);
-    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, DARK_ORANGE, 1);
+    highLight.lineStyle(
+      LINE_HIGHLIGHT_THICKNESS,
+      this.theme.edges.highlight,
+      1
+    );
 
     const curve = new Bezier(
       sourceX,

@@ -10,7 +10,7 @@ import EdgeTemplate, {
   EdgeAttachmentSide,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
-import SGImageRepo from "v3/data/loaders/sgImageRepo";
+import SGImageRepo from 'v3/data/loaders/sgImageRepo';
 
 const slugToCustomMachineGroup = (slug: string) => {
   switch (slug) {
@@ -269,7 +269,7 @@ export const getBuildingIcon = (slug: string, size: number) => {
   if (!image) {
     throw new Error('No image found: ' + itemImageSlug);
   }
-  return image
+  return image;
 };
 
 export const getRecipesByMachineClass = (machineClass: string) => {
@@ -311,7 +311,7 @@ export const getTier = (buildingSlug: string) => {
   }
 };
 
-export const getOutputsForBuilding = (buildingSlug: string) => {
+export const getOutputsForBuilding = (buildingSlug: string, theme: any) => {
   const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
   for (let i = 0; i < building.outputBelts || 0; i++) {
@@ -319,6 +319,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
       new EmptyEdge({
         resourceForm: EResourceForm.RF_SOLID,
         id: uuidGen(),
+        theme,
       })
     );
   }
@@ -328,6 +329,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
         id: uuidGen(),
+        theme,
       })
     );
   }
@@ -335,7 +337,7 @@ export const getOutputsForBuilding = (buildingSlug: string) => {
   return outputObject;
 };
 
-export const getInputsForBuilding = (buildingSlug: string) => {
+export const getInputsForBuilding = (buildingSlug: string, theme: any) => {
   const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
   for (let i = 0; i < building.inputBelts || 0; i++) {
@@ -343,6 +345,7 @@ export const getInputsForBuilding = (buildingSlug: string) => {
       new EmptyEdge({
         resourceForm: EResourceForm.RF_SOLID,
         id: uuidGen(),
+        theme,
       })
     );
   }
@@ -352,6 +355,7 @@ export const getInputsForBuilding = (buildingSlug: string) => {
       new EmptyEdge({
         resourceForm: EResourceForm.RF_LIQUID,
         id: uuidGen(),
+        theme,
       })
     );
   }
@@ -359,7 +363,10 @@ export const getInputsForBuilding = (buildingSlug: string) => {
   return outputObject;
 };
 
-export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
+export const getAnyConnectionsForBuilding = (
+  buildingSlug: string,
+  theme: any
+) => {
   const building = (ConnectionsJson as any)[buildingSlug];
   const outputObject: EdgeTemplate[] = [];
 
@@ -394,6 +401,7 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
             resourceForm: EResourceForm.RF_LIQUID,
             id: uuidGen(),
             biDirectional: true,
+            theme,
           })
         );
       }
@@ -408,6 +416,7 @@ export const getAnyConnectionsForBuilding = (buildingSlug: string) => {
         biDirectional: true,
         targetNodeAttachmentSide: sides[i],
         sourceNodeAttachmentSide: sides[i],
+        theme,
       })
     );
   }

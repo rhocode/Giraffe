@@ -76,7 +76,7 @@ export default class AdvancedNode extends NodeTemplate {
     const recipeText = createTruncatedText(
       recipeLabel,
       NODE_WIDTH,
-      RECIPE_STYLE(NODE_WIDTH),
+      RECIPE_STYLE(NODE_WIDTH, this.theme),
       RECIPE_OFFSET_X,
       RECIPE_OFFSET_Y,
       'center'
@@ -84,7 +84,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const machineText = createText(
       machineLabel,
-      MACHINE_STYLE(),
+      MACHINE_STYLE(this.theme),
       MACHINE_NAME_OFFSET_X,
       MACHINE_NAME_OFFSET_Y,
       'center'
@@ -106,7 +106,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const levelText = createText(
       getTierText(tier),
-      TIER_STYLE(),
+      TIER_STYLE(this.theme),
       TIER_OFFSET_X,
       TIER_OFFSET_Y
     );
@@ -115,7 +115,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const efficiencyText = createText(
       `${overclock}%`,
-      OVERCLOCK_STYLE(),
+      OVERCLOCK_STYLE(this.theme),
       EFFICIENCY_OFFSET_X,
       EFFICIENCY_OFFSET_Y,
       'right'

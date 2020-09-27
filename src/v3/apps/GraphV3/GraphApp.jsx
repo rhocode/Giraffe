@@ -66,10 +66,10 @@ function GraphApp(props) {
     // localizeGenerator(getAllRecipes())
   }, []);
 
-  const canvasChildren = React.useCallback(
-    (application, viewport, translate) => {
+  const initialCanvasChildren = React.useCallback(
+    (application, viewport, translate, theme) => {
       console.log('Canvas load function called');
-      return initCanvasChildren(application, viewport, translate);
+      return initCanvasChildren(application, viewport, translate, theme);
     },
     []
   );
@@ -119,7 +119,10 @@ function GraphApp(props) {
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar />
-          <Canvas canvasChildren={canvasChildren} onFinishLoad={onFinishLoad}>
+          <Canvas
+            initialCanvasChildren={initialCanvasChildren}
+            onFinishLoad={onFinishLoad}
+          >
             {/*<ChainWizardPanel />*/}
             <ActionBar />
             <DebugFab />

@@ -18,7 +18,8 @@ const populateNodeData = (
   overclock: number,
   x: number,
   y: number,
-  translateFunction: (arg0: string) => string
+  translateFunction: (arg0: string) => string,
+  theme: any
 ) => {
   return new AdvancedNode({
     position: {
@@ -32,9 +33,10 @@ const populateNodeData = (
     overclock,
     machineName: buildingSlug,
     machineLabel: getBuildingName(buildingSlug) as string,
-    inputConnections: getInputsForBuilding(buildingSlug),
-    outputConnections: getOutputsForBuilding(buildingSlug),
-    anyConnections: getAnyConnectionsForBuilding(buildingSlug),
+    inputConnections: getInputsForBuilding(buildingSlug, theme),
+    outputConnections: getOutputsForBuilding(buildingSlug, theme),
+    anyConnections: getAnyConnectionsForBuilding(buildingSlug, theme),
+    theme,
   });
 };
 

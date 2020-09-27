@@ -1,5 +1,5 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import { getTypeFromMachineClass } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Colors';
+import { getTypeFromMachineClass } from 'common/react/SGThemeProvider';
 
 export const createBackboard = (x: number, y: number, type: string) => {
   const machineClass = getTypeFromMachineClass(type);

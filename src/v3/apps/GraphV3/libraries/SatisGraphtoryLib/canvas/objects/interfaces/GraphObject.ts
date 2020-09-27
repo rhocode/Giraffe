@@ -27,10 +27,18 @@ export abstract class GraphObjectContainer extends PIXI.Container {
   }
 }
 
+type GraphObjectProps = {
+  theme?: any;
+};
+
 export abstract class GraphObject {
   abstract id: string;
   abstract container: GraphObjectContainer;
   eventEmitter: EventEmitter | null = null;
+
+  constructor(props: GraphObjectProps) {
+    this.theme = props.theme;
+  }
 
   attachEventEmitter(eventEmitter: EventEmitter) {
     this.eventEmitter = eventEmitter;
@@ -40,4 +48,9 @@ export abstract class GraphObject {
   abstract addSelectEvents(onSelectObjects: (ids: string[]) => any): void;
   abstract addDragEvents(): any[];
   abstract delete(): GraphObject[];
+  theme: any = {};
+
+  updateTheme(theme: any) {
+    this.theme = theme;
+  }
 }

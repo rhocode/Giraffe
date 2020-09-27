@@ -1,4 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useThemeProvider } from 'common/react/SGThemeProvider';
 import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
@@ -221,6 +222,8 @@ function PixiJSApplication(props) {
 
   const selectionBoxId = React.useRef('');
 
+  const theme = useThemeProvider();
+
   // Reenable when it's time to revisit using a grid
   // const gridId = React.useRef('');
   // React.useEffect(() => {
@@ -322,7 +325,8 @@ function PixiJSApplication(props) {
         pixiViewport,
         viewportChildContainer,
         selectionBox,
-        onSelectObjects
+        onSelectObjects,
+        theme
       );
 
       pixiJsStore.update([
@@ -385,7 +389,8 @@ function PixiJSApplication(props) {
           100,
           newPos.x,
           newPos.y,
-          translate
+          translate,
+          theme
         );
 
         addObjectChildren([nodeData], pixiCanvasStateId);
@@ -431,6 +436,7 @@ function PixiJSApplication(props) {
     selectedEdge,
     selectedMachine,
     selectedRecipe,
+    theme,
     translate,
     viewportChildContainer,
   ]);

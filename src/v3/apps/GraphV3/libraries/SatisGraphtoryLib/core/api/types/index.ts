@@ -16,6 +16,7 @@ export interface SatisGraphtoryNodeProps {
   machineLabel: string;
   tier: number;
   position: SatisGraphtoryCoordinate;
+  theme: Record<string, any>;
 }
 
 export interface SatisGraphtoryEdgeProps {
@@ -26,6 +27,7 @@ export interface SatisGraphtoryEdgeProps {
   sourceNodeAttachmentSide?: EdgeAttachmentSide;
   targetNodeAttachmentSide?: EdgeAttachmentSide;
   biDirectional?: Boolean;
+  theme: Record<string, any>;
 }
 
 export interface SatisGraphtoryCoordinate {

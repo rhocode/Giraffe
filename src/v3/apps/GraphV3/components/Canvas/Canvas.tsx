@@ -12,7 +12,10 @@ import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/r
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import {importImageManifest} from "v3/data/loaders/sgImageRepo";
+import { importImageManifest } from 'v3/data/loaders/sgImageRepo';
+import { useThemeProvider } from 'common/react/SGThemeProvider';
+import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+// import {Store} from "pullstate";
 
 const FontFaceObserver = require('fontfaceobserver');
 
@@ -21,7 +24,7 @@ const InnerComponent = React.lazy(() => {
     new FontFaceObserver('Roboto Condensed', { weight: 400 }).load(),
     new FontFaceObserver('Bebas Neue', { weight: 400 }).load(),
     new FontFaceObserver('Roboto Slab', { weight: 400 }).load(),
-    importImageManifest()
+    importImageManifest(),
   ])
     .catch(() => {
       // Prerenderer isn't happy about us blocking on load
@@ -38,15 +41,33 @@ const InnerComponent = React.lazy(() => {
 });
 
 type LoadableComponentProps = {
-  canvasChildren: (
+  initialCanvasChildren: (
     app: PIXI.Application,
     viewPort: Viewport,
-    translate: Function
+    translate: Function,
+    theme: Record<string, any>
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
 
 const LoadablePixiComponent = (props: LoadableComponentProps) => {
+  // const [progressStore] = React.useState(new Store({
+  //   progress: 0,
+  //   totalProgress: 0
+  // }));
+
+  // const incrementStore = React.useCallback(() => {
+  //   progressStore.update(s => {
+  //     s.progress += 1;
+  //   })
+  // }, [progressStore])
+  //
+  // const addTotalProgress = React.useCallback(() => {
+  //   progressStore.update(s => {
+  //     s.progress += 1;
+  //   })
+  // }, [progressStore])
+
   return (
     <Suspense fallback={<AutoSizedLoadingWrapper />}>
       <InnerComponent {...props} />
@@ -55,51 +76,80 @@ const LoadablePixiComponent = (props: LoadableComponentProps) => {
 };
 
 type CanvasProps = {
-  canvasChildren: (
+  initialCanvasChildren: (
     app: PIXI.Application,
     viewPort: Viewport,
-    translate: Function
+    translate: Function,
+    theme: Record<string, any>
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
 };
 
 function Canvas(props: CanvasProps) {
   const [pixiCanvasStateId] = React.useState(() => {
-    const stateId = uuidGen();
-
-    pixiJsStore.update((s) => {
-      s[stateId] = generateNewPixiCanvasStore();
-    });
-
-    return stateId;
+    return uuidGen();
   });
 
-  const { onFinishLoad, canvasChildren } = props;
+  console.log(pixiCanvasStateId);
+
+  React.useEffect(() => {
+    pixiJsStore.update((s) => {
+      if (!s[pixiCanvasStateId]) {
+        console.log('Store was updated');
+        s[pixiCanvasStateId] = generateNewPixiCanvasStore();
+      }
+    });
+  }, [pixiCanvasStateId]);
+
+  const { onFinishLoad, initialCanvasChildren } = props;
 
   const {
     pixiApplication,
     applicationLoaded,
     pixiViewport,
+    canvasReady,
   } = pixiJsStore.useState((s) => {
     const instance = s[pixiCanvasStateId];
     return {
-      pixiApplication: instance.application,
-      applicationLoaded: instance.applicationLoaded,
-      pixiViewport: instance.viewport,
+      pixiApplication: instance?.application,
+      applicationLoaded: instance?.applicationLoaded,
+      pixiViewport: instance?.viewport,
+      canvasReady: instance?.canvasReady,
     };
   });
 
   const { translate } = React.useContext(LocaleContext);
 
+  const theme = useThemeProvider();
+
+  // Update the theme for each child
   React.useEffect(() => {
     if (!applicationLoaded) return;
 
-    initPixiJSCanvas(pixiApplication);
+    // loadSharedTextures(pixiApplication.renderer, theme)
+    pixiJsStore.update((t) => {
+      const s = t[pixiCanvasStateId];
 
-    const childrenToPush = canvasChildren(
+      for (const child of s.children) {
+        if (child instanceof GraphObject) {
+          child.updateTheme(theme);
+        }
+      }
+    });
+  }, [applicationLoaded, pixiApplication, pixiCanvasStateId, theme]);
+
+  React.useEffect(() => {
+    if (!applicationLoaded) return;
+
+    if (canvasReady) return;
+
+    initPixiJSCanvas(pixiApplication, theme);
+
+    const childrenToPush = initialCanvasChildren(
       pixiApplication,
       pixiViewport,
-      translate
+      translate,
+      theme
     );
 
     addObjectChildren(childrenToPush || [], pixiCanvasStateId);
@@ -113,11 +163,13 @@ function Canvas(props: CanvasProps) {
     });
   }, [
     applicationLoaded,
-    canvasChildren,
+    canvasReady,
+    initialCanvasChildren,
     onFinishLoad,
     pixiApplication,
     pixiCanvasStateId,
     pixiViewport,
+    theme,
     translate,
   ]);
 
