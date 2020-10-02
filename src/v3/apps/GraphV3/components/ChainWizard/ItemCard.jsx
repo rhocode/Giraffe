@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { getItemIcon } from 'v3/data/loaders/items';
-import QualitySelector from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardQuantitySelector';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import ItemSelector from 'v3/apps/GraphV3/components/ChainWizard/ItemSelector';
-import { faBars, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import { getItemIcon } from "v3/data/loaders/items";
+import QualitySelector from "v3/apps/GraphV3/components/ChainWizard/ChainWizardQuantitySelector";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import ItemSelector from "v3/apps/GraphV3/components/ChainWizard/ItemSelector";
+import { faBars, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-import { SortableHandle } from 'react-sortable-hoc';
-import { useStoreState } from 'pullstate';
-import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { SortableHandle } from "react-sortable-hoc";
+import { useStoreState } from "pullstate";
+import { graphWizardStore } from "v3/apps/GraphV3/stores/graphAppStore";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 5,
     borderColor: theme.palette.divider,
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: "solid",
   },
 }));
 
@@ -32,13 +32,13 @@ const gridStyles = makeStyles(() => ({
 
 const dragHandleStyles = makeStyles(() => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     height: 37,
     width: 37,
-    cursor: 'n-resize',
-    pointerEvents: 'auto',
+    cursor: "n-resize",
+    pointerEvents: "auto",
   },
 }));
 

@@ -1,7 +1,7 @@
-import { useStoreState } from 'pullstate';
-import React from 'react';
-import QuantitySelector from 'v3/apps/GraphV3/components/QuantitySelector/QuantitySelector';
-import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
+import { useStoreState } from "pullstate";
+import React from "react";
+import QuantitySelector from "v3/apps/GraphV3/components/QuantitySelector/QuantitySelector";
+import { graphWizardStore } from "v3/apps/GraphV3/stores/graphAppStore";
 
 // const useStyles = makeStyles(() =>
 //   createStyles({

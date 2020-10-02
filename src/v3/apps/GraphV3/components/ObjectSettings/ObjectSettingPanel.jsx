@@ -8,27 +8,27 @@ import {
   Divider,
   OutlinedInput,
   Typography,
-} from '@material-ui/core';
-import Drawer from '@material-ui/core/Drawer';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import AddIcon from '@material-ui/icons/Add';
-import CategoryIcon from '@material-ui/icons/Category';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DeviceHubIcon from '@material-ui/icons/DeviceHub';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FastForwardIcon from '@material-ui/icons/FastForward';
-import FastRewindIcon from '@material-ui/icons/FastRewind';
-import RemoveIcon from '@material-ui/icons/Remove';
-import React from 'react';
-import Scrollbar from 'react-scrollbars-custom';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import SelectDropdown from '../../../../../common/react/SelectDropdown';
+} from "@material-ui/core";
+import Drawer from "@material-ui/core/Drawer";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import AddIcon from "@material-ui/icons/Add";
+import CategoryIcon from "@material-ui/icons/Category";
+import DeleteIcon from "@material-ui/icons/Delete";
+import DeviceHubIcon from "@material-ui/icons/DeviceHub";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FastForwardIcon from "@material-ui/icons/FastForward";
+import FastRewindIcon from "@material-ui/icons/FastRewind";
+import RemoveIcon from "@material-ui/icons/Remove";
+import React from "react";
+import Scrollbar from "react-scrollbars-custom";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
+import EdgeTemplate from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate";
+import { NodeTemplate } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import SelectDropdown from "../../../../../common/react/SelectDropdown";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
   },
   drawerContent: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'absolute',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -49,23 +49,23 @@ const useStyles = makeStyles((theme) => ({
   },
   tabContent: {
     padding: 20,
-    pointerEvents: 'auto',
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    pointerEvents: "auto",
+    overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
     flexGrow: 1,
   },
   fab: {
-    position: 'fixed',
-    bottom: '2em',
-    right: '2em',
+    position: "fixed",
+    bottom: "2em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
   fabMobile: {
-    position: 'fixed',
-    bottom: '7em',
-    right: '2em',
+    position: "fixed",
+    bottom: "7em",
+    right: "2em",
     zIndex: theme.zIndex.drawer + 1,
   },
   overclockTextField: {
@@ -76,17 +76,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
   expandPanel: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   tiers: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   buttonText: {
     // color: 'white',
   },
   root: {
-    gridArea: 'anotherElement',
-    display: 'grid',
+    gridArea: "anotherElement",
+    display: "grid",
   },
 }));
 
@@ -101,11 +101,11 @@ const CustomOutlinedInput = ({
 const StyledInput = withStyles(() => ({
   input: {
     borderRadius: 0,
-    textAlign: 'center',
+    textAlign: "center",
     paddingLeft: 0,
     paddingRight: 0,
     width: 80,
-    height: '0em',
+    height: "0em",
   },
   root: {
     padding: 0,
@@ -131,7 +131,7 @@ function ObjectSettingPanel(props) {
       return false;
     }
 
-    throw new Error('Not instance of something handled');
+    throw new Error("Not instance of something handled");
   });
 
   const nodes = selectedObjects.filter((item) => {
@@ -141,7 +141,7 @@ function ObjectSettingPanel(props) {
       return true;
     }
 
-    throw new Error('Not instance of something handled');
+    throw new Error("Not instance of something handled");
   });
 
   const numNodes = nodes.length;
@@ -160,7 +160,7 @@ function ObjectSettingPanel(props) {
   return (
     <Drawer
       variant="persistent"
-      anchor={'right'}
+      anchor={"right"}
       open={mouseState === MouseState.SELECT && selectedObjects.length > 0}
       onClose={() => {}}
       classes={{

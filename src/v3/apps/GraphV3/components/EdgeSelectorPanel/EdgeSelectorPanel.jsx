@@ -1,35 +1,35 @@
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import React from 'react';
-import QuantitySelector from 'v3/apps/GraphV3/components/QuantitySelector/QuantitySelector';
-import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { LocaleContext } from 'v3/components/LocaleProvider';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import QuantitySelector from "v3/apps/GraphV3/components/QuantitySelector/QuantitySelector";
+import MouseState from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState";
+import { PixiJSCanvasContext } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext";
+import { pixiJsStore } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore";
+import { LocaleContext } from "v3/components/LocaleProvider";
 import {
   getBuildableConnectionClasses,
   getBuildableConnections,
   getBuildingIcon,
   getUpgradesForConnectionClass,
-} from 'v3/data/loaders/buildings';
+} from "v3/data/loaders/buildings";
 
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      bottom: '2em',
-      left: '2em',
-      position: 'absolute',
+      bottom: "2em",
+      left: "2em",
+      position: "absolute",
       width: 340,
       minHeight: 100,
       zIndex: theme.zIndex.drawer + 1,
-      pointerEvents: 'auto',
-      flexDirection: 'column',
+      pointerEvents: "auto",
+      flexDirection: "column",
       flexGrow: 1,
     },
     title: {
@@ -60,9 +60,9 @@ const useStyles = makeStyles((theme) => {
     },
     selectorText: {},
     horizontalAlign: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
     },
   };
 });
@@ -78,7 +78,7 @@ function EdgeSelectorPanel() {
     connectionClasses[0]
   );
 
-  const [selectedEdgeTier, setSelectedEdgeTierFunc] = React.useState('');
+  const [selectedEdgeTier, setSelectedEdgeTierFunc] = React.useState("");
   const [showTierSelector, setShowTierSelector] = React.useState(false);
 
   const { pixiCanvasStateId, mouseState } = React.useContext(
@@ -118,7 +118,7 @@ function EdgeSelectorPanel() {
           setSelectedEdgeTier(possibleUpgrades[totalIndexes - 1]);
           break;
         default:
-          throw new Error('Unsupported direction ' + direction);
+          throw new Error("Unsupported direction " + direction);
       }
     },
     [selectedEdgeTier, selectedEdgeType, setSelectedEdgeTier]
@@ -225,12 +225,12 @@ function EdgeSelectorPanel() {
               setAmountFunctionFastForward={() => {
                 tierSelector(100);
               }}
-              amount={translate('tier-selector-' + selectedEdgeTier)}
+              amount={translate("tier-selector-" + selectedEdgeTier)}
               buttonColor={{
-                fastBackwardColor: 'secondary',
-                backwardColor: 'secondary',
-                forwardColor: 'primary',
-                fastForwardColor: 'primary',
+                fastBackwardColor: "secondary",
+                backwardColor: "secondary",
+                forwardColor: "primary",
+                fastForwardColor: "primary",
               }}
               styledInputClass={classes.markSelectorInput}
               styledRootClass={classes.inputRoot}

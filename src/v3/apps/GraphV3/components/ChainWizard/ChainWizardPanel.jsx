@@ -1,28 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
-import { getMachineCraftableItems } from 'v3/data/loaders/items';
-import ItemCard from 'v3/apps/GraphV3/components/ChainWizard/ItemCard';
-import { LocaleContext } from 'v3/components/LocaleProvider';
-import { useStoreState } from 'pullstate';
-import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
-import arrayMove from 'array-move';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import uuidGen from 'v3/utils/stringUtils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Button from '@material-ui/core/Button';
-import Scrollbar from 'react-scrollbars-custom';
-import Grid from '@material-ui/core/Grid';
-import { wizardSolver } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/solver';
-import OutputSubPanel from 'v3/apps/GraphV3/components/ChainWizard/OutputSubPanel';
-import UsedConstraints from 'v3/apps/GraphV3/components/ChainWizard/Constraint/UsedConstraints';
-import CustomListSubheader from 'v3/apps/GraphV3/components/ChainWizard/CustomListSubheader';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ModalOpenTrigger from "v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger";
+import { getMachineCraftableItems } from "v3/data/loaders/items";
+import ItemCard from "v3/apps/GraphV3/components/ChainWizard/ItemCard";
+import { LocaleContext } from "v3/components/LocaleProvider";
+import { useStoreState } from "pullstate";
+import { graphWizardStore } from "v3/apps/GraphV3/stores/graphAppStore";
+import arrayMove from "array-move";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import uuidGen from "v3/utils/stringUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "@material-ui/core/Button";
+import Scrollbar from "react-scrollbars-custom";
+import Grid from "@material-ui/core/Grid";
+import { wizardSolver } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/solver";
+import OutputSubPanel from "v3/apps/GraphV3/components/ChainWizard/OutputSubPanel";
+import UsedConstraints from "v3/apps/GraphV3/components/ChainWizard/Constraint/UsedConstraints";
+import CustomListSubheader from "v3/apps/GraphV3/components/ChainWizard/CustomListSubheader";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -42,29 +42,29 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.modal,
   },
   tabContent: {
-    overflow: 'hidden',
+    overflow: "hidden",
     flexGrow: 1,
-    position: 'relative',
+    position: "relative",
   },
   scrollableTabContent: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    overflow: 'auto',
+    overflow: "auto",
   },
 }));
 
 const gridItemStyles = makeStyles((theme) => ({
   item: {
-    height: '100%',
-    flexDirection: 'column',
-    display: 'flex',
-    width: '200 important!',
+    height: "100%",
+    flexDirection: "column",
+    display: "flex",
+    width: "200 important!",
   },
   container: {
-    height: '100%',
+    height: "100%",
   },
 }));
 
@@ -102,7 +102,7 @@ const SortableList = SortableContainer(
             />
           );
         })}
-        <ListItem key={'addBox'}>
+        <ListItem key={"addBox"}>
           <Button
             onClick={addEntryFn}
             style={{ width: 354 }}
@@ -208,7 +208,7 @@ function ChainWizardPanel() {
     <React.Fragment>
       <Drawer
         variant="temporary"
-        anchor={'left'}
+        anchor={"left"}
         open={true}
         // onClose={() => setDrawerOpen(false)}
         classes={{

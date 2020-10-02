@@ -1,23 +1,23 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import useDimensions from '../hooks/useDimensions';
-import stringGen from 'v3/utils/stringUtils';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
+import React, { useCallback, useMemo, useState } from "react";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import useDimensions from "../hooks/useDimensions";
+import stringGen from "v3/utils/stringUtils";
+import { sgDevicePixelRatio } from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     canvasContainer: {
-      display: 'grid',
-      gridArea: 'contentArea',
+      display: "grid",
+      gridArea: "contentArea",
       gridTemplateAreas: `"canvasElement"`,
-      gridTemplateRows: 'minmax(0, 1fr)',
-      gridTemplateColumns: '1fr',
+      gridTemplateRows: "minmax(0, 1fr)",
+      gridTemplateColumns: "1fr",
       minWidth: 0,
       minHeight: 0,
-      position: 'relative',
+      position: "relative",
     },
     canvas: {
-      gridArea: 'canvasElement',
+      gridArea: "canvasElement",
       minWidth: 0,
       minHeight: 0,
     },
