@@ -4,7 +4,6 @@ import {
   drawPath,
 } from '../../themes/nodeStyle';
 import { GraphEdge } from './graphEdge';
-import * as d3 from 'd3';
 import Fraction from '../primitives/fraction';
 
 type Nullable<T> = T | null;
@@ -322,7 +321,7 @@ export default class MachineNode extends GraphNode {
     y: number,
     fixPosition = false,
     translator = null,
-    initialTransform = d3.zoomIdentity,
+    initialTransform = null,
     internalId: number = -1
   ) {
     super(x, y, translator);
