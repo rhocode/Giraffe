@@ -93,7 +93,13 @@ function PixiJSCanvasContainer(props) {
   return (
     <React.Fragment>
       <div className={classes.canvasContainer}>
-        <ReactResizeDetector handleWidth handleHeight>
+        <ReactResizeDetector
+          refreshMode={'throttle'}
+          refreshOptions={{ leading: true, trailing: true }}
+          refreshRate={100}
+          handleWidth
+          handleHeight
+        >
           {({ width, height }) => (
             <div className={classes.canvas}>
               <CenteredLoader />
