@@ -84,7 +84,7 @@ function QuantitySelector(props: QualitySelectorProps) {
   } = props;
 
   const {
-    fastBackwardColor = undefined,
+    fastBackwardColor,
     backwardColor,
     forwardColor,
     fastForwardColor,
