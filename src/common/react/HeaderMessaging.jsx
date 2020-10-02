@@ -29,9 +29,12 @@ const styles = (theme) => ({
 function HeaderMessaging(props) {
   const { assetsUpdateReady, updateAssets } = useServiceWorker();
 
+  const [isUpdating, setIsUpdating] = React.useState(false);
+
   const update = () => {
-    console.error('Updating assets...');
+    console.error('Updating assets...', assetsUpdateReady, updateAssets);
     if (updateAssets) {
+      setIsUpdating(true);
       updateAssets();
     }
   };
@@ -44,7 +47,11 @@ function HeaderMessaging(props) {
       }
     >
       <div className={props.classes.messaging}>
-        {props.translate('headerMessaging_newData')}
+        {props.translate(
+          isUpdating
+            ? 'headerMessaging_newData_currentlyUpdating'
+            : 'headerMessaging_newData'
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import ItemJson from 'data/Items.json';
 import memoize from 'fast-memoize';
-import imageRepo from 'data/images/__all';
 import { getBuildingImageName } from 'v3/data/loaders/buildings';
 import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
 import produce from 'immer';
+import SGImageRepo from "v3/data/loaders/sgImageRepo";
 
 export const getItemDefinition = (itemSlug: string) => {
   return (ItemJson as any)[itemSlug];
@@ -53,30 +53,28 @@ const getItemListFn = () => {
   });
 };
 
-const imageMap = new Map<string, any>();
+// const imageMap = new Map<string, any>();
+//
+// const preloadAllIcons = () => {
+//   Object.entries(imageRepo).forEach(([name, src]) => {
+//     const img = document.createElement('img');
+//     img.src = src; // Assigning the img src immediately requests the image.
+//     imageMap.set(name, img);
+//   });
+// };
+//
+// // Preload all icons here
+// preloadAllIcons();
 
-const preloadAllIcons = () => {
-  Object.entries(imageRepo).forEach(([name, src]) => {
-    const img = document.createElement('img');
-    img.src = src; // Assigning the img src immediately requests the image.
-    imageMap.set(name, img);
-  });
-};
+export const getItemIcon = (itemSlug: string, size: number = 256) => {
+  const itemImageSlug = `${getBuildingImageName(itemSlug)}.${256}.png`;
 
-// Preload all icons here
-preloadAllIcons();
+  const image = SGImageRepo.get(itemImageSlug);
 
-export const getItemIcon = (itemSlug: string, size: number = 64) => {
-  const imageSlug = `sg${getBuildingImageName(itemSlug)}_${size}`.replace(
-    /-/g,
-    '_'
-  );
-
-  try {
-    return (imageRepo as any)[imageSlug];
-  } catch (e) {
-    throw new Error('No image found: ' + imageSlug);
+  if (!image) {
+    throw new Error('No image found: ' + itemImageSlug);
   }
+  return image
 };
 
 const getMachineCraftableItemsFn = () => {

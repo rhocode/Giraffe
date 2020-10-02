@@ -32,8 +32,8 @@ export function addDotsToNode(
   }
 }
 
-export function calculateNodeOffset(slots: any[], y: number, height: number) {
+export function calculateConnectionNodeOffset(slots: any[], length: number) {
   return slots.map((entry, i) => {
-    return Math.floor(y + ((i + 1) * height) / (slots.length + 1));
+    return Math.floor(((i + 1) * length) / (slots.length + 1));
   });
 }

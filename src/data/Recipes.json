@@ -104,7 +104,6 @@
   "recipe-train-station": {
     "name": "Train Station",
     "translation": {
-      "namespace": null,
       "key": "16502BCC4D2CF4A772732E82C5D0744A"
     },
     "ingredients": [
@@ -2222,7 +2221,6 @@
   "recipe-motor": {
     "name": "Motor",
     "translation": {
-      "namespace": null,
       "key": "6813C97846A2DD0E378D789F009A703E"
     },
     "ingredients": [
@@ -3536,7 +3534,6 @@
   "recipe-conveyor-pole-stackable": {
     "name": "Stackable Conveyor Pole",
     "translation": {
-      "namespace": null,
       "key": "9AA85FB14CE8061CC16D08A0129DE294"
     },
     "ingredients": [
@@ -3566,7 +3563,6 @@
   "recipe-conveyor-pole-wall": {
     "name": "Conveyor Wall Mount",
     "translation": {
-      "namespace": null,
       "key": "7D6873DF4DE52C6EA093A0B090958FF0"
     },
     "ingredients": [
@@ -3787,7 +3783,6 @@
   "recipe-hub-terminal": {
     "name": "HUB Terminal",
     "translation": {
-      "namespace": null,
       "key": "F6727D9446D0E5E2F9C171B61C1776F9"
     },
     "ingredients": [],
@@ -3912,7 +3907,6 @@
   "recipe-jump-pad": {
     "name": "Jump Pad",
     "translation": {
-      "namespace": null,
       "key": "5C7397674656688A5C530991564A68FA"
     },
     "ingredients": [
@@ -3942,7 +3936,6 @@
   "recipe-jump-pad-tilted": {
     "name": "Tilted Jump Pad",
     "translation": {
-      "namespace": null,
       "key": "23D78C744C5741F585EC05829300D981"
     },
     "ingredients": [
@@ -3998,7 +3991,6 @@
   "recipe-mam": {
     "name": "M.A.M.",
     "translation": {
-      "namespace": null,
       "key": "42111D1146F0DCFA899A6292AF4C2AA4"
     },
     "ingredients": [
@@ -4092,7 +4084,6 @@
   "recipe-miner-mk2": {
     "name": "Miner Mk.2",
     "translation": {
-      "namespace": null,
       "key": "9FFDB8E242D774A194E8318F78719EAD"
     },
     "ingredients": [
@@ -4126,7 +4117,6 @@
   "recipe-miner-mk3": {
     "name": "Miner Mk.3",
     "translation": {
-      "namespace": null,
       "key": "A2AB562348446A4E3597008E684808AF"
     },
     "ingredients": [
@@ -4280,7 +4270,6 @@
   "recipe-pipeline": {
     "name": "Pipeline",
     "translation": {
-      "namespace": null,
       "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
     },
     "ingredients": [
@@ -4302,7 +4291,6 @@
   "recipe-pipeline-junction-cross": {
     "name": "Pipeline Junction Cross",
     "translation": {
-      "namespace": null,
       "key": "4841474A4998580837B45AB5CA652833"
     },
     "ingredients": [
@@ -4324,7 +4312,6 @@
   "recipe-pipeline-pump": {
     "name": "Pipeline Pump",
     "translation": {
-      "namespace": null,
       "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
     },
     "ingredients": [
@@ -4837,7 +4824,6 @@
   "recipe-resource-sink": {
     "name": "AWESOME Sink",
     "translation": {
-      "namespace": null,
       "key": "7EF9CDA1441086A8E94D6A984AF35EE8"
     },
     "ingredients": [
@@ -4867,7 +4853,6 @@
   "recipe-resource-sink-shop": {
     "name": "AWESOME Shop",
     "translation": {
-      "namespace": null,
       "key": "98E1AF4D447BF9A6276B8CB41AC520DA"
     },
     "ingredients": [
@@ -5070,7 +5055,6 @@
   "recipe-truck-station": {
     "name": "Truck Station",
     "translation": {
-      "namespace": null,
       "key": "3B3576E9482BA277C308C88DFCB73D1B"
     },
     "ingredients": [
@@ -5100,7 +5084,6 @@
   "recipe-ujelly-landing-pad": {
     "name": "U-Jelly Landing Pad",
     "translation": {
-      "namespace": null,
       "key": "40EA941E48CEFB59722E2F81443B383D"
     },
     "ingredients": [
@@ -5160,7 +5143,6 @@
   "recipe-work-bench": {
     "name": "Craft Bench",
     "translation": {
-      "namespace": null,
       "key": "909BAFD0411132D0C914DCA1317B245F"
     },
     "ingredients": [
@@ -5186,7 +5168,6 @@
   "recipe-work-bench-integrated": {
     "name": "Craft Bench",
     "translation": {
-      "namespace": null,
       "key": "DC88421D451F63FB95AA80861E61AEFC"
     },
     "ingredients": [],
@@ -5203,7 +5184,6 @@
   "recipe-workshop": {
     "name": "Equipment Workshop",
     "translation": {
-      "namespace": null,
       "key": "BE3C0E5D44852E9A26F679A7602CA8EC"
     },
     "ingredients": [
@@ -5307,7 +5287,6 @@
   "recipe-space-elevator": {
     "name": "Space Elevator",
     "translation": {
-      "namespace": null,
       "key": "B0AE60A44F6A0BBC2C2B84B14CB7DB6F"
     },
     "ingredients": [
@@ -5341,7 +5320,6 @@
   "recipe-walkway-cross": {
     "name": "Walkway Crossing",
     "translation": {
-      "namespace": null,
       "key": "2742C058416371DE0121ACA99A2A6C11"
     },
     "ingredients": [
@@ -5367,7 +5345,6 @@
   "recipe-walkway-ramp": {
     "name": "Walkway Ramp",
     "translation": {
-      "namespace": null,
       "key": "1C309B5945236DCB3459DF98EF83D600"
     },
     "ingredients": [
@@ -5393,7 +5370,6 @@
   "recipe-walkway-straight": {
     "name": "Walkway Straight",
     "translation": {
-      "namespace": null,
       "key": "EB89B3BF4A8D4FDF524B71823D7AD380"
     },
     "ingredients": [
@@ -5419,7 +5395,6 @@
   "recipe-walkway-t": {
     "name": "Walkway T-Crossing",
     "translation": {
-      "namespace": null,
       "key": "8B436E274CB07F5B15E3CB9B11306494"
     },
     "ingredients": [
@@ -5443,11 +5418,7 @@
     "manufacturingDuration": 1
   },
   "recipe-walkway-turn": {
-    "name": null,
-    "translation": {
-      "namespace": null,
-      "key": null
-    },
+    "translation": {},
     "ingredients": [
       {
         "slug": "item-iron-rod",
@@ -7117,7 +7088,6 @@
   "recipe-nutritional-inhaler": {
     "name": "Medicinal Inhaler",
     "translation": {
-      "namespace": null,
       "key": "FC4C697749695074BDDACEB3427E4EF2"
     },
     "ingredients": [
@@ -7601,7 +7571,6 @@
   "recipe-motor-turbo": {
     "name": "Turbo Motor",
     "translation": {
-      "namespace": null,
       "key": "6180060D4609F43DDDD5F7888441563A"
     },
     "ingredients": [
@@ -8303,7 +8272,6 @@
   "recipe-coal": {
     "name": "Coal",
     "translation": {
-      "namespace": null,
       "key": "2D87B04D42150A99CBD6A08DCA906603"
     },
     "ingredients": [
@@ -8325,7 +8293,6 @@
   "recipe-crude-oil": {
     "name": "Crude Oil",
     "translation": {
-      "namespace": null,
       "key": "7B79816141CFD604CD8F188177995F76"
     },
     "ingredients": [
@@ -8347,7 +8314,6 @@
   "recipe-limestone": {
     "name": "Limestone",
     "translation": {
-      "namespace": null,
       "key": "C9FE5AC84AAC9C62890EC3BBD6421827"
     },
     "ingredients": [
@@ -8369,7 +8335,6 @@
   "recipe-ore-bauxite": {
     "name": "Bauxite",
     "translation": {
-      "namespace": null,
       "key": "C3DF126F4607A74BC7D5E0A90F367418"
     },
     "ingredients": [
@@ -8391,7 +8356,6 @@
   "recipe-ore-caterium": {
     "name": "Caterium Ore",
     "translation": {
-      "namespace": null,
       "key": "5B9BF77D4855875C2284D8BF2EF2C003"
     },
     "ingredients": [
@@ -8413,7 +8377,6 @@
   "recipe-ore-copper": {
     "name": "Copper Ore",
     "translation": {
-      "namespace": null,
       "key": "5385E3FA4319A76BABA2329ACED5F215"
     },
     "ingredients": [
@@ -8435,7 +8398,6 @@
   "recipe-ore-iron": {
     "name": "Iron Ore",
     "translation": {
-      "namespace": null,
       "key": "ED299CBA4FF8E80B591A96A54EF500B4"
     },
     "ingredients": [
@@ -8457,7 +8419,6 @@
   "recipe-ore-uranium": {
     "name": "Uranium",
     "translation": {
-      "namespace": null,
       "key": "96C780194CA1A516CA01379CA13C826C"
     },
     "ingredients": [
@@ -8479,7 +8440,6 @@
   "recipe-raw-quartz": {
     "name": "Raw Quartz",
     "translation": {
-      "namespace": null,
       "key": "4E04D0E840050ABEFFEE399598A98235"
     },
     "ingredients": [
@@ -8501,7 +8461,6 @@
   "recipe-sulfur": {
     "name": "Sulfur",
     "translation": {
-      "namespace": null,
       "key": "066E1EE249BF324B1DC93B80587BDA2E"
     },
     "ingredients": [

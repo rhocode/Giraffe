@@ -1,3 +1,4 @@
+import { useServiceWorker } from 'common/react/ServiceWorkerProvider';
 import React from 'react';
 import * as Sentry from '@sentry/react';
 import { Store } from 'pullstate';
@@ -14,7 +15,6 @@ export const errorStore = new Store({
 });
 
 const useStyles = (theme) => {
-  console.log(theme);
   return {
     container: {
       background: '#1D1E20',
@@ -44,6 +44,8 @@ function BlankFallbackComponent() {
 function FallbackComponent() {
   const styles = useStyles();
 
+  const { unloadServiceWorker } = useServiceWorker();
+
   const errorType = errorStore.useState((s) => s.errorType);
 
   let title = 'Diagnosing...';
@@ -55,7 +57,9 @@ function FallbackComponent() {
       body =
         "It looks like you're missing part of the app! Click okay to reload the page and fix it!";
       action = () => {
-        window.location.reload();
+        unloadServiceWorker(() => {
+          window.location.reload();
+        });
       };
       break;
     default:

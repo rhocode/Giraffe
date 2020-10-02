@@ -6,11 +6,10 @@ import ActionBar from 'v3/apps/GraphV3/components/ActionBar/ActionBar';
 import Canvas from 'v3/apps/GraphV3/components/Canvas/Canvas';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // import worker from 'workerize-loader!./workertest';
-import ChainWizardPanel from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardPanel';
 import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
+import EdgeSelectorPanel from 'v3/apps/GraphV3/components/EdgeSelectorPanel/EdgeSelectorPanel';
 
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
-import SimulationFab from 'v3/apps/GraphV3/components/SimulationFab/SimulationFab';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 
@@ -67,10 +66,10 @@ function GraphApp(props) {
     // localizeGenerator(getAllRecipes())
   }, []);
 
-  const canvasChildren = React.useCallback(
-    (application, viewport, translate) => {
+  const initialCanvasChildren = React.useCallback(
+    (application, viewport, translate, theme) => {
       console.log('Canvas load function called');
-      return initCanvasChildren(application, viewport, translate);
+      return initCanvasChildren(application, viewport, translate, theme);
     },
     []
   );
@@ -120,11 +119,15 @@ function GraphApp(props) {
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar />
-          <Canvas canvasChildren={canvasChildren} onFinishLoad={onFinishLoad}>
-            <ChainWizardPanel />
+          <Canvas
+            initialCanvasChildren={initialCanvasChildren}
+            onFinishLoad={onFinishLoad}
+          >
+            {/*<ChainWizardPanel />*/}
             <ActionBar />
             <DebugFab />
-            <SimulationFab />
+            <EdgeSelectorPanel />
+            {/*<SimulationFab />*/}
           </Canvas>
         </div>
       ) : (

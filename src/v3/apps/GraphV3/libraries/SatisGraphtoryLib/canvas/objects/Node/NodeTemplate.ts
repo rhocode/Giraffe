@@ -1,15 +1,21 @@
 import EdgeTemplate, {
+  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import {
   SatisGraphtoryCoordinate,
   SatisGraphtoryNodeProps,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
-import { sortFunction } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/sortEdges';
+// import {sortFunction} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/sortEdges';
 import {
   GraphObject,
   GraphObjectContainer,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import {
+  NODE_HEIGHT,
+  NODE_WIDTH,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 export class NodeContainer extends GraphObjectContainer {
   public boundCalculator: any = null;
@@ -21,22 +27,26 @@ export class NodeContainer extends GraphObjectContainer {
 
 export abstract class NodeTemplate extends GraphObject {
   id: string;
-  abstract inputMapping: any[];
-  abstract outputMapping: any[];
-  abstract inputX: number;
-  abstract outputX: number;
   container: NodeContainer;
 
-  edgeMap: Map<string, number>;
+  inputConnections: EdgeTemplate[] = [];
+  outputConnections: EdgeTemplate[] = [];
+  anyConnections: EdgeTemplate[] = [];
 
-  inEdges: (EdgeTemplate | null)[];
-  outEdges: (EdgeTemplate | null)[];
-  edges: EdgeTemplate[];
+  connectionsOffsetMap: Map<EdgeAttachmentSide, number[]> = new Map();
+  connectionsIndexMap: Map<EdgeTemplate, number> = new Map();
+  connectionsSideMap: Map<EdgeTemplate, EdgeAttachmentSide> = new Map();
 
   protected constructor(props: SatisGraphtoryNodeProps) {
-    super();
+    super(props);
 
-    const { id, position, inputs, outputs } = props;
+    const {
+      id,
+      position,
+      inputConnections,
+      outputConnections,
+      anyConnections,
+    } = props;
 
     this.container = new NodeContainer();
 
@@ -45,86 +55,238 @@ export abstract class NodeTemplate extends GraphObject {
     this.id = id;
     this.container.id = id;
 
-    // TODO: what is in inputs?! maybe we need to fill this with inputs and outputs
-    this.inEdges = new Array(inputs.length).fill(null);
-    this.outEdges = new Array(outputs.length).fill(null);
-    this.edges = [];
-    this.edgeMap = new Map<string, number>();
-  }
+    if (inputConnections) {
+      this.inputConnections = inputConnections;
+    }
 
-  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
-    this.edges.push(edge);
-    if (edgeType === EdgeType.INPUT) {
-      const firstNull = this.inEdges.indexOf(null);
+    if (outputConnections) {
+      this.outputConnections = outputConnections;
+    }
 
-      this.inEdges[firstNull] = edge;
-      this.edgeMap.set(edge.id, firstNull);
-    } else if (edgeType === EdgeType.OUTPUT) {
-      const firstNull = this.outEdges.indexOf(null);
-
-      this.outEdges[firstNull] = edge;
-      this.edgeMap.set(edge.id, firstNull);
-    } else {
-      console.log('Unimplemented!');
+    if (anyConnections) {
+      this.anyConnections = anyConnections;
     }
   }
 
-  sortInputEdges() {
-    this.inEdges.sort(
-      sortFunction(this.container.position.x, this.container.position.y, -1)
-    );
+  abstract addLinkEvents(
+    onStartLinkEvent: Function | null,
+    onEndLinkEvent: Function,
+    cancelFunc: Function
+  ): void;
 
-    this.inEdges.forEach((item, index) => {
-      if (!item) return;
-      this.edgeMap.set(item.id, index);
-    });
+  deleteEdge(edge: EdgeTemplate) {
+    for (let i = 0; i < this.inputConnections.length; i++) {
+      if (this.inputConnections[i] === edge) {
+        this.inputConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+          theme: this.theme,
+          targetNode: this,
+        });
+        break;
+      }
+    }
+    for (let i = 0; i < this.outputConnections.length; i++) {
+      if (this.outputConnections[i] === edge) {
+        this.outputConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+          theme: this.theme,
+          sourceNode: this,
+        });
+        break;
+      }
+    }
+    for (let i = 0; i < this.anyConnections.length; i++) {
+      if (this.anyConnections[i] === edge) {
+        this.anyConnections[i] = new EmptyEdge({
+          resourceForm: edge.resourceForm,
+          id: edge.id,
+          biDirectional: true,
+          theme: this.theme,
+          sourceNode: this,
+        });
+        break;
+      }
+    }
+  }
+
+  delete(): GraphObject[] {
+    const originalEdges = [
+      ...this.inputConnections,
+      ...this.outputConnections,
+      ...this.anyConnections,
+    ];
+    for (const edge of this.inputConnections) {
+      edge.delete();
+    }
+
+    for (const edge of this.outputConnections) {
+      edge.delete();
+    }
+
+    for (const edge of this.anyConnections) {
+      edge.delete();
+    }
+
+    this.container.destroy();
+    return originalEdges;
+  }
+
+  // public findFirstEmpty(arr: EdgeTemplate[]) {
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (arr[i].sourceNode == null || arr[i].targetNode == null) {
+  //       return i;
+  //     }
+  //   }
+  //
+  //   throw new Error('No empty index found');
+  // }
+
+  public findClosestEmpty(arr: EdgeTemplate[], otherNode: NodeTemplate) {
+    const otherCoordinateX = otherNode.container.position.x + NODE_WIDTH / 2;
+    const otherCoordinateY = otherNode.container.position.y + NODE_HEIGHT / 2;
+
+    let min = Infinity;
+    let side = -1;
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].sourceNode == null || arr[i].targetNode == null) {
+        const { x, y } = this.getConnectionCoordinate(arr[i]);
+        const a = x - otherCoordinateX;
+        const b = y - otherCoordinateY;
+
+        const dist = Math.sqrt(a * a + b * b);
+        if (dist < min) {
+          min = dist;
+          side = i;
+        }
+      }
+    }
+
+    if (side >= 0) return side;
+
+    throw new Error('No empty index found');
+  }
+
+  addEdge(
+    edge: EdgeTemplate,
+    edgeType: EdgeType,
+    biDirectional: boolean = false
+  ) {
+    const otherNode =
+      edge.sourceNode === this ? edge.targetNode : edge.sourceNode;
+
+    if (!otherNode) throw new Error('Other node is null');
+
+    if (edge.biDirectional || biDirectional) {
+      const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
+      const foundEdge = this.anyConnections[firstNull];
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+    } else if (this.anyConnections.length) {
+      // This is the special case where we have anyConnections but the pipe is NOT bidirectinal.
+      // TODO: Fix this somehow
+      const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
+
+      const foundEdge = this.anyConnections[firstNull];
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+    } else if (edgeType === EdgeType.INPUT) {
+      const firstNull = this.findClosestEmpty(this.inputConnections, otherNode);
+      const foundEdge = this.inputConnections[firstNull];
+      this.inputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+    } else if (edgeType === EdgeType.OUTPUT) {
+      const firstNull = this.findClosestEmpty(
+        this.outputConnections,
+        otherNode
+      );
+      const foundEdge = this.outputConnections[firstNull];
+      this.outputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+    } else {
+      console.log('Unimplemented!');
+    }
+
+    this.recalculateConnections();
+  }
+
+  abstract recalculateConnections(): void;
+
+  sortInputEdges() {
+    // this.inputs.sort(
+    //   sortFunction(this.container.position.x, this.container.position.y, -1)
+    // );
+    //
+    // this.inputs.forEach((item, index) => {
+    //   if (!item) return;
+    //   this.edgeMap.set(item.id, index);
+    // });
   }
 
   sortOutputEdges() {
-    this.outEdges?.sort(
-      sortFunction(this.container.position.x, this.container.position.y)
-    );
-
-    this.outEdges.forEach((item, index) => {
-      if (!item) return;
-      this.edgeMap.set(item.id, index);
-    });
+    // this.outputs?.sort(
+    //   sortFunction(this.container.position.x, this.container.position.y)
+    // );
+    //
+    // this.outputs.forEach((item, index) => {
+    //   if (!item) return;
+    //   this.edgeMap.set(item.id, index);
+    // });
   }
 
   updateEdges = () => {
-    this.inEdges.forEach((edge) => {
-      if (!edge) return;
-      edge.sourceNode.sortOutputEdges();
-      edge.sourceNode.outEdges.map((item) => item?.update());
+    this.inputConnections.forEach((edge) => {
+      if (!edge || !edge?.sourceNode) return;
+      // edge.sourceNode.sortOutputEdges();
+      edge.sourceNode.outputConnections.map((item) => item?.update());
       edge.update();
     });
 
-    this.outEdges.forEach((edge) => {
-      if (!edge) return;
-      edge.targetNode.sortInputEdges();
-      edge.targetNode.inEdges.map((item) => item?.update());
+    this.outputConnections.forEach((edge) => {
+      if (!edge || !edge?.targetNode) return;
+      // edge.targetNode.sortInputEdges();
+      edge.targetNode.inputConnections.map((item) => item?.update());
+      edge.update();
+    });
+
+    this.anyConnections.forEach((edge) => {
+      if (!edge || !edge?.targetNode) return;
+      // edge.targetNode.sortInputEdges();
+      edge.targetNode.anyConnections.map((item) => item?.update());
       edge.update();
     });
   };
 
   getConnectionCoordinate(
-    edgeId: string,
-    edgeType: EdgeType
+    edgeTemplate: EdgeTemplate
   ): SatisGraphtoryCoordinate {
-    const index = this.edgeMap.get(edgeId)!;
+    const side = this.connectionsSideMap.get(edgeTemplate)!;
+    const index = this.connectionsIndexMap.get(edgeTemplate)!;
+    const offset = this.connectionsOffsetMap.get(side)![index];
 
-    if (edgeType === EdgeType.OUTPUT) {
-      return {
-        x: this.container.position.x + this.outputX,
-        y: this.container.position.y + this.outputMapping[index],
-      };
-    } else if (edgeType === EdgeType.INPUT) {
-      return {
-        x: this.container.position.x + this.inputX,
-        y: this.container.position.y + this.inputMapping[index],
-      };
-    } else {
-      throw new Error('Unimplemented');
+    let x = this.container.position.x;
+    let y = this.container.position.y;
+
+    switch (side) {
+      case EdgeAttachmentSide.TOP:
+        x += offset;
+        break;
+      case EdgeAttachmentSide.BOTTOM:
+        y += NODE_HEIGHT;
+        x += offset;
+        break;
+      case EdgeAttachmentSide.LEFT:
+        y += offset;
+        break;
+      case EdgeAttachmentSide.RIGHT:
+        y += offset;
+        x += NODE_WIDTH;
+        break;
+      default:
+        break;
     }
+
+    return {
+      x,
+      y,
+    };
   }
 }

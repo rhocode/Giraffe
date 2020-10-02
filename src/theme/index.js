@@ -4,13 +4,13 @@ import { produce } from 'immer';
 const paletteLight = {
   type: 'light',
   primary: { main: '#FF9100', dark: '#FF6D00' },
-  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' },
 };
 
 const paletteDark = {
   type: 'dark',
   primary: { main: '#FF9100', dark: '#FF6D00' },
-  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' }
+  secondary: { main: '#FF3D00', contrastText: '#FAFAFA' },
 };
 
 const themeName = 'Pizazz Vermilion Gayal';
@@ -20,34 +20,34 @@ export const baseTheme = {
     GraphAddMachineButton: {
       height: 150,
       width: 150,
-      margin: 10
+      margin: 10,
     },
     GraphDrawer: {
-      width: 260
+      width: 400,
     },
     GraphAppBar: {
-      height: 64
+      height: 64,
     },
     common: {
       HeaderMessaging: {
-        height: 50
-      }
-    }
+        height: 50,
+      },
+    },
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
   },
   palette: paletteDark,
-  themeName
+  themeName,
 };
 
 export const themeDark = createMuiTheme(
-  produce(baseTheme, draftState => {
+  produce(baseTheme, (draftState) => {
     draftState.palette = paletteDark;
   })
 );
 export const themeLight = createMuiTheme(
-  produce(baseTheme, draftState => {
+  produce(baseTheme, (draftState) => {
     draftState.palette = paletteLight;
   })
 );

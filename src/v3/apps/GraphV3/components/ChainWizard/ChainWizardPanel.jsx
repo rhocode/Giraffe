@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
 import { getMachineCraftableItems } from 'v3/data/loaders/items';
 import ItemCard from 'v3/apps/GraphV3/components/ChainWizard/ItemCard';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -10,7 +11,7 @@ import { useStoreState } from 'pullstate';
 import { graphWizardStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 import arrayMove from 'array-move';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
@@ -118,7 +119,7 @@ const SortableList = SortableContainer(
 
 const addEntryFn = () =>
   graphWizardStore.update((state) => {
-    const newId = stringGen(10);
+    const newId = uuidGen();
     state.products[newId] = { slug: null, amount: 1 };
     state.boxes.push(newId);
   });
@@ -138,7 +139,7 @@ const calculateFunction = (products, constraints) => () => {
 };
 
 const clearFunction = () => {
-  const initialStateId = stringGen(10);
+  const initialStateId = uuidGen();
   graphWizardStore.update((s) => {
     s.boxes = [initialStateId];
     s.products = {
@@ -208,13 +209,13 @@ function ChainWizardPanel() {
       <Drawer
         variant="temporary"
         anchor={'left'}
-        // open={drawerOpen}
-        open={false}
+        open={true}
         // onClose={() => setDrawerOpen(false)}
         classes={{
           paper: calculated ? classes.drawer : classes.drawerNotCalculated,
         }}
       >
+        <ModalOpenTrigger />
         <Grid classes={gridItemStyle} container>
           <Grid xs={calculated ? 7 : 12} item classes={gridItemStyle}>
             <List className={classes.root}>

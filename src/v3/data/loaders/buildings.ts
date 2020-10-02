@@ -2,11 +2,15 @@ import lazyFunc from 'v3/utils/lazyFunc';
 import ConnectionsJson from 'data/Connections.json';
 import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
-import imageRepo from 'data/images/__all';
 import RecipeJson from 'data/Recipes.json';
-import Connections from 'data/Connections.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
+import uuidGen from 'v3/utils/stringUtils';
+import EdgeTemplate, {
+  EdgeAttachmentSide,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
+import SGImageRepo from 'v3/data/loaders/sgImageRepo';
 
 const slugToCustomMachineGroup = (slug: string) => {
   switch (slug) {
@@ -61,6 +65,8 @@ const getBuildableMachinesFn = () => {
   const allMachines: string[] = [...machineByType.values()].flat(1);
   const machineClassMap = new Map<string, string[]>();
   const machineClassImageMap = new Map<string, string>();
+  const upgradePathMap = new Map<string, string[]>();
+  const reverseUpgradePathMap = new Map<string, string>();
 
   allMachines.forEach((machine) => {
     const markRegex = /^(.*)-mk[0-9]+(-.*)?$/;
@@ -73,7 +79,14 @@ const getBuildableMachinesFn = () => {
       if (!machineClassMap.get(resolvedSlug)) {
         machineClassMap.set(resolvedSlug, []);
       }
+
+      if (!upgradePathMap.get(slug)) {
+        upgradePathMap.set(slug, []);
+      }
       machineClassMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(slug)!.push(machine);
+      upgradePathMap.get(slug)!.sort();
+      reverseUpgradePathMap.set(machine, slug);
     } else {
       const resolvedSlug = slugToCustomMachineGroup(machine);
       if (!machineClassMap.get(resolvedSlug)) {
@@ -100,10 +113,107 @@ const getBuildableMachinesFn = () => {
     machineClassMap,
     machineClassImageMap,
     machineClassReverseMap,
+    upgradePathMap,
+    reverseUpgradePathMap,
   };
 };
 
 const getBuildableMachinesByClass = memoize(getBuildableMachinesFn);
+
+const getBuildableConnectionsFn = () => {
+  const buildables = new Set(Object.keys(ConnectionsJson));
+
+  const machineByType = new Map<string, any[]>();
+
+  Object.entries(BuildingJson)
+    .filter(([key]) => {
+      return buildables.has(key);
+    })
+    .forEach(([slug, value]) => {
+      if (!machineByType.get(value.buildingType)) {
+        machineByType.set(value.buildingType, []);
+      }
+
+      machineByType.get(value.buildingType)!.push(slug);
+    });
+
+  for (const value of machineByType.values()) {
+    value.sort();
+  }
+
+  for (const key of machineByType.keys()) {
+    if (key !== 'ITEMPASSTHROUGH' && key !== 'FLUIDPASSTHROUGH') {
+      machineByType.delete(key);
+    }
+  }
+
+  const allMachines: string[] = [...machineByType.values()].flat(1);
+  const connectionClassMap = new Map<string, string[]>();
+  const connectionClassImageMap = new Map<string, string>();
+  const upgradePathMap = new Map<string, string[]>();
+  const reverseUpgradePathMap = new Map<string, string>();
+
+  allMachines.forEach((machine) => {
+    const markRegex = /^(.*)-mk[0-9]+(-.*)?$/;
+    if (markRegex.test(machine)) {
+      const regexResult = markRegex.exec(machine);
+      const slug = `${regexResult![1] + (regexResult![2] || '')}`;
+
+      const resolvedSlug = slugToCustomMachineGroup(slug);
+
+      if (!connectionClassMap.get(resolvedSlug)) {
+        connectionClassMap.set(resolvedSlug, []);
+      }
+
+      if (!upgradePathMap.get(slug)) {
+        upgradePathMap.set(slug, []);
+      }
+      connectionClassMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(slug)!.push(machine);
+      upgradePathMap.get(slug)!.sort();
+      reverseUpgradePathMap.set(machine, slug);
+    } else {
+      const resolvedSlug = slugToCustomMachineGroup(machine);
+      if (!connectionClassMap.get(resolvedSlug)) {
+        connectionClassMap.set(resolvedSlug, []);
+      }
+      connectionClassMap.get(resolvedSlug)!.push(machine);
+    }
+  });
+
+  const connectionClassReverseMap = new Map<string, string>();
+
+  for (const entry of connectionClassMap.entries()) {
+    const [key, value] = entry;
+    value.sort();
+    connectionClassImageMap.set(key, value[0]);
+    value.forEach((className) => {
+      connectionClassReverseMap.set(className, key);
+    });
+  }
+
+  return {
+    connectionClassMap,
+    connectionClassImageMap,
+    connectionClassReverseMap,
+    upgradePathMap,
+    reverseUpgradePathMap,
+  };
+};
+
+export const getBuildableConnections = memoize(getBuildableConnectionsFn);
+
+const getBuildableConnectionClassesFn = () => {
+  return [...getBuildableConnections().connectionClassMap.keys()];
+};
+
+export const getBuildableConnectionClasses = memoize(
+  getBuildableConnectionClassesFn
+);
+
+export const getUpgradesForConnectionClass = (connectionClass: string) => {
+  return getBuildableConnections().upgradePathMap.get(connectionClass);
+};
 
 export const getBuildableMachineClassNames = lazyFunc(() => {
   return [...getBuildableMachinesByClass().machineClassMap.keys()];
@@ -151,9 +261,15 @@ export const getBuildingImageName = (slug: string) => {
 
 export const getBuildingIcon = (slug: string, size: number) => {
   const itemSlug = slug.replace(/^building/g, 'item');
-  return (imageRepo as any)[
-    `sg${getBuildingImageName(itemSlug)}_${size}`.replace(/-/g, '_')
-  ];
+
+  const itemImageSlug = `${getBuildingImageName(itemSlug)}.${256}.png`;
+
+  const image = SGImageRepo.get(itemImageSlug);
+
+  if (!image) {
+    throw new Error('No image found: ' + itemImageSlug);
+  }
+  return image;
 };
 
 export const getRecipesByMachineClass = (machineClass: string) => {
@@ -184,30 +300,142 @@ export const getBuildingDefinition = (buildingSlug: string) => {
   return (BuildingJson as any)[buildingSlug];
 };
 
-export const getNumOutputsForBuilding = (
-  buildingSlug: string,
-  resourceForm: EResourceForm
-) => {
-  switch (resourceForm) {
-    case EResourceForm.RF_SOLID:
-      return (Connections as any)[buildingSlug].outputBelts || 0;
-    case EResourceForm.RF_LIQUID:
-      return (Connections as any)[buildingSlug].outputPipes || 0;
-    default:
-      throw new Error('Invalid resourceForm for building ' + resourceForm);
+export const getTier = (buildingSlug: string) => {
+  const base = getBuildableMachinesByClass();
+  const map = base.reverseUpgradePathMap;
+  if (map.get(buildingSlug)) {
+    const mainClass = map.get(buildingSlug)!;
+    return base.upgradePathMap.get(mainClass)!.indexOf(buildingSlug) + 1;
+  } else {
+    return 0;
   }
 };
 
-export const getNumInputsForBuilding = (
-  buildingSlug: string,
-  resourceForm: EResourceForm
-) => {
-  switch (resourceForm) {
-    case EResourceForm.RF_SOLID:
-      return (Connections as any)[buildingSlug].inputBelts || 0;
-    case EResourceForm.RF_LIQUID:
-      return (Connections as any)[buildingSlug].inputPipes || 0;
-    default:
-      throw new Error('Invalid resourceForm for building ' + resourceForm);
+export const getOutputsForBuilding = (buildingSlug: string, theme: any) => {
+  const building = (ConnectionsJson as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+  for (let i = 0; i < building.outputBelts || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_SOLID,
+        id: uuidGen(),
+        theme,
+      })
+    );
   }
+
+  for (let i = 0; i < building.outputPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: uuidGen(),
+        theme,
+      })
+    );
+  }
+
+  return outputObject;
+};
+
+export const getInputsForBuilding = (buildingSlug: string, theme: any) => {
+  const building = (ConnectionsJson as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+  for (let i = 0; i < building.inputBelts || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_SOLID,
+        id: uuidGen(),
+        theme,
+      })
+    );
+  }
+
+  for (let i = 0; i < building.inputPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: uuidGen(),
+        theme,
+      })
+    );
+  }
+
+  return outputObject;
+};
+
+export const getAnyConnectionsForBuilding = (
+  buildingSlug: string,
+  theme: any
+) => {
+  const building = (ConnectionsJson as any)[buildingSlug];
+  const outputObject: EdgeTemplate[] = [];
+
+  let sides: EdgeAttachmentSide[] = [];
+
+  switch (building.anyPipes) {
+    case 4:
+      sides.push(
+        EdgeAttachmentSide.TOP,
+        EdgeAttachmentSide.RIGHT,
+        EdgeAttachmentSide.BOTTOM,
+        EdgeAttachmentSide.LEFT
+      );
+      break;
+    case 3:
+      sides.push(
+        EdgeAttachmentSide.RIGHT,
+        EdgeAttachmentSide.BOTTOM,
+        EdgeAttachmentSide.LEFT
+      );
+      break;
+    case 2:
+      sides.push(EdgeAttachmentSide.RIGHT, EdgeAttachmentSide.LEFT);
+      break;
+    case 1:
+      sides.push(EdgeAttachmentSide.LEFT);
+      break;
+    default:
+      for (let i = 0; i < building.anyPipes || 0; i++) {
+        outputObject.push(
+          new EmptyEdge({
+            resourceForm: EResourceForm.RF_LIQUID,
+            id: uuidGen(),
+            biDirectional: true,
+            theme,
+          })
+        );
+      }
+      return outputObject;
+  }
+
+  for (let i = 0; i < building.anyPipes || 0; i++) {
+    outputObject.push(
+      new EmptyEdge({
+        resourceForm: EResourceForm.RF_LIQUID,
+        id: uuidGen(),
+        biDirectional: true,
+        targetNodeAttachmentSide: sides[i],
+        sourceNodeAttachmentSide: sides[i],
+        theme,
+      })
+    );
+  }
+
+  return outputObject;
+};
+
+export const getSupportedResourceForm = (
+  buildingSlug: string
+): EResourceForm[] => {
+  if (!buildingSlug) return [];
+
+  const building = (BuildingJson as any)[buildingSlug];
+
+  if (!building.supportedResourceForms) {
+    throw new Error(
+      'Building ' + buildingSlug + ' does not support resourceForms'
+    );
+  }
+
+  return building.supportedResourceForms;
 };

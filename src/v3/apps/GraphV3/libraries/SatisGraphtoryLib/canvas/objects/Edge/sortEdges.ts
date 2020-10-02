@@ -4,11 +4,11 @@ export const sortFunction = (x: number, y: number, multiplier: number = 1) => (
   ea: EdgeTemplate | null,
   eb: EdgeTemplate | null
 ): number => {
-  if (eb === null) {
+  if (eb === null || !eb?.targetNode) {
     return -1;
   }
 
-  if (ea === null) {
+  if (ea === null || !ea?.targetNode) {
     return 1;
   }
 

@@ -10,11 +10,7 @@
       "namespace": "",
       "key": "B7A4F83342E367FE14692789767A2506"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -34,11 +30,7 @@
       "namespace": "",
       "key": "4F4F406841C416A917FB8486E78F6C98"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -58,11 +50,7 @@
       "namespace": "",
       "key": "BA22177F4AD5BB522B0BEF9BD33FA342"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -82,11 +70,7 @@
       "namespace": "",
       "key": "F5526A6648554D1B03BC47A7320B8197"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -106,11 +90,7 @@
       "namespace": "",
       "key": "4FA404344A46DBE004BAF78D20D79986"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -130,11 +110,7 @@
       "namespace": "",
       "key": "879A50B64430DA44C2942FA0A3284771"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -154,11 +130,7 @@
       "namespace": "",
       "key": "3B3879F948C43373E6E654804881582B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -178,11 +150,7 @@
       "namespace": "",
       "key": "38FD107C4A183AA47073F78064292460"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -202,11 +170,7 @@
       "namespace": "",
       "key": "45F1134A4FACC5A5FFA98D85DD102EFE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -226,11 +190,7 @@
       "namespace": "",
       "key": "9BB7145849FA8B0238CE949446DD9937"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -250,11 +210,7 @@
       "namespace": "",
       "key": "5F40202F43285A9754D5FA9313D1E6AA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -274,11 +230,7 @@
       "namespace": "",
       "key": "F16EE2264FBFEE9A08BC0FAD1102FA1B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -298,11 +250,7 @@
       "namespace": "",
       "key": "1488FA97497870EACC9FF896C78804DF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -322,11 +270,7 @@
       "namespace": "",
       "key": "92E639C248977647720E36B7C8669017"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -346,11 +290,7 @@
       "namespace": "",
       "key": "ECAB6BF64F581D9850A4DC9BC0454E77"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -370,11 +310,7 @@
       "namespace": "",
       "key": "4CD21490443254F72740D3BC03F939B5"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -394,11 +330,7 @@
       "namespace": "",
       "key": "C926DDB24C3B8F9E2EBD5094668292A3"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 4,
     "canBeDiscarded": true,
@@ -418,11 +350,7 @@
       "namespace": "",
       "key": "10DD3515427A537D446D09A1AD91EF5F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -442,11 +370,7 @@
       "namespace": "",
       "key": "5417E1CA48C8698434FC869B9B09884B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 4,
     "canBeDiscarded": true,
@@ -466,11 +390,7 @@
       "namespace": "",
       "key": "0F03DD4E498B68E39CFC2FAD99C63E8B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -490,11 +410,7 @@
       "namespace": "",
       "key": "3F3E69E64F155FBFB826798BDD8A891B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -514,11 +430,7 @@
       "namespace": "",
       "key": "74DAFBE84F650772F984889833FCD759"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -538,11 +450,7 @@
       "namespace": "",
       "key": "4821AD574C162547426109B9DA1409C2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -562,11 +470,7 @@
       "namespace": "",
       "key": "73DA64C14806A81DBADB148D860EE2F1"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -586,11 +490,7 @@
       "namespace": "",
       "key": "FBE8B02F431AF078584653B023E302C6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -610,11 +510,7 @@
       "namespace": "",
       "key": "D5772BEC4D3E080A093B87B670B682C2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -634,11 +530,7 @@
       "namespace": "",
       "key": "B239C223423284ED45ECF6B507A70118"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -658,11 +550,7 @@
       "namespace": "",
       "key": "C827FE8B4673B545E3443B8245AB9675"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -682,11 +570,7 @@
       "namespace": "",
       "key": "D11F612F4168DD6CBEE5F29DBEE7C789"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -706,11 +590,7 @@
       "namespace": "",
       "key": "AC252B154E9B8D601F9F2C9B6DA34F74"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -730,11 +610,7 @@
       "namespace": "",
       "key": "0C60304E44A767A6BC383695637150BF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -754,11 +630,7 @@
       "namespace": "",
       "key": "75D9E93C42EBBADA8F64ED8DA28D3CAF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -778,11 +650,7 @@
       "namespace": "",
       "key": "A1AD3F7B4666DA06E6E6B39D50F3ABE2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 4,
     "canBeDiscarded": true,
@@ -802,11 +670,7 @@
       "namespace": "",
       "key": "3726A6EA4352F89FE72F6FA80ED987A8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -826,11 +690,7 @@
       "namespace": "",
       "key": "CB39282E4A0D09DA7ACE2FBCD8F8D899"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -850,11 +710,7 @@
       "namespace": "",
       "key": "5BE7CCB64490E7A3CBDDC28B7BE44A81"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -874,11 +730,7 @@
       "namespace": "",
       "key": "DAE82DF7411FFE1134DE0B91DD5CF268"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -898,11 +750,7 @@
       "namespace": "",
       "key": "0F9C1FC74F5888A4C664888E733A7F70"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -922,11 +770,7 @@
       "namespace": "",
       "key": "D12C66654895E2720884918AFA99F2BE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -946,11 +790,7 @@
       "namespace": "",
       "key": "8B31AE304BD87335DE5CD98DCDD08AFC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -970,11 +810,7 @@
       "namespace": "",
       "key": "5D204F804BC38CE4164486898F2B8313"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -994,11 +830,7 @@
       "namespace": "",
       "key": "FE0E8F914C6A8A86EBEB39875CEE3C7E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1018,11 +850,7 @@
       "namespace": "",
       "key": "7E9825DD46DA9ABDE63E74A26C70B2ED"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1042,11 +870,7 @@
       "namespace": "",
       "key": "5A9486C34D645755851825803E06B936"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1066,11 +890,7 @@
       "namespace": "",
       "key": "375ABBF84F232FD203317B8FC1C926F7"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1090,11 +910,7 @@
       "namespace": "",
       "key": "40FB2AA045F81E80B50965890995BF1D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1114,11 +930,7 @@
       "namespace": "",
       "key": "F774972A4ED64576FAC1E7841F2C73C6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1138,11 +950,7 @@
       "namespace": "",
       "key": "44939EC4450A547E87384780E0730965"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1162,11 +970,7 @@
       "namespace": "",
       "key": "292D10CD4F0B231FA8CD08AE1BAD1990"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -1186,11 +990,7 @@
       "namespace": "",
       "key": "3A5BEEB340477D5ECC06ABA27F05A02F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1210,11 +1010,7 @@
       "namespace": "",
       "key": "DA83EF8541AF89BD0B45F9BFCF111944"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1234,11 +1030,7 @@
       "namespace": "",
       "key": "295BC0B94A5F7C2DE756C5B37B0B4706"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1258,11 +1050,7 @@
       "namespace": "",
       "key": "FFDC0A924B9BAFDC2EEC9B9BA9183E4D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -1282,11 +1070,7 @@
       "namespace": "",
       "key": "1F87FAC04915863A286AE2AEAF03E2AB"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1306,11 +1090,7 @@
       "namespace": "",
       "key": "A88AEC554A3C72C9310930A24D611936"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1330,11 +1110,7 @@
       "namespace": "",
       "key": "8CC28DA441D999C30FEB9EB76AAA849D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1354,11 +1130,7 @@
       "namespace": "",
       "key": "BBE6E8764508790B419577AC82AF032B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 4,
     "canBeDiscarded": true,
@@ -1378,11 +1150,7 @@
       "namespace": "",
       "key": "D31898D4466DFDE96257309A40C33400"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1402,11 +1170,7 @@
       "namespace": "",
       "key": "4311F0E440244DEF88883EA7D34A1457"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1426,11 +1190,7 @@
       "namespace": "",
       "key": "4CC7DC7A4B687A2B47B2928F1F8E9AD2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -1450,11 +1210,7 @@
       "namespace": "",
       "key": "C94FE50644881DBD5D510D8FE0E0F332"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1474,11 +1230,7 @@
       "namespace": "",
       "key": "ED35424246AAE76B6898EA8A40FFA651"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1498,11 +1250,7 @@
       "namespace": "",
       "key": "2781D56645FD217026534F81F1130688"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1522,11 +1270,7 @@
       "namespace": "",
       "key": "008BBDF74EF889F13136C893CCF7CC14"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1546,11 +1290,7 @@
       "namespace": "",
       "key": "73003FBE4815865E1470098EE5E2D31D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1570,11 +1310,7 @@
       "namespace": "",
       "key": "E3A7525949F9BD98BDB69DAEEDA0E654"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1594,11 +1330,7 @@
       "namespace": "",
       "key": "E3B104F3408348E3584B93BB1CD4FF18"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1618,11 +1350,7 @@
       "namespace": "",
       "key": "90FF273B49FCC02E278A4CB947975F49"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -1642,11 +1370,7 @@
       "namespace": "",
       "key": "BFF44C874B53122AD9D2E2840B1384B4"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorNuclearFuel",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1666,11 +1390,7 @@
       "namespace": "",
       "key": "085B560E4A268D57DD382FB613C81CD7"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1690,11 +1410,7 @@
       "namespace": "",
       "key": "C94A310E4DABDEA37E89C0B9B1C5978C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1714,11 +1430,7 @@
       "namespace": "",
       "key": "5CDF490445B714424DDD75B86F7F1978"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -1738,11 +1450,7 @@
       "namespace": "",
       "key": "0446EB1840B4F1050235E0BD7385C4BB"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -1762,11 +1470,7 @@
       "namespace": "",
       "key": "C2468EF64258158812194FA70C9C9AFA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1786,11 +1490,7 @@
       "namespace": "",
       "key": "850B683E4FDF75F0DA93BB99C8754CC4"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1810,11 +1510,7 @@
       "namespace": "",
       "key": "A9576D6B49F39B593030B398266664CC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1834,11 +1530,7 @@
       "namespace": "",
       "key": "5616B83444D973EECFB6B4A48374A4F0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1858,11 +1550,7 @@
       "namespace": "",
       "key": "FFE33B1A4A6D8A25C2DEBF9D540C0AA8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1882,11 +1570,7 @@
       "namespace": "",
       "key": "9C1F83674287A1715B5A37866339B9AD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1906,11 +1590,7 @@
       "namespace": "",
       "key": "CB752A364C85D9D9A52482BE95DDAD2F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1930,11 +1610,7 @@
       "namespace": "",
       "key": "3D82062D41E119BC12AF33A5527621EE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1954,11 +1630,7 @@
       "namespace": "",
       "key": "295061CC41DB5FEA826FE18B6BC28A6F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -1978,11 +1650,7 @@
       "namespace": "",
       "key": "908714D74EC6A116461DBF98BF3DE432"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2002,11 +1670,7 @@
       "namespace": "",
       "key": "61C125404520A404AC42ABA58B52CC5D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2026,11 +1690,7 @@
       "namespace": "",
       "key": "5E591A6D4D29837116BD43B3C8483C7E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2050,11 +1710,7 @@
       "namespace": "",
       "key": "A1EB60D64E2B4ACBF735859A143F1BCD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2074,11 +1730,7 @@
       "namespace": "",
       "key": "2A4B56D3415E701C037EDA8270872F05"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2098,11 +1750,7 @@
       "namespace": "",
       "key": "AA648AF44B137BCC9E99CB9FC12549F1"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2122,11 +1770,7 @@
       "namespace": "",
       "key": "1A0DA4844074BEA6252CB69D01316CFD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2146,11 +1790,7 @@
       "namespace": "",
       "key": "7A86EDD24147BFF1A92627816A74726A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2170,11 +1810,7 @@
       "namespace": "",
       "key": "CC8E33B6437C7CE78B9C36918FED095C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2194,11 +1830,7 @@
       "namespace": "",
       "key": "54AAB0CB4900CC038B510180858CA51E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2218,11 +1850,7 @@
       "namespace": "",
       "key": "EDD237574BC5408C297C96A73E30296C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2242,11 +1870,7 @@
       "namespace": "",
       "key": "2E7FB2884E3E7529864A51A5126334B8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2266,11 +1890,7 @@
       "namespace": "",
       "key": "556C23BF4679FE7FCCF5BB921C43A045"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2290,11 +1910,7 @@
       "namespace": "",
       "key": "325534B44343A338AB07EB904F737077"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2314,11 +1930,7 @@
       "namespace": "",
       "key": "6CF752CD4CB4DB5478DE67863685E7F2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2338,11 +1950,7 @@
       "namespace": "",
       "key": "F5BEAC14452CCE2D62E7B7843AC5C2BF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2362,11 +1970,7 @@
       "namespace": "",
       "key": "40FBDAA442E4C218DF06148E2ABEE972"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2386,11 +1990,7 @@
       "namespace": "",
       "key": "2CFEECA0471429806E7643866AB227E5"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2410,11 +2010,7 @@
       "namespace": "",
       "key": "85B18D31400DE77C3A210EBD78C3D72F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2434,11 +2030,7 @@
       "namespace": "",
       "key": "88CF77874A30A8E3B3E990B2FA2B8322"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2458,11 +2050,7 @@
       "namespace": "",
       "key": "2BF276A7465701B49CD4E594B46D9820"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2482,11 +2070,7 @@
       "namespace": "",
       "key": "F75E1EF24C7FDE7B3AE38DA67ADC24D6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2506,11 +2090,7 @@
       "namespace": "",
       "key": "CA19300C4DD4B6406B6D1699C525F4A6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2530,11 +2110,7 @@
       "namespace": "",
       "key": "CC1B00F244A70C6ECB5CD5BAA297D34C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2554,11 +2130,7 @@
       "namespace": "",
       "key": "5D72030A4DDD2E3F474181B76A376FBF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2578,11 +2150,7 @@
       "namespace": "",
       "key": "85FA6BF64A8B161F91A51291F181D43E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2602,11 +2170,7 @@
       "namespace": "",
       "key": "C55961654126C3B8A92C6C8D5BA09DFA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2626,11 +2190,7 @@
       "namespace": "",
       "key": "097B36C64F62B2F07D5EB3A10195AEF2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2650,11 +2210,7 @@
       "namespace": "",
       "key": "B0584B6840E2DB6703898588AE6DE67E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2674,11 +2230,7 @@
       "namespace": "",
       "key": "5B3E03AC447D3999904D8D88D8D4CEB9"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2698,11 +2250,7 @@
       "namespace": "",
       "key": "40F5E1E34E897A813A5689802DAC3250"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2722,11 +2270,7 @@
       "namespace": "",
       "key": "45D35F8744D88313D119B88668A30E36"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2746,11 +2290,7 @@
       "namespace": "",
       "key": "4EBA72A247B94BBDBD22B284B6887FE2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2770,11 +2310,7 @@
       "namespace": "",
       "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2794,11 +2330,7 @@
       "namespace": "",
       "key": "6CAB260A4CEA9658350E36A523208EDA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2818,11 +2350,7 @@
       "namespace": "",
       "key": "DD85142F4C6F85EC9D14CF9DAB5975EA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2842,11 +2370,7 @@
       "namespace": "",
       "key": "0C49B7944680A4FBA2864081DAB3D919"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2866,11 +2390,7 @@
       "namespace": "",
       "key": "BDB63D994387A8251468408F2DD47AD0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2890,11 +2410,7 @@
       "namespace": "",
       "key": "B55C6E1642062D242A3BB695B625186D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2914,11 +2430,7 @@
       "namespace": "",
       "key": "1760555D4383B7C91639748812CB7780"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2938,11 +2450,7 @@
       "namespace": "",
       "key": "64110F11433E0C3C662BBB856E92769D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2962,11 +2470,7 @@
       "namespace": "",
       "key": "056FFC7E4749F3D7F331DFBEC3FEF34B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -2986,11 +2490,7 @@
       "namespace": "",
       "key": "6EB6D96640762BC6536D6DB753326945"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3010,11 +2510,7 @@
       "namespace": "",
       "key": "2A327C484684DE06BD78FD9C1C764E8A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3034,11 +2530,7 @@
       "namespace": "",
       "key": "12B7A8464A49BFC28BB03393CE3D5F51"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3058,11 +2550,7 @@
       "namespace": "",
       "key": "6C915B754D24C533A6F82EAF4654701C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3082,11 +2570,7 @@
       "namespace": "",
       "key": "869B742B470C99E70DCC068CC7F11E91"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3106,11 +2590,7 @@
       "namespace": "",
       "key": "2FB5A3B14E36C34D28A3E1B3FD0AE162"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3130,11 +2610,7 @@
       "namespace": "",
       "key": "652554D7475B7CA70B0508A85DF7D1EC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3154,11 +2630,7 @@
       "namespace": "",
       "key": "268D4D8B4EBC299186C1AE87E8CE962C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3178,11 +2650,7 @@
       "namespace": "",
       "key": "2DD400DF4B20B30420BDC09440952EBE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3202,11 +2670,7 @@
       "namespace": "",
       "key": "948765F042C8CFF5B5E4E291A94F8611"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3221,16 +2685,8 @@
       "namespace": "",
       "key": "F6727D9446D0E5E2F9C171B61C1776F9"
     },
-    "description": null,
-    "descriptionTranslation": {
-      "namespace": null,
-      "key": null
-    },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "descriptionTranslation": {},
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3250,11 +2706,7 @@
       "namespace": "",
       "key": "7BB13CFF471D2098D117CC9B5D0BBFF8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3274,11 +2726,7 @@
       "namespace": "",
       "key": "94AA50A747973843B0E6049084229078"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3298,11 +2746,7 @@
       "namespace": "",
       "key": "43231B814609DE9C6264529086794FBE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3322,11 +2766,7 @@
       "namespace": "",
       "key": "A1458E164683A73E0E652FA905907166"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3346,11 +2786,7 @@
       "namespace": "",
       "key": "7D8E78D346E855AF871A3989CEA21750"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3370,11 +2806,7 @@
       "namespace": "",
       "key": "AD30DEF340558BD78BD55BAAC00BF7AD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3394,11 +2826,7 @@
       "namespace": "",
       "key": "CE29266B483DB00456649FA7C64E8D3B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3418,11 +2846,7 @@
       "namespace": "",
       "key": "545F4AC14D8E3A6C5A080BABF0D32C44"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3442,11 +2866,7 @@
       "namespace": "",
       "key": "A0D2CD4B4CC567617D0954ABDA23A1D6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3466,11 +2886,7 @@
       "namespace": "",
       "key": "BECE828A453B4CF97714448737553C36"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -3490,11 +2906,7 @@
       "namespace": "",
       "key": "91DECFAB424C19A9AC3C349C51F7BA4B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3514,11 +2926,7 @@
       "namespace": "",
       "key": "4C6C2C674EB7BC00A768248C760ABA61"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3538,11 +2946,7 @@
       "namespace": "",
       "key": "C13C347446285495914418AEABB15647"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3562,11 +2966,7 @@
       "namespace": "",
       "key": "F4186916492BB7F4CE5AD89DB595A029"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3586,11 +2986,7 @@
       "namespace": "",
       "key": "9EAEB6294D8FF3C3BC86BD9F4E04BECE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3610,11 +3006,7 @@
       "namespace": "",
       "key": "EF96EA4D469F98DC529DFA9277E5D476"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3634,11 +3026,7 @@
       "namespace": "",
       "key": "B222DA304F5BAAACA044B2A022B31DB1"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3658,11 +3046,7 @@
       "namespace": "",
       "key": "F342E9104323D0072DC923A20E32C89D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3682,11 +3066,7 @@
       "namespace": "",
       "key": "08F950CD4421E5719EC9A99350B40B50"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3706,11 +3086,7 @@
       "namespace": "",
       "key": "E60BEFDA413E62FF8154B3BE66A34A3C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3730,11 +3106,7 @@
       "namespace": "",
       "key": "C459768E4DC5B3E8D4D8B2818A3BF6CD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3754,11 +3126,7 @@
       "namespace": "",
       "key": "816B212E4976D2B0F380BBA9241B76AA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3778,11 +3146,7 @@
       "namespace": "",
       "key": "F6DACD9A48CEE4E802A290B4BBAF6E9D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGPoleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3802,11 +3166,7 @@
       "namespace": "",
       "key": "93A5B4764F922DAD6EBD68ADFB072597"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3826,11 +3186,7 @@
       "namespace": "",
       "key": "2CAA9E4141F76A567D29F58ED2ECAE33"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3850,11 +3206,7 @@
       "namespace": "",
       "key": "CDDF35C24A1D116A8CC4D2BF3F8B5986"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3874,11 +3226,7 @@
       "namespace": "",
       "key": "835E88C742E5553D22FBE98E33EDA65C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3898,11 +3246,7 @@
       "namespace": "",
       "key": "E00477464DE62C65E637EEA4A93202DB"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3922,11 +3266,7 @@
       "namespace": "",
       "key": "77CCA30B433672E0A3ED019DAFAD4F9A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3946,11 +3286,7 @@
       "namespace": "",
       "key": "8B6B2B5D4245800F3C1E70A434FE62E8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3970,11 +3306,7 @@
       "namespace": "",
       "key": "A27D86D648474EA536D633936F7F0DD9"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -3994,11 +3326,7 @@
       "namespace": "",
       "key": "1C1C14334065DF84EB4D4D92B9A4E673"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4018,11 +3346,7 @@
       "namespace": "",
       "key": "CD34AC45441EA8F01B4811A7B7586DD7"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4042,11 +3366,7 @@
       "namespace": "",
       "key": "96A62EB94767EE5F65E2ADA8418EC506"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4066,11 +3386,7 @@
       "namespace": "",
       "key": "30ACC26D4D3429E48CC558A844DA1CE2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4090,11 +3406,7 @@
       "namespace": "",
       "key": "4124C71741E44AA6E3F376B1BF46DDE2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4114,11 +3426,7 @@
       "namespace": "",
       "key": "C8D98C1649559E700DCDC49B0EF3CE3C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -4133,16 +3441,8 @@
       "namespace": "",
       "key": "831361E04B97F1639B9EDA9F622B9332"
     },
-    "description": null,
-    "descriptionTranslation": {
-      "namespace": null,
-      "key": null
-    },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "descriptionTranslation": {},
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -4162,11 +3462,7 @@
       "namespace": "",
       "key": "EBCE338946258919C03A0BB706968BC4"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4186,11 +3482,7 @@
       "namespace": "",
       "key": "17DF3A07473A1711573D6C8558546356"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4210,11 +3502,7 @@
       "namespace": "",
       "key": "D21370CD45DDE70B1D9C728BFAC366B8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4234,11 +3522,7 @@
       "namespace": "",
       "key": "85DFA9F04DD65865F6A061B3D330D7BB"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4258,11 +3542,7 @@
       "namespace": "",
       "key": "428288CC4FD3D721B340D79C45BBEA09"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4282,11 +3562,7 @@
       "namespace": "",
       "key": "5528B71E4C6D5B46B8035B8EC35C96F8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4306,11 +3582,7 @@
       "namespace": "",
       "key": "B542BFF7454C7FD6C6E36D9EC37F722D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4330,11 +3602,7 @@
       "namespace": "",
       "key": "6C1366724035B33444EC718D6582159B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4354,11 +3622,7 @@
       "namespace": "",
       "key": "B50BF0674966D1FBA93B61BAB7F2E0C7"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 0,
     "canBeDiscarded": false,
@@ -4378,11 +3642,7 @@
       "namespace": "",
       "key": "5C2BA8414CB9AD297AD01697325DE3E8"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -4402,11 +3662,7 @@
       "namespace": "",
       "key": "E17F8FAE44437115176DE38CFA9AB9AB"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4426,11 +3682,7 @@
       "namespace": "",
       "key": "C34118414305B8CB72BDE989142D7A90"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4450,11 +3702,7 @@
       "namespace": "",
       "key": "12DEA49B42343EB1FAC2B3B27C56FA4F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4474,11 +3722,7 @@
       "namespace": "",
       "key": "8D86213447772D233FC197BE8EA51736"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4498,11 +3742,7 @@
       "namespace": "",
       "key": "F94BADFE4C6835FB3D72DBBF3E590C58"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4522,11 +3762,7 @@
       "namespace": "",
       "key": "20A5A0EA49D968BB3878B7B7CA7388D2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4546,11 +3782,7 @@
       "namespace": "",
       "key": "8056559545AE16B7F305D6A92A15A4F2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4570,11 +3802,7 @@
       "namespace": "",
       "key": "67E6DD8848ED54B8F545A1A44733DE33"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4594,11 +3822,7 @@
       "namespace": "",
       "key": "EAF25DA34150028BA88A3B8B01D46683"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4618,11 +3842,7 @@
       "namespace": "",
       "key": "C9D44CF643D9DC6F4A803D96A1F54FD0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4642,11 +3862,7 @@
       "namespace": "",
       "key": "5264DC934BD6BDC3DD4B8E9CC5EB556F"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4666,11 +3882,7 @@
       "namespace": "",
       "key": "80D655BF437EB8BFA05938962EB4A92C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4690,11 +3902,7 @@
       "namespace": "",
       "key": "E48B31C442930CB1F24B80930A478C1A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4714,11 +3922,7 @@
       "namespace": "",
       "key": "C92F1D7D45F1C5F838C3CC81FECB4120"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4738,11 +3942,7 @@
       "namespace": "",
       "key": "0B14350F4BE32A97254329860AB27783"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4762,11 +3962,7 @@
       "namespace": "",
       "key": "F9ACA1274818BFEE9194F39B60A1EB14"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4786,11 +3982,7 @@
       "namespace": "",
       "key": "99C463DA4694F38C6E010097BDE72FD2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4810,11 +4002,7 @@
       "namespace": "",
       "key": "A6070E424DE91E49ACEA5EB295CBEA67"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4834,11 +4022,7 @@
       "namespace": "",
       "key": "B8D760364A6BCE32E8E630B1BF3F92B4"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4858,11 +4042,7 @@
       "namespace": "",
       "key": "CBE9083146701D12AFAC44898B9917C0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4882,11 +4062,7 @@
       "namespace": "",
       "key": "1EBA6AF24DE6D31E4FA635871E043478"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4906,11 +4082,7 @@
       "namespace": "",
       "key": "A81C2B1A458ECAD3D4F31BBE43356644"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4930,11 +4102,7 @@
       "namespace": "",
       "key": "9DBCAD6249CC395536C4B1B0E561846B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4954,11 +4122,7 @@
       "namespace": "",
       "key": "2F60F78F43F51BE5F95ADB9905D827F0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -4978,11 +4142,7 @@
       "namespace": "",
       "key": "5A1822CB453BBF7D6E58E3ABB83814DC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5002,11 +4162,7 @@
       "namespace": "",
       "key": "7DEF89A2426892C6CF26FE9FB01A065D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5026,11 +4182,7 @@
       "namespace": "",
       "key": "DCE26AD5475B5212D21A95BD1A52B0AD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5050,11 +4202,7 @@
       "namespace": "",
       "key": "02B8FE50457E016B0DA9D085F2713E7E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5074,11 +4222,7 @@
       "namespace": "",
       "key": "9F6E818E486911C9D5722C9FF9C31BDA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5098,11 +4242,7 @@
       "namespace": "",
       "key": "9928169A49CFC850C074EC9358D7AF6E"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5122,11 +4262,7 @@
       "namespace": "",
       "key": "6BA5A5CB4C83F24D6DAD4B88F0C71779"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5146,11 +4282,7 @@
       "namespace": "",
       "key": "595FBC68442F2BBB984E8D80CB2AF1AC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5170,11 +4302,7 @@
       "namespace": "",
       "key": "484B97984F80926C68FDC49A8CE2996A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5194,11 +4322,7 @@
       "namespace": "",
       "key": "79EB6B9A4615FEB08AD17C84212C6C83"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5218,11 +4342,7 @@
       "namespace": "",
       "key": "84656969406B5C196A852899DB4348A2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5242,11 +4362,7 @@
       "namespace": "",
       "key": "84656969406B5C196A852899DB4348A2"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5266,11 +4382,7 @@
       "namespace": "",
       "key": "3930A95E43046096747130A38DBB42BC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGBuildingDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5290,11 +4402,7 @@
       "namespace": "",
       "key": "1F5914D84AF9BB1E57BB05BF9B7F0F08"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -5314,11 +4422,7 @@
       "namespace": "",
       "key": "ADBC682E48FB8EA08D9480AFC58639BF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5338,11 +4442,7 @@
       "namespace": "",
       "key": "E4E3EE5246A1B01B58DC27A11322ED74"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5362,11 +4462,7 @@
       "namespace": "",
       "key": "7012CC4442DA9BE3C8F689B3BA5CB0ED"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 4,
     "canBeDiscarded": true,
@@ -5386,11 +4482,7 @@
       "namespace": "",
       "key": "775766DA4D006159926BC49FC957A906"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -5410,11 +4502,7 @@
       "namespace": "",
       "key": "D4E1AD924877C6A6EF5162BD989DA19B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5434,11 +4522,7 @@
       "namespace": "",
       "key": "BE17B0724F48C3AE06FED88DE4916B05"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5458,11 +4542,7 @@
       "namespace": "",
       "key": "D8AB702D414C74DE397E29BADD9DB3AA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5482,11 +4562,7 @@
       "namespace": "",
       "key": "CADAEA054F0E615FD644B0B90DEC4910"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5506,11 +4582,7 @@
       "namespace": "",
       "key": "BAA92F104850B4516568488FF6327F69"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5530,11 +4602,7 @@
       "namespace": "",
       "key": "8E44CA5842FDE41C6B9D5BBC36E86EAF"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5554,11 +4622,7 @@
       "namespace": "",
       "key": "EDF7B7AD40B50A9EB2D914AE5B8675E3"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5578,11 +4642,7 @@
       "namespace": "",
       "key": "CA524A04465A3187485FA8928B1F9FF7"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5602,11 +4662,7 @@
       "namespace": "",
       "key": "39B1E0E74F67DDACE7A9B98574809289"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -5626,11 +4682,7 @@
       "namespace": "",
       "key": "56DED1564CA310F85AC48081CCEE32A6"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 3,
     "canBeDiscarded": true,
@@ -5650,11 +4702,7 @@
       "namespace": "",
       "key": "6FB443664F2AA92AF2D3C3AA5D745BE4"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5674,11 +4722,7 @@
       "namespace": "",
       "key": "F30C79C640A2708895E0F7A7A4368A86"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5698,11 +4742,7 @@
       "namespace": "",
       "key": "E28147CC42251AF3C38D3298E93366BD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5722,11 +4762,7 @@
       "namespace": "",
       "key": "173A6E2C46E95CD950A8CA98F7CE98DE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5746,11 +4782,7 @@
       "namespace": "",
       "key": "2102C03F4A1379DD7F4D6EA98D289BFD"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5770,11 +4802,7 @@
       "namespace": "",
       "key": "5BEFEF6E417457392C28EAB2694C60A9"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5794,11 +4822,7 @@
       "namespace": "",
       "key": "B7FA0FC34919FD4D796FBAAB2951B78C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5818,11 +4842,7 @@
       "namespace": "",
       "key": "F4CB225B423A803DBA7CE88CB292CE34"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5842,11 +4862,7 @@
       "namespace": "",
       "key": "30361C10426AB8B92CBC1FB0B2596D5B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -5866,11 +4882,7 @@
       "namespace": "",
       "key": "7D0EB4B04625553AAE652FABE17F5BA9"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5890,11 +4902,7 @@
       "namespace": "",
       "key": "19C6CB9F4B6B2BE78BACB68E911758EC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5914,11 +4922,7 @@
       "namespace": "",
       "key": "55B185F8428C691F91086589168D5938"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5938,11 +4942,7 @@
       "namespace": "",
       "key": "33C30C7C4C930A689478B79E7C2D0A01"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGConsumableDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -5962,11 +4962,7 @@
       "namespace": "",
       "key": "4AADE26349B2292A293652BE7D91BD8A"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -5986,11 +4982,7 @@
       "namespace": "",
       "key": "F050C23E4FA8D248CE98DA9DC1248506"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6010,11 +5002,7 @@
       "namespace": "",
       "key": "435976AE40874229EBC2AFBDA3D9B3FA"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -6034,11 +5022,7 @@
       "namespace": "",
       "key": "BF189BD34E37E4602AEA739D997ECE34"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6058,11 +5042,7 @@
       "namespace": "",
       "key": "F45ECDE6468D3881C73C148F864E7DE0"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6082,11 +5062,7 @@
       "namespace": "",
       "key": "5BFCE763415E9A6F6131FDAD5FA83C47"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6106,11 +5082,7 @@
       "namespace": "",
       "key": "EA1A41634C09C44A5E4A079785A8B085"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6130,11 +5102,7 @@
       "namespace": "",
       "key": "51D757B44D163B29C94235B12020AB18"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -6154,11 +5122,7 @@
       "namespace": "",
       "key": "5999ACB048DE04E5865EE19CFA313958"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptorBiomass",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6178,11 +5142,7 @@
       "namespace": "",
       "key": "9E41918246BE996602118FBC57317A0D"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6202,11 +5162,7 @@
       "namespace": "",
       "key": "03BDFBB840FFAF6E603E0AA82CB354D5"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6226,11 +5182,7 @@
       "namespace": "",
       "key": "DE17DE3949AD00F409512286C17E9FAE"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6250,11 +5202,7 @@
       "namespace": "",
       "key": "9DD3C7BD407B7CD94B7A239D36F2099C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 5,
     "canBeDiscarded": true,
@@ -6274,11 +5222,7 @@
       "namespace": "",
       "key": "6B20A90240BA2991CA99D7988A304D4C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGResourceDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6298,11 +5242,7 @@
       "namespace": "",
       "key": "DD2E9DCA4BDC7DC9AEA4F1B8E25CAC7C"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -6322,11 +5262,7 @@
       "namespace": "",
       "key": "99E2A44D40AC37F56687DB8B1C7DDDD9"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
     "canBeDiscarded": true,
@@ -6346,11 +5282,7 @@
       "namespace": "",
       "key": "DEB3E6CE4FA5E53BB4C8C7BF380DC806"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6370,11 +5302,7 @@
       "namespace": "",
       "key": "B0A8D2CF478859AC825F36A95CE71B48"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6394,11 +5322,7 @@
       "namespace": "",
       "key": "2EC405E64F4B8D3029A85998CBA91C3B"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGEquipmentDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6418,11 +5342,7 @@
       "namespace": "",
       "key": "52610A3043223FCA6562F0A78D3B4778"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6442,11 +5362,7 @@
       "namespace": "",
       "key": "EF0DEB594BDC94DC4CD59097330BD008"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,
@@ -6466,11 +5382,7 @@
       "namespace": "",
       "key": "486951E04FAAA61B8864C887961A94DC"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 2,
     "canBeDiscarded": true,
@@ -6490,11 +5402,7 @@
       "namespace": "",
       "key": "B6E85D4F44F164F84706ABBB0D112199"
     },
-    "abbreviatedName": null,
-    "abbreviatedNameTranslation": {
-      "namespace": null,
-      "key": null
-    },
+    "abbreviatedNameTranslation": {},
     "itemType": "UFGVehicleDescriptor",
     "stackSize": 0,
     "canBeDiscarded": true,

@@ -1,33 +1,38 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   ButtonGroup,
   Divider,
-  ExpansionPanel,
-  ExpansionPanelActions,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
   OutlinedInput,
   Typography,
 } from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
+import Drawer from '@material-ui/core/Drawer';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
-import CategoryIcon from '@material-ui/icons/Category';
-import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import Tabs from '@material-ui/core/Tabs';
 import AddIcon from '@material-ui/icons/Add';
+import CategoryIcon from '@material-ui/icons/Category';
 import DeleteIcon from '@material-ui/icons/Delete';
-import RemoveIcon from '@material-ui/icons/Remove';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
-import SelectDropdown from '../../../../../common/react/SelectDropdown';
+import RemoveIcon from '@material-ui/icons/Remove';
+import React from 'react';
 import Scrollbar from 'react-scrollbars-custom';
+import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import SelectDropdown from '../../../../../common/react/SelectDropdown';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: theme.overrides.GraphDrawer.width * 2,
+    width: theme.overrides.GraphDrawer.width,
     marginTop: theme.overrides.GraphAppBar.height,
     height: `calc(100% - ${theme.overrides.GraphAppBar.height}px)`,
   },
@@ -44,7 +49,7 @@ const styles = (theme) => ({
   },
   tabContent: {
     padding: 20,
-
+    pointerEvents: 'auto',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -65,11 +70,7 @@ const styles = (theme) => ({
   },
   overclockTextField: {
     minWidth: 80,
-    // width: 100
   },
-  // overclockRow: {
-  //   flexDirection: 'row'
-  // },
   divider: {
     marginTop: 10,
     marginBottom: 10,
@@ -83,7 +84,11 @@ const styles = (theme) => ({
   buttonText: {
     // color: 'white',
   },
-});
+  root: {
+    gridArea: 'anotherElement',
+    display: 'grid',
+  },
+}));
 
 const CustomOutlinedInput = ({
   color,
@@ -108,25 +113,59 @@ const StyledInput = withStyles(() => ({
 }))(CustomOutlinedInput);
 
 function ObjectSettingPanel(props) {
+  const classes = useStyles();
   const [tabValue, setTabValue] = React.useState(0);
 
   function handleChange(event, newValue) {
     setTabValue(newValue);
   }
 
-  // drawerOpen
-  const { classes, setDrawerOpen } = props;
+  const { mouseState, selectedObjects, pixiCanvasStateId } = React.useContext(
+    PixiJSCanvasContext
+  );
+
+  const edges = selectedObjects.filter((item) => {
+    if (item instanceof EdgeTemplate) {
+      return true;
+    } else if (item instanceof NodeTemplate) {
+      return false;
+    }
+
+    throw new Error('Not instance of something handled');
+  });
+
+  const nodes = selectedObjects.filter((item) => {
+    if (item instanceof EdgeTemplate) {
+      return false;
+    } else if (item instanceof NodeTemplate) {
+      return true;
+    }
+
+    throw new Error('Not instance of something handled');
+  });
+
+  const numNodes = nodes.length;
+  const numEdges = edges.length;
+
+  React.useEffect(() => {
+    if (numEdges && !numNodes) {
+      setTabValue(1);
+    }
+
+    if (numNodes && !numEdges) {
+      setTabValue(0);
+    }
+  }, [numEdges, numNodes]);
 
   return (
     <Drawer
-      //variant={isMobile ? "permanent" : "temporary" }
-      variant="temporary"
+      variant="persistent"
       anchor={'right'}
-      // open={drawerOpen}
-      open={true}
-      onClose={() => setDrawerOpen(false)}
+      open={mouseState === MouseState.SELECT && selectedObjects.length > 0}
+      onClose={() => {}}
       classes={{
         paper: classes.drawer,
+        root: classes.root,
       }}
     >
       <div className={classes.drawerContent}>
@@ -138,8 +177,16 @@ function ObjectSettingPanel(props) {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Nodes" icon={<CategoryIcon />} />
-          <Tab label="Edges" icon={<DeviceHubIcon />} />
+          <Tab
+            label="Nodes"
+            disabled={numNodes === 0}
+            icon={<CategoryIcon />}
+          />
+          <Tab
+            label="Edges"
+            disabled={numEdges === 0}
+            icon={<DeviceHubIcon />}
+          />
         </Tabs>
         {tabValue === 0 && (
           <Scrollbar>
@@ -147,15 +194,29 @@ function ObjectSettingPanel(props) {
               <Typography variant="h5">All Node Settings</Typography>
               <Divider className={classes.divider} />
               <Button
+                onClick={() => {
+                  pixiJsStore.update((t) => {
+                    const s = t[pixiCanvasStateId];
+
+                    let edgesToDelete = new Set([]);
+
+                    for (const node of nodes) {
+                      edgesToDelete.add(node);
+                      const altDeletes = node.delete();
+                      for (const item of altDeletes) {
+                        edgesToDelete.add(item);
+                      }
+                    }
+
+                    s.children = s.children.filter(
+                      (item) => !edgesToDelete.has(item)
+                    );
+
+                    console.log(s.children);
+                  });
+                }}
                 color="secondary"
                 variant="contained"
-                // onClick={() => {
-                //   const newSelection = removeNodes(
-                //     Object.values(props.selectedData.nodes || {}),
-                //     props.graphData
-                //   );
-                //   props.setGraphData(newSelection);
-                // }}
                 startIcon={<DeleteIcon />}
               >
                 Delete ALL selected nodes
@@ -166,7 +227,7 @@ function ObjectSettingPanel(props) {
               <div className={classes.tiers}>
                 {/* <Typography variant="body1"> */}
                 <ButtonGroup disableElevation fullWidth>
-                  <Button color="secondary" className={classes.iconbutton}>
+                  <Button color="secondary" className={classes.iconButton}>
                     <FastRewindIcon />
                   </Button>
                   <Button
@@ -177,7 +238,7 @@ function ObjectSettingPanel(props) {
                   >
                     Mark 1
                   </Button>
-                  <Button color="primary" className={classes.iconbutton}>
+                  <Button color="primary" className={classes.iconButton}>
                     <FastForwardIcon />
                   </Button>
                 </ButtonGroup>
@@ -205,11 +266,11 @@ function ObjectSettingPanel(props) {
                 <Divider className={classes.divider}/> */}
 
               <Typography variant="h5">By Machine Class</Typography>
-              <ExpansionPanel square>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Accordion square>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography variant="h6">Miners</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.expandPanel}>
+                </AccordionSummary>
+                <AccordionDetails className={classes.expandPanel}>
                   <Typography variant="body1">Recipe</Typography>
                   <SelectDropdown fullWidth />
                   <Divider className={classes.divider} />
@@ -217,10 +278,10 @@ function ObjectSettingPanel(props) {
                   {/* <div className={classes.tiers}> */}
                   <Typography variant="body1">Machine Level</Typography>
                   <ButtonGroup fullWidth disableElevation>
-                    <Button color="secondary" className={classes.iconbutton}>
+                    <Button color="secondary" className={classes.iconButton}>
                       <FastRewindIcon />
                     </Button>
-                    <Button color="secondary" className={classes.iconbutton}>
+                    <Button color="secondary" className={classes.iconButton}>
                       <RemoveIcon />
                     </Button>
                     <Button
@@ -231,10 +292,10 @@ function ObjectSettingPanel(props) {
                     >
                       Mark 1
                     </Button>
-                    <Button color="primary" className={classes.iconbutton}>
+                    <Button color="primary" className={classes.iconButton}>
                       <AddIcon />
                     </Button>
-                    <Button color="primary" className={classes.iconbutton}>
+                    <Button color="primary" className={classes.iconButton}>
                       <FastForwardIcon />
                     </Button>
                   </ButtonGroup>
@@ -246,10 +307,10 @@ function ObjectSettingPanel(props) {
                   </Typography>
                   <div className={classes.overclockRow}>
                     <ButtonGroup disableElevation fullWidth>
-                      <Button color="secondary" className={classes.iconbutton}>
+                      <Button color="secondary" className={classes.iconButton}>
                         <FastRewindIcon />
                       </Button>
-                      <Button color="secondary" className={classes.iconbutton}>
+                      <Button color="secondary" className={classes.iconButton}>
                         <RemoveIcon />
                       </Button>
                       {/* <Button>
@@ -271,10 +332,10 @@ function ObjectSettingPanel(props) {
                         </FormControl>
                       </Button> */}
                       <StyledInput className={classes.overclockTextField} />
-                      <Button color="primary" className={classes.iconbutton}>
+                      <Button color="primary" className={classes.iconButton}>
                         <AddIcon />
                       </Button>
-                      <Button color="primary" className={classes.iconbutton}>
+                      <Button color="primary" className={classes.iconButton}>
                         <FastForwardIcon />
                       </Button>
                     </ButtonGroup>
@@ -287,26 +348,26 @@ function ObjectSettingPanel(props) {
                       // onChange={}
                     /> */}
                   </div>
-                </ExpansionPanelDetails>
-                <ExpansionPanelActions>
+                </AccordionDetails>
+                <AccordionActions>
                   <Button color="secondary" variant="contained">
                     <DeleteIcon />
                   </Button>
-                </ExpansionPanelActions>
-              </ExpansionPanel>
-              <ExpansionPanel square>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                </AccordionActions>
+              </Accordion>
+              <Accordion square>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography variant="h6">Constructors</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+                </AccordionSummary>
+                <AccordionDetails>
                   <Typography variant="body1">Recipe</Typography>
-                </ExpansionPanelDetails>
-                <ExpansionPanelActions>
+                </AccordionDetails>
+                <AccordionActions>
                   <Button color="secondary" variant="contained">
                     <DeleteIcon />
                   </Button>
-                </ExpansionPanelActions>
-              </ExpansionPanel>
+                </AccordionActions>
+              </Accordion>
               {/* <Divider className={classes.divider} /> */}
             </div>
           </Scrollbar>
@@ -320,13 +381,21 @@ function ObjectSettingPanel(props) {
               <Button
                 color="secondary"
                 variant="contained"
-                // onClick={() => {
-                //   const newSelection = removeEdges(
-                //     Object.values(props.selectedData.edges || {}),
-                //     props.graphData
-                //   );
-                //   props.setGraphData(newSelection);
-                // }}
+                onClick={() => {
+                  pixiJsStore.update((t) => {
+                    const s = t[pixiCanvasStateId];
+
+                    let edgesToDelete = new Set(edges);
+
+                    for (const edge of edges) {
+                      edge.delete();
+                    }
+
+                    s.children = s.children.filter(
+                      (item) => !edgesToDelete.has(item)
+                    );
+                  });
+                }}
                 startIcon={<DeleteIcon />}
                 // fullwidth
               >
@@ -336,10 +405,10 @@ function ObjectSettingPanel(props) {
 
               <Typography variant="h6">Set ALL Belt Tiers</Typography>
               <ButtonGroup fullWidth>
-                <Button color="secondary" className={classes.iconbutton}>
+                <Button color="secondary" className={classes.iconButton}>
                   <FastRewindIcon />
                 </Button>
-                <Button color="secondary" className={classes.iconbutton}>
+                <Button color="secondary" className={classes.iconButton}>
                   <RemoveIcon />
                 </Button>
                 <Button
@@ -350,10 +419,10 @@ function ObjectSettingPanel(props) {
                 >
                   Mark 1
                 </Button>
-                <Button color="primary" className={classes.iconbutton}>
+                <Button color="primary" className={classes.iconButton}>
                   <AddIcon />
                 </Button>
-                <Button color="primary" className={classes.iconbutton}>
+                <Button color="primary" className={classes.iconButton}>
                   <FastForwardIcon />
                 </Button>
               </ButtonGroup>
@@ -366,4 +435,4 @@ function ObjectSettingPanel(props) {
   );
 }
 
-export default withStyles(styles)(ObjectSettingPanel);
+export default ObjectSettingPanel;

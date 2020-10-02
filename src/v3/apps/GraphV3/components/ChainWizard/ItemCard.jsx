@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { getItemIcon } from 'v3/data/loaders/items';
-import QualitySelector from 'v3/apps/GraphV3/components/ChainWizard/QuantitySelector';
+import QualitySelector from 'v3/apps/GraphV3/components/ChainWizard/ChainWizardQuantitySelector';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ItemSelector from 'v3/apps/GraphV3/components/ChainWizard/ItemSelector';

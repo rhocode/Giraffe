@@ -107,7 +107,7 @@
     "outputBelts": 1
   },
   "building-miner-mk3": {
-    "inputBelts": 1
+    "outputBelts": 1
   },
   "building-resource-sink": {
     "inputBelts": 1

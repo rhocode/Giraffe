@@ -1,24 +1,31 @@
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 export const addObjectChildren = (
-  children: NodeTemplate[],
-  canvasId: string
+  children: NodeTemplate[] | EdgeTemplate[],
+  canvasId: string,
+  unshift: boolean = false
 ) => {
   pixiJsStore.update((t) => {
-    children.forEach((child) => {
-      const id = child.id || stringGen(10);
+    children.forEach((child: NodeTemplate | EdgeTemplate) => {
+      const id = child.id || uuidGen();
       const s = t[canvasId];
       s.childrenMap.set(id, child);
-      s.children.push(child);
-      s.viewportChildContainer.addChild(child.container);
+      if (unshift) {
+        s.children.unshift(child);
+        s.viewportChildContainer.addChildAt(child.container, 0);
+      } else {
+        s.children.push(child);
+        s.viewportChildContainer.addChild(child.container);
+      }
     });
   });
 };
 
 export const addChild = (child: PIXI.DisplayObject, canvasId: string) => {
-  const id = stringGen(10);
+  const id = uuidGen();
   pixiJsStore.update((t) => {
     const s = t[canvasId];
     s.childrenMap.set(id, child);

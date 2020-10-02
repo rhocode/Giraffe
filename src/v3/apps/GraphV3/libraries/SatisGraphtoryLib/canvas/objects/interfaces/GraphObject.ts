@@ -1,10 +1,10 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import EventEmitter from 'eventemitter3';
-import stringGen from 'v3/utils/stringGen';
+import uuidGen from 'v3/utils/stringUtils';
 
 export abstract class GraphObjectContainer extends PIXI.Container {
   highLight: any = null;
-  id: string = stringGen(10);
+  id: string = uuidGen();
 
   abstract getBounds(): any;
 
@@ -27,10 +27,18 @@ export abstract class GraphObjectContainer extends PIXI.Container {
   }
 }
 
+type GraphObjectProps = {
+  theme?: any;
+};
+
 export abstract class GraphObject {
   abstract id: string;
   abstract container: GraphObjectContainer;
   eventEmitter: EventEmitter | null = null;
+
+  constructor(props: GraphObjectProps) {
+    this.theme = props.theme;
+  }
 
   attachEventEmitter(eventEmitter: EventEmitter) {
     this.eventEmitter = eventEmitter;
@@ -39,4 +47,10 @@ export abstract class GraphObject {
   abstract removeInteractionEvents(): void;
   abstract addSelectEvents(onSelectObjects: (ids: string[]) => any): void;
   abstract addDragEvents(): any[];
+  abstract delete(): GraphObject[];
+  theme: any = {};
+
+  updateTheme(theme: any) {
+    this.theme = theme;
+  }
 }

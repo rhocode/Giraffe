@@ -31,3 +31,6 @@ yarn-error.log*
 **/__all.js
 /.data-landing/
 /src/.data-landing/
+
+# Local Netlify folder
+.netlify

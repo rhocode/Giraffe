@@ -1,9 +1,13 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useThemeProvider } from 'common/react/SGThemeProvider';
 import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import {
+  GraphObject,
+  GraphObjectContainer,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
@@ -17,9 +21,12 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import populateNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNodeData';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
+import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/linkFunctions';
+import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
+import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -50,6 +57,7 @@ function PixiJSApplication(props) {
     openModals,
     selectedRecipe,
     selectedMachine,
+    selectedEdge,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -60,6 +68,8 @@ function PixiJSApplication(props) {
   const lasTargetIsCanvas = React.useRef(false);
   const lastMode = React.useRef();
   const keypressHandled = React.useRef(false);
+
+  const lastMouseStateRef = React.useRef(MouseState.INVALID);
 
   const { translate } = React.useContext(LocaleContext);
 
@@ -210,7 +220,50 @@ function PixiJSApplication(props) {
 
   const previousMouseState = React.useRef(null);
 
-  const selectionBoxId = React.useRef(null);
+  const selectionBoxId = React.useRef('');
+
+  const theme = useThemeProvider();
+
+  // Reenable when it's time to revisit using a grid
+  // const gridId = React.useRef('');
+  // React.useEffect(() => {
+  //   if (!pixiRenderer) return;
+  //   if (gridId.current) {
+  //     removeChild(gridId.current, pixiCanvasStateId);
+  //     gridId.current = '';
+  //   }
+  //
+  //   const gfx = new PIXI.Graphics();
+  //   // backboard (infrastructure)
+  //   gfx.clear();
+  //   gfx.lineStyle(BOX_THICKNESS, PURPLE, 1);
+  //   // gfx.beginFill(GREY, 1.0);
+  //   gfx.drawRect(0, 0, 100, 100);
+  //   gfx.endFill();
+  //
+  //   const grid = pixiRenderer.generateTexture(
+  //     gfx,
+  //     PIXI.SCALE_MODES.LINEAR,
+  //     sgDevicePixelRatio * 4,
+  //     new PIXI.Rectangle(0, 0, 100, 100)
+  //   );
+  //   PIXI.Texture.addToCache(grid, 'grid');
+  //
+  //   console.log(pixiViewport.screenHeight, pixiViewport.screenWidth);
+  //
+  //   const container = new PIXI.Container();
+  //   const texture = PIXI.utils.TextureCache['grid'];
+  //
+  //   // const {x, y} = pixiViewport.toWorld(pixiViewport.screenWidth, pixiViewport.screenHeight);
+  //   const {x, y} = pixiViewport.toWorld(0, 0);
+  //   const sprite = new PIXI.TilingSprite(texture, pixiViewport.screenWidth, pixiViewport.screenHeight);
+  //   sprite.anchor.set(0, 0);
+  //   sprite.position.x = x;
+  //   sprite.position.y = y;
+  //   container.addChild(sprite);
+  //   gridId.current = addChild(container, pixiCanvasStateId);
+  // }, [pixiCanvasStateId, pixiRenderer, pixiViewport])
+
   const pixiViewportFunc = React.useRef(null);
 
   React.useEffect(() => {
@@ -237,7 +290,7 @@ function PixiJSApplication(props) {
 
     if (selectionBoxId.current) {
       removeChild(selectionBoxId.current, pixiCanvasStateId);
-      selectionBoxId.current = null;
+      selectionBoxId.current = '';
     }
 
     pixiViewportFunc.current = function () {
@@ -247,15 +300,18 @@ function PixiJSApplication(props) {
     pixiViewport.on('zoomed-end', pixiViewportFunc.current);
     pixiViewport.on('drag-end', pixiViewportFunc.current);
 
-    const deferredRemoveChildEvents = (t) => {
-      const s = t[pixiCanvasStateId];
-      for (const child of getMultiTypedChildrenFromState(s, [
-        NodeTemplate,
-        EdgeTemplate,
-      ])) {
-        child.removeInteractionEvents();
+    const deferredRemoveChildEvents = removeChildEvents(pixiCanvasStateId);
+
+    if (lastMouseStateRef.current !== mouseState) {
+      if (lastMouseStateRef.current === MouseState.LINK) {
+        viewportChildContainer.children.forEach((child) => {
+          if (child instanceof GraphObjectContainer) {
+            child.alpha = 1;
+          }
+        });
       }
-    };
+      lastMouseStateRef.current = mouseState;
+    }
 
     if (mouseState === MouseState.SELECT) {
       viewportChildContainer.interactive = true;
@@ -269,7 +325,8 @@ function PixiJSApplication(props) {
         pixiViewport,
         viewportChildContainer,
         selectionBox,
-        onSelectObjects
+        onSelectObjects,
+        theme
       );
 
       pixiJsStore.update([
@@ -324,7 +381,6 @@ function PixiJSApplication(props) {
 
         const newPos = event.data.getLocalPosition(this.parent);
 
-        console.log(selectedRecipe, selectedMachine);
         if (!selectedMachine) return;
 
         const nodeData = populateNodeData(
@@ -333,26 +389,56 @@ function PixiJSApplication(props) {
           100,
           newPos.x,
           newPos.y,
-          translate
+          translate,
+          theme
         );
-        console.log(nodeData);
+
         addObjectChildren([nodeData], pixiCanvasStateId);
       });
 
       pixiJsStore.update(deferredRemoveChildEvents);
+    } else if (mouseState === MouseState.LINK) {
+      pixiViewport.plugins.resume('drag');
+      if (openModals === 0) {
+        pixiViewport.plugins.resume('wheel');
+      }
+      pixiViewport.plugins.resume('pinch');
+
+      viewportChildContainer.interactive = true;
+      viewportChildContainer.buttonMode = true;
+      viewportChildContainer.hitArea = pixiViewport.hitArea;
+
+      // Don't select any objects
+      onSelectObjects([]);
+
+      const supportedResourceForms = new Set(
+        getSupportedResourceForm(selectedEdge)
+      );
+
+      pixiJsStore.update([
+        deferredRemoveChildEvents,
+        setUpLinkInitialState(
+          eventEmitter,
+          pixiCanvasStateId,
+          supportedResourceForms,
+          selectedEdge
+        ),
+      ]);
     }
   }, [
     canvasReady,
     eventEmitter,
     mouseState,
     onSelectObjects,
+    openModals,
     pixiCanvasStateId,
     pixiViewport,
-    viewportChildContainer,
-    openModals,
-    selectedRecipe,
+    selectedEdge,
     selectedMachine,
+    selectedRecipe,
+    theme,
     translate,
+    viewportChildContainer,
   ]);
 
   React.useEffect(() => {
@@ -362,7 +448,14 @@ function PixiJSApplication(props) {
         pixiRenderer.resize(width, height);
         pixiViewport.resize(width, height);
         if (viewportChildContainer) {
-          viewportChildContainer.hitArea = pixiViewport.hitArea;
+          const originPoint = pixiViewport.toWorld(0, 0);
+          const maxPoint = pixiViewport.toWorld(width, height);
+          viewportChildContainer.hitArea = new PIXI.Rectangle(
+            originPoint.x,
+            originPoint.y,
+            maxPoint.x - originPoint.x,
+            maxPoint.y - originPoint.y
+          );
         }
       }
     }

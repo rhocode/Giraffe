@@ -259,7 +259,10 @@
       "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
     },
     "speed": 120,
-    "buildingType": "ITEMPASSTHROUGH"
+    "buildingType": "ITEMPASSTHROUGH",
+    "supportedResourceForms": [
+      1
+    ]
   },
   "building-conveyor-belt-mk2": {
     "name": "Conveyor Belt Mk.2",
@@ -273,7 +276,10 @@
       "key": "6CAB260A4CEA9658350E36A523208EDA"
     },
     "speed": 240,
-    "buildingType": "ITEMPASSTHROUGH"
+    "buildingType": "ITEMPASSTHROUGH",
+    "supportedResourceForms": [
+      1
+    ]
   },
   "building-conveyor-belt-mk3": {
     "name": "Conveyor Belt Mk.3",
@@ -287,7 +293,10 @@
       "key": "DD85142F4C6F85EC9D14CF9DAB5975EA"
     },
     "speed": 540,
-    "buildingType": "ITEMPASSTHROUGH"
+    "buildingType": "ITEMPASSTHROUGH",
+    "supportedResourceForms": [
+      1
+    ]
   },
   "building-conveyor-belt-mk4": {
     "name": "Conveyor Belt Mk.4",
@@ -301,7 +310,10 @@
       "key": "0C49B7944680A4FBA2864081DAB3D919"
     },
     "speed": 960,
-    "buildingType": "ITEMPASSTHROUGH"
+    "buildingType": "ITEMPASSTHROUGH",
+    "supportedResourceForms": [
+      1
+    ]
   },
   "building-conveyor-belt-mk5": {
     "name": "Conveyor Belt Mk.5",
@@ -315,7 +327,10 @@
       "key": "BDB63D994387A8251468408F2DD47AD0"
     },
     "speed": 1560,
-    "buildingType": "ITEMPASSTHROUGH"
+    "buildingType": "ITEMPASSTHROUGH",
+    "supportedResourceForms": [
+      1
+    ]
   },
   "building-generator-biomass": {
     "name": "Biomass Burner",
@@ -333,7 +348,9 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
-    "defaultFuelClasses": ["FGItemDescriptorBiomass"],
+    "defaultFuelClasses": [
+      "FGItemDescriptorBiomass"
+    ],
     "powerProduction": 30,
     "powerProductionExponent": 1.29999995231628,
     "fuelResourceForm": 0,
@@ -437,7 +454,9 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
-    "defaultFuelClasses": ["FGItemDescriptorBiomass"],
+    "defaultFuelClasses": [
+      "FGItemDescriptorBiomass"
+    ],
     "powerProduction": 20,
     "powerProductionExponent": 1.29999995231628,
     "fuelResourceForm": 0,
@@ -462,7 +481,9 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
-    "defaultFuelClasses": ["item-nuclear-fuel-rod"],
+    "defaultFuelClasses": [
+      "item-nuclear-fuel-rod"
+    ],
     "powerProduction": 2500,
     "powerProductionExponent": 1.3219280242919922,
     "fuelResourceForm": 0,
@@ -510,7 +531,9 @@
     "extractStartupTime": 15,
     "extractCycleTime": 1,
     "itemsPerCycle": 1,
-    "allowedResourceForms": [1],
+    "allowedResourceForms": [
+      1
+    ],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
     "extractorTypeName": "Miner",
@@ -535,7 +558,9 @@
     "extractStartupTime": 15,
     "extractCycleTime": 0.5,
     "itemsPerCycle": 1,
-    "allowedResourceForms": [1],
+    "allowedResourceForms": [
+      1
+    ],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
     "extractorTypeName": "Miner",
@@ -560,7 +585,9 @@
     "extractStartupTime": 15,
     "extractCycleTime": 0.25,
     "itemsPerCycle": 1,
-    "allowedResourceForms": [1],
+    "allowedResourceForms": [
+      1
+    ],
     "onlyAllowCertainResources": false,
     "allowedResources": [],
     "extractorTypeName": "Miner",
@@ -585,9 +612,13 @@
     "extractStartupTime": 0,
     "extractCycleTime": 1,
     "itemsPerCycle": 2000,
-    "allowedResourceForms": [2],
+    "allowedResourceForms": [
+      2
+    ],
     "onlyAllowCertainResources": true,
-    "allowedResources": ["item-liquid-oil"],
+    "allowedResources": [
+      "item-liquid-oil"
+    ],
     "extractorTypeName": null,
     "buildingType": "EXTRACTOR"
   },
@@ -604,7 +635,10 @@
     },
     "flowLimit": 5,
     "radius": 65,
-    "buildingType": "FLUIDPASSTHROUGH"
+    "buildingType": "FLUIDPASSTHROUGH",
+    "supportedResourceForms": [
+      2
+    ]
   },
   "building-pipeline-junction-cross": {
     "name": "Pipeline Junction Cross",
@@ -801,9 +835,13 @@
     "extractStartupTime": 10,
     "extractCycleTime": 1,
     "itemsPerCycle": 2000,
-    "allowedResourceForms": [2],
+    "allowedResourceForms": [
+      2
+    ],
     "onlyAllowCertainResources": true,
-    "allowedResources": ["item-water"],
+    "allowedResources": [
+      "item-water"
+    ],
     "extractorTypeName": null,
     "buildingType": "EXTRACTOR"
   },
