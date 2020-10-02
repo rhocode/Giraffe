@@ -32,7 +32,7 @@ function HeaderMessaging(props) {
   const [isUpdating, setIsUpdating] = React.useState(false);
 
   const update = () => {
-    console.error('Updating assets...');
+    console.error('Updating assets...', assetsUpdateReady, updateAssets);
     if (updateAssets) {
       setIsUpdating(true);
       updateAssets();
