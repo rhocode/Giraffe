@@ -33,7 +33,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -71,7 +73,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -97,7 +101,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -130,7 +136,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -160,7 +168,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -186,7 +196,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -212,7 +224,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -238,7 +252,9 @@
         "amount": 9
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -264,7 +280,9 @@
         "amount": 15
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -290,7 +308,9 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-foundry-mk1"],
+    "producedIn": [
+      "building-foundry-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -316,7 +336,9 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-foundry-mk1"],
+    "producedIn": [
+      "building-foundry-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -342,7 +364,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -368,7 +392,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -398,7 +424,9 @@
         "amount": 1000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -424,7 +452,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -454,7 +484,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -480,7 +512,9 @@
         "amount": 30
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 20
   },
@@ -514,7 +548,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -540,7 +576,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -570,7 +608,9 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 32
   },
@@ -600,7 +640,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -626,7 +668,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -652,7 +696,9 @@
         "amount": 2000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -678,7 +724,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 5
   },
@@ -704,7 +752,9 @@
         "amount": 15
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -730,7 +780,9 @@
         "amount": 13
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -756,7 +808,9 @@
         "amount": 7
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -782,7 +836,9 @@
         "amount": 12
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -808,7 +864,9 @@
         "amount": 9
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -834,7 +892,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -860,7 +920,9 @@
         "amount": 18
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -882,7 +944,9 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 5
   },
@@ -908,7 +972,9 @@
         "amount": 4000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -934,7 +1000,9 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 3
   },
@@ -956,7 +1024,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-smelter-mk1"],
+    "producedIn": [
+      "building-smelter-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 5
   },
@@ -986,7 +1056,9 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -1012,7 +1084,9 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1038,7 +1112,9 @@
         "amount": 11
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -1064,7 +1140,9 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -1090,7 +1168,9 @@
         "amount": 7
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 48
   },
@@ -1112,7 +1192,9 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -1134,7 +1216,9 @@
         "amount": 6
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -1164,7 +1248,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -1190,7 +1276,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 64
   },
@@ -1216,7 +1304,9 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -1246,7 +1336,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 32
   },
@@ -1272,7 +1364,9 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 60
   },
@@ -1298,7 +1392,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 15
   },
@@ -1324,7 +1420,9 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1350,7 +1448,9 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -1376,7 +1476,9 @@
         "amount": 7
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 32
   },
@@ -1406,7 +1508,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -1432,7 +1536,9 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-foundry-mk1"],
+    "producedIn": [
+      "building-foundry-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -1458,7 +1564,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-foundry-mk1"],
+    "producedIn": [
+      "building-foundry-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 3
   },
@@ -1484,7 +1592,9 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-foundry-mk1"],
+    "producedIn": [
+      "building-foundry-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -1510,7 +1620,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 60
   },
@@ -1544,7 +1656,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 64
   },
@@ -1574,7 +1688,9 @@
         "amount": 6
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 48
   },
@@ -1604,7 +1720,9 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -1638,7 +1756,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 300
   },
@@ -1664,7 +1784,9 @@
         "amount": 12
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1690,7 +1812,9 @@
         "amount": 12
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -1720,7 +1844,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 48
   },
@@ -1746,7 +1872,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1772,7 +1900,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 32
   },
@@ -1798,7 +1928,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1820,7 +1952,9 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -1842,7 +1976,9 @@
         "amount": 52
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -1868,7 +2004,9 @@
         "amount": 7
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -1894,7 +2032,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 15
   },
@@ -1920,7 +2060,9 @@
         "amount": 5000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 16
   },
@@ -1954,7 +2096,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 64
   },
@@ -1988,7 +2132,9 @@
         "amount": 35
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -2010,7 +2156,9 @@
         "amount": 9
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -2032,7 +2180,9 @@
         "amount": 8
       }
     ],
-    "producedIn": ["building-constructor-mk1"],
+    "producedIn": [
+      "building-constructor-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -2058,7 +2208,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -2084,7 +2237,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1.5,
     "manufacturingDuration": 8
   },
@@ -2110,7 +2266,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 30
   },
@@ -2136,7 +2295,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 10
   },
@@ -2162,7 +2324,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1.5,
     "manufacturingDuration": 12
   },
@@ -2188,7 +2353,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -2214,7 +2382,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.5,
     "manufacturingDuration": 60
   },
@@ -2239,7 +2410,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 12
   },
@@ -2265,7 +2439,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.800000011920929,
     "manufacturingDuration": 15
   },
@@ -2291,7 +2468,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1.5,
     "manufacturingDuration": 12
   },
@@ -2317,7 +2497,10 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.5,
     "manufacturingDuration": 60
   },
@@ -2339,7 +2522,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2361,7 +2546,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2383,7 +2570,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2405,7 +2594,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2427,7 +2618,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2449,7 +2642,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2471,7 +2666,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2493,7 +2690,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2515,7 +2714,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2537,7 +2738,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2559,7 +2762,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2581,7 +2786,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2603,7 +2810,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2625,7 +2834,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2647,7 +2858,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2669,7 +2882,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2691,7 +2906,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2713,7 +2930,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2735,7 +2954,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2757,7 +2978,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2779,7 +3002,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2801,7 +3026,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2823,7 +3050,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2845,7 +3074,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2867,7 +3098,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2889,7 +3122,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2911,7 +3146,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2933,7 +3170,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2955,7 +3194,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2977,7 +3218,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -2999,7 +3242,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3021,7 +3266,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3043,7 +3290,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3065,7 +3314,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3087,7 +3338,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3109,7 +3362,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3139,7 +3394,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3165,7 +3422,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3191,7 +3450,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3217,7 +3478,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3247,7 +3510,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3277,7 +3542,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3299,7 +3566,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3321,7 +3590,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3343,7 +3614,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3365,7 +3638,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3387,7 +3662,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3409,7 +3686,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3431,7 +3710,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3453,7 +3734,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3475,7 +3758,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3497,7 +3782,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3527,7 +3814,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3556,7 +3845,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3585,7 +3876,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3615,7 +3908,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3645,7 +3940,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3683,7 +3980,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3721,7 +4020,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3738,7 +4039,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3776,7 +4079,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3822,7 +4127,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3848,7 +4155,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3874,7 +4183,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3900,7 +4211,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3929,7 +4242,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3958,7 +4273,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -3984,7 +4301,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4013,7 +4332,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4047,7 +4368,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4077,7 +4400,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4110,7 +4435,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4147,7 +4474,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4177,7 +4506,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4211,7 +4542,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4237,7 +4570,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4263,7 +4598,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4284,7 +4621,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4305,7 +4644,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4330,7 +4671,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4356,7 +4699,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4382,7 +4727,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4412,7 +4759,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4442,7 +4791,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4472,7 +4823,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4494,7 +4847,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4524,7 +4879,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4554,7 +4911,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4584,7 +4943,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4610,7 +4971,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4636,7 +4999,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4662,7 +5027,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4688,7 +5055,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4714,7 +5083,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4740,7 +5111,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4774,7 +5147,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4800,7 +5175,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4817,7 +5194,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4846,7 +5225,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4875,7 +5256,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4901,7 +5284,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4931,7 +5316,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4957,7 +5344,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -4983,7 +5372,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5026,7 +5417,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5048,7 +5441,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5077,7 +5472,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5106,7 +5503,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5136,7 +5535,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5161,7 +5562,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5202,7 +5605,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5228,7 +5633,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5254,7 +5661,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5280,7 +5689,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5313,7 +5724,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5338,7 +5751,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5363,7 +5778,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5388,7 +5805,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5413,7 +5832,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5435,7 +5856,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5461,7 +5884,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5487,7 +5912,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5513,7 +5940,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5539,7 +5968,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5565,7 +5996,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5591,7 +6024,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5617,7 +6052,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5643,7 +6080,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5669,7 +6108,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5695,7 +6136,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5721,7 +6164,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5747,7 +6192,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5773,7 +6220,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5799,7 +6248,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5825,7 +6276,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5851,7 +6304,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5877,7 +6332,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5903,7 +6360,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5929,7 +6388,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5955,7 +6416,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -5981,7 +6444,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -6007,7 +6472,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -6033,7 +6500,10 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 8
   },
@@ -6081,7 +6551,10 @@
         "amount": 100
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6103,7 +6576,10 @@
         "amount": 200
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -6125,7 +6601,10 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.4000000059604645,
     "manufacturingDuration": 5
   },
@@ -6147,7 +6626,10 @@
         "amount": 10
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.5,
     "manufacturingDuration": 4
   },
@@ -6169,7 +6651,10 @@
         "amount": 20
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6191,7 +6676,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -6213,7 +6701,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6235,7 +6726,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -6261,7 +6755,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-assembler-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6283,7 +6780,10 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6305,7 +6805,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -6327,7 +6830,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 0.5,
     "manufacturingDuration": 4
   },
@@ -6357,7 +6863,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 150
   },
@@ -6379,7 +6887,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -6401,7 +6912,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 12
   },
@@ -6423,7 +6937,10 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -6445,7 +6962,10 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 8
   },
@@ -6467,7 +6987,10 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 5
   },
@@ -6489,7 +7012,10 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -6511,7 +7037,10 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 8
   },
@@ -6533,7 +7062,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6555,7 +7087,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -6577,7 +7112,10 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-constructor-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-constructor-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -6611,7 +7149,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component", "building-manufacturer-mk1"],
+    "producedIn": [
+      "building-workshop-component",
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 8
   },
@@ -6641,7 +7182,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 80
   },
@@ -6713,7 +7256,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 60
   },
@@ -6769,7 +7314,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 80
   },
@@ -6867,7 +7414,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 80
   },
@@ -6931,7 +7480,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -6965,7 +7516,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -6999,7 +7552,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 20
   },
@@ -7025,7 +7580,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 20
   },
@@ -7051,7 +7608,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component", "building-assembler-mk1"],
+    "producedIn": [
+      "building-workshop-component",
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 20
   },
@@ -7081,7 +7641,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 80
   },
@@ -7110,7 +7672,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 20
   },
@@ -7140,7 +7704,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -7166,7 +7732,9 @@
         "amount": 5
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -7192,7 +7760,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -7222,7 +7792,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 100
   },
@@ -7256,7 +7828,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -7316,7 +7890,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 80
   },
@@ -7350,7 +7926,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 40
   },
@@ -7667,7 +8245,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -7697,7 +8277,9 @@
         "amount": 1000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -7723,7 +8305,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 3
   },
@@ -7749,7 +8333,9 @@
         "amount": 4000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -7775,7 +8361,9 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -7801,7 +8389,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 3
   },
@@ -7827,7 +8417,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -7853,7 +8445,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 4
   },
@@ -7879,7 +8473,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -7905,7 +8501,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -7927,7 +8525,9 @@
         "amount": 12
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -7953,7 +8553,9 @@
         "amount": 1000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -7975,7 +8577,9 @@
         "amount": 4000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8001,7 +8605,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8027,7 +8633,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8053,7 +8661,9 @@
         "amount": 2000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8079,7 +8689,9 @@
         "amount": 10000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8105,7 +8717,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8131,7 +8745,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8157,7 +8773,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8183,7 +8801,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8209,7 +8829,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8235,7 +8857,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8265,7 +8889,9 @@
         "amount": 2000
       }
     ],
-    "producedIn": ["building-oil-refinery"],
+    "producedIn": [
+      "building-oil-refinery"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 6
   },
@@ -8286,7 +8912,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8307,7 +8935,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8328,7 +8958,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8349,7 +8981,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8370,7 +9004,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8391,7 +9027,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8412,7 +9050,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8433,7 +9073,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8454,7 +9096,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8475,7 +9119,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-converter"],
+    "producedIn": [
+      "building-converter"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 2
   },
@@ -8501,7 +9147,10 @@
         "amount": 4
       }
     ],
-    "producedIn": ["building-foundry-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-foundry-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 3,
     "manufacturingDuration": 3
   },
@@ -8523,7 +9172,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-smelter-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 4
   },
@@ -8545,7 +9197,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-smelter-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 3,
     "manufacturingDuration": 2
   },
@@ -8567,7 +9222,10 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-smelter-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-smelter-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 3,
     "manufacturingDuration": 2
   },
@@ -8593,7 +9251,10 @@
         "amount": 3
       }
     ],
-    "producedIn": ["building-foundry-mk1", "building-work-bench-component"],
+    "producedIn": [
+      "building-foundry-mk1",
+      "building-work-bench-component"
+    ],
     "manualMultiplier": 3,
     "manufacturingDuration": 4
   },
@@ -8619,7 +9280,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 30
   },
@@ -8645,7 +9308,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -8671,7 +9336,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-assembler-mk1"],
+    "producedIn": [
+      "building-assembler-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 24
   },
@@ -8701,7 +9368,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 60
   },
@@ -8735,7 +9404,9 @@
         "amount": 2
       }
     ],
-    "producedIn": ["building-manufacturer-mk1"],
+    "producedIn": [
+      "building-manufacturer-mk1"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 120
   },
@@ -8757,7 +9428,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8791,7 +9464,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8821,7 +9496,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-workshop-component"],
+    "producedIn": [
+      "building-workshop-component"
+    ],
     "manualMultiplier": 2,
     "manufacturingDuration": 20
   },
@@ -8851,7 +9528,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8889,7 +9568,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8915,7 +9596,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   },
@@ -8953,7 +9636,9 @@
         "amount": 1
       }
     ],
-    "producedIn": ["building-build-gun"],
+    "producedIn": [
+      "building-build-gun"
+    ],
     "manualMultiplier": 1,
     "manufacturingDuration": 1
   }

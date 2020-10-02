@@ -25,7 +25,6 @@
   "building-manufacturer": "Manufacturer",
   "building-miner": "Miner",
   "building-smelter": "Smelter",
-
   "recipe-train-docking-station": "Freight Platform",
   "recipe-train-docking-station-liquid": "Fluid Freight Platform",
   "recipe-train-platform-empty": "Empty Platform",
@@ -396,7 +395,6 @@
   "recipe-impure-ore-uranium": "Impure Uranium",
   "recipe-normal-ore-uranium": "Normal Uranium",
   "recipe-pure-ore-uranium": "Pure Uranium",
-
   "item-iron-plate-reinforced": "Reinforced Iron Plate",
   "item-modular-frame": "Modular Frame",
   "item-cable": "Cable",
@@ -528,10 +526,8 @@
   "tier-selector-building-conveyor-belt-mk6": "Belt MK VI",
   "tier-selector-building-conveyor-belt-mk7": "Belt MK VII",
   "tier-selector-building-conveyor-belt-mk8": "Belt MK VIII",
-
   "typeRecipe": "Recipe",
   "typeItem": "Item",
-
   "currently_selected": "Selected:",
   "selected_none": "None",
   "mk1": "Mk I",
