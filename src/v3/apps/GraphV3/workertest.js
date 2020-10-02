@@ -1,9 +1,10 @@
 import stringGen from 'v3/utils/stringUtils';
 
-// block for `time` ms, then return the number of loops we could run in that time:
+// block for `time` ms, then return the number of loops we could run in that
+// time:
 export function expensive(time) {
-  let start = Date.now(),
-    count = 0;
-  while (Date.now() - start < time) count++;
+  let start = Date.now(), count = 0;
+  while (Date.now() - start < time)
+    count++;
   return count + stringGen(10);
 }
