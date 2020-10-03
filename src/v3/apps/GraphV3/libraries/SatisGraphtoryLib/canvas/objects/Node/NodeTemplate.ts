@@ -27,6 +27,10 @@ export class NodeContainer extends GraphObjectContainer {
 
 export abstract class NodeTemplate extends GraphObject {
   id: string;
+  recipe: string;
+  overclock: number;
+  machineName: string;
+  tier: number;
   container: NodeContainer;
 
   inputConnections: EdgeTemplate[] = [];
@@ -46,7 +50,16 @@ export abstract class NodeTemplate extends GraphObject {
       inputConnections,
       outputConnections,
       anyConnections,
+      recipeName,
+      overclock,
+      machineName,
+      tier,
     } = props;
+
+    this.recipe = recipeName;
+    this.overclock = overclock;
+    this.machineName = machineName;
+    this.tier = tier;
 
     this.container = new NodeContainer();
 

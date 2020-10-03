@@ -19,7 +19,8 @@ import {
   getMultiTypedChildrenFromState,
   removeChild,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
-import populateNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNodeData';
+import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
+import serializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/serialize';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
 import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/linkFunctions';
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
@@ -163,11 +164,17 @@ function PixiJSApplication(props) {
         if (!arraysEqual(selected, s.selectedObjects)) {
           s.selectedObjects = selected;
           console.log('Selected objects:', s.selectedObjects);
+
+          console.log(serializeGraphObjects(selected));
         }
       });
     },
     [pixiCanvasStateId]
   );
+
+  React.useEffect(() => {
+    // console.log(generateRecipeEnums());
+  }, []);
 
   React.useEffect(() => {
     if (originalCanvasRef.current !== canvasRef.current) {
@@ -383,7 +390,7 @@ function PixiJSApplication(props) {
 
         if (!selectedMachine) return;
 
-        const nodeData = populateNodeData(
+        const nodeData = populateNewNodeData(
           selectedMachine,
           selectedRecipe,
           100,

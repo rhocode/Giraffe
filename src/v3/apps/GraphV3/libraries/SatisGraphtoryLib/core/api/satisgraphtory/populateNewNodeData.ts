@@ -12,7 +12,7 @@ import {
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 
-const populateNodeData = (
+const populateNewNodeData = (
   buildingSlug: string,
   recipe: string | null,
   overclock: number,
@@ -40,4 +40,4 @@ const populateNodeData = (
   });
 };
 
-export default populateNodeData;
+export default populateNewNodeData;
