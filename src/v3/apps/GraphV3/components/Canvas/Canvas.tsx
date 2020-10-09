@@ -83,23 +83,23 @@ type CanvasProps = {
     theme: Record<string, any>
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
+  id: string
 };
 
 function Canvas(props: CanvasProps) {
-  const [pixiCanvasStateId] = React.useState(() => {
-    return uuidGen();
-  });
 
-  React.useEffect(() => {
-    pixiJsStore.update((s) => {
-      if (!s[pixiCanvasStateId]) {
-        console.log('Store was updated');
-        s[pixiCanvasStateId] = generateNewPixiCanvasStore();
-      }
-    });
-  }, [pixiCanvasStateId]);
+  const { onFinishLoad, initialCanvasChildren, id: pixiCanvasStateId } = props;
 
-  const { onFinishLoad, initialCanvasChildren } = props;
+  // React.useEffect(() => {
+  //   pixiJsStore.update((s) => {
+  //     if (!s[pixiCanvasStateId]) {
+  //       console.error('Store was update2d');
+  //       s[pixiCanvasStateId] = generateNewPixiCanvasStore();
+  //       console.log(Object.keys(s), pixiCanvasStateId, "");
+  //     }
+  //   });
+  // }, [pixiCanvasStateId]);
+
 
   const {
     pixiApplication,
@@ -140,6 +140,8 @@ function Canvas(props: CanvasProps) {
     if (!applicationLoaded) return;
 
     if (canvasReady) return;
+
+    console.log("FDSSFFFSdddddFSddsFSF");
 
     initPixiJSCanvas(pixiApplication, theme);
 

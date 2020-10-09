@@ -89,7 +89,9 @@ function EdgeSelectorPanel() {
     (newVal) => {
       setSelectedEdgeTierFunc(newVal);
       pixiJsStore.update((s) => {
-        s[pixiCanvasStateId].selectedEdge = newVal;
+        if (s[pixiCanvasStateId]) {
+          s[pixiCanvasStateId].selectedEdge = newVal;
+        }
       });
     },
     [pixiCanvasStateId]

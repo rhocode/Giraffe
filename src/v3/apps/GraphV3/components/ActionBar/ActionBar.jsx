@@ -37,18 +37,19 @@ function ActionBar() {
   const classes = useStyles();
   const domRef = React.useRef();
 
-  const { mouseState, pixiCanvasStateId } = React.useContext(
+  const { mouseState, pixiCanvasStateId, canvasReady: loaded, applicationLoaded } = React.useContext(
     PixiJSCanvasContext
   );
 
   React.useEffect(() => {
     if (!domRef.current) return;
+    if (!applicationLoaded) return;
 
     pixiJsStore.update((t) => {
       const s = t[pixiCanvasStateId];
       s.aliasCanvasObjects.add(domRef.current);
     });
-  }, [domRef, pixiCanvasStateId]);
+  }, [applicationLoaded, domRef, pixiCanvasStateId]);
 
   const handleModeChange = React.useCallback(
     (event, value) => {
@@ -62,8 +63,6 @@ function ActionBar() {
   );
 
   const controls = useAnimation();
-
-  const { canvasReady: loaded } = React.useContext(PixiJSCanvasContext);
 
   React.useEffect(() => {
     if (loaded) {

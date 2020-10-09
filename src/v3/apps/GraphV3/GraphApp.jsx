@@ -12,6 +12,7 @@ import EdgeSelectorPanel from 'v3/apps/GraphV3/components/EdgeSelectorPanel/Edge
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
+import uuidGen from "v3/utils/stringUtils";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -106,6 +107,10 @@ function GraphApp(props) {
     }
   }, [language.code, match]);
 
+  const [pixiCanvasStateId] = React.useState(() => {
+    return uuidGen();
+  });
+
   return (
     <React.Fragment>
       {Object.values(helmet).length > 0 ? (
@@ -120,6 +125,7 @@ function GraphApp(props) {
           </Helmet>
           <NavBar />
           <Canvas
+            id={pixiCanvasStateId}
             initialCanvasChildren={initialCanvasChildren}
             onFinishLoad={onFinishLoad}
           >

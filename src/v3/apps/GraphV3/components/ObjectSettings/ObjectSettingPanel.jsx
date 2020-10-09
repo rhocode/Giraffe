@@ -120,9 +120,11 @@ function ObjectSettingPanel(props) {
     setTabValue(newValue);
   }
 
-  const { mouseState, selectedObjects, pixiCanvasStateId } = React.useContext(
+  const { mouseState, selectedObjects, pixiCanvasStateId, applicationLoaded } = React.useContext(
     PixiJSCanvasContext
   );
+
+  console.log(mouseState, selectedObjects, pixiCanvasStateId);
 
   const edges = selectedObjects.filter((item) => {
     if (item instanceof EdgeTemplate) {
@@ -156,6 +158,8 @@ function ObjectSettingPanel(props) {
       setTabValue(0);
     }
   }, [numEdges, numNodes]);
+
+  if (!applicationLoaded) return null;
 
   return (
     <Drawer

@@ -25,7 +25,7 @@ import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/ap
 import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/linkFunctions';
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import {generateNewPixiCanvasStore, pixiJsStore} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
 
@@ -181,8 +181,11 @@ function PixiJSApplication(props) {
       originalCanvasRef.current = canvasRef.current;
 
       pixiJsStore.update((sParent) => {
-        const s = sParent[pixiCanvasStateId];
-        if (!s) return;
+        let s = sParent[pixiCanvasStateId];
+        if (!s) {
+          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore();
+          s = sParent[pixiCanvasStateId];
+        }
 
         let newApplication = new PIXI.Application({
           transparent: true,
