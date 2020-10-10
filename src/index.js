@@ -22,9 +22,9 @@ import getStore from './redux/store';
 import SGErrorBoundary from 'common/react/ErrorBoundary';
 
 import './fonts/BebasNeue-Regular.ttf';
-require('typeface-roboto-condensed');
-require('typeface-roboto-mono');
-require('typeface-roboto-slab');
+require('fontsource-roboto-condensed');
+require('fontsource-roboto-mono');
+require('fontsource-roboto-slab');
 
 enableMapSet();
 PIXI.utils.skipHello();

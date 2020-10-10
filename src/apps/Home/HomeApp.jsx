@@ -25,8 +25,8 @@ import Section from './components/Section';
 import Spotlight from './components/Spotlight';
 
 import './App.css';
-require('typeface-raleway');
-require('typeface-source-sans-pro');
+require('fontsource-raleway');
+require('fontsource-source-sans-pro');
 
 function HomeApp() {
   const [showMenu, setShowMenu] = React.useState(false);
