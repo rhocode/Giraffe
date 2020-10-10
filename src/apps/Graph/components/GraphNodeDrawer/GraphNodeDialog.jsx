@@ -1,31 +1,31 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
 // import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import { BrowserView, isMobile, MobileView } from 'react-device-detect';
-import SelectDropdown from '../../../../common/react/SelectDropdown';
-import { getTranslate } from 'react-localize-redux';
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import { BrowserView, isMobile, MobileView } from "react-device-detect";
+import SelectDropdown from "../../../../common/react/SelectDropdown";
+import { getTranslate } from "react-localize-redux";
 import {
   addOpenedModal,
   closeOpenedModal,
   setSelectedMachine,
-} from '../../../../redux/actions/Graph/graphActions';
-import NativeSelect from '@material-ui/core/NativeSelect';
+} from "../../../../redux/actions/Graph/graphActions";
+import NativeSelect from "@material-ui/core/NativeSelect";
 
 const styles = (theme) => ({
   default: {
     zIndex: theme.zIndex.drawer,
   },
   inlineLabel: {
-    display: 'inline-block',
+    display: "inline-block",
     marginRight: 10,
   },
   openDialog: {
@@ -55,7 +55,7 @@ function GraphNodeDialog(props) {
     return () => props.closeOpenedModal();
   }, [props]);
 
-  const [resource, setResource] = React.useState('');
+  const [resource, setResource] = React.useState("");
 
   const recipes = nodeClass.recipes
     .map((recipe) => {
@@ -80,7 +80,7 @@ function GraphNodeDialog(props) {
       <DialogTitle>{props.label} Settings</DialogTitle>
       <DialogContent className={classes.openDialog}>
         <InputLabel className={classes.inlineLabel} htmlFor="upgradeLevel">
-          Tier:{' '}
+          Tier:{" "}
         </InputLabel>
         <BrowserView>
           <Select
@@ -89,8 +89,8 @@ function GraphNodeDialog(props) {
             disabled={!nodeClass.hasUpgrades}
             onChange={(e) => setUpgradeLevel(e.target.value)}
             inputProps={{
-              name: 'upgradeLevel',
-              id: 'upgradeLevel',
+              name: "upgradeLevel",
+              id: "upgradeLevel",
             }}
           >
             {nodeClass.instances.map((instance) => {
@@ -110,8 +110,8 @@ function GraphNodeDialog(props) {
             disabled={!nodeClass.hasUpgrades}
             onChange={(e) => setUpgradeLevel(e.target.value)}
             inputProps={{
-              name: 'upgradeLevel',
-              id: 'upgradeLevel',
+              name: "upgradeLevel",
+              id: "upgradeLevel",
             }}
           >
             {nodeClass.instances.map((instance) => {
@@ -142,12 +142,12 @@ function GraphNodeDialog(props) {
           }}
           classProp={classes.textField}
           onKeyDown={(e) => {
-            if (e.target.value === '' || e.target.value === undefined) {
-              setResource('');
+            if (e.target.value === "" || e.target.value === undefined) {
+              setResource("");
             }
           }}
-          value={resource === '' ? '' : props.translate(resource)}
-          label={'Optional: Recipe Name'}
+          value={resource === "" ? "" : props.translate(resource)}
+          label={"Optional: Recipe Name"}
           suggestions={recipes}
         />
       </DialogContent>
