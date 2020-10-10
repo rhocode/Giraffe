@@ -10,24 +10,25 @@
 // export function addTypeAlias(newTypeName, underlyingType) {
 //   var everyType = Object.keys(readTypeDictStr);
 //
-//   if (everyType.indexOf(underlyingType) < 0) { throw new TypeError("Underlying type does not exist. Typo?"); }
-//   else { aliasTypes[newTypeName] = underlyingType; }
+//   if (everyType.indexOf(underlyingType) < 0) { throw new
+//   TypeError("Underlying type does not exist. Typo?"); } else {
+//   aliasTypes[newTypeName] = underlyingType; }
 // }
 //
 // function getDataType(val) {
 //   var everyType = Object.keys(readTypeDictStr);
 //   var dataType = val.trim().toLowerCase();
-//   if (aliasTypes.hasOwnProperty(dataType)) { dataType = aliasTypes[dataType]; }
-//   if (everyType.indexOf(dataType) === -1) { throw new TypeError("Invalid data type for schema: " + val + " -> " + dataType); }
-//   return dataType;
+//   if (aliasTypes.hasOwnProperty(dataType)) { dataType = aliasTypes[dataType];
+//   } if (everyType.indexOf(dataType) === -1) { throw new TypeError("Invalid
+//   data type for schema: " + val + " -> " + dataType); } return dataType;
 // }
 //
 // export function setValidateByDefault(flag) { validateByDefault = flag; }
 //
 // export function setStringEncoding(stringEncoding) {
 //   var requested = stringEncoding.trim().toLowerCase();
-//   var available = [ 'ascii', 'utf8', 'utf16le', 'ucs2', 'base64', 'binary', 'hex' ];
-//   if (available.indexOf(requested) > -1) { strEnc = requested; }
+//   var available = [ 'ascii', 'utf8', 'utf16le', 'ucs2', 'base64', 'binary',
+//   'hex' ]; if (available.indexOf(requested) > -1) { strEnc = requested; }
 //   else { throw new TypeError("String encoding not available"); }
 // }
 //
@@ -89,16 +90,16 @@
 // }
 //
 // var readTypeDictStr = {
-//   "boolean": "!!buffer.readUInt8(bag.byteOffset, true); bag.byteOffset += 1;",
-//   "int8": "buffer.readInt8(bag.byteOffset, true); bag.byteOffset += 1;",
+//   "boolean": "!!buffer.readUInt8(bag.byteOffset, true); bag.byteOffset +=
+//   1;", "int8": "buffer.readInt8(bag.byteOffset, true); bag.byteOffset += 1;",
 //   "uint8": "buffer.readUInt8(bag.byteOffset, true); bag.byteOffset += 1;",
 //   "int16": "buffer.readInt16BE(bag.byteOffset, true); bag.byteOffset += 2;",
-//   "uint16": "buffer.readUInt16BE(bag.byteOffset, true); bag.byteOffset += 2;",
-//   "int32": "buffer.readInt32BE(bag.byteOffset, true); bag.byteOffset += 4;",
-//   "uint32": "buffer.readUInt32BE(bag.byteOffset, true); bag.byteOffset += 4;",
-//   "float32": "buffer.readFloatBE(bag.byteOffset, true); bag.byteOffset += 4;",
-//   "float64": "buffer.readDoubleBE(bag.byteOffset, true); bag.byteOffset += 8;",
-//   "string": "bag.readString(buffer);",
+//   "uint16": "buffer.readUInt16BE(bag.byteOffset, true); bag.byteOffset +=
+//   2;", "int32": "buffer.readInt32BE(bag.byteOffset, true); bag.byteOffset +=
+//   4;", "uint32": "buffer.readUInt32BE(bag.byteOffset, true); bag.byteOffset
+//   += 4;", "float32": "buffer.readFloatBE(bag.byteOffset, true);
+//   bag.byteOffset += 4;", "float64": "buffer.readDoubleBE(bag.byteOffset,
+//   true); bag.byteOffset += 8;", "string": "bag.readString(buffer);",
 //   "varuint": "bag.readVarUInt(buffer);",
 //   "varint": "bag.readVarInt(buffer);",
 //   "buffer": "bag.readBuffer(buffer);"
@@ -106,29 +107,36 @@
 //
 // function getWriteTypeDictStr(dataType, valStr) {
 //   switch (dataType) {
-//     case "boolean": return "bag.byteOffset = wBuffer.writeUInt8(" + valStr + " ? 1 : 0, bag.byteOffset, true);";
-//     case "int8": return "bag.byteOffset = wBuffer.writeInt8(" + valStr + ", bag.byteOffset, true);";
-//     case "uint8": return "bag.byteOffset = wBuffer.writeUInt8(" + valStr + ", bag.byteOffset, true);";
-//     case "int16": return "bag.byteOffset = wBuffer.writeInt16BE(" + valStr + ", bag.byteOffset, true);";
-//     case "uint16": return "bag.byteOffset = wBuffer.writeUInt16BE(" + valStr + ", bag.byteOffset, true);";
-//     case "int32": return "bag.byteOffset = wBuffer.writeInt32BE(" + valStr + ", bag.byteOffset, true);";
-//     case "uint32": return "bag.byteOffset = wBuffer.writeUInt32BE(" + valStr + ", bag.byteOffset, true);";
-//     case "float32": return "bag.byteOffset = wBuffer.writeFloatBE(" + valStr + ", bag.byteOffset, true);";
-//     case "float64": return "bag.byteOffset = wBuffer.writeDoubleBE(" + valStr + ", bag.byteOffset, true);";
-//     case "string": return "bag.writeString(" + valStr + ", wBuffer);";
-//     case "varuint": return "bag.writeVarUInt(" + valStr + ", wBuffer);";
-//     case "varint": return "bag.writeVarInt(" + valStr + ", wBuffer);";
-//     case "buffer": return "bag.writeBuffer(" + valStr + ", wBuffer);";
+//     case "boolean": return "bag.byteOffset = wBuffer.writeUInt8(" + valStr +
+//     " ? 1 : 0, bag.byteOffset, true);"; case "int8": return "bag.byteOffset =
+//     wBuffer.writeInt8(" + valStr + ", bag.byteOffset, true);"; case "uint8":
+//     return "bag.byteOffset = wBuffer.writeUInt8(" + valStr + ",
+//     bag.byteOffset, true);"; case "int16": return "bag.byteOffset =
+//     wBuffer.writeInt16BE(" + valStr + ", bag.byteOffset, true);"; case
+//     "uint16": return "bag.byteOffset = wBuffer.writeUInt16BE(" + valStr + ",
+//     bag.byteOffset, true);"; case "int32": return "bag.byteOffset =
+//     wBuffer.writeInt32BE(" + valStr + ", bag.byteOffset, true);"; case
+//     "uint32": return "bag.byteOffset = wBuffer.writeUInt32BE(" + valStr + ",
+//     bag.byteOffset, true);"; case "float32": return "bag.byteOffset =
+//     wBuffer.writeFloatBE(" + valStr + ", bag.byteOffset, true);"; case
+//     "float64": return "bag.byteOffset = wBuffer.writeDoubleBE(" + valStr + ",
+//     bag.byteOffset, true);"; case "string": return "bag.writeString(" +
+//     valStr + ", wBuffer);"; case "varuint": return "bag.writeVarUInt(" +
+//     valStr + ", wBuffer);"; case "varint": return "bag.writeVarInt(" + valStr
+//     + ", wBuffer);"; case "buffer": return "bag.writeBuffer(" + valStr + ",
+//     wBuffer);";
 //   }
 // }
 //
-// var constantByteCounts = { "boolean": 1, "int8": 1, "uint8": 1, "int16": 2, "uint16": 2, "int32": 4, "uint32": 4, "float32": 4, "float64": 8 };
+// var constantByteCounts = { "boolean": 1, "int8": 1, "uint8": 1, "int16": 2,
+// "uint16": 2, "int32": 4, "uint32": 4, "float32": 4, "float64": 8 };
 //
 // var dynamicByteCounts = {
-//   "string": function(val) { var len = Buffer.byteLength(val, strEnc); return getVarUIntByteLength(len) + len; },
-//   "varuint": function(val) { return getVarUIntByteLength(val); },
-//   "varint": function(val) { return getVarIntByteLength(val); },
-//   "buffer": function(val) { var len = val.length; return getVarUIntByteLength(len) + len; }
+//   "string": function(val) { var len = Buffer.byteLength(val, strEnc); return
+//   getVarUIntByteLength(len) + len; }, "varuint": function(val) { return
+//   getVarUIntByteLength(val); }, "varint": function(val) { return
+//   getVarIntByteLength(val); }, "buffer": function(val) { var len =
+//   val.length; return getVarUIntByteLength(len) + len; }
 // };
 //
 // function getVarUIntByteLength(val) {
@@ -169,10 +177,11 @@
 //
 // function processArrayEnd(val, id, commands, stackLen, arrLenStr) {
 //   var repID = stackLen <= 1 ? id : id + "xn";
-//   var outerBound = arrLenStr === undefined ? "ref" + repID + ".length" : arrLenStr;
-//   var jStr = "j" + id;
+//   var outerBound = arrLenStr === undefined ? "ref" + repID + ".length" :
+//   arrLenStr; var jStr = "j" + id;
 //
-//   return "for (var " + jStr + "=" + (val.length - 1) + ";" + jStr + "<" + outerBound + ";" + jStr + "++) { " + commands + "}";
+//   return "for (var " + jStr + "=" + (val.length - 1) + ";" + jStr + "<" +
+//   outerBound + ";" + jStr + "++) { " + commands + "}";
 // }
 //
 // function getArrayLengthByteCount(id) {
@@ -188,42 +197,53 @@
 // }
 //
 // function declareDecodeRef(id, parentID, prop, container) {
-//   return "var ref" + id + "=" + container + "; ref" + parentID + "[" + prop + "]=ref" + id + ";";
+//   return "var ref" + id + "=" + container + "; ref" + parentID + "[" + prop +
+//   "]=ref" + id + ";";
 // }
 //
 // function declareEncodeRef(id, parentID, prop) {
 //   return "var ref" + id + "=ref" + parentID + "[" + prop + "];";
 // }
 //
-// function declareRepeatRefs(repItem, id, parentID, prop, container, repEncArrStack, repDecArrStack, repByteCountStack) {
+// function declareRepeatRefs(repItem, id, parentID, prop, container,
+// repEncArrStack, repDecArrStack, repByteCountStack) {
 //   var repID = getXN(repEncArrStack, id);
 //   var parentIDXN = getXN(repEncArrStack, parentID);
 //   var index = repItem ? "j" + parentID : prop;
 //
-//   repEncArrStack[repEncArrStack.length - 1] += declareEncodeRef(id + "xn", parentIDXN, index);
-//   repDecArrStack[repDecArrStack.length - 1] += declareDecodeRef(id + "xn", parentIDXN, index, container);
-//   repByteCountStack[repByteCountStack.length - 1] += declareEncodeRef(id + "xn", parentIDXN, index);;
+//   repEncArrStack[repEncArrStack.length - 1] += declareEncodeRef(id + "xn",
+//   parentIDXN, index); repDecArrStack[repDecArrStack.length - 1] +=
+//   declareDecodeRef(id + "xn", parentIDXN, index, container);
+//   repByteCountStack[repByteCountStack.length - 1] += declareEncodeRef(id +
+//   "xn", parentIDXN, index);;
 // }
 //
 // function throwTypeError(valStr, typeStr, min, max, schemaType) {
-//   if (typeof valStr !== typeStr) { throw new TypeError(valStr + " does not match the type of " + typeStr); }
-//   else if (min !== undefined && valStr < min) { throw new TypeError(valStr + " is less than minimum allowed value of " + min + " for schema type " + schemaType); }
-//   else if (max !== undefined && valStr > max) { throw new TypeError(valStr + " is greater than maximum allowed value of " + max + " for schema type " + schemaType); }
+//   if (typeof valStr !== typeStr) { throw new TypeError(valStr + " does not
+//   match the type of " + typeStr); } else if (min !== undefined && valStr <
+//   min) { throw new TypeError(valStr + " is less than minimum allowed value of
+//   " + min + " for schema type " + schemaType); } else if (max !== undefined
+//   && valStr > max) { throw new TypeError(valStr + " is greater than maximum
+//   allowed value of " + max + " for schema type " + schemaType); }
 // }
 //
 // function getCheckBufferStr(valStr) {
-//   var throwMessage = "bag.throwTypeError(" + valStr + ",'Buffer or Uint8Array');";
-//   return "if (" + valStr + " instanceof Uint8Array === false && " + valStr + " instanceof Buffer === false){" + throwMessage + "}";
+//   var throwMessage = "bag.throwTypeError(" + valStr + ",'Buffer or
+//   Uint8Array');"; return "if (" + valStr + " instanceof Uint8Array === false
+//   && " + valStr + " instanceof Buffer === false){" + throwMessage + "}";
 // }
 //
 // function getCheckDataTypeStr(valStr, typeStr) {
 //   var throwMessage = "bag.throwTypeError(" + valStr + ",'" + typeStr + "');";
-//   return "if (typeof(" + valStr + ") !== '" + typeStr + "'){" + throwMessage + "}";
+//   return "if (typeof(" + valStr + ") !== '" + typeStr + "'){" + throwMessage
+//   + "}";
 // }
 //
 // function getBoundsCheckStr(valStr, min, max, schemaType) {
-//   var throwMessage = "bag.throwTypeError(" + valStr + ",'number'," + min + "," + max + ",'" + schemaType + "');";
-//   return "if (typeof(" + valStr + ") !== 'number'||" + valStr + "<" + min + "||" + valStr + ">" + max + "){" + throwMessage + "}";
+//   var throwMessage = "bag.throwTypeError(" + valStr + ",'number'," + min +
+//   "," + max + ",'" + schemaType + "');"; return "if (typeof(" + valStr + ")
+//   !== 'number'||" + valStr + "<" + min + "||" + valStr + ">" + max + "){" +
+//   throwMessage + "}";
 // }
 //
 // function validateDataType(dataType, valStr) {
@@ -235,20 +255,22 @@
 //     case "uint8": return getBoundsCheckStr(valStr, 0, 0xff, "uint8");
 //     case "int16": return getBoundsCheckStr(valStr, -0x8000, 0x7fff, "int16");
 //     case "uint16": return getBoundsCheckStr(valStr, 0, 0xffff, "uint16");
-//     case "int32": return getBoundsCheckStr(valStr, -0x80000000, 0x7fffffff, "int32");
-//     case "uint32": return getBoundsCheckStr(valStr, 0, 0xffffffff, "uint32");
-//     case "float32": return getBoundsCheckStr(valStr, -maxFloat, maxFloat, "float32");
-//     case "float64": return getBoundsCheckStr(valStr, -Number.MAX_VALUE, Number.MAX_VALUE, "float64");
-//     case "string": return getCheckDataTypeStr(valStr, "string");
-//     case "varuint": return getBoundsCheckStr(valStr, 0, 0x7fffffff, "varuint");
-//     case "varint": return getBoundsCheckStr(valStr, -0x40000000, 0x3fffffff, "varint");
-//     case "buffer": return getCheckBufferStr(valStr);
+//     case "int32": return getBoundsCheckStr(valStr, -0x80000000, 0x7fffffff,
+//     "int32"); case "uint32": return getBoundsCheckStr(valStr, 0, 0xffffffff,
+//     "uint32"); case "float32": return getBoundsCheckStr(valStr, -maxFloat,
+//     maxFloat, "float32"); case "float64": return getBoundsCheckStr(valStr,
+//     -Number.MAX_VALUE, Number.MAX_VALUE, "float64"); case "string": return
+//     getCheckDataTypeStr(valStr, "string"); case "varuint": return
+//     getBoundsCheckStr(valStr, 0, 0x7fffffff, "varuint"); case "varint":
+//     return getBoundsCheckStr(valStr, -0x40000000, 0x3fffffff, "varint"); case
+//     "buffer": return getCheckBufferStr(valStr);
 //   }
 // }
 //
 // function encodeValue(dataType, id, prop, validate) {
 //   var varName = "ref" + id + prop;
-//   return (validate ? validateDataType(dataType, varName) : "") + getWriteTypeDictStr(dataType, varName);
+//   return (validate ? validateDataType(dataType, varName) : "") +
+//   getWriteTypeDictStr(dataType, varName);
 // }
 //
 // function decodeValue(dataType, id, prop) {
@@ -259,11 +281,13 @@
 //   var isConstant = constantByteCounts.hasOwnProperty(dataType);
 //
 //   if (isConstant) { return "byteC+=" + constantByteCounts[dataType] + ";"; }
-//   else { return "byteC+=bag.dynamicByteCounts['" + dataType + "'](ref" + id + prop + ");"; }
+//   else { return "byteC+=bag.dynamicByteCounts['" + dataType + "'](ref" + id +
+//   prop + ");"; }
 // }
 //
 // function getXN(aStack, id) {
-//   return aStack.length <= 2 && aStack[aStack.length - 1].length <= 0 ? id : id + "xn";
+//   return aStack.length <= 2 && aStack[aStack.length - 1].length <= 0 ? id :
+//   id + "xn";
 // }
 //
 // function getCompiledSchema(schema, validate) {
@@ -319,13 +343,18 @@
 //         var decArrayLength = decodeArrayLength(arrLenStr);
 //         var byteArrayLength = getArrayLengthByteCount(repID);
 //
-//         declareRepeatRefs(isRepArrItem, newID, saveID, prop, container, repEncArrStack, repDecArrStack, repByteCountStack);
+//         declareRepeatRefs(isRepArrItem, newID, saveID, prop, container,
+//         repEncArrStack, repDecArrStack, repByteCountStack);
 //
 //         compileSchema(val, true);
 //
-//         tmpRepEncArr = encArrayLength + processArrayEnd(val, newID, repEncArrStack.pop() + tmpRepEncArr, repEncArrStack.length);
-//         tmpRepDecArr = decArrayLength + processArrayEnd(val, newID, repDecArrStack.pop() + tmpRepDecArr, repEncArrStack.length, arrLenStr);
-//         tmpRepByteCount = byteArrayLength + processArrayEnd(val, newID, repByteCountStack.pop() + tmpRepByteCount, repEncArrStack.length);
+//         tmpRepEncArr = encArrayLength + processArrayEnd(val, newID,
+//         repEncArrStack.pop() + tmpRepEncArr, repEncArrStack.length);
+//         tmpRepDecArr = decArrayLength + processArrayEnd(val, newID,
+//         repDecArrStack.pop() + tmpRepDecArr, repEncArrStack.length,
+//         arrLenStr); tmpRepByteCount = byteArrayLength + processArrayEnd(val,
+//         newID, repByteCountStack.pop() + tmpRepByteCount,
+//         repEncArrStack.length);
 //
 //         if (repEncArrStack.length === 1) {
 //           strEncodeFunction += tmpRepEncArr; tmpRepEncArr = "";
@@ -340,7 +369,8 @@
 //           strDecodeFunction += declareDecodeRef(newID, saveID, prop, "{}");
 //         }
 //
-//         declareRepeatRefs(isRepArrItem, newID, saveID, prop, container, repEncArrStack, repDecArrStack, repByteCountStack);
+//         declareRepeatRefs(isRepArrItem, newID, saveID, prop, container,
+//         repEncArrStack, repDecArrStack, repByteCountStack);
 //
 //         compileSchema(val, false);
 //       } else {
@@ -349,11 +379,14 @@
 //         json[key] = dataType;
 //
 //         var repID = getXN(repEncArrStack, saveID);
-//         if (inArray) { repID += isRepArrItem ? "[j" + saveID + "]" : "[" + i + "]"; }
+//         if (inArray) { repID += isRepArrItem ? "[j" + saveID + "]" : "[" + i
+//         + "]"; }
 //
-//         repEncArrStack[repEncArrStack.length - 1] += encodeValue(dataType, repID, index, validate);
-//         repDecArrStack[repDecArrStack.length - 1] += decodeValue(dataType, repID, index);
-//         repByteCountStack[repByteCountStack.length - 1] += encodeByteCount(dataType, repID, index);
+//         repEncArrStack[repEncArrStack.length - 1] += encodeValue(dataType,
+//         repID, index, validate); repDecArrStack[repDecArrStack.length - 1] +=
+//         decodeValue(dataType, repID, index);
+//         repByteCountStack[repByteCountStack.length - 1] +=
+//         encodeByteCount(dataType, repID, index);
 //
 //         if (repEncArrStack.length > 1) { continue; }
 //
@@ -367,9 +400,11 @@
 //
 //   compileSchema(schema, false);
 //
-//   strByteCount = "var byteC=0;".concat(strByteCount, "var wBuffer=bag.allocUnsafe(byteC);")
-//   strEncodeFunction = strEncodeRefDecs.concat(strByteCount, strEncodeFunction, "return wBuffer;");
-//   strDecodeFunction = strDecodeFunction.concat("return ref1['a'];");
+//   strByteCount = "var byteC=0;".concat(strByteCount, "var
+//   wBuffer=bag.allocUnsafe(byteC);") strEncodeFunction =
+//   strEncodeRefDecs.concat(strByteCount, strEncodeFunction, "return
+//   wBuffer;"); strDecodeFunction = strDecodeFunction.concat("return
+//   ref1['a'];");
 //
 //   var compiledEncode = new Function('json', 'bag', strEncodeFunction);
 //   var compiledDecode = new Function('buffer', 'bag', strDecodeFunction);
@@ -378,7 +413,8 @@
 // }
 //
 // export function build(schema, validate) {
-//   var builtSchema = getCompiledSchema(schema, validate === undefined ? validateByDefault : validate);
+//   var builtSchema = getCompiledSchema(schema, validate === undefined ?
+//   validateByDefault : validate);
 //
 //   var compiledEncode = builtSchema[0];
 //   var compiledDecode = builtSchema[1];
@@ -389,8 +425,8 @@
 //       return compiledEncode(itemWrapper, bag);
 //     },
 //     "decode": function(buffer) {
-//       var bufferWrapper = Buffer.isBuffer(buffer) ? buffer : bufferFrom(buffer);
-//       return compiledDecode(bufferWrapper, bag);
+//       var bufferWrapper = Buffer.isBuffer(buffer) ? buffer :
+//       bufferFrom(buffer); return compiledDecode(bufferWrapper, bag);
 //     }
 //   }
 // }
