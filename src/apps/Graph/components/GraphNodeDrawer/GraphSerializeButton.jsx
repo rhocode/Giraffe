@@ -1,14 +1,14 @@
-import React from "react";
-import { getTranslate } from "react-localize-redux";
+import React from 'react';
+import { getTranslate } from 'react-localize-redux';
 import {
   setGraphData,
   setGraphSourceNode,
   setMouseMode,
-} from "../../../../redux/actions/Graph/graphActions";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core";
-import getLatestSchema from "../../libraries/SGLib/utils/getLatestSchema";
-import serialize from "../../libraries/SGLib/algorithms/satisgraphtory/serialize";
+} from '../../../../redux/actions/Graph/graphActions';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
+import getLatestSchema from '../../libraries/SGLib/utils/getLatestSchema';
+import serialize from '../../libraries/SGLib/algorithms/satisgraphtory/serialize';
 
 function GraphSerializeButton(props) {
   const data = props.graphData;

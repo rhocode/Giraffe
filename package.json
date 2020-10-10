@@ -13,47 +13,56 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@inlet/react-pixi": "^5.0.1",
+    "@loadable/component": "^5.13.1",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@msgpack/msgpack": "^1.11.0",
     "@sentry/react": "^5.19.0",
+    "@types/bezier-js": "^0.0.8",
     "@types/jest": "^26.0.0",
+    "@types/loadable__component": "^5.13.0",
+    "@types/lz-string": "^1.3.34",
     "@types/mathjs": "^6.0.4",
     "@types/node": "^14.0.13",
+    "@types/pako": "^1.0.1",
     "@types/react": "^16.9.38",
     "@types/react-dom": "^16.9.5",
+    "@types/semver": "^7.3.4",
+    "@types/uuid": "^8.3.0",
     "@waiting/base64": "^4.2.9",
     "@welldone-software/why-did-you-render": "^4.0.0",
-    "array-move": "^2.2.2",
+    "array-move": "^3.0.0",
     "autosuggest-highlight": "^3.1.1",
     "babel-polyfill": "^6.26.0",
     "base64-blob": "^1.4.1",
+    "bezier-js": "^2.6.1",
+    "buffer": "^5.6.0",
     "canvas-5-polyfill": "^0.1.5",
-    "class-transformer": "^0.2.3",
     "clean-deep": "^3.2.0",
     "clsx": "^1.0.4",
     "core-js": "^3.6.5",
-    "d3": "^5.15.0",
     "dagre": "^0.8.5",
     "deep-diff": "^1.0.2",
     "electron-is-dev": "^1.1.0",
+    "eventemitter3": "^4.0.4",
     "fast-memoize": "^2.5.2",
+    "fflate": "^0.1.0",
     "fibers": "^5.0.0",
     "fontfaceobserver": "^2.1.0",
     "framer": "^1.2.5",
-    "framer-motion": "^1.11.1",
+    "framer-motion": "^2.7.6",
     "husky": "^4.2.1",
     "immer": "^7.0.4",
     "kiwi.js": "^1.1.2",
     "lint-staged": "^10.2.11",
     "lodash": "^4.17.15",
+    "lz-string": "^1.4.4",
     "lzutf8": "^0.5.5",
     "mathjs": "^7.0.1",
-    "multi-metagen": "^3.0.0",
+    "multi-metagen": "^4.0.3",
     "node-sass": "^4.13.1",
     "normalize-wheel": "^1.0.1",
+    "pako": "^1.0.11",
     "pixi-viewport": "^4.12.0",
     "pixi.js": "^5.3.0",
     "pixi.js-legacy": "^5.3.0",
@@ -69,31 +78,41 @@
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.12.0",
     "react-dropdown-select": "^4.4.2",
+    "react-error-boundary": "^2.2.3",
     "react-flip-toolkit": "^7.0.7",
     "react-focus-trap": "^2.7.1",
     "react-helmet-async": "^1.0.4",
     "react-localize-redux": "^3.5.3",
     "react-modal": "^3.11.1",
     "react-redux": "^7.1.3",
+    "react-resize-detector": "^5.0.7",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^4.0.0-next.98",
+    "react-scroll-horizontal": "^1.6.4",
     "react-scrollbars-custom": "^4.0.25",
     "react-select": "^3.0.8",
     "react-sortable-hoc": "^1.11.0",
-    "react-syntax-highlighter": "^12.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "remark-cli": "^8.0.0",
+    "remark-preset-lint-recommended": "^4.0.1",
     "roboto-fontface": "^0.10.0",
     "sass": "^1.26.9",
     "scheduler": "^0.19.1",
     "seamless-immutable": "^7.1.4",
+    "semver": "^7.3.2",
     "throttle-debounce": "^2.1.0",
+    "typeface-bebas-neue": "^1.1.3",
+    "typeface-raleway": "^0.0.75",
     "typeface-roboto": "^0.0.75",
     "typeface-roboto-condensed": "^0.0.75",
     "typeface-roboto-mono": "^0.0.75",
-    "typescript": "^3.7.5",
+    "typeface-roboto-slab": "^1.1.4",
+    "typeface-source-sans-pro": "^1.1.5",
+    "typescript": "^4.0.3",
+    "uuid": "^8.3.0",
     "workerize-loader": "^1.3.0"
   },
   "scripts": {
@@ -102,7 +121,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run generate",
-    "prebuild": "npm run checkout-data-landing && npm run generate",
+    "prebuild": "yarn run checkout-data-landing && yarn run generate",
     "pretest": "npm run generate",
     "generate": "npm run generate-images-v3",
     "storybook": "start-storybook -p 9009 -s public",
@@ -116,10 +135,10 @@
     "release-standalone": "electron-builder --publish always",
     "pretty": "prettier --single-quote --write src/**/*",
     "checkout-data-landing": "./scripts/checkout.sh data-landing",
-    "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension",
+    "lint-md": "remark . -o",
+    "analyze": "node analyzer/analyze.js",
+    "serve": "serve -s build"
   },
   "browserslist": {
     "production": [
@@ -134,30 +153,44 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.9",
-    "@storybook/addon-links": "^5.3.9",
-    "@storybook/addons": "^5.3.9",
-    "@storybook/react": "^5.3.9",
-    "@types/d3": "^5.7.2",
+    "@storybook/addon-actions": "^6.0.22",
+    "@storybook/addon-links": "^6.0.22",
+    "@storybook/addons": "^6.0.22",
+    "@storybook/react": "^6.0.22",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.0",
-    "electron": "^9.0.5",
+    "electron": "^10.1.3",
     "electron-builder": "^22.7.0",
     "jest-canvas-mock": "^2.2.0",
-    "wait-on": "^4.0.0"
+    "wait-on": "^4.0.0",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
+  },
+  "source": "./src/index.js",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "eslint src/ --ext .js,.jsx,.ts,.tsx --fix --max-warnings 0",
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings 0",
       "prettier --single-quote --write",
       "git add"
     ],
-    "public/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{css,scss}": [
+      "prettier --single-quote --write",
+      "git add"
+    ],
+    "src/**/*.{md}": [
+      "remark -o",
+      "git add"
+    ],
+    "public/**/*.{js,jsx,ts,tsx,css,scss,md}": [
       "prettier --single-quote --write"
     ]
   },

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
-import { connect } from "react-redux";
-import LoadingBar from "../../common/react/LoadingBar";
+import { connect } from 'react-redux';
+import LoadingBar from '../../common/react/LoadingBar';
 
 const styles = (theme) => {
   return {
@@ -11,17 +11,17 @@ const styles = (theme) => {
       minHeight: theme.overrides.GraphAppBar.height,
     },
     container: {
-      height: "100%",
-      width: "100%",
-      background: "black",
-      display: "flex",
+      height: '100%',
+      width: '100%',
+      background: 'black',
+      display: 'flex',
     },
   };
 };
 
 class HubApp extends Component {
   state = {
-    status: "Logged out",
+    status: 'Logged out',
   };
 
   render() {
