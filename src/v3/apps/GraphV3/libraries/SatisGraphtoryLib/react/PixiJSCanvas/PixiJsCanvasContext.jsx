@@ -16,7 +16,6 @@ function PixiJsContextProvider(props) {
       rawInstance: instance,
       pixiViewport: instance?.viewport,
       pixiRenderer: instance?.application?.renderer,
-      selectedObjects: instance?.selectedObjects || [],
 
       // application: instance?.application,
       // mouseState: instance?.mouseState,

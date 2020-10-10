@@ -41,23 +41,24 @@ export default class SimpleEdge extends EdgeTemplate {
     this.container.addChild(inputDot);
     this.container.addChild(outputDot);
 
-    if (!this.sourceNode || !this.targetNode) {
-      throw new Error('Cannot instantiate non-connected simple-edge');
+    if (!props.ignoreLinking) {
+      if (!this.sourceNode || !this.targetNode) {
+        throw new Error('Cannot instantiate non-connected simple-edge');
+      }
+
+      if (props.biDirectional) {
+        this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
+
+        this.targetNode.addEdge(this, EdgeType.INPUT, true);
+      } else {
+        this.sourceNode.addEdge(this, EdgeType.OUTPUT);
+
+        // @ts-ignore
+        this.targetNode.addEdge(this, EdgeType.INPUT);
+      }
+
+      this.updateWithoutHitBox();
     }
-
-    if (props.biDirectional) {
-      console.log('BIDIRECT');
-      this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
-
-      this.targetNode.addEdge(this, EdgeType.INPUT, true);
-    } else {
-      console.log('AAAAAAA');
-      this.sourceNode.addEdge(this, EdgeType.OUTPUT);
-
-      this.targetNode.addEdge(this, EdgeType.INPUT);
-    }
-
-    this.updateWithoutHitBox();
   }
 
   addSelectEvents(onSelectObjects: (ids: string[]) => any): void {

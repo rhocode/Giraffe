@@ -47,6 +47,12 @@ export const serializeEdge = (
     );
   }
 
+  // TODO: optimize the edges,
+  // TODO: only serialize one of the two source or
+  //  target nodes, saving a number slot since we can infer them
+
+  // TODO: if all these are defaults then don't include them? we can ignore something if it has roots in
+  // inputConnections and outputConnections
   const baseObject = {
     id: getOrCreateId(edge.id, edgeIdToNumberMap, edgeNumberId),
     sourceNodeId,
@@ -66,6 +72,8 @@ const getNumberFromEnum = (
   key: string,
   enumStore: Record<string | number, string | number>
 ) => {
+  if (key === '') return 0;
+
   const enumNumber = enumStore[key];
 
   if (enumNumber === undefined) {

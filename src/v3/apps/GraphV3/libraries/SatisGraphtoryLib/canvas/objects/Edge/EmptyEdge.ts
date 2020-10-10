@@ -14,4 +14,5 @@ export class EmptyEdge extends EdgeTemplate {
   removeInteractionEvents(): void {}
 
   update(): void {}
+  updateWithoutHitBox(): void {}
 }

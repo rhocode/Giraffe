@@ -81,21 +81,26 @@ function EdgeSelectorPanel() {
   const [selectedEdgeTier, setSelectedEdgeTierFunc] = React.useState('');
   const [showTierSelector, setShowTierSelector] = React.useState(false);
 
-  const { pixiCanvasStateId, mouseState } = React.useContext(
+  const { pixiCanvasStateId, mouseState, canvasReady } = React.useContext(
     PixiJSCanvasContext
   );
+
+  const [initialVal, setInitialVal] = React.useState(null);
 
   const setSelectedEdgeTier = React.useCallback(
     (newVal) => {
       setSelectedEdgeTierFunc(newVal);
-      pixiJsStore.update((s) => {
-        if (s[pixiCanvasStateId]) {
-          s[pixiCanvasStateId].selectedEdge = newVal;
-        }
-      });
+      setInitialVal(newVal);
     },
-    [pixiCanvasStateId]
+    [setInitialVal]
   );
+
+  React.useEffect(() => {
+    if (!canvasReady) return;
+    pixiJsStore.update((s) => {
+      s[pixiCanvasStateId].selectedEdge = initialVal;
+    });
+  }, [canvasReady, initialVal, pixiCanvasStateId]);
 
   const tierSelector = React.useCallback(
     (direction) => {

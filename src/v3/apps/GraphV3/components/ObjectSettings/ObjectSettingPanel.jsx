@@ -120,13 +120,14 @@ function ObjectSettingPanel(props) {
     setTabValue(newValue);
   }
 
-  const { mouseState, selectedObjects, pixiCanvasStateId, applicationLoaded } = React.useContext(
-    PixiJSCanvasContext
-  );
+  const {
+    mouseState,
+    selectedObjects,
+    pixiCanvasStateId,
+    applicationLoaded,
+  } = React.useContext(PixiJSCanvasContext);
 
-  console.log(mouseState, selectedObjects, pixiCanvasStateId);
-
-  const edges = selectedObjects.filter((item) => {
+  const edges = selectedObjects?.filter((item) => {
     if (item instanceof EdgeTemplate) {
       return true;
     } else if (item instanceof NodeTemplate) {
@@ -136,7 +137,7 @@ function ObjectSettingPanel(props) {
     throw new Error('Not instance of something handled');
   });
 
-  const nodes = selectedObjects.filter((item) => {
+  const nodes = selectedObjects?.filter((item) => {
     if (item instanceof EdgeTemplate) {
       return false;
     } else if (item instanceof NodeTemplate) {
@@ -146,8 +147,8 @@ function ObjectSettingPanel(props) {
     throw new Error('Not instance of something handled');
   });
 
-  const numNodes = nodes.length;
-  const numEdges = edges.length;
+  const numNodes = nodes?.length;
+  const numEdges = edges?.length;
 
   React.useEffect(() => {
     if (numEdges && !numNodes) {
@@ -215,8 +216,6 @@ function ObjectSettingPanel(props) {
                     s.children = s.children.filter(
                       (item) => !edgesToDelete.has(item)
                     );
-
-                    console.log(s.children);
                   });
                 }}
                 color="secondary"

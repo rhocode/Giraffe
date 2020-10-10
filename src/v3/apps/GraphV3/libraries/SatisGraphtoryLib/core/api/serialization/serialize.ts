@@ -6,9 +6,9 @@ import {
   serializeEdge,
   serializeNode,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/types';
-import {deflateRaw, inflateRaw} from 'pako';
-import * as LZ from "lz-string";
-import {buffer2str, str2buffer} from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/stringEncode";
+import { deflateRaw } from 'pako';
+import * as LZ from 'lz-string';
+import { buffer2str } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/stringEncode';
 
 const serializeGraphObjects = (objs: GraphObject[]) => {
   // const edgesToProcess: EdgeTemplate[] = [];
@@ -19,7 +19,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   let nodeNumberId = [1];
   let edgeNumberId = [1];
 
-  const root = getSchemaForVersion('1.0.0');
+  const root = getSchemaForVersion(process.env.REACT_APP_VERSION || '');
 
   const NodeType = root.lookupType('Node');
 
@@ -30,6 +30,25 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
 
   for (const obj of objs) {
     if (obj instanceof NodeTemplate) {
+      for (const edge of [
+        ...obj.anyConnections,
+        ...obj.outputConnections,
+        ...obj.inputConnections,
+      ]) {
+        if (!edgeIdToNumberMap.has(edge.id)) {
+          const serializedEdge = serializeEdge(
+            edge,
+            nodeIdToNumberMap,
+            edgeIdToNumberMap,
+            nodeNumberId,
+            edgeNumberId,
+            EdgeType
+          );
+
+          edges.push(serializedEdge);
+        }
+      }
+
       const serializedNode = serializeNode(
         obj,
         nodeIdToNumberMap,
@@ -54,17 +73,17 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
       // }));
     } else if (obj instanceof EdgeTemplate) {
       // edgesToProcess.push(obj);
-      const serializedEdge = serializeEdge(
-        obj,
-        nodeIdToNumberMap,
-        edgeIdToNumberMap,
-        nodeNumberId,
-        edgeNumberId,
-        EdgeType
-      );
-
-      edges.push(serializedEdge);
-
+      // ignore
+      // const serializedEdge = serializeEdge(
+      //   obj,
+      //   nodeIdToNumberMap,
+      //   edgeIdToNumberMap,
+      //   nodeNumberId,
+      //   edgeNumberId,
+      //   EdgeType
+      // );
+      //
+      // edges.push(serializedEdge);
       //
       // const buffer1 = EdgeType.encode(serializedEdge).finish();
       // const message1 = EdgeType.decode(buffer1);
@@ -103,9 +122,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   // }));
   const data = SaveData.encode(saveDataBase).finish();
 
-
-
-  const textForm = new TextDecoder("utf-8").decode(data);
+  const textForm = new TextDecoder('utf-8').decode(data);
   let compressedUint8Form = LZ.compressToUint8Array(textForm);
 
   let dataLength = compressedUint8Form.length;
@@ -122,31 +139,9 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
     }
   }
 
-  console.log("BEFORE", compressedUint8Form);
   const tmp = buffer2str(compressedUint8Form, false);
 
-
-
   const stringForm = LZ.compressToBase64(tmp);
-
-
-
-
-  // Decompression
-
-  //
-  let encodedDecompress = LZ.decompressFromBase64(stringForm)!;
-
-  const stringFormDecoded = str2buffer(encodedDecompress, false);
-
-  console.log("AFTA", stringFormDecoded)
-
-  let dataEncoded = stringFormDecoded;
-
-
-  for (let i = 0; i < compressionLevel; i++) {
-    dataEncoded = inflateRaw(dataEncoded);
-  }
 
   // const uncompressedForm = LZ.decompressFromBase64(stringForm)!;
   // const decoded = new TextEncoder().encode(uncompressedForm);
@@ -163,7 +158,20 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   //
   // console.log(blah);
 
-  return { d: stringForm, c: compressionLevel, v: process.env.REACT_APP_VERSION };
+  console.log('Your save code:');
+  console.log(
+    JSON.stringify(
+      { d: stringForm, c: compressionLevel, v: process.env.REACT_APP_VERSION },
+      null,
+      2
+    )
+  );
+
+  return {
+    d: stringForm,
+    c: compressionLevel,
+    v: process.env.REACT_APP_VERSION,
+  };
 
   // {
   //   "d": "MgJQpwBgKAHQowEgIgAqADAauARgEwE22wBmAjtAE4EmAAAMADIA4AQIAYAwgBICgBwAMkAAgFXYAbgDEAoADQAtAwBqANgDEk8X0kAIkRwA2ADJEAOPgEIAqkwBmLNQBkASAGq0AKdOmAsQAwATogPABwRAAKPIQArlg8ADQAQABoEAB+oPwBW+JgATwAPAE+AGL8igFx4gAIPZwAsgEMAMoBU0xoaIA===",

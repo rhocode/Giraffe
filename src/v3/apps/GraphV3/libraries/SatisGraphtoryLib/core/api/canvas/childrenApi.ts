@@ -8,7 +8,15 @@ export const addObjectChildren = (
   canvasId: string,
   unshift: boolean = false
 ) => {
-  pixiJsStore.update((t) => {
+  pixiJsStore.update(addObjectChildrenWithinState(children, canvasId, unshift));
+};
+
+export const addObjectChildrenWithinState = (
+  children: NodeTemplate[] | EdgeTemplate[],
+  canvasId: string,
+  unshift: boolean = false
+) => {
+  return (t: any) => {
     children.forEach((child: NodeTemplate | EdgeTemplate) => {
       const id = child.id || uuidGen();
       const s = t[canvasId];
@@ -21,7 +29,7 @@ export const addObjectChildren = (
         s.viewportChildContainer.addChild(child.container);
       }
     });
-  });
+  };
 };
 
 export const addChild = (child: PIXI.DisplayObject, canvasId: string) => {

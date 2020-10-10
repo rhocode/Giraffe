@@ -11,10 +11,12 @@ import {
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
+import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/loadSharedTextures';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
   addChild,
   addObjectChildren,
+  addObjectChildrenWithinState,
   getChildFromStateById,
   getMultiTypedChildrenFromState,
   removeChild,
@@ -25,7 +27,10 @@ import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/ap
 import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/linkFunctions';
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import {generateNewPixiCanvasStore, pixiJsStore} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import {
+  generateNewPixiCanvasStore,
+  pixiJsStore,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
 
@@ -44,7 +49,7 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width } = props;
+  const { height, width, initialCanvasChildren, onFinishLoad } = props;
 
   const {
     pixiCanvasStateId,
@@ -176,6 +181,8 @@ function PixiJSApplication(props) {
     // console.log(generateRecipeEnums());
   }, []);
 
+  const theme = useThemeProvider();
+
   React.useEffect(() => {
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
@@ -224,15 +231,57 @@ function PixiJSApplication(props) {
         s.application = newApplication;
 
         s.applicationLoaded = true;
+
+        loadSharedTextures(newApplication.renderer, theme);
+
+        const childrenToPush = initialCanvasChildren(
+          newApplication,
+          pixiViewport,
+          translate,
+          theme
+        );
+
+        addObjectChildrenWithinState(
+          childrenToPush || [],
+          pixiCanvasStateId
+        )(sParent);
+        newApplication.renderer.render(newApplication.stage);
+        // Run the callback
+        onFinishLoad();
+
+        s.canvasReady = true;
       });
     }
-  }, [canvasRef, height, pixiCanvasStateId, width]);
+  }, [
+    canvasRef,
+    height,
+    pixiCanvasStateId,
+    pixiViewport,
+    initialCanvasChildren,
+    theme,
+    translate,
+    width,
+    onFinishLoad,
+  ]);
+
+  // Update the theme for each child
+  React.useEffect(() => {
+    if (!canvasReady) return;
+
+    pixiJsStore.update((t) => {
+      const s = t[pixiCanvasStateId];
+
+      for (const child of s.children) {
+        if (child instanceof GraphObject) {
+          child.updateTheme(theme);
+        }
+      }
+    });
+  }, [canvasReady, pixiCanvasStateId, theme]);
 
   const previousMouseState = React.useRef(null);
 
   const selectionBoxId = React.useRef('');
-
-  const theme = useThemeProvider();
 
   // Reenable when it's time to revisit using a grid
   // const gridId = React.useRef('');

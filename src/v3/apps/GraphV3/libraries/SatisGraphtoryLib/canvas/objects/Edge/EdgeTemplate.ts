@@ -41,6 +41,7 @@ export default abstract class EdgeTemplate extends GraphObject {
   abstract enableHitBox(): void;
   abstract disableHitBox(): void;
   abstract update(): void;
+  abstract updateWithoutHitBox(): void;
 
   constructor(props: SatisGraphtoryEdgeProps) {
     super(props);

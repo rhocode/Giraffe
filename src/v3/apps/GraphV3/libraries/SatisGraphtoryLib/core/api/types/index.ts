@@ -28,6 +28,7 @@ export interface SatisGraphtoryEdgeProps {
   targetNodeAttachmentSide?: EdgeAttachmentSide;
   biDirectional?: Boolean;
   theme: Record<string, any>;
+  ignoreLinking?: Boolean;
 }
 
 export interface SatisGraphtoryCoordinate {
