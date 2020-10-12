@@ -21,12 +21,24 @@ const initCanvasChildren = (
   //   "v": "0.1.0"
   // };
 
-  const data = {
-    d:
-      'McI5AMBRwFfAGcAW8ADs4BCAjAzAYgEaBNABIA2AagCQBsA2AEnoG4AkAbIGAAxgNABKAQABZAeYAEARIBFAAYAFAUYAzAEZXY1ACYAXcgKcBJgAAAgANAAqgDhmArABUA6AFqAawAaA0gHcTVtgAQQCV2ADGAOfw2AAmAKEA1QBWAG4AEAAguAB0kABcJiZAA==',
-    c: 1,
-    v: '0.1.0',
-  };
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let data;
+
+  if (urlParams.get('useBlank')) {
+    data = {
+      d: 'AIACA===',
+      c: 0,
+      v: '0.1.0',
+    };
+  } else {
+    data = {
+      d:
+        'McI5AMBRwFfAGcAW8ADs4BCAjAzAYgEaBNABIA2AagCQBsA2AEnoG4AkAbIGAAxgNABKAQABZAeYAEARIBFAAYAFAUYAzAEZXY1ACYAXcgKcBJgAAAgANAAqgDhmArABUA6AFqAawAaA0gHcTVtgAQQCV2ADGAOfw2AAmAKEA1QBWAG4AEAAguAB0kABcJiZAA==',
+      c: 1,
+      v: '0.1.0',
+    };
+  }
 
   console.time('loadNodes');
   const children = deserializeGraphObjects(

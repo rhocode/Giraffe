@@ -2,13 +2,8 @@ import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiP
 import { RECIPE_FONT_OFFSET } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import memoize from 'fast-memoize';
 import {
-  NAME_FONT_SIZE,
-  MACHINE_FONT_SIZE,
-  LEVEL_FONT_SIZE,
   EFFICIENCY_FONT_SIZE,
-  // INPUT_FONT_SIZE,
-  // OUTPUT_FONT_SIZE,
-  LEVEL_STROKE_SIZE,
+  NAME_FONT_SIZE,
   OVERCLOCK_STROKE_SIZE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Texts';
 
@@ -29,21 +24,34 @@ export const MACHINE_STYLE = memoize(
     new PIXI.TextStyle({
       align: 'center',
       fill: theme.nodeName.fill,
-      fontSize: MACHINE_FONT_SIZE,
+      fontSize: theme.nodes.text.name.fontSize,
       fontFamily: '"Bebas Neue", sans-serif',
     })
 );
 
-export const TIER_STYLE = memoize(
+export const NODE_TIER_STYLE = memoize(
   (theme) =>
     new PIXI.TextStyle({
       align: 'center',
-      fill: theme.tier.fill,
-      fontSize: LEVEL_FONT_SIZE,
+      fill: theme.nodes.text.tier.fill,
+      fontSize: theme.nodes.text.tier.fontSize,
       fontFamily: '"Roboto Slab", sans-serif',
-      stroke: theme.tier.stroke,
-      strokeThickness: LEVEL_STROKE_SIZE,
+      stroke: theme.nodes.text.tier.stroke,
+      strokeThickness: theme.nodes.text.tier.strokeThickness,
       // fontWeight: "bold"
+    })
+);
+
+export const EDGE_TIER_STYLE = memoize(
+  (theme) =>
+    new PIXI.TextStyle({
+      align: 'center',
+      fill: theme.edges.text.tier.fill,
+      fontSize: theme.edges.text.tier.fontSize,
+      fontFamily: '"Roboto Slab", sans-serif',
+      stroke: theme.edges.text.tier.stroke,
+      strokeThickness: theme.edges.text.tier.strokeThickness,
+      fontWeight: 'bold',
     })
 );
 

@@ -10,8 +10,7 @@ import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/ob
 import { EResourceForm } from '.data-landing/interfaces/enums';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
-import uuidGen from 'v3/utils/stringUtils';
-import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
+import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 
 export const setHighLightInStateChildren = (
   state: any,
@@ -161,18 +160,15 @@ export const onEndLink = (
 
       const possibleResourceForms = getSupportedResourceForm(selectedEdge);
 
-      //TODO: Fix this resource form resolution, maybe from the interface?
-
-      const edgeProps = {
-        id: uuidGen(),
-        resourceForm: possibleResourceForms[0],
+      // TODO: Fix this resource form resolution, maybe from the interface?
+      // TODO: items?
+      const edge = populateNewEdgeData(
+        null,
+        possibleResourceForms[0],
+        selectedEdge,
         sourceNode,
-        targetNode,
-        connectorName: selectedEdge,
-        externalInteractionManager: sourceNode.externalInteractionManager, // TODO: a hack to pass through the theme
-      };
-
-      const edge = new SimpleEdge(edgeProps);
+        targetNode
+      );
 
       addObjectChildren([edge], pixiCanvasStateId, true);
     },

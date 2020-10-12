@@ -64,6 +64,7 @@ function PixiJSApplication(props) {
     selectedMachine,
     selectedEdge,
     externalInteractionManager,
+    triggerUpdate,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -505,6 +506,7 @@ function PixiJSApplication(props) {
     theme,
     translate,
     viewportChildContainer,
+    triggerUpdate,
   ]);
 
   React.useEffect(() => {

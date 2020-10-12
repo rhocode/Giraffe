@@ -455,3 +455,22 @@ export const getSupportedResourceForm = (
 
   return building.supportedResourceForms;
 };
+
+export const getConnectionsByResourceForm = (
+  resourceForm: EResourceForm
+): string[] => {
+  const supportedBuildings = [];
+
+  const whitelistedConnections = [
+    ...getBuildableConnections().connectionClassReverseMap.keys(),
+  ];
+  for (const connection of whitelistedConnections) {
+    const building = (BuildingJson as any)[connection];
+
+    if (new Set(building.supportedResourceForms).has(resourceForm)) {
+      supportedBuildings.push(connection);
+    }
+  }
+
+  return supportedBuildings;
+};

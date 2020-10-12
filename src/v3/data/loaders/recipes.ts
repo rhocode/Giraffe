@@ -209,6 +209,33 @@ const getRecipesByMachineFn = (machineSlug: string) => {
 
 export const getRecipesByMachine = memoize(getRecipesByMachineFn);
 
+const getRecipesByItemProductFn = (itemSlug: string) => {
+  return getRecipeList()
+    .filter(({ products }) => {
+      return (
+        products.filter((item: any) => {
+          return item.slug === itemSlug;
+        }).length > 0
+      );
+    })
+    .map((item) => item.slug);
+};
+
+export const getRecipesByItemProduct = memoize(getRecipesByItemProductFn);
+
+const getRecipesByItemIngredientFn = (itemSlug: string) => {
+  return getRecipeList()
+    .filter(({ ingredients }) => {
+      return (
+        ingredients.filter((item: any) => {
+          return item.slug === itemSlug;
+        }).length > 0
+      );
+    })
+    .map((item) => item.slug);
+};
+
+export const getRecipesByItemIngredient = memoize(getRecipesByItemIngredientFn);
 // const getRecipesByMachineTypeFn = (machineType: string) => {
 //   const machineSlugs = new Set(getBuildingsByType(machineType));
 //

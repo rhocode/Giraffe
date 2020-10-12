@@ -3,7 +3,7 @@ import memoize from 'fast-memoize';
 import { getBuildingImageName } from 'v3/data/loaders/buildings';
 import { getMachineCraftableRecipeDefinitionList } from 'v3/data/loaders/recipes';
 import produce from 'immer';
-import SGImageRepo from "v3/data/loaders/sgImageRepo";
+import SGImageRepo from 'v3/data/loaders/sgImageRepo';
 
 export const getItemDefinition = (itemSlug: string) => {
   return (ItemJson as any)[itemSlug];
@@ -74,7 +74,7 @@ export const getItemIcon = (itemSlug: string, size: number = 256) => {
   if (!image) {
     throw new Error('No image found: ' + itemImageSlug);
   }
-  return image
+  return image;
 };
 
 const getMachineCraftableItemsFn = () => {
@@ -97,8 +97,12 @@ const getAllItemsFn = () => {
   });
 };
 
-export const itemSlugToName = (slug: string) => {
-  return (getAllItemsFn() as Record<string, any>)[slug].name;
+export const getItemResourceForm = (itemSlug: string) => {
+  return (getAllItemsFn() as Record<string, any>)[itemSlug].form;
+};
+
+export const getItemName = (itemSlug: string) => {
+  return (getAllItemsFn() as Record<string, any>)[itemSlug].name;
 };
 
 export const getAllItems = memoize(getAllItemsFn);

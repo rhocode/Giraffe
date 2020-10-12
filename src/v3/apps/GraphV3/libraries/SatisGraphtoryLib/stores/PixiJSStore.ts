@@ -32,7 +32,7 @@ export const generateNewPixiCanvasStore = (theme: any) => {
   };
 };
 
-export const triggerUpdate = (canvasId: string) => {
+export const triggerCanvasUpdate = (canvasId: string) => {
   pixiJsStore.update((t) => {
     const s = t[canvasId];
     // Toggles it between a 2 and a 1. We need a positive value

@@ -12,7 +12,7 @@ import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/
 import Bezier from 'bezier-js';
 import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
 import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
-import { TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
+import { EDGE_TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import { getTier } from 'v3/data/loaders/buildings';
 
 export default class SimpleEdge extends EdgeTemplate {
@@ -51,7 +51,7 @@ export default class SimpleEdge extends EdgeTemplate {
     const theme = this.getInteractionManager().getTheme();
 
     this.levelText = tier
-      ? createText(getTierText(tier), TIER_STYLE(theme), 0, 0, 'center')
+      ? createText(getTierText(tier), EDGE_TIER_STYLE(theme), 0, 0, 'center')
       : null;
 
     if (this.levelText) {

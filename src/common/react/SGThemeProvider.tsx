@@ -47,6 +47,17 @@ const graphTheme = {
       backboard: Colors.DARK_GREY,
     },
     highlight: Colors.DARK_ORANGE,
+    text: {
+      name: {
+        fontSize: 24,
+      },
+      tier: {
+        fontSize: 24,
+        strokeThickness: 5,
+        stroke: Colors.DARK_GREY,
+        fill: Colors.WHITE,
+      },
+    },
   },
   connectors: {
     in: Colors.GREEN,
@@ -58,12 +69,16 @@ const graphTheme = {
     [EResourceForm.RF_LIQUID]: Colors.BLUE,
     default: Colors.ORANGE,
     highlight: Colors.DARK_ORANGE,
+    text: {
+      tier: {
+        fontSize: 40,
+        strokeThickness: 5,
+        stroke: Colors.DARK_GREY,
+        fill: Colors.WHITE,
+      },
+    },
   },
   overclock: {
-    stroke: Colors.DARK_GREY,
-    fill: Colors.WHITE,
-  },
-  tier: {
     stroke: Colors.DARK_GREY,
     fill: Colors.WHITE,
   },

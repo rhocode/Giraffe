@@ -5,7 +5,7 @@ import {
   MACHINE_STYLE,
   OVERCLOCK_STYLE,
   RECIPE_STYLE,
-  TIER_STYLE,
+  NODE_TIER_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
@@ -107,7 +107,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const levelText = createText(
       getTierText(tier),
-      TIER_STYLE(theme),
+      NODE_TIER_STYLE(theme),
       TIER_OFFSET_X,
       TIER_OFFSET_Y
     );
@@ -257,12 +257,6 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   removeInteractionEvents() {
-    const interactionManager = this.getInteractionManager();
-
-    if (!interactionManager.eventEmitterEnabled(this.id)) {
-      return;
-    }
-
     const container = this.container;
 
     container.interactive = false;
@@ -272,6 +266,12 @@ export default class AdvancedNode extends NodeTemplate {
     container.off('pointerup');
     container.off('pointerupoutside');
     container.off('pointermove');
+
+    const interactionManager = this.getInteractionManager();
+
+    if (!interactionManager.eventEmitterEnabled(this.id)) {
+      return;
+    }
 
     for (const [name, events] of this.eventFunctions.entries()) {
       for (const event of events) {
