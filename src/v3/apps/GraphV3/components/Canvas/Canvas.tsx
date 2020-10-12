@@ -34,8 +34,7 @@ type CanvasProps = {
   initialCanvasChildren: (
     app: PIXI.Application,
     viewPort: Viewport,
-    translate: Function,
-    theme: Record<string, any>
+    translate: Function
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
   id: string;

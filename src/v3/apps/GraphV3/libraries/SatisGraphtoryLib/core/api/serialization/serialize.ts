@@ -97,6 +97,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
       //   oneofs: true    // includes virtual oneof fields set to the present field's name
       // }));
     } else {
+      console.log(obj);
       throw new Error('Unimplemented serialization');
     }
   }
@@ -109,7 +110,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   };
 
   SaveData.verify(saveDataBase);
-  SaveData.create(saveDataBase);
+  console.log(SaveData.create(saveDataBase));
   // const message1 = SaveData.decode(buffer);
   // console.log(SaveData.toObject(message1, {
   //   enums: String,  // enums as string names

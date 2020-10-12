@@ -12,7 +12,7 @@ import EdgeSelectorPanel from 'v3/apps/GraphV3/components/EdgeSelectorPanel/Edge
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
 import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
-import uuidGen from "v3/utils/stringUtils";
+import uuidGen from 'v3/utils/stringUtils';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -68,9 +68,14 @@ function GraphApp(props) {
   }, []);
 
   const initialCanvasChildren = React.useCallback(
-    (application, viewport, translate, theme) => {
+    (application, viewport, translate, externalInteractionManager) => {
       console.log('Canvas load function called');
-      return initCanvasChildren(application, viewport, translate, theme);
+      return initCanvasChildren(
+        application,
+        viewport,
+        translate,
+        externalInteractionManager
+      );
     },
     []
   );

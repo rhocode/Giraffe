@@ -1,6 +1,6 @@
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
-import EventEmitter from 'eventemitter3';
 import uuidGen from 'v3/utils/stringUtils';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
 export abstract class GraphObjectContainer extends PIXI.Container {
   highLight: any = null;
@@ -27,30 +27,26 @@ export abstract class GraphObjectContainer extends PIXI.Container {
   }
 }
 
-type GraphObjectProps = {
-  theme?: any;
+export type GraphObjectProps = {
+  externalInteractionManager: ExternalInteractionManager;
 };
 
 export abstract class GraphObject {
   abstract id: string;
   abstract container: GraphObjectContainer;
-  eventEmitter: EventEmitter | null = null;
+
+  private externalInteractionManager: ExternalInteractionManager;
 
   constructor(props: GraphObjectProps) {
-    this.theme = props.theme;
+    this.externalInteractionManager = props.externalInteractionManager;
   }
 
-  attachEventEmitter(eventEmitter: EventEmitter) {
-    this.eventEmitter = eventEmitter;
+  getInteractionManager() {
+    return this.externalInteractionManager;
   }
 
   abstract removeInteractionEvents(): void;
   abstract addSelectEvents(onSelectObjects: (ids: string[]) => any): void;
   abstract addDragEvents(): any[];
   abstract delete(): GraphObject[];
-  theme: any = {};
-
-  updateTheme(theme: any) {
-    this.theme = theme;
-  }
 }

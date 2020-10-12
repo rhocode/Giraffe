@@ -93,8 +93,8 @@ export abstract class NodeTemplate extends GraphObject {
         this.inputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          theme: this.theme,
           targetNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
@@ -104,8 +104,8 @@ export abstract class NodeTemplate extends GraphObject {
         this.outputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          theme: this.theme,
           sourceNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
@@ -116,12 +116,14 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           biDirectional: true,
-          theme: this.theme,
           sourceNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
     }
+
+    this.recalculateConnections();
   }
 
   delete(): GraphObject[] {

@@ -168,7 +168,8 @@ export const onEndLink = (
         resourceForm: possibleResourceForms[0],
         sourceNode,
         targetNode,
-        theme: sourceNode.theme, // TODO: a hack to pass through the theme
+        connectorName: selectedEdge,
+        externalInteractionManager: sourceNode.externalInteractionManager, // TODO: a hack to pass through the theme
       };
 
       const edge = new SimpleEdge(edgeProps);
@@ -198,10 +199,9 @@ export const setUpLinkInitialState = (
         [...child.outputConnections, ...child.anyConnections],
         supportedResourceForms
       );
-
       if (selected) {
         child.container.alpha = 1;
-        child.attachEventEmitter(eventEmitter);
+        child.getInteractionManager().enableEventEmitter(child.id);
         child.addLinkEvents(
           onStartLink(pixiCanvasStateId, selectedEdge),
           onEndLink(
@@ -218,7 +218,7 @@ export const setUpLinkInitialState = (
           )
         );
       } else {
-        child.attachEventEmitter(eventEmitter);
+        child.getInteractionManager().enableEventEmitter(child.id);
         child.addLinkEvents(
           null,
           onEndLink(

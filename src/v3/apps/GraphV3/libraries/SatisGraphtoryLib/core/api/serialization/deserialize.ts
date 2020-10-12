@@ -10,11 +10,12 @@ import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/obj
 import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
 const deserializeGraphObjects = (
   data: any,
-  theme: any,
-  translateFunction: any
+  translateFunction: any,
+  externalInteractionManager: ExternalInteractionManager
 ) => {
   // Decompression
   const root = getSchemaForVersion(data.v);
@@ -53,22 +54,23 @@ const deserializeGraphObjects = (
     if (!edge.sourceNodeId && !edge.targetNodeId) {
       const emptyEdge = new EmptyEdge({
         id: thisUuid,
-        theme,
         sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,
         targetNodeAttachmentSide: edge.targetNodeAttachmentSide,
         biDirectional: edge.biDirectional,
         resourceForm: edge.resourceForm,
+        externalInteractionManager,
       });
       edgeNumberToInstance.set(edge.id, emptyEdge);
     } else {
       const populatedEdge = new SimpleEdge({
         id: thisUuid,
-        theme,
         sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,
         targetNodeAttachmentSide: edge.targetNodeAttachmentSide,
         biDirectional: edge.biDirectional,
         resourceForm: edge.resourceForm,
         ignoreLinking: true,
+        connectorName: edge.connectorTypeId,
+        externalInteractionManager,
       });
       edgeNumberToInstance.set(edge.id, populatedEdge);
       displayableChildren.push(populatedEdge);
@@ -115,7 +117,7 @@ const deserializeGraphObjects = (
           throw new Error('Unresolved edge number ' + num);
         return edgeNumberToInstance.get(num)!;
       }),
-      theme,
+      externalInteractionManager,
     });
 
     nodeNumberToInstance.set(node.id, populatedNode);

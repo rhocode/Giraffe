@@ -59,11 +59,11 @@ function PixiJSApplication(props) {
     viewportChildContainer,
     canvasReady,
     aliasCanvasObjects,
-    eventEmitter,
     openModals,
     selectedRecipe,
     selectedMachine,
     selectedEdge,
+    externalInteractionManager,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -182,15 +182,21 @@ function PixiJSApplication(props) {
   }, []);
 
   const theme = useThemeProvider();
+  React.useEffect(() => {
+    if (!externalInteractionManager || !Object.keys(theme).length) return;
+    externalInteractionManager.setTheme(theme);
+  }, [externalInteractionManager, theme]);
 
   React.useEffect(() => {
+    if (!Object.keys(theme).length) return;
+
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
 
       pixiJsStore.update((sParent) => {
         let s = sParent[pixiCanvasStateId];
         if (!s) {
-          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore();
+          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore(theme);
           s = sParent[pixiCanvasStateId];
         }
 
@@ -238,7 +244,7 @@ function PixiJSApplication(props) {
           newApplication,
           pixiViewport,
           translate,
-          theme
+          s.externalInteractionManager
         );
 
         addObjectChildrenWithinState(
@@ -262,6 +268,7 @@ function PixiJSApplication(props) {
     translate,
     width,
     onFinishLoad,
+    externalInteractionManager,
   ]);
 
   // Update the theme for each child
@@ -273,7 +280,7 @@ function PixiJSApplication(props) {
 
       for (const child of s.children) {
         if (child instanceof GraphObject) {
-          child.updateTheme(theme);
+          child.getInteractionManager().setTheme(theme);
         }
       }
     });
@@ -422,7 +429,7 @@ function PixiJSApplication(props) {
             EdgeTemplate,
           ])) {
             if (child instanceof NodeTemplate) {
-              child.attachEventEmitter(eventEmitter);
+              child.getInteractionManager().enableEventEmitter(child.id);
               child.addDragEvents();
             } else if (child instanceof EdgeTemplate) {
               // Noop?
@@ -449,7 +456,7 @@ function PixiJSApplication(props) {
           newPos.x,
           newPos.y,
           translate,
-          theme
+          externalInteractionManager
         );
 
         addObjectChildren([nodeData], pixiCanvasStateId);
@@ -477,7 +484,7 @@ function PixiJSApplication(props) {
       pixiJsStore.update([
         deferredRemoveChildEvents,
         setUpLinkInitialState(
-          eventEmitter,
+          externalInteractionManager.getEventEmitter(),
           pixiCanvasStateId,
           supportedResourceForms,
           selectedEdge
@@ -486,7 +493,7 @@ function PixiJSApplication(props) {
     }
   }, [
     canvasReady,
-    eventEmitter,
+    externalInteractionManager,
     mouseState,
     onSelectObjects,
     openModals,

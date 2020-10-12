@@ -61,6 +61,9 @@ export const serializeEdge = (
     biDirectional: edge.biDirectional,
     sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,
     targetNodeAttachmentSide: edge.targetNodeAttachmentSide,
+    connectorTypeId: edge.connectorName
+      ? getNumberFromEnum(edge.connectorName, buildingEnums)
+      : undefined,
   };
 
   edgeSerializer.verify(baseObject);

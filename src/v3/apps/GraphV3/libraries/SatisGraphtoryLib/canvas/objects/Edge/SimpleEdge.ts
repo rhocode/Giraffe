@@ -10,6 +10,10 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import Bezier from 'bezier-js';
+import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
+import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
+import { TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
+import { getTier } from 'v3/data/loaders/buildings';
 
 export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;
@@ -19,8 +23,15 @@ export default class SimpleEdge extends EdgeTemplate {
   private selected: boolean = false;
   private hitBoxEnabled = false;
 
+  private levelText: any;
+
   constructor(props: SatisGraphtoryEdgeProps) {
     super(props);
+
+    if (!this.connectorName)
+      throw new Error(
+        'SimpleEdge must be instantiated with a valid connector name'
+      );
 
     this.container.setHighLightObject(new PIXI.Graphics());
     this.container.addChild(this.container.getHighLight());
@@ -34,6 +45,18 @@ export default class SimpleEdge extends EdgeTemplate {
 
     const outDotTexture = PIXI.utils.TextureCache['inCircle'];
     const outputDot = Dot(outDotTexture, 0, 0);
+
+    const tier = getTier(this.connectorName);
+
+    const theme = this.getInteractionManager().getTheme();
+
+    this.levelText = tier
+      ? createText(getTierText(tier), TIER_STYLE(theme), 0, 0, 'center')
+      : null;
+
+    if (this.levelText) {
+      this.container.addChild(this.levelText);
+    }
 
     this.sourceDot = inputDot;
     this.targetDot = outputDot;
@@ -105,10 +128,18 @@ export default class SimpleEdge extends EdgeTemplate {
     this.targetDot.position.x = targetX;
     this.targetDot.position.y = targetY;
 
+    if (this.levelText) {
+      this.levelText.position.x = Math.floor((sourceX + targetX) / 2);
+      this.levelText.position.y = Math.floor((sourceY + targetY) / 2);
+    }
+
     this.graphicsObject.clear();
     this.container.getHighLight().clear();
     // TODO: Fix the edge color
-    this.graphicsObject.lineStyle(LINE_THICKNESS, this.theme.edges.default, 1);
+
+    const theme = this.getInteractionManager().getTheme();
+
+    this.graphicsObject.lineStyle(LINE_THICKNESS, theme.edges.default, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
     const multiplierX = sourceX > targetX ? -1 : 1;
@@ -156,11 +187,7 @@ export default class SimpleEdge extends EdgeTemplate {
 
     const highLight = this.container.getHighLight();
     highLight.moveTo(sourceX, sourceY);
-    highLight.lineStyle(
-      LINE_HIGHLIGHT_THICKNESS,
-      this.theme.edges.highlight,
-      1
-    );
+    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, theme.edges.highlight, 1);
 
     const curve = new Bezier(
       sourceX,

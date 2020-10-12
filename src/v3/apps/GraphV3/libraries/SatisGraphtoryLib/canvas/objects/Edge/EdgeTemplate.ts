@@ -38,6 +38,8 @@ export default abstract class EdgeTemplate extends GraphObject {
 
   biDirectional: Boolean;
 
+  connectorName: string | null;
+
   abstract enableHitBox(): void;
   abstract disableHitBox(): void;
   abstract update(): void;
@@ -52,6 +54,7 @@ export default abstract class EdgeTemplate extends GraphObject {
       resourceForm,
       sourceNodeAttachmentSide,
       targetNodeAttachmentSide,
+      connectorName,
       biDirectional = false,
     } = props;
 
@@ -62,6 +65,8 @@ export default abstract class EdgeTemplate extends GraphObject {
     this.targetNode = targetNode ? targetNode : null;
 
     this.biDirectional = biDirectional;
+
+    this.connectorName = connectorName || null;
 
     if (resourceForm != null) {
       this.resourceForm = resourceForm;

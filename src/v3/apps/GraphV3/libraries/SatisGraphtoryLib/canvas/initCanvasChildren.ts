@@ -1,11 +1,12 @@
 import { Viewport } from 'pixi-viewport';
 import deserializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/deserialize';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
   viewport: Viewport,
   translate: (source: string) => string,
-  theme: Record<string, any>
+  externalInteractionManager: ExternalInteractionManager
 ) => {
   // TODO: Get this from external sources
   // const data = {
@@ -14,15 +15,25 @@ const initCanvasChildren = (
   //   "v": "0.1.0"
   // };
 
+  // const data = {
+  //   "d": "McJABwBgKBApEBUICWIAYIBaIAczACOCIQIAQgB4A6AQADgAyBAgJoBkAoAGZwE0BAAHAA0AAUAIAM0AgANAAk8QGoACmQCiTAKgBJMgFgAFACGAVQAGAYQBMAZAG4ubAIQBSUQFiAWSACUHABiALQC2ADEAgMEAGoA8gHAgqgBtgCwAYICAXGkAfAAcgFcAZKoAXwB9gEn+AArLAEgAMssARYAIgESATFqAMwBBgFH7AB8OSwBOAAEAVlGAQwBvdQ55aYArBgWtjwAMXgAAjaC+gBOAVpoAWuiAJ3EAGAAPgGeAboBvgH+AXOkAAmpYQMYEAYjCADVRF4APkNADaAHcAHdBZAAG4ACAALXgAegAlQA/0wAXoAOAASyxaFoAVa6+nq3wA4QAvBEATMhAHSAMJgUw6AB2XFhAF0NgBBDYADYg8oCewAm0wNgAnkAca4AVSytjoNAAbRiALwEBAATwAnQN+AAAIA==",
+  //   "c": 1,
+  //   "v": "0.1.0"
+  // };
+
   const data = {
     d:
-      'LIJOGsGQEEAwHGDnBPAbgZoNyYJYgJMBswA5cANsAyAxuAKQAEAIQIQBDARzgHUCDA0QF+AQBwEAIgBe8AySQBRAJQAVACAB4AFACiAR4ALAaoDpAPwBhDDogAPAYnEBzaAHyAvgGwXAXkHGA+wD3yACYAGYAKSAABQCH5gAaAAIsACoA+gBFAGAAwABoANkA/nQAxQADEQAxAJoAdwANAFlMAFYARADfLgClADMy/QDTABP8ALaaABkARgB6xgCnALAAagDLZc0AcQCxuQDXAMwA9hUAPMDzs5gAgSsArNkAaZAA0hMASAAbAGSGDwARBkhBWABt+ABGgCMUP6ACmKgA2gCb4IAwwAngBwwwA3QAa0wAIQArwiwncALcw04uJa5F4kAAtAHYADSNJII5EIgAKAAAlhiAFQAcW0ABFkGsAKYARXEAB+AFwAXYA6+KACV0ACG6momgA7gAcAABAHiAOqZZUAPNMuhIAFUEgB+3QAE7uAD/qgAzjwJGFWkCpVVJAD1bUC9RIADH8QAemwAT4AkOqAO8AVGamv5hH6qRNGOgACXCAAdAA+AAsACPoADOLnSZXgjQALGyAJIY+b+aCBgCFLwAL/iAGIALoA/5XEPBJwApAB9mQAnGOx8oAOE4gDg3itAFaAG8AZ4mZXTxxcAHwAIu5RSBgBVAByAJHpgAy3J1UIMo9gALEOZBUQ5ABVj1eGVZQWRfF4AGCU1ghtUgAWt/Rxej+Ml9BTT8cVVAA9wgcRnaloAASv7dAFzKAAnMIAIAbzCaB8koGsWSwS91VdABoQowhzNd3gAS4AbWyABaAA5gBHBcKliCimyfWCXgSZEADXl2OAAvFM2AuRoOFQC5zwPY4AH4AF1nI3AAPBdDl0XQZDJeiAF7jgAD+vQRAgxMlHKAA==',
+      'McI5AMBRwFfAGcAW8ADs4BCAjAzAYgEaBNABIA2AagCQBsA2AEnoG4AkAbIGAAxgNABKAQABZAeYAEARIBFAAYAFAUYAzAEZXY1ACYAXcgKcBJgAAAgANAAqgDhmArABUA6AFqAawAaA0gHcTVtgAQQCV2ADGAOfw2AAmAKEA1QBWAG4AEAAguAB0kABcJiZAA==',
     c: 1,
     v: '0.1.0',
   };
 
   console.time('loadNodes');
-  const children = deserializeGraphObjects(data, theme, translate);
+  const children = deserializeGraphObjects(
+    data,
+    translate,
+    externalInteractionManager
+  );
   console.timeEnd('loadNodes');
 
   return children;

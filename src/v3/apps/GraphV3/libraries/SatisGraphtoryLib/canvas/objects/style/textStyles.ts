@@ -9,6 +9,7 @@ import {
   // INPUT_FONT_SIZE,
   // OUTPUT_FONT_SIZE,
   LEVEL_STROKE_SIZE,
+  OVERCLOCK_STROKE_SIZE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Texts';
 
 export const RECIPE_STYLE = memoize((width: number, theme) => {
@@ -42,6 +43,7 @@ export const TIER_STYLE = memoize(
       fontFamily: '"Roboto Slab", sans-serif',
       stroke: theme.tier.stroke,
       strokeThickness: LEVEL_STROKE_SIZE,
+      // fontWeight: "bold"
     })
 );
 
@@ -53,7 +55,7 @@ export const OVERCLOCK_STYLE = memoize(
       fontSize: EFFICIENCY_FONT_SIZE,
       fontFamily: '"Roboto Condensed", sans-serif',
       stroke: theme.overclock.stroke,
-      strokeThickness: LEVEL_STROKE_SIZE,
+      strokeThickness: OVERCLOCK_STROKE_SIZE,
     })
 );
 

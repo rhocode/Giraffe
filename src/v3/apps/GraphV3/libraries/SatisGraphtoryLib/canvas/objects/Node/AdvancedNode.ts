@@ -40,7 +40,6 @@ import {
   calculateConnectionNodeOffset,
   Dot,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
-import EventEmitter from 'eventemitter3';
 import { Events } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Events';
 import initializeMap from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/initializeMap';
 import EdgeTemplate, {
@@ -73,10 +72,12 @@ export default class AdvancedNode extends NodeTemplate {
     container.boundCalculator = createBackboard(0, 0, machineType);
     container.addChild(container.boundCalculator);
 
+    const theme = this.getInteractionManager().getTheme();
+
     const recipeText = createTruncatedText(
       recipeLabel,
       NODE_WIDTH,
-      RECIPE_STYLE(NODE_WIDTH, this.theme),
+      RECIPE_STYLE(NODE_WIDTH, theme),
       RECIPE_OFFSET_X,
       RECIPE_OFFSET_Y,
       'center'
@@ -84,7 +85,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const machineText = createText(
       machineLabel,
-      MACHINE_STYLE(this.theme),
+      MACHINE_STYLE(theme),
       MACHINE_NAME_OFFSET_X,
       MACHINE_NAME_OFFSET_Y,
       'center'
@@ -106,7 +107,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const levelText = createText(
       getTierText(tier),
-      TIER_STYLE(this.theme),
+      TIER_STYLE(theme),
       TIER_OFFSET_X,
       TIER_OFFSET_Y
     );
@@ -115,7 +116,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const efficiencyText = createText(
       `${overclock}%`,
-      OVERCLOCK_STYLE(this.theme),
+      OVERCLOCK_STYLE(theme),
       EFFICIENCY_OFFSET_X,
       EFFICIENCY_OFFSET_Y,
       'right'
@@ -256,7 +257,11 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   removeInteractionEvents() {
-    if (!this.eventEmitter) return;
+    const interactionManager = this.getInteractionManager();
+
+    if (!interactionManager.eventEmitterEnabled(this.id)) {
+      return;
+    }
 
     const container = this.container;
 
@@ -268,16 +273,14 @@ export default class AdvancedNode extends NodeTemplate {
     container.off('pointerupoutside');
     container.off('pointermove');
 
-    if (this.eventEmitter) {
-      for (const [name, events] of this.eventFunctions.entries()) {
-        for (const event of events) {
-          this.eventEmitter.removeListener(name, event, this);
-        }
+    for (const [name, events] of this.eventFunctions.entries()) {
+      for (const event of events) {
+        interactionManager.getEventEmitter().removeListener(name, event, this);
       }
-
-      this.eventFunctions = new Map();
-      this.eventEmitter = (null as unknown) as EventEmitter;
     }
+
+    this.eventFunctions = new Map();
+    interactionManager.disableEventEmitter(this.id);
   }
 
   addSelectEvents(onSelectObjects: (ids: string[]) => any) {
@@ -293,15 +296,13 @@ export default class AdvancedNode extends NodeTemplate {
     });
   }
 
-  // TODO: Determine if we should pass through an event emitter in the constructor
-  // We might want to lazyily only attach this event emitter if we add events.
-  eventEmitter: EventEmitter = (null as unknown) as EventEmitter;
-
   addEvent(event: string, functionToAdd: any) {
     initializeMap<string, any[]>(this.eventFunctions, event, []);
     this.eventFunctions.get(event)!.push(functionToAdd);
 
-    this.eventEmitter.addListener(event, functionToAdd, this);
+    this.getInteractionManager()
+      .getEventEmitter()
+      .addListener(event, functionToAdd, this);
   }
 
   addLinkEvents(startFunc: Function, endFunc: Function, cancelFunc: Function) {
@@ -341,10 +342,11 @@ export default class AdvancedNode extends NodeTemplate {
     const container = this.addContainerHitArea();
 
     const context = this;
+    const nodeEventEmitter = this.getInteractionManager().getEventEmitter();
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
-      context.eventEmitter.emit(
+      nodeEventEmitter.emit(
         Events.NodePointerDown,
         context,
         startFunc === null
@@ -363,6 +365,7 @@ export default class AdvancedNode extends NodeTemplate {
     let clickY = 0;
 
     const context = this;
+    const nodeEventEmitter = this.getInteractionManager().getEventEmitter();
 
     // Drag Functions Start
 
@@ -393,7 +396,7 @@ export default class AdvancedNode extends NodeTemplate {
       event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
       moveAllHighlighted = this.highLight.visible;
-      context.eventEmitter.emit(
+      nodeEventEmitter.emit(
         Events.NodePointerDown,
         context,
         newPos,
@@ -418,19 +421,11 @@ export default class AdvancedNode extends NodeTemplate {
     this.addEvent(Events.NodePointerUp, dragPointerUpFunction);
 
     container.on('pointerup', function (this: any) {
-      context.eventEmitter.emit(
-        Events.NodePointerUp,
-        context,
-        moveAllHighlighted
-      );
+      nodeEventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
     });
 
     container.on('pointerupoutside', function (this: any) {
-      context.eventEmitter.emit(
-        Events.NodePointerUp,
-        context,
-        moveAllHighlighted
-      );
+      nodeEventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
     });
 
     // Drag Pointer Move Start
@@ -458,7 +453,7 @@ export default class AdvancedNode extends NodeTemplate {
         const newPos = event.data.getLocalPosition(this.parent);
         const deltaX = newPos.x - clickX;
         const deltaY = newPos.y - clickY;
-        context.eventEmitter.emit(
+        nodeEventEmitter.emit(
           Events.NodePointerMove,
           context,
           deltaX,

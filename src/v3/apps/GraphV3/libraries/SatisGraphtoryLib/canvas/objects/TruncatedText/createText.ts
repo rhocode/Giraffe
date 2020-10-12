@@ -6,15 +6,16 @@ const createText = (
   style: PIXI.TextStyle,
   x: number,
   y: number,
-  align = 'left'
+  horizontalAlign = 'left'
 ) => {
   const nameStr = new PIXI.Text(text, style);
-  if (align === 'left') {
+
+  if (horizontalAlign === 'left') {
     nameStr.anchor.set(0, 0.5);
-  } else if (align === 'right') {
+  } else if (horizontalAlign === 'right') {
     nameStr.anchor.set(1, 0.5);
-  } else if (align === 'center') {
-    nameStr.anchor.set(0.5, 0);
+  } else if (horizontalAlign === 'center') {
+    nameStr.anchor.set(0.5, 0.5);
   }
 
   nameStr.position.x = x;
