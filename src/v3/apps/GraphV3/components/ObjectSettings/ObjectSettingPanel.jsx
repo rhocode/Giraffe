@@ -216,6 +216,8 @@ function ObjectSettingPanel(props) {
                     s.children = s.children.filter(
                       (item) => !edgesToDelete.has(item)
                     );
+
+                    s.selectedObjects = [];
                   });
                 }}
                 color="secondary"
@@ -397,6 +399,8 @@ function ObjectSettingPanel(props) {
                     s.children = s.children.filter(
                       (item) => !edgesToDelete.has(item)
                     );
+
+                    s.selectedObjects = [];
                   });
                 }}
                 startIcon={<DeleteIcon />}

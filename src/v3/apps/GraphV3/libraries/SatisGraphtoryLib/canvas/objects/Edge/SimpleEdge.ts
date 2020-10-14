@@ -69,16 +69,16 @@ export default class SimpleEdge extends EdgeTemplate {
         throw new Error('Cannot instantiate non-connected simple-edge');
       }
 
-      if (props.biDirectional) {
-        this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
-
-        this.targetNode.addEdge(this, EdgeType.INPUT, true);
-      } else {
-        this.sourceNode.addEdge(this, EdgeType.OUTPUT);
-
-        // @ts-ignore
-        this.targetNode.addEdge(this, EdgeType.INPUT);
+      if (
+        this.sourceNode.isBiDirectional() &&
+        this.targetNode.isBiDirectional()
+      ) {
+        this.biDirectional = true;
       }
+
+      this.sourceNode.addEdge(this, EdgeType.OUTPUT);
+
+      this.targetNode.addEdge(this, EdgeType.INPUT);
 
       this.updateWithoutHitBox();
     }

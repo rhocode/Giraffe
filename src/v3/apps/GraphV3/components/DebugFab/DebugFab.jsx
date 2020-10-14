@@ -1,6 +1,7 @@
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import * as dagre from 'dagre';
 import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
@@ -14,8 +15,10 @@ import { getConnectionsByResourceForm } from 'v3/data/loaders/buildings';
 import { getItemResourceForm } from 'v3/data/loaders/items';
 import {
   getMachinesFromMachineCraftableRecipe,
+  getRecipeIngredients,
   getRecipeProducts,
   getRecipesByItemIngredient,
+  getRecipesByItemProduct,
 } from 'v3/data/loaders/recipes';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,11 +43,203 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const fabAction = (
+const makeComplexChain = (
   translate,
   externalInteractionManager,
   pixiCanvasStateId
-) => () => {
+) => {
+  const endingItem = 'item-space-elevator-part-5';
+
+  const possibleRecipes = getRecipesByItemProduct(endingItem);
+
+  const possibleRecipesIndex = Math.floor(
+    Math.random() * possibleRecipes.length
+  );
+  const selectedRecipe = possibleRecipes[possibleRecipesIndex];
+
+  const machineChoices = getMachinesFromMachineCraftableRecipe(selectedRecipe);
+
+  const machineChoicesIndex = Math.floor(Math.random() * machineChoices.length);
+  const selectedMachine = machineChoices[machineChoicesIndex];
+
+  let depth = 1;
+
+  const maxDepth = Infinity;
+
+  const nodeData = populateNewNodeData(
+    selectedMachine,
+    selectedRecipe,
+    100,
+    -1 * depth * 300,
+    300,
+    translate,
+    externalInteractionManager
+  );
+
+  const allNodes = [nodeData];
+  const allEdges = [];
+
+  const nodeMap = new Map();
+
+  const g = new dagre.graphlib.Graph();
+
+  g.setGraph({
+    rankdir: 'LR',
+    align: 'DL',
+  });
+
+  g.setDefaultEdgeLabel(function () {
+    return {};
+  });
+
+  const queue = [
+    {
+      node: nodeData,
+      depth,
+      recipe: selectedRecipe,
+    },
+  ];
+
+  g.setNode(nodeData.id, { label: nodeData.id, width: 300, height: 300 });
+  nodeMap.set(nodeData.id, nodeData);
+  let i = 0;
+  while (i < maxDepth && queue.length) {
+    const { node, depth, recipe } = queue.pop();
+    const outputs = getRecipeIngredients(recipe);
+
+    outputs
+      .map((item) => item.slug)
+      .forEach((item, index) => {
+        const recipes = getRecipesByItemProduct(item).filter((recipeSlug) => {
+          if (
+            recipeSlug.indexOf('-unpackage-') !== -1 ||
+            recipeSlug.indexOf('-packaged-') !== -1
+          ) {
+            return false;
+          }
+
+          const machineChoices = getMachinesFromMachineCraftableRecipe(
+            recipeSlug
+          );
+
+          return machineChoices.length > 0;
+        });
+
+        console.log('Item product', recipes, item);
+
+        if (recipes.length) {
+          const chosenRecipeIndex = Math.floor(Math.random() * recipes.length);
+          const selectedRecipe = recipes[chosenRecipeIndex];
+
+          const machineChoices = getMachinesFromMachineCraftableRecipe(
+            selectedRecipe
+          );
+
+          const machineChoicesIndex = Math.floor(
+            Math.random() * machineChoices.length
+          );
+          const selectedMachine = machineChoices[machineChoicesIndex];
+
+          const nodeData = populateNewNodeData(
+            selectedMachine,
+            selectedRecipe,
+            100,
+            (depth + 1) * -300,
+            300 * (index + 1),
+            translate,
+            externalInteractionManager
+          );
+
+          // console.log('Created node', nodeData);
+
+          allNodes.push(nodeData);
+
+          g.setNode(nodeData.id, {
+            label: nodeData.id,
+            width: 300,
+            height: 300,
+          });
+
+          nodeMap.set(nodeData.id, nodeData);
+
+          //
+          queue.push({
+            node: nodeData,
+            depth: depth + 1,
+            recipe: selectedRecipe,
+          });
+
+          const possibleConnections = getConnectionsByResourceForm(
+            getItemResourceForm(item)
+          );
+          const possibleConnectionsIndex = Math.floor(
+            Math.random() * possibleConnections.length
+          );
+          const connection = possibleConnections[possibleConnectionsIndex];
+
+          g.setEdge(nodeData.id, node.id);
+
+          const edge = populateNewEdgeData(
+            [item],
+            null,
+            connection,
+            nodeData,
+            node
+          );
+          allEdges.push(edge);
+          console.log('Created edge', edge);
+        } else {
+          console.error('No recipes that take ', item, ' as an input');
+        }
+      });
+
+    i++;
+  }
+
+  dagre.layout(g);
+
+  let minPoint = [0, 0];
+  let distance = Infinity;
+
+  g.nodes().forEach(function (v) {
+    const metadata = g.node(v);
+    if (metadata) {
+      var a = metadata.x;
+      var b = metadata.y;
+
+      var c = Math.sqrt(a * a + b * b);
+      if (c < distance) {
+        distance = c;
+        minPoint = [metadata.x, metadata.y];
+      }
+    }
+  });
+
+  minPoint[0] += 100;
+  minPoint[1] += 100;
+
+  console.log(minPoint);
+
+  g.nodes().forEach(function (v) {
+    const metadata = g.node(v);
+    if (metadata) {
+      const node = nodeMap.get(v);
+      node.setPosition(metadata.x - minPoint[0], metadata.y - minPoint[1]);
+    } else {
+      console.log('Node ' + v + ': ' + JSON.stringify(g.node(v)));
+    }
+  });
+
+  addObjectChildren(allNodes, pixiCanvasStateId, false);
+  addObjectChildren(allEdges, pixiCanvasStateId, true);
+  triggerCanvasUpdate(pixiCanvasStateId);
+};
+
+export const makeSimpleChain = (
+  translate,
+  externalInteractionManager,
+  pixiCanvasStateId
+) => {
   // TODO: add graph actions.
   // const startingRecipe = getRecipeDefinition("recipe-pure-ore-iron");
 
@@ -57,12 +252,14 @@ const fabAction = (
 
   let depth = 1;
 
+  const maxDepth = 100;
+
   const nodeData = populateNewNodeData(
     selectedMachine,
     selectedRecipe,
     100,
-    depth * 200,
-    200,
+    depth * 300,
+    300,
     translate,
     externalInteractionManager
   );
@@ -79,7 +276,7 @@ const fabAction = (
   ];
 
   let i = 0;
-  while (i < 4 && queue.length) {
+  while (i < maxDepth && queue.length) {
     const { node, depth, recipe } = queue.pop();
     const outputs = getRecipeProducts(recipe);
 
@@ -113,8 +310,8 @@ const fabAction = (
             selectedMachine,
             selectedRecipe,
             100,
-            (depth + 1) * 200,
-            200 * (index + 1),
+            (depth + 1) * 300,
+            300 * (index + 1),
             translate,
             externalInteractionManager
           );
@@ -147,7 +344,7 @@ const fabAction = (
           allEdges.push(edge);
           console.log('Created edge', edge);
         } else {
-          console.error('No recipes for ', item);
+          console.error('No recipes that take ', item, ' as an input');
         }
       });
 
@@ -157,6 +354,14 @@ const fabAction = (
   addObjectChildren(allNodes, pixiCanvasStateId, false);
   addObjectChildren(allEdges, pixiCanvasStateId, true);
   triggerCanvasUpdate(pixiCanvasStateId);
+};
+
+const fabAction = (
+  translate,
+  externalInteractionManager,
+  pixiCanvasStateId
+) => () => {
+  makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
 };
 
 function DebugFab() {

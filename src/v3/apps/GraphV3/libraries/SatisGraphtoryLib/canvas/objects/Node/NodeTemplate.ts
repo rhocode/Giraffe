@@ -81,6 +81,10 @@ export abstract class NodeTemplate extends GraphObject {
     }
   }
 
+  setPosition(x: number, y: number) {
+    this.container.setTransform(x, y);
+  }
+
   abstract addLinkEvents(
     onStartLinkEvent: Function | null,
     onEndLinkEvent: Function,
@@ -184,17 +188,17 @@ export abstract class NodeTemplate extends GraphObject {
     throw new Error('No empty index found');
   }
 
-  addEdge(
-    edge: EdgeTemplate,
-    edgeType: EdgeType,
-    biDirectional: boolean = false
-  ) {
+  isBiDirectional() {
+    return this.anyConnections.length > 0;
+  }
+
+  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
     const otherNode =
       edge.sourceNode === this ? edge.targetNode : edge.sourceNode;
 
     if (!otherNode) throw new Error('Other node is null');
 
-    if (edge.biDirectional || biDirectional) {
+    if (edge.biDirectional) {
       const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
       const foundEdge = this.anyConnections[firstNull];
       this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
