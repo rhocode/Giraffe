@@ -102,7 +102,7 @@
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "remark-cli": "^8.0.0",
-    "remark-preset-lint-recommended": "^4.0.1",
+    "remark-preset-lint-recommended": "^5.0.0",
     "roboto-fontface": "^0.10.0",
     "sass": "^1.26.9",
     "scheduler": "^0.19.1",
