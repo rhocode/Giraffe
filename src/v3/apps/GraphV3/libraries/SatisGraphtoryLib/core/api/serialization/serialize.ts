@@ -111,26 +111,18 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
 
   SaveData.verify(saveDataBase);
   console.log(SaveData.create(saveDataBase));
-  // const message1 = SaveData.decode(buffer);
-  // console.log(SaveData.toObject(message1, {
-  //   enums: String,  // enums as string names
-  //   longs: String,  // longs as strings (requires long.js)
-  //   bytes: String,  // bytes as base64 encoded strings
-  //   defaults: true, // includes default values
-  //   arrays: true,   // populates empty arrays (repeated fields) even if defaults=false
-  //   objects: true,  // populates empty objects (map fields) even if defaults=false
-  //   oneofs: true    // includes virtual oneof fields set to the present field's name
-  // }));
+
   const data = SaveData.encode(saveDataBase).finish();
 
-  const textForm = new TextDecoder('utf-8').decode(data);
+  const textForm = buffer2str(data, false);
+
   let compressedUint8Form = LZ.compressToUint8Array(textForm);
 
   let dataLength = compressedUint8Form.length;
   let compressionLevel = 0;
 
   for (let i = 0; i < 50; i++) {
-    const newData = deflateRaw(data, { level: 9 });
+    const newData = deflateRaw(compressedUint8Form, { level: 9 });
     if (newData.length < dataLength) {
       compressedUint8Form = newData;
       dataLength = newData.length;
@@ -144,41 +136,16 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
 
   const stringForm = LZ.compressToBase64(tmp);
 
-  // const uncompressedForm = LZ.decompressFromBase64(stringForm)!;
-  // const decoded = new TextEncoder().encode(uncompressedForm);
-  //
-  // let dataEncoded = decoded;
-  //
-  // for (let i = 0; i < compressionLevel; i++) {
-  //   dataEncoded = inflateRaw(dataEncoded);
-  // }
-  //
-  // let encodedDecompress = LZ.decompressFromUint8Array(dataEncoded)!;
-  //
-  // const blah = new TextEncoder().encode(encodedDecompress);
-  //
-  // console.log(blah);
-
-  console.log('Your save code:');
-  console.log(
-    JSON.stringify(
-      { d: stringForm, c: compressionLevel, v: process.env.REACT_APP_VERSION },
-      null,
-      2
-    )
-  );
-
-  return {
+  const finalData = {
     d: stringForm,
     c: compressionLevel,
     v: process.env.REACT_APP_VERSION,
   };
 
-  // {
-  //   "d": "MgJQpwBgKAHQowEgIgAqADAauARgEwE22wBmAjtAE4EmAAAMADIA4AQIAYAwgBICgBwAMkAAgFXYAbgDEAoADQAtAwBqANgDEk8X0kAIkRwA2ADJEAOPgEIAqkwBmLNQBkASAGq0AKdOmAsQAwATogPABwRAAKPIQArlg8ADQAQABoEAB+oPwBW+JgATwAPAE+AGL8igFx4gAIPZwAsgEMAMoBU0xoaIA===",
-  //   "c": 1,
-  //   "v": "0.1.0"
-  // }
+  console.log('Your save code:');
+  console.log(JSON.stringify(finalData, null, 2));
+
+  return finalData;
 };
 
 export default serializeGraphObjects;

@@ -28,8 +28,12 @@ const deserializeGraphObjects = (
     dataEncoded = inflateRaw(dataEncoded);
   }
 
+  let decompressedUint8Form = LZ.decompressFromUint8Array(dataEncoded);
+
+  const bufferForm = str2buffer(decompressedUint8Form, false);
+
   const SaveData = root.lookupType('SGSave');
-  const saveDataDecoded = SaveData.toObject(SaveData.decode(dataEncoded), {
+  const saveDataDecoded = SaveData.toObject(SaveData.decode(bufferForm), {
     enums: String, // enums as string names
     arrays: true, // populates empty arrays (repeated fields) even if defaults=false
   });
