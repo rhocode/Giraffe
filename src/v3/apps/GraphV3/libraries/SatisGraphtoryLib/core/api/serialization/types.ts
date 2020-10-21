@@ -53,6 +53,7 @@ export const serializeEdge = (
 
   // TODO: if all these are defaults then don't include them? we can ignore something if it has roots in
   // inputConnections and outputConnections
+
   const baseObject = {
     id: getOrCreateId(edge.id, edgeIdToNumberMap, edgeNumberId),
     sourceNodeId,

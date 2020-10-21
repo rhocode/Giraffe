@@ -75,6 +75,7 @@ export const resetNodes = (pixiCanvasStateId: string) => (sParent: any) => {
 export const onStartLink = (pixiCanvasStateId: string, selectedEdge: any) => (
   startLinkId: string
 ) => {
+  console.log('Starting link func');
   pixiJsStore.update((sParent) => {
     const s = sParent[pixiCanvasStateId];
 

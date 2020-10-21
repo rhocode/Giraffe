@@ -92,6 +92,33 @@ export default abstract class EdgeTemplate extends GraphObject {
     return replacementEdge;
   }
 
+  getAttachmentSide(node: NodeTemplate) {
+    if (!this.sourceNode && !this.targetNode) {
+      return Infinity;
+    }
+
+    if (!this.sourceNode || !this.targetNode) {
+      throw new Error('Only one of the nodes are null for ' + this.id);
+    }
+
+    if (this.sourceNode === node && this.targetNode === node) {
+      throw new Error(
+        'Cannot infer attachment side due to both source and target being this node ' +
+          this.id
+      );
+    }
+
+    if (this.sourceNode === node && this.targetNode) {
+      return this.sourceNodeAttachmentSide;
+    }
+
+    if (this.targetNode === node && this.sourceNode) {
+      return this.targetNodeAttachmentSide;
+    }
+
+    throw new Error('Could not infer attachment side ' + this.id);
+  }
+
   delete(): GraphObject[] {
     if (this.container) {
       this.sourceNode?.deleteEdge(this);

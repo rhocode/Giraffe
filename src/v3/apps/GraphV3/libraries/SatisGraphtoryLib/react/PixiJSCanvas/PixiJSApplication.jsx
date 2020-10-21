@@ -338,6 +338,8 @@ function PixiJSApplication(props) {
 
     previousMouseState.current = mouseState;
 
+    console.log('Re-applying mouse triggers', triggerUpdate);
+
     pixiViewport.plugins.pause('drag');
     pixiViewport.plugins.pause('wheel');
     if (openModals === 0) {
@@ -482,6 +484,7 @@ function PixiJSApplication(props) {
         getSupportedResourceForm(selectedEdge)
       );
 
+      console.log('AAAAAA');
       pixiJsStore.update([
         deferredRemoveChildEvents,
         setUpLinkInitialState(

@@ -5,11 +5,20 @@ import * as dagre from 'dagre';
 import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
-import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
+import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import {
+  addObjectChildren,
+  getMultiTypedChildrenFromState,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { triggerCanvasUpdate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import {
+  pixiJsStore,
+  triggerCanvasUpdate,
+  triggerCanvasUpdateFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getConnectionsByResourceForm } from 'v3/data/loaders/buildings';
 import { getItemResourceForm } from 'v3/data/loaders/items';
@@ -85,7 +94,10 @@ const makeComplexChain = (
 
   g.setGraph({
     rankdir: 'LR',
-    align: 'DL',
+    // align: 'DL',
+    ranker: 'tight-tree',
+    nodesep: 300,
+    ranksep: 300,
   });
 
   g.setDefaultEdgeLabel(function () {
@@ -100,7 +112,7 @@ const makeComplexChain = (
     },
   ];
 
-  g.setNode(nodeData.id, { label: nodeData.id, width: 300, height: 300 });
+  g.setNode(nodeData.id, { label: nodeData.id, width: 150, height: 150 });
   nodeMap.set(nodeData.id, nodeData);
   let i = 0;
   while (i < maxDepth && queue.length) {
@@ -125,7 +137,7 @@ const makeComplexChain = (
           return machineChoices.length > 0;
         });
 
-        console.log('Item product', recipes, item);
+        // console.log('Item product', recipes, item);
 
         if (recipes.length) {
           const chosenRecipeIndex = Math.floor(Math.random() * recipes.length);
@@ -156,8 +168,8 @@ const makeComplexChain = (
 
           g.setNode(nodeData.id, {
             label: nodeData.id,
-            width: 300,
-            height: 300,
+            width: 150,
+            height: 150,
           });
 
           nodeMap.set(nodeData.id, nodeData);
@@ -177,7 +189,7 @@ const makeComplexChain = (
           );
           const connection = possibleConnections[possibleConnectionsIndex];
 
-          g.setEdge(nodeData.id, node.id);
+          g.setEdge(nodeData.id, node.id, { minlen: 0.5 });
 
           const edge = populateNewEdgeData(
             [item],
@@ -187,7 +199,7 @@ const makeComplexChain = (
             node
           );
           allEdges.push(edge);
-          console.log('Created edge', edge);
+          // console.log('Created edge', edge);
         } else {
           console.error('No recipes that take ', item, ' as an input');
         }
@@ -218,17 +230,30 @@ const makeComplexChain = (
   minPoint[0] += 100;
   minPoint[1] += 100;
 
-  console.log(minPoint);
-
   g.nodes().forEach(function (v) {
     const metadata = g.node(v);
     if (metadata) {
       const node = nodeMap.get(v);
-      node.setPosition(metadata.x - minPoint[0], metadata.y - minPoint[1]);
+      node.setPosition(
+        Math.floor((metadata.x - minPoint[0]) / 150) * 150,
+        Math.floor((metadata.y - minPoint[1]) / 150) * 150
+      );
     } else {
       console.log('Node ' + v + ': ' + JSON.stringify(g.node(v)));
     }
   });
+
+  for (const node of nodeMap.values()) {
+    node.recalculateConnections();
+  }
+
+  for (const node of nodeMap.values()) {
+    node.optimizeSides();
+  }
+
+  for (const node of nodeMap.values()) {
+    node.recalculateConnections();
+  }
 
   addObjectChildren(allNodes, pixiCanvasStateId, false);
   addObjectChildren(allEdges, pixiCanvasStateId, true);
@@ -353,6 +378,19 @@ export const makeSimpleChain = (
 
   addObjectChildren(allNodes, pixiCanvasStateId, false);
   addObjectChildren(allEdges, pixiCanvasStateId, true);
+
+  for (const node of allNodes) {
+    node.recalculateConnections(false);
+  }
+
+  for (const node of allNodes) {
+    node.optimizeSides();
+  }
+
+  for (const node of allNodes) {
+    node.recalculateConnections();
+  }
+
   triggerCanvasUpdate(pixiCanvasStateId);
 };
 
@@ -362,6 +400,35 @@ const fabAction = (
   pixiCanvasStateId
 ) => () => {
   makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
+
+  pixiJsStore.update([
+    (sParent) => {
+      const s = sParent[pixiCanvasStateId];
+
+      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
+        child.optimizeSides();
+      }
+
+      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
+        child.recalculateConnections();
+      }
+
+      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
+        child.rearrangeEdges(child.outputConnections);
+        child.rearrangeEdges(child.inputConnections);
+        child.rearrangeEdges(child.anyConnections);
+      }
+
+      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
+        child.recalculateConnections();
+      }
+
+      for (const child of getMultiTypedChildrenFromState(s, [EdgeTemplate])) {
+        child.update();
+      }
+    },
+    triggerCanvasUpdateFunction(pixiCanvasStateId),
+  ]);
 };
 
 function DebugFab() {

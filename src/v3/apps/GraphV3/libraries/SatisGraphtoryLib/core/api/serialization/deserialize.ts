@@ -51,7 +51,7 @@ const deserializeGraphObjects = (
     // const targetNode = edge.targetNodeId? nodeNumberToId.get(edge.targetNodeId) : undefined;
     // const sourceNode = edge.sourceNodeId? nodeNumberToId.get(edge.sourceNodeId) : undefined;
 
-    if (!edge.sourceNodeId && !edge.targetNodeId) {
+    if (!edge.connectorTypeId) {
       const emptyEdge = new EmptyEdge({
         id: thisUuid,
         sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,

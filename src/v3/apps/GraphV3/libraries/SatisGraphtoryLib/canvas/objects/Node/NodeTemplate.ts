@@ -68,16 +68,28 @@ export abstract class NodeTemplate extends GraphObject {
     this.id = id;
     this.container.id = id;
 
+    // Sorting here is mostly useless.
+    // TODO: figure out if we should just kill this if we don't do any weird operations when
+    // passing in inputConnections and such
     if (inputConnections) {
       this.inputConnections = inputConnections;
+      this.inputConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
 
     if (outputConnections) {
       this.outputConnections = outputConnections;
+      this.outputConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
 
     if (anyConnections) {
       this.anyConnections = anyConnections;
+      this.anyConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
   }
 
@@ -97,7 +109,6 @@ export abstract class NodeTemplate extends GraphObject {
         this.inputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          targetNode: this,
           externalInteractionManager: this.getInteractionManager(),
         });
         break;
@@ -108,7 +119,6 @@ export abstract class NodeTemplate extends GraphObject {
         this.outputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          sourceNode: this,
           externalInteractionManager: this.getInteractionManager(),
         });
         break;
@@ -120,7 +130,6 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           biDirectional: true,
-          sourceNode: this,
           externalInteractionManager: this.getInteractionManager(),
         });
         break;
@@ -227,7 +236,7 @@ export abstract class NodeTemplate extends GraphObject {
     this.recalculateConnections();
   }
 
-  abstract recalculateConnections(): void;
+  abstract recalculateConnections(rearrange?: boolean): void;
 
   sortInputEdges() {
     // this.inputs.sort(

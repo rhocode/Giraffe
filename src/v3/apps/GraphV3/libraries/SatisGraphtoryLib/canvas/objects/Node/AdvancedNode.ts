@@ -3,9 +3,9 @@ import { createBackboard } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/can
 import { SatisGraphtoryNodeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import {
   MACHINE_STYLE,
+  NODE_TIER_STYLE,
   OVERCLOCK_STYLE,
   RECIPE_STYLE,
-  NODE_TIER_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
@@ -131,7 +131,11 @@ export default class AdvancedNode extends NodeTemplate {
 
   eventFunctions = new Map<string, any[]>();
 
-  recalculateConnections() {
+  recalculateConnections(rearrange = false) {
+    if (rearrange) {
+      this.optimizeSides();
+    }
+
     this.connectionsMap.clear();
     this.connectionsOffsetMap.clear();
     this.connectionsContainer.removeChildren();
@@ -203,6 +207,197 @@ export default class AdvancedNode extends NodeTemplate {
           throw new Error('Unknown side ' + side);
       }
     }
+  }
+
+  public optimizeSides() {
+    // Optimize one pass by the node location, then optimize by edge
+    for (const edge of [
+      ...this.inputConnections,
+      ...this.outputConnections,
+      ...this.anyConnections,
+    ]) {
+      const isSource = edge.sourceNode === this;
+      if (!edge.sourceNode && !edge.targetNode) continue;
+      if (!edge.sourceNode || !edge.targetNode) {
+        console.log(edge);
+        throw new Error('One of the edge sides are null');
+      }
+
+      let otherNode = isSource ? edge.targetNode : edge.sourceNode;
+
+      let x = this.container.x - otherNode?.container?.x;
+      let y = this.container.y - otherNode?.container?.y;
+
+      if (!isNaN(x) && !isNaN(y)) {
+        let theta = Math.atan2(y, x); // range (-PI, PI]
+        theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+
+        let property = 'targetNodeAttachmentSide';
+        if (isSource) {
+          property = 'sourceNodeAttachmentSide';
+        }
+
+        if (theta <= 45 && theta > -45) {
+          (edge as any)[property] = EdgeAttachmentSide.LEFT;
+        } else if (theta > 45 && theta <= 135) {
+          (edge as any)[property] = EdgeAttachmentSide.TOP;
+        } else if (theta > -135 && theta <= -45) {
+          (edge as any)[property] = EdgeAttachmentSide.BOTTOM;
+        } else {
+          (edge as any)[property] = EdgeAttachmentSide.RIGHT;
+        }
+      }
+    }
+  }
+
+  private getEdgeAngle(edge: EdgeTemplate) {
+    const isSource = edge.sourceNode === this;
+    if (!edge.sourceNode && !edge.targetNode) return Infinity;
+    if (!edge.sourceNode || !edge.targetNode) {
+      console.log(edge);
+      throw new Error('One of the edge sides are null');
+    }
+
+    let otherNode = isSource ? edge.targetNode : edge.sourceNode;
+
+    const { x: x1, y: y1 } = this.getConnectionCoordinate(edge);
+    const { x: x2, y: y2 } = otherNode.getConnectionCoordinate(edge);
+
+    let x = x1 - x2;
+    let y = y1 - y2;
+
+    if (!isNaN(x) && !isNaN(y)) {
+      let theta = Math.atan2(y, x); // range (-PI, PI]
+      theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+
+      if (theta < 0) {
+        theta = 360 + theta;
+      }
+
+      let property = 'targetNodeAttachmentSide';
+      if (isSource) {
+        property = 'sourceNodeAttachmentSide';
+      }
+
+      switch ((edge as any)[property]) {
+        case EdgeAttachmentSide.LEFT:
+          break;
+        case EdgeAttachmentSide.RIGHT:
+          theta += 180;
+          theta = theta % 360;
+          theta = 360 - theta;
+          break;
+        case EdgeAttachmentSide.TOP:
+          theta += 270;
+          theta = theta % 360;
+          break;
+        case EdgeAttachmentSide.BOTTOM:
+          theta += 90;
+          theta = theta % 360;
+          theta = 360 - theta;
+          break;
+        default:
+          throw new Error('Unhandled side ' + (edge as any)[property]);
+      }
+
+      return theta;
+    } else {
+      throw new Error('X or Y are NaN ' + this.id);
+    }
+
+    // const isSource = edge.sourceNode === this;
+    // if (isSource && edge.targetNode) {
+    //   const {x: x1, y: y1} = this.getConnectionCoordinate(
+    //     edge
+    //   );
+    //   const {x: x2, y: y2} = edge.targetNode!.getConnectionCoordinate(
+    //     edge
+    //   );
+    //
+    //   const dy = y1 - y2;
+    //   const dx = x1 - x2;
+    //   let theta = Math.atan2(dy, dx); // range (-PI, PI]
+    //   theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    //
+    //   if (theta < 45 && theta > -45) {
+    //     theta = 90 - theta;
+    //   } else if (theta > 45 && theta < 135) {
+    //     // noop
+    //   } else if (theta > -135 && theta < -45) {
+    //     theta = 180 - theta;
+    //   } else {
+    //     // right
+    //     if (theta < 0) {
+    //       theta = 360 - theta
+    //     }
+    //   }
+    //   return theta;
+    // } else if (!isSource && edge.targetNode) {
+    //   throw new Error("DFDSF")
+    // } else {
+    //   return -1;
+    // }
+  }
+  public rearrangeEdges(edges: EdgeTemplate[]) {
+    edges.sort((a, b) => {
+      return this.getEdgeAngle(a) - this.getEdgeAngle(b);
+    });
+
+    // for (const edge of edges) {
+    //   const isSource = edge.sourceNode === this;
+    //   if (!edge.sourceNode && !edge.targetNode) continue;
+    //   if (!edge.sourceNode || !edge.targetNode) {
+    //     console.log(edge);
+    //     throw new Error("One of the edge sides are null")
+    //   }
+    //
+    //   let otherNode = isSource ? edge.targetNode : edge.sourceNode;
+    //
+    //   let x = this.container.x - otherNode?.container?.x;
+    //   let y = this.container.y - otherNode?.container?.y;
+    //
+    //   if (!isNaN(x) && !isNaN(y)) {
+    //     let theta = Math.atan2(y, x); // range (-PI, PI]
+    //     theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    //
+    //     let property = 'targetNodeAttachmentSide'
+    //     if (isSource) {
+    //       property = 'sourceNodeAttachmentSide';
+    //     }
+    //
+    //     if (theta <= 45 && theta > -45) {
+    //       (edge as any)[property] = EdgeAttachmentSide.LEFT;
+    //     } else if (theta > 45 && theta <= 135) {
+    //       (edge as any)[property] = EdgeAttachmentSide.TOP;
+    //     } else if (theta > -135 && theta <= -45) {
+    //       (edge as any)[property] = EdgeAttachmentSide.BOTTOM;
+    //     } else {
+    //       (edge as any)[property] = EdgeAttachmentSide.RIGHT;
+    //     }
+    //   }
+    // }
+
+    //  // TODO: based on nodeattachmentside,
+    // // 1. filter the node.
+    // // 2. find the node ordering.
+    // // 3. if the ordering doesn't match what's in the input,
+    // // filter original list. Append the new list of SORTED elements
+    // // yay
+    //
+    // edges.sort((a, b) => {
+    //   const angle1 = this.getEdgeAngle(a);
+    //   const angle2 = this.getEdgeAngle(b);
+    //
+    //   if (angle1 < 0) {
+    //     return -1 * Infinity;
+    //   }
+    //
+    //   if (angle2 < 0) {
+    //     return Infinity;
+    //   }
+    //
+    //   return angle1 - angle2;
+    // })
   }
 
   private recalculateEdgesForSide(

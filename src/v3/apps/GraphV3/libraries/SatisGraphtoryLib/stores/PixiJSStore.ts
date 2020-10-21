@@ -33,11 +33,14 @@ export const generateNewPixiCanvasStore = (theme: any) => {
 };
 
 export const triggerCanvasUpdate = (canvasId: string) => {
-  pixiJsStore.update((t) => {
-    const s = t[canvasId];
-    // Toggles it between a 2 and a 1. We need a positive value
-    s.triggerUpdate = 3 - s.triggerUpdate;
-  });
+  pixiJsStore.update(triggerCanvasUpdateFunction(canvasId));
+};
+
+export const triggerCanvasUpdateFunction = (canvasId: string) => (t: any) => {
+  const s = t[canvasId];
+  s.triggerUpdate = s.triggerUpdate + 1;
+  // We limit the number of updates to 100
+  s.triggerUpdate = s.triggerUpdate % 100;
 };
 
 interface LooseObject {
