@@ -105,7 +105,7 @@
     "remark-preset-lint-recommended": "^5.0.0",
     "roboto-fontface": "^0.10.0",
     "sass": "^1.26.9",
-    "scheduler": "^0.19.1",
+    "scheduler": "^0.20.0",
     "seamless-immutable": "^7.1.4",
     "semver": "^7.3.2",
     "throttle-debounce": "^2.1.0",
