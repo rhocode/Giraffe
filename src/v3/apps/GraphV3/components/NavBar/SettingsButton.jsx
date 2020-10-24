@@ -1,35 +1,38 @@
-import SettingsIcon from '@material-ui/icons/Settings';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-// import transformGraph from "../../../../../apps/Graph/libraries/SGLib/algorithms/satisgraphtory/transform";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import { makeStyles } from '@material-ui/core/styles';
+import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
-import { withStyles } from '@material-ui/core';
+import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import IconDialog from './IconDialog';
-import { useStoreState } from 'pullstate';
-import { graphAppStore } from 'v3/apps/GraphV3/stores/graphAppStore';
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1)
-  }
-});
+    margin: theme.spacing(1),
+  },
+}));
 
 function SettingsButton(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
-  const graphFidelity = useStoreState(graphAppStore, s => s.graphFidelity);
-  const graphData = useStoreState(graphAppStore, s => s.graphData);
+  const { id: pixiCanvasStateId } = props;
 
-  function handleChange(event, newValue) {
-    graphAppStore.update(s => {
-      const valueToStore = newValue ? 'high' : 'low';
-      if (valueToStore !== s.graphFidelity) {
-        s.graphFidelity = valueToStore;
-      }
-    });
-  }
+  const snapToGrid = pixiJsStore.useState((state) => {
+    return state[pixiCanvasStateId]?.snapToGrid || false;
+  });
+
+  const handleSnapToGridChange = React.useCallback(
+    (event, value) => {
+      pixiJsStore.update((s) => {
+        if (value !== s[pixiCanvasStateId].snapToGrid) {
+          s[pixiCanvasStateId].snapToGrid = value;
+        }
+      });
+    },
+    [pixiCanvasStateId]
+  );
 
   return (
     <IconDialog label="Settings" icon={<SettingsIcon />}>
@@ -37,13 +40,12 @@ function SettingsButton(props) {
         <FormControlLabel
           control={
             <Checkbox
-              checked={graphFidelity === 'high'}
-              onChange={handleChange}
-              value={graphFidelity}
+              checked={snapToGrid}
+              onChange={handleSnapToGridChange}
               color="primary"
             />
           }
-          label="High Fidelity Graph"
+          label="Snap To Grid"
         />
       </FormGroup>
       <Button variant="contained" color="primary" className={classes.button}>
@@ -53,13 +55,7 @@ function SettingsButton(props) {
         variant="contained"
         color="secondary"
         className={classes.button}
-        onClick={() => {
-          if (graphData) {
-            // transformGraph(graphData, () => {
-            //   forceRefreshGraph();
-            // });
-          }
-        }}
+        onClick={() => {}}
       >
         Optimize
       </Button>
@@ -67,4 +63,4 @@ function SettingsButton(props) {
   );
 }
 
-export default withStyles(styles)(SettingsButton);
+export default SettingsButton;

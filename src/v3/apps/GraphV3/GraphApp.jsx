@@ -128,7 +128,7 @@ function GraphApp(props) {
             <meta property="og:url " content={window.location.href} />
             <title>{helmet.title}</title>
           </Helmet>
-          <NavBar />
+          <NavBar id={pixiCanvasStateId} />
           <Canvas
             id={pixiCanvasStateId}
             initialCanvasChildren={initialCanvasChildren}
@@ -143,7 +143,7 @@ function GraphApp(props) {
         </div>
       ) : (
         <div className={classes.container}>
-          <NavBar />
+          <NavBar id={pixiCanvasStateId} />
         </div>
       )}
     </React.Fragment>

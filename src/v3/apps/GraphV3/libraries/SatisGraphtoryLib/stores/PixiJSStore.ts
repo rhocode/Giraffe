@@ -29,6 +29,7 @@ export const generateNewPixiCanvasStore = (theme: any) => {
       new EventEmitter(),
       theme
     ),
+    snapToGrid: false,
   };
 };
 

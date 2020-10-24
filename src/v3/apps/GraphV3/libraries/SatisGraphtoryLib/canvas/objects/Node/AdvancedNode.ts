@@ -549,7 +549,7 @@ export default class AdvancedNode extends NodeTemplate {
     });
   }
 
-  addDragEvents() {
+  addDragEvents(opts?: { snapToGrid?: boolean }) {
     const container = this.addContainerHitArea();
 
     let dragging = false;
@@ -609,6 +609,11 @@ export default class AdvancedNode extends NodeTemplate {
       if (triggerSource === this || moveAllHighlightedArg) {
         dragging = false;
         dragLeader = false;
+        if (opts?.snapToGrid) {
+          container.position.x = Math.round(container.position.x / 150) * 150;
+          container.position.y = Math.round(container.position.y / 150) * 150;
+        }
+
         updateEdges();
       }
     }

@@ -65,6 +65,7 @@ function PixiJSApplication(props) {
     selectedEdge,
     externalInteractionManager,
     triggerUpdate,
+    snapToGrid,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -433,7 +434,7 @@ function PixiJSApplication(props) {
           ])) {
             if (child instanceof NodeTemplate) {
               child.getInteractionManager().enableEventEmitter(child.id);
-              child.addDragEvents();
+              child.addDragEvents({ snapToGrid });
             } else if (child instanceof EdgeTemplate) {
               // Noop?
             }
@@ -484,7 +485,6 @@ function PixiJSApplication(props) {
         getSupportedResourceForm(selectedEdge)
       );
 
-      console.log('AAAAAA');
       pixiJsStore.update([
         deferredRemoveChildEvents,
         setUpLinkInitialState(
@@ -510,6 +510,7 @@ function PixiJSApplication(props) {
     translate,
     viewportChildContainer,
     triggerUpdate,
+    snapToGrid,
   ]);
 
   React.useEffect(() => {
