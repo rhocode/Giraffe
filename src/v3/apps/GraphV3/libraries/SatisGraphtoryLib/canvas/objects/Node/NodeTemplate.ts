@@ -201,7 +201,11 @@ export abstract class NodeTemplate extends GraphObject {
     return this.anyConnections.length > 0;
   }
 
-  addEdge(edge: EdgeTemplate, edgeType: EdgeType) {
+  addEdge(
+    edge: EdgeTemplate,
+    edgeType: EdgeType,
+    useProvidedAttachmentSides: boolean = true
+  ) {
     const otherNode =
       edge.sourceNode === this ? edge.targetNode : edge.sourceNode;
 
@@ -210,25 +214,41 @@ export abstract class NodeTemplate extends GraphObject {
     if (edge.biDirectional) {
       const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
       const foundEdge = this.anyConnections[firstNull];
-      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (this.anyConnections.length) {
       // This is the special case where we have anyConnections but the pipe is NOT bidirectinal.
       // TODO: Fix this somehow
       const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
 
       const foundEdge = this.anyConnections[firstNull];
-      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (edgeType === EdgeType.INPUT) {
       const firstNull = this.findClosestEmpty(this.inputConnections, otherNode);
       const foundEdge = this.inputConnections[firstNull];
-      this.inputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.inputConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (edgeType === EdgeType.OUTPUT) {
       const firstNull = this.findClosestEmpty(
         this.outputConnections,
         otherNode
       );
       const foundEdge = this.outputConnections[firstNull];
-      this.outputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.outputConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else {
       console.log('Unimplemented!');
     }

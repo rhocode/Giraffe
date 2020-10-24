@@ -26,6 +26,7 @@ export interface SatisGraphtoryEdgeProps extends GraphObjectProps {
   targetNode?: NodeTemplate;
   sourceNodeAttachmentSide?: EdgeAttachmentSide;
   targetNodeAttachmentSide?: EdgeAttachmentSide;
+  useProvidedAttachmentSides?: boolean;
   connectorName?: string;
   connectorLabel?: string;
   biDirectional?: Boolean;

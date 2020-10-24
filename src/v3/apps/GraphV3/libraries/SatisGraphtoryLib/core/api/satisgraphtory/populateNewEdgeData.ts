@@ -2,13 +2,16 @@ import uuidGen from 'v3/utils/stringUtils';
 import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
 import { getItemResourceForm } from 'v3/data/loaders/items';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 
 const populateNewEdgeData = (
   items: string[] | null,
   resourceForm: number | null,
   connectorName: string,
   sourceNode: NodeTemplate,
-  targetNode: NodeTemplate
+  targetNode: NodeTemplate,
+  sourceNodeAttachmentSide?: EdgeAttachmentSide,
+  targetNodeAttachmentSide?: EdgeAttachmentSide
 ) => {
   if (items === null && resourceForm == null) {
     throw new Error('Only recipe or resourceForm can be null, not both');
@@ -34,6 +37,9 @@ const populateNewEdgeData = (
     sourceNode,
     targetNode,
     connectorName,
+    sourceNodeAttachmentSide,
+    targetNodeAttachmentSide,
+    useProvidedAttachmentSides: true,
     externalInteractionManager: sourceNode.getInteractionManager(), // TODO: a hack to pass through the theme
   });
 };

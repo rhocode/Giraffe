@@ -32,6 +32,7 @@ import {
   TIER_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import {
+  GRID_SIZE,
   MACHINE_SIZE,
   NODE_HEIGHT,
   NODE_WIDTH,
@@ -246,11 +247,11 @@ export default class AdvancedNode extends NodeTemplate {
           property = 'sourceNodeAttachmentSide';
         }
 
-        if (theta <= 45 && theta > -45) {
+        if (theta <= 45 && theta >= -45) {
           (edge as any)[property] = EdgeAttachmentSide.LEFT;
-        } else if (theta > 45 && theta <= 135) {
+        } else if (theta > 45 && theta < 135) {
           (edge as any)[property] = EdgeAttachmentSide.TOP;
-        } else if (theta > -135 && theta <= -45) {
+        } else if (theta > -135 && theta < -45) {
           (edge as any)[property] = EdgeAttachmentSide.BOTTOM;
         } else {
           (edge as any)[property] = EdgeAttachmentSide.RIGHT;
@@ -559,8 +560,10 @@ export default class AdvancedNode extends NodeTemplate {
         dragging = false;
         dragLeader = false;
         if (opts?.snapToGrid) {
-          container.position.x = Math.round(container.position.x / 150) * 150;
-          container.position.y = Math.round(container.position.y / 150) * 150;
+          container.position.x =
+            Math.round(container.position.x / GRID_SIZE) * GRID_SIZE;
+          container.position.y =
+            Math.round(container.position.y / GRID_SIZE) * GRID_SIZE;
         }
 
         updateEdges();

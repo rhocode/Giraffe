@@ -7,12 +7,14 @@ import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtor
 import { EResourceForm } from '.data-landing/interfaces/enums';
 
 export enum EdgeType {
+  INVALID,
   OUTPUT,
   INPUT,
   ANY,
 }
 
 export enum EdgeAttachmentSide {
+  INVALID,
   LEFT,
   RIGHT,
   TOP,
@@ -81,11 +83,17 @@ export default abstract class EdgeTemplate extends GraphObject {
     }
   }
 
-  replaceEdge(replacementEdge: EdgeTemplate, edgeType: EdgeType) {
-    if (edgeType === EdgeType.INPUT) {
-      replacementEdge.targetNodeAttachmentSide = this.targetNodeAttachmentSide;
-    } else if (edgeType === EdgeType.OUTPUT) {
-      replacementEdge.sourceNodeAttachmentSide = this.sourceNodeAttachmentSide;
+  replaceEdge(
+    replacementEdge: EdgeTemplate,
+    edgeType: EdgeType,
+    useProvidedAttachmentSides: boolean = true
+  ) {
+    if (!useProvidedAttachmentSides) {
+      if (edgeType === EdgeType.INPUT) {
+        replacementEdge.targetNodeAttachmentSide = this.targetNodeAttachmentSide;
+      } else if (edgeType === EdgeType.OUTPUT) {
+        replacementEdge.sourceNodeAttachmentSide = this.sourceNodeAttachmentSide;
+      }
     }
 
     this.delete();

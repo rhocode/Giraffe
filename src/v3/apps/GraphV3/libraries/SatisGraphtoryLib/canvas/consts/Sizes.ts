@@ -1,5 +1,6 @@
 export const NODE_WIDTH = 145;
 export const NODE_HEIGHT = 145;
+export const GRID_SIZE = 225;
 export const MACHINE_SIZE = 100;
 export const TOP_HEIGHT = 110;
 export const BOX_THICKNESS = 4;
