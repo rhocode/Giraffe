@@ -343,7 +343,7 @@ function PixiJSApplication(props) {
 
     previousMouseState.current = mouseState;
 
-    console.log('Re-applying mouse triggers', triggerUpdate);
+    // console.log('Re-applying mouse triggers', triggerUpdate);
 
     pixiViewport.plugins.pause('drag');
     pixiViewport.plugins.pause('wheel');
