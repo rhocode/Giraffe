@@ -47,6 +47,9 @@ export abstract class GraphObject {
 
   abstract removeInteractionEvents(): void;
   abstract addSelectEvents(onSelectObjects: (ids: string[]) => any): void;
-  abstract addDragEvents(opts?: { snapToGrid?: boolean }): any[];
+  abstract addDragEvents(opts?: {
+    snapToGrid?: boolean;
+    autoShuffleEdge?: boolean;
+  }): any[];
   abstract delete(): GraphObject[];
 }

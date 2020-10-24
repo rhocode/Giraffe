@@ -66,6 +66,7 @@ function PixiJSApplication(props) {
     externalInteractionManager,
     triggerUpdate,
     snapToGrid,
+    autoShuffleEdge,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -198,7 +199,10 @@ function PixiJSApplication(props) {
       pixiJsStore.update((sParent) => {
         let s = sParent[pixiCanvasStateId];
         if (!s) {
-          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore(theme);
+          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore(
+            theme,
+            pixiCanvasStateId
+          );
           s = sParent[pixiCanvasStateId];
         }
 
@@ -434,7 +438,7 @@ function PixiJSApplication(props) {
           ])) {
             if (child instanceof NodeTemplate) {
               child.getInteractionManager().enableEventEmitter(child.id);
-              child.addDragEvents({ snapToGrid });
+              child.addDragEvents({ snapToGrid, autoShuffleEdge });
             } else if (child instanceof EdgeTemplate) {
               // Noop?
             }
@@ -511,6 +515,7 @@ function PixiJSApplication(props) {
     viewportChildContainer,
     triggerUpdate,
     snapToGrid,
+    autoShuffleEdge,
   ]);
 
   React.useEffect(() => {

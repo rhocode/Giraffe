@@ -6,7 +6,7 @@ import EventEmitter from 'eventemitter3';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
-export const generateNewPixiCanvasStore = (theme: any) => {
+export const generateNewPixiCanvasStore = (theme: any, id: string) => {
   return {
     application: (null as unknown) as PIXI.Application,
     viewport: (null as unknown) as Viewport,
@@ -27,9 +27,11 @@ export const generateNewPixiCanvasStore = (theme: any) => {
     sourceNodeId: '',
     externalInteractionManager: new ExternalInteractionManager(
       new EventEmitter(),
-      theme
+      theme,
+      id
     ),
     snapToGrid: false,
+    autoShuffleEdge: false,
   };
 };
 

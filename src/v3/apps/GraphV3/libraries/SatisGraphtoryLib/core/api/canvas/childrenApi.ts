@@ -63,11 +63,21 @@ export function getTypedChildrenFromState(state: any, type: any): any[] {
   return state.children.filter((item: any) => item instanceof type);
 }
 
-export function getMultiTypedChildrenFromState(state: any, type: any[]): any[] {
+export function getMultiTypedChildrenFromState(
+  state: any,
+  type: any[],
+  whitelistedIds = new Set<string>()
+): any[] {
   return state.children.filter((item: any) => {
-    return type.some((subType: any) => {
+    let hasAttribute = type.some((subType: any) => {
       return item instanceof subType;
     });
+
+    if (whitelistedIds.size) {
+      return whitelistedIds.has(item.id) && hasAttribute;
+    }
+
+    return hasAttribute;
   });
 }
 

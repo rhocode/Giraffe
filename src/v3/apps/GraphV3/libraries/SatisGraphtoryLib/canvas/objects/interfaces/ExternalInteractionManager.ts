@@ -4,10 +4,16 @@ class ExternalInteractionManager {
   private theme: any = {};
   private readonly eventEmitter: EventEmitter;
   private eventEmitterMap = new Map<string, boolean>();
+  private canvasId: string;
 
-  constructor(eventEmitter: EventEmitter, theme: any) {
+  constructor(eventEmitter: EventEmitter, theme: any, canvasId: string) {
     this.eventEmitter = eventEmitter;
     this.theme = theme;
+    this.canvasId = canvasId;
+  }
+
+  getCanvasId() {
+    return this.canvasId;
   }
 
   getEventEmitter() {

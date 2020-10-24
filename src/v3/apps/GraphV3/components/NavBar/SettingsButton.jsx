@@ -23,11 +23,27 @@ function SettingsButton(props) {
     return state[pixiCanvasStateId]?.snapToGrid || false;
   });
 
+  const autoShuffleEdge = pixiJsStore.useState((state) => {
+    return state[pixiCanvasStateId]?.autoShuffleEdge || false;
+  });
+
   const handleSnapToGridChange = React.useCallback(
     (event, value) => {
       pixiJsStore.update((s) => {
         if (value !== s[pixiCanvasStateId].snapToGrid) {
           s[pixiCanvasStateId].snapToGrid = value;
+        }
+      });
+    },
+    [pixiCanvasStateId]
+  );
+
+  const handleAutoShuffleEdgeChange = React.useCallback(
+    (event, value) => {
+      pixiJsStore.update((s) => {
+        console.log(s[pixiCanvasStateId].autoShuffleEdge);
+        if (value !== s[pixiCanvasStateId].autoShuffleEdge) {
+          s[pixiCanvasStateId].autoShuffleEdge = value;
         }
       });
     },
@@ -46,6 +62,16 @@ function SettingsButton(props) {
             />
           }
           label="Snap To Grid"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={autoShuffleEdge}
+              onChange={handleAutoShuffleEdgeChange}
+              color="primary"
+            />
+          }
+          label="Auto-Shuffle Edges"
         />
       </FormGroup>
       <Button variant="contained" color="primary" className={classes.button}>

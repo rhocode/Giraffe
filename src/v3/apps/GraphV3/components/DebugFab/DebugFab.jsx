@@ -5,12 +5,12 @@ import * as dagre from 'dagre';
 import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
-import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
+import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import {
-  addObjectChildren,
-  getMultiTypedChildrenFromState,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
+  optimizeSidesFunction,
+  rearrangeEdgesFunction,
+  updateChildrenFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
 import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
@@ -402,31 +402,9 @@ const fabAction = (
   makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
 
   pixiJsStore.update([
-    (sParent) => {
-      const s = sParent[pixiCanvasStateId];
-
-      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
-        child.optimizeSides();
-      }
-
-      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
-        child.recalculateConnections();
-      }
-
-      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
-        child.rearrangeEdges(child.outputConnections);
-        child.rearrangeEdges(child.inputConnections);
-        child.rearrangeEdges(child.anyConnections);
-      }
-
-      for (const child of getMultiTypedChildrenFromState(s, [NodeTemplate])) {
-        child.recalculateConnections();
-      }
-
-      for (const child of getMultiTypedChildrenFromState(s, [EdgeTemplate])) {
-        child.update();
-      }
-    },
+    optimizeSidesFunction(pixiCanvasStateId),
+    rearrangeEdgesFunction(pixiCanvasStateId),
+    updateChildrenFunction(pixiCanvasStateId),
     triggerCanvasUpdateFunction(pixiCanvasStateId),
   ]);
 };

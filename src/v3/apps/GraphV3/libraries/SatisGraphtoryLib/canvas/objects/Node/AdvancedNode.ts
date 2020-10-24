@@ -48,6 +48,15 @@ import EdgeTemplate, {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { EResourceForm } from '.data-landing/interfaces/enums';
+import {
+  pixiJsStore,
+  triggerCanvasUpdateFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import {
+  optimizeSidesFunction,
+  rearrangeEdgesFunction,
+  updateChildrenFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
@@ -281,18 +290,18 @@ export default class AdvancedNode extends NodeTemplate {
 
       switch ((edge as any)[property]) {
         case EdgeAttachmentSide.LEFT:
-          break;
-        case EdgeAttachmentSide.RIGHT:
           theta += 180;
           theta = theta % 360;
           theta = 360 - theta;
           break;
+        case EdgeAttachmentSide.RIGHT:
+          break;
         case EdgeAttachmentSide.TOP:
-          theta += 270;
+          theta += 90;
           theta = theta % 360;
           break;
         case EdgeAttachmentSide.BOTTOM:
-          theta += 90;
+          theta += 270;
           theta = theta % 360;
           theta = 360 - theta;
           break;
@@ -340,6 +349,7 @@ export default class AdvancedNode extends NodeTemplate {
   }
   public rearrangeEdges(edges: EdgeTemplate[]) {
     edges.sort((a, b) => {
+      console.log(a.id, b.id, this.getEdgeAngle(a), this.getEdgeAngle(b));
       return this.getEdgeAngle(a) - this.getEdgeAngle(b);
     });
 
@@ -549,7 +559,7 @@ export default class AdvancedNode extends NodeTemplate {
     });
   }
 
-  addDragEvents(opts?: { snapToGrid?: boolean }) {
+  addDragEvents(opts?: { snapToGrid?: boolean; autoShuffleEdge?: boolean }) {
     const container = this.addContainerHitArea();
 
     let dragging = false;
@@ -561,6 +571,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const context = this;
     const nodeEventEmitter = this.getInteractionManager().getEventEmitter();
+    const pixiCanvasStateId = this.getInteractionManager().getCanvasId();
 
     // Drag Functions Start
 
@@ -608,6 +619,7 @@ export default class AdvancedNode extends NodeTemplate {
     ) {
       if (triggerSource === this || moveAllHighlightedArg) {
         dragging = false;
+        const wasDragLeader = dragLeader;
         dragLeader = false;
         if (opts?.snapToGrid) {
           container.position.x = Math.round(container.position.x / 150) * 150;
@@ -615,6 +627,17 @@ export default class AdvancedNode extends NodeTemplate {
         }
 
         updateEdges();
+
+        // Only run this once
+        // TODO: find a way to pass in all dragged nodes
+        if (opts?.autoShuffleEdge && wasDragLeader) {
+          pixiJsStore.update([
+            optimizeSidesFunction(pixiCanvasStateId),
+            rearrangeEdgesFunction(pixiCanvasStateId),
+            updateChildrenFunction(pixiCanvasStateId),
+            triggerCanvasUpdateFunction(pixiCanvasStateId),
+          ]);
+        }
       }
     }
 
