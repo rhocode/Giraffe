@@ -44,7 +44,6 @@ import {
 import { Events } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Events';
 import initializeMap from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/initializeMap';
 import EdgeTemplate, {
-  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
@@ -58,6 +57,7 @@ import {
   rearrangeEdgesFunction,
   updateChildrenFunction,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();

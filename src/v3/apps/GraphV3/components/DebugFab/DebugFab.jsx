@@ -7,6 +7,11 @@ import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { GRID_SIZE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
+import {
+  optimizeSidesFunction,
+  rearrangeEdgesFunction,
+  updateChildrenFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
 import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
@@ -45,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const makeComplexChain = (
+export const makeComplexChain = (
   translate,
   externalInteractionManager,
   pixiCanvasStateId
@@ -388,12 +393,12 @@ const fabAction = (
   externalInteractionManager,
   pixiCanvasStateId
 ) => () => {
-  makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
+  // makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
 
   pixiJsStore.update([
-    // optimizeSidesFunction(pixiCanvasStateId),
-    // rearrangeEdgesFunction(pixiCanvasStateId),
-    // updateChildrenFunction(pixiCanvasStateId),
+    optimizeSidesFunction(pixiCanvasStateId),
+    rearrangeEdgesFunction(pixiCanvasStateId),
+    updateChildrenFunction(pixiCanvasStateId),
     triggerCanvasUpdateFunction(pixiCanvasStateId),
   ]);
 };

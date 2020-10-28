@@ -1,5 +1,4 @@
 import EdgeTemplate, {
-  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
@@ -14,6 +13,7 @@ import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objec
 import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
 import { EDGE_TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import { getTier } from 'v3/data/loaders/buildings';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 
 export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;

@@ -12,6 +12,7 @@ import {
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 const populateNewNodeData = (
   buildingSlug: string,
@@ -37,15 +38,15 @@ const populateNewNodeData = (
     inputConnections: getInputsForBuilding(
       buildingSlug,
       externalInteractionManager
-    ),
+    ).map((props) => new EmptyEdge(props)),
     outputConnections: getOutputsForBuilding(
       buildingSlug,
       externalInteractionManager
-    ),
+    ).map((props) => new EmptyEdge(props)),
     anyConnections: getAnyConnectionsForBuilding(
       buildingSlug,
       externalInteractionManager
-    ),
+    ).map((props) => new EmptyEdge(props)),
     externalInteractionManager,
   });
 };

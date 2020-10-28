@@ -36,6 +36,9 @@ const GraphApp = chooseLoadingStyle(GraphImport);
 const HubImport = () => import('apps/Hub/HubApp');
 const HubApp = chooseLoadingStyle(HubImport);
 
+const ReleaseImport = () => import('../../v3/apps/ReleasePage/ReleasePage');
+const ReleaseApp = chooseLoadingStyle(ReleaseImport);
+
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
 
@@ -172,6 +175,17 @@ function getHubApp(local = false) {
   );
 }
 
+function getReleaseApp(local = false) {
+  return (
+    <Route
+      key={'release'}
+      path={local ? `/release` : `/`}
+      exact={!local}
+      component={ReleaseApp}
+    />
+  );
+}
+
 function getHomeApp() {
   return <Route key={'home'} path={`/`} exact component={HomeApp} />;
 }
@@ -191,6 +205,7 @@ function resolveDomain() {
     domainList.push(getHomeApp());
     domainList.push(getGraphApp(true));
     domainList.push(getHubApp(true));
+    domainList.push(getReleaseApp(true));
   }
 
   return domainList;

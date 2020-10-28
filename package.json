@@ -135,7 +135,6 @@
     "checkout-data-landing": "./scripts/checkout.sh data-landing",
     "generate-images-v3": "cross-env-shell metagen --filter=png src/data/images es6WithFileExtension",
     "lint-md": "remark . -o",
-    "analyze": "node analyzer/analyze.js",
     "serve": "serve -s build"
   },
   "browserslist": {

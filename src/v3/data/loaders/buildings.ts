@@ -6,12 +6,10 @@ import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
 import { EResourceForm } from '.data-landing/interfaces/enums';
 import uuidGen from 'v3/utils/stringUtils';
-import EdgeTemplate, {
-  EdgeAttachmentSide,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
-import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 import SGImageRepo from 'v3/data/loaders/sgImageRepo';
 import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
+import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 
 const slugToCustomMachineGroup = (slug: string) => {
   switch (slug) {
@@ -326,25 +324,21 @@ export const getOutputsForBuilding = (
   externalInteractionManager: ExternalInteractionManager
 ) => {
   const building = (ConnectionsJson as any)[buildingSlug];
-  const outputObject: EdgeTemplate[] = [];
+  const outputObject: SatisGraphtoryEdgeProps[] = [];
   for (let i = 0; i < building.outputBelts || 0; i++) {
-    outputObject.push(
-      new EmptyEdge({
-        resourceForm: EResourceForm.RF_SOLID,
-        id: uuidGen(),
-        externalInteractionManager,
-      })
-    );
+    outputObject.push({
+      resourceForm: EResourceForm.RF_SOLID,
+      id: uuidGen(),
+      externalInteractionManager,
+    });
   }
 
   for (let i = 0; i < building.outputPipes || 0; i++) {
-    outputObject.push(
-      new EmptyEdge({
-        resourceForm: EResourceForm.RF_LIQUID,
-        id: uuidGen(),
-        externalInteractionManager,
-      })
-    );
+    outputObject.push({
+      resourceForm: EResourceForm.RF_LIQUID,
+      id: uuidGen(),
+      externalInteractionManager,
+    });
   }
 
   return outputObject;
@@ -355,25 +349,21 @@ export const getInputsForBuilding = (
   externalInteractionManager: ExternalInteractionManager
 ) => {
   const building = (ConnectionsJson as any)[buildingSlug];
-  const outputObject: EdgeTemplate[] = [];
+  const outputObject: SatisGraphtoryEdgeProps[] = [];
   for (let i = 0; i < building.inputBelts || 0; i++) {
-    outputObject.push(
-      new EmptyEdge({
-        resourceForm: EResourceForm.RF_SOLID,
-        id: uuidGen(),
-        externalInteractionManager,
-      })
-    );
+    outputObject.push({
+      resourceForm: EResourceForm.RF_SOLID,
+      id: uuidGen(),
+      externalInteractionManager,
+    });
   }
 
   for (let i = 0; i < building.inputPipes || 0; i++) {
-    outputObject.push(
-      new EmptyEdge({
-        resourceForm: EResourceForm.RF_LIQUID,
-        id: uuidGen(),
-        externalInteractionManager,
-      })
-    );
+    outputObject.push({
+      resourceForm: EResourceForm.RF_LIQUID,
+      id: uuidGen(),
+      externalInteractionManager,
+    });
   }
 
   return outputObject;
@@ -384,7 +374,7 @@ export const getAnyConnectionsForBuilding = (
   externalInteractionManager: ExternalInteractionManager
 ) => {
   const building = (ConnectionsJson as any)[buildingSlug];
-  const outputObject: EdgeTemplate[] = [];
+  const outputObject: SatisGraphtoryEdgeProps[] = [];
 
   let sides: EdgeAttachmentSide[] = [];
 
@@ -412,29 +402,25 @@ export const getAnyConnectionsForBuilding = (
       break;
     default:
       for (let i = 0; i < building.anyPipes || 0; i++) {
-        outputObject.push(
-          new EmptyEdge({
-            resourceForm: EResourceForm.RF_LIQUID,
-            id: uuidGen(),
-            biDirectional: true,
-            externalInteractionManager,
-          })
-        );
+        outputObject.push({
+          resourceForm: EResourceForm.RF_LIQUID,
+          id: uuidGen(),
+          biDirectional: true,
+          externalInteractionManager,
+        });
       }
       return outputObject;
   }
 
   for (let i = 0; i < building.anyPipes || 0; i++) {
-    outputObject.push(
-      new EmptyEdge({
-        resourceForm: EResourceForm.RF_LIQUID,
-        id: uuidGen(),
-        biDirectional: true,
-        targetNodeAttachmentSide: sides[i],
-        sourceNodeAttachmentSide: sides[i],
-        externalInteractionManager,
-      })
-    );
+    outputObject.push({
+      resourceForm: EResourceForm.RF_LIQUID,
+      id: uuidGen(),
+      biDirectional: true,
+      targetNodeAttachmentSide: sides[i],
+      sourceNodeAttachmentSide: sides[i],
+      externalInteractionManager,
+    });
   }
 
   return outputObject;
