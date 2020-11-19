@@ -39,6 +39,9 @@ const HubApp = chooseLoadingStyle(HubImport);
 const PrivacyImport = () => import('../../apps/PrivacyPolicy/PrivacyApp');
 const PrivacyApp = chooseLoadingStyle(PrivacyImport);
 
+const TermsImport = () => import('../../apps/TermsOfService/TermsOfService');
+const TermsApp = chooseLoadingStyle(TermsImport);
+
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
 
@@ -186,6 +189,17 @@ function getPrivacyApp(local = false) {
   );
 }
 
+function getTermsApp(local = false) {
+  return (
+    <Route
+      key={'terms'}
+      path={local ? `/terms` : `/`}
+      exact={!local}
+      component={TermsApp}
+    />
+  );
+}
+
 function getHomeApp() {
   return <Route key={'home'} path={`/`} exact component={HomeApp} />;
 }
@@ -206,6 +220,7 @@ function resolveDomain() {
     domainList.push(getGraphApp(true));
     domainList.push(getHubApp(true));
     domainList.push(getPrivacyApp(true));
+    domainList.push(getTermsApp(true));
   }
 
   return domainList;

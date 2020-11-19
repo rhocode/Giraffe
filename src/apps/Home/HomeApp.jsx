@@ -11,20 +11,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
   faDownload,
-  faPen
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscord,
   faRedditAlien,
   faTwitter,
-  faGithub
+  faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 
 class HomeApp extends Component {
   state = {
-    showMenu: false
+    showMenu: false,
   };
   toggleMenu = (showMenu = false) => {
     this.setState({ showMenu });
@@ -266,6 +266,12 @@ class HomeApp extends Component {
                 Site Design: <a href="http://html5up.net">HTML5 UP</a>, licensed
                 for use under the Creative Commons Attribution license. Modified
                 for use by rhoCode.
+                <br />
+                <br />
+                <a href="terms">Our Terms of Service</a>
+                <br />
+                <br />
+                <a href="privacy">Our Privacy Policy</a>
               </p>
             </Copyright>
           </div>
