@@ -38,6 +38,7 @@ type CanvasProps = {
   ) => NodeTemplate[] | undefined;
   onFinishLoad: () => void | undefined;
   id: string;
+  dataLoaded: boolean;
 };
 
 function Canvas(props: CanvasProps) {

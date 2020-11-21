@@ -32,6 +32,7 @@ export const generateNewPixiCanvasStore = (theme: any, id: string) => {
     ),
     snapToGrid: false,
     autoShuffleEdge: false,
+    signedIn: false,
   };
 };
 

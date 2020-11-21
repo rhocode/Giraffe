@@ -13,7 +13,6 @@ const formatEntry = (
   deprecated: boolean = false,
   isNew: boolean = false
 ) => {
-  console.log(isNew);
   return (
     `\t'${key}' = ${number},` +
     (deprecated ? '// deprecated' : '') +

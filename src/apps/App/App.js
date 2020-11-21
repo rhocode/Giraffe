@@ -33,8 +33,8 @@ const HomeApp = chooseLoadingStyle(HomeImport);
 const GraphImport = () => import('../../v3/apps/GraphV3/GraphApp');
 const GraphApp = chooseLoadingStyle(GraphImport);
 
-const HubImport = () => import('apps/Hub/HubApp');
-const HubApp = chooseLoadingStyle(HubImport);
+const SimulationImport = () => import('apps/Simulation/SimulationApp');
+const SimulationApp = chooseLoadingStyle(SimulationImport);
 
 const ReleaseImport = () => import('../../v3/apps/ReleasePage/ReleasePage');
 const ReleaseApp = chooseLoadingStyle(ReleaseImport);
@@ -167,10 +167,10 @@ function getGraphApp(local = false) {
 function getHubApp(local = false) {
   return (
     <Route
-      key={'hub'}
-      path={local ? `/hub` : `/`}
+      key={'sim'}
+      path={local ? `/sim` : `/`}
       exact={!local}
-      component={HubApp}
+      component={SimulationApp}
     />
   );
 }

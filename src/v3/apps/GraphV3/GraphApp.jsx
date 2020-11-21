@@ -58,6 +58,11 @@ function GraphApp(props) {
 
   const classes = useStyles();
 
+  const [data, setData] = React.useState({
+    loaded: false,
+    graph: {},
+  });
+
   React.useEffect(() => {
     // let instance = worker();
     //
@@ -69,15 +74,16 @@ function GraphApp(props) {
 
   const initialCanvasChildren = React.useCallback(
     (application, viewport, translate, externalInteractionManager) => {
-      console.log('Canvas load function called');
+      console.log('Canvas load function called', data.graph);
       return initCanvasChildren(
         application,
         viewport,
         translate,
-        externalInteractionManager
+        externalInteractionManager,
+        data.graph
       );
     },
-    []
+    [data.graph]
   );
 
   const onFinishLoad = React.useCallback(() => {
@@ -89,25 +95,46 @@ function GraphApp(props) {
     const graphId = (match && match.params && match.params.graphId) || null;
 
     if (graphId) {
-      fetch('https://api.myjson.com/bins/' + graphId)
+      fetch(
+        'https://www.googleapis.com/drive/v3/files/1parVWzimSkABuaUrS_TB9e-iaKOHsnIX?key=AIzaSyCZaipoQKvSrgNdQUZL_0Bc98SDG_Okcvs&alt=media'
+      )
         .then((resp) => resp.json())
-        .then((json) => {
-          setHelmet(json);
-        })
-        .catch(() => {
-          setHelmet({
-            title: 'SatisGraphtory | Factory Building Graph Simulation',
-            description:
-              'Feature-rich factory optimization and calculation tool for Satisfactory game',
-            image: 'https://i.imgur.com/DPEmxE0.png',
+        .then((resp) => console.log('We were able to load!', resp))
+        .finally(() => {
+          setData({
+            loaded: true,
+            graph: { derp: true },
           });
         });
+
+      // fetch('https://api.myjson.com/bins/' + graphId)
+      //   .then((resp) => resp.json())
+      //   .then((json) => {
+      //     setHelmet(json);
+      //   })
+      //   .catch(() => {
+      //     setHelmet({
+      //       title: 'SatisGraphtory | Factory Building Graph Simulation',
+      //       description:
+      //         'Feature-rich factory optimization and calculation tool for Satisfactory game',
+      //       image: 'https://i.imgur.com/DPEmxE0.png',
+      //     });
+      //   }).finally(() => {
+      //   setData({
+      //     loaded: true,
+      //     graph: {derp: true}
+      //   });
+      // });
     } else {
       setHelmet({
         title: 'SatisGraphtory | Factory Building Graph Simulation',
         description:
           'Feature-rich factory optimization and calculation tool for Satisfactory game',
         image: 'https://i.imgur.com/DPEmxE0.png',
+      });
+      setData({
+        loaded: true,
+        graph: { derp: true },
       });
     }
   }, [language.code, match]);
@@ -128,8 +155,9 @@ function GraphApp(props) {
             <meta property="og:url " content={window.location.href} />
             <title>{helmet.title}</title>
           </Helmet>
-          <NavBar id={pixiCanvasStateId} />
+          <NavBar id={pixiCanvasStateId} loaded={data.loaded} />
           <Canvas
+            dataLoaded={data.loaded}
             id={pixiCanvasStateId}
             initialCanvasChildren={initialCanvasChildren}
             onFinishLoad={onFinishLoad}

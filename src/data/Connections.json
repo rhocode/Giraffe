@@ -144,5 +144,9 @@
   "building-pipeline": {
     "inputPipes": 1,
     "outputPipes": 1
+  },
+  "building-pipeline-mk2": {
+    "inputPipes": 1,
+    "outputPipes": 1
   }
 }
