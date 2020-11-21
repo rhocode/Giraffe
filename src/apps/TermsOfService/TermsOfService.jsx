@@ -23,8 +23,14 @@ const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
       margin: 0,
-      padding: 0,
-      listStyle: 'none',
+      paddingLeft: '1em',
+      listStyle: 'square',
+    },
+    li: {
+      paddingLeft: '0.5em',
+    },
+    a: {
+      color: '#3399ff',
     },
   },
   appBar: {
@@ -40,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1.5),
   },
   heroContent: {
+    maxWidth: '60em',
     padding: theme.spacing(8, 0, 6),
   },
   cardHeader: {
@@ -75,37 +82,45 @@ export default function PrivacyApp() {
       <Container maxWidth="lg" component="main" className={classes.heroContent}>
         <Typography
           component="h1"
-          variant="h2"
+          variant="h3"
           align="center"
           color="textPrimary"
           gutterBottom
         >
           SatisGraphtory Terms and Conditions
         </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          <h2>
-            <strong>Terms and Conditions</strong>
-          </h2>
-
+        <Typography variant="" align="left" color="textSecondary" component="p">
+          <h1>Changes to These Terms and Conditions</h1>
+          <p>
+            Alexander Fu and the SatisGraphtory maintainers may update our Terms
+            and Conditions from time to time. Thus, you are advised to review
+            this page periodically for any changes. Alexander Fu and the
+            SatisGraphtory maintainers will notify you of any changes by posting
+            the new Terms and Conditions on this page.
+          </p>
+          <p>
+            <strong>This policy is effective as of 2020-11-21.</strong>
+          </p>
+          <h1>Terms and Conditions</h1>
           <p>Welcome to SatisGraphtory!</p>
 
           <p>
             These terms and conditions outline the rules and regulations for the
-            use of SatisGraphtory's Website, located at
-            https://SatisGraphtory2.com.
+            use of SatisGraphtory's Website, located at{' '}
+            <a
+              href="https://SatisGraphtory2.com"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+            >
+              SatisGraphtory2.com
+            </a>
+            .
           </p>
-
           <p>
             By accessing this website we assume you accept these terms and
             conditions. Do not continue to use SatisGraphtory if you do not
             agree to take all of the terms and conditions stated on this page.
           </p>
-
           <p>
             The following terminology applies to these Terms and Conditions,
             Privacy Statement and Disclaimer Notice and all Agreements:
@@ -124,10 +139,7 @@ export default function PrivacyApp() {
             referring to same.
           </p>
 
-          <h3>
-            <strong>Cookies</strong>
-          </h3>
-
+          <h1>Cookies</h1>
           <p>
             We employ the use of cookies. By accessing SatisGraphtory, you
             agreed to use cookies in agreement with the SatisGraphtory's Privacy
@@ -142,9 +154,7 @@ export default function PrivacyApp() {
             also use cookies.
           </p>
 
-          <h3>
-            <strong>License</strong>
-          </h3>
+          <h1>License</h1>
 
           <p>
             Unless otherwise stated, SatisGraphtory and/or its licensors own the
@@ -176,57 +186,34 @@ export default function PrivacyApp() {
           </p>
 
           <p>
-            Parts of this website offer an opportunity for users to post and
-            exchange opinions and information in certain areas of the website.
-            SatisGraphtory does not filter, edit, publish or review Comments
-            prior to their presence on the website. Comments do not reflect the
-            views and opinions of SatisGraphtory,its agents and/or affiliates.
-            Comments reflect the views and opinions of the person who post their
-            views and opinions. To the extent permitted by applicable laws,
-            SatisGraphtory shall not be liable for the Comments or for any
-            liability, damages or expenses caused and/or suffered as a result of
-            any use of and/or posting of and/or appearance of the Comments on
-            this website.
+            Many of our services allow you to interact with others. We want to
+            maintain a respectful environment for everyone, which means you must
+            follow these basic rules of conduct:
           </p>
-
-          <p>
-            SatisGraphtory reserves the right to monitor all Comments and to
-            remove any Comments which can be considered inappropriate, offensive
-            or causes breach of these Terms and Conditions.
-          </p>
-
-          <p>You warrant and represent that:</p>
-
           <ul>
             <li>
-              You are entitled to post the Comments on our website and have all
-              necessary licenses and consents to do so;
+              Comply with applicable laws, including export control, sanctions,
+              and human trafficking laws
             </li>
             <li>
-              The Comments do not invade any intellectual property right,
-              including without limitation copyright, patent or trademark of any
-              third party;
+              Respect the rights of others, including privacy and intellectual
+              property rights
             </li>
             <li>
-              The Comments do not contain any defamatory, libelous, offensive,
-              indecent or otherwise unlawful material which is an invasion of
-              privacy
+              Don’t abuse or harm others or yourself (or threaten or encourage
+              such abuse or harm) — for example, by misleading, defrauding,
+              defaming, bullying, harassing, or stalking others
             </li>
-            <li>
-              The Comments will not be used to solicit or promote business or
-              custom or present commercial activities or unlawful activity.
-            </li>
+            <li>Don’t abuse, harm, interfere with, or disrupt the Services</li>
           </ul>
 
           <p>
             You hereby grant SatisGraphtory a non-exclusive license to use,
             reproduce, edit and authorize others to use, reproduce and edit any
-            of your Comments in any and all forms, formats or media.
+            of your Products in any and all forms, formats or media.
           </p>
 
-          <h3>
-            <strong>Hyperlinking to our Content</strong>
-          </h3>
+          <h1>Hyperlinking to our Content</h1>
 
           <p>
             The following organizations may link to our Website without prior
@@ -319,9 +306,7 @@ export default function PrivacyApp() {
             linking absent a trademark license agreement.
           </p>
 
-          <h3>
-            <strong>iFrames</strong>
-          </h3>
+          <h1>iFrames</h1>
 
           <p>
             Without prior approval and written permission, you may not create
@@ -329,9 +314,7 @@ export default function PrivacyApp() {
             presentation or appearance of our Website.
           </p>
 
-          <h3>
-            <strong>Content Liability</strong>
-          </h3>
+          <h1>Content Liability</h1>
 
           <p>
             We shall not be hold responsible for any content that appears on
@@ -342,15 +325,21 @@ export default function PrivacyApp() {
             or other violation of, any third party rights.
           </p>
 
-          <h3>
-            <strong>Your Privacy</strong>
-          </h3>
+          <h1>Your Privacy</h1>
 
-          <p>Please read Privacy Policy</p>
+          <p>
+            Please read our{' '}
+            <a
+              href="/privacy"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+            .
+          </p>
 
-          <h3>
-            <strong>Reservation of Rights</strong>
-          </h3>
+          <h1>Reservation of Rights</h1>
 
           <p>
             We reserve the right to request that you remove all links or any
@@ -361,9 +350,7 @@ export default function PrivacyApp() {
             follow these linking terms and conditions.
           </p>
 
-          <h3>
-            <strong>Removal of links from our website</strong>
-          </h3>
+          <h1>Removal of links from our website</h1>
 
           <p>
             If you find any link on our Website that is offensive for any
@@ -379,9 +366,7 @@ export default function PrivacyApp() {
             the website is kept up to date.
           </p>
 
-          <h3>
-            <strong>Disclaimer</strong>
-          </h3>
+          <h1>Disclaimer</h1>
 
           <p>
             To the maximum extent permitted by applicable law, we exclude all
@@ -420,6 +405,12 @@ export default function PrivacyApp() {
             As long as the website and the information and services on the
             website are provided free of charge, we will not be liable for any
             loss or damage of any nature.
+          </p>
+          <h1>Contact Us</h1>
+          <p>
+            If you have any questions or suggestions about our Terms and
+            Conditions, do not hesitate to contact Alexander Fu or the
+            SatisGraphtory maintainers at satisgraphtory@rhocode.com.
           </p>
         </Typography>
       </Container>

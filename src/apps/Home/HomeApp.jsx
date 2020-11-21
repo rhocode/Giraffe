@@ -73,6 +73,22 @@ class HomeApp extends Component {
             <a href="#contact" key="contact">
               Contact
             </a>
+            <a
+              href="/terms"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+              key="terms"
+            >
+              Terms and Conditions
+            </a>
+            <a
+              href="/privacy"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+              key="privacy"
+            >
+              Privacy Policy
+            </a>
           </MenuLinks>
         </Menu>
 
@@ -255,23 +271,49 @@ class HomeApp extends Component {
             </a>
             <Copyright>
               <p>
-                &copy; <a href="https://rhocode.com">rhoCode</a> 2020
+                &copy;{' '}
+                <a
+                  href="https://rhocode.com"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  rhoCode
+                </a>{' '}
+                2020
                 <br />
                 <br />
                 Not affiliated with Satisfactory, Coffee Stain Studios AB, or
-                THQ Nordic AB. Images sourced from the Satisfactory wiki, which
-                is sourced from Coffee Stain Studios AB's Satisfactory.
+                THQ Nordic AB.
                 <br />
                 <br />
-                Site Design: <a href="http://html5up.net">HTML5 UP</a>, licensed
-                for use under the Creative Commons Attribution license. Modified
-                for use by rhoCode.
+                Site Design:{' '}
+                <a
+                  href="http://html5up.net"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  HTML5 UP
+                </a>
+                , licensed for use under the Creative Commons Attribution
+                license. Modified for use by rhoCode.
                 <br />
                 <br />
-                <a href="terms">Our Terms of Service</a>
+                <a
+                  href="terms"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  Terms and Conditions
+                </a>
                 <br />
                 <br />
-                <a href="privacy">Our Privacy Policy</a>
+                <a
+                  href="privacy"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  Privacy Policy
+                </a>
               </p>
             </Copyright>
           </div>
