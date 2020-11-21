@@ -1,14 +1,13 @@
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ShareIcon from '@material-ui/icons/Share';
-import gapi from 'gapi-client';
 import React from 'react';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
-import { globalGraphAppStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GoogleApiContext } from 'v3/components/GoogleAuthProvider';
 import IconDialog from './IconDialog';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const useStyles = makeStyles((theme) => ({
   shareDialog: {
@@ -46,20 +45,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CLIENT_ID = process.env.REACT_APP_GCLOUD_CLIENT_ID;
-const API_KEY = process.env.REACT_APP_GCLOUD_API_KEY;
-
-// Array of API discovery doc URLs for APIs used by the quickstart
-const DISCOVERY_DOCS = [
-  'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
-];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
 function LoginButton(props) {
-  const { isSignedIn, classes } = props;
+  const { classes } = props;
+
+  const { login, logout, isLoggedIn } = React.useContext(GoogleApiContext);
 
   return (
     <Button
@@ -68,13 +57,11 @@ function LoginButton(props) {
       className={classes.loginDialogButton}
       size="large"
       onClick={() => {
-        isSignedIn
-          ? gapi.auth2.getAuthInstance().signOut()
-          : gapi.auth2.getAuthInstance().signIn();
+        isLoggedIn ? logout() : login();
       }}
     >
       {' '}
-      {isSignedIn ? 'LOGOUT' : 'LOGIN WITH GOOGLE'}
+      {isLoggedIn ? 'LOGOUT' : 'LOGIN WITH GOOGLE'}
     </Button>
   );
 }
@@ -96,8 +83,8 @@ function ShareCodeBox(props) {
 }
 
 function getShareBoxContent(props) {
-  const { isSignedIn } = props;
-  if (isSignedIn) {
+  const { isLoggedIn } = props;
+  if (isLoggedIn) {
     return (
       <React.Fragment>
         <LoginButton {...props} />
@@ -116,43 +103,19 @@ function getShareBoxContent(props) {
 function ShareButton(props) {
   const classes = useStyles();
 
+  const { init, isLoggedIn } = React.useContext(GoogleApiContext);
+
   const { id: pixiCanvasStateId } = props;
 
-  const isSignedIn = globalGraphAppStore.useState((s) => {
-    return s.signedIn;
-  });
-
   React.useEffect(() => {
-    //On load, called to load the auth2 library and API client library.
-    gapi.load('client:auth2', initClient);
-
-    // Initialize the API client library
-    function initClient() {
-      gapi.client
-        .init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES,
-        })
-        .then(function () {
-          globalGraphAppStore.update((s) => {
-            s.signedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
-          });
-          gapi.auth2.getAuthInstance().isSignedIn.listen((status) => {
-            globalGraphAppStore.update((s) => {
-              s.signedIn = status;
-            });
-          });
-        });
-    }
-  }, [pixiCanvasStateId]);
+    init();
+  }, [init]);
 
   return (
     <IconDialog label="Share" icon={<ShareIcon />}>
       <div className={classes.shareDialog}>
         <div className={classes.loginRow}>
-          {getShareBoxContent({ isSignedIn, classes, pixiCanvasStateId })}
+          {getShareBoxContent({ isLoggedIn, classes, pixiCanvasStateId })}
         </div>
         <div className={classes.shareRow}>
           <TextField

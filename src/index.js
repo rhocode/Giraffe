@@ -14,6 +14,7 @@ import { render } from 'react-dom';
 import { LocalizeProvider } from 'react-localize-redux';
 import { Provider } from 'react-redux';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import GoogleAuthProvider from 'v3/components/GoogleAuthProvider';
 import LocaleProvider from 'v3/components/LocaleProvider';
 
 import App from './apps/App/App';
@@ -38,7 +39,9 @@ const CompleteApp = () => {
         <Provider store={store}>
           <LocalizeProvider store={store}>
             <LocaleProvider>
-              <App />
+              <GoogleAuthProvider>
+                <App />
+              </GoogleAuthProvider>
             </LocaleProvider>
           </LocalizeProvider>
         </Provider>

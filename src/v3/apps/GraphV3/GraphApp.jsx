@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-function GraphApp(props) {
+export default function GraphApp(props) {
   const [helmet, setHelmet] = React.useState({});
 
   const { language } = React.useContext(LocaleContext);
@@ -177,5 +177,3 @@ function GraphApp(props) {
     </React.Fragment>
   );
 }
-
-export default GraphApp;
