@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CLIENT_ID =
-  '992438477515-45fu2fovp17921micdfsnhcl8pn0fjbd.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyCZaipoQKvSrgNdQUZL_0Bc98SDG_Okcvs';
+const CLIENT_ID = process.env.REACT_APP_GCLOUD_CLIENT_ID;
+const API_KEY = process.env.REACT_APP_GCLOUD_API_KEY;
+
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
