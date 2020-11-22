@@ -1,6 +1,7 @@
-import gapi from 'gapi-client';
 import { Store } from 'pullstate';
 import React from 'react';
+
+const gapi = window.gapi;
 
 export const GoogleApiContext = React.createContext({
   loggedIn: false,
