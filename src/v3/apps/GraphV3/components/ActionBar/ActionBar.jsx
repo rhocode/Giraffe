@@ -50,6 +50,12 @@ function ActionBar() {
 
     pixiJsStore.update((t) => {
       const s = t[pixiCanvasStateId];
+
+      // TODO: find out why this is happening
+      if (!s?.aliasCanvasObjects) {
+        window.location.reload();
+      }
+
       s.aliasCanvasObjects.add(domRef.current);
     });
 
@@ -58,7 +64,9 @@ function ActionBar() {
     return () => {
       pixiJsStore.update((t) => {
         const s = t[pixiCanvasStateId];
-        s.aliasCanvasObjects.delete(thisRef);
+        if (s.aliasCanvasObjects) {
+          s.aliasCanvasObjects.delete(thisRef);
+        }
       });
     };
   }, [applicationLoaded, domRef, pixiCanvasStateId]);

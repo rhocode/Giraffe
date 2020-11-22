@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useThemeProvider } from 'common/react/SGThemeProvider';
-import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
@@ -10,13 +9,10 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
-import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/loadSharedTextures';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
   addChild,
   addObjectChildren,
-  addObjectChildrenWithinState,
   getChildFromStateById,
   getMultiTypedChildrenFromState,
   removeChild,
@@ -28,7 +24,7 @@ import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryL
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import {
-  generateNewPixiCanvasStore,
+  generateNewCanvas,
   pixiJsStore,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -49,7 +45,7 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width, initialCanvasChildren, onFinishLoad } = props;
+  const { height, width, initialCanvasGraph, onFinishLoad } = props;
 
   const {
     pixiCanvasStateId,
@@ -172,17 +168,12 @@ function PixiJSApplication(props) {
         if (!arraysEqual(selected, s.selectedObjects)) {
           s.selectedObjects = selected;
           console.log('Selected objects:', s.selectedObjects);
-
           console.log(serializeGraphObjects(selected));
         }
       });
     },
     [pixiCanvasStateId]
   );
-
-  React.useEffect(() => {
-    // console.log(generateRecipeEnums());
-  }, []);
 
   const theme = useThemeProvider();
   React.useEffect(() => {
@@ -195,81 +186,23 @@ function PixiJSApplication(props) {
 
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
-
-      pixiJsStore.update((sParent) => {
-        let s = sParent[pixiCanvasStateId];
-        if (!s) {
-          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore(
-            theme,
-            pixiCanvasStateId
-          );
-          s = sParent[pixiCanvasStateId];
-        }
-
-        let newApplication = new PIXI.Application({
-          transparent: true,
-          autoDensity: true,
-          height,
-          width,
-          view: canvasRef.current,
-          resolution: sgDevicePixelRatio,
-          antialias: true,
-        });
-
-        const viewport = new Viewport({
-          screenWidth: width,
-          screenHeight: height,
-          worldWidth: 20000,
-          worldHeight: 20000,
-          interaction: newApplication.renderer.plugins.interaction,
-        });
-
-        newApplication.stage.addChild(viewport);
-
-        if (s.application?.destroy) {
-          s.application.destroy();
-        }
-
-        const container = new PIXI.Container();
-        s.viewportChildContainer = container;
-        viewport.addChild(container);
-
-        s.viewport = viewport;
-
-        viewport.drag().pinch().wheel({
-          smooth: 5,
-        });
-
-        s.application = newApplication;
-
-        s.applicationLoaded = true;
-
-        loadSharedTextures(newApplication.renderer, theme);
-
-        const childrenToPush = initialCanvasChildren(
-          newApplication,
-          pixiViewport,
-          translate,
-          s.externalInteractionManager
-        );
-
-        addObjectChildrenWithinState(
-          childrenToPush || [],
-          pixiCanvasStateId
-        )(sParent);
-        newApplication.renderer.render(newApplication.stage);
-        // Run the callback
-        onFinishLoad();
-
-        s.canvasReady = true;
-      });
+      generateNewCanvas(
+        pixiCanvasStateId,
+        theme,
+        height,
+        width,
+        canvasRef,
+        initialCanvasGraph,
+        translate,
+        onFinishLoad
+      );
     }
   }, [
     canvasRef,
     height,
     pixiCanvasStateId,
     pixiViewport,
-    initialCanvasChildren,
+    initialCanvasGraph,
     theme,
     translate,
     width,
@@ -342,8 +275,6 @@ function PixiJSApplication(props) {
     if (!pixiViewport || !canvasReady) return;
 
     previousMouseState.current = mouseState;
-
-    // console.log('Re-applying mouse triggers', triggerUpdate);
 
     pixiViewport.plugins.pause('drag');
     pixiViewport.plugins.pause('wheel');

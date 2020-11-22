@@ -10,7 +10,31 @@ import { deflateRaw } from 'pako';
 import * as LZ from 'lz-string';
 import { buffer2str } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/stringEncode';
 
-const serializeGraphObjects = (objs: GraphObject[]) => {
+const serializeGraphObjects = (objects: GraphObject[]) => {
+  let checksumGraph = getSerializedGraph(
+    objects.slice().sort((a, b) => {
+      return a.id.localeCompare(b.id);
+    })
+  );
+
+  const serializedGraph = getSerializedGraph(objects);
+
+  let hash = 0,
+    i,
+    chr;
+  for (i = 0; i < checksumGraph.d.length; i++) {
+    chr = checksumGraph.d.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return {
+    ...serializedGraph,
+    h: hash,
+  };
+};
+
+const getSerializedGraph = (objects: GraphObject[]) => {
   // const edgesToProcess: EdgeTemplate[] = [];
   const nodeIdToNumberMap = new Map<string, number>();
   const edgeIdToNumberMap = new Map<string, number>();
@@ -28,7 +52,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   const nodes = [];
   const edges = [];
 
-  for (const obj of objs) {
+  for (const obj of objects) {
     if (obj instanceof NodeTemplate) {
       for (const edge of [
         ...obj.anyConnections,
@@ -110,7 +134,7 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
   };
 
   SaveData.verify(saveDataBase);
-  console.log(SaveData.create(saveDataBase));
+  // console.log(SaveData.create(saveDataBase));
 
   const data = SaveData.encode(saveDataBase).finish();
 
@@ -136,16 +160,15 @@ const serializeGraphObjects = (objs: GraphObject[]) => {
 
   const stringForm = LZ.compressToBase64(tmp);
 
-  const finalData = {
+  //
+  // console.log('Your save code:');
+  // console.log(JSON.stringify(finalData, null, 2));
+
+  return {
     d: stringForm,
     c: compressionLevel,
     v: process.env.REACT_APP_VERSION,
   };
-
-  console.log('Your save code:');
-  console.log(JSON.stringify(finalData, null, 2));
-
-  return finalData;
 };
 
 export default serializeGraphObjects;

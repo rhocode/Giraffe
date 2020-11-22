@@ -136,11 +136,6 @@ export default class SimpleEdge extends EdgeTemplate {
     this.targetDot.position.x = targetX;
     this.targetDot.position.y = targetY;
 
-    if (this.levelText) {
-      this.levelText.position.x = Math.floor((sourceX + targetX) / 2);
-      this.levelText.position.y = Math.floor((sourceY + targetY) / 2);
-    }
-
     this.graphicsObject.clear();
     this.container.getHighLight().clear();
     // TODO: Fix the edge color
@@ -207,6 +202,13 @@ export default class SimpleEdge extends EdgeTemplate {
       targetX,
       targetY
     );
+
+    const { x: midpointX, y: midpointY } = curve.get(0.5);
+
+    if (this.levelText) {
+      this.levelText.position.x = midpointX;
+      this.levelText.position.y = midpointY;
+    }
 
     const points = curve.getLUT(100);
     const polygon = new PIXI.Polygon(points);

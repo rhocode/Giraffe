@@ -1,42 +1,48 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Scrollbar from 'react-scrollbars-custom';
-import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { GoogleApiContext } from 'v3/components/GoogleAuthProvider';
-import IconDialog from './IconDialog';
+import { makeStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 import CloudIcon from '@material-ui/icons/Cloud';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudDoneIcon from '@material-ui/icons/CloudDone';
-import AddIcon from '@material-ui/icons/Add';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import Typography from '@material-ui/core/Typography';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SaveIcon from '@material-ui/icons/Save';
-import PublishIcon from '@material-ui/icons/Publish';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import PublishIcon from '@material-ui/icons/Publish';
+import SaveIcon from '@material-ui/icons/Save';
+import produce from 'immer';
+import React from 'react';
+import Scrollbar from 'react-scrollbars-custom';
+import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
+import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import serializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/serialize';
+import {
+  pixiJsStore,
+  replaceGraphData,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GoogleApiContext } from 'v3/components/GoogleAuthProvider';
+import { LocaleContext } from 'v3/components/LocaleProvider';
+import uuidGen from 'v3/utils/stringUtils';
+import IconDialog from './IconDialog';
 
 const useStyles = makeStyles((theme) => ({
   tabHeader: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
   iconDialog: {
     minWidth: 600,
@@ -45,18 +51,19 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    minHeight: 500,
   },
   shareRow: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'row',
     paddingBottom: 10,
+    maxHeight: 'calc(100% - 128px)',
   },
   shareColumn: {
     display: 'flex',
     flexDirection: 'column',
     paddingBottom: 10,
+    minHeight: 240,
   },
   loginRow: {
     display: 'flex',
@@ -84,17 +91,22 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonStyle: {
     marginBottom: 5,
-    minWidth: 300,
   },
   loginText: {
     display: 'flex',
     paddingBottom: 10,
     flex: 1,
   },
-  list: {
-    minWidth: 250,
-    minHeight: 400,
-    marginRight: 5,
+  fileBrowserList: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  fileBrowserTitle: {
+    flexGrow: 0,
+  },
+  fileBrowserContent: {
+    flexGrow: 1,
   },
   listItem: {
     minWidth: 180,
@@ -109,6 +121,9 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
     minHeight: 150,
+  },
+  gridItem: {
+    width: 300,
   },
 }));
 
@@ -151,11 +166,27 @@ function ShareCodeBox(props) {
 }
 
 function FileItem(props) {
-  const { classes, name, description, open, local } = props;
+  const {
+    classes,
+    name,
+    description,
+    open,
+    local,
+    pixiCanvasStateId,
+    deleteButtonAction,
+  } = props;
+
+  const { translate } = React.useContext(LocaleContext);
 
   return (
     <ListItem className={classes.listItem}>
-      <IconButton edge="start" aria-label="load">
+      <IconButton
+        edge="start"
+        aria-label="load"
+        onClick={() => {
+          replaceGraphData(pixiCanvasStateId, {}, translate);
+        }}
+      >
         {local ? <AddIcon /> : open ? <CloudDoneIcon /> : <CloudDownloadIcon />}
       </IconButton>
       <ListItemText
@@ -164,7 +195,12 @@ function FileItem(props) {
         className={classes.listText}
       />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="delete" color="secondary">
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          color="secondary"
+          onClick={deleteButtonAction}
+        >
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
@@ -176,213 +212,367 @@ function FileBrowser(props) {
   const { classes } = props;
 
   return (
-    <div className={classes.list}>
-      <Typography>File List</Typography>
-      <Scrollbar>
-        <List dense={true} fullWidth>
-          {props.children}
-        </List>
-      </Scrollbar>
+    <div className={classes.fileBrowserList}>
+      <div className={classes.fileBrowserTitle}>
+        <Typography>File List</Typography>
+      </div>
+      <div className={classes.fileBrowserContent}>
+        <Scrollbar>
+          <List dense={true}>{props.children}</List>
+        </Scrollbar>
+      </div>
     </div>
   );
 }
 
 function DescriptionBox(props) {
-  const { classes, isLocal } = props;
+  const { classes, name, setName, description, setDescription } = props;
   return (
     <React.Fragment>
       <div className={classes.shareRow}>
         <TextField
           spellCheck={false}
           label="Name"
-          readOnly
-          value={''}
+          value={name}
+          onChange={(evt) => {
+            setName(evt.target.value);
+          }}
           fullWidth
           variant="outlined"
+          placeholder={'My Awesome Design'}
         />
       </div>
       <div className={classes.shareRow}>
         <TextField
           spellCheck={false}
           label="Description"
-          readOnly
-          value={''}
+          value={description}
+          onChange={(evt) => {
+            setDescription(evt.target.value);
+          }}
           fullWidth
           variant="outlined"
         />
       </div>
 
-      {isLocal ? (
-        <React.Fragment />
-      ) : (
-        <React.Fragment>
-          <div className={classes.shareRow}>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    color="primary"
-                  />
-                }
-                label="Shareable"
-              />
-            </FormGroup>
-          </div>
-          <div className={classes.shareRow}>
-            <TextField
-              spellCheck={false}
-              label="Share Code"
-              readOnly
-              value={''}
-              fullWidth
-              variant="outlined"
-            />
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.iconMargin}
-              size="large"
-              onClick={() => {}}
-            >
-              <FileCopyIcon />
-            </Button>
-          </div>
-        </React.Fragment>
-      )}
+      {/*{isLocal ? (*/}
+      {/*  <React.Fragment/>*/}
+      {/*) : (*/}
+      {/*  <React.Fragment>*/}
+      {/*    <div className={classes.shareRow}>*/}
+      {/*      <FormGroup>*/}
+      {/*        <FormControlLabel*/}
+      {/*          control={*/}
+      {/*            <Checkbox*/}
+      {/*              checked={true}*/}
+      {/*              onChange={() => {*/}
+      {/*              }}*/}
+      {/*              color="primary"*/}
+      {/*            />*/}
+      {/*          }*/}
+      {/*          label="Shareable"*/}
+      {/*        />*/}
+      {/*      </FormGroup>*/}
+      {/*    </div>*/}
+      {/*    <div className={classes.shareRow}>*/}
+      {/*      <TextField*/}
+      {/*        spellCheck={false}*/}
+      {/*        label="Share Code"*/}
+      {/*        readOnly*/}
+      {/*        value={''}*/}
+      {/*        fullWidth*/}
+      {/*        variant="outlined"*/}
+      {/*      />*/}
+      {/*      <Button*/}
+      {/*        variant="outlined"*/}
+      {/*        color="primary"*/}
+      {/*        className={classes.iconMargin}*/}
+      {/*        size="large"*/}
+      {/*        onClick={() => {*/}
+      {/*        }}*/}
+      {/*      >*/}
+      {/*        <FileCopyIcon/>*/}
+      {/*      </Button>*/}
+      {/*    </div>*/}
+      {/*  </React.Fragment>*/}
+      {/*)}*/}
     </React.Fragment>
   );
 }
 
+const cacheFunction = (designs, setDesigns) => () => {
+  caches.open('satisgraphtory-local-cache').then((cache) => {
+    return cache.match('/manifest.json').then((manifest) => {
+      if (manifest === undefined) {
+        const token = uuidGen();
+        const manifestContents = {
+          token,
+          designs: {},
+        };
+        return cache
+          .put('/manifest.json', new Response(JSON.stringify(manifestContents)))
+          .then(() => {
+            console.log('Setting designs as default');
+            setDesigns(manifestContents);
+            return manifestContents;
+          });
+      } else {
+        return manifest.json().then((resp) => {
+          if (resp.token !== designs.token) {
+            setDesigns(resp);
+          }
+
+          return resp;
+        });
+      }
+    });
+  });
+};
+
+const addOrUpdateCacheFile = (
+  designs,
+  setDesigns,
+  overWrite,
+  setOverWrite,
+  designId,
+  designData
+) => {
+  caches.open('satisgraphtory-local-cache').then((cache) => {
+    cache.match('/manifest.json').then((manifest) => {
+      const addOrUpdateCacheFunction = (oldManifest) => {
+        const thisDesign = oldManifest.designs[designId];
+
+        // Check if
+        if (thisDesign && !overWrite) {
+          setOverWrite(true);
+          return Promise.resolve(oldManifest);
+        } else {
+          // if (!thisDesign || (thisDesign?.h === designData.h)) {
+          const newManifest = produce(oldManifest, (om) => {
+            om.designs[designId] = designData;
+            om.token = uuidGen();
+          });
+
+          if (thisDesign && overWrite) {
+            setOverWrite(false);
+          }
+
+          return cache
+            .put('/manifest.json', new Response(JSON.stringify(newManifest)))
+            .then(() => newManifest);
+        }
+        // }
+        //
+        // return Promise.resolve(oldManifest)
+      };
+
+      if (manifest === undefined) {
+        cacheFunction(designs, setDesigns)
+          .then(addOrUpdateCacheFunction)
+          .then(cacheFunction(designs, setDesigns));
+      } else {
+        manifest
+          .json()
+          .then(addOrUpdateCacheFunction)
+          .then(cacheFunction(designs, setDesigns));
+      }
+    });
+  });
+};
+
+const deleteCacheFile = (designs, setDesigns, designId) => {
+  caches.open('satisgraphtory-local-cache').then((cache) => {
+    cache.match('/manifest.json').then((manifest) => {
+      const deleteCacheFunction = (oldManifest) => {
+        const newManifest = produce(oldManifest, (om) => {
+          delete om.designs[designId];
+          om.token = uuidGen();
+        });
+
+        return cache
+          .put('/manifest.json', new Response(JSON.stringify(newManifest)))
+          .then(() => newManifest);
+      };
+
+      if (manifest === undefined) {
+        cacheFunction(designs, setDesigns)
+          .then(deleteCacheFunction)
+          .then(cacheFunction(designs, setDesigns));
+      } else {
+        manifest
+          .json()
+          .then(deleteCacheFunction)
+          .then(cacheFunction(designs, setDesigns));
+      }
+    });
+  });
+};
+
+function renderLocalDesignData(designData, props, designs, setDesigns) {
+  const entries = Object.entries(designData);
+  if (entries.length === 0) {
+    return <Typography>No saved files.</Typography>;
+  }
+  return entries.map(([key, value]) => {
+    return (
+      <FileItem
+        {...props}
+        name={value.n}
+        local={true}
+        open={false}
+        description={value.q}
+        key={value.n}
+        deleteButtonAction={() => {
+          deleteCacheFile(designs, setDesigns, value.n);
+        }}
+      />
+    );
+  });
+}
+
 function LocalSaveContent(props) {
+  const [designData, setDesignData] = React.useState({
+    token: '',
+    designs: {},
+  });
+
+  React.useEffect(() => {
+    const interval = setInterval(
+      cacheFunction(designData, setDesignData),
+      10000
+    );
+    cacheFunction(designData, setDesignData)();
+    return () => clearInterval(interval);
+  }, [designData]);
+
+  const graphObjects = pixiJsStore.useState((sParent) => {
+    const s = sParent[props.pixiCanvasStateId];
+    if (s.childrenMap) {
+      return [...s.childrenMap.values()].filter(
+        (obj) => obj instanceof GraphObject
+      );
+    }
+
+    return [];
+  });
+
+  const [name, setName] = React.useState('My Awesome Design');
+  const [description, setDescription] = React.useState('Lizzard Doggo');
+  const [overWrite, setOverWrite] = React.useState(false);
+
+  const setNameFunction = React.useCallback(
+    (newName) => {
+      if (newName !== name && overWrite) {
+        setOverWrite(false);
+      }
+
+      setName(newName);
+    },
+    [name, overWrite]
+  );
+
   const { classes } = props;
   return (
-    <React.Fragment>
-      <FileBrowser {...props}>
-        <FileItem
-          {...props}
-          name="localname1"
-          local={true}
-          open={true}
-          description="description1"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name3"
-          local={true}
-          open={false}
-          description="description3description3description3description3description3description3description3description3"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-        <FileItem
-          {...props}
-          name="name2"
-          local={true}
-          open={false}
-          description="description2"
-        />
-      </FileBrowser>
-      <div className={classes.shareColumn}>
-        <DescriptionBox {...props} isLocal={true} />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          className={classes.buttonStyle}
-        >
-          <SaveIcon />
-          &nbsp;Export to file
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          className={classes.buttonStyle}
-        >
-          <PublishIcon />
-          &nbsp;Load from file
-        </Button>
-      </div>
-    </React.Fragment>
+    <Grid container spacing={2}>
+      <Grid classes={{ item: classes.gridItem }} item xs={6}>
+        <FileBrowser {...props}>
+          {renderLocalDesignData(
+            designData.designs,
+            props,
+            designData,
+            setDesignData
+          )}
+        </FileBrowser>
+      </Grid>
+      <Grid classes={{ item: classes.gridItem }} item xs={6}>
+        <div className={classes.shareColumn}>
+          <DescriptionBox
+            name={name}
+            setName={setNameFunction}
+            description={description}
+            setDescription={setDescription}
+            {...props}
+            isLocal={true}
+          />
+          <Button
+            variant="contained"
+            color={overWrite ? 'secondary' : 'primary'}
+            fullWidth
+            className={classes.buttonStyle}
+            onClick={() => {
+              const designName = name || uuidGen();
+              addOrUpdateCacheFile(
+                designData,
+                setDesignData,
+                overWrite,
+                setOverWrite,
+                designName,
+                {
+                  ...serializeGraphObjects(graphObjects),
+                  q: description || uuidGen(),
+                  n: designName,
+                }
+              );
+            }}
+          >
+            {overWrite ? (
+              <React.Fragment>
+                <SaveAltIcon />
+                &nbsp;Overwrite Existing Save
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <SaveAltIcon />
+                &nbsp;Save in Browser
+              </React.Fragment>
+            )}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            className={classes.buttonStyle}
+          >
+            <SaveIcon />
+            &nbsp;Export to File
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            className={classes.buttonStyle}
+          >
+            <PublishIcon />
+            &nbsp;Load from File
+          </Button>
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  fullWidth*/}
+          {/*  className={classes.buttonStyle}*/}
+          {/*>*/}
+          {/*  <PublishIcon/>*/}
+          {/*  &nbsp;Export Image*/}
+          {/*</Button>*/}
+        </div>
+      </Grid>
+    </Grid>
   );
+}
+
+function ShowIf(props) {
+  if (!props.condition) return null;
+  return <React.Fragment>{props.children}</React.Fragment>;
 }
 
 function CloudSaveContent(props) {
   const { classes, isLoggedIn } = props;
+
+  const spacing = isLoggedIn ? 6 : 12;
+
   return (
-    <React.Fragment>
-      {isLoggedIn ? (
-        <div className={classes.shareColumn}>
+    <Grid container spacing={2}>
+      <ShowIf condition={isLoggedIn}>
+        <Grid classes={{ item: classes.gridItem }} item xs={spacing}>
           <FileBrowser {...props}>
             <FileItem
               {...props}
@@ -398,91 +588,13 @@ function CloudSaveContent(props) {
               open={false}
               description="description2"
             />
-            <FileItem
-              {...props}
-              name="name3"
-              local={false}
-              open={false}
-              description="description3description3description3description3description3description3description3description3"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
-            <FileItem
-              {...props}
-              name="name2"
-              local={false}
-              open={false}
-              description="description2"
-            />
           </FileBrowser>
-        </div>
-      ) : (
-        <React.Fragment />
-      )}
-      <div className={classes.shareColumn}>
-        {isLoggedIn ? (
-          <React.Fragment>
+        </Grid>
+      </ShowIf>
+      <Grid item classes={{ item: classes.gridItem }} xs={spacing}>
+        <div className={classes.shareColumn}>
+          <ShowIf condition={isLoggedIn}>
+            <DescriptionBox {...props} isLocal={false} />
             <Button
               variant="contained"
               color="primary"
@@ -492,27 +604,35 @@ function CloudSaveContent(props) {
               <CloudUploadIcon />
               &nbsp;Upload current graph
             </Button>
-            <DescriptionBox {...props} isLocal={false} />
             <ShareCodeBox {...props} />
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <div className={classes.expand}></div>
+          </ShowIf>
+          <ShowIf condition={!isLoggedIn}>
             <Typography className={classes.loginText}>
               Your graph is automatically saved locally.
               <br />
               Sign in to Google Drive for cloud saves.
             </Typography>
-          </React.Fragment>
-        )}
-        <LoginButton {...props} />
-        {isLoggedIn ? (
-          <React.Fragment />
-        ) : (
-          <div className={classes.expand}></div>
-        )}
-      </div>
-    </React.Fragment>
+          </ShowIf>
+          <LoginButton {...props} />
+        </div>
+      </Grid>
+    </Grid>
+
+    // <div className={classes.shareColumn}>
+    //   {isLoggedIn ? (
+
+    //   ) : (
+    //     <React.Fragment>
+
+    //     </React.Fragment>
+    //   )}
+    //   <LoginButton {...props} />
+    //   {isLoggedIn ? (
+    //     <React.Fragment />
+    //   ) : (
+    //     <div className={classes.expand} />
+    //   )}
+    // </div>
   );
 }
 
@@ -559,24 +679,10 @@ function ShareButton(props) {
     <IconDialog
       label="Save/Share"
       icon={isLoggedIn ? <CloudIcon /> : <SaveIcon />}
-      className={classes.iconDialog}
     >
+      <ModalOpenTrigger pixiCanvasStateId={pixiCanvasStateId} />
       <div className={classes.shareDialog}>
         {GetShareBoxContent({ isLoggedIn, classes, pixiCanvasStateId })}
-
-        {/*<div className={classes.divider}></div>*/}
-        {/*<div className={classes.imageRow}>*/}
-        {/*  <Button*/}
-        {/*    fullWidth*/}
-        {/*    color="primary"*/}
-        {/*    size="large"*/}
-        {/*    endIcon={<PhotoSizeSelectActualIcon />}*/}
-        {/*  >*/}
-        {/*    <div className={classes.label}>Export Image</div>*/}
-        {/*  </Button>*/}
-        {/*</div>*/}
-        {/*//TODO: Fix serialize*/}
-        {/*<GraphSerializeButton />*/}
       </div>
     </IconDialog>
   );

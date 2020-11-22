@@ -31,6 +31,7 @@
     "@types/uuid": "^8.3.0",
     "@waiting/base64": "^4.2.9",
     "@welldone-software/why-did-you-render": "^4.0.0",
+    "adjectives": "^1.0.2",
     "array-move": "^3.0.0",
     "autosuggest-highlight": "^3.1.1",
     "babel-polyfill": "^6.26.0",

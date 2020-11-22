@@ -3541,6 +3541,11 @@ address@1.1.2, address@^1.0.1:
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
   integrity sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
 
+adjectives@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/adjectives/-/adjectives-1.0.2.tgz#c2d510448338914d20b986630649ae75a04960c6"
+  integrity sha512-gaoTLTymNfCmuCPsLSDcz/WWFBxNlAOoDzWt2fInQqQ2BTT57lG0RHzBujS0QkwbGw4lHgpkOmYcQ9rktKfBmw==
+
 adjust-sourcemap-loader@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/adjust-sourcemap-loader/-/adjust-sourcemap-loader-2.0.0.tgz#6471143af75ec02334b219f54bc7970c52fb29a4"

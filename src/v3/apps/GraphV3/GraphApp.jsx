@@ -10,7 +10,6 @@ import DebugFab from 'v3/apps/GraphV3/components/DebugFab/DebugFab';
 import EdgeSelectorPanel from 'v3/apps/GraphV3/components/EdgeSelectorPanel/EdgeSelectorPanel';
 
 import NavBar from 'v3/apps/GraphV3/components/NavBar/NarBar';
-import initCanvasChildren from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/initCanvasChildren';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import uuidGen from 'v3/utils/stringUtils';
 
@@ -72,20 +71,6 @@ export default function GraphApp(props) {
     // localizeGenerator(getAllRecipes())
   }, []);
 
-  const initialCanvasChildren = React.useCallback(
-    (application, viewport, translate, externalInteractionManager) => {
-      console.log('Canvas load function called', data.graph);
-      return initCanvasChildren(
-        application,
-        viewport,
-        translate,
-        externalInteractionManager,
-        data.graph
-      );
-    },
-    [data.graph]
-  );
-
   const onFinishLoad = React.useCallback(() => {
     window.prerenderReady = true;
     console.log('Finished loading');
@@ -93,6 +78,24 @@ export default function GraphApp(props) {
 
   React.useEffect(() => {
     const graphId = (match && match.params && match.params.graphId) || null;
+    let data;
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get('useBlank')) {
+      data = {
+        d: 'AIACA===',
+        c: 0,
+        v: '0.1.0',
+      };
+    } else {
+      data = {
+        d:
+          'CgAAAgCAEAQBAYEAgMQFASYBMACAOYMAwAKEAwAogIUCJAHgGBEDKAOAHDwAMAdAFkAbgAQBIAHgAJMAHQAjvACAAFgAFIgEFiQADgUBSZgDkAySCgA7EACiAzABKQXJAGuAsTgBGHoTAB8AEYBEEABUAAoaAEi8NBgAJJUAcDAADQBSgGoABQArAAWoGgAIgBUiACOADKL1AEIAaVcAaoBjIQUABrIAHPKVEABNByA=',
+        c: 0,
+        v: '0.1.0',
+      };
+    }
 
     if (graphId) {
       fetch(
@@ -103,7 +106,11 @@ export default function GraphApp(props) {
         .finally(() => {
           setData({
             loaded: true,
-            graph: { derp: true },
+            graph: {
+              d: 'AIACA===',
+              c: 0,
+              v: '0.1.0',
+            },
           });
         });
 
@@ -134,7 +141,7 @@ export default function GraphApp(props) {
       });
       setData({
         loaded: true,
-        graph: { derp: true },
+        graph: data,
       });
     }
   }, [language.code, match]);
@@ -159,7 +166,7 @@ export default function GraphApp(props) {
           <Canvas
             dataLoaded={data.loaded}
             id={pixiCanvasStateId}
-            initialCanvasChildren={initialCanvasChildren}
+            initialCanvasGraph={data.graph}
             onFinishLoad={onFinishLoad}
           >
             {/*<ChainWizardPanel />*/}
