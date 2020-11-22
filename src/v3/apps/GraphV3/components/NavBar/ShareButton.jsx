@@ -10,8 +10,6 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import AddIcon from '@material-ui/icons/Add';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 import CloudIcon from '@material-ui/icons/Cloud';
 import CloudDoneIcon from '@material-ui/icons/CloudDone';
@@ -22,6 +20,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import PublishIcon from '@material-ui/icons/Publish';
 import SaveIcon from '@material-ui/icons/Save';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import produce from 'immer';
 import React from 'react';
 import Scrollbar from 'react-scrollbars-custom';
@@ -174,6 +173,7 @@ function FileItem(props) {
     local,
     pixiCanvasStateId,
     deleteButtonAction,
+    data,
   } = props;
 
   const { translate } = React.useContext(LocaleContext);
@@ -184,10 +184,16 @@ function FileItem(props) {
         edge="start"
         aria-label="load"
         onClick={() => {
-          replaceGraphData(pixiCanvasStateId, {}, translate);
+          replaceGraphData(pixiCanvasStateId, data, translate);
         }}
       >
-        {local ? <AddIcon /> : open ? <CloudDoneIcon /> : <CloudDownloadIcon />}
+        {local ? (
+          <PublishIcon />
+        ) : open ? (
+          <CloudDoneIcon />
+        ) : (
+          <CloudDownloadIcon />
+        )}
       </IconButton>
       <ListItemText
         primary={name}
@@ -422,6 +428,7 @@ function renderLocalDesignData(designData, props, designs, setDesigns) {
         open={false}
         description={value.q}
         key={value.n}
+        data={value}
         deleteButtonAction={() => {
           deleteCacheFile(designs, setDesigns, value.n);
         }}
@@ -457,7 +464,9 @@ function LocalSaveContent(props) {
   });
 
   const [name, setName] = React.useState('My Awesome Design');
-  const [description, setDescription] = React.useState('Lizzard Doggo');
+  const [description, setDescription] = React.useState(
+    'Lizard Doggo Approved!'
+  );
   const [overWrite, setOverWrite] = React.useState(false);
 
   const setNameFunction = React.useCallback(
@@ -527,24 +536,24 @@ function LocalSaveContent(props) {
               </React.Fragment>
             )}
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            className={classes.buttonStyle}
-          >
-            <SaveIcon />
-            &nbsp;Export to File
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            fullWidth
-            className={classes.buttonStyle}
-          >
-            <PublishIcon />
-            &nbsp;Load from File
-          </Button>
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  color="primary"*/}
+          {/*  fullWidth*/}
+          {/*  className={classes.buttonStyle}*/}
+          {/*>*/}
+          {/*  <SaveIcon />*/}
+          {/*  &nbsp;Export to File*/}
+          {/*</Button>*/}
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  color="secondary"*/}
+          {/*  fullWidth*/}
+          {/*  className={classes.buttonStyle}*/}
+          {/*>*/}
+          {/*  <PublishIcon />*/}
+          {/*  &nbsp;Load from File*/}
+          {/*</Button>*/}
           {/*<Button*/}
           {/*  variant="contained"*/}
           {/*  fullWidth*/}
