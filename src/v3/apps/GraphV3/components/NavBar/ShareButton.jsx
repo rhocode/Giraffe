@@ -174,6 +174,7 @@ function FileItem(props) {
     pixiCanvasStateId,
     deleteButtonAction,
     data,
+    setOverwrite,
   } = props;
 
   const { translate } = React.useContext(LocaleContext);
@@ -184,6 +185,12 @@ function FileItem(props) {
         edge="start"
         aria-label="load"
         onClick={() => {
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.lastUsedSave.name = data.n;
+            s.lastUsedSave.description = data.q;
+          });
+          setOverwrite(false);
           replaceGraphData(pixiCanvasStateId, data, translate);
         }}
       >
@@ -196,6 +203,13 @@ function FileItem(props) {
         )}
       </IconButton>
       <ListItemText
+        onClick={() => {
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.lastUsedSave.name = data.n;
+            s.lastUsedSave.description = data.q;
+          });
+        }}
         primary={name}
         secondary={description}
         className={classes.listText}
@@ -341,7 +355,8 @@ const addOrUpdateCacheFile = (
   overWrite,
   setOverWrite,
   designId,
-  designData
+  designData,
+  pixiCanvasStateId
 ) => {
   caches.open('satisgraphtory-local-cache').then((cache) => {
     cache.match('/manifest.json').then((manifest) => {
@@ -362,6 +377,12 @@ const addOrUpdateCacheFile = (
           if (thisDesign && overWrite) {
             setOverWrite(false);
           }
+
+          pixiJsStore.update((sParent) => {
+            const s = sParent[pixiCanvasStateId];
+            s.lastUsedSave.name = designData.n;
+            s.lastUsedSave.description = designData.q;
+          });
 
           return cache
             .put('/manifest.json', new Response(JSON.stringify(newManifest)))
@@ -414,7 +435,13 @@ const deleteCacheFile = (designs, setDesigns, designId) => {
   });
 };
 
-function renderLocalDesignData(designData, props, designs, setDesigns) {
+function renderLocalDesignData(
+  designData,
+  props,
+  designs,
+  setDesigns,
+  setOverwrite
+) {
   const entries = Object.entries(designData);
   if (entries.length === 0) {
     return <Typography>No saved files.</Typography>;
@@ -432,6 +459,7 @@ function renderLocalDesignData(designData, props, designs, setDesigns) {
         deleteButtonAction={() => {
           deleteCacheFile(designs, setDesigns, value.n);
         }}
+        setOverwrite={setOverwrite}
       />
     );
   });
@@ -463,10 +491,16 @@ function LocalSaveContent(props) {
     return [];
   });
 
-  const [name, setName] = React.useState('My Awesome Design');
+  const lastOpenedSave = pixiJsStore.useState((sParent) => {
+    const s = sParent[props.pixiCanvasStateId];
+    return s.lastUsedSave;
+  });
+
+  const [name, setName] = React.useState(lastOpenedSave.name);
   const [description, setDescription] = React.useState(
-    'Lizard Doggo Approved!'
+    lastOpenedSave.description
   );
+
   const [overWrite, setOverWrite] = React.useState(false);
 
   const setNameFunction = React.useCallback(
@@ -480,7 +514,12 @@ function LocalSaveContent(props) {
     [name, overWrite]
   );
 
-  const { classes } = props;
+  React.useEffect(() => {
+    setDescription(lastOpenedSave.description);
+    setName(lastOpenedSave.name);
+  }, [lastOpenedSave]);
+
+  const { classes, pixiCanvasStateId } = props;
   return (
     <Grid container spacing={2}>
       <Grid classes={{ item: classes.gridItem }} item xs={6}>
@@ -489,7 +528,8 @@ function LocalSaveContent(props) {
             designData.designs,
             props,
             designData,
-            setDesignData
+            setDesignData,
+            setOverWrite
           )}
         </FileBrowser>
       </Grid>
@@ -520,7 +560,8 @@ function LocalSaveContent(props) {
                   ...serializeGraphObjects(graphObjects),
                   q: description || uuidGen(),
                   n: designName,
-                }
+                },
+                pixiCanvasStateId
               );
             }}
           >

@@ -40,6 +40,10 @@ export const generateNewPixiCanvasStore = (theme: any, id: string) => {
     snapToGrid: false,
     autoShuffleEdge: false,
     signedIn: false,
+    lastUsedSave: {
+      name: 'My Awesome Design',
+      description: 'Lizard Doggo Approved',
+    },
   };
 };
 
