@@ -49,7 +49,7 @@ function NarBar(props) {
         <Hidden xsDown implementation="css">
           <Badge
             className={classes.margin}
-            badgeContent={'Pre-Alpha'}
+            badgeContent={'Alpha'}
             color="secondary"
           >
             <img
