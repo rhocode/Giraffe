@@ -1,15 +1,18 @@
-import React from 'react';
-import HelpIcon from '@material-ui/icons/Help';
-import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+import HelpIcon from '@material-ui/icons/Help';
+import React from 'react';
+import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalOpenTrigger';
 import IconDialog from './IconDialog';
-import { withStyles } from '@material-ui/core';
 
-const styles = (theme) => ({});
+// const useStyles = makeStyles((theme) => ({
+//
+// }));
 
-function HelpButton(props) {
+export default function HelpButton(props) {
   return (
     <IconDialog label="Help" icon={<HelpIcon />}>
+      <ModalOpenTrigger pixiCanvasStateId={props.id} />
       <Typography variant="h4">Welcome to SatisGraphtory!</Typography>
       <Typography variant="body1">
         This is a factory planner/optimizer/analyzer tool for factories old and
@@ -241,5 +244,3 @@ function HelpButton(props) {
     </IconDialog>
   );
 }
-
-export default withStyles(styles)(HelpButton);

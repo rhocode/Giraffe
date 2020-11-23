@@ -393,7 +393,7 @@ const fabAction = (
   externalInteractionManager,
   pixiCanvasStateId
 ) => () => {
-  // makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
+  makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
 
   pixiJsStore.update([
     optimizeSidesFunction(pixiCanvasStateId),

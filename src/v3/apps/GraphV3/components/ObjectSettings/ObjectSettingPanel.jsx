@@ -203,18 +203,22 @@ function ObjectSettingPanel(props) {
                   pixiJsStore.update((t) => {
                     const s = t[pixiCanvasStateId];
 
-                    let edgesToDelete = new Set([]);
+                    let objectsToDelete = new Set([]);
 
                     for (const node of nodes) {
-                      edgesToDelete.add(node);
+                      objectsToDelete.add(node);
                       const altDeletes = node.delete();
                       for (const item of altDeletes) {
-                        edgesToDelete.add(item);
+                        objectsToDelete.add(item);
                       }
                     }
 
+                    for (const obj of objectsToDelete) {
+                      s.childrenMap.delete(obj.id);
+                    }
+
                     s.children = s.children.filter(
-                      (item) => !edgesToDelete.has(item)
+                      (item) => !objectsToDelete.has(item)
                     );
 
                     s.selectedObjects = [];
@@ -394,6 +398,10 @@ function ObjectSettingPanel(props) {
 
                     for (const edge of edges) {
                       edge.delete();
+                    }
+
+                    for (const obj of edgesToDelete) {
+                      s.childrenMap.delete(obj.id);
                     }
 
                     s.children = s.children.filter(

@@ -14,6 +14,7 @@ import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/ap
 import { EDGE_TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import { getTier } from 'v3/data/loaders/buildings';
 import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
+import { EResourceForm } from '../../../../../../../../.data-landing/interfaces/enums';
 
 export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;
@@ -142,7 +143,17 @@ export default class SimpleEdge extends EdgeTemplate {
 
     const theme = this.getInteractionManager().getTheme();
 
-    this.graphicsObject.lineStyle(LINE_THICKNESS, theme.edges.default, 1);
+    let style = theme.edges.default;
+    switch (this.resourceForm) {
+      case EResourceForm.RF_LIQUID:
+      case EResourceForm.RF_SOLID:
+        style = theme.edges[this.resourceForm];
+        break;
+      default:
+        console.error(`Unsupported resource form: ${this.resourceForm}`);
+    }
+
+    this.graphicsObject.lineStyle(LINE_THICKNESS, style, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
     const multiplierX = sourceX > targetX ? -1 : 1;

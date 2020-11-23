@@ -173,10 +173,18 @@ const getBuildableConnectionsFn = () => {
       reverseUpgradePathMap.set(machine, slug);
     } else {
       const resolvedSlug = slugToCustomMachineGroup(machine);
+      // console.log(resolvedSlug);
       if (!connectionClassMap.get(resolvedSlug)) {
         connectionClassMap.set(resolvedSlug, []);
       }
+
+      if (!upgradePathMap.get(resolvedSlug)) {
+        upgradePathMap.set(resolvedSlug, []);
+      }
       connectionClassMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(resolvedSlug)!.push(machine);
+      upgradePathMap.get(resolvedSlug)!.sort();
+      reverseUpgradePathMap.set(machine, resolvedSlug);
     }
   });
 

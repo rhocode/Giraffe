@@ -15,10 +15,12 @@ const initCanvasChildren = (
 
   if (!loadedData || Object.keys(loadedData).length === 0) {
     data = {
-      d:
-        'CgBgCGAAYBCQFJSAYACwcABwCkAWBBgaYDFkBYAJIGqBKxAIIDlIAMAA8gHEAkNgeoABAIACAAAgAG8AKiYAiQJAAiAJ0BFgQDhkAEgDdkACUBMsQDAAdAFiAAgEgAuQA9INAMUBzsXYBZmXAC1AAUAIAAJAKAACgDIbADQkDACAO9sAMDEAA0wQQBQEiA2AI4CAJMAaZAAPkIAIgBOZTaQAKsAVAAVANb2AJEAlwDOcgDYLOkAEkIAEUIATQAdIgAP6QA6kDrLADxCLJAAF+kA3lHpVABdAI1IQA===',
+      d: 'AIACA===',
       c: 0,
       v: '0.1.0',
+      h: -393418234,
+      q: 'Lizard Doggo Approved',
+      n: 'My Awesome Design',
     };
   } else {
     data = loadedData;

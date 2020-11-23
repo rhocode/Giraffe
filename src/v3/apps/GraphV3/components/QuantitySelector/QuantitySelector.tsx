@@ -25,7 +25,7 @@ const StyledInput = withStyles(() => ({
     textAlign: 'center',
     paddingLeft: 0,
     paddingRight: 0,
-    width: 80,
+    width: 130,
     height: '0em',
   },
   root: {

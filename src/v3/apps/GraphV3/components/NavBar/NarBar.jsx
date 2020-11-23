@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NarBar(props) {
-  const { id, loaded } = props;
+  const { id } = props;
 
   const classes = useStyles();
 
@@ -67,9 +67,9 @@ function NarBar(props) {
           />
         </Hidden>
         <div className={classes.grow} />
-        <ShareButton id={id} loaded={loaded} />
+        <ShareButton id={id} />
         <SettingsButton id={id} />
-        <HelpButton />
+        <HelpButton id={id} />
       </Toolbar>
     </AppBar>
   );

@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     paddingBottom: 10,
-    minHeight: 300,
+    minHeight: 312,
   },
   loginRow: {
     display: 'flex',
@@ -151,18 +151,18 @@ function LoginButton(props) {
 }
 
 function ShareCodeBox(props) {
-  const serializedGraph = pixiJsStore.useState((sParent) => {
-    const s = sParent[props.pixiCanvasStateId];
-    if (s.childrenMap) {
-      return [...s.childrenMap.values()].filter(
-        (obj) => obj instanceof GraphObject
-      );
-    }
-
-    return null;
-  });
-
-  console.log(serializedGraph);
+  // const serializedGraph = pixiJsStore.useState((sParent) => {
+  //   const s = sParent[props.pixiCanvasStateId];
+  //   if (s.childrenMap) {
+  //     return [...s.childrenMap.values()].filter(
+  //       (obj) => obj instanceof GraphObject
+  //     );
+  //   }
+  //
+  //   return null;
+  // });
+  //
+  // console.log(serializedGraph);
   return null;
 }
 
@@ -193,9 +193,6 @@ function FileItem(props) {
             const s = sParent[pixiCanvasStateId];
             s.lastSelectedSave.name = data.n;
             s.lastSelectedSave.description = data.q;
-
-            console.log('setting last used save hash to', data.h);
-
             s.lastUsedSave.name = data.n;
             s.lastUsedSave.hash = data.h;
           });
@@ -260,7 +257,7 @@ function FileBrowser(props) {
               name="canOverwrite"
             />
           }
-          label="Overwrite Current Graph"
+          label="Overwrite Displayed Graph"
         />
       </div>
     </div>
@@ -564,8 +561,6 @@ function LocalSaveContent(props) {
     }
   );
 
-  console.log('UPDATING WITH HASH', lastUsedSaveHash, newDesignData.h);
-
   const [canOverwrite, setCanOverwrite] = React.useState(false);
 
   const loadGraphEnabled = newDesignData.h === lastUsedSaveHash || canOverwrite;
@@ -756,7 +751,7 @@ function GetShareBoxContent(props) {
         centered
       >
         <Tab label="Local" icon={<SaveIcon />} />
-        <Tab label="Cloud" icon={<CloudIcon />} />
+        <Tab label="Cloud" disabled icon={<CloudIcon />} />
       </Tabs>
       <div className={classes.shareRow}>
         {tabValue === 0 && <LocalSaveContent {...props} />}
@@ -777,10 +772,16 @@ function ShareButton(props) {
     init();
   }, [init]);
 
+  const isLoaded = pixiJsStore.useState((s) => {
+    const instance = s[pixiCanvasStateId];
+    return instance?.canvasReady;
+  });
+
   return (
     <IconDialog
       label="Save/Share"
       icon={isLoggedIn ? <CloudIcon /> : <SaveIcon />}
+      disabled={!isLoaded}
     >
       <ModalOpenTrigger pixiCanvasStateId={pixiCanvasStateId} />
       <div className={classes.shareDialog}>

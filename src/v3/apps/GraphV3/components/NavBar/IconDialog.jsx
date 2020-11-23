@@ -36,12 +36,16 @@ const styles = (theme) => ({
 });
 
 function IconDialog(props) {
-  const { classes } = props;
+  const { classes, disabled } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   return (
     <React.Fragment>
-      <IconButton onClick={() => setOpenDialog(true)} className={classes.icon}>
+      <IconButton
+        disabled={disabled}
+        onClick={() => setOpenDialog(true)}
+        className={classes.icon}
+      >
         {props.icon}
       </IconButton>
       <Dialog
