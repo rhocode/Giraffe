@@ -70,6 +70,7 @@ export const getSchemaForVersion = (version: string) => {
     5: ['biDirectional', 'bool'],
     6: ['sourceNodeAttachmentSide', 'uint32'],
     7: ['targetNodeAttachmentSide', 'uint32'],
+    8: ['connectorTypeId', 'BuildingEnum'],
   };
 
   const EdgeMessage = new Type('Edge');

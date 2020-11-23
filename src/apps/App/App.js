@@ -33,8 +33,17 @@ const HomeApp = chooseLoadingStyle(HomeImport);
 const GraphImport = () => import('../../v3/apps/GraphV3/GraphApp');
 const GraphApp = chooseLoadingStyle(GraphImport);
 
-const HubImport = () => import('apps/Hub/HubApp');
-const HubApp = chooseLoadingStyle(HubImport);
+const SimulationImport = () => import('apps/Simulation/SimulationApp');
+const SimulationApp = chooseLoadingStyle(SimulationImport);
+
+const ReleaseImport = () => import('../../v3/apps/ReleasePage/ReleasePage');
+const ReleaseApp = chooseLoadingStyle(ReleaseImport);
+
+const PrivacyImport = () => import('../../apps/PrivacyPolicy/PrivacyApp');
+const PrivacyApp = chooseLoadingStyle(PrivacyImport);
+
+const TermsImport = () => import('../../apps/TermsOfService/TermsOfService');
+const TermsApp = chooseLoadingStyle(TermsImport);
 
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
@@ -164,10 +173,43 @@ function getGraphApp(local = false) {
 function getHubApp(local = false) {
   return (
     <Route
-      key={'hub'}
-      path={local ? `/hub` : `/`}
+      key={'sim'}
+      path={local ? `/sim` : `/`}
       exact={!local}
-      component={HubApp}
+      component={SimulationApp}
+    />
+  );
+}
+
+function getReleaseApp(local = false) {
+  return (
+    <Route
+      key={'release'}
+      path={local ? `/release` : `/`}
+      exact={!local}
+      component={ReleaseApp}
+    />
+  );
+}
+
+function getPrivacyApp(local = false) {
+  return (
+    <Route
+      key={'privacy'}
+      path={local ? `/privacy` : `/`}
+      exact={!local}
+      component={PrivacyApp}
+    />
+  );
+}
+
+function getTermsApp(local = false) {
+  return (
+    <Route
+      key={'terms'}
+      path={local ? `/terms` : `/`}
+      exact={!local}
+      component={TermsApp}
     />
   );
 }
@@ -191,6 +233,9 @@ function resolveDomain() {
     domainList.push(getHomeApp());
     domainList.push(getGraphApp(true));
     domainList.push(getHubApp(true));
+    domainList.push(getReleaseApp(true));
+    domainList.push(getPrivacyApp(true));
+    domainList.push(getTermsApp(true));
   }
 
   return domainList;

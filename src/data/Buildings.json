@@ -15,6 +15,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -34,6 +35,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -53,6 +55,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -72,6 +75,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -91,6 +95,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -110,6 +115,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
     "manufacturingSpeed": 1,
     "buildingType": "MANUFACTURER"
   },
@@ -129,7 +135,28 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableAutomatedWorkBench",
     "buildingType": "PLAYERCRAFTER"
+  },
+  "building-packager": {
+    "name": "Packager",
+    "translation": {
+      "namespace": "",
+      "key": "7845C1DB4F38DD3496BE3883EC10FA79"
+    },
+    "description": "Used for the packaging and unpacking of fluids.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nContains both a Conveyor Belt and Pipe input and output, to allow for the automation of various recipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1055EF124E12FF154F252A9EDBC92DED"
+    },
+    "powerConsumption": 10,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableManufacturer",
+    "manufacturingSpeed": 1,
+    "buildingType": "MANUFACTURER"
   },
   "building-train-docking-station": {
     "name": "Freight Platform",
@@ -147,6 +174,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableTrainPlatformCargo",
     "storageSizeX": 8,
     "storageSizeY": 6,
     "timeToCompleteUnload": 27,
@@ -169,6 +197,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableTrainPlatformCargo",
     "storageSizeX": 1,
     "storageSizeY": 1,
     "timeToCompleteUnload": 27,
@@ -191,6 +220,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableAttachmentMerger",
     "buildingType": "ITEMFLOWMANIPULATOR"
   },
   "building-conveyor-attachment-splitter": {
@@ -209,6 +239,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableAttachmentSplitter",
     "buildingType": "ITEMFLOWMANIPULATOR"
   },
   "building-conveyor-attachment-splitter-programmable": {
@@ -227,6 +258,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableSplitterSmart",
     "buildingType": "ITEMFLOWMANIPULATOR"
   },
   "building-conveyor-attachment-splitter-smart": {
@@ -245,6 +277,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableSplitterSmart",
     "buildingType": "ITEMFLOWMANIPULATOR"
   },
   "building-conveyor-belt-mk1": {
@@ -258,6 +291,7 @@
       "namespace": "",
       "key": "3D7423FC4A6F790A0392FABBC5C13EAF"
     },
+    "baseType": "AFGBuildableConveyorBelt",
     "speed": 120,
     "buildingType": "ITEMPASSTHROUGH",
     "supportedResourceForms": [
@@ -275,6 +309,7 @@
       "namespace": "",
       "key": "6CAB260A4CEA9658350E36A523208EDA"
     },
+    "baseType": "AFGBuildableConveyorBelt",
     "speed": 240,
     "buildingType": "ITEMPASSTHROUGH",
     "supportedResourceForms": [
@@ -292,6 +327,7 @@
       "namespace": "",
       "key": "DD85142F4C6F85EC9D14CF9DAB5975EA"
     },
+    "baseType": "AFGBuildableConveyorBelt",
     "speed": 540,
     "buildingType": "ITEMPASSTHROUGH",
     "supportedResourceForms": [
@@ -309,6 +345,7 @@
       "namespace": "",
       "key": "0C49B7944680A4FBA2864081DAB3D919"
     },
+    "baseType": "AFGBuildableConveyorBelt",
     "speed": 960,
     "buildingType": "ITEMPASSTHROUGH",
     "supportedResourceForms": [
@@ -326,6 +363,7 @@
       "namespace": "",
       "key": "BDB63D994387A8251468408F2DD47AD0"
     },
+    "baseType": "AFGBuildableConveyorBelt",
     "speed": 1560,
     "buildingType": "ITEMPASSTHROUGH",
     "supportedResourceForms": [
@@ -348,6 +386,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorFuel",
     "defaultFuelClasses": [
       "FGItemDescriptorBiomass"
     ],
@@ -375,6 +414,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorFuel",
     "defaultFuelClasses": [
       "item-coal",
       "item-compacted-coal",
@@ -405,6 +445,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorFuel",
     "defaultFuelClasses": [
       "item-liquid-fuel",
       "item-liquid-turbo-fuel",
@@ -434,6 +475,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorGeoThermal",
     "powerProduction": 200,
     "powerProductionExponent": 1.29999995231628,
     "buildingType": "GENERATOR"
@@ -454,6 +496,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorFuel",
     "defaultFuelClasses": [
       "FGItemDescriptorBiomass"
     ],
@@ -481,6 +524,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableGeneratorNuclear",
     "defaultFuelClasses": [
       "item-nuclear-fuel-rod"
     ],
@@ -509,6 +553,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildablePipeReservoir",
     "storageCapacity": 2400,
     "buildingType": "FLUIDSTORAGE"
   },
@@ -528,6 +573,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceExtractor",
     "extractStartupTime": 15,
     "extractCycleTime": 1,
     "itemsPerCycle": 1,
@@ -555,6 +601,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceExtractor",
     "extractStartupTime": 15,
     "extractCycleTime": 0.5,
     "itemsPerCycle": 1,
@@ -582,6 +629,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceExtractor",
     "extractStartupTime": 15,
     "extractCycleTime": 0.25,
     "itemsPerCycle": 1,
@@ -609,6 +657,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceExtractor",
     "extractStartupTime": 0,
     "extractCycleTime": 1,
     "itemsPerCycle": 2000,
@@ -623,7 +672,7 @@
     "buildingType": "EXTRACTOR"
   },
   "building-pipeline": {
-    "name": "Pipeline",
+    "name": "Pipeline Mk.1",
     "translation": {
       "namespace": "",
       "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
@@ -633,6 +682,7 @@
       "namespace": "",
       "key": "F342E9104323D0072DC923A20E32C89D"
     },
+    "baseType": "AFGBuildablePipeline",
     "flowLimit": 5,
     "radius": 65,
     "buildingType": "FLUIDPASSTHROUGH",
@@ -656,15 +706,35 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildablePipelineJunction",
     "buildingType": "FLUIDFLOWMANIPULATOR"
   },
+  "building-pipeline-mk2": {
+    "name": "Pipeline Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "1EC5990647FDD00A25FB32B94FA57A22"
+    },
+    "description": "Outside indicators show volume, flow rate and direction.\r\nTransports up to 600m³ of fluid per minute.\r\nUsed to transport fluids.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FC7E48C440F423CAAD70DC9952371CCA"
+    },
+    "baseType": "AFGBuildablePipeline",
+    "flowLimit": 10,
+    "radius": 65,
+    "buildingType": "FLUIDPASSTHROUGH",
+    "supportedResourceForms": [
+      2
+    ]
+  },
   "building-pipeline-pump": {
-    "name": "Pipeline Pump",
+    "name": "Pipeline Pump Mk.1",
     "translation": {
       "namespace": "",
       "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
     },
-    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\nOutputs fluids at 300m³ per minute.\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
     "descriptionTranslation": {
       "namespace": "",
       "key": "E60BEFDA413E62FF8154B3BE66A34A3C"
@@ -674,9 +744,30 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
-    "flowLimit": 5,
+    "baseType": "AFGBuildablePipelinePump",
     "designPressure": 20,
     "maxPressure": 22,
+    "buildingType": "RESTRICTOR"
+  },
+  "building-pipeline-pump-mk2": {
+    "name": "Pipeline Pump Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "498CAA2342C6C7DD15369AA7181D810C"
+    },
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 50 meters\r\n(Allows fluids to be transported 50 meters upwards.)\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B876823E456D188ED7772285F01AEB33"
+    },
+    "powerConsumption": 12,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildablePipelinePump",
+    "designPressure": 50,
+    "maxPressure": 55,
     "buildingType": "RESTRICTOR"
   },
   "building-pipe-storage-tank": {
@@ -695,6 +786,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildablePipeReservoir",
     "storageCapacity": 400,
     "buildingType": "FLUIDSTORAGE"
   },
@@ -714,6 +806,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceSink",
     "buildingType": "SINK"
   },
   "building-storage-container-mk1": {
@@ -732,6 +825,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableStorage",
     "inventorySizeX": 6,
     "inventorySizeY": 4,
     "buildingType": "ITEMSTORAGE"
@@ -752,6 +846,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableStorage",
     "inventorySizeX": 8,
     "inventorySizeY": 6,
     "buildingType": "ITEMSTORAGE"
@@ -772,6 +867,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableStorage",
     "inventorySizeX": 5,
     "inventorySizeY": 5,
     "buildingType": "ITEMSTORAGE"
@@ -792,6 +888,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableStorage",
     "inventorySizeX": 5,
     "inventorySizeY": 5,
     "buildingType": "ITEMSTORAGE"
@@ -812,9 +909,31 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableDockingStation",
     "transferSpeed": 0.5,
     "fuelTransferSpeed": 5,
     "buildingType": "TRUCKSTATION"
+  },
+  "building-valve": {
+    "name": "Valve",
+    "translation": {
+      "namespace": "",
+      "key": "49CA1BC04E9C7D6FB75CCAB6843DB1E8"
+    },
+    "description": "Used to limit Pipeline flow rates.\r\nCan be attached to a Pipeline.\r\n\r\nNOTE: Has an in- and output direction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D485128D44ADAFBA604D2AA6CAAE17CB"
+    },
+    "powerConsumption": 0,
+    "powerConsumptionExponent": 1.60000002384186,
+    "minPotential": 0,
+    "maxPotential": 2.5,
+    "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildablePipelinePump",
+    "designPressure": 0,
+    "maxPressure": 0,
+    "buildingType": "RESTRICTOR"
   },
   "building-water-pump": {
     "name": "Water Extractor",
@@ -832,6 +951,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableResourceExtractor",
     "extractStartupTime": 10,
     "extractCycleTime": 1,
     "itemsPerCycle": 2000,
@@ -861,6 +981,7 @@
     "minPotential": 0,
     "maxPotential": 2.5,
     "maxPotentialIncreasePerCrystal": 0.5,
+    "baseType": "AFGBuildableSpaceElevator",
     "buildingType": "SINK"
   }
 }

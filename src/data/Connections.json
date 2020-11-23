@@ -5,6 +5,12 @@
     "inputBelts": 1,
     "outputBelts": 1
   },
+  "building-packager": {
+    "inputPipes": 1,
+    "outputPipes": 1,
+    "inputBelts": 1,
+    "outputBelts": 1
+  },
   "building-train-docking-station-liquid": {
     "inputPipes": 2,
     "outputPipes": 2
@@ -34,8 +40,16 @@
     "inputPipes": 1,
     "outputPipes": 1
   },
+  "building-pipeline-pump-mk2": {
+    "inputPipes": 1,
+    "outputPipes": 1
+  },
   "building-pipe-storage-tank": {
     "anyPipes": 2
+  },
+  "building-valve": {
+    "inputPipes": 1,
+    "outputPipes": 1
   },
   "building-water-pump": {
     "outputPipes": 1
@@ -128,6 +142,10 @@
     "inputBelts": 6
   },
   "building-pipeline": {
+    "inputPipes": 1,
+    "outputPipes": 1
+  },
+  "building-pipeline-mk2": {
     "inputPipes": 1,
     "outputPipes": 1
   }

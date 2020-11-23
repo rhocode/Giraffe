@@ -1,10 +1,7 @@
 // @refresh reset
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import { Viewport } from 'pixi-viewport';
 import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import { importImageManifest } from 'v3/data/loaders/sgImageRepo';
 
 const FontFaceObserver = require('fontfaceobserver');
@@ -31,14 +28,10 @@ const InnerComponent = React.lazy(() => {
 });
 
 type CanvasProps = {
-  initialCanvasChildren: (
-    app: PIXI.Application,
-    viewPort: Viewport,
-    translate: Function,
-    theme: Record<string, any>
-  ) => NodeTemplate[] | undefined;
+  initialCanvasGraph: Record<string, any> | undefined;
   onFinishLoad: () => void | undefined;
   id: string;
+  dataLoaded: boolean;
 };
 
 function Canvas(props: CanvasProps) {

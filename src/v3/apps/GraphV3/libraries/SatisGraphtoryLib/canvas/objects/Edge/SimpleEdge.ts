@@ -1,5 +1,4 @@
 import EdgeTemplate, {
-  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
@@ -10,6 +9,12 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import { Dot } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
 import Bezier from 'bezier-js';
+import createText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createText';
+import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
+import { EDGE_TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
+import { getTier } from 'v3/data/loaders/buildings';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
+import { EResourceForm } from '../../../../../../../../.data-landing/interfaces/enums';
 
 export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;
@@ -19,8 +24,15 @@ export default class SimpleEdge extends EdgeTemplate {
   private selected: boolean = false;
   private hitBoxEnabled = false;
 
+  private levelText: any;
+
   constructor(props: SatisGraphtoryEdgeProps) {
     super(props);
+
+    if (!this.connectorName)
+      throw new Error(
+        'SimpleEdge must be instantiated with a valid connector name'
+      );
 
     this.container.setHighLightObject(new PIXI.Graphics());
     this.container.addChild(this.container.getHighLight());
@@ -35,6 +47,18 @@ export default class SimpleEdge extends EdgeTemplate {
     const outDotTexture = PIXI.utils.TextureCache['inCircle'];
     const outputDot = Dot(outDotTexture, 0, 0);
 
+    const tier = getTier(this.connectorName);
+
+    const theme = this.getInteractionManager().getTheme();
+
+    this.levelText = tier
+      ? createText(getTierText(tier), EDGE_TIER_STYLE(theme), 0, 0, 'center')
+      : null;
+
+    if (this.levelText) {
+      this.container.addChild(this.levelText);
+    }
+
     this.sourceDot = inputDot;
     this.targetDot = outputDot;
 
@@ -46,16 +70,24 @@ export default class SimpleEdge extends EdgeTemplate {
         throw new Error('Cannot instantiate non-connected simple-edge');
       }
 
-      if (props.biDirectional) {
-        this.sourceNode.addEdge(this, EdgeType.OUTPUT, true);
-
-        this.targetNode.addEdge(this, EdgeType.INPUT, true);
-      } else {
-        this.sourceNode.addEdge(this, EdgeType.OUTPUT);
-
-        // @ts-ignore
-        this.targetNode.addEdge(this, EdgeType.INPUT);
+      if (
+        this.sourceNode.isBiDirectional() &&
+        this.targetNode.isBiDirectional()
+      ) {
+        this.biDirectional = true;
       }
+
+      this.sourceNode.addEdge(
+        this,
+        EdgeType.OUTPUT,
+        props.useProvidedAttachmentSides
+      );
+
+      this.targetNode.addEdge(
+        this,
+        EdgeType.INPUT,
+        props.useProvidedAttachmentSides
+      );
 
       this.updateWithoutHitBox();
     }
@@ -108,7 +140,20 @@ export default class SimpleEdge extends EdgeTemplate {
     this.graphicsObject.clear();
     this.container.getHighLight().clear();
     // TODO: Fix the edge color
-    this.graphicsObject.lineStyle(LINE_THICKNESS, this.theme.edges.default, 1);
+
+    const theme = this.getInteractionManager().getTheme();
+
+    let style = theme.edges.default;
+    switch (this.resourceForm) {
+      case EResourceForm.RF_LIQUID:
+      case EResourceForm.RF_SOLID:
+        style = theme.edges[this.resourceForm];
+        break;
+      default:
+        console.error(`Unsupported resource form: ${this.resourceForm}`);
+    }
+
+    this.graphicsObject.lineStyle(LINE_THICKNESS, style, 1);
     this.graphicsObject.moveTo(sourceX, sourceY);
 
     const multiplierX = sourceX > targetX ? -1 : 1;
@@ -156,11 +201,7 @@ export default class SimpleEdge extends EdgeTemplate {
 
     const highLight = this.container.getHighLight();
     highLight.moveTo(sourceX, sourceY);
-    highLight.lineStyle(
-      LINE_HIGHLIGHT_THICKNESS,
-      this.theme.edges.highlight,
-      1
-    );
+    highLight.lineStyle(LINE_HIGHLIGHT_THICKNESS, theme.edges.highlight, 1);
 
     const curve = new Bezier(
       sourceX,
@@ -172,6 +213,13 @@ export default class SimpleEdge extends EdgeTemplate {
       targetX,
       targetY
     );
+
+    const { x: midpointX, y: midpointY } = curve.get(0.5);
+
+    if (this.levelText) {
+      this.levelText.position.x = midpointX;
+      this.levelText.position.y = midpointY;
+    }
 
     const points = curve.getLUT(100);
     const polygon = new PIXI.Polygon(points);

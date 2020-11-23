@@ -50,11 +50,11 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSCanvasGuard(props) {
-  const { height, width, ...restProps } = props;
+  const { height, width, dataLoaded, ...restProps } = props;
 
   const { canvasReady: loaded } = React.useContext(PixiJSCanvasContext);
 
-  if (!height || !width) {
+  if (!height || !width || !dataLoaded) {
     return null;
   }
 
@@ -88,7 +88,7 @@ function CenteredLoader() {
 
 function PixiJSCanvasContainer(props) {
   const classes = useStyles();
-  const { children, ...restProps } = props;
+  const { children, dataLoaded, ...restProps } = props;
 
   return (
     <React.Fragment>
@@ -103,7 +103,12 @@ function PixiJSCanvasContainer(props) {
           {({ width, height }) => (
             <div className={classes.canvas}>
               <CenteredLoader />
-              <PixiJSCanvasGuard height={height} width={width} {...restProps} />
+              <PixiJSCanvasGuard
+                height={height}
+                width={width}
+                dataLoaded={dataLoaded}
+                {...restProps}
+              />
               <div className={classes.childOverlay}>{children}</div>
             </div>
           )}

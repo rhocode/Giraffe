@@ -40,6 +40,10 @@ export enum buildingEnums {
   'building-truck-station' = 39,
   'building-water-pump' = 40,
   'building-space-elevator' = 41,
+  'building-packager' = 42, // new value
+  'building-pipeline-mk2' = 42, // new value
+  'building-pipeline-pump-mk2' = 42, // new value
+  'building-valve' = 42, // new value
 }
 
 export enum recipeEnums {
@@ -414,6 +418,14 @@ export enum recipeEnums {
   'recipe-impure-ore-uranium' = 369,
   'recipe-normal-ore-uranium' = 370,
   'recipe-pure-ore-uranium' = 371,
+  'recipe-alternate-coated-iron-canister' = 372, // new value
+  'recipe-alternate-steel-canister' = 372, // new value
+  'recipe-ladder' = 372, // new value
+  'recipe-jump-pad-adjustable' = 372, // new value
+  'recipe-packager' = 372, // new value
+  'recipe-pipeline-mk2' = 372, // new value
+  'recipe-pipeline-pump-mk2' = 372, // new value
+  'recipe-valve' = 372, // new value
 }
 
 export enum itemEnums {
@@ -688,4 +700,10 @@ export enum itemEnums {
   'item-truck' = 269,
   'item-freight-wagon' = 270,
   'item-locomotive' = 271,
+  'item-ladder' = 272, // new value
+  'item-jump-pad-adjustable' = 272, // new value
+  'item-packager' = 272, // new value
+  'item-pipeline-mk2' = 272, // new value
+  'item-pipeline-pump-mk2' = 272, // new value
+  'item-valve' = 272, // new value
 }

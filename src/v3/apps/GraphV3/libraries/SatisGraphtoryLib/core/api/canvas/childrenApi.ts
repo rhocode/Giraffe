@@ -2,6 +2,7 @@ import uuidGen from 'v3/utils/stringUtils';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
+import { GraphObject } from '../../../canvas/objects/interfaces/GraphObject';
 
 export const addObjectChildren = (
   children: NodeTemplate[] | EdgeTemplate[],
@@ -12,12 +13,12 @@ export const addObjectChildren = (
 };
 
 export const addObjectChildrenWithinState = (
-  children: NodeTemplate[] | EdgeTemplate[],
+  children: GraphObject[],
   canvasId: string,
   unshift: boolean = false
 ) => {
   return (t: any) => {
-    children.forEach((child: NodeTemplate | EdgeTemplate) => {
+    children.forEach((child: GraphObject) => {
       const id = child.id || uuidGen();
       const s = t[canvasId];
       s.childrenMap.set(id, child);
@@ -59,15 +60,36 @@ export const removeChild = (id: string, canvasId: string) => {
   });
 };
 
+export const removeChildrenFunction = (canvasId: string) => (t: any) => {
+  const s = t[canvasId];
+  s.childrenMap.clear();
+  s.children.splice(0, s.children.length);
+  s.viewportChildContainer.removeChildren();
+};
+
+export const removeAllChildren = (canvasId: string) => {
+  pixiJsStore.update(removeChildrenFunction(canvasId));
+};
+
 export function getTypedChildrenFromState(state: any, type: any): any[] {
   return state.children.filter((item: any) => item instanceof type);
 }
 
-export function getMultiTypedChildrenFromState(state: any, type: any[]): any[] {
+export function getMultiTypedChildrenFromState(
+  state: any,
+  type: any[],
+  whitelistedIds = new Set<string>()
+): any[] {
   return state.children.filter((item: any) => {
-    return type.some((subType: any) => {
+    let hasAttribute = type.some((subType: any) => {
       return item instanceof subType;
     });
+
+    if (whitelistedIds.size) {
+      return whitelistedIds.has(item.id) && hasAttribute;
+    }
+
+    return hasAttribute;
   });
 }
 

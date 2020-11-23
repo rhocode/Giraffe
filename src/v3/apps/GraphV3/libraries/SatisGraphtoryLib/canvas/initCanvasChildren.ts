@@ -1,29 +1,42 @@
 import { Viewport } from 'pixi-viewport';
 import deserializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/deserialize';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
 const initCanvasChildren = (
   pixiJS: PIXI.Application,
   viewport: Viewport,
   translate: (source: string) => string,
-  theme: Record<string, any>
+  externalInteractionManager: ExternalInteractionManager,
+  loadedData?: Record<string, any>
 ) => {
   // TODO: Get this from external sources
-  // const data = {
-  //   "d": "LIJIswUgwAjAKAUIN4HuAmAzASwFYG0CXALQFYA1A/ACBkBqAYACEBIcAOhgNcByA+gAIAdgN0BHAIcApgKoBBAIhwAgwgAFACgB0ggF0EAzAAiA0AHyAwwHMADwEgAPQFcAZOIBzAK8YBngLkBnAGSASQAUkFUAQwBymABAgGCAMI8ACRwAAwABgCMAXtoAJgBIgDyQACCCUIIAGIBT/0kAYuAAI4AtLAAuAEaAIgAm4AA0gGUAGgB1/u4ADYAWAC9jABmAa0CAdIAtiaWAXAA1gEWAUwAc500AZoBPABelgCxmgHUABK2AbQBMPIAfABpgCwAAnAnh/gBRI4AfoAIw9CkCABiSBYAWoAUQA9gBQAGOkgAZAD1hTyADGHt0AMsAbFkAHQAMQ6ADRAF8AF8AfwAmsVigAHAAQAAuAOIAcIAsQB/gD2AHmAPgAcFkcA8eAAmXMiFQAC7BABZ9QAfdIAIp0m78XwAD5yHIAdwA6ywepTYwoASYA2ZI4g8AFUAIYAP2c5fIAPIADIAC3CMpalM4AKSSACgGoAtAB4ACoADcliWdpoAGf6MaY1YAGAAFuo8N0AHA7OJLOGYgCUJAApYMSXzVL8VUXk26AJwAG5IAHiSwA37wABAADQBKgD0ADYCHqF3qALtz4cAb872OTw7V60MADFmQBjJYAbn0CwA7hkACFcAAKNtFggwJHEzIlgAHHc+IAOQAB0AI8gYeAC8YZvAsvAZAyZyFAAGr83QAAziAAJVK+4AKxSsIAAk3AEJYVHfAAyMO5HrJwDKdrQADCAD7ACf3xgFyuLXhQQA=",
-  //   "c": 1,
-  //   "v": "0.1.0"
-  // };
 
-  const data = {
-    d:
-      'LIJOGsGQEEAwHGDnBPAbgZoNyYJYgJMBswA5cANsAyAxuAKQAEAIQIQBDARzgHUCDA0QF+AQBwEAIgBe8AySQBRAJQAVACAB4AFACiAR4ALAaoDpAPwBhDDogAPAYnEBzaAHyAvgGwXAXkHGA+wD3yACYAGYAKSAABQCH5gAaAAIsACoA+gBFAGAAwABoANkA/nQAxQADEQAxAJoAdwANAFlMAFYARADfLgClADMy/QDTABP8ALaaABkARgB6xgCnALAAagDLZc0AcQCxuQDXAMwA9hUAPMDzs5gAgSsArNkAaZAA0hMASAAbAGSGDwARBkhBWABt+ABGgCMUP6ACmKgA2gCb4IAwwAngBwwwA3QAa0wAIQArwiwncALcw04uJa5F4kAAtAHYADSNJII5EIgAKAAAlhiAFQAcW0ABFkGsAKYARXEAB+AFwAXYA6+KACV0ACG6momgA7gAcAABAHiAOqZZUAPNMuhIAFUEgB+3QAE7uAD/qgAzjwJGFWkCpVVJAD1bUC9RIADH8QAemwAT4AkOqAO8AVGamv5hH6qRNGOgACXCAAdAA+AAsACPoADOLnSZXgjQALGyAJIY+b+aCBgCFLwAL/iAGIALoA/5XEPBJwApAB9mQAnGOx8oAOE4gDg3itAFaAG8AZ4mZXTxxcAHwAIu5RSBgBVAByAJHpgAy3J1UIMo9gALEOZBUQ5ABVj1eGVZQWRfF4AGCU1ghtUgAWt/Rxej+Ml9BTT8cVVAA9wgcRnaloAASv7dAFzKAAnMIAIAbzCaB8koGsWSwS91VdABoQowhzNd3gAS4AbWyABaAA5gBHBcKliCimyfWCXgSZEADXl2OAAvFM2AuRoOFQC5zwPY4AH4AF1nI3AAPBdDl0XQZDJeiAF7jgAD+vQRAgxMlHKAA==',
-    c: 1,
-    v: '0.1.0',
-  };
+  let data;
+
+  if (!loadedData || Object.keys(loadedData).length === 0) {
+    data = {
+      d: 'AIACA===',
+      c: 0,
+      v: '0.1.0',
+      h: -393418234,
+      q: 'Lizard Doggo Approved',
+      n: 'My Awesome Design',
+    };
+  } else {
+    data = loadedData;
+  }
 
   console.time('loadNodes');
-  const children = deserializeGraphObjects(data, theme, translate);
+  const children = deserializeGraphObjects(
+    data,
+    translate,
+    externalInteractionManager
+  );
   console.timeEnd('loadNodes');
+  //
+  // console.log(generateBuildingEnums());
+  // console.log(generateItemEnums());
+  // console.log(generateRecipeEnums());
 
   return children;
 };

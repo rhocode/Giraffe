@@ -7,9 +7,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   default: {
-    zIndex: theme.zIndex.drawer
+    zIndex: theme.zIndex.drawer,
   },
   root: {
     position: 'fixed',
@@ -20,28 +20,39 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   buttonContents: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   icon: {
-    color: '#333'
-  }
+    color: '#333',
+  },
+  dialogRoot: {
+    maxWidth: 700,
+  },
 });
 
 function IconDialog(props) {
-  const { classes } = props;
+  const { classes, disabled } = props;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   return (
     <React.Fragment>
-      <IconButton onClick={() => setOpenDialog(true)} className={classes.icon}>
+      <IconButton
+        disabled={disabled}
+        onClick={() => setOpenDialog(true)}
+        className={classes.icon}
+      >
         {props.icon}
       </IconButton>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog
+        classes={{ paper: classes.dialogRoot }}
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+      >
         <DialogTitle>{props.label}</DialogTitle>
         <DialogContent>{props.children}</DialogContent>
         <DialogActions>

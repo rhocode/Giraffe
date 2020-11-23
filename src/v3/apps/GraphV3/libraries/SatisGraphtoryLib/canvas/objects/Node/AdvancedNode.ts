@@ -3,9 +3,9 @@ import { createBackboard } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/can
 import { SatisGraphtoryNodeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
 import {
   MACHINE_STYLE,
+  NODE_TIER_STYLE,
   OVERCLOCK_STYLE,
   RECIPE_STYLE,
-  TIER_STYLE,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import createTruncatedText from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/TruncatedText/createTruncatedText';
 import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/tierUtils';
@@ -32,6 +32,7 @@ import {
   TIER_OFFSET_Y,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Offsets';
 import {
+  GRID_SIZE,
   MACHINE_SIZE,
   NODE_HEIGHT,
   NODE_WIDTH,
@@ -40,15 +41,23 @@ import {
   calculateConnectionNodeOffset,
   Dot,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/Dot';
-import EventEmitter from 'eventemitter3';
 import { Events } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Events';
 import initializeMap from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/initializeMap';
 import EdgeTemplate, {
-  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { EResourceForm } from '.data-landing/interfaces/enums';
+import {
+  pixiJsStore,
+  triggerCanvasUpdateFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import {
+  optimizeSidesFunction,
+  rearrangeEdgesFunction,
+  updateChildrenFunction,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
@@ -73,10 +82,12 @@ export default class AdvancedNode extends NodeTemplate {
     container.boundCalculator = createBackboard(0, 0, machineType);
     container.addChild(container.boundCalculator);
 
+    const theme = this.getInteractionManager().getTheme();
+
     const recipeText = createTruncatedText(
       recipeLabel,
       NODE_WIDTH,
-      RECIPE_STYLE(NODE_WIDTH, this.theme),
+      RECIPE_STYLE(NODE_WIDTH, theme),
       RECIPE_OFFSET_X,
       RECIPE_OFFSET_Y,
       'center'
@@ -84,7 +95,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const machineText = createText(
       machineLabel,
-      MACHINE_STYLE(this.theme),
+      MACHINE_STYLE(theme),
       MACHINE_NAME_OFFSET_X,
       MACHINE_NAME_OFFSET_Y,
       'center'
@@ -106,7 +117,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const levelText = createText(
       getTierText(tier),
-      TIER_STYLE(this.theme),
+      NODE_TIER_STYLE(theme),
       TIER_OFFSET_X,
       TIER_OFFSET_Y
     );
@@ -115,7 +126,7 @@ export default class AdvancedNode extends NodeTemplate {
 
     const efficiencyText = createText(
       `${overclock}%`,
-      OVERCLOCK_STYLE(this.theme),
+      OVERCLOCK_STYLE(theme),
       EFFICIENCY_OFFSET_X,
       EFFICIENCY_OFFSET_Y,
       'right'
@@ -130,7 +141,11 @@ export default class AdvancedNode extends NodeTemplate {
 
   eventFunctions = new Map<string, any[]>();
 
-  recalculateConnections() {
+  recalculateConnections(rearrange = false) {
+    if (rearrange) {
+      this.optimizeSides();
+    }
+
     this.connectionsMap.clear();
     this.connectionsOffsetMap.clear();
     this.connectionsContainer.removeChildren();
@@ -204,6 +219,136 @@ export default class AdvancedNode extends NodeTemplate {
     }
   }
 
+  public optimizeSides() {
+    // Optimize one pass by the node location, then optimize by edge
+    for (const edge of [
+      ...this.inputConnections,
+      ...this.outputConnections,
+      ...this.anyConnections,
+    ]) {
+      const isSource = edge.sourceNode === this;
+      if (!edge.sourceNode && !edge.targetNode) continue;
+      if (!edge.sourceNode || !edge.targetNode) {
+        console.log(edge);
+        throw new Error('One of the edge sides are null');
+      }
+
+      let otherNode = isSource ? edge.targetNode : edge.sourceNode;
+
+      let x = this.container.x - otherNode?.container?.x;
+      let y = this.container.y - otherNode?.container?.y;
+
+      if (!isNaN(x) && !isNaN(y)) {
+        let theta = Math.atan2(y, x); // range (-PI, PI]
+        theta *= 180 / Math.PI; // rads to degrees, range (-180, 180]
+
+        let property = 'targetNodeAttachmentSide';
+        if (isSource) {
+          property = 'sourceNodeAttachmentSide';
+        }
+
+        if (theta <= 45 && theta >= -45) {
+          (edge as any)[property] = EdgeAttachmentSide.LEFT;
+        } else if (theta > 45 && theta < 135) {
+          (edge as any)[property] = EdgeAttachmentSide.TOP;
+        } else if (theta > -135 && theta < -45) {
+          (edge as any)[property] = EdgeAttachmentSide.BOTTOM;
+        } else {
+          (edge as any)[property] = EdgeAttachmentSide.RIGHT;
+        }
+      }
+    }
+
+    this.recalculateConnections();
+  }
+
+  private getEdgeAngle(edge: EdgeTemplate, useNodeCoordinate = false) {
+    const isSource = edge.sourceNode === this;
+    if (!edge.sourceNode && !edge.targetNode) return Infinity;
+    if (!edge.sourceNode || !edge.targetNode) {
+      throw new Error('One of the edge sides are null');
+    }
+
+    let otherNode = isSource ? edge.targetNode : edge.sourceNode;
+
+    let x1;
+    let y1;
+
+    if (useNodeCoordinate) {
+      // TODO: Abstract this to be part of the context.
+      x1 = this.container.x + NODE_WIDTH / 2;
+      y1 = this.container.y + NODE_HEIGHT / 2;
+    } else {
+      const { x, y } = this.getConnectionCoordinate(edge);
+      x1 = x;
+      y1 = y;
+    }
+
+    const { x: x2, y: y2 } = otherNode.getConnectionCoordinate(edge);
+
+    let x = x1 - x2;
+    let y = y1 - y2;
+
+    if (!isNaN(x) && !isNaN(y)) {
+      let theta = Math.atan2(y, x); // range (-PI, PI]
+      theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+
+      if (theta < 0) {
+        theta = 360 + theta;
+      }
+
+      let property = 'targetNodeAttachmentSide';
+      if (isSource) {
+        property = 'sourceNodeAttachmentSide';
+      }
+
+      switch ((edge as any)[property]) {
+        case EdgeAttachmentSide.LEFT:
+          theta += 180;
+          theta = theta % 360;
+          theta = 360 - theta;
+          break;
+        case EdgeAttachmentSide.RIGHT:
+          break;
+        case EdgeAttachmentSide.TOP:
+          theta += 90;
+          theta = theta % 360;
+          break;
+        case EdgeAttachmentSide.BOTTOM:
+          theta += 270;
+          theta = theta % 360;
+          theta = 360 - theta;
+          break;
+        default:
+          throw new Error('Unhandled side ' + (edge as any)[property]);
+      }
+
+      return theta;
+    } else {
+      throw new Error('X or Y are NaN ' + this.id);
+    }
+  }
+  public rearrangeEdges(edges: EdgeTemplate[]) {
+    const allNodes = new Set<NodeTemplate>();
+    edges.sort((a, b) => {
+      if (a.sourceNode && a.targetNode) {
+        allNodes.add(a.sourceNode);
+        allNodes.add(a.targetNode);
+      }
+
+      if (b.sourceNode && b.targetNode) {
+        allNodes.add(b.sourceNode);
+        allNodes.add(b.targetNode);
+      }
+
+      return this.getEdgeAngle(a, true) - this.getEdgeAngle(b, true);
+    });
+
+    for (const node of allNodes) {
+      node.recalculateConnections();
+    }
+  }
+
   private recalculateEdgesForSide(
     side: EdgeAttachmentSide,
     edges: EdgeTemplate[],
@@ -256,8 +401,6 @@ export default class AdvancedNode extends NodeTemplate {
   }
 
   removeInteractionEvents() {
-    if (!this.eventEmitter) return;
-
     const container = this.container;
 
     container.interactive = false;
@@ -268,16 +411,20 @@ export default class AdvancedNode extends NodeTemplate {
     container.off('pointerupoutside');
     container.off('pointermove');
 
-    if (this.eventEmitter) {
-      for (const [name, events] of this.eventFunctions.entries()) {
-        for (const event of events) {
-          this.eventEmitter.removeListener(name, event, this);
-        }
-      }
+    const interactionManager = this.getInteractionManager();
 
-      this.eventFunctions = new Map();
-      this.eventEmitter = (null as unknown) as EventEmitter;
+    if (!interactionManager.eventEmitterEnabled(this.id)) {
+      return;
     }
+
+    for (const [name, events] of this.eventFunctions.entries()) {
+      for (const event of events) {
+        interactionManager.getEventEmitter().removeListener(name, event, this);
+      }
+    }
+
+    this.eventFunctions = new Map();
+    interactionManager.disableEventEmitter(this.id);
   }
 
   addSelectEvents(onSelectObjects: (ids: string[]) => any) {
@@ -293,15 +440,13 @@ export default class AdvancedNode extends NodeTemplate {
     });
   }
 
-  // TODO: Determine if we should pass through an event emitter in the constructor
-  // We might want to lazyily only attach this event emitter if we add events.
-  eventEmitter: EventEmitter = (null as unknown) as EventEmitter;
-
   addEvent(event: string, functionToAdd: any) {
     initializeMap<string, any[]>(this.eventFunctions, event, []);
     this.eventFunctions.get(event)!.push(functionToAdd);
 
-    this.eventEmitter.addListener(event, functionToAdd, this);
+    this.getInteractionManager()
+      .getEventEmitter()
+      .addListener(event, functionToAdd, this);
   }
 
   addLinkEvents(startFunc: Function, endFunc: Function, cancelFunc: Function) {
@@ -341,10 +486,11 @@ export default class AdvancedNode extends NodeTemplate {
     const container = this.addContainerHitArea();
 
     const context = this;
+    const nodeEventEmitter = this.getInteractionManager().getEventEmitter();
 
     container.on('pointerdown', function (this: any, event: any) {
       event.stopPropagation();
-      context.eventEmitter.emit(
+      nodeEventEmitter.emit(
         Events.NodePointerDown,
         context,
         startFunc === null
@@ -352,7 +498,7 @@ export default class AdvancedNode extends NodeTemplate {
     });
   }
 
-  addDragEvents() {
+  addDragEvents(opts?: { snapToGrid?: boolean; autoShuffleEdge?: boolean }) {
     const container = this.addContainerHitArea();
 
     let dragging = false;
@@ -363,6 +509,8 @@ export default class AdvancedNode extends NodeTemplate {
     let clickY = 0;
 
     const context = this;
+    const nodeEventEmitter = this.getInteractionManager().getEventEmitter();
+    const pixiCanvasStateId = this.getInteractionManager().getCanvasId();
 
     // Drag Functions Start
 
@@ -393,7 +541,7 @@ export default class AdvancedNode extends NodeTemplate {
       event.stopPropagation();
       const newPos = event.data.getLocalPosition(this.parent);
       moveAllHighlighted = this.highLight.visible;
-      context.eventEmitter.emit(
+      nodeEventEmitter.emit(
         Events.NodePointerDown,
         context,
         newPos,
@@ -411,26 +559,35 @@ export default class AdvancedNode extends NodeTemplate {
       if (triggerSource === this || moveAllHighlightedArg) {
         dragging = false;
         dragLeader = false;
+        if (opts?.snapToGrid) {
+          container.position.x =
+            Math.round(container.position.x / GRID_SIZE) * GRID_SIZE;
+          container.position.y =
+            Math.round(container.position.y / GRID_SIZE) * GRID_SIZE;
+        }
+
         updateEdges();
+
+        // Only run this once
+        if (opts?.autoShuffleEdge) {
+          pixiJsStore.update([
+            optimizeSidesFunction(pixiCanvasStateId),
+            rearrangeEdgesFunction(pixiCanvasStateId),
+            updateChildrenFunction(pixiCanvasStateId),
+            triggerCanvasUpdateFunction(pixiCanvasStateId),
+          ]);
+        }
       }
     }
 
     this.addEvent(Events.NodePointerUp, dragPointerUpFunction);
 
     container.on('pointerup', function (this: any) {
-      context.eventEmitter.emit(
-        Events.NodePointerUp,
-        context,
-        moveAllHighlighted
-      );
+      nodeEventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
     });
 
     container.on('pointerupoutside', function (this: any) {
-      context.eventEmitter.emit(
-        Events.NodePointerUp,
-        context,
-        moveAllHighlighted
-      );
+      nodeEventEmitter.emit(Events.NodePointerUp, context, moveAllHighlighted);
     });
 
     // Drag Pointer Move Start
@@ -458,7 +615,7 @@ export default class AdvancedNode extends NodeTemplate {
         const newPos = event.data.getLocalPosition(this.parent);
         const deltaX = newPos.x - clickX;
         const deltaY = newPos.y - clickY;
-        context.eventEmitter.emit(
+        nodeEventEmitter.emit(
           Events.NodePointerMove,
           context,
           deltaX,

@@ -10,11 +10,12 @@ import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/obj
 import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
 const deserializeGraphObjects = (
   data: any,
-  theme: any,
-  translateFunction: any
+  translateFunction: any,
+  externalInteractionManager: ExternalInteractionManager
 ) => {
   // Decompression
   const root = getSchemaForVersion(data.v);
@@ -27,8 +28,12 @@ const deserializeGraphObjects = (
     dataEncoded = inflateRaw(dataEncoded);
   }
 
+  let decompressedUint8Form = LZ.decompressFromUint8Array(dataEncoded);
+
+  const bufferForm = str2buffer(decompressedUint8Form, false);
+
   const SaveData = root.lookupType('SGSave');
-  const saveDataDecoded = SaveData.toObject(SaveData.decode(dataEncoded), {
+  const saveDataDecoded = SaveData.toObject(SaveData.decode(bufferForm), {
     enums: String, // enums as string names
     arrays: true, // populates empty arrays (repeated fields) even if defaults=false
   });
@@ -50,25 +55,26 @@ const deserializeGraphObjects = (
     // const targetNode = edge.targetNodeId? nodeNumberToId.get(edge.targetNodeId) : undefined;
     // const sourceNode = edge.sourceNodeId? nodeNumberToId.get(edge.sourceNodeId) : undefined;
 
-    if (!edge.sourceNodeId && !edge.targetNodeId) {
+    if (!edge.connectorTypeId) {
       const emptyEdge = new EmptyEdge({
         id: thisUuid,
-        theme,
         sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,
         targetNodeAttachmentSide: edge.targetNodeAttachmentSide,
         biDirectional: edge.biDirectional,
         resourceForm: edge.resourceForm,
+        externalInteractionManager,
       });
       edgeNumberToInstance.set(edge.id, emptyEdge);
     } else {
       const populatedEdge = new SimpleEdge({
         id: thisUuid,
-        theme,
         sourceNodeAttachmentSide: edge.sourceNodeAttachmentSide,
         targetNodeAttachmentSide: edge.targetNodeAttachmentSide,
         biDirectional: edge.biDirectional,
         resourceForm: edge.resourceForm,
         ignoreLinking: true,
+        connectorName: edge.connectorTypeId,
+        externalInteractionManager,
       });
       edgeNumberToInstance.set(edge.id, populatedEdge);
       displayableChildren.push(populatedEdge);
@@ -115,7 +121,7 @@ const deserializeGraphObjects = (
           throw new Error('Unresolved edge number ' + num);
         return edgeNumberToInstance.get(num)!;
       }),
-      theme,
+      externalInteractionManager,
     });
 
     nodeNumberToInstance.set(node.id, populatedNode);

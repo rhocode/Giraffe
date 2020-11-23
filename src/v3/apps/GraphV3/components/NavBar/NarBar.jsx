@@ -1,16 +1,17 @@
+import { Toolbar } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, withStyles } from '@material-ui/core';
-import React from 'react';
-import Hidden from '@material-ui/core/Hidden';
 import Badge from '@material-ui/core/Badge';
+import Hidden from '@material-ui/core/Hidden';
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import satisgraphtory2 from '../../../../../images/satisgraphtory2.png';
 import satisgraphtory2_square from '../../../../../images/satisgraphtory2_square.png';
+import HelpButton from './HelpButton';
+import SettingsButton from './SettingsButton';
 
 import ShareButton from './ShareButton';
-import SettingsButton from './SettingsButton';
-import HelpButton from './HelpButton';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     minHeight: theme.overrides.GraphAppBar.height,
@@ -35,10 +36,12 @@ const styles = (theme) => ({
   margin: {
     padding: theme.spacing(0, 3),
   },
-});
+}));
 
 function NarBar(props) {
-  const { classes } = props;
+  const { id } = props;
+
+  const classes = useStyles();
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -46,7 +49,7 @@ function NarBar(props) {
         <Hidden xsDown implementation="css">
           <Badge
             className={classes.margin}
-            badgeContent={'Pre-Alpha'}
+            badgeContent={'Alpha'}
             color="secondary"
           >
             <img
@@ -64,12 +67,12 @@ function NarBar(props) {
           />
         </Hidden>
         <div className={classes.grow} />
-        <ShareButton />
-        <SettingsButton />
-        <HelpButton />
+        <ShareButton id={id} />
+        <SettingsButton id={id} />
+        <HelpButton id={id} />
       </Toolbar>
     </AppBar>
   );
 }
 
-export default withStyles(styles)(NarBar);
+export default NarBar;

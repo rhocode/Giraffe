@@ -135,6 +135,17 @@ function GlobalSettingsPanel(props) {
                 }
                 label="High Fidelity Graph"
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    // checked={graphFidelity === 'high'}
+                    // onChange={handleChange}
+                    // value={graphFidelity}
+                    color="primary"
+                  />
+                }
+                label="Snap To Grid"
+              />
             </FormGroup>
             <Button
               variant="contained"

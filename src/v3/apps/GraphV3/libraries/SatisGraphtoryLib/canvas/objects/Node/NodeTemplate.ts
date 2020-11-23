@@ -1,5 +1,4 @@
 import EdgeTemplate, {
-  EdgeAttachmentSide,
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import {
@@ -16,6 +15,7 @@ import {
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
 import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
+import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 
 export class NodeContainer extends GraphObjectContainer {
   public boundCalculator: any = null;
@@ -68,17 +68,33 @@ export abstract class NodeTemplate extends GraphObject {
     this.id = id;
     this.container.id = id;
 
+    // Sorting here is mostly useless.
+    // TODO: figure out if we should just kill this if we don't do any weird operations when
+    // passing in inputConnections and such
     if (inputConnections) {
       this.inputConnections = inputConnections;
+      this.inputConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
 
     if (outputConnections) {
       this.outputConnections = outputConnections;
+      this.outputConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
 
     if (anyConnections) {
       this.anyConnections = anyConnections;
+      this.anyConnections.sort((a, b) => {
+        return a.getAttachmentSide(this) - b.getAttachmentSide(this);
+      });
     }
+  }
+
+  setPosition(x: number, y: number) {
+    this.container.setTransform(x, y);
   }
 
   abstract addLinkEvents(
@@ -93,8 +109,7 @@ export abstract class NodeTemplate extends GraphObject {
         this.inputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          theme: this.theme,
-          targetNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
@@ -104,8 +119,7 @@ export abstract class NodeTemplate extends GraphObject {
         this.outputConnections[i] = new EmptyEdge({
           resourceForm: edge.resourceForm,
           id: edge.id,
-          theme: this.theme,
-          sourceNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
@@ -116,12 +130,13 @@ export abstract class NodeTemplate extends GraphObject {
           resourceForm: edge.resourceForm,
           id: edge.id,
           biDirectional: true,
-          theme: this.theme,
-          sourceNode: this,
+          externalInteractionManager: this.getInteractionManager(),
         });
         break;
       }
     }
+
+    this.recalculateConnections();
   }
 
   delete(): GraphObject[] {
@@ -182,38 +197,58 @@ export abstract class NodeTemplate extends GraphObject {
     throw new Error('No empty index found');
   }
 
+  isBiDirectional() {
+    return this.anyConnections.length > 0;
+  }
+
   addEdge(
     edge: EdgeTemplate,
     edgeType: EdgeType,
-    biDirectional: boolean = false
+    useProvidedAttachmentSides: boolean = true
   ) {
     const otherNode =
       edge.sourceNode === this ? edge.targetNode : edge.sourceNode;
 
     if (!otherNode) throw new Error('Other node is null');
 
-    if (edge.biDirectional || biDirectional) {
+    if (edge.biDirectional) {
       const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
       const foundEdge = this.anyConnections[firstNull];
-      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (this.anyConnections.length) {
       // This is the special case where we have anyConnections but the pipe is NOT bidirectinal.
       // TODO: Fix this somehow
       const firstNull = this.findClosestEmpty(this.anyConnections, otherNode);
 
       const foundEdge = this.anyConnections[firstNull];
-      this.anyConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.anyConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (edgeType === EdgeType.INPUT) {
       const firstNull = this.findClosestEmpty(this.inputConnections, otherNode);
       const foundEdge = this.inputConnections[firstNull];
-      this.inputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.inputConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else if (edgeType === EdgeType.OUTPUT) {
       const firstNull = this.findClosestEmpty(
         this.outputConnections,
         otherNode
       );
       const foundEdge = this.outputConnections[firstNull];
-      this.outputConnections[firstNull] = foundEdge.replaceEdge(edge, edgeType);
+      this.outputConnections[firstNull] = foundEdge.replaceEdge(
+        edge,
+        edgeType,
+        useProvidedAttachmentSides
+      );
     } else {
       console.log('Unimplemented!');
     }
@@ -221,7 +256,7 @@ export abstract class NodeTemplate extends GraphObject {
     this.recalculateConnections();
   }
 
-  abstract recalculateConnections(): void;
+  abstract recalculateConnections(rearrange?: boolean): void;
 
   sortInputEdges() {
     // this.inputs.sort(

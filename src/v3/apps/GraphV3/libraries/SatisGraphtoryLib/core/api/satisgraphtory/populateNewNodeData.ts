@@ -11,6 +11,8 @@ import {
   NODE_HEIGHT,
   NODE_WIDTH,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
+import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
+import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 
 const populateNewNodeData = (
   buildingSlug: string,
@@ -19,7 +21,7 @@ const populateNewNodeData = (
   x: number,
   y: number,
   translateFunction: (arg0: string) => string,
-  theme: any
+  externalInteractionManager: ExternalInteractionManager
 ) => {
   return new AdvancedNode({
     position: {
@@ -33,10 +35,19 @@ const populateNewNodeData = (
     overclock,
     machineName: buildingSlug,
     machineLabel: getBuildingName(buildingSlug) as string,
-    inputConnections: getInputsForBuilding(buildingSlug, theme),
-    outputConnections: getOutputsForBuilding(buildingSlug, theme),
-    anyConnections: getAnyConnectionsForBuilding(buildingSlug, theme),
-    theme,
+    inputConnections: getInputsForBuilding(
+      buildingSlug,
+      externalInteractionManager
+    ).map((props) => new EmptyEdge(props)),
+    outputConnections: getOutputsForBuilding(
+      buildingSlug,
+      externalInteractionManager
+    ).map((props) => new EmptyEdge(props)),
+    anyConnections: getAnyConnectionsForBuilding(
+      buildingSlug,
+      externalInteractionManager
+    ).map((props) => new EmptyEdge(props)),
+    externalInteractionManager,
   });
 };
 

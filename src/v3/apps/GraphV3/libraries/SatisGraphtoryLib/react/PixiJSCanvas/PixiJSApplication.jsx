@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useThemeProvider } from 'common/react/SGThemeProvider';
-import { Viewport } from 'pixi-viewport';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
@@ -10,13 +9,10 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
-import { sgDevicePixelRatio } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/canvasUtils';
-import { loadSharedTextures } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/loadSharedTextures';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
   addChild,
   addObjectChildren,
-  addObjectChildrenWithinState,
   getChildFromStateById,
   getMultiTypedChildrenFromState,
   removeChild,
@@ -28,7 +24,7 @@ import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryL
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
 import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import {
-  generateNewPixiCanvasStore,
+  generateNewCanvas,
   pixiJsStore,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { LocaleContext } from 'v3/components/LocaleProvider';
@@ -49,7 +45,7 @@ const useStyles = makeStyles(() =>
 );
 
 function PixiJSApplication(props) {
-  const { height, width, initialCanvasChildren, onFinishLoad } = props;
+  const { height, width, initialCanvasGraph, onFinishLoad } = props;
 
   const {
     pixiCanvasStateId,
@@ -59,11 +55,14 @@ function PixiJSApplication(props) {
     viewportChildContainer,
     canvasReady,
     aliasCanvasObjects,
-    eventEmitter,
     openModals,
     selectedRecipe,
     selectedMachine,
     selectedEdge,
+    externalInteractionManager,
+    triggerUpdate,
+    snapToGrid,
+    autoShuffleEdge,
   } = React.useContext(PixiJSCanvasContext);
 
   const styles = useStyles();
@@ -169,7 +168,6 @@ function PixiJSApplication(props) {
         if (!arraysEqual(selected, s.selectedObjects)) {
           s.selectedObjects = selected;
           console.log('Selected objects:', s.selectedObjects);
-
           console.log(serializeGraphObjects(selected));
         }
       });
@@ -177,91 +175,39 @@ function PixiJSApplication(props) {
     [pixiCanvasStateId]
   );
 
-  React.useEffect(() => {
-    // console.log(generateRecipeEnums());
-  }, []);
-
   const theme = useThemeProvider();
+  React.useEffect(() => {
+    if (!externalInteractionManager || !Object.keys(theme).length) return;
+    externalInteractionManager.setTheme(theme);
+  }, [externalInteractionManager, theme]);
 
   React.useEffect(() => {
+    if (!Object.keys(theme).length) return;
+
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
-
-      pixiJsStore.update((sParent) => {
-        let s = sParent[pixiCanvasStateId];
-        if (!s) {
-          sParent[pixiCanvasStateId] = generateNewPixiCanvasStore();
-          s = sParent[pixiCanvasStateId];
-        }
-
-        let newApplication = new PIXI.Application({
-          transparent: true,
-          autoDensity: true,
-          height,
-          width,
-          view: canvasRef.current,
-          resolution: sgDevicePixelRatio,
-          antialias: true,
-        });
-
-        const viewport = new Viewport({
-          screenWidth: width,
-          screenHeight: height,
-          worldWidth: 20000,
-          worldHeight: 20000,
-          interaction: newApplication.renderer.plugins.interaction,
-        });
-
-        newApplication.stage.addChild(viewport);
-
-        if (s.application?.destroy) {
-          s.application.destroy();
-        }
-
-        const container = new PIXI.Container();
-        s.viewportChildContainer = container;
-        viewport.addChild(container);
-
-        s.viewport = viewport;
-
-        viewport.drag().pinch().wheel({
-          smooth: 5,
-        });
-
-        s.application = newApplication;
-
-        s.applicationLoaded = true;
-
-        loadSharedTextures(newApplication.renderer, theme);
-
-        const childrenToPush = initialCanvasChildren(
-          newApplication,
-          pixiViewport,
-          translate,
-          theme
-        );
-
-        addObjectChildrenWithinState(
-          childrenToPush || [],
-          pixiCanvasStateId
-        )(sParent);
-        newApplication.renderer.render(newApplication.stage);
-        // Run the callback
-        onFinishLoad();
-
-        s.canvasReady = true;
-      });
+      generateNewCanvas(
+        pixiCanvasStateId,
+        theme,
+        height,
+        width,
+        canvasRef,
+        initialCanvasGraph,
+        translate,
+        onFinishLoad
+      );
     }
   }, [
     canvasRef,
     height,
     pixiCanvasStateId,
     pixiViewport,
-    initialCanvasChildren,
+    initialCanvasGraph,
     theme,
     translate,
     width,
     onFinishLoad,
+    externalInteractionManager,
   ]);
 
   // Update the theme for each child
@@ -273,7 +219,7 @@ function PixiJSApplication(props) {
 
       for (const child of s.children) {
         if (child instanceof GraphObject) {
-          child.updateTheme(theme);
+          child.getInteractionManager().setTheme(theme);
         }
       }
     });
@@ -422,8 +368,8 @@ function PixiJSApplication(props) {
             EdgeTemplate,
           ])) {
             if (child instanceof NodeTemplate) {
-              child.attachEventEmitter(eventEmitter);
-              child.addDragEvents();
+              child.getInteractionManager().enableEventEmitter(child.id);
+              child.addDragEvents({ snapToGrid, autoShuffleEdge });
             } else if (child instanceof EdgeTemplate) {
               // Noop?
             }
@@ -449,7 +395,7 @@ function PixiJSApplication(props) {
           newPos.x,
           newPos.y,
           translate,
-          theme
+          externalInteractionManager
         );
 
         addObjectChildren([nodeData], pixiCanvasStateId);
@@ -477,7 +423,7 @@ function PixiJSApplication(props) {
       pixiJsStore.update([
         deferredRemoveChildEvents,
         setUpLinkInitialState(
-          eventEmitter,
+          externalInteractionManager.getEventEmitter(),
           pixiCanvasStateId,
           supportedResourceForms,
           selectedEdge
@@ -486,7 +432,7 @@ function PixiJSApplication(props) {
     }
   }, [
     canvasReady,
-    eventEmitter,
+    externalInteractionManager,
     mouseState,
     onSelectObjects,
     openModals,
@@ -498,6 +444,9 @@ function PixiJSApplication(props) {
     theme,
     translate,
     viewportChildContainer,
+    triggerUpdate,
+    snapToGrid,
+    autoShuffleEdge,
   ]);
 
   React.useEffect(() => {

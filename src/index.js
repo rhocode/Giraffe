@@ -14,6 +14,7 @@ import { render } from 'react-dom';
 import { LocalizeProvider } from 'react-localize-redux';
 import { Provider } from 'react-redux';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
+import GoogleAuthProvider from 'v3/components/GoogleAuthProvider';
 import LocaleProvider from 'v3/components/LocaleProvider';
 
 import App from './apps/App/App';
@@ -22,9 +23,9 @@ import getStore from './redux/store';
 import SGErrorBoundary from 'common/react/ErrorBoundary';
 
 import './fonts/BebasNeue-Regular.ttf';
-require('fontsource-roboto-condensed');
-require('fontsource-roboto-mono');
-require('fontsource-roboto-slab');
+import 'fontsource-roboto-condensed/latin-400.css';
+import 'fontsource-roboto-mono/400-normal.css';
+import 'fontsource-roboto-slab/400-normal.css';
 
 enableMapSet();
 PIXI.utils.skipHello();
@@ -38,7 +39,9 @@ const CompleteApp = () => {
         <Provider store={store}>
           <LocalizeProvider store={store}>
             <LocaleProvider>
-              <App />
+              <GoogleAuthProvider>
+                <App />
+              </GoogleAuthProvider>
             </LocaleProvider>
           </LocalizeProvider>
         </Provider>

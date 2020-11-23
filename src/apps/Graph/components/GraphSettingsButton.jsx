@@ -1,25 +1,13 @@
-import { withStyles } from '@material-ui/core';
-import React from 'react';
-import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 
 import SettingsIcon from '@material-ui/icons/Settings';
-
-import GraphAppBarButton from './GraphAppBarButton';
-import {
-  forceRefreshGraph,
-  setGraphFidelity
-} from '../../../redux/actions/Graph/graphActions';
-import Button from '@material-ui/core/Button';
+import React from 'react';
 import transformGraph from '../libraries/SGLib/algorithms/satisgraphtory/transform';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing(1)
-  }
-});
+import GraphAppBarButton from './GraphAppBarButton';
 
 function GraphSettingsButton(props) {
   const { graphFidelity, classes, graphData, forceRefreshGraph } = props;
@@ -44,7 +32,7 @@ function GraphSettingsButton(props) {
         />
       </FormGroup>
       <Button variant="contained" color="primary" className={classes.button}>
-        Analyze
+        Analyzez
       </Button>
       <Button
         variant="contained"
@@ -64,21 +52,4 @@ function GraphSettingsButton(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    graphFidelity: state.graphReducer.graphFidelity,
-    graphData: state.graphReducer.graphData
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setGraphFidelity: data => dispatch(setGraphFidelity(data)),
-    forceRefreshGraph: () => dispatch(forceRefreshGraph())
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(GraphSettingsButton));
+export default GraphSettingsButton;

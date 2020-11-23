@@ -47,10 +47,10 @@ const useStyles = makeStyles((theme) => {
       width: 700,
     },
     markSelectorInput: {
-      width: 100,
+      width: 130,
     },
     inputRoot: {
-      minWidth: 100,
+      minWidth: 130,
     },
     selectorImage: {
       height: 17,
@@ -182,7 +182,7 @@ function EdgeSelectorPanel() {
                         src={getBuildingIcon(image, 256)}
                       />
                       <div className={classes.selectorText}>
-                        {translate(className)}
+                        {translate('tier-selector-type-' + className)}
                       </div>
                     </div>
                   </MenuItem>

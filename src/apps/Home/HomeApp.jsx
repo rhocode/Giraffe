@@ -1,32 +1,33 @@
+import React from 'react';
+
+import Page from './components/Page';
+import Header from './components/Header';
+import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
+import Card from './components/Card';
+import Section from './components/Section';
+import Spotlight from './components/Spotlight';
+import Copyright from './components/Copyright';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowRight,
+  faDownload,
+  faPen,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscord,
   faGithub,
   faRedditAlien,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
-import {
-  faArrowRight,
-  faDownload,
-  faPen,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingScreen from 'common/react/LoadingScreen';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import satisgraphtory2_square from '../../images/satisgraphtory2_square.png';
 import satisgraphtory2_square_with_background from '../../images/satisgraphtory2_square_with_background.png';
-import Card from './components/Card';
-import Copyright from './components/Copyright';
-import Header from './components/Header';
-import { Menu, MenuLinks, MenuTrigger } from './components/Menu';
-
-import Page from './components/Page';
-import Section from './components/Section';
-import Spotlight from './components/Spotlight';
 
 import './App.css';
-require('fontsource-raleway');
-require('fontsource-source-sans-pro');
+import 'fontsource-raleway/400-normal.css';
+import 'fontsource-source-sans-pro/400-normal.css';
 
 function HomeApp() {
   const [showMenu, setShowMenu] = React.useState(false);
@@ -87,6 +88,22 @@ function HomeApp() {
             </a>
             <a href="#contact" key="contact">
               Contact
+            </a>
+            <a
+              href="/terms"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+              key="terms"
+            >
+              Terms and Conditions
+            </a>
+            <a
+              href="/privacy"
+              rel="noopener noreferrer external nofollow noopener"
+              target="_blank"
+              key="privacy"
+            >
+              Privacy Policy
             </a>
           </MenuLinks>
         </Menu>
@@ -300,17 +317,49 @@ function HomeApp() {
             </a>
             <Copyright>
               <p>
-                &copy; <a href="https://rhocode.com">rhoCode</a> 2020
+                &copy;{' '}
+                <a
+                  href="https://rhocode.com"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  rhoCode
+                </a>{' '}
+                2020
                 <br />
                 <br />
                 Not affiliated with Satisfactory, Coffee Stain Studios AB, or
-                THQ Nordic AB. Images sourced from the Satisfactory wiki, which
-                is sourced from Coffee Stain Studios AB's Satisfactory.
+                THQ Nordic AB.
                 <br />
                 <br />
-                Site Design: <a href="http://html5up.net">HTML5 UP</a>, licensed
-                for use under the Creative Commons Attribution license. Modified
-                for use by rhoCode.
+                Site Design:{' '}
+                <a
+                  href="http://html5up.net"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  HTML5 UP
+                </a>
+                , licensed for use under the Creative Commons Attribution
+                license. Modified for use by rhoCode.
+                <br />
+                <br />
+                <a
+                  href="terms"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  Terms and Conditions
+                </a>
+                <br />
+                <br />
+                <a
+                  href="privacy"
+                  rel="noopener noreferrer external nofollow noopener"
+                  target="_blank"
+                >
+                  Privacy Policy
+                </a>
               </p>
             </Copyright>
           </div>

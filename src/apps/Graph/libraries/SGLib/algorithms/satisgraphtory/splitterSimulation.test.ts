@@ -44,7 +44,7 @@ it('calculates the splitter', () => {
   const beltInputs = 700;
   const calculation = memoizedSplitterCalculator(beltInputs, beltOutputs);
   expect(calculation).toBeDefined();
-  console.error(calculation.actual);
+  // console.error(calculation.actual);
   // console.error(JSON.stringify(calculation));
   // expect(calculation.actual.originalOutput)
   //   .toEqual(expect.arrayContaining(beltOutputs));

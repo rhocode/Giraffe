@@ -399,6 +399,46 @@
     "form": 2,
     "icon": "image-heavy-oil-residue"
   },
+  "item-copper-sheet": {
+    "name": "Copper Sheet",
+    "translation": {
+      "namespace": "",
+      "key": "80A45546416416AF5BB55EA854A67E65"
+    },
+    "description": "Used for crafting.\r\nPrimarily used for pipelines due to its high corrosion resistance.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "C827FE8B4673B545E3443B8245AB9675"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-copper-sheet"
+  },
+  "item-fluid-canister": {
+    "name": "Empty Canister",
+    "translation": {
+      "namespace": "",
+      "key": "C14635E64053EB52D2EC9E88261A16BE"
+    },
+    "description": "Used to package fluids for transportation. Can be recycled.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D4E1AD924877C6A6EF5162BD989DA19B"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGItemDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-fluid-canister"
+  },
   "item-iron-ingot": {
     "name": "Iron Ingot",
     "translation": {
@@ -538,26 +578,6 @@
     "radioactiveDecay": 0,
     "form": 1,
     "icon": "image-copper-ingot"
-  },
-  "item-copper-sheet": {
-    "name": "Copper Sheet",
-    "translation": {
-      "namespace": "",
-      "key": "80A45546416416AF5BB55EA854A67E65"
-    },
-    "description": "Used for crafting.\r\nPrimarily used for pipelines due to its high corrosion resistance.",
-    "descriptionTranslation": {
-      "namespace": "",
-      "key": "C827FE8B4673B545E3443B8245AB9675"
-    },
-    "abbreviatedNameTranslation": {},
-    "itemType": "UFGItemDescriptor",
-    "stackSize": 2,
-    "canBeDiscarded": true,
-    "energyValue": 0,
-    "radioactiveDecay": 0,
-    "form": 1,
-    "icon": "image-copper-sheet"
   },
   "item-packaged-water": {
     "name": "Packaged Water",
@@ -1759,6 +1779,26 @@
     "form": 1,
     "icon": "image-quarter-pipe-corner-04"
   },
+  "item-ladder": {
+    "name": "Ladder",
+    "translation": {
+      "namespace": "",
+      "key": "743A8F5442218E1391CF86B6F33A3552"
+    },
+    "description": "A ladder with a default height of 2 meters, which can be extended while building. Snaps to walls and foundations.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "65DF9C86463A8D6727777EA98ECD5E4E"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-ladder"
+  },
   "item-ramp-8x1-01": {
     "name": "Ramp 8m x 1m",
     "translation": {
@@ -2776,7 +2816,7 @@
     "icon": "image-industrial-tank"
   },
   "item-jump-pad": {
-    "name": "Jump Pad",
+    "name": "Old Jump Pad",
     "translation": {
       "namespace": "",
       "key": "5C7397674656688A5C530991564A68FA"
@@ -2795,8 +2835,28 @@
     "form": 1,
     "icon": "image-jump-pad"
   },
+  "item-jump-pad-adjustable": {
+    "name": "Jump Pad",
+    "translation": {
+      "namespace": "",
+      "key": "90CA94C1424C1FF9CF68A59482CFA6F1"
+    },
+    "description": "Used for quick, vertical traversal.\r\nThe launch angle can be adjusted while building.\r\nCaution: Be sure to land safely!",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "97DC6B614CE4297F596CFD927996D754"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-jump-pad-adjustable"
+  },
   "item-jump-pad-tilted": {
-    "name": "Tilted Jump Pad",
+    "name": "Old Tilted Jump Pad",
     "translation": {
       "namespace": "",
       "key": "23D78C744C5741F585EC05829300D981"
@@ -2995,6 +3055,26 @@
     "form": 1,
     "icon": "image-oil-refinery"
   },
+  "item-packager": {
+    "name": "Packager",
+    "translation": {
+      "namespace": "",
+      "key": "7845C1DB4F38DD3496BE3883EC10FA79"
+    },
+    "description": "Used for the packaging and unpacking of fluids.\r\nHead Lift: 10 meters.\r\n(Allows fluids to be transported 10 meters upwards.)\r\n\r\nContains both a Conveyor Belt and Pipe input and output, to allow for the automation of various recipes.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "1055EF124E12FF154F252A9EDBC92DED"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-packager"
+  },
   "item-pipe-hyper": {
     "name": "Hyper Tube",
     "translation": {
@@ -3036,7 +3116,7 @@
     "icon": "image-pipe-hyper-support"
   },
   "item-pipeline": {
-    "name": "Pipeline",
+    "name": "Pipeline Mk.1",
     "translation": {
       "namespace": "",
       "key": "B235BEFC41C74A2EAC8E4CB51796D3A6"
@@ -3075,13 +3155,33 @@
     "form": 1,
     "icon": "image-pipeline-junction-cross"
   },
+  "item-pipeline-mk2": {
+    "name": "Pipeline Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "1EC5990647FDD00A25FB32B94FA57A22"
+    },
+    "description": "Outside indicators show volume, flow rate and direction.\r\nTransports up to 600m³ of fluid per minute.\r\nUsed to transport fluids.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "FC7E48C440F423CAAD70DC9952371CCA"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-mk2"
+  },
   "item-pipeline-pump": {
-    "name": "Pipeline Pump",
+    "name": "Pipeline Pump Mk.1",
     "translation": {
       "namespace": "",
       "key": "D6A592BE4F1AAFAD3C970FA0C99A4DC4"
     },
-    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\nOutputs fluids at 300m³ per minute.\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 20 meters\r\n(Allows fluids to be transported 20 meters upwards.)\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
     "descriptionTranslation": {
       "namespace": "",
       "key": "E60BEFDA413E62FF8154B3BE66A34A3C"
@@ -3094,6 +3194,26 @@
     "radioactiveDecay": 0,
     "form": 1,
     "icon": "image-pipeline-pump"
+  },
+  "item-pipeline-pump-mk2": {
+    "name": "Pipeline Pump Mk.2",
+    "translation": {
+      "namespace": "",
+      "key": "498CAA2342C6C7DD15369AA7181D810C"
+    },
+    "description": "Can be attached to a Pipeline to apply Head Lift.\r\nMaximum Head Lift: 50 meters\r\n(Allows fluids to be transported 50 meters upwards.)\r\n\r\nNOTE: Has an in- and output direction.\r\nNOTE: Head Lift does not stack, so space between Pumps is recommended.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "B876823E456D188ED7772285F01AEB33"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-pipeline-pump-mk2"
   },
   "item-pipe-storage-tank": {
     "name": "Fluid Buffer",
@@ -3677,7 +3797,7 @@
       "namespace": "",
       "key": "40EA941E48CEFB59722E2F81443B383D"
     },
-    "description": "Generates a speed dampening jelly.\r\nGuarantees a soft landing.",
+    "description": "Generates a speed dampening jelly.\r\nGuarantees a safe landing.",
     "descriptionTranslation": {
       "namespace": "",
       "key": "C34118414305B8CB72BDE989142D7A90"
@@ -3690,6 +3810,26 @@
     "radioactiveDecay": 0,
     "form": 1,
     "icon": "image-landing-pad"
+  },
+  "item-valve": {
+    "name": "Valve",
+    "translation": {
+      "namespace": "",
+      "key": "49CA1BC04E9C7D6FB75CCAB6843DB1E8"
+    },
+    "description": "Used to limit Pipeline flow rates.\r\nCan be attached to a Pipeline.\r\n\r\nNOTE: Has an in- and output direction.",
+    "descriptionTranslation": {
+      "namespace": "",
+      "key": "D485128D44ADAFBA604D2AA6CAAE17CB"
+    },
+    "abbreviatedNameTranslation": {},
+    "itemType": "UFGBuildingDescriptor",
+    "stackSize": 2,
+    "canBeDiscarded": true,
+    "energyValue": 0,
+    "radioactiveDecay": 0,
+    "form": 1,
+    "icon": "image-valve"
   },
   "item-water-pump": {
     "name": "Water Extractor",
@@ -4491,26 +4631,6 @@
     "form": 1,
     "icon": "image-mycelia"
   },
-  "item-fluid-canister": {
-    "name": "Empty Canister",
-    "translation": {
-      "namespace": "",
-      "key": "C14635E64053EB52D2EC9E88261A16BE"
-    },
-    "description": "Used to package fluids for transportation. Can be recycled.",
-    "descriptionTranslation": {
-      "namespace": "",
-      "key": "D4E1AD924877C6A6EF5162BD989DA19B"
-    },
-    "abbreviatedNameTranslation": {},
-    "itemType": "UFGItemDescriptor",
-    "stackSize": 2,
-    "canBeDiscarded": true,
-    "energyValue": 0,
-    "radioactiveDecay": 0,
-    "form": 1,
-    "icon": "image-fluid-canister"
-  },
   "item-crystal": {
     "name": "Green Power Slug",
     "translation": {
@@ -4525,7 +4645,7 @@
     "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
-    "canBeDiscarded": true,
+    "canBeDiscarded": false,
     "energyValue": 0,
     "radioactiveDecay": 0,
     "form": 1,
@@ -4565,7 +4685,7 @@
     "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
-    "canBeDiscarded": true,
+    "canBeDiscarded": false,
     "energyValue": 0,
     "radioactiveDecay": 0,
     "form": 1,
@@ -4585,7 +4705,7 @@
     "abbreviatedNameTranslation": {},
     "itemType": "UFGItemDescriptor",
     "stackSize": 1,
-    "canBeDiscarded": true,
+    "canBeDiscarded": false,
     "energyValue": 0,
     "radioactiveDecay": 0,
     "form": 1,

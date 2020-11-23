@@ -12,7 +12,7 @@ import SimulationManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algor
 import FluidResourceExtractor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/FluidResourceExtractor';
 import Pipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/edges/Pipe';
 
-function HubApp() {
+function SimulationApp() {
   React.useEffect(() => {
     // const possibleRecipes = getRecipesByMachineType('EXTRACTOR');
     // const usedRecipe = possibleRecipes[4];
@@ -124,4 +124,4 @@ function HubApp() {
   return <div />;
 }
 
-export default HubApp;
+export default SimulationApp;

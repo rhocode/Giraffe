@@ -10,8 +10,7 @@ import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/ob
 import { EResourceForm } from '.data-landing/interfaces/enums';
 import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
-import uuidGen from 'v3/utils/stringUtils';
-import SimpleEdge from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/SimpleEdge';
+import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 
 export const setHighLightInStateChildren = (
   state: any,
@@ -76,6 +75,7 @@ export const resetNodes = (pixiCanvasStateId: string) => (sParent: any) => {
 export const onStartLink = (pixiCanvasStateId: string, selectedEdge: any) => (
   startLinkId: string
 ) => {
+  console.log('Starting link func');
   pixiJsStore.update((sParent) => {
     const s = sParent[pixiCanvasStateId];
 
@@ -161,17 +161,15 @@ export const onEndLink = (
 
       const possibleResourceForms = getSupportedResourceForm(selectedEdge);
 
-      //TODO: Fix this resource form resolution, maybe from the interface?
-
-      const edgeProps = {
-        id: uuidGen(),
-        resourceForm: possibleResourceForms[0],
+      // TODO: Fix this resource form resolution, maybe from the interface?
+      // TODO: items?
+      const edge = populateNewEdgeData(
+        null,
+        possibleResourceForms[0],
+        selectedEdge,
         sourceNode,
-        targetNode,
-        theme: sourceNode.theme, // TODO: a hack to pass through the theme
-      };
-
-      const edge = new SimpleEdge(edgeProps);
+        targetNode
+      );
 
       addObjectChildren([edge], pixiCanvasStateId, true);
     },
@@ -198,10 +196,9 @@ export const setUpLinkInitialState = (
         [...child.outputConnections, ...child.anyConnections],
         supportedResourceForms
       );
-
       if (selected) {
         child.container.alpha = 1;
-        child.attachEventEmitter(eventEmitter);
+        child.getInteractionManager().enableEventEmitter(child.id);
         child.addLinkEvents(
           onStartLink(pixiCanvasStateId, selectedEdge),
           onEndLink(
@@ -218,7 +215,7 @@ export const setUpLinkInitialState = (
           )
         );
       } else {
-        child.attachEventEmitter(eventEmitter);
+        child.getInteractionManager().enableEventEmitter(child.id);
         child.addLinkEvents(
           null,
           onEndLink(
