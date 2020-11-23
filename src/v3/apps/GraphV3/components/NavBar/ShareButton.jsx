@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -18,7 +19,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import PublishIcon from '@material-ui/icons/Publish';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import SaveIcon from '@material-ui/icons/Save';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import produce from 'immer';
@@ -35,6 +36,7 @@ import { GoogleApiContext } from 'v3/components/GoogleAuthProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import uuidGen from 'v3/utils/stringUtils';
 import IconDialog from './IconDialog';
+import { Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   tabHeader: {
@@ -62,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     paddingBottom: 10,
-    minHeight: 240,
+    minHeight: 300,
   },
   loginRow: {
     display: 'flex',
@@ -104,13 +106,13 @@ const useStyles = makeStyles((theme) => ({
   fileBrowserTitle: {
     flexGrow: 0,
   },
+  fileBrowserCurrentlyLoadedFile: {
+    flexGrow: 0,
+  },
   fileBrowserContent: {
     flexGrow: 1,
   },
-  listItem: {
-    minWidth: 180,
-    maxWidth: 250,
-  },
+  listItem: {},
   listText: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -175,27 +177,35 @@ function FileItem(props) {
     deleteButtonAction,
     data,
     setOverwrite,
+    loadGraphEnabled,
   } = props;
 
   const { translate } = React.useContext(LocaleContext);
 
   return (
-    <ListItem className={classes.listItem}>
+    <ListItem button className={classes.listItem}>
       <IconButton
         edge="start"
         aria-label="load"
+        disabled={!loadGraphEnabled}
         onClick={() => {
           pixiJsStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
+            s.lastSelectedSave.name = data.n;
+            s.lastSelectedSave.description = data.q;
+
+            console.log('setting last used save hash to', data.h);
+
             s.lastUsedSave.name = data.n;
-            s.lastUsedSave.description = data.q;
+            s.lastUsedSave.hash = data.h;
           });
+
           setOverwrite(false);
           replaceGraphData(pixiCanvasStateId, data, translate);
         }}
       >
         {local ? (
-          <PublishIcon />
+          <GetAppIcon />
         ) : open ? (
           <CloudDoneIcon />
         ) : (
@@ -206,8 +216,8 @@ function FileItem(props) {
         onClick={() => {
           pixiJsStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
-            s.lastUsedSave.name = data.n;
-            s.lastUsedSave.description = data.q;
+            s.lastSelectedSave.name = data.n;
+            s.lastSelectedSave.description = data.q;
           });
         }}
         primary={name}
@@ -229,7 +239,7 @@ function FileItem(props) {
 }
 
 function FileBrowser(props) {
-  const { classes } = props;
+  const { classes, canOverwrite, setCanOverwrite } = props;
 
   return (
     <div className={classes.fileBrowserList}>
@@ -240,6 +250,18 @@ function FileBrowser(props) {
         <Scrollbar>
           <List dense={true}>{props.children}</List>
         </Scrollbar>
+      </div>
+      <div className={classes.fileBrowserCurrentlyLoadedFile}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={canOverwrite}
+              onChange={(evt, value) => setCanOverwrite(value)}
+              name="canOverwrite"
+            />
+          }
+          label="Overwrite Current Graph"
+        />
       </div>
     </div>
   );
@@ -380,8 +402,10 @@ const addOrUpdateCacheFile = (
 
           pixiJsStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
+            s.lastSelectedSave.name = designData.n;
+            s.lastSelectedSave.description = designData.q;
             s.lastUsedSave.name = designData.n;
-            s.lastUsedSave.description = designData.q;
+            s.lastUsedSave.hash = designData.h;
           });
 
           return cache
@@ -440,7 +464,9 @@ function renderLocalDesignData(
   props,
   designs,
   setDesigns,
-  setOverwrite
+  setOverwrite,
+  loadGraphEnabled,
+  lastLoadedName
 ) {
   const entries = Object.entries(designData);
   if (entries.length === 0) {
@@ -450,6 +476,7 @@ function renderLocalDesignData(
     return (
       <FileItem
         {...props}
+        loadGraphEnabled={loadGraphEnabled}
         name={value.n}
         local={true}
         open={false}
@@ -493,7 +520,7 @@ function LocalSaveContent(props) {
 
   const lastOpenedSave = pixiJsStore.useState((sParent) => {
     const s = sParent[props.pixiCanvasStateId];
-    return s.lastUsedSave;
+    return s.lastSelectedSave;
   });
 
   const [name, setName] = React.useState(lastOpenedSave.name);
@@ -519,17 +546,47 @@ function LocalSaveContent(props) {
     setName(lastOpenedSave.name);
   }, [lastOpenedSave]);
 
+  const designName = name || uuidGen();
+
+  const newDesignData = {
+    ...serializeGraphObjects(graphObjects),
+    q: description || uuidGen(),
+    n: designName,
+  };
+
+  const { lastUsedSaveName, lastUsedSaveHash } = pixiJsStore.useState(
+    (sParent) => {
+      const s = sParent[props.pixiCanvasStateId];
+      return {
+        lastUsedSaveName: s.lastUsedSave.name,
+        lastUsedSaveHash: s.lastUsedSave.hash,
+      };
+    }
+  );
+
+  console.log('UPDATING WITH HASH', lastUsedSaveHash, newDesignData.h);
+
+  const [canOverwrite, setCanOverwrite] = React.useState(false);
+
+  const loadGraphEnabled = newDesignData.h === lastUsedSaveHash || canOverwrite;
+
   const { classes, pixiCanvasStateId } = props;
   return (
     <Grid container spacing={2}>
       <Grid classes={{ item: classes.gridItem }} item xs={6}>
-        <FileBrowser {...props}>
+        <FileBrowser
+          canOverwrite={canOverwrite}
+          setCanOverwrite={setCanOverwrite}
+          {...props}
+        >
           {renderLocalDesignData(
             designData.designs,
             props,
             designData,
             setDesignData,
-            setOverWrite
+            setOverWrite,
+            loadGraphEnabled,
+            lastUsedSaveName
           )}
         </FileBrowser>
       </Grid>
@@ -549,18 +606,13 @@ function LocalSaveContent(props) {
             fullWidth
             className={classes.buttonStyle}
             onClick={() => {
-              const designName = name || uuidGen();
               addOrUpdateCacheFile(
                 designData,
                 setDesignData,
                 overWrite,
                 setOverWrite,
                 designName,
-                {
-                  ...serializeGraphObjects(graphObjects),
-                  q: description || uuidGen(),
-                  n: designName,
-                },
+                newDesignData,
                 pixiCanvasStateId
               );
             }}

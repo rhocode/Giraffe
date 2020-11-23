@@ -13,7 +13,7 @@ import { buffer2str } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api
 const serializeGraphObjects = (objects: GraphObject[]) => {
   let checksumGraph = getSerializedGraph(
     objects.slice().sort((a, b) => {
-      return a.id.localeCompare(b.id);
+      return (typeof a).localeCompare(typeof a);
     })
   );
 
