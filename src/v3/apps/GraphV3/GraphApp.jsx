@@ -116,6 +116,12 @@ export default function GraphApp(props) {
               v: '0.1.0',
             },
           });
+          setHelmet({
+            title: 'SatisGraphtory | Factory Building Graph Simulation',
+            description:
+              'Feature-rich factory optimization and calculation tool for Satisfactory game',
+            image: 'https://i.imgur.com/DPEmxE0.png',
+          });
         });
 
       // fetch('https://api.myjson.com/bins/' + graphId)
