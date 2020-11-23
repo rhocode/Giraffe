@@ -52,7 +52,7 @@ async function cacheImages() {
         })
     );
   }
-  return await Promise.all(secondPromise);
+  return Promise.all(secondPromise);
 }
 
 export function importImageManifest() {
