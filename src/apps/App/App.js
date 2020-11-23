@@ -39,6 +39,12 @@ const SimulationApp = chooseLoadingStyle(SimulationImport);
 const ReleaseImport = () => import('../../v3/apps/ReleasePage/ReleasePage');
 const ReleaseApp = chooseLoadingStyle(ReleaseImport);
 
+const PrivacyImport = () => import('../../apps/PrivacyPolicy/PrivacyApp');
+const PrivacyApp = chooseLoadingStyle(PrivacyImport);
+
+const TermsImport = () => import('../../apps/TermsOfService/TermsOfService');
+const TermsApp = chooseLoadingStyle(TermsImport);
+
 const Router =
   process.env.REACT_APP_ELECTRON === 'true' ? HashRouter : BrowserRouter;
 
@@ -186,6 +192,28 @@ function getReleaseApp(local = false) {
   );
 }
 
+function getPrivacyApp(local = false) {
+  return (
+    <Route
+      key={'privacy'}
+      path={local ? `/privacy` : `/`}
+      exact={!local}
+      component={PrivacyApp}
+    />
+  );
+}
+
+function getTermsApp(local = false) {
+  return (
+    <Route
+      key={'terms'}
+      path={local ? `/terms` : `/`}
+      exact={!local}
+      component={TermsApp}
+    />
+  );
+}
+
 function getHomeApp() {
   return <Route key={'home'} path={`/`} exact component={HomeApp} />;
 }
@@ -206,6 +234,8 @@ function resolveDomain() {
     domainList.push(getGraphApp(true));
     domainList.push(getHubApp(true));
     domainList.push(getReleaseApp(true));
+    domainList.push(getPrivacyApp(true));
+    domainList.push(getTermsApp(true));
   }
 
   return domainList;
