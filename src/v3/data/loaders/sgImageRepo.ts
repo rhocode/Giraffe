@@ -58,15 +58,24 @@ async function cacheImages() {
 export function importImageManifest() {
   const promises: any = [];
 
-  if (process.env.NODE_ENV === 'production') {
+  if ((window?.navigator?.userAgent || '').indexOf('Prerender') !== -1) {
+    // Empty image as blobs
+    const tinyImage =
+      'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D';
+    for (const file of manifest) {
+      SGImageRepo.set(file, tinyImage);
+    }
+  } else if (process.env.NODE_ENV === 'production') {
     promises.push(cacheImages());
   } else {
     for (const file of manifest) {
       const entryUrl = ((entries as unknown) as any)[
         'sg' + file.replace('.256.png', '_256').replace(/-/g, '_')
       ];
-      SGImageRepo.set(file, entryUrl);
-      promises.push(fetch(entryUrl, { cache: 'force-cache' }));
+      if (entryUrl) {
+        SGImageRepo.set(file, entryUrl);
+        promises.push(fetch(entryUrl, { cache: 'force-cache' }));
+      }
     }
   }
 
