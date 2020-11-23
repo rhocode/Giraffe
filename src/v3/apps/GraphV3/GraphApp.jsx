@@ -103,11 +103,21 @@ export default function GraphApp(props) {
 
     if (graphId) {
       fetch(
-        'https://www.googleapis.com/drive/v3/files/1parVWzimSkABuaUrS_TB9e-iaKOHsnIX?key=AIzaSyCZaipoQKvSrgNdQUZL_0Bc98SDG_Okcvs&alt=media'
+        `https://www.googleapis.com/drive/v3/files/1parVWzimSkABuaUrS_TB9e-iaKOHsnIX?key=${process.env.REACT_APP_GCLOUD_API_KEY}&alt=media`
       )
         .then((resp) => resp.json())
-        .then((resp) => console.log('We were able to load!', resp))
-        .finally(() => {
+        .then((resp) => {
+          console.log('We were able to load!', resp);
+
+          setHelmet({
+            title: 'SatisGraphtory | Factory Building Graph Simulation',
+            description:
+              'Feature-rich factory optimization and calculation tool for Satisfactory game',
+            image: 'https://i.imgur.com/DPEmxE0.png',
+          });
+        })
+        .catch(() => {
+          console.log('Graph was not loaded. Falling back for now.');
           setData({
             loaded: true,
             graph: {
@@ -123,25 +133,6 @@ export default function GraphApp(props) {
             image: 'https://i.imgur.com/DPEmxE0.png',
           });
         });
-
-      // fetch('https://api.myjson.com/bins/' + graphId)
-      //   .then((resp) => resp.json())
-      //   .then((json) => {
-      //     setHelmet(json);
-      //   })
-      //   .catch(() => {
-      //     setHelmet({
-      //       title: 'SatisGraphtory | Factory Building Graph Simulation',
-      //       description:
-      //         'Feature-rich factory optimization and calculation tool for Satisfactory game',
-      //       image: 'https://i.imgur.com/DPEmxE0.png',
-      //     });
-      //   }).finally(() => {
-      //   setData({
-      //     loaded: true,
-      //     graph: {derp: true}
-      //   });
-      // });
     } else {
       setHelmet({
         title: 'SatisGraphtory | Factory Building Graph Simulation',
