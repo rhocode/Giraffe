@@ -57,7 +57,8 @@ function HomeApp() {
               'Feature-rich Satisfactory calculator and factory optimization simulation tool '
             }
           />
-          <meta property="og:url " content={window.location.href} />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:type" content="website" />
           <title>
             {
               'SatisGraphtory | Satisfactory Calculator & Building Graph Simulation'

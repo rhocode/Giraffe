@@ -98,7 +98,8 @@ class GraphApp extends Component {
             <meta property="og:site_name" content={window.location.hostname} />
             <meta property="og:image" content={helmet.image} />
             <meta property="og:description" content={helmet.description} />
-            <meta property="og:url " content={window.location.href} />
+            <meta property="og:url" content={window.location.href} />
+            <meta property="og:type" content="website" />
             <title>{helmet.title}</title>
           </Helmet>
           <GraphAppBar />
