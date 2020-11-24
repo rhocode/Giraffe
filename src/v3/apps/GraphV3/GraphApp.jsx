@@ -115,6 +115,14 @@ export default function GraphApp(props) {
               'Feature-rich factory optimization and calculation tool for Satisfactory game',
             image: 'https://i.imgur.com/DPEmxE0.png',
           });
+          setData({
+            loaded: true,
+            graph: {
+              d: 'AIACA===',
+              c: 0,
+              v: '0.1.0',
+            },
+          });
         })
         .catch(() => {
           console.log('Graph was not loaded. Falling back for now.');
@@ -160,7 +168,7 @@ export default function GraphApp(props) {
             <meta property="og:site_name" content={window.location.hostname} />
             <meta property="og:image" content={helmet.image} />
             <meta property="og:description" content={helmet.description} />
-            <meta property="og:url " content={window.location.href} />
+            <meta property="og:url" content={window.location.href} />
             <title>{helmet.title}</title>
           </Helmet>
           <NavBar id={pixiCanvasStateId} loaded={data.loaded} />
