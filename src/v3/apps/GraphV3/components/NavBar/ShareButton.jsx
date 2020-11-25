@@ -751,7 +751,7 @@ function GetShareBoxContent(props) {
         centered
       >
         <Tab label="Local" icon={<SaveIcon />} />
-        <Tab label="Cloud" disabled icon={<CloudIcon />} />
+        <Tab label="Cloud" icon={<CloudIcon />} />
       </Tabs>
       <div className={classes.shareRow}>
         {tabValue === 0 && <LocalSaveContent {...props} />}
