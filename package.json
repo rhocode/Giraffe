@@ -67,7 +67,7 @@
     "lzutf8": "^0.5.5",
     "mathjs": "^7.0.1",
     "multi-metagen": "^4.0.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^5.0.0",
     "normalize-wheel": "^1.0.1",
     "pako": "^1.0.11",
     "pixi-viewport": "^4.12.0",
