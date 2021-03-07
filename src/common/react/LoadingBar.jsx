@@ -4,11 +4,12 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+
 import PropTypes from 'prop-types';
+import { stringGen } from 'v3/utils/stringUtils';
 import anvil from '../images/anvil.gif';
 import { LocaleContext } from '../../v3/components/LocaleProvider';
 
@@ -21,34 +22,34 @@ const styles = () => ({
        "loader"
        "spacerBottom"`,
     gridTemplateRows: 'minmax(0, 1fr) min-content min-content minmax(0, 1fr)',
-    gridTemplateColumns: 'minmax(0, 1fr)'
+    gridTemplateColumns: 'minmax(0, 1fr)',
   },
   canvas: {
-    gridArea: 'loader'
+    gridArea: 'loader',
   },
   loadingTopText: {
-    gridArea: 'topText'
+    gridArea: 'topText',
   },
   loadingTopImage: {
     display: 'block',
-    margin: 'auto'
-  }
+    margin: 'auto',
+  },
 });
 
 function useBoundingBoxRect(props) {
   const [rect, setRect] = useState({
     width: 0,
-    height: 0
+    height: 0,
   });
 
   const [canvasContainerCurrent, setCanvasContainerCurrent] = useState(null);
   const [canvasCurrent, setCanvasCurrent] = useState(null);
 
-  const ref = useCallback(node => {
+  const ref = useCallback((node) => {
     setCanvasContainerCurrent(node);
   }, []);
 
-  const canvasRef = useCallback(node => {
+  const canvasRef = useCallback((node) => {
     setCanvasCurrent(node);
   }, []);
 
@@ -81,7 +82,7 @@ function useBoundingBoxRect(props) {
     canvasCurrent,
     canvasContainerCurrent,
     heightOverride,
-    widthOverride
+    widthOverride,
   ]);
 
   const canvasContext = canvasCurrent ? canvasCurrent.getContext('2d') : null;
@@ -89,7 +90,7 @@ function useBoundingBoxRect(props) {
   return [rect, ref, canvasRef, canvasContext];
 }
 
-const useAnimationFrame = callback => {
+const useAnimationFrame = (callback) => {
   const callbackRef = useRef(callback);
   useLayoutEffect(() => {
     callbackRef.current = callback;
@@ -119,7 +120,7 @@ function drawRhombus(context, xTop, yTop, rhombusHeight, rhombusWidth) {
   context.fill();
 }
 
-const LoadingCanvas = props => {
+const LoadingCanvas = (props) => {
   const { translate } = React.useContext(LocaleContext);
 
   const canvasId = useMemo(() => stringGen(10), []);
@@ -208,7 +209,7 @@ const LoadingCanvas = props => {
 };
 
 LoadingCanvas.propTypes = {
-  loadingText: PropTypes.bool
+  loadingText: PropTypes.bool,
 };
 
 export default withStyles(styles)(LoadingCanvas);

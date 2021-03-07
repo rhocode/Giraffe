@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { stringGen } from '../../apps/Graph/libraries/SGLib/utils/stringUtils';
+import { stringGen } from 'v3/utils/stringUtils';
 
 class InternalCanvas extends Component {
   constructor(props) {
