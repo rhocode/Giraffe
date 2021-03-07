@@ -6,7 +6,7 @@ import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { GRID_SIZE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/consts/Sizes';
-import { addObjectChildren } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
+import { addGraphChildrenFromWithinStateUpdate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import {
   optimizeSidesFunction,
   rearrangeEdgesFunction,
@@ -14,11 +14,11 @@ import {
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
 import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
 import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import {
-  pixiJsStore,
+  GlobalGraphAppStore,
   triggerCanvasUpdateFunction,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getConnectionsByResourceForm } from 'v3/data/loaders/buildings';
 import { getItemResourceForm } from 'v3/data/loaders/items';
@@ -244,8 +244,8 @@ export const makeComplexChain = (
     }
   });
 
-  addObjectChildren(allNodes, pixiCanvasStateId, false);
-  addObjectChildren(allEdges, pixiCanvasStateId, true);
+  addGraphChildrenFromWithinStateUpdate(allNodes, pixiCanvasStateId, false);
+  addGraphChildrenFromWithinStateUpdate(allEdges, pixiCanvasStateId, true);
 };
 //
 // export const makeSimpleChain = (
@@ -395,7 +395,7 @@ const fabAction = (
 ) => () => {
   makeComplexChain(translate, externalInteractionManager, pixiCanvasStateId);
 
-  pixiJsStore.update([
+  GlobalGraphAppStore.update([
     optimizeSidesFunction(pixiCanvasStateId),
     rearrangeEdgesFunction(pixiCanvasStateId),
     updateChildrenFunction(pixiCanvasStateId),

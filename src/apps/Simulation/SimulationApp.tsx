@@ -11,6 +11,14 @@ import SimulationManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algor
 // import Splitter from "v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/Splitter";
 import FluidResourceExtractor from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/nodes/FluidResourceExtractor';
 import Pipe from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/edges/Pipe';
+import Chart from 'react-apexcharts';
+// import {makeStyles} from "@material-ui/core/styles";
+
+// const useStyles = makeStyles((theme) => ({
+//   graph: {
+//     color: "white"
+//   }
+// }));
 
 function SimulationApp() {
   React.useEffect(() => {
@@ -121,7 +129,179 @@ function SimulationApp() {
     // }
   });
 
-  return <div />;
+  const [chart] = React.useState({
+    series: [
+      {
+        name: 'Bob',
+        data: [
+          {
+            x: 'Design',
+            y: [
+              new Date('2019-03-05').getTime(),
+              new Date('2019-03-08').getTime(),
+            ],
+          },
+          {
+            x: 'Code',
+            y: [
+              new Date('2019-03-02').getTime(),
+              new Date('2019-03-05').getTime(),
+            ],
+          },
+          {
+            x: 'Code',
+            y: [
+              new Date('2019-03-05').getTime(),
+              new Date('2019-03-07').getTime(),
+            ],
+          },
+          {
+            x: 'Test',
+            y: [
+              new Date('2019-03-03').getTime(),
+              new Date('2019-03-09').getTime(),
+            ],
+          },
+          {
+            x: 'Test',
+            y: [
+              new Date('2019-03-08').getTime(),
+              new Date('2019-03-11').getTime(),
+            ],
+          },
+          {
+            x: 'Validation',
+            y: [
+              new Date('2019-03-11').getTime(),
+              new Date('2019-03-16').getTime(),
+            ],
+          },
+          {
+            x: 'Design',
+            y: [
+              new Date('2019-03-01').getTime(),
+              new Date('2019-03-03').getTime(),
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Joe',
+        data: [
+          {
+            x: 'Design',
+            y: [
+              new Date('2019-03-02').getTime(),
+              new Date('2019-03-05').getTime(),
+            ],
+          },
+          {
+            x: 'Test',
+            y: [
+              new Date('2019-03-06').getTime(),
+              new Date('2019-03-16').getTime(),
+            ],
+          },
+          {
+            x: 'Code',
+            y: [
+              new Date('2019-03-03').getTime(),
+              new Date('2019-03-07').getTime(),
+            ],
+          },
+          {
+            x: 'Deployment',
+            y: [
+              new Date('2019-03-20').getTime(),
+              new Date('2019-03-22').getTime(),
+            ],
+          },
+          {
+            x: 'Design',
+            y: [
+              new Date('2019-03-10').getTime(),
+              new Date('2019-03-16').getTime(),
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Dan',
+        data: [
+          {
+            x: 'Code',
+            y: [
+              new Date('2019-03-10').getTime(),
+              new Date('2019-03-17').getTime(),
+            ],
+          },
+          {
+            x: 'Validation',
+            y: [
+              new Date('2019-03-05').getTime(),
+              new Date('2019-03-09').getTime(),
+            ],
+          },
+        ],
+      },
+    ],
+    options: {
+      chart: {
+        height: 450,
+        type: 'rangeBar',
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          barHeight: '80%',
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+        labels: {
+          style: {
+            colors: ['#FFFFFF'],
+          },
+        },
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: ['#FFFFFF'],
+          },
+        },
+      },
+      stroke: {
+        width: 1,
+      },
+      fill: {
+        type: 'solid',
+        opacity: 0.6,
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left',
+        labels: {
+          colors: ['#FFFFFF'],
+        },
+      },
+    },
+  });
+
+  // const styles = useStyles();
+
+  return (
+    <div>
+      <Chart
+        options={chart.options}
+        series={chart.series}
+        type="rangeBar"
+        width={1000}
+        height={500}
+      />
+      ;
+    </div>
+  );
 }
 
 export default SimulationApp;

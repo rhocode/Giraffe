@@ -5,8 +5,7 @@ import ReactResizeDetector from 'react-resize-detector';
 import NodeDrawer from 'v3/apps/GraphV3/components/NodeDrawer/NodeDrawer';
 import ObjectSettingPanel from 'v3/apps/GraphV3/components/ObjectSettings/ObjectSettingPanel';
 import PixiJSApplication from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJSApplication';
-
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 
 const useStyles = makeStyles(() =>
   createStyles({

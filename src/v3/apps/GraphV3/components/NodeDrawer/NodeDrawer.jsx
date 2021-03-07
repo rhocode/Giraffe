@@ -15,7 +15,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import DomainIcon from '@material-ui/icons/Domain';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getBuildableMachineClassNames } from 'v3/data/loaders/buildings';
 import DrawerButton from './DrawerButton';

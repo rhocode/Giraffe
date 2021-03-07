@@ -11,22 +11,22 @@ import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas
 import { enableSelectionBox } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/SelectionBox';
 import PIXI from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/utils/PixiProvider';
 import {
-  addChild,
-  addObjectChildren,
-  getChildFromStateById,
+  addGraphChildren,
+  addPixiDisplayObject,
+  getChildFromCanvasState,
   getMultiTypedChildrenFromState,
-  removeChild,
+  removePixiDisplayObject,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import populateNewNodeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewNodeData';
 import serializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/serialize';
 import { arraysEqual } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/utils/arrayUtils';
 import { setUpLinkInitialState } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/linkFunctions';
 import { removeChildEvents } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/Actions/sharedFunctions';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import {
-  generateNewCanvas,
-  pixiJsStore,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+  GlobalGraphAppStore,
+  populateCanvasStore,
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
 
@@ -104,13 +104,13 @@ function PixiJSApplication(props) {
         keypressHandled.current = true;
         if (mouseState === MouseState.SELECT) {
           lastMode.current = mouseState;
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.mouseState = MouseState.MOVE;
           });
         } else if (mouseState === MouseState.MOVE) {
           lastMode.current = mouseState;
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.mouseState = MouseState.SELECT;
           });
@@ -123,7 +123,7 @@ function PixiJSApplication(props) {
         keypressHandled.current = false;
 
         if (lastMode.current !== null) {
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.mouseState = lastMode.current;
           });
@@ -145,7 +145,7 @@ function PixiJSApplication(props) {
 
   const onSelectObjects = React.useCallback(
     (objectIds) => {
-      pixiJsStore.update((sParent) => {
+      GlobalGraphAppStore.update((sParent) => {
         const s = sParent[pixiCanvasStateId];
 
         for (const child of getMultiTypedChildrenFromState(s, [
@@ -156,7 +156,7 @@ function PixiJSApplication(props) {
         }
 
         const selected = objectIds.map((id) => {
-          const retrievedNode = getChildFromStateById(s, id);
+          const retrievedNode = getChildFromCanvasState(s, id);
 
           if (retrievedNode instanceof GraphObject) {
             retrievedNode.container.setHighLightOn(true);
@@ -186,7 +186,7 @@ function PixiJSApplication(props) {
 
     if (originalCanvasRef.current !== canvasRef.current) {
       originalCanvasRef.current = canvasRef.current;
-      generateNewCanvas(
+      populateCanvasStore(
         pixiCanvasStateId,
         theme,
         height,
@@ -214,7 +214,7 @@ function PixiJSApplication(props) {
   React.useEffect(() => {
     if (!canvasReady) return;
 
-    pixiJsStore.update((t) => {
+    GlobalGraphAppStore.update((t) => {
       const s = t[pixiCanvasStateId];
 
       for (const child of s.children) {
@@ -294,7 +294,7 @@ function PixiJSApplication(props) {
     }
 
     if (selectionBoxId.current) {
-      removeChild(selectionBoxId.current, pixiCanvasStateId);
+      removePixiDisplayObject(selectionBoxId.current, pixiCanvasStateId);
       selectionBoxId.current = '';
     }
 
@@ -324,7 +324,10 @@ function PixiJSApplication(props) {
       viewportChildContainer.hitArea = pixiViewport.hitArea;
 
       const selectionBox = new PIXI.Graphics();
-      selectionBoxId.current = addChild(selectionBox, pixiCanvasStateId);
+      selectionBoxId.current = addPixiDisplayObject(
+        selectionBox,
+        pixiCanvasStateId
+      );
 
       enableSelectionBox(
         pixiViewport,
@@ -334,7 +337,7 @@ function PixiJSApplication(props) {
         theme
       );
 
-      pixiJsStore.update([
+      GlobalGraphAppStore.update([
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
@@ -359,7 +362,7 @@ function PixiJSApplication(props) {
       }
       pixiViewport.plugins.resume('pinch');
 
-      pixiJsStore.update([
+      GlobalGraphAppStore.update([
         deferredRemoveChildEvents,
         (t) => {
           const s = t[pixiCanvasStateId];
@@ -398,10 +401,10 @@ function PixiJSApplication(props) {
           externalInteractionManager
         );
 
-        addObjectChildren([nodeData], pixiCanvasStateId);
+        addGraphChildren([nodeData], pixiCanvasStateId);
       });
 
-      pixiJsStore.update(deferredRemoveChildEvents);
+      GlobalGraphAppStore.update(deferredRemoveChildEvents);
     } else if (mouseState === MouseState.LINK) {
       pixiViewport.plugins.resume('drag');
       if (openModals === 0) {
@@ -420,7 +423,7 @@ function PixiJSApplication(props) {
         getSupportedResourceForm(selectedEdge)
       );
 
-      pixiJsStore.update([
+      GlobalGraphAppStore.update([
         deferredRemoveChildEvents,
         setUpLinkInitialState(
           externalInteractionManager.getEventEmitter(),

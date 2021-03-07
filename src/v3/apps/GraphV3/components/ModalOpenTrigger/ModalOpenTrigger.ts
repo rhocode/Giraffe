@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
+import { PixiJSCanvasContext } from '../../libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
+import { GlobalGraphAppStore } from '../../libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
 
 type ModalOpenTriggerProps = {
   pixiCanvasStateId?: string;
@@ -16,12 +16,12 @@ function ModalOpenTrigger(props: ModalOpenTriggerProps) {
     : (propProvidedPixiCanvasStateId as string);
 
   useLayoutEffect(() => {
-    pixiJsStore.update((s) => {
+    GlobalGraphAppStore.update((s) => {
       const instance = s[usedPixiId];
       instance.openModals += 1;
     });
     return () => {
-      pixiJsStore.update((s) => {
+      GlobalGraphAppStore.update((s) => {
         const instance = s[usedPixiId];
         instance.openModals -= 1;
       });

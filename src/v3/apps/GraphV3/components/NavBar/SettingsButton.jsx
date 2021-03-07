@@ -5,7 +5,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import { makeStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GlobalGraphAppStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
 import IconDialog from './IconDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,17 +19,17 @@ function SettingsButton(props) {
 
   const { id: pixiCanvasStateId } = props;
 
-  const snapToGrid = pixiJsStore.useState((state) => {
+  const snapToGrid = GlobalGraphAppStore.useState((state) => {
     return state[pixiCanvasStateId]?.snapToGrid || false;
   });
 
-  const autoShuffleEdge = pixiJsStore.useState((state) => {
+  const autoShuffleEdge = GlobalGraphAppStore.useState((state) => {
     return state[pixiCanvasStateId]?.autoShuffleEdge || false;
   });
 
   const handleSnapToGridChange = React.useCallback(
     (event, value) => {
-      pixiJsStore.update((s) => {
+      GlobalGraphAppStore.update((s) => {
         if (value !== s[pixiCanvasStateId].snapToGrid) {
           s[pixiCanvasStateId].snapToGrid = value;
         }
@@ -40,7 +40,7 @@ function SettingsButton(props) {
 
   const handleAutoShuffleEdgeChange = React.useCallback(
     (event, value) => {
-      pixiJsStore.update((s) => {
+      GlobalGraphAppStore.update((s) => {
         console.log(s[pixiCanvasStateId].autoShuffleEdge);
         if (value !== s[pixiCanvasStateId].autoShuffleEdge) {
           s[pixiCanvasStateId].autoShuffleEdge = value;

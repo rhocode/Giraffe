@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import QuantitySelector from 'v3/apps/GraphV3/components/QuantitySelector/QuantitySelector';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GlobalGraphAppStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import {
   getBuildableConnectionClasses,
@@ -97,7 +97,7 @@ function EdgeSelectorPanel() {
 
   React.useEffect(() => {
     if (!canvasReady) return;
-    pixiJsStore.update((s) => {
+    GlobalGraphAppStore.update((s) => {
       s[pixiCanvasStateId].selectedEdge = initialVal;
     });
   }, [canvasReady, initialVal, pixiCanvasStateId]);

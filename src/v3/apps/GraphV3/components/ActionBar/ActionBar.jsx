@@ -8,8 +8,8 @@ import OpenWithIcon from '@material-ui/icons/OpenWith';
 import { motion, useAnimation } from 'framer-motion';
 import React from 'react';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GlobalGraphAppStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 
 const useStyles = makeStyles((theme) => ({
   default: {
@@ -48,7 +48,7 @@ function ActionBar() {
     if (!domRef.current) return;
     if (!applicationLoaded) return;
 
-    pixiJsStore.update((t) => {
+    GlobalGraphAppStore.update((t) => {
       const s = t[pixiCanvasStateId];
 
       // TODO: find out why this is happening
@@ -62,7 +62,7 @@ function ActionBar() {
     const thisRef = domRef.current;
 
     return () => {
-      pixiJsStore.update((t) => {
+      GlobalGraphAppStore.update((t) => {
         const s = t[pixiCanvasStateId];
         if (s.aliasCanvasObjects) {
           s.aliasCanvasObjects.delete(thisRef);
@@ -73,7 +73,7 @@ function ActionBar() {
 
   const handleModeChange = React.useCallback(
     (event, value) => {
-      pixiJsStore.update((s) => {
+      GlobalGraphAppStore.update((s) => {
         if (value !== s[pixiCanvasStateId].mouseMode) {
           s[pixiCanvasStateId].mouseState = value;
         }

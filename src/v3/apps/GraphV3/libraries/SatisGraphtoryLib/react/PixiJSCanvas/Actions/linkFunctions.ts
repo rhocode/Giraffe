@@ -1,16 +1,16 @@
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import {
-  addObjectChildren,
-  getChildFromStateById,
+  addGraphChildrenFromWithinStateUpdate,
+  getChildFromCanvasState,
   getMultiTypedChildrenFromState,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/canvas/childrenApi';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
 import { EmptyEdge } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EmptyEdge';
 import { EResourceForm } from '.data-landing/interfaces/enums';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
 import { getSupportedResourceForm } from 'v3/data/loaders/buildings';
 import populateNewEdgeData from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/populateNewEdgeData';
+import { GlobalGraphAppStore } from '../../../stores/GlobalGraphAppStore';
 
 export const setHighLightInStateChildren = (
   state: any,
@@ -48,7 +48,7 @@ export const onCancelLink = (
   supportedResourceForms: Set<EResourceForm>,
   selectedEdge: any
 ) => () => {
-  pixiJsStore.update([
+  GlobalGraphAppStore.update([
     resetNodes(pixiCanvasStateId),
     setUpLinkInitialState(
       eventEmitter,
@@ -76,14 +76,14 @@ export const onStartLink = (pixiCanvasStateId: string, selectedEdge: any) => (
   startLinkId: string
 ) => {
   console.log('Starting link func');
-  pixiJsStore.update((sParent) => {
+  GlobalGraphAppStore.update((sParent) => {
     const s = sParent[pixiCanvasStateId];
 
     const types = ([EdgeTemplate, NodeTemplate] as unknown) as GraphObject[];
 
     setHighLightInStateChildren(s, types, false);
 
-    const retrievedNode = getChildFromStateById(s, startLinkId);
+    const retrievedNode = getChildFromCanvasState(s, startLinkId);
 
     if (retrievedNode instanceof NodeTemplate) {
       retrievedNode.container.setHighLightOn(true);
@@ -135,7 +135,7 @@ export const onEndLink = (
   supportedResourceForms: Set<EResourceForm>,
   selectedEdge: any
 ) => (endLinkId: string) => {
-  pixiJsStore.update([
+  GlobalGraphAppStore.update([
     (sParent) => {
       const s = sParent[pixiCanvasStateId];
 
@@ -171,7 +171,7 @@ export const onEndLink = (
         targetNode
       );
 
-      addObjectChildren([edge], pixiCanvasStateId, true);
+      addGraphChildrenFromWithinStateUpdate([edge], pixiCanvasStateId, true);
     },
     resetNodes(pixiCanvasStateId),
     setUpLinkInitialState(

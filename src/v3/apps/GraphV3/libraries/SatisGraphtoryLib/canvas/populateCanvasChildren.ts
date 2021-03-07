@@ -2,7 +2,7 @@ import { Viewport } from 'pixi-viewport';
 import deserializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/deserialize';
 import ExternalInteractionManager from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/ExternalInteractionManager';
 
-const initCanvasChildren = (
+const populateCanvasChildren = (
   pixiJS: PIXI.Application,
   viewport: Viewport,
   translate: (source: string) => string,
@@ -41,4 +41,4 @@ const initCanvasChildren = (
   return children;
 };
 
-export default initCanvasChildren;
+export default populateCanvasChildren;

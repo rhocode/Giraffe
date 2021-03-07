@@ -26,8 +26,8 @@ import Scrollbar from 'react-scrollbars-custom';
 import MouseState from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/enums/MouseState';
 import EdgeTemplate from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { NodeTemplate } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Node/NodeTemplate';
-import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
-import { pixiJsStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+import { GlobalGraphAppStore } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
+import { PixiJSCanvasContext } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStoreProvider';
 import SelectDropdown from '../../../../../common/react/SelectDropdown';
 
 const useStyles = makeStyles((theme) => ({
@@ -200,7 +200,7 @@ function ObjectSettingPanel(props) {
               <Divider className={classes.divider} />
               <Button
                 onClick={() => {
-                  pixiJsStore.update((t) => {
+                  GlobalGraphAppStore.update((t) => {
                     const s = t[pixiCanvasStateId];
 
                     let objectsToDelete = new Set([]);
@@ -391,7 +391,7 @@ function ObjectSettingPanel(props) {
                 color="secondary"
                 variant="contained"
                 onClick={() => {
-                  pixiJsStore.update((t) => {
+                  GlobalGraphAppStore.update((t) => {
                     const s = t[pixiCanvasStateId];
 
                     let edgesToDelete = new Set(edges);

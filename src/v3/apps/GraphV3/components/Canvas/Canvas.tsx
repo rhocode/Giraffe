@@ -1,7 +1,6 @@
 // @refresh reset
 import React, { Suspense } from 'react';
 import AutoSizedLoadingWrapper from 'common/react/AutoSizedLoadingWrapper';
-import PixiJsContextProvider from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/react/PixiJSCanvas/PixiJsCanvasContext';
 import { importImageManifest } from 'v3/data/loaders/sgImageRepo';
 
 const FontFaceObserver = require('fontfaceobserver');
@@ -30,17 +29,14 @@ const InnerComponent = React.lazy(() => {
 type CanvasProps = {
   initialCanvasGraph: Record<string, any> | undefined;
   onFinishLoad: () => void | undefined;
-  id: string;
   dataLoaded: boolean;
 };
 
 function Canvas(props: CanvasProps) {
   return (
-    <PixiJsContextProvider pixiCanvasStateId={props.id}>
-      <Suspense fallback={<AutoSizedLoadingWrapper />}>
-        <InnerComponent {...props} />
-      </Suspense>
-    </PixiJsContextProvider>
+    <Suspense fallback={<AutoSizedLoadingWrapper />}>
+      <InnerComponent {...props} />
+    </Suspense>
   );
 }
 

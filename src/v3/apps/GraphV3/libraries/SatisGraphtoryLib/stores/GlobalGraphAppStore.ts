@@ -8,15 +8,18 @@ import EventEmitter from 'eventemitter3';
 import uuidGen from 'v3/utils/stringUtils';
 import { sgDevicePixelRatio } from '../canvas/utils/canvasUtils';
 import { loadSharedTextures } from '../canvas/utils/loadSharedTextures';
-// import populateCanvasChildren from "../canvas/initCanvasChildren";
-import { generateNewPixiCanvasStore, pixiJsStore } from './PixiJSStore';
+import populateCanvasChildren from '../canvas/populateCanvasChildren';
+import {
+  addGraphChildrenFromWithinStateUpdate,
+  removeAllGraphChildrenFromWithinStateUpdate,
+} from '../core/api/canvas/childrenApi';
 
-const initialStateId = uuidGen();
+export const initialGraphAppStateId = uuidGen();
 
 const generateNewCanvasStore = (theme: any, id: string) => {
   return {
     application: (null as unknown) as PIXI.Application,
-    viewport: (null as unknown) as Viewport,
+    pixiViewport: (null as unknown) as Viewport,
     viewportChildContainer: (null as unknown) as PIXI.Container,
     childrenMap: new Map<string, PIXI.DisplayObject>(),
     children: [] as PIXI.DisplayObject[],
@@ -49,7 +52,10 @@ const generateNewCanvasStore = (theme: any, id: string) => {
 };
 
 export const GlobalGraphAppStore = new Store({
-  [initialStateId]: generateNewCanvasStore(null, initialStateId),
+  [initialGraphAppStateId]: generateNewCanvasStore(
+    null,
+    initialGraphAppStateId
+  ),
 });
 
 export const populateCanvasStore = (
@@ -100,7 +106,7 @@ export const populateCanvasStore = (
     s.viewportChildContainer = container;
     viewport.addChild(container);
 
-    s.viewport = viewport;
+    s.pixiViewport = viewport;
 
     viewport.drag().pinch().wheel({
       smooth: 5,
@@ -112,35 +118,58 @@ export const populateCanvasStore = (
 
     loadSharedTextures(newApplication.renderer, theme);
 
-    // const childrenToPush = populateCanvasChildren(
-    //   newApplication,
-    //   viewport,
-    //   translate,
-    //   s.externalInteractionManager as any,
-    //   initialCanvasGraph
-    // );
+    const childrenToPush = populateCanvasChildren(
+      newApplication,
+      viewport,
+      translate,
+      s.externalInteractionManager as any,
+      initialCanvasGraph
+    );
 
-    // TODO: Add back in later
-    // addObjectChildrenWithinState(
-    //   childrenToPush || [],
-    //   pixiCanvasStateId
-    // )(sParent);
+    addGraphChildrenFromWithinStateUpdate(
+      childrenToPush || [],
+      pixiCanvasStateId
+    )(globalGraphState);
 
     newApplication.renderer.render(newApplication.stage);
-    // Run the callback
-    onFinishLoad();
 
     s.canvasReady = true;
+    // Run the callback
+    //TODO: Should it go outside?
+    onFinishLoad();
   });
+};
 
-  pixiJsStore.update((sParent) => {
-    let s = sParent[pixiCanvasStateId];
-    if (!s) {
-      sParent[pixiCanvasStateId] = generateNewPixiCanvasStore(
-        theme,
-        pixiCanvasStateId
-      );
-      s = sParent[pixiCanvasStateId];
-    }
+export const replaceGraphData = (
+  pixiCanvasStateId: string,
+  initialCanvasChildren: any,
+  translate: any
+) => {
+  GlobalGraphAppStore.update((globalGraphState: any) => {
+    let s = globalGraphState[pixiCanvasStateId];
+
+    const childrenToPush = populateCanvasChildren(
+      s.application,
+      s.viewport,
+      translate,
+      s.externalInteractionManager,
+      initialCanvasChildren
+    );
+
+    removeAllGraphChildrenFromWithinStateUpdate(pixiCanvasStateId)(
+      globalGraphState
+    );
+    addGraphChildrenFromWithinStateUpdate(
+      childrenToPush || [],
+      pixiCanvasStateId
+    )(globalGraphState);
+    s.canvasReady = true;
   });
+};
+
+export const triggerCanvasUpdateFunction = (canvasId: string) => (t: any) => {
+  const s = t[canvasId];
+  s.triggerUpdate = s.triggerUpdate + 1;
+  // We limit the number of updates to 100
+  s.triggerUpdate = s.triggerUpdate % 100;
 };

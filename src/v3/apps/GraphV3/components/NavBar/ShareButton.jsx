@@ -29,9 +29,9 @@ import ModalOpenTrigger from 'v3/apps/GraphV3/components/ModalOpenTrigger/ModalO
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import serializeGraphObjects from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/serialization/serialize';
 import {
-  pixiJsStore,
+  GlobalGraphAppStore,
   replaceGraphData,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
+} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/GlobalGraphAppStore';
 import { GoogleApiContext } from 'v3/components/GoogleAuthProvider';
 import { LocaleContext } from 'v3/components/LocaleProvider';
 import uuidGen from 'v3/utils/stringUtils';
@@ -189,7 +189,7 @@ function FileItem(props) {
         aria-label="load"
         disabled={!loadGraphEnabled}
         onClick={() => {
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.lastSelectedSave.name = data.n;
             s.lastSelectedSave.description = data.q;
@@ -211,7 +211,7 @@ function FileItem(props) {
       </IconButton>
       <ListItemText
         onClick={() => {
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.lastSelectedSave.name = data.n;
             s.lastSelectedSave.description = data.q;
@@ -397,7 +397,7 @@ const addOrUpdateCacheFile = (
             setOverWrite(false);
           }
 
-          pixiJsStore.update((sParent) => {
+          GlobalGraphAppStore.update((sParent) => {
             const s = sParent[pixiCanvasStateId];
             s.lastSelectedSave.name = designData.n;
             s.lastSelectedSave.description = designData.q;
@@ -504,7 +504,7 @@ function LocalSaveContent(props) {
     return () => clearInterval(interval);
   }, [designData]);
 
-  const graphObjects = pixiJsStore.useState((sParent) => {
+  const graphObjects = GlobalGraphAppStore.useState((sParent) => {
     const s = sParent[props.pixiCanvasStateId];
     if (s.childrenMap) {
       return [...s.childrenMap.values()].filter(
@@ -515,7 +515,7 @@ function LocalSaveContent(props) {
     return [];
   });
 
-  const lastOpenedSave = pixiJsStore.useState((sParent) => {
+  const lastOpenedSave = GlobalGraphAppStore.useState((sParent) => {
     const s = sParent[props.pixiCanvasStateId];
     return s.lastSelectedSave;
   });
@@ -551,7 +551,7 @@ function LocalSaveContent(props) {
     n: designName,
   };
 
-  const { lastUsedSaveName, lastUsedSaveHash } = pixiJsStore.useState(
+  const { lastUsedSaveName, lastUsedSaveHash } = GlobalGraphAppStore.useState(
     (sParent) => {
       const s = sParent[props.pixiCanvasStateId];
       return {
@@ -772,7 +772,7 @@ function ShareButton(props) {
     init();
   }, [init]);
 
-  const isLoaded = pixiJsStore.useState((s) => {
+  const isLoaded = GlobalGraphAppStore.useState((s) => {
     const instance = s[pixiCanvasStateId];
     return instance?.canvasReady;
   });

@@ -49,15 +49,15 @@ import EdgeTemplate, {
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { EResourceForm } from '.data-landing/interfaces/enums';
 import {
-  pixiJsStore,
-  triggerCanvasUpdateFunction,
-} from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/stores/PixiJSStore';
-import {
   optimizeSidesFunction,
   rearrangeEdgesFunction,
   updateChildrenFunction,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/satisgraphtory/layout/graphLayout';
 import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
+import {
+  GlobalGraphAppStore,
+  triggerCanvasUpdateFunction,
+} from '../../../stores/GlobalGraphAppStore';
 
 export default class AdvancedNode extends NodeTemplate {
   connectionsMap: Map<EdgeAttachmentSide, EdgeTemplate[]> = new Map();
@@ -570,7 +570,7 @@ export default class AdvancedNode extends NodeTemplate {
 
         // Only run this once
         if (opts?.autoShuffleEdge) {
-          pixiJsStore.update([
+          GlobalGraphAppStore.update([
             optimizeSidesFunction(pixiCanvasStateId),
             rearrangeEdgesFunction(pixiCanvasStateId),
             updateChildrenFunction(pixiCanvasStateId),
