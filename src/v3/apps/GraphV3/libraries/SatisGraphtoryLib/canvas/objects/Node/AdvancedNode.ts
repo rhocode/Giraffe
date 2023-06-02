@@ -47,7 +47,7 @@ import EdgeTemplate, {
   EdgeType,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeTemplate';
 import { GraphObject } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
-import { EResourceForm } from '.data-landing/interfaces/enums';
+import { EResourceForm } from 'v3/types/enums';
 import {
   pixiJsStore,
   triggerCanvasUpdateFunction,

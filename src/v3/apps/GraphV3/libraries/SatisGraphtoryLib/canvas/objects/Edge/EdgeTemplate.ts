@@ -4,7 +4,7 @@ import {
   GraphObjectContainer,
 } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/interfaces/GraphObject';
 import { SatisGraphtoryEdgeProps } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/api/types';
-import { EResourceForm } from '.data-landing/interfaces/enums';
+import { EResourceForm } from 'v3/types/enums';
 import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 
 export enum EdgeType {
