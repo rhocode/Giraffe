@@ -4,7 +4,7 @@ import BuildingJson from 'data/Buildings.json';
 import ItemJson from 'data/Items.json';
 import RecipeJson from 'data/Recipes.json';
 import memoize from 'fast-memoize';
-import { EResourceForm } from '.data-landing/interfaces/enums';
+import { EResourceForm } from 'v3/types/enums';
 import uuidGen from 'v3/utils/stringUtils';
 import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
 import SGImageRepo from 'v3/data/loaders/sgImageRepo';

@@ -5,10 +5,7 @@ import {
 } from 'v3/data/loaders/buildings';
 import { getItemDefinition, getResourcesByForm } from 'v3/data/loaders/items';
 
-import {
-  EResourcePurity,
-  EResourcePurityDisplayName,
-} from '.data-landing/interfaces/enums/EResourcePurity';
+import { EResourcePurity, EResourcePurityDisplayName } from 'v3/types/enums';
 import { getEnumDisplayNames } from 'v3/data/loaders/enums';
 import memoize from 'fast-memoize';
 import produce from 'immer';

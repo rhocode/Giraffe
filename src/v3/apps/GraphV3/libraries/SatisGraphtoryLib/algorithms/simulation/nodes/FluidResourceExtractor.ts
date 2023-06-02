@@ -2,7 +2,7 @@ import { getBuildingDefinition } from 'v3/data/loaders/buildings';
 import { getRecipeDefinition } from 'v3/data/loaders/recipes';
 import SimulatableConnection from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/algorithms/simulation/SimulatableConnection';
 import { getItemDefinition } from 'v3/data/loaders/items';
-import { EResourceForm } from '.data-landing/interfaces/enums';
+import { EResourceForm } from 'v3/types/enums';
 
 export default class FluidResourceExtractor extends SimulatableConnection {
   currentVolume = 0;
@@ -76,17 +76,17 @@ export default class FluidResourceExtractor extends SimulatableConnection {
             }
           }
 
-          this.outputs.forEach(output => {
+          this.outputs.forEach((output) => {
             this.simulationManager?.addTimerEvent({
               // TODO: should this not have a +1?
               time: time,
               event: {
                 target: output.id,
                 eventName: 'FLUSH',
-                eventData: this.id
-              }
-            })
-          })
+                eventData: this.id,
+              },
+            });
+          });
           this.simulationManager?.addTimerEvent({
             time: time + this.cycleTime,
             event: {

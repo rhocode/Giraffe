@@ -14,7 +14,7 @@ import { getTierText } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/core/ap
 import { EDGE_TIER_STYLE } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/style/textStyles';
 import { getTier } from 'v3/data/loaders/buildings';
 import { EdgeAttachmentSide } from 'v3/apps/GraphV3/libraries/SatisGraphtoryLib/canvas/objects/Edge/EdgeAttachmentSide';
-import { EResourceForm } from '../../../../../../../../.data-landing/interfaces/enums';
+import { EResourceForm } from 'v3/types/enums';
 
 export default class SimpleEdge extends EdgeTemplate {
   graphicsObject: PIXI.Graphics;
